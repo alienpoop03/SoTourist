@@ -6,3 +6,4 @@ SoTourist/.editorconfig
 /SoTourist/www/
 /SoTourist/.idea
 /SoTourist/.angular
+.DS_Store
