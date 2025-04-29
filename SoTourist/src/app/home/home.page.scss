@@ -1,0 +1,96 @@
+/* HEADER stile Bordeaux e Giallo */
+ion-header {
+  --background: #7B1E1E;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  ion-toolbar {
+    --background: #7B1E1E;
+
+    ion-title {
+      color: #FFCC00;
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    ion-icon {
+      color: #FFCC00;
+    }
+  }
+}
+
+/* CONTENUTO */
+.home-content {
+  padding: 1rem;
+  --background: #f5f5f5;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.8rem;
+    color: #7B1E1E;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #444;
+  }
+}
+
+.trips-section h2 {
+  margin-left: 0.5rem;
+  color: #7B1E1E;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+ion-card {
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+}
+
+ion-card:hover {
+  transform: translateY(-3px);
+  cursor: pointer;
+}
+
+ion-card-title {
+  font-size: 1.2rem;
+  color: #7B1E1E;
+}
+
+ion-card-subtitle {
+  font-size: 0.9rem;
+  color: #FFCC00;
+}
+
+ion-card-content {
+  font-size: 1rem;
+  color: #333;
+}
+
+.no-trips {
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+  color: #999;
+}
+
+ion-card-header {
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.2rem;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin: 0;
+}

@@ -1,0 +1,8 @@
+SoTourist/.browserslistrc
+SoTourist/.editorconfig
+/SoTourist/android
+/SoTourist/.vscode
+/SoTourist/node_modules/
+/SoTourist/www/
+/SoTourist/.idea
+/SoTourist/.angular

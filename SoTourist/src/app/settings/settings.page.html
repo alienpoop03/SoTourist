@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon name="settings-outline" slot="icon-only" style="font-size: 24px; margin-left: 8px;"></ion-icon>
+    </ion-buttons>
+    <ion-title>Impostazioni</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="settings-content">
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Tema scuro</ion-label>
+      <ion-toggle [(ngModel)]="darkTheme"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Notifiche personalizzate</ion-label>
+      <ion-toggle [(ngModel)]="notificationsEnabled"></ion-toggle>
+    </ion-item>
+
+    <ion-item lines="none" class="profile-image-section">
+      <div class="profile-image">
+        <img *ngIf="profileImage; else placeholder" [src]="profileImage" alt="Profile Picture" />
+        <ng-template #placeholder>
+          <ion-icon name="person-circle-outline" style="font-size: 80px; color: #7B1E1E;"></ion-icon>
+        </ng-template>
+      </div>
+      <input type="file" accept="image/*" (change)="onImageSelected($event)" hidden id="fileInput">
+      <ion-button expand="block" (click)="openFilePicker()">Cambia immagine</ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Scrivi al supporto</ion-label>
+      <ion-input [(ngModel)]="supportMessage" placeholder="Il tuo messaggio..."></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="sendSupportMessage()">Invia</ion-button>
+
+  </ion-list>
+
+</ion-content>

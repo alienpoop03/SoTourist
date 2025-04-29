@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Itinerario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="itinerario-content" fullscreen>
+
+  <!-- Hero: primo terzo con sfondo città -->
+  <div
+    class="hero"
+    [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none' }"
+  >
+    <div class="overlay">
+      <h2>Viaggio a {{ trip?.city }}</h2>
+      <p>Dal {{ trip?.start | date:'dd/MM/yyyy' }} al {{ trip?.end | date:'dd/MM/yyyy' }}</p>
+    </div>
+  </div>
+
+  <!-- Lista dei giorni -->
+  <div class="day-list">
+    <ion-card
+      *ngFor="let _ of daysList; let i = index"
+      button
+      (click)="openDay(i)"
+      class="day-card"
+    >
+      <ion-card-header>
+        <ion-card-title>Giorno {{ i + 1 }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+</ion-content>
