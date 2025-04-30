@@ -7,4 +7,3 @@ SoTourist/.editorconfig
 /SoTourist/.idea
 /SoTourist/.angular
 .DS_Store
-SoTourist/capacitor.config.ts
