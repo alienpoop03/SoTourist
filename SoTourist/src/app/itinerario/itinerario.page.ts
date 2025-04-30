@@ -84,8 +84,12 @@ export class ItinerarioPage implements OnInit, AfterViewInit {
   }
 
   openDay(index: number) {
-    this.router.navigate(['/tabs/day-details'], {
-      queryParams: { tripId: this.tripId, day: index + 1 }
+    this.router.navigate(['/map'], {
+      queryParams: {
+        tripId: this.tripId,
+        day: index + 1
+      }
     });
   }
+  
 }

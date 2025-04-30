@@ -28,6 +28,11 @@ export const routes: Routes = [
           import('./itinerario/itinerario.page').then(m => m.ItinerarioPage),
       },
       {
+        path: 'map',
+        loadComponent: () =>
+          import('./map/map.page').then(m => m.MapPage),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
@@ -45,5 +50,9 @@ export const routes: Routes = [
   {
     path: 'itinerario',
     loadComponent: () => import('./itinerario/itinerario.page').then( m => m.ItinerarioPage)
+  },
+  {
+    path: 'map',
+    loadComponent: () => import('./map/map.page').then( m => m.MapPage)
   }
 ];

@@ -1,0 +1,28 @@
+<ion-content fullscreen class="map-page">
+
+  <!-- Giorno selezionato -->
+  <div class="day-selector">
+    <ion-select [(ngModel)]="selectedDay" interface="popover">
+      <ion-select-option *ngFor="let day of days" [value]="day">
+        Giorno {{ day }}
+      </ion-select-option>
+    </ion-select>
+  </div>
+
+  <!-- Mappa -->
+  <div id="map"></div>
+
+  <!-- Card luoghi -->
+  <div class="places-scroll">
+    <ion-card *ngFor="let place of places">
+      <img [src]="place.image" alt="" />
+      <ion-card-header>
+        <ion-card-title>{{ place.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ place.description }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
