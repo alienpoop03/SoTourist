@@ -4,8 +4,8 @@
       <ion-back-button *ngIf="showBackButton" defaultHref="/home"></ion-back-button>
       <ion-icon *ngIf="!showBackButton" [name]="iconName" style="font-size: 24px; margin-left: 8px;"></ion-icon>
     </ion-buttons>
-    <ion-title>{{ title }}<img src="assets/icon/logo_bordi.png" alt="icon" style="float: right; width: 24px; height: 24px; margin-left: 4px; margin-right: 4px;"></ion-title>
-    
+    <ion-title>{{ title }}</ion-title>
+    <img slot="end" src="assets/icon/logo_bordi.png" alt="icon" style=" width: 40px; height: 40px; margin-left: 4px; margin-right: 4px;">
       
   </ion-toolbar>
 </ion-header>
