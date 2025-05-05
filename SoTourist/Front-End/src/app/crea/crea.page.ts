@@ -111,36 +111,56 @@ export class CreaPage implements AfterViewInit {
     setTimeout(() => this.initAutocomplete(), 300);
   }
 
-  // STEP 3
-  initAutocomplete() {
-    const cityInput = document.getElementById('cityInput') as HTMLInputElement;
-    const accommodationInput = document.getElementById('accommodationInput') as HTMLInputElement;
-  
-    if (cityInput) {
-      const acCity = new google.maps.places.Autocomplete(cityInput, { types: ['(cities)'] });
-      acCity.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          const p = acCity.getPlace();
-          this.city = p.formatted_address || p.name;
-        });
+ // STEP 3
+ initAutocomplete() {
+  const cityInput = document.getElementById('cityInput') as HTMLInputElement;
+  const accommodationInput = document.getElementById('accommodationInput') as HTMLInputElement;
+
+  // Dichiaro la variabile con il "definite assignment assertion"
+  let acAcc!: google.maps.places.Autocomplete;
+
+  if (accommodationInput) {
+    acAcc = new google.maps.places.Autocomplete(accommodationInput, {
+      types: ['lodging']
+    });
+
+    acAcc.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        const p = acAcc.getPlace();
+        this.accommodation = p.formatted_address ?? p.name ?? '';
       });
-    }
-  
-    if (accommodationInput) {
-      const acAcc = new google.maps.places.Autocomplete(accommodationInput);
-      acAcc.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          const p = acAcc.getPlace();
-          this.accommodation = p.formatted_address || p.name;
-        });
-      });
-    }
-  
-    setTimeout(() => {
-      document.querySelectorAll('.pac-container')
-        .forEach((el: any) => el.setAttribute('data-tap-disabled','true'));
-    }, 500);
+    });
   }
+
+  if (cityInput) {
+    const acCity = new google.maps.places.Autocomplete(cityInput, {
+      types: ['(cities)']
+    });
+
+    acCity.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        const p = acCity.getPlace();
+        this.city = p.formatted_address ?? p.name ?? '';
+
+        const bounds = p.geometry?.viewport;
+        if (bounds) {
+          // Qui TypeScript ora è sicuro che acAcc è stato inizializzato
+          acAcc.setBounds(bounds);
+          acAcc.setOptions({ strictBounds: true });
+        }
+      });
+    });
+  }
+
+  // Fix per scroll su mobile
+  setTimeout(() => {
+    document.querySelectorAll('.pac-container')
+      .forEach((el: any) => el.setAttribute('data-tap-disabled', 'true'));
+  }, 500);
+}
+
+
+
   
   canProceedCity(): boolean {
     return !!this.city;
