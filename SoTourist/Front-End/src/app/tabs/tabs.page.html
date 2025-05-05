@@ -1,18 +1,20 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
+
     <ion-tab-button tab="home" href="/tabs/home">
-      <ion-icon aria-hidden="true" name="home"></ion-icon>
-      <ion-label>home</ion-label>
+      <ion-icon [name]="selectedTab === 'home' ? 'home' : 'home-outline'"></ion-icon>
+      <ion-label>Home</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="crea" href="/tabs/crea">
-      <ion-icon name="add-circle-outline"></ion-icon>
+      <ion-icon [name]="selectedTab === 'crea' ? 'add-circle' : 'add-circle-outline'"></ion-icon>
       <ion-label>Crea</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="settings" href="/tabs/settings">
-      <ion-icon aria-hidden="true" name="settings"></ion-icon>
+      <ion-icon [name]="selectedTab === 'settings' ? 'settings' : 'settings-outline'"></ion-icon>
       <ion-label>Settings</ion-label>
     </ion-tab-button>
+
   </ion-tab-bar>
 </ion-tabs>
