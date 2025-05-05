@@ -30,6 +30,7 @@ import { AppHeaderComponent } from "../components/header/app-header.component";
   schemas: [CUSTOM_ELEMENTS_SCHEMA] // ✅ Consigliato per componenti Ionic standalone
 })
 export class SettingsPage {
+  username = 'Utente'; // ✅ AGGIUNTA QUI
   darkMode = false;
   notificationsEnabled = true;
   autoSync = false;
@@ -38,7 +39,15 @@ export class SettingsPage {
     document.body.classList.toggle('dark', this.darkMode);
   }
 
-  toggleNotifications() {}
+  toggleNotifications() {
+    console.log('Notifiche:', this.notificationsEnabled);
+  }
 
-  toggleAutoSync() {}
+  toggleAutoSync() {
+    console.log('Auto-sync:', this.autoSync);
+  }
+
+  logout() {
+    console.log('Logout eseguito');
+  }
 }

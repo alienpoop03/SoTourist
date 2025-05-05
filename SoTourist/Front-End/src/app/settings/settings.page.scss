@@ -1,27 +1,65 @@
 :host {
-    --primary-color: #7B1E1E;
-    --accent-color: #FFCC00;
+  --primary-color: #7B1E1E;
+  --accent-color: #FFCC00;
+}
+
+ion-content {
+  --background: #f9f9f9;
+}
+
+ion-item {
+  --background: #fff;
+  border-radius: 12px;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+
+  ion-label {
+    color: var(--primary-color);
+    font-weight: 500;
   }
-  
-  ion-item {
-    --background: #fff;
-    border-radius: 12px;
-    margin: 0.5rem 0;
-    padding: 0.5rem 1rem;
-  
+
+  ion-icon {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
+}
+
+ion-item-divider {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.profile-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  .profile-pic {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+    border: 2px solid var(--primary-color);
+  }
+
+  .profile-name {
+    flex: 1;
+
     ion-label {
-      color: var(--primary-color);
-      font-weight: 500;
+      font-size: 0.9rem;
+      color: #666;
     }
-  
-    ion-icon {
-      color: var(--accent-color);
+
+    ion-input {
       font-size: 1.2rem;
-      margin-right: 0.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
     }
   }
-  
-  ion-content {
-    --background: #f9f9f9;
-  }
-  
+}

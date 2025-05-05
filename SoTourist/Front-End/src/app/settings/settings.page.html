@@ -4,9 +4,22 @@
   [showBackButton]="false">
 </app-header>
 
-
 <ion-content class="ion-padding">
+
+  <!-- PROFILO -->
+  <div class="profile-box">
+    <img src="https://source.unsplash.com/random/200x200/?face" alt="Profilo" class="profile-pic" />
+    <div class="profile-name">
+      <ion-label>Benvenuto</ion-label>
+      <ion-input [(ngModel)]="username" placeholder="Nome utente"></ion-input>
+    </div>
+  </div>
+
   <ion-list>
+
+    <!-- SEZIONE: Preferenze -->
+    <ion-item-divider color="light">Preferenze</ion-item-divider>
+
     <ion-item>
       <ion-label>Notifiche personalizzate</ion-label>
       <ion-toggle slot="end" [(ngModel)]="notificationsEnabled" (ionChange)="toggleNotifications()"></ion-toggle>
@@ -22,6 +35,9 @@
       <ion-toggle slot="end" [(ngModel)]="autoSync" (ionChange)="toggleAutoSync()"></ion-toggle>
     </ion-item>
 
+    <!-- SEZIONE: App -->
+    <ion-item-divider color="light">App</ion-item-divider>
+
     <ion-item button detail>
       <ion-icon name="information-circle-outline" slot="start"></ion-icon>
       <ion-label>Informazioni sull'app</ion-label>
@@ -31,5 +47,14 @@
       <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
       <ion-label>Privacy e sicurezza</ion-label>
     </ion-item>
+
+    <!-- SEZIONE: Account -->
+    <ion-item-divider color="light">Account</ion-item-divider>
+
+    <ion-item button detail (click)="logout()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      <ion-label>Disconnettiti</ion-label>
+    </ion-item>
+
   </ion-list>
 </ion-content>
