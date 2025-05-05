@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common'; // ✅ AGGIUNGI QUESTO
 import {
   IonHeader,
   IonToolbar,
@@ -13,6 +14,7 @@ import {
   selector: 'app-header',
   standalone: true,
   imports: [
+    CommonModule,          // ✅ AGGIUNTO QUI
     IonHeader,
     IonToolbar,
     IonButtons,

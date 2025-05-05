@@ -8,16 +8,27 @@
 
   <!-- PROFILO -->
   <div class="profile-box">
-    <img src="https://source.unsplash.com/random/200x200/?face" alt="Profilo" class="profile-pic" />
-    <div class="profile-name">
-      <ion-label>Benvenuto</ion-label>
-      <ion-input [(ngModel)]="username" placeholder="Nome utente"></ion-input>
+    <div class="profile-icon-wrapper" (click)="triggerFileInput()">
+      <ng-container *ngIf="profileImageUrl; else defaultIcon">
+        <img [src]="profileImageUrl" class="profile-pic" alt="Profilo" />
+      </ng-container>
+      <ng-template #defaultIcon>
+        <svg viewBox="0 0 24 24" class="profile-icon" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+        </svg>
+      </ng-template>
+      <input type="file" hidden #fileInput (change)="onImageSelected($event)" accept="image/*" />
+    </div>
+
+    <div class="profile-info">
+      <ion-input type="text" placeholder="Username" [(ngModel)]="username"></ion-input>
+      <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
     </div>
   </div>
 
   <ion-list>
 
-    <!-- SEZIONE: Preferenze -->
     <ion-item-divider color="light">Preferenze</ion-item-divider>
 
     <ion-item>
@@ -35,8 +46,7 @@
       <ion-toggle slot="end" [(ngModel)]="autoSync" (ionChange)="toggleAutoSync()"></ion-toggle>
     </ion-item>
 
-    <!-- SEZIONE: App -->
-    <ion-item-divider color="light">App</ion-item-divider>
+    <ion-item-divider color="light">Informazioni</ion-item-divider>
 
     <ion-item button detail>
       <ion-icon name="information-circle-outline" slot="start"></ion-icon>
@@ -46,14 +56,6 @@
     <ion-item button detail>
       <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
       <ion-label>Privacy e sicurezza</ion-label>
-    </ion-item>
-
-    <!-- SEZIONE: Account -->
-    <ion-item-divider color="light">Account</ion-item-divider>
-
-    <ion-item button detail (click)="logout()">
-      <ion-icon name="log-out-outline" slot="start"></ion-icon>
-      <ion-label>Disconnettiti</ion-label>
     </ion-item>
 
   </ion-list>
