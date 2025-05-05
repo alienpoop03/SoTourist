@@ -1,16 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-icon name="earth-outline" slot="icon-only" style="font-size: 24px; margin-left: 8px;"></ion-icon>
-    </ion-buttons>
-    <ion-title>SoTourist</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header 
+  [title]="'SoTourist'" 
+  [iconName]="'home-outline'" 
+  [showBackButton]="false">
+</app-header>
 
 <ion-content class="home-content">
 
   <div class="welcome-section">
-    <h1>Benvenuto su SoTourist</h1>
+    <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
     <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
   </div>
 

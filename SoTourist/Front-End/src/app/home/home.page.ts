@@ -15,6 +15,7 @@ import {
   IonTitle,
   IonButtons
 } from '@ionic/angular/standalone';
+import { AppHeaderComponent } from "../components/header/app-header.component";
 
 @Component({
   selector: 'app-home',
@@ -30,10 +31,11 @@ import {
     IonIcon,
     IonButton,
     IonHeader,
-    IonToolbar,      // ✅ necessario per <ion-toolbar>
-    IonTitle,        // ✅ necessario per <ion-title>
-    IonButtons       // ✅ necessario per <ion-buttons>
-  ],
+    IonToolbar, // ✅ necessario per <ion-toolbar>
+    IonTitle, // ✅ necessario per <ion-title>
+    IonButtons, // ✅ necessario per <ion-buttons>
+    AppHeaderComponent,
+],
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
 })

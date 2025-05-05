@@ -9,6 +9,7 @@ import {
   IonToggle,
   IonIcon
 } from '@ionic/angular/standalone';
+import { AppHeaderComponent } from "../components/header/app-header.component";
 
 @Component({
   selector: 'app-settings',
@@ -21,7 +22,8 @@ import {
     IonItem,
     IonLabel,
     IonToggle,
-    IonIcon
+    IonIcon,
+    AppHeaderComponent, // ✅ Aggiunto il componente header
   ],
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],

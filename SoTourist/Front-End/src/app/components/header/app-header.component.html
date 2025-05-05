@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button *ngIf="showBackButton" defaultHref="/home"></ion-back-button>
+      <ion-icon *ngIf="!showBackButton" [name]="iconName" style="font-size: 24px; margin-left: 8px;"></ion-icon>
     </ion-buttons>
-    <ion-title>SoTourist</ion-title>
+    <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
 </ion-header>
