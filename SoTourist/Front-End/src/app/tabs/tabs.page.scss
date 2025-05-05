@@ -1,0 +1,31 @@
+
+ion-tab-bar {
+    --background: #7B1E1E !important;       /* Bordeaux */
+    --color: #FFCC00 !important;            /* Giallo per le icone non selezionate */
+    --color-selected: #FFCC00 !important;   /* Giallo per le icone selezionate */
+  }
+  
+  ion-tab-button {
+    color: #FFCC00 !important;
+  }
+  
+  ion-tab-button.ion-selected {
+    color: #FFCC00 !important;
+  }
+  
+  ion-tab-button ion-icon {
+    color: #FFCC00 !important;
+  }
+  
+  ion-tab-button.ion-selected ion-icon {
+    color: #FFCC00 !important;
+  }
+  
+  ion-tab-button ion-label {
+    color: #FFCC00 !important;
+  }
+  
+  ion-tab-button.ion-selected ion-label {
+    color: #FFCC00 !important;
+  }
+  

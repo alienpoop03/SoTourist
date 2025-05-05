@@ -1,0 +1,20 @@
+ion-toolbar {
+  --background: #7B1E1E;
+  --color: #FFCC00;
+
+  /* Titolo */
+  ion-title {
+    color: #FFCC00;
+  }
+
+  /* Icona "hamburger" */
+  ion-menu-button {
+    color: #FFCC00;
+    --color: #FFCC00;
+  }
+
+  /* Altre icone nei bottoni (es. back-button) */
+  ion-buttons ion-icon {
+    color: #FFCC00;
+  }
+}

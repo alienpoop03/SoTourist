@@ -1,0 +1,76 @@
+.itinerario-content {
+  --background: transparent;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 40vh;
+  min-height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: #fff;
+  padding: 1rem;
+}
+
+.day-list {
+  padding: 1rem;
+  background: #f8f8f8;
+}
+
+.day-card {
+  margin-bottom: 12px;
+}
+
+.customization-sheet {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: white;
+  z-index: 999;
+  transition: bottom 0.3s ease-in-out;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.customization-sheet.visible {
+  bottom: 0;
+}
+
+.sheet-header {
+  padding: 1rem;
+  background: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sheet-content {
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.style-edit-btn {
+  font-size: 16px;
+  margin-left: 8px;
+  color: var(--accent-color); // giallo
+}
+
+.day-style {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--secondary-color); // bordeaux
+}
+

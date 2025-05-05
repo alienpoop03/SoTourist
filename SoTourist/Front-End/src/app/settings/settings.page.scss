@@ -1,0 +1,27 @@
+:host {
+    --primary-color: #7B1E1E;
+    --accent-color: #FFCC00;
+  }
+  
+  ion-item {
+    --background: #fff;
+    border-radius: 12px;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+  
+    ion-label {
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+  
+    ion-icon {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+    }
+  }
+  
+  ion-content {
+    --background: #f9f9f9;
+  }
+  

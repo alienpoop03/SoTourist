@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon name="earth-outline" slot="icon-only" style="font-size: 24px; margin-left: 8px;"></ion-icon>
+    </ion-buttons>
+    <ion-title>SoTourist</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-content">
+
+  <div class="welcome-section">
+    <h1>Benvenuto su SoTourist</h1>
+    <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
+  </div>
+
+  <div *ngIf="trips.length > 0" class="trips-section">
+    <h2>I tuoi viaggi</h2>
+
+    <ion-card 
+      button 
+      (click)="openItinerary(i)"
+      *ngFor="let trip of trips; let i = index"
+    >
+      <ion-card-header>
+        <ion-card-title>{{ trip.city }}</ion-card-title>
+        <ion-card-subtitle>
+          {{ trip.start | date:'dd/MM/yyyy' }} – {{ trip.end | date:'dd/MM/yyyy' }}
+        </ion-card-subtitle>
+
+        <ion-button
+          class="delete-btn"
+          fill="clear"
+          color="danger"
+          (click)="deleteTrip(i); $event.stopPropagation()"
+        >
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-card-header>
+
+      <ion-card-content>
+        🏨 {{ trip.accommodation }}<br />
+        ⏳ {{ trip.days }} giorni
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="trips.length === 0" class="no-trips">
+    Nessun viaggio creato. Inizia subito a pianificare!
+  </div>
+
+</ion-content>

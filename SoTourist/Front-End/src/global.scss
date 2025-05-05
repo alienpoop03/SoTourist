@@ -1,0 +1,70 @@
+/* ========== SoTourist Global Styles ========== */
+
+/* Ionic Base Imports */
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/* ========== Layout Base ========== */
+html, body, ion-app, ion-router-outlet, ion-page {
+  height: 100%;
+  box-sizing: border-box;
+  font-family: var(--ion-font-family);
+}
+
+/* Header */
+ion-header {
+  padding-top: env(safe-area-inset-top);
+  height: 56px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+
+/* Contenuto */
+ion-content {
+  --background: var(--ion-color-light);
+  min-height: 100%;
+  box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Footer */
+ion-footer {
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+  background: var(--ion-color-light);
+}
+
+/* Tab Bar Personalizzata */
+ion-tab-bar {
+  --background: var(--ion-color-primary);      /* Bordeaux */
+  --color: var(--ion-color-secondary);         /* Giallo icone non selezionate */
+  --color-selected: var(--ion-color-secondary);/* Giallo icona selezionata */
+  --border: none;
+}
+
+/* Icone */
+ion-icon {
+  color: var(--ion-color-secondary); /* Giallo ovunque */
+}
+
+/* Utility */
+.text-center {
+  text-align: center;
+}
+.mt-2 {
+  margin-top: 16px;
+}
+.mb-2 {
+  margin-bottom: 16px;
+}

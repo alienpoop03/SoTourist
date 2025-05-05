@@ -1,0 +1,213 @@
+:root {
+  --primary-color: #FFCC00;
+  --secondary-color: #7B1E1E;
+  --bg-color: #ffffff;
+  --text-color: #7B1E1E;
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.map-page-content {
+  --overflow: hidden;
+}
+
+#map {
+  position: absolute;
+  inset: 0; // equivalente a top: 0; left: 0; right: 0; bottom: 0;
+}
+
+/* === FILTER BOX === */
+.filter-box {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.filter-box ion-button.active {
+  background: var(--primary-color);
+  color: var(--text-color);
+}
+
+/* === SIDEBAR TOGGLE FAB === */
+.toggle-sidebar-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  z-index: 1001;
+  box-shadow: var(--shadow);
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 280px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  z-index: 999;
+
+  background-color: #f8f8f8; // ✅ Colore uniforme applicato
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.25);
+  transition: bottom 0.3s ease-in-out;
+}
+
+
+
+/* === CARD (LUOGO) === */
+.sidebar-card {
+  width: 180px; // ridotto rispetto ai 200-220px
+  height: 220px; // altezza fissa
+  flex-shrink: 0;
+  margin: 0 4px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+  z-index: -1;
+  border-radius: 12px;
+}
+
+
+.sidebar-photo,
+.placeholder {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 0;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  font-size: 24px;
+  color: var(--text-color);
+}
+
+ion-card-content {
+  padding: 10px;
+  font-size: 13px;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+ion-card-content small {
+  line-height: 1.4;
+  font-size: 13px;
+  color: var(--secondary-color); // più leggibile del bordeaux chiaro
+  font-weight: 500;
+}
+
+.place-address,
+.place-rating {
+  font-size: 13px;
+  color: var(--secondary-color);
+}
+
+/* === CONNECTORS TRA CARD === */
+.connector {
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
+  position: relative;
+}
+
+.connector-line {
+  width: 40px;
+  height: 2px;
+  background: var(--secondary-color);
+}
+
+.connector-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.connector-distance {
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+/* === MODAL DETTAGLIO === */
+.detail-modal {
+  .modal-backdrop {
+    background: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .modal-wrapper {
+    width: 100% !important;
+    height: 90% !important;
+    margin: 0 auto !important;
+    border-radius: 16px 16px 0 0 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+  }
+}
+
+.detail-card {
+  width: 100% !important;
+  border-radius: 0 !important;
+}
+
+.detail-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.detail-content {
+  padding: 1rem;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+/* === ANIMAZIONI === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

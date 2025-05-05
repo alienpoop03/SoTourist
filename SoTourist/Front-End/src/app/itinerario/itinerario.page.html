@@ -1,0 +1,79 @@
+<ion-content class="itinerario-content" fullscreen>
+
+  <!-- Hero -->
+  <div class="hero" [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none' }">
+    <div class="overlay">
+      <h1>Benvenuto a: {{ trip?.city }}</h1>
+      <p>Dal {{ trip?.start | date:'dd/MM' }} al {{ trip?.end | date:'dd/MM' }}</p>
+    </div>
+  </div>
+
+ <!-- Giorni -->
+  <div class="day-list">
+    <ng-container *ngFor="let _ of [].constructor(daysCount); let i = index">
+      <ion-card button (click)="openDay(i)" class="day-card">
+        <ion-card-header>
+          <ion-card-title>
+            🗓 Giorno {{ i + 1 }}
+            <ion-button
+              size="small"
+              fill="clear"
+              class="style-edit-btn"
+              (click)="editDayStyle($event, i)"
+            >✏️</ion-button>
+          </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div *ngIf="trip?.itinerary?.[i]?.style" class="day-style">
+            <strong>Stile:</strong> {{ trip.itinerary[i].style }}
+          </div>
+          <p>Programma per il giorno {{ i + 1 }}...</p>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <div *ngIf="daysCount === 0" class="no-days">
+      Nessun giorno da mostrare.
+    </div>
+  </div>
+
+
+  <!-- Pulsante fluttuante -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="toggleCustomizationSheet()">
+      ✏️
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Scheda personalizzazione -->
+  <div class="customization-sheet" [class.visible]="customizationVisible">
+    <div class="sheet-header">
+      <h2>Personalizza il tuo viaggio</h2>
+      <ion-button size="small" fill="clear" (click)="toggleCustomizationSheet()">Chiudi</ion-button>
+    </div>
+
+    <div class="sheet-content">
+      <ion-item>
+        <ion-label position="stacked">Luogo che non vuoi perdere</ion-label>
+        <ion-input placeholder="Es. Colosseo, Torre Eiffel..."></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Mezzo preferito</ion-label>
+        <ion-select placeholder="Scegli un mezzo">
+          <ion-select-option value="a piedi">A piedi</ion-select-option>
+          <ion-select-option value="auto">Auto</ion-select-option>
+          <ion-select-option value="bus">Bus</ion-select-option>
+          <ion-select-option value="bici">Bicicletta</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Chiedi un consiglio all'AI</ion-label>
+        <ion-textarea autoGrow="true" placeholder="Cosa vuoi chiedere?"></ion-textarea>
+      </ion-item>
+    </div>
+  </div>
+
+</ion-content>

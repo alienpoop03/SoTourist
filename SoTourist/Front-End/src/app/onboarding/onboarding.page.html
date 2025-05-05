@@ -1,0 +1,27 @@
+<ion-page>
+  <ion-content class="onboarding-content" fullscreen>
+    <!-- Aggiungi un #slides per referenziarlo da TS -->
+    <ion-slides #slides [options]="slideOpts" (ionSlideDidChange)="slideChanged()">
+      <ion-slide *ngFor="let slide of slidesData; let i = index">
+        <div class="slide">
+          <div class="icon">{{ slide.icon }}</div>
+          <h2>{{ slide.title }}</h2>
+          <p>{{ slide.desc }}</p>
+          <div *ngIf="i === slidesData.length - 1" class="start-wrapper">
+            <ion-button expand="block" class="start-button" (click)="startApp()">
+              Inizia il viaggio
+            </ion-button>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="controls">
+      <div
+        class="dot"
+        *ngFor="let _ of slidesData; let i = index"
+        [class.active]="i === currentIndex"
+      ></div>
+    </div>
+  </ion-content>
+</ion-page>

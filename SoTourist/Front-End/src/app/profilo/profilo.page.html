@@ -1,0 +1,77 @@
+<app-menu></app-menu>
+
+<ion-page id="main-content">
+  <app-header></app-header>
+
+  <ion-content class="profile-page">
+
+    <!-- Avatar e nome -->
+    <div class="profile-header">
+      <ion-avatar class="profile-avatar">
+        <img src="assets/avatar-placeholder.png" />
+      </ion-avatar>
+      <div class="profile-info">
+        <h2>{{ name }}</h2>
+        <p>{{ email }}</p>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <ion-item lines="full">
+      <ion-label position="stacked">Bio</ion-label>
+      <ion-textarea [(ngModel)]="bio" placeholder="Scrivi qualcosa su di te..."></ion-textarea>
+    </ion-item>
+
+    <!-- Impostazioni -->
+    <div class="settings-block">
+      <ion-item lines="none">
+        <ion-label>Tema scuro</ion-label>
+        <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Notifiche</ion-label>
+        <ion-toggle slot="end" [(ngModel)]="notificationsEnabled"></ion-toggle>
+      </ion-item>
+    </div>
+
+    <!-- Viaggi salvati -->
+    <div class="trips-section" *ngIf="trips.length > 0">
+      <h3>I miei viaggi</h3>
+
+      <ion-card *ngFor="let trip of trips; let i = index">
+        <ion-card-header>
+          <ion-card-title>{{ trip.city }}</ion-card-title>
+          <ion-card-subtitle>
+            {{ trip.start | date:'dd/MM' }} – {{ trip.end | date:'dd/MM' }}
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          🏨 {{ trip.accommodation }}<br />
+          ⏳ {{ trip.days }} giorni
+          <ion-button fill="clear" color="danger" size="small" (click)="deleteTrip(i)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div *ngIf="trips.length === 0" class="no-trips">
+      Nessun viaggio salvato.
+    </div>
+
+    <!-- Azioni -->
+    <div class="profile-actions">
+      <ion-button expand="block" color="primary" (click)="goToTrips()">
+        <ion-icon name="briefcase-outline" slot="start"></ion-icon>
+        I miei viaggi
+      </ion-button>
+
+      <ion-button expand="block" fill="clear" color="danger" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Esci
+      </ion-button>
+    </div>
+
+  </ion-content>
+</ion-page>
