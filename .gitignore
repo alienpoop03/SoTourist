@@ -1,9 +1,9 @@
-Front-End/SoTourist/.browserslistrc
-Front-End/SoTourist/.editorconfig
-Front-End/SoTourist/android
-Front-End/SoTourist/.vscode
-Front-End/SoTourist/node_modules/
-Front-End/SoTourist/www/
-Front-End/SoTourist/.idea
-Front-End/SoTourist/.angular
+SoTourist/Front-End/.editorconfig
+SoTourist/Front-End/android
+SoTourist/Front-End/.vscode
+SoTourist/Front-End/node_modules/
+SoTourist/Front-End/www/
+SoTourist/Front-End/.idea
+SoTourist/Front-End/.angular
 SoTourist/.DS_Store
+SoTourist/Front-End/.browserslistrc
