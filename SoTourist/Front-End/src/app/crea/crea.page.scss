@@ -1,5 +1,5 @@
 .crea-content {
-  --background: #f5f5f5;
+  --background: var(--color-background1);
   display: flex;
   flex-direction: column;
   height: 100vh; // 🧠 forza l’altezza a viewport fissa
@@ -13,9 +13,9 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 16px; // qui lo metti se vuoi spazio interno
+  color: var(--color-text2);
+  padding: 16px; // spazio interno
 }
-
 
 input#cityInput,
 input#accommodationInput {
@@ -24,8 +24,8 @@ input#accommodationInput {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background: white;
-  color: #7B1E1E;
+  background: var(--color-background);
+  color: var(--color-text);
   margin-top: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -33,10 +33,9 @@ input#accommodationInput {
 input#cityInput:focus,
 input#accommodationInput:focus {
   outline: none;
-  border-color: #7B1E1E;
-  box-shadow: 0 0 0 2px rgba(123, 30, 30, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(123, 30, 30, 0.2); // puoi anche usare un rgba della primary dinamico, ma questo va bene
 }
-
 
 ion-item {
   --background: transparent;
@@ -49,7 +48,7 @@ ion-item {
 }
 
 ion-label {
-  color: #7B1E1E;
+  color: var(--color-text);
   font-weight: 500;
 }
 
@@ -66,7 +65,7 @@ ion-label {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #ccc; // default: grigio chiaro
+  background: #ccc; // default grigio chiaro, può restare fisso se vuoi contrasto neutro
   color: white;
   display: flex;
   justify-content: center;
@@ -81,8 +80,8 @@ ion-label {
   }
 
   &.current {
-    background: #FFCC00; // Giallo acceso
-    color: #7B1E1E;       // Testo bordeaux
+    background: var(--color-highlight); // Giallo acceso
+    color: var(--color-primary);        // Testo bordeaux
     font-weight: 700;
   }
 }
@@ -98,6 +97,5 @@ ion-label {
     background: rgba(123, 30, 30, 0.6); // linea bordeaux spento
   }
 }
-
 
 
