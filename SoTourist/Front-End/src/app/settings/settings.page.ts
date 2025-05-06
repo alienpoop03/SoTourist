@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // ✅ IMPORTANTE!
 import {
@@ -31,7 +31,8 @@ import { AppHeaderComponent } from "../components/header/app-header.component";
   styleUrls: ['./settings.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA] // ✅ Consigliato per componenti Ionic standalone
 })
-export class SettingsPage {
+
+export class SettingsPage implements OnInit {
   darkMode = false;
   notificationsEnabled = true;
   autoSync = false;
@@ -41,8 +42,14 @@ export class SettingsPage {
   password = '';
   profileImageUrl: string | null = null;
 
+  ngOnInit() {
+    const storedTheme = localStorage.getItem('darkMode');
+    this.darkMode = storedTheme === 'true'; // 👈 aggiorna il valore del toggle
+  }
+
   toggleDarkMode() {
     document.body.classList.toggle('dark', this.darkMode);
+    localStorage.setItem('darkMode', this.darkMode ? 'true' : 'false');
   }
 
   toggleNotifications() {}
