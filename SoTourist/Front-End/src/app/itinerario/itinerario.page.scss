@@ -3,21 +3,26 @@
 }
 
 .hero {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: 100%;
   height: 40vh;
-  min-height: 200px;
+  min-height: 180px;
   background-size: cover;
   background-position: center;
+  transition: height 0.2s ease-out;
+  will-change: height;
+  display: flex;
+  align-items: flex-end;
 }
 
 .overlay {
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  color: white;
   padding: 1rem;
+  transition: opacity 0.2s ease-out;
 }
 
 .day-list {
