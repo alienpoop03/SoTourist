@@ -31,7 +31,7 @@ ion-header {
 
   h1 {
     font-size: 1.8rem;
-    color: var(--color-primary);
+    color: var(--color-text);
     margin-bottom: 0.5rem;
   }
 
@@ -56,7 +56,7 @@ ion-header {
 /* TITOLO VIAGGI */
 .trips-section h2 {
   margin-left: 0.5rem;
-  color: var(--color-primary);
+  color: var(--color-text);
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
@@ -77,7 +77,7 @@ ion-card:hover {
 
 ion-card-title {
   font-size: 1.2rem;
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 ion-card-subtitle {
@@ -115,4 +115,13 @@ ion-card-header {
 
 .I_tuoi_viaggi {
   color: var(--color-text2) !important;
+}
+
+ion-fab-button {
+  --background: var(--color-primary);
+  --color: var(--color-highlight);
+}
+
+.custom-fab {
+  right: 24px; // default è 16px circa, puoi aumentare per spostarlo
 }
