@@ -7,6 +7,7 @@ import {
   IonBackButton,
   IonIcon,
   IonMenuButton,
+  IonButton,
   IonTitle
 } from '@ionic/angular/standalone';
 
@@ -21,6 +22,7 @@ import {
     IonBackButton,
     IonIcon,
     IonMenuButton,
+    IonButton,
     IonTitle
   ],
   templateUrl: './app-header.component.html',

@@ -1,14 +1,18 @@
-:host {
+/*:host {
   --primary-color: #7B1E1E;
   --accent-color: #FFCC00;
-}
+}*/
 
 ion-content {
-  --background: #f9f9f9;
+  --background: var(--color-alternativ-background);
+}
+
+icon-list {
+  --background: var(--color-alternativ-background);
 }
 
 ion-item {
-  --background: #fff;
+  --background: var(--color-background);
   border-radius: 12px;
   margin: 0.5rem 0;
   padding: 0.5rem 1rem;
@@ -28,14 +32,14 @@ ion-item {
 ion-item-divider {
   margin-top: 1rem;
   font-weight: bold;
-  color: #555;
-  background: transparent;
+  color: var(--color-text);
+  background: var(--color-background);
 }
 
 .profile-box {
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--color-background);
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -47,7 +51,7 @@ ion-item-divider {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: var(--color-alternativ-background);
   border: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
@@ -75,7 +79,7 @@ ion-item-divider {
   gap: 0.5rem;
 
   ion-input {
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-alternativ-background);
     border-radius: 8px;
     padding: 0.25rem 0.75rem;
     color: var(--primary-color);

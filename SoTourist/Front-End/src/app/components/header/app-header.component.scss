@@ -1,20 +1,28 @@
 ion-toolbar {
-  --background: #7B1E1E;
-  --color: #FFCC00;
+  --background: var(--color-primary);
+  --color: var(--color-highlight);
 
   /* Titolo */
   ion-title {
-    color: #FFCC00;
+    color: var(--color-highlight);
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    font-size: 30px;
   }
 
   /* Icona "hamburger" */
   ion-menu-button {
-    color: #FFCC00;
-    --color: #FFCC00;
+    color: var(--color-highlight);
+    --color: var(--color-highlight);
   }
 
   /* Altre icone nei bottoni (es. back-button) */
   ion-buttons ion-icon {
-    color: #FFCC00;
+    color: var(--color-highlight);
+  }
+
+  ion-icon {
+    font-size: 34px;
+    color: var(--color-primary); // Bordeaux
   }
 }

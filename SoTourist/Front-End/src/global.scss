@@ -68,3 +68,20 @@ ion-icon {
 .mb-2 {
   margin-bottom: 16px;
 }
+
+:root {
+  --color-primary: #7B1E1E;
+  --color-highlight: #FFCC00;
+  --color-background: #ffffff;
+  --color-alternativ-background: #f9f9f9;
+  --color-text: #7B1E1E;
+}
+
+/* Tema scuro */
+.dark {
+  --color-primary: #4a1212;      /* giallo per invertire */
+  --color-highlight: #aa8800;    /* bordeaux come accento */
+  --color-background: #121212;
+  --color-alternativ-background: #5d5d5d;
+  --color-text: #ffe683;
+}

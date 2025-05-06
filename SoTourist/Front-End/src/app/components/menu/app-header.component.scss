@@ -1,0 +1,28 @@
+ion-toolbar {
+  --background: var(--color-primary);
+  --color: var(--color-highlight);
+
+  /* Titolo */
+  ion-title {
+    color: var(--color-highlight);
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  /* Icona "hamburger" */
+  ion-menu-button {
+    color: var(--color-highlight);
+    --color: var(--color-highlight);
+  }
+
+  /* Altre icone nei bottoni (es. back-button) */
+  ion-buttons ion-icon {
+    color: var(--color-highlight);
+  }
+
+  ion-icon {
+    font-size: 34px;
+    color: var(--color-primary); // Bordeaux
+  }
+}
