@@ -46,15 +46,27 @@ declare var google: any;
   styleUrls: ['./crea.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
+    trigger('slideIn', [
+      transition(':enter', [
+        style({ transform: 'translateY(100%)', opacity: 0 }),
+        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ])
+    ]),
     trigger('fadeInUp', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(1rem)' }),
-        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        style({ transform: 'translateY(100%)', opacity: 0 }),
+        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
       ]),
-    ]),
-  ],
+      transition(':leave', [
+        animate('300ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
+      ])
+    ])
+  ]
+  
 })
 export class CreaPage implements AfterViewInit {
+  animateEntry = false;
+
   step = 1;
 
   // STEP 1
@@ -77,8 +89,19 @@ export class CreaPage implements AfterViewInit {
     // non inizializziamo subito, aspettiamo STEP 3
   }
 
+  goToStep(s: number) {
+    if (s >= 1 && s <= 4) {
+      this.step = s;
+  
+      // Eventuale inizializzazione autocomplete se serve
+      if (s === 3) {
+        setTimeout(() => this.initAutocomplete(), 300);
+      }
+    }
+  }
+  
   ionViewWillEnter() {
-    // Resetto tutto lo stato
+    // Reset stato viaggio
     this.step = 1;
     this.mode = null;
     this.endDate = null;
@@ -86,7 +109,14 @@ export class CreaPage implements AfterViewInit {
     this.calendarDays = [];
     this.city = '';
     this.accommodation = '';
+  
+    // Forza animazione slide-in ogni volta che entri
+    this.animateEntry = false;
+    setTimeout(() => {
+      this.animateEntry = true;
+    }, 50); // tempo minimo per far partire l'animazione
   }
+  
   
 
   // STEP 1
@@ -151,6 +181,7 @@ export class CreaPage implements AfterViewInit {
       });
     });
   }
+  
 
   // Fix per scroll su mobile
   setTimeout(() => {
