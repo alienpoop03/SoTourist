@@ -9,3 +9,11 @@ SoTourist/Front-End/.browserslistrc
 .DS_Store
 Avvio server.bat
 
+# Script Mac
+SoTourist/Avvio SoTourist.app/Contents/Resources/InfoPlist.loctable
+SoTourist/Avvio SoTourist.app/Contents/Resources/Assets.car
+SoTourist/Avvio SoTourist.app/Contents/Resources/ApplicationStub.icns
+SoTourist/Avvio SoTourist.app/Contents/MacOS/Automator Application Stub
+SoTourist/Avvio SoTourist.app/Contents/Info.plist
+SoTourist/Avvio SoTourist.app/Contents/document.wflow
+SoTourist/Avvio SoTourist.app/Contents/_CodeSignature/CodeResources
