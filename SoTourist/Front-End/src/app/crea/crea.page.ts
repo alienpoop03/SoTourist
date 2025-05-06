@@ -92,7 +92,7 @@ export class CreaPage implements AfterViewInit {
   }
 
   goToStep(s: number) {
-    if (s >= 1 && s <= 4) {
+    if (s >= 1 && s <= 4 && s < this.step) {
       this.step = s;
   
       // Eventuale inizializzazione autocomplete se serve
