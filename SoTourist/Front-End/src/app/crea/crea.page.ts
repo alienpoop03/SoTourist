@@ -20,6 +20,7 @@ import {
   IonCardContent,
   IonList
 } from '@ionic/angular/standalone';
+import { AppHeaderComponent } from '../components/header/app-header.component';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 declare var google: any;
@@ -40,7 +41,8 @@ declare var google: any;
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonList
+    IonList,
+    AppHeaderComponent,
   ],
   templateUrl: './crea.page.html',
   styleUrls: ['./crea.page.scss'],
