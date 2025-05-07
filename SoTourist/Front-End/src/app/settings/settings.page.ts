@@ -61,7 +61,7 @@ export class SettingsPage {
   language: 'it' | 'en' = 'it';
   lastSync: Date | null = null;
 
-  /* ---------- Metodi Profilo ---------- */
+  /* Metodi Profilo*/
   saveProfile() {
     this.editing = false;
     console.log('Profilo salvato', {
@@ -83,7 +83,7 @@ export class SettingsPage {
     document.querySelector<HTMLInputElement>('input[type=file]')?.click();
   }
 
-  /* ---------- Preferenze ---------- */
+  /*Preferenze*/
   toggleDarkMode() {
     document.body.classList.toggle('dark', this.darkMode);
     localStorage.setItem('darkMode', String(this.darkMode));
@@ -106,7 +106,6 @@ export class SettingsPage {
     console.log('Sincronizzazione manuale eseguita');
   }
 
-  /* ---------- Sicurezza / App ---------- */
   async confirmLogout() {
     const alert = document.createElement('ion-alert');
     alert.header = 'Logout';
@@ -121,7 +120,6 @@ export class SettingsPage {
 
   logout() {
     console.log('❗ Logout effettuato');
-    // qui: pulisci storage / naviga alla login page
   }
 
   async confirmDeleteAccount() {
@@ -141,7 +139,6 @@ export class SettingsPage {
     await alert.present();
   }
 
-  /* placeholder */
   changePassword() {
     console.log('Cambia password');
   }
