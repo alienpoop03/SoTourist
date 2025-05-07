@@ -70,6 +70,7 @@ export class CreaPage implements AfterViewInit {
   animateEntry = false;
 
   step = 1;
+  stepmax = this.step; // numero totale di step
 
   // STEP 1
   mode: 'vacation' | 'planned' | null = null;
@@ -79,6 +80,10 @@ export class CreaPage implements AfterViewInit {
   endDate: string | null = null;
   startDate: string | null = null;
   calendarDays: Date[] = [];
+
+  //dateRange: { from: string; to: string } | null = null;
+
+
   
   // STEP 3
   city = '';
@@ -97,7 +102,7 @@ export class CreaPage implements AfterViewInit {
   }
 
   goToStep(s: number) {
-    if (s >= 1 && s <= 4 && s < this.step) {
+    if (s >= 1 && s <= 4 && s <= this.stepmax) {
       this.step = s;
   
       // Eventuale inizializzazione autocomplete se serve
@@ -106,10 +111,13 @@ export class CreaPage implements AfterViewInit {
       }
     }
   }
+
+  
   
   ionViewWillEnter() {
     // Reset stato viaggio
     this.step = 1;
+    this.stepmax = this.step;
     this.mode = null;
     this.endDate = null;
     this.startDate = null;
@@ -129,15 +137,29 @@ export class CreaPage implements AfterViewInit {
   // STEP 1
   selectMode(m: 'vacation' | 'planned') {
     this.mode = m;
+    if(!this.startDate){
+      this.startDate = this.today;
+    }
+    if(!this.endDate){
+      this.endDate = this.startDate; // inizialmente uguale a startDate
+    }
+
+
     if (m === 'vacation') {
      setTimeout(() => this.step = 2.5 , 200);
-     this.startDate = this.today; // Imposto la data di inizio come oggi
+     // inizialmente uguale a startDate
     } else {
       setTimeout(() => this.step = 2, 200);
     }
+    if(this.step > this.stepmax) {
+      this.stepmax = this.step;
+    } 
   }
 
   // STEP 2
+
+
+  
   canProceedDates(): boolean {
     return !!this.endDate;
   }
@@ -150,9 +172,12 @@ export class CreaPage implements AfterViewInit {
       this.calendarDays.push(new Date(d));
     }
     this.step = 3;
+    if(this.step > this.stepmax) {
+      this.stepmax = this.step;
+    } 
     setTimeout(() => this.initAutocomplete(), 300);
   }
-
+//*
   onStartDateChange(event: any) {
     this.startDate = event.detail.value;
     if (this.endDate && this.startDate && this.endDate < this.startDate) {
@@ -164,7 +189,7 @@ export class CreaPage implements AfterViewInit {
   onEndDateChange(event: any) {
     this.endDate = event.detail.value;
   }
-
+//*/
  // STEP 3
  initAutocomplete() {
   const cityInput = document.getElementById('cityInput') as HTMLInputElement;
@@ -222,6 +247,9 @@ export class CreaPage implements AfterViewInit {
   }
   confirmCity() {
     this.step = 4;
+    if(this.step > this.stepmax) {
+      this.stepmax = this.step;
+    } 
   }
 
   // STEP 4
