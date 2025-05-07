@@ -217,3 +217,4 @@ export class CreaPage implements AfterViewInit {
     this.router.navigate(['/tabs/home']);
   }
 }
+
