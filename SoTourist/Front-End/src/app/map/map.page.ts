@@ -20,7 +20,10 @@ import {
   IonList,
   IonListHeader,
   IonItem,
-  IonLabel
+  IonLabel,
+  IonFab,
+  IonFabButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
 
 interface PlaceItem {
@@ -56,7 +59,10 @@ interface PlaceItem {
     IonList,
     IonListHeader,
     IonItem,
-    IonLabel
+    IonLabel,
+    IonFab,
+    IonFabButton,
+    IonIcon,
   ],
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss']
@@ -230,5 +236,15 @@ export class MapPage implements AfterViewInit {
 
   onBack() {
     history.back();
+  }
+
+  showMap = false;
+
+  toggleMapView() {
+    this.showMap = !this.showMap;
+  
+    if (this.showMap) {
+      setTimeout(() => this.initMap(), 0); // assicura che il DOM sia aggiornato
+    }
   }
 }

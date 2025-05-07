@@ -1,70 +1,13 @@
 <ion-content class="map-page-content" fullscreen>
 
-  <!-- Pulsante Back
-  <ion-button
-    class="icon-btn"
-    fill="clear"
-    (click)="onBack()"
-    title="Torna indietro"
-  >⬅</ion-button>  -->
-
-  <!-- Day Selector 
-  <div id="daySelectorContainer" class="day-selector-container">
-    <ion-button
-      id="daySelectorBtn"
-      class="day-selector"
-      (click)="toggleDayDropdown()"
-    >
-      Giorno {{ currentDay }}
-    </ion-button>
-    <div
-      id="dayDropdown"
-      class="day-dropdown"
-      *ngIf="showDayDropdown"
-    >
-      <div
-        class="day-option"
-        *ngFor="let d of days"
-        (click)="selectDay(d)"
-      >
-        Giorno {{ d }}
-      </div>
-    </div>
-  </div> -->
-
-  <!-- Filter Box -->
-  <div class="filter-box centered">
-    <ion-button
-      [class.active]="activeFilters.has('morning')"
-      (click)="toggleMarkers('morning')"
-    >Mattina</ion-button>
-    <ion-button
-      [class.active]="activeFilters.has('afternoon')"
-      (click)="toggleMarkers('afternoon')"
-    >Pomeriggio</ion-button>
-    <ion-button
-      [class.active]="activeFilters.has('evening')"
-      (click)="toggleMarkers('evening')"
-    >Sera</ion-button>
-  </div>
-
-  <!-- Toggle Sidebar -->
-  <ion-button
-    id="toggleSidebar"
-    class="toggle-sidebar-btn"
-    fill="clear"
-    (click)="toggleSidebar()"
-  ><img src="assets/icon/Logo_punto.png" alt="icon" style="width: 50px; height: 50px;"></ion-button>
-
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar" [style.bottom]="sidebarOpen ? '0' : '-100%'">
-    
+  <!-- Lista dei luoghi del giorno -->
+  <div class="places-list">
     <ion-card 
-    class="sidebar-card" 
-    *ngFor="let item of sidebarItems; let i = index"
-    (click)="openDetailModal(item)"
-  >
-        <ion-img
+      class="place-card" 
+      *ngFor="let item of sidebarItems"
+      (click)="openDetailModal(item)"
+    >
+      <ion-img
         *ngIf="item.photo; else placeholder"
         [src]="item.photo"
         class="sidebar-photo"
@@ -72,22 +15,29 @@
       <ng-template #placeholder>
         <div class="sidebar-photo placeholder">📍</div>
       </ng-template>
-    
+
       <ion-card-header>
         <ion-card-title>{{ item.name }}</ion-card-title>
       </ion-card-header>
-    
+
       <ion-card-content>
         <div class="place-address">{{ item.address }}</div>
         <div *ngIf="item.rating" class="place-rating">⭐ {{ item.rating }}</div>
       </ion-card-content>
-      
     </ion-card>
-    
   </div>
 
-  <!-- Mappa -->
-  <div #mapEl id="map"></div>
+  <!-- Toggle Mappa -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="toggleMapView()" [color]="showMap ? 'primary' : 'medium'">
+      <ion-icon name="map-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Mappa (opzionale) -->
+  <div *ngIf="showMap" class="map-container">
+    <div #mapEl id="map"></div>
+  </div>
 
   <!-- Modal di dettaglio -->
   <ion-modal
@@ -99,7 +49,6 @@
     cssClass="detail-modal"
   >
     <ng-template>
-      <!-- Wrappiamo il card con *ngIf per garantire che modalPlace non sia null -->
       <ion-card *ngIf="modalPlace" class="detail-card">
         <ion-img
           *ngIf="modalPlace.photo"
