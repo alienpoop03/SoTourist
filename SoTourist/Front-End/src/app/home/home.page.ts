@@ -65,18 +65,18 @@ export class HomePage {
 
    // destinazioni da mostrare
    suggestedCities = [
-    { name: 'Roma',        photo: 'assets/cities/roma.jpg' },
-    { name: 'Parigi',      photo: 'assets/cities/parigi.jpg' },
-    { name: 'Tokyo',       photo: 'assets/cities/tokyo.jpg' },
-    { name: 'New York',    photo: 'assets/cities/newyork.jpg' },
-    { name: 'Barcellona',  photo: 'assets/cities/barcellona.jpg' },
+    { name: 'Roma',        photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg' },
+    { name: 'Parigi',      photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg' },
+    { name: 'Tokyo',       photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg' },
+    { name: 'New York',    photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg' },
+    { name: 'Barcellona',  photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg' },
   ];
 
   trending = [
-    { city: 'Londra', photo: 'assets/cities/londra.jpg',     count: 124 },
-    { city: 'Amsterdam', photo: 'assets/cities/amsterdam.jpg', count: 97 },
-    { city: 'Berlino', photo: 'assets/cities/berlino.jpg',   count: 81 },
-    { city: 'Madrid',  photo: 'assets/cities/madrid.jpg',    count: 76 },
+    { city: 'Londra', photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg',     count: 124 },
+    { city: 'Amsterdam', photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg', count: 97 },
+    { city: 'Berlino', photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg',   count: 81 },
+    { city: 'Madrid',  photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg',    count: 76 },
   ];
 
   constructor(private router: Router) {}
