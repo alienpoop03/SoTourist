@@ -1,25 +1,30 @@
-:host {
-  --primary-color: #7B1E1E;
-  --accent-color: #FFCC00;
+ion-content {
+  --background: var(--color-background1);
 }
 
-ion-content {
-  --background: #f9f9f9;
+icon-list {
+  --background: var(--color-background1);
+  
+}
+
+.settings-list{
+  --background: var(--color-background1);
+  --ion-item-background: var(--color-background1);
 }
 
 ion-item {
-  --background: #fff;
+  --background: var(--color-background2);
   border-radius: 12px;
   margin: 0.5rem 0;
   padding: 0.5rem 1rem;
 
   ion-label {
-    color: var(--primary-color);
+    color: var(--color-text1);
     font-weight: 500;
   }
 
   ion-icon {
-    color: var(--accent-color);
+    color: var(--color-highlight);
     font-size: 1.2rem;
     margin-right: 0.5rem;
   }
@@ -28,14 +33,14 @@ ion-item {
 ion-item-divider {
   margin-top: 1rem;
   font-weight: bold;
-  color: #555;
-  background: transparent;
+  color: var(--color-text);
+  background: var(--color-background2);
 }
 
 .profile-box {
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--color-background2);
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -47,8 +52,8 @@ ion-item-divider {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: #f0f0f0;
-  border: 2px solid var(--primary-color);
+  background: var(--color-primary);
+  border: 2px solid var(--color-highlight);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +62,9 @@ ion-item-divider {
   .profile-icon {
     width: 36px;
     height: 36px;
-    color: var(--primary-color);
+    color: var(--color-highlight);
+    
+  background: var(--color-primary);
   }
 
   .profile-pic {
@@ -75,10 +82,10 @@ ion-item-divider {
   gap: 0.5rem;
 
   ion-input {
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-background3);
     border-radius: 8px;
     padding: 0.25rem 0.75rem;
-    color: var(--primary-color);
-    --highlight-color-focused: var(--accent-color);
+    color: var(--color-text1);
+    --highlight-color-focused: var(--color-highlight);
   }
 }

@@ -68,3 +68,37 @@ ion-icon {
 .mb-2 {
   margin-bottom: 16px;
 }
+
+:root {
+  --color-primary: #7B1E1E;
+  --color-highlight: #FFCC00;
+
+  --color-background: #ffffff;
+  --color-background1: #f9f9f9;
+  --color-background2: #f9f9f9;
+  --color-background3: #f9f9f9;
+  
+  --color-text: #7B1E1E;
+  --color-text1: #7B1E1E;
+  --color-text2: #000000;
+}
+
+/* Tema scuro */
+.dark {
+  --color-primary: #4F1212;      /* Rosso vino profondo */
+  --color-highlight: #CC9900;    /* Oro scuro */
+  
+  --ion-color-secondary: #CC9900; /* Giallo */
+  --ion-color-primary: #4F1212;   /* Bordeaux */
+  --ion-color-light: #434343;     
+  --ion-font-family: "Arial", sans-serif; /* Font Poppins */
+
+  --color-background: #1f1f1f;
+  --color-background1: #2f2f2f;
+  --color-background2: #272626;
+  --color-background3: #333333;
+  
+  --color-text: #962525;
+  --color-text1: #ffe680;
+  --color-text2: #FFFFFF;
+}

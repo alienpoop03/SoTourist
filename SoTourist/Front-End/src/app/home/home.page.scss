@@ -1,19 +1,19 @@
 /* HEADER STILE */
 ion-header {
-  --background: #7B1E1E;
+  --background: var(--color-primary);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 
   ion-toolbar {
-    --background: #7B1E1E;
+    --background: var(--color-primary);
 
     ion-title {
-      color: #FFCC00;
+      color: var(--color-highlight);
       font-weight: bold;
       font-size: 1.4rem;
     }
 
     ion-icon {
-      color: #FFCC00;
+      color: var(--color-highlight);
     }
   }
 }
@@ -21,7 +21,7 @@ ion-header {
 /* CONTENUTO PRINCIPALE */
 .home-content {
   padding: 1rem;
-  --background: #f5f5f5;
+  --background: var(--color-background1);
 }
 
 /* SEZIONE DI BENVENUTO */
@@ -31,17 +31,17 @@ ion-header {
 
   h1 {
     font-size: 1.8rem;
-    color: #7B1E1E;
+    color: var(--color-text);
     margin-bottom: 0.5rem;
   }
 
   p {
     font-size: 1rem;
-    color: #444;
+    color: var(--color-text2);
   }
 }
 
-.logo{
+.logo {
   width: 100px;
   height: auto;
   margin-bottom: 1rem;
@@ -50,13 +50,13 @@ ion-header {
 /* SEZIONE LOGO */
 .brand-name {
   font-weight: bold;
-  color: #FFCC00;
+  color: var(--color-highlight);
 }
 
 /* TITOLO VIAGGI */
 .trips-section h2 {
   margin-left: 0.5rem;
-  color: #7B1E1E;
+  color: var(--color-text);
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
@@ -65,6 +65,7 @@ ion-header {
 ion-card {
   margin-bottom: 1rem;
   border-radius: 1rem;
+  background: var(--color-background); // Per assicurarti che la card segua il tema
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s;
 }
@@ -76,17 +77,17 @@ ion-card:hover {
 
 ion-card-title {
   font-size: 1.2rem;
-  color: #7B1E1E;
+  color: var(--color-text);
 }
 
 ion-card-subtitle {
   font-size: 0.9rem;
-  color: #FFCC00;
+  color: var(--color-highlight);
 }
 
 ion-card-content {
   font-size: 1rem;
-  color: #333;
+  color: var(--color-text2);
 }
 
 /* NESSUN VIAGGIO */
@@ -94,7 +95,7 @@ ion-card-content {
   text-align: center;
   margin-top: 2rem;
   font-style: italic;
-  color: #999;
+  color: var(--color-text2);
 }
 
 /* BOTTONE CESTINO */
@@ -110,4 +111,17 @@ ion-card-header {
   --padding-start: 0;
   --padding-end: 0;
   margin: 0;
+}
+
+.I_tuoi_viaggi {
+  color: var(--color-text2) !important;
+}
+
+ion-fab-button {
+  --background: var(--color-primary);
+  --color: var(--color-highlight);
+}
+
+.custom-fab {
+  right: 24px; // default è 16px circa, puoi aumentare per spostarlo
 }

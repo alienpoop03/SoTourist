@@ -9,3 +9,16 @@
   --ion-color-secondary-contrast: #7B1E1E;
   --ion-color-secondary-contrast-rgb: 123, 30, 30;
 }
+
+/*tema scuro*/
+.dark{
+  --ion-color-primary: #4F1212;
+  --ion-color-primary-rgb: 123, 30, 30;
+  --ion-color-primary-contrast: #CC9900;
+  --ion-color-primary-contrast-rgb: 255, 204, 0;
+
+  --ion-color-secondary: #CC9900;
+  --ion-color-secondary-rgb: 255, 204, 0;
+  --ion-color-secondary-contrast: #4F1212;
+  --ion-color-secondary-contrast-rgb: 123, 30, 30;
+}

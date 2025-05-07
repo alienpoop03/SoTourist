@@ -2,8 +2,12 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   AfterViewInit,
+  OnInit,
+  ViewChild,
+  ElementRef,
   NgZone
 } from '@angular/core';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -46,10 +50,19 @@ function whenGoogleMapsReady(): Promise<void> {
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ItinerarioPage implements AfterViewInit {
+  @ViewChild(IonContent, { static: true }) content!: IonContent;
+@ViewChild('hero', { static: true }) heroEl!: ElementRef;
+
+heroHeight = 240; // altezza iniziale in pixel
+titleFontSize = 1.8; // in rem
+subtitleFontSize = 1.1; // in rem
+overlayOpacity = 1;
+
   trip: any = null;
   daysCount = 0;
   tripId!: number;
   heroPhotoUrl = '';
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -59,9 +72,25 @@ export class ItinerarioPage implements AfterViewInit {
   ) {}
 
   async ngAfterViewInit() {
+    
+  
+    // se già l’hai, mantieni anche:
     await whenGoogleMapsReady();
   }
-
+  onScroll(ev: CustomEvent) {
+    const scrollTop = ev.detail.scrollTop;
+  
+    const minHeight = 80;
+    const maxHeight = 240;
+    const minFont = 1.2;
+    const maxFont = 1.8;
+  
+    this.heroHeight = Math.max(minHeight, maxHeight - scrollTop);
+    this.titleFontSize = Math.max(minFont, maxFont - scrollTop / 100);
+    this.subtitleFontSize = Math.max(0.9, 1.1 - scrollTop / 150);
+    this.overlayOpacity = Math.max(0, 1 - scrollTop / 150);
+  }
+  
   ionViewWillEnter() {
     const idParam = this.route.snapshot.queryParamMap.get('id')!;
     this.tripId = +idParam;
@@ -141,11 +170,46 @@ export class ItinerarioPage implements AfterViewInit {
   }
 
   customizationVisible = false;
+  selectedDayIndex: number | null = null;
+isTripCustomization = false;
+
+dayStyles = [
+  'Standard',
+  'Giornata al mare',
+  'Giornata nei musei',
+  'Relax',
+  'Shopping',
+  'Avventura',
+  'Food tour',
+  'Escursione'
+];
+
+
 
   toggleCustomizationSheet() {
     this.customizationVisible = !this.customizationVisible;
   }
- 
+
+  openDayCustomization(index: number) {
+    this.selectedDayIndex = index;
+    this.isTripCustomization = false;
+    this.customizationVisible = true;
+  }
+  
+  openTripCustomization() {
+    this.selectedDayIndex = null;
+    this.isTripCustomization = true;
+    this.customizationVisible = true;
+  }
+  
+  saveDayStyle() {
+    if (this.selectedDayIndex === null) return;
+  
+    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+    trips[this.tripId] = this.trip;
+    localStorage.setItem('trips', JSON.stringify(trips));
+  }
+  
 
 editDayStyle(event: Event, index: number) {
   event.stopPropagation(); // previene il trigger del click sulla card
@@ -173,6 +237,4 @@ editDayStyle(event: Event, index: number) {
 }
 
 
-  
-  
 }

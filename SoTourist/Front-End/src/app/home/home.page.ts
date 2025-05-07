@@ -13,9 +13,13 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonButtons
+  IonButtons,
+  IonFab,
+  IonFabButton
 } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from "../components/header/app-header.component";
+
+
 
 @Component({
   selector: 'app-home',
@@ -35,6 +39,8 @@ import { AppHeaderComponent } from "../components/header/app-header.component";
     IonTitle, // ✅ necessario per <ion-title>
     IonButtons, // ✅ necessario per <ion-buttons>
     AppHeaderComponent,
+    IonFab,
+    IonFabButton,
 ],
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
@@ -65,5 +71,11 @@ export class HomePage {
 
   openLastTrip() {
     this.openItinerary(0);
+  }
+
+  
+
+  goToCreate() {
+    this.router.navigate(['/tabs/crea']);
   }
 }
