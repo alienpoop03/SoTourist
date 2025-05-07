@@ -51,14 +51,32 @@
 
       <!-- STEP 2 -->
       <div *ngIf="step === 2" class="step-wrapper">
-        <h2>Seleziona la data di fine</h2>
+        <h2>Seleziona la data d'inizio</h2>
         <ion-item>
-          <ion-label>Ritorno</ion-label>
           <ion-datetime
             presentation="date"
             display-format="DD MMM YYYY"
-            [(ngModel)]="endDate"
+            
+            (ionChange)="onStartDateChange($event)"
+            
+            [value]="startDate"
             [min]="today"
+            locale="it-IT"
+          ></ion-datetime>
+        </ion-item>
+      </div>
+
+      <div *ngIf="step === 2.5" class="step-wrapper">
+        <h2>Seleziona la data di fine</h2>
+        <ion-item>
+          <ion-datetime
+            presentation="date"
+            display-format="DD MMM YYYY"
+            
+            (ionChange)="onEndDateChange($event)"
+
+            [value]="endDate"
+            [min]="startDate"
             locale="it-IT"
           ></ion-datetime>
         </ion-item>

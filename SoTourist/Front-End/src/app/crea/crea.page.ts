@@ -79,13 +79,18 @@ export class CreaPage implements AfterViewInit {
   endDate: string | null = null;
   startDate: string | null = null;
   calendarDays: Date[] = [];
-
+  
   // STEP 3
   city = '';
   accommodation: string = '';
 
 
-  constructor(private router: Router, private ngZone: NgZone) {}
+  constructor(private router: Router, private ngZone: NgZone) {
+    const today = new Date();
+
+    this.startDate = today.toISOString().split('T')[0];   // formato YYYY-MM-DD
+    this.endDate = this.startDate; // inizialmente uguale a startDate
+  }
 
   ngAfterViewInit() {
     // non inizializziamo subito, aspettiamo STEP 3
@@ -124,7 +129,11 @@ export class CreaPage implements AfterViewInit {
   // STEP 1
   selectMode(m: 'vacation' | 'planned') {
     this.mode = m;
-    setTimeout(() => this.step = 2, 200);
+    if (m === 'vacation') {
+     setTimeout(() => this.step = 2.5 , 200);
+    } else {
+      setTimeout(() => this.step = 2, 200);
+    }
   }
 
   // STEP 2
@@ -132,8 +141,8 @@ export class CreaPage implements AfterViewInit {
     return !!this.endDate;
   }
   confirmDates() {
-    if (!this.endDate) return;
-    this.startDate = this.today;
+    if (!this.endDate || !this.startDate) return;
+    //this.startDate = this.today;
     const s = new Date(this.startDate), e = new Date(this.endDate);
     this.calendarDays = [];
     for (let d = new Date(s); d <= e; d.setDate(d.getDate()+1)) {
@@ -141,6 +150,18 @@ export class CreaPage implements AfterViewInit {
     }
     this.step = 3;
     setTimeout(() => this.initAutocomplete(), 300);
+  }
+
+  onStartDateChange(event: any) {
+    this.startDate = event.detail.value;
+    if (this.endDate && this.startDate && this.endDate < this.startDate) {
+      this.endDate = this.startDate; // Se la data di fine è prima della data di inizio, la imposto come data inizio
+    }
+    this.step = 2.5;
+  }
+
+  onEndDateChange(event: any) {
+    this.endDate = event.detail.value;
   }
 
  // STEP 3
