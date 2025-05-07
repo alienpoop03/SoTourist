@@ -3,16 +3,16 @@
   --secondary-color: #7B1E1E;
   --bg-color: #ffffff;
   --text-color: #7B1E1E;
-  --shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#map {
-  position: absolute;
-  inset: 0; // equivalente a top: 0; left: 0; right: 0; bottom: 0;
-}
+// #map {
+//   position: absolute;
+//   inset: 0;
+// }
 
-/* === FILTER BOX === */
+
 .filter-box {
   position: absolute;
   top: 20px;
@@ -33,73 +33,6 @@
   color: var(--text-color);
 }
 
-/* === SIDEBAR TOGGLE FAB === */
-.toggle-sidebar-btn {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  background: var(--primary-color);
-  border: none;
-  border-radius: 50%;
-  z-index: 1001;
-  box-shadow: var(--shadow);
-}
-
-/* === SIDEBAR === */
-.sidebar {
-  position: fixed;
-  bottom: -100%;
-  left: 0;
-  width: 100%;
-  height: 280px;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
-  z-index: 999;
-
-  background-color: #f8f8f8; // ✅ Colore uniforme applicato
-  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.25);
-  transition: bottom 0.3s ease-in-out;
-}
-
-
-
-/* === CARD (LUOGO) === */
-.sidebar-card {
-  width: 180px; // ridotto rispetto ai 200-220px
-  height: 220px; // altezza fissa
-  flex-shrink: 0;
-  margin: 0 4px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: var(--shadow-light);
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
-  z-index: -1;
-  border-radius: 12px;
-}
-
-
-.sidebar-photo,
-.placeholder {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 12px 12px 0 0;
-  margin-bottom: 0;
-}
-
 .placeholder {
   display: flex;
   align-items: center;
@@ -109,29 +42,12 @@
   color: var(--text-color);
 }
 
-ion-card-content {
-  padding: 10px;
-  font-size: 13px;
-  color: var(--text-color);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-ion-card-content small {
-  line-height: 1.4;
-  font-size: 13px;
-  color: var(--secondary-color); // più leggibile del bordeaux chiaro
-  font-weight: 500;
-}
-
 .place-address,
 .place-rating {
   font-size: 13px;
   color: var(--secondary-color);
 }
 
-/* === CONNECTORS TRA CARD === */
 .connector {
   display: flex;
   align-items: center;
@@ -165,7 +81,7 @@ ion-card-content small {
   color: var(--text-color);
 }
 
-/* === MODAL DETTAGLIO === */
+
 .detail-modal {
   .modal-backdrop {
     background: rgba(0, 0, 0, 0.4) !important;
@@ -197,7 +113,7 @@ ion-card-content small {
   overflow-y: auto;
 }
 
-/* === ANIMAZIONI === */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -207,18 +123,19 @@ ion-card-content small {
   }
 }
 
-.map-container {
-  width: 100%;
-  height: 300px;
-  margin-top: 1rem;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
 .map-page-content {
+  --background: #ffffff;
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+}
+
+.content-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .places-list {
@@ -228,6 +145,21 @@ ion-card-content small {
   gap: 1rem;
   display: flex;
   flex-direction: column;
+  z-index: 1;
+}
+
+.map-container-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
 }
 
 .place-card {
@@ -235,7 +167,6 @@ ion-card-content small {
   max-width: 100%;
   border-radius: 12px;
   box-shadow: var(--shadow);
-  font-size: 16px;
 
   ion-card-header {
     padding: 8px 16px;
@@ -259,13 +190,7 @@ ion-card-content small {
   }
 }
 
-.sidebar-photo {
-  height: 150px;
-  object-fit: cover;
-  border-radius: 12px 12px 0 0;
-}
-
-.place-rating {
-  margin-top: 0.5rem;
-  font-weight: 500;
-}
+// .place-rating {
+//   margin-top: 0.5rem;
+//   font-weight: 500;
+// }

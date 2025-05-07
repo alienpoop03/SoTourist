@@ -1,33 +1,40 @@
 <ion-content class="map-page-content" fullscreen>
 
-  <!-- Lista dei luoghi del giorno -->
-  <div class="places-list">
-    <ion-card 
-      class="place-card" 
-      *ngFor="let item of sidebarItems"
-      (click)="openDetailModal(item)"
-    >
-      <ion-img
-        *ngIf="item.photo; else placeholder"
-        [src]="item.photo"
-        class="sidebar-photo"
-      ></ion-img>
-      <ng-template #placeholder>
-        <div class="sidebar-photo placeholder">📍</div>
-      </ng-template>
+  <div class="content-wrapper">
+    
+    <div class="places-list">
+      <ion-card 
+        class="place-card" 
+        *ngFor="let item of sidebarItems"
+        (click)="openDetailModal(item)"
+      >
+        <ion-img
+          *ngIf="item.photo; else placeholder"
+          [src]="item.photo"
+          class="sidebar-photo"
+        ></ion-img>
+        <ng-template #placeholder>
+          <div class="sidebar-photo placeholder">📍</div>
+        </ng-template>
 
-      <ion-card-header>
-        <ion-card-title>{{ item.name }}</ion-card-title>
-      </ion-card-header>
+        <ion-card-header>
+          <ion-card-title>{{ item.name }}</ion-card-title>
+        </ion-card-header>
 
-      <ion-card-content>
-        <div class="place-address">{{ item.address }}</div>
-        <div *ngIf="item.rating" class="place-rating">⭐ {{ item.rating }}</div>
-      </ion-card-content>
-    </ion-card>
+        <ion-card-content>
+          <div class="place-address">{{ item.address }}</div>
+          <div *ngIf="item.rating" class="place-rating">⭐ {{ item.rating }}</div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    
+    <div *ngIf="showMap" class="map-container-overlay">
+      <div #mapEl id="map"></div>
+    </div>
   </div>
 
-  <!-- Toggle Mappa -->
+  
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="toggleMapView()" [color]="showMap ? 'primary' : 'medium'">
       <ion-icon name="map-outline"></ion-icon>
@@ -70,7 +77,6 @@
             {{ modalPlace.description }}
           </p>
 
-          <!-- Recensioni -->
           <ion-list *ngIf="modalPlace.reviews?.length">
             <ion-list-header>Recensioni</ion-list-header>
             <ion-item *ngFor="let rev of modalPlace.reviews">
