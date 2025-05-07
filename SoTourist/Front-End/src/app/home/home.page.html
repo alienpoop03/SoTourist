@@ -6,12 +6,15 @@
 
 <ion-content class="home-content">
 
-  <div class="welcome-section">
+  <div *ngIf="trips.length === 0" class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
     <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
+    <div class="no-trips">
+      Nessun viaggio creato. Inizia subito a pianificare!
+    </div>
   </div>
-
+  
   <div *ngIf="trips.length > 0" class="trips-section">
     <h2 class="I_tuoi_viaggi">I tuoi viaggi</h2>
 
@@ -43,9 +46,7 @@
     </ion-card>
   </div>
 
-  <div *ngIf="trips.length === 0" class="no-trips">
-    Nessun viaggio creato. Inizia subito a pianificare!
-  </div>
+  
 
   
 </ion-content>
