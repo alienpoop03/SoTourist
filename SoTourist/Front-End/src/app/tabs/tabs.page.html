@@ -1,15 +1,17 @@
 <ion-tabs>
-<!---->
+
   <ion-tab-bar slot="bottom">
+
+    
 
     <ion-tab-button tab="home" href="/tabs/home">
       <ion-icon [name]="selectedTab === 'home' ? 'home' : 'home-outline'"></ion-icon>
       <ion-label>Home</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="crea" href="/tabs/crea">
-      <ion-icon [name]="selectedTab === 'crea' ? 'add-circle' : 'add-circle-outline'"></ion-icon>
-      <ion-label>Crea</ion-label>
+    <ion-tab-button tab="viaggi" href="/tabs/viaggi">
+      <ion-icon [name]="selectedTab === 'viaggi' ? 'viaggi' : 'map-outline'"></ion-icon>
+      <ion-label>Viaggi</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="settings" href="/tabs/settings">
@@ -18,5 +20,5 @@
     </ion-tab-button>
 
   </ion-tab-bar>
-<!---->
+
 </ion-tabs>

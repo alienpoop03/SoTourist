@@ -1,56 +1,81 @@
-<app-header 
-  [title]="'SoTourist'" 
-  [iconName]="'home-outline'" 
+<app-header
+  [title]="'SoTourist'"
+  [iconName]="'home-outline'"
   [showBackButton]="false">
 </app-header>
 
-<ion-content class="home-content">
+<ion-content class="home-content" fullscreen>
 
-  <div *ngIf="trips.length === 0" class="welcome-section">
-    <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
-    <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
-    <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
-    <div class="no-trips">
-      Nessun viaggio creato. Inizia subito a pianificare!
+  <!-- ───── HERO / ULTIMO VIAGGIO ───── -->
+  <div *ngIf="lastTrip" class="hero" [ngStyle]="{'background-image': 'url(' + lastTrip.photo + ')'}">
+    <div class="hero-overlay">
+      <h2>{{ lastTrip.city }}</h2>
+      <p>{{ lastTrip.start | date:'dd MMM' }} → {{ lastTrip.end | date:'dd MMM y' }}</p>
+      <ion-button size="small" color="light" (click)="openItinerary(0)">
+        Riprendi itinerario
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-button>
     </div>
   </div>
-  
-  <div *ngIf="trips.length > 0" class="trips-section">
-    <h2 class="I_tuoi_viaggi">I tuoi viaggi</h2>
 
-    <ion-card 
-      button 
-      (click)="openItinerary(i)"
-      *ngFor="let trip of trips; let i = index"
-    >
+
+
+  <!-- ───── DESTINAZIONI IMPERDIBILI ───── -->
+  <ion-list class="dest-list">
+    <ion-list-header>Destinazioni imperdibili</ion-list-header>
+
+    <div class="dest-grid">
+      <ion-card *ngFor="let city of suggestedCities" (click)="openCreate(city.name)">
+        <img [src]="city.photo" alt="{{ city.name }}">
+        <ion-card-header>
+          <ion-card-title>{{ city.name }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button fill="clear" size="small">Aggiungi <ion-icon slot="end" name="add-outline"></ion-icon></ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-list>
+
+  <!-- ───── PIÙ VISITATI QUESTA SETTIMANA ───── -->
+  <ion-list class="trend-list">
+    <ion-list-header>I più visitati questa settimana</ion-list-header>
+
+    <div class="trend-scroll">
+      <ion-card *ngFor="let t of trending">
+        <img [src]="t.photo" alt="{{ t.city }}">
+        <div class="trend-label">
+          <ion-icon name="trending-up-outline"></ion-icon>&nbsp;{{ t.count }}
+        </div>
+        <ion-card-content>{{ t.city }}</ion-card-content>
+      </ion-card>
+    </div>
+    
+  </ion-list>
+
+  <!-- ───── I TUOI VIAGGI ───── -->
+  <ion-list *ngIf="trips.length" lines="none" class="my-trips">
+    <ion-list-header>I tuoi viaggi</ion-list-header>
+
+    <ion-card *ngFor="let trip of trips; let i = index" (click)="openItinerary(i)">
       <ion-card-header>
         <ion-card-title>{{ trip.city }}</ion-card-title>
-        <ion-card-subtitle>
-          {{ trip.start | date:'dd/MM/yyyy' }} – {{ trip.end | date:'dd/MM/yyyy' }}
-        </ion-card-subtitle>
-
-        <ion-button
-          class="delete-btn"
-          fill="clear"
-          color="danger"
-          (click)="deleteTrip(i); $event.stopPropagation()"
-        >
+        <ion-card-subtitle>{{ trip.start | date:'dd/MM' }} – {{ trip.end | date:'dd/MM/y' }}</ion-card-subtitle>
+        <ion-button fill="clear" color="danger" size="small" (click)="deleteTrip(i); $event.stopPropagation()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </ion-card-header>
-
       <ion-card-content>
-        🏨 {{ trip.accommodation }}<br />
+        🏨 {{ trip.accommodation }}<br>
         ⏳ {{ trip.days }} giorni
       </ion-card-content>
     </ion-card>
-  </div>
+  </ion-list>
 
-  
-
-  
 </ion-content>
-<ion-fab slot="fixed" vertical="bottom" horizontal="end"class="custom-fab">
+
+<!-- FAB CREA -->
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button (click)="goToCreate()">
     <ion-icon name="add-outline"></ion-icon>
   </ion-fab-button>
