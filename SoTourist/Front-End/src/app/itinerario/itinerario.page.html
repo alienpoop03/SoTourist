@@ -62,7 +62,7 @@
   <div class="customization-sheet" [class.visible]="customizationVisible">
     <div class="sheet-header">
       <h2 *ngIf="isTripCustomization">Personalizza il tuo viaggio</h2>
-<h2 *ngIf="!isTripCustomization && selectedDayIndex !== null">Personalizza Giorno {{ selectedDayIndex + 1 }}</h2>
+  <h2 *ngIf="!isTripCustomization && selectedDayIndex !== null">Personalizza Giorno {{ selectedDayIndex + 1 }}</h2>
 
       <ion-button size="small" fill="clear" (click)="toggleCustomizationSheet()">Chiudi</ion-button>
     </div>

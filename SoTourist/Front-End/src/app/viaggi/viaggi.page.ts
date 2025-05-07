@@ -15,21 +15,14 @@ import {
   IonTitle,
   IonButtons,
   IonFab,
-  IonFabButton,
-  IonList,
-  IonListHeader,
-  IonItem,
-  IonToggle,
-  IonSelect,
-  IonSelectOption,
+  IonFabButton
 } from '@ionic/angular/standalone';
-
 import { AppHeaderComponent } from "../components/header/app-header.component";
 
 
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-viaggi',
   standalone: true,
   imports: [
     CommonModule,
@@ -42,49 +35,25 @@ import { AppHeaderComponent } from "../components/header/app-header.component";
     IonIcon,
     IonButton,
     IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
+    IonToolbar, // ✅ necessario per <ion-toolbar>
+    IonTitle, // ✅ necessario per <ion-title>
+    IonButtons, // ✅ necessario per <ion-buttons>
+    AppHeaderComponent,
     IonFab,
     IonFabButton,
-    IonList,
-    IonListHeader,
-    IonItem,
-    IonToggle,
-    IonSelect,
-    IonSelectOption,
-    AppHeaderComponent
-  ],
-  
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss']
+],
+  templateUrl: './viaggi.page.html',
+  styleUrls: ['./viaggi.page.scss']
 })
-export class HomePage {
+export class ViaggiPage {
   trips: any[] = [];
-  lastTrip: any = null;
-
-   // destinazioni da mostrare
-   suggestedCities = [
-    { name: 'Roma',        photo: 'assets/cities/roma.jpg' },
-    { name: 'Parigi',      photo: 'assets/cities/parigi.jpg' },
-    { name: 'Tokyo',       photo: 'assets/cities/tokyo.jpg' },
-    { name: 'New York',    photo: 'assets/cities/newyork.jpg' },
-    { name: 'Barcellona',  photo: 'assets/cities/barcellona.jpg' },
-  ];
-
-  trending = [
-    { city: 'Londra', photo: 'assets/cities/londra.jpg',     count: 124 },
-    { city: 'Amsterdam', photo: 'assets/cities/amsterdam.jpg', count: 97 },
-    { city: 'Berlino', photo: 'assets/cities/berlino.jpg',   count: 81 },
-    { city: 'Madrid',  photo: 'assets/cities/madrid.jpg',    count: 76 },
-  ];
+  suggestedCities = ['Roma', 'Parigi', 'Tokyo', 'New York', 'Londra', 'Barcellona'];
 
   constructor(private router: Router) {}
 
   ionViewWillEnter() {
     const saved = localStorage.getItem('trips');
     this.trips = saved ? JSON.parse(saved) : [];
-    this.lastTrip = this.trips.length ? this.trips[0] : null; // più recente in cima
   }
 
   openItinerary(index: number) {

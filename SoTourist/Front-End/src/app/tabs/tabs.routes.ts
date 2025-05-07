@@ -42,6 +42,11 @@ export const routes: Routes = [
           import('../settings/settings.page').then( m => m.SettingsPage),
       },
       {
+        path: 'viaggi',
+        loadComponent: () =>
+          import('../viaggi/viaggi.page').then((m) => m.ViaggiPage),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',
