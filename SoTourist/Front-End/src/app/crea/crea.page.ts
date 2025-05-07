@@ -131,6 +131,7 @@ export class CreaPage implements AfterViewInit {
     this.mode = m;
     if (m === 'vacation') {
      setTimeout(() => this.step = 2.5 , 200);
+     this.startDate = this.today; // Imposto la data di inizio come oggi
     } else {
       setTimeout(() => this.step = 2, 200);
     }
