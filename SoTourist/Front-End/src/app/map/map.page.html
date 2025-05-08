@@ -1,4 +1,4 @@
-<ion-content class="map-page-content" fullscreen>
+<!-- <ion-content class="map-page-content" fullscreen>
 
   <div class="content-wrapper">
     
@@ -27,11 +27,6 @@
         </ion-card-content>
       </ion-card>
     </div>
-
-    
-    <div *ngIf="showMap" class="map-container-overlay">
-      <div #mapEl id="map"></div>
-    </div>
   </div>
 
   
@@ -41,12 +36,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <!-- Mappa -->
-  <div *ngIf="showMap" class="map-container">
-    <div #mapEl id="map"></div>
-  </div>
 
-  <!-- Modal di dettaglio -->
   <ion-modal
     [isOpen]="showDetail"
     (ionModalDidDismiss)="closeDetail()"
@@ -92,4 +82,44 @@
     </ng-template>
   </ion-modal>
 
+</ion-content> -->
+
+<ion-content>
+  <div class="map-container-overlay">
+    <div #mapEl id="map"></div>
+  </div>
+
+  <div class="card-drawer" [class.expanded]="drawerExpanded">
+    <div class="drawer-handle-area" (click)="toggleDrawer()">
+      <div class="drawer-handle" (click)="toggleDrawer()"></div>
+    </div>
+
+    <div #drawerContent class="drawer-content" [ngClass]="{ 'horizontal': !drawerExpanded }">
+      <ion-card
+        *ngFor="let item of sidebarItems; let i = index"
+        class="place-card"
+        #placeCard
+        [class.selected]="i === selectedPlaceIndex"
+        (click)="openDetailModal(item)"
+      >
+        <ion-img
+          *ngIf="item.photo; else placeholder"
+          [src]="item.photo"
+          class="sidebar-photo"
+        ></ion-img>
+        <ng-template #placeholder>
+          <div class="sidebar-photo placeholder">📍</div>
+        </ng-template>
+    
+        <ion-card-header>
+          <ion-card-title>{{ item.name }}</ion-card-title>
+        </ion-card-header>
+    
+        <ion-card-content>
+          <div class="place-address">{{ item.address }}</div>
+          <div *ngIf="item.rating" class="place-rating">⭐ {{ item.rating }}</div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
