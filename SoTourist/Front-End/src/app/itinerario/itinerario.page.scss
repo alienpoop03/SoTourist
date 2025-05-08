@@ -1,7 +1,10 @@
 .itinerario-content {
-  --background: transparent;
+  --background: var(--color-background1);
+  min-height: 100vh;
+  padding-bottom: 80px;
 }
 
+/* ───── HERO ───── */
 .hero {
   position: sticky;
   top: 0;
@@ -15,32 +18,86 @@
   will-change: height;
   display: flex;
   align-items: flex-end;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
 }
 
 .overlay {
   width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
   color: white;
   padding: 1rem;
   transition: opacity 0.2s ease-out;
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  p {
+    font-size: 1rem;
+    opacity: 0.85;
+  }
 }
 
+/* ───── LISTA GIORNI ───── */
 .day-list {
   padding: 1rem;
-  background: #f8f8f8;
+  background: var(--color-background1);
 }
 
 .day-card {
-  margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--color-background);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  transition: transform 0.2s;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  ion-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ion-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+    }
+
+    .style-ed-btn {
+      margin-left: auto;
+      font-size: 1.2rem;
+      color: var(--color-highlight);
+    }
+  }
+
+  ion-card-content {
+    font-size: 0.95rem;
+    color: var(--color-text2);
+  }
 }
 
+.no-days {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-text2);
+}
+
+/* ───── SCHEDA DI PERSONALIZZAZIONE ───── */
 .customization-sheet {
   position: fixed;
   bottom: -100%;
   left: 0;
   right: 0;
   height: 100%;
-  background: white;
+  background: var(--color-background);
   z-index: 999;
   transition: bottom 0.3s ease-in-out;
   border-radius: 16px 16px 0 0;
@@ -55,11 +112,22 @@
 
 .sheet-header {
   padding: 1rem;
-  background: #f4f4f4;
-  border-bottom: 1px solid #ddd;
+  background: var(--color-background2);
+  border-bottom: 1px solid var(--color-background3);
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  ion-button {
+    font-size: 0.9rem;
+    color: var(--color-highlight);
+  }
 }
 
 .sheet-content {
@@ -67,15 +135,59 @@
   overflow-y: auto;
 }
 
-.style-edit-btn {
-  font-size: 16px;
-  margin-left: 8px;
-  color: var(--accent-color); // giallo
+.day-style {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--color-primary);
 }
 
-.day-style {
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: var(--secondary-color); // bordeaux
+.fab-above-tab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-shadow: none !important; // rimuove eventuali ombre del wrapper
+
+  ion-fab-button {
+    --background: var(--color-primary);
+    --color: var(--color-highlight);
+    box-shadow: none; // rimuove l’ombra del bottone stesso
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    width: 56px;
+    height: 56px;
+    min-width: unset;
+    min-height: unset;
+  }
 }
+
+
+
+
+
+.generate-container {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+}
+
+.generate-btn {
+  --background: var(--color-highlight);
+  --color: var(--color-primary);
+  --box-shadow: none;
+  --border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0 1rem;
+  height: 44px;
+  text-align: center;
+}
+
 
