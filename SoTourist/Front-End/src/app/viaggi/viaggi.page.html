@@ -16,18 +16,19 @@
   <!-- Viaggio corrente / imminente -->
   <div *ngIf="currentTrip" class="current-trip-section">
     <h2>{{ currentTrip.status === 'in_corso' ? 'Viaggio in corso' : 'Viaggio imminente' }}</h2>
-    <ion-card (click)="openItinerary(currentTrip.id)">
+    <ion-card (click)="openItinerary(currentTrip.id)" class="current-trip">
       <ion-card-header>
-        <ion-card-title>{{ currentTrip.city }}</ion-card-title>
-        <ion-card-subtitle>
+        <ion-card-title class="current-title">{{ currentTrip.city }}</ion-card-title>
+        <ion-card-subtitle class="current-title">
           {{ currentTrip.start | date:'dd/MM/yyyy' }} – {{ currentTrip.end | date:'dd/MM/yyyy' }}
         </ion-card-subtitle>
         <ion-button fill="clear" color="danger"
+                    class="delete-btn"
                     (click)="deleteTrip(currentTrip); $event.stopPropagation()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </ion-card-header>
-      <ion-card-content>
+      <ion-card-content class="current-trip-content">
         🏨 {{ currentTrip.accommodation }}<br />
         ⏳ {{ currentTrip.days }} giorni
       </ion-card-content>
@@ -44,6 +45,7 @@
           {{ trip.start | date:'dd/MM/yyyy' }} – {{ trip.end | date:'dd/MM/yyyy' }}
         </ion-card-subtitle>
         <ion-button fill="clear" color="danger"
+                    class="delete-btn"
                     (click)="deleteTrip(trip); $event.stopPropagation()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
