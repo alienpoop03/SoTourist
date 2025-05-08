@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 const getItinerary = async (req, res) => {
+  const MAX_DISTANCE_KM = 2.0; // distanza max tra i punti in km
   const city = req.query.city || 'Roma';
   const totalDays = parseInt(req.query.totalDays) || 1;
   const accommodationAddress = req.query.accommodation || null;  // <-- Alloggio dalla query
@@ -19,9 +20,20 @@ const getItinerary = async (req, res) => {
       }
     });
 
-    const filtered = response.data.results.filter(
+    let filtered = response.data.results.filter(
       place => place.geometry?.location && !usedPlaceNames.has(place.name)
     );
+
+    if (from) {
+      filtered = filtered.filter(place => {
+        const to = {
+          latitude: place.geometry.location.lat,
+          longitude: place.geometry.location.lng
+        };
+        const distance = parseFloat(getDistanceBetween(from, to));
+        return distance <= MAX_DISTANCE_KM;
+      });
+    }
 
     const selected = filtered.slice(0, count);
 
@@ -108,7 +120,7 @@ const getItinerary = async (req, res) => {
 
     const itinerary = [];
 
-    for (let day = 1; day <= totalDays; day++) {
+    /*for (let day = 1; day <= totalDays; day++) {
       const dayPlan = { day, morning: [], afternoon: [], evening: [] };
 
       // per ogni sezione (mattina, pom, sera) fetchiamo i luoghi
@@ -123,7 +135,24 @@ const getItinerary = async (req, res) => {
           }
         }
       }
+//*/
 
+      let lastPlace = null;
+
+      for (const [section, queries] of Object.entries(itineraryStructure)) {
+        for (const { query, count } of queries) {
+          const places = await fetchPlaces(query, count, lastPlace);
+          
+          if (places.length === 0) continue;
+
+          dayPlan[section].push(...places);
+          lastPlace = places[places.length - 1];
+
+          if (!coverPhoto && places[0]?.photo) {
+            coverPhoto = places[0].photo;
+          }
+        }
+      }
       // Ora uniamo i luoghi in un array ordinato
       const orderedPlaces = [
         ...dayPlan.morning,
