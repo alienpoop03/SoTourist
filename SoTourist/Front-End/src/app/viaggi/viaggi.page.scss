@@ -125,4 +125,23 @@ ion-header {
   .custom-fab {
     right: 24px; // default è 16px circa, puoi aumentare per spostarlo
   }
+
+  .current-trip{
+    background: var(--color-background-evid);
+  }
+
+  .current-trip-content{
+    color: var(--color-text-evid);
+  }
   
+  .current-trip-section{
+   background-color: var(--color-background4);
+  }
+
+  .future-trip-section{
+    background-color: var(--color-background4);
+  }
+
+  .current-title{
+    color: var(--color-highlight);
+  }

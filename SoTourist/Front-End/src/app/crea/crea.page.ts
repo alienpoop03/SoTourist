@@ -256,6 +256,7 @@ export class CreaPage implements AfterViewInit {
   confirmSurvey() {
     const trips: any[] = JSON.parse(localStorage.getItem('trips') || '[]');
     trips.unshift({
+      id: Date.now(),
       city: this.city,
       days: this.calendarDays.length,
       start: this.startDate,
@@ -264,7 +265,7 @@ export class CreaPage implements AfterViewInit {
     });
     
     localStorage.setItem('trips', JSON.stringify(trips));
-    this.router.navigate(['/tabs/home']);
+    this.router.navigate(['/tabs/viaggi'], { replaceUrl: true });
   }
 }
 
