@@ -4,7 +4,11 @@ import {
   Component,
   AfterViewInit,
   ViewChild,
-  ElementRef
+  QueryList,
+  ViewChildren,
+  ElementRef,
+  NgZone,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -69,6 +73,7 @@ interface PlaceItem {
 })
 export class MapPage implements AfterViewInit {
   @ViewChild('mapEl', { static: false }) mapElementRef!: ElementRef;
+  @ViewChild('drawerContent', { static: false }) drawerContent!: ElementRef<HTMLDivElement>;
   mapInstance!: google.maps.Map;
 
   currentDay = 1;
@@ -89,7 +94,11 @@ export class MapPage implements AfterViewInit {
 
   sidebarDistances: string[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ionViewWillEnter() {
     const idParam = this.route.snapshot.queryParamMap.get('tripId');
@@ -164,21 +173,6 @@ export class MapPage implements AfterViewInit {
     });
   }
 
-  renderMarkers() {
-    const today = this.dailyItinerary[this.currentDay - 1];
-    if (!today) return;
-
-    today.ordered.forEach(place => {
-      if (place.latitude && place.longitude) {
-        new google.maps.Marker({
-          position: { lat: place.latitude, lng: place.longitude },
-          map: this.mapInstance,
-          title: place.name
-        });
-      }
-    });
-  }
-
   toggleDayDropdown() {
     this.showDayDropdown = !this.showDayDropdown;
   }
@@ -238,13 +232,109 @@ export class MapPage implements AfterViewInit {
     history.back();
   }
 
-  showMap = false;
+  // showMap = true;
 
-  toggleMapView() {
-    this.showMap = !this.showMap;
+  // toggleMapView() {
+  //   this.showMap = !this.showMap;
   
-    if (this.showMap) {
-      setTimeout(() => this.initMap(), 0); // assicura che il DOM sia aggiornato
+  //   if (this.showMap) {
+  //     setTimeout(() => this.initMap(), 0); // assicura che il DOM sia aggiornato
+  //   }
+  // }
+
+
+  // Gestione del drawer
+  drawerExpanded = false;
+
+  toggleDrawer() {
+    this.drawerExpanded = !this.drawerExpanded;
+  }
+
+  // Gestione del drag per il drawer
+  startY = 0;
+  drawerStartExpanded = false;
+
+  handleDrawerDragStart(event: TouchEvent) {
+    this.startY = event.touches[0].clientY;
+    this.drawerStartExpanded = this.drawerExpanded;
+  }
+
+  handleDrawerDragMove(event: TouchEvent) {
+    const deltaY = event.touches[0].clientY - this.startY;
+
+    if (!this.drawerStartExpanded && deltaY < -50) {
+      this.drawerExpanded = true;
+    } else if (this.drawerStartExpanded && deltaY > 50) {
+      this.drawerExpanded = false;
     }
   }
+
+  @ViewChildren('placeCard', { read: ElementRef }) placeCards!: QueryList<ElementRef<HTMLElement>>;
+
+  selectedPlaceIndex: number | null = null;
+
+  private markers: google.maps.Marker[] = [];
+
+  renderMarkers() {
+    // elimina i vecchi marker
+    this.markers.forEach(m => m.setMap(null));
+    this.markers = [];
+
+    const today = this.dailyItinerary[this.currentDay - 1];
+    if (!today) return;
+
+    today.ordered.forEach((place, index) => {
+      if (place.latitude && place.longitude) {
+        const marker = new google.maps.Marker({
+          position: { lat: place.latitude, lng: place.longitude },
+          map: this.mapInstance,
+          title: place.name
+        });
+
+        marker.addListener('click', () => this.selectPlaceFromMap(index));
+        this.markers.push(marker);
+      }
+    });
+  }
+
+  selectPlaceFromMap(index: number) {
+    this.ngZone.run(() => {
+      // 1) Passa al layout orizzontale
+      this.drawerExpanded = false;
+  
+      // 2) Imposta l’indice selezionato
+      this.selectedPlaceIndex = index;
+  
+      // 3) Forza Angular a ridisegnare la view
+      this.cdr.detectChanges();
+  
+      // 4) Quando il DOM è stabile, centra la card
+      requestAnimationFrame(() => {
+        const container = this.drawerContent?.nativeElement as HTMLElement;
+        const cardRefs = this.placeCards.toArray();
+  
+        if (!container || cardRefs.length === 0) {
+          console.warn(`selectPlaceFromMap: container non trovato o nessuna card disponibile (index=${index})`);
+          return;
+        }
+        if (index < 0 || index >= cardRefs.length) {
+          console.warn(`selectPlaceFromMap: indice non valido ${index}, card count=${cardRefs.length}`);
+          return;
+        }
+  
+        const cardEl = cardRefs[index].nativeElement as HTMLElement | null;
+        if (!cardEl) {
+          console.warn(`selectPlaceFromMap: elemento DOM mancante per card index=${index}`);
+          return;
+        }
+  
+        const containerWidth = container.clientWidth;
+        const cardWidth = cardEl.clientWidth;
+        const target = cardEl.offsetLeft - (containerWidth - cardWidth) / 2;
+  
+        container.scrollTo({ left: target, behavior: 'smooth' });
+      });
+    });
+  }
 }
+
