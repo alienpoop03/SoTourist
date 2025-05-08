@@ -189,3 +189,10 @@ ion-fab-button {
   --color: var(--color-highlight);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.dest-list,
+.trend-list,
+.my-trips {
+  background: linear-gradient(to bottom, #ffffff 0%, #cdcdcd 100%);
+}
+
