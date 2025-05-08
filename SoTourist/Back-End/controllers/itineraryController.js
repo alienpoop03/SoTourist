@@ -120,9 +120,10 @@ const getItinerary = async (req, res) => {
 
     const itinerary = [];
 
-    /*for (let day = 1; day <= totalDays; day++) {
+    
+    for (let day = 1; day <= totalDays; day++) {
       const dayPlan = { day, morning: [], afternoon: [], evening: [] };
-
+/*
       // per ogni sezione (mattina, pom, sera) fetchiamo i luoghi
       for (const [section, queries] of Object.entries(itineraryStructure)) {
         for (const { query, count } of queries) {
