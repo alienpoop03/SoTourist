@@ -24,7 +24,8 @@ export const routes: Routes = [
   {
     path: 'map',
     loadComponent: () => import('./map/map.page').then( m => m.MapPage)
-  },  {
+  },
+  {
     path: 'viaggi',
     loadComponent: () => import('./viaggi/viaggi.page').then( m => m.ViaggiPage)
   },

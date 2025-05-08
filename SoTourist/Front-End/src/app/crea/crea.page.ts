@@ -20,7 +20,6 @@ import {
   IonCardContent,
   IonList
 } from '@ionic/angular/standalone';
-import { AppHeaderComponent } from '../components/header/app-header.component';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 declare var google: any;
@@ -42,7 +41,6 @@ declare var google: any;
     IonCardTitle,
     IonCardContent,
     IonList,
-    AppHeaderComponent,
   ],
   templateUrl: './crea.page.html',
   styleUrls: ['./crea.page.scss'],
@@ -68,6 +66,7 @@ declare var google: any;
 })
 export class CreaPage implements AfterViewInit {
   animateEntry = false;
+  heroPhotoUrl: string | null = null;
 
   step = 1;
   stepmax = this.step; // numero totale di step
@@ -272,5 +271,31 @@ export class CreaPage implements AfterViewInit {
     localStorage.setItem('trips', JSON.stringify(trips));
     this.router.navigate(['/tabs/viaggi'], { replaceUrl: true });
   }
+  
+  private loadHeroPhoto() {
+  if (!this.city) return;
+
+  const query = `${this.city} attrazione turistica`;
+
+  const dummyDiv = document.createElement('div');
+  const map = new (window as any).google.maps.Map(dummyDiv);
+  const service = new (window as any).google.maps.places.PlacesService(map);
+
+  service.findPlaceFromQuery(
+    {
+      query,
+      fields: ['photos']
+    },
+    (results: any[], status: any) => {
+      if (status === 'OK' && results[0]?.photos?.length) {
+        const url = results[0].photos[0].getUrl({ maxWidth: 800 });
+        this.ngZone.run(() => {
+          this.heroPhotoUrl = url;
+        });
+      }
+    }
+  );
+}
+
 }
 
