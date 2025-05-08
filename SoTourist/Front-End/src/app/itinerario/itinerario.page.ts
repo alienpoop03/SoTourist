@@ -113,29 +113,29 @@ export class ItinerarioPage implements AfterViewInit {
 
 
   private loadHeroPhoto() {
-  if (!this.trip?.city) return;
+    if (!this.trip?.city) return;
 
-  const query = `${this.trip.city} attrazione turistica`; // 🔁 fallback intelligente
+    const query = `${this.trip.city} attrazione turistica`; // 🔁 fallback intelligente
 
-  const dummyDiv = document.createElement('div');
-  const map = new (window as any).google.maps.Map(dummyDiv);
-  const service = new (window as any).google.maps.places.PlacesService(map);
+    const dummyDiv = document.createElement('div');
+    const map = new (window as any).google.maps.Map(dummyDiv);
+    const service = new (window as any).google.maps.places.PlacesService(map);
 
-  service.findPlaceFromQuery(
-    {
-      query,
-      fields: ['photos']
-    },
-    (results: any[], status: any) => {
-      if (status === 'OK' && results[0]?.photos?.length) {
-        const url = results[0].photos[0].getUrl({ maxWidth: 800 });
-        this.ngZone.run(() => {
-          this.heroPhotoUrl = url;
-        });
+    service.findPlaceFromQuery(
+      {
+        query,
+        fields: ['photos']
+      },
+      (results: any[], status: any) => {
+        if (status === 'OK' && results[0]?.photos?.length) {
+          const url = results[0].photos[0].getUrl({ maxWidth: 800 });
+          this.ngZone.run(() => {
+            this.heroPhotoUrl = url;
+          });
+        }
       }
-    }
-  );
-}
+    );
+  }
 
 
   openDay(index: number) {

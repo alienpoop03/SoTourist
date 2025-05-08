@@ -5,67 +5,46 @@
 </app-header>
 
 <ion-content class="viaggi-content">
-<!-- se non ci sono viaggi-->
+
+  <!-- Nessun viaggio -->
   <div *ngIf="!currentTrip" class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
     <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
-    <div class="no-trips">
-      Nessun viaggio creato. Inizia subito a pianificare!
-    </div>
   </div>
-  <!-- se  ci sono viaggi
-   
-  viaggio corrente -->
+
+  <!-- Viaggio corrente / imminente -->
   <div *ngIf="currentTrip" class="current-trip-section">
-    <h2 class="I_tuoi_viaggi">
-      {{ currentTrip.status === 'in_corso' ? 'Viaggio in corso' : 'Viaggio imminente' }}
-    </h2>
-  
-    <ion-card
-      class="current-trip"
-      (click)="openItinerary(0)"
-    >
+    <h2>{{ currentTrip.status === 'in_corso' ? 'Viaggio in corso' : 'Viaggio imminente' }}</h2>
+    <ion-card (click)="openItinerary(currentTrip.id)">
       <ion-card-header>
-        <ion-card-title class="current-title">{{ currentTrip.city }}</ion-card-title>
-        <ion-card-subtitle class="current-title">
+        <ion-card-title>{{ currentTrip.city }}</ion-card-title>
+        <ion-card-subtitle>
           {{ currentTrip.start | date:'dd/MM/yyyy' }} – {{ currentTrip.end | date:'dd/MM/yyyy' }}
         </ion-card-subtitle>
-        <ion-button
-          class="delete-btn"
-          fill="clear"
-          color="danger"
-          (click)="deleteTrip(currentTrip); $event.stopPropagation()"
-        >
+        <ion-button fill="clear" color="danger"
+                    (click)="deleteTrip(currentTrip); $event.stopPropagation()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </ion-card-header>
-      <ion-card-content class="current-trip-content">
+      <ion-card-content>
         🏨 {{ currentTrip.accommodation }}<br />
         ⏳ {{ currentTrip.days }} giorni
       </ion-card-content>
     </ion-card>
   </div>
-  
+
   <!-- Viaggi futuri -->
   <div *ngIf="futureTrips.length > 0" class="future-trip-section">
-    <h2 class="I_tuoi_viaggi">Viaggi futuri programmati</h2>
-  
-    <ion-card
-      *ngFor="let trip of futureTrips"
-      (click)="openItinerary(0)"
-    >
+    <h2>Viaggi futuri programmati</h2>
+    <ion-card *ngFor="let trip of futureTrips" (click)="openItinerary(trip.id)">
       <ion-card-header>
         <ion-card-title>{{ trip.city }}</ion-card-title>
         <ion-card-subtitle>
           {{ trip.start | date:'dd/MM/yyyy' }} – {{ trip.end | date:'dd/MM/yyyy' }}
         </ion-card-subtitle>
-        <ion-button
-          class="delete-btn"
-          fill="clear"
-          color="danger"
-          (click)="deleteTrip(trip); $event.stopPropagation()"
-        >
+        <ion-button fill="clear" color="danger"
+                    (click)="deleteTrip(trip); $event.stopPropagation()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </ion-card-header>
@@ -76,11 +55,9 @@
     </ion-card>
   </div>
 
-  
-
-  
 </ion-content>
-<ion-fab slot="fixed" vertical="bottom" horizontal="end"class="custom-fab">
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
   <ion-fab-button (click)="goToCreate()">
     <ion-icon name="add-outline"></ion-icon>
   </ion-fab-button>

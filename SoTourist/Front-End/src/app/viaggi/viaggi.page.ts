@@ -10,16 +10,24 @@ import {
   IonCardContent,
   IonIcon,
   IonButton,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
   IonFab,
   IonFabButton
 } from '@ionic/angular/standalone';
-import { AppHeaderComponent } from "../components/header/app-header.component";
+import { AppHeaderComponent } from '../components/header/app-header.component';
 
+interface Trip {
+  city: string;
+  start: string;  // ISO date
+  end: string;    // ISO date
+  accommodation: string;
+  days: number;
+  itinerary?: any[];
+}
 
+interface TripWithId extends Trip {
+  id: number;
+  status?: 'in_corso' | 'imminente';
+}
 
 @Component({
   selector: 'app-viaggi',
@@ -34,71 +42,58 @@ import { AppHeaderComponent } from "../components/header/app-header.component";
     IonCardContent,
     IonIcon,
     IonButton,
-    IonHeader,
-    IonToolbar, // ✅ necessario per <ion-toolbar>
-    IonTitle, // ✅ necessario per <ion-title>
-    IonButtons, // ✅ necessario per <ion-buttons>
     AppHeaderComponent,
     IonFab,
     IonFabButton,
-],
+  ],
   templateUrl: './viaggi.page.html',
   styleUrls: ['./viaggi.page.scss']
 })
 export class ViaggiPage {
-  trips: any[] = [];
-  currentTrip: any = null;
-  futureTrips: any[] = [];
-  suggestedCities = ['Roma', 'Parigi', 'Tokyo', 'New York', 'Londra', 'Barcellona'];
+  allTrips: TripWithId[] = [];
+  currentTrip: TripWithId | null = null;
+  futureTrips: TripWithId[] = [];
 
   constructor(private router: Router) {}
 
   ionViewWillEnter() {
-    const data = JSON.parse(localStorage.getItem('trips') || '[]');
+    const stored: Trip[] = JSON.parse(localStorage.getItem('trips') || '[]');
+    // 1) ricostruisco l'array con l'id
+    this.allTrips = stored.map((t, i) => ({ ...t, id: i }));
+
     const today = new Date().toISOString().split('T')[0];
-  
-    const todayDate = new Date(today);
-    const allTrips = [...data];
-  
-    // Trova il viaggio in corso
-    const ongoing = allTrips.find(trip => today >= trip.start && today <= trip.end);
-    this.currentTrip = null; // Inizializza currentTrip a null
-    if (ongoing) {
-      this.currentTrip = { ...ongoing, status: 'in_corso' };
-      this.futureTrips = allTrips.filter(t => t !== ongoing && t.start > today);
+
+    // 2) cerco un viaggio in corso
+    const ongoingIdx = this.allTrips.findIndex(t => today >= t.start && today <= t.end);
+    if (ongoingIdx >= 0) {
+      this.currentTrip = { ...this.allTrips[ongoingIdx], status: 'in_corso' };
+      this.futureTrips = this.allTrips.filter((_, i) => i !== ongoingIdx && this.allTrips[i].start > today);
     } else {
-      // Se non c'è viaggio in corso, mostra il più vicino nel futuro
-      const futureSorted = allTrips
+      // 3) viaggio imminente
+      const upcoming = this.allTrips
         .filter(t => t.start > today)
         .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
-  
-      if (futureSorted.length > 0) {
-        this.currentTrip = { ...futureSorted[0], status: 'imminente' };
-        this.futureTrips = futureSorted.slice(1); // escludi il primo
+      if (upcoming.length) {
+        this.currentTrip = { ...upcoming[0], status: 'imminente' };
+        this.futureTrips = upcoming.slice(1);
+      } else {
+        this.currentTrip = null;
+        this.futureTrips = [];
       }
     }
   }
 
-  openItinerary(index: number) {
-    this.router.navigate(['/tabs/itinerario'], { queryParams: { id: index } });
+  openItinerary(id: number) {
+    // passo l’indice corretto
+    this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
   }
 
-  deleteTrip(tripToDelete: any) {
-   const stored = JSON.parse(localStorage.getItem('trips') || '[]');
-  const updated = stored.filter((t: any) => t.id !== tripToDelete.id);
-  localStorage.setItem('trips', JSON.stringify(updated));
-  this.ionViewWillEnter(); // ricarica i dati aggiornati
+  deleteTrip(trip: TripWithId) {
+    const stored: Trip[] = JSON.parse(localStorage.getItem('trips') || '[]');
+    const updated = stored.filter((_, i) => i !== trip.id);
+    localStorage.setItem('trips', JSON.stringify(updated));
+    this.ionViewWillEnter();
   }
-
-  openCreate(city: string) {
-    this.router.navigate(['/tabs/crea'], { queryParams: { city } });
-  }
-
-  openLastTrip() {
-    this.openItinerary(0);
-  }
-
-  
 
   goToCreate() {
     this.router.navigate(['/tabs/crea']);
