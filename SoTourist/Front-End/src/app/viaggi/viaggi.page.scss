@@ -1,154 +1,28 @@
-/* HEADER STILE */
-ion-header {
-    --background: var(--color-primary);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  
-    ion-toolbar {
-      --background: var(--color-primary);
-  
-      ion-title {
-        color: var(--color-highlight);
-        font-weight: bold;
-        font-size: 1.4rem;
-      }
-  
-      ion-icon {
-        color: var(--color-highlight);
-      }
-    }
-  }
-  
-  /* CONTENUTO PRINCIPALE */
-  .home-content {
-    padding: 1rem;
-    --background: var(--color-background1);
-  }
-  
-  /* SEZIONE DI BENVENUTO */
-  .welcome-section {
-    text-align: center;
-    margin-bottom: 2rem;
-  
-    h1 {
-      font-size: 1.8rem;
-      color: var(--color-text);
-      margin-bottom: 0.5rem;
-    }
-  
-    p {
-      font-size: 1rem;
-      color: var(--color-text2);
-    }
-  }
-  
-  .logo {
-    width: 100px;
-    height: auto;
-    margin-bottom: 1rem;
-  }
-  
-  /* SEZIONE LOGO */
-  .brand-name {
-    font-weight: bold;
-    color: var(--color-highlight);
-  }
-  
-  /* TITOLO VIAGGI */
-  .trips-section h2 {
-    margin-left: 0.5rem;
-    color: var(--color-text);
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* CARD VIAGGIO */
-  ion-card {
-    margin-bottom: 1rem;
-    border-radius: 1rem;
-    background: var(--color-background); // Per assicurarti che la card segua il tema
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s;
-  }
-  
-  ion-card:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
-  }
-  
-  ion-card-title {
-    font-size: 1.2rem;
-    color: var(--color-text);
-  }
-  
-  ion-card-subtitle {
-    font-size: 0.9rem;
-    color: var(--color-highlight);
-  }
-  
-  ion-card-content {
-    font-size: 1rem;
-    color: var(--color-text2);
-  }
-  
-  /* NESSUN VIAGGIO */
-  .no-trips {
-    text-align: center;
-    margin-top: 2rem;
-    font-style: italic;
-    color: var(--color-text2);
-  }
-  
-  /* BOTTONE CESTINO */
-  ion-card-header {
-    position: relative;
-  }
-  
-  .delete-btn {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    font-size: 1.2rem;
-    --padding-start: 0;
-    --padding-end: 0;
-    margin: 0;
-  }
-  
-  .I_tuoi_viaggi {
-    color: var(--color-text2) !important;
-  }
-  
-  ion-fab-button {
-    --background: var(--color-primary);
-    --color: var(--color-highlight);
-  }
-  
-  .custom-fab {
-    right: 24px; // default è 16px circa, puoi aumentare per spostarlo
-  }
+/* Sfondo e padding della pagina */
+.viaggi-content {
+  --background: var(--color-background1);
+  padding: 1rem;
+}
 
-  .current-trip{
-    background: var(--color-background-evid);
-    }
+/* Messaggio “nessun viaggio” */
+.welcome-section {
+  text-align: center;
+  margin: 2rem 0;
+}
 
-  .current-trip-content{
-    color: var(--color-text-evid);
-  }
-  
-  .current-trip-section{
-   //background-color:
-    background: linear-gradient(to bottom, var(--color-background4) 0%, var(--color-background1) 100%);
-  }
+/* Logo e testo di benvenuto */
+.logo {
+  width: 100px;
+  margin-bottom: 1rem;
+}
 
-  .future-trip-section{
-    background: linear-gradient(to bottom, var(--color-background4) 0%, var(--color-background1) 100%);
-    
-  }
+/* FAB “Crea” */
+.custom-fab {
+  right: 24px;
+}
 
-  .future-trip-card{
-    grid-template-columns: repeat(2, 1fr);
-    display: grid;
-  }
-
-  .current-title{
-    color: var(--color-highlight);
-  }
+/* Forza che ogni trip-card sia full-width e in colonna */
+.viaggi-content app-trip-card {
+  width: 100%;
+  display: block;
+}

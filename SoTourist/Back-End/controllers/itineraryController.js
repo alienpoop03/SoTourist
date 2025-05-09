@@ -11,7 +11,7 @@ const getItinerary = async (req, res) => {
   let coverPhoto = null;
 
   // Funzione che chiama Places API e filtra i luoghi
-  const fetchPlaces = async (query, count = 2) => {
+   const fetchPlaces = async (query, count = 2, from = null) => {
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
     const response = await axios.get(url, {
       params: {
