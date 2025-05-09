@@ -1,0 +1,1 @@
+cmd /c "cd /d .\SoTourist\Front-End && ionic build && npx cap sync &&  npx cap open android"

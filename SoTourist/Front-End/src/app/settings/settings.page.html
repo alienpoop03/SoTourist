@@ -37,8 +37,8 @@
       </ion-item>
 
       <div *ngIf="editing" class="edit-fields">
-        <ion-input label="Username" [(ngModel)]="username"></ion-input>
-        <ion-input label="Email"    [(ngModel)]="email" type="email"></ion-input>
+        <ion-input label="Username" [(ngModel)]="username" maxlength="20"></ion-input>
+        <ion-input label="Email"    [(ngModel)]="email" type="email" maxlength="20"></ion-input>
         <ion-input label="Password" [(ngModel)]="password" type="password" autocomplete="new-password"></ion-input>
         <ion-button expand="block" color="success" (click)="saveProfile()">Salva</ion-button>
       </div>
