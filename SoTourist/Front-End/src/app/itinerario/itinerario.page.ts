@@ -223,34 +223,41 @@ this.trip = trips.find((t: any) => t.id === this.tripId);
 
   isLoading = false;
 
-  generateItinerary() {
-    if (!this.trip?.city || !this.trip?.days) return;
+  // ... dentro a ItinerarioPage
 
-    this.isLoading = true;
+generateItinerary() {
+  if (!this.trip?.city || !this.trip?.days) return;
 
-    this.api.getItinerary(this.trip.city, this.trip.days, this.trip.accommodation)
-      .subscribe({
-        next: (res) => {
-          this.trip.itinerary = res.itinerary;
+  this.isLoading = true;
 
-          const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-          trips[this.tripId] = this.trip;
-          localStorage.setItem('trips', JSON.stringify(trips));
+  this.api.getItinerary(this.trip.city, this.trip.days, this.trip.accommodation)
+    .subscribe({
+      next: (res) => {
+        // <<<— qui logghiamo tutta la risposta
+        console.log('🛰️ Itinerary API full response:', res);
+      console.log('🗺️ Solo l’array di tappe:', res.itinerary);
 
-          localStorage.setItem('dailyItinerary', JSON.stringify(res.itinerary));
-          localStorage.setItem('tripAccommodation', this.trip.accommodation || '');
+        this.trip.itinerary = res.itinerary;
 
-          if (res.coverPhoto) {
-            localStorage.setItem('coverPhoto', res.coverPhoto);
-          }
+        const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+        trips[this.tripId] = this.trip;
+        localStorage.setItem('trips', JSON.stringify(trips));
 
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('❌ Errore nella generazione:', err);
-          this.isLoading = false;
+        localStorage.setItem('dailyItinerary', JSON.stringify(res.itinerary));
+        localStorage.setItem('tripAccommodation', this.trip.accommodation || '');
+
+        if (res.coverPhoto) {
+          localStorage.setItem('coverPhoto', res.coverPhoto);
         }
-      });
-  }
+
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('❌ Errore nella generazione:', err);
+        this.isLoading = false;
+      }
+    });
+}
+
 
 }

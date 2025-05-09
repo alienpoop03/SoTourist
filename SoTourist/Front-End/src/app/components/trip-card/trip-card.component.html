@@ -1,0 +1,16 @@
+<!-- trip-card.component.html -->
+<ion-card (click)="onClick()">
+  <ion-card-header>
+    <ion-card-title>{{ trip.city }}</ion-card-title>
+    <ion-card-subtitle>
+      {{ trip.start | date:'dd/MM/yyyy' }} – {{ trip.end | date:'dd/MM/yyyy' }}
+    </ion-card-subtitle>
+    <ion-button fill="clear" color="danger" (click)="onDelete($event)">
+      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+    </ion-button>
+  </ion-card-header>
+  <ion-card-content>
+    🏨 {{ trip.accommodation }}<br />
+    ⏳ {{ trip.days }} giorni
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;  /* spazio tra una card e l’altra */
+}
+
+ion-card {
+  border-radius: 1rem;
+  background: var(--color-background);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+}
+
+ion-card:hover {
+  transform: translateY(-3px);
+}
+
+ion-card-header {
+  position: relative;
+  padding: 1rem;
+}
+
+ion-card-title {
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin: 0;
+}
+
+ion-card-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-highlight);
+  margin-top: 0.25rem;
+}
+
+ion-card-content {
+  font-size: 1rem;
+  color: var(--color-text2);
+  padding: 0 1rem 1rem;
+}
+
+ion-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  --padding-start: 0;
+  --padding-end: 0;
+}
