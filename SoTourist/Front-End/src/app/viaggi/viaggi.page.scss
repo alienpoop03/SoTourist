@@ -128,18 +128,25 @@ ion-header {
 
   .current-trip{
     background: var(--color-background-evid);
-  }
+    }
 
   .current-trip-content{
     color: var(--color-text-evid);
   }
   
   .current-trip-section{
-   background-color: var(--color-background4);
+   //background-color:
+    background: linear-gradient(to bottom, var(--color-background4) 0%, var(--color-background1) 100%);
   }
 
   .future-trip-section{
-    background-color: var(--color-background4);
+    background: linear-gradient(to bottom, var(--color-background4) 0%, var(--color-background1) 100%);
+    
+  }
+
+  .future-trip-card{
+    grid-template-columns: repeat(2, 1fr);
+    display: grid;
   }
 
   .current-title{

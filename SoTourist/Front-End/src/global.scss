@@ -71,13 +71,14 @@ ion-icon {
 
 :root {
   --color-primary: #7B1E1E;
+   --color-primary2: #4F1212;
   --color-highlight: #FFCC00;
 
   --color-background: #ffffff;
   --color-background1: #f9f9f9;
   --color-background2: #f9f9f9;
   --color-background3: #f9f9f9;
-  --color-background4: #cfcfcf;
+  --color-background4: #cdcdcd;
   --color-background-evid: #7B1E1E;
   --ion-font-family: "Arial", sans-serif;
   
@@ -91,7 +92,8 @@ ion-icon {
 
 /* Tema scuro */
 .dark {
-  --color-primary: #4F1212;      
+  --color-primary: #4F1212;
+  --color-primary2: #7B1E1E;      
   --color-highlight: #CC9900; 
   
        

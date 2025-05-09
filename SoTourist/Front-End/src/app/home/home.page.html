@@ -55,7 +55,7 @@
 
   <!-- ───── I TUOI VIAGGI ───── -->
   <ion-list *ngIf="trips.length" lines="none" class="my-trips">
-    <ion-list-header>I tuoi viaggi</ion-list-header>
+    <ion-list-header>Storico viaggi</ion-list-header>
 
     <ion-card *ngFor="let trip of trips; let i = index" (click)="openItinerary(i)">
       <ion-card-header>

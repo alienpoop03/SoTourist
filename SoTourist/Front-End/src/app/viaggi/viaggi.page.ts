@@ -57,27 +57,32 @@ export class ViaggiPage {
   constructor(private router: Router) {}
 
   ionViewWillEnter() {
-    const stored: Trip[] = JSON.parse(localStorage.getItem('trips') || '[]');
-    // 1) ricostruisco l'array con l'id
-    this.allTrips = stored.map((t, i) => ({ ...t, id: i }));
+    const data = JSON.parse(localStorage.getItem('trips') || '[]');
+    const today = new Date();
 
-    const today = new Date().toISOString().split('T')[0];
+    const allTrips = [...data];
+    this.currentTrip = null;
 
-    // 2) cerco un viaggio in corso
-    const ongoingIdx = this.allTrips.findIndex(t => today >= t.start && today <= t.end);
-    if (ongoingIdx >= 0) {
-      this.currentTrip = { ...this.allTrips[ongoingIdx], status: 'in_corso' };
-      this.futureTrips = this.allTrips.filter((_, i) => i !== ongoingIdx && this.allTrips[i].start > today);
+    // Viaggio in corso (oggi tra start e end)
+    const ongoing = allTrips.find(trip =>
+      new Date(trip.start) <= today && new Date(trip.end) >= today
+    );
+
+    if (ongoing) {
+      this.currentTrip = { ...ongoing, status: 'in_corso' };
+      this.futureTrips = allTrips.filter(t =>
+        t !== ongoing && new Date(t.start) > today
+      );
     } else {
-      // 3) viaggio imminente
-      const upcoming = this.allTrips
-        .filter(t => t.start > today)
+      // Nessun viaggio in corso → cerca il più vicino nel futuro
+      const futureSorted = allTrips
+        .filter(t => new Date(t.start) > today)
         .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
-      if (upcoming.length) {
-        this.currentTrip = { ...upcoming[0], status: 'imminente' };
-        this.futureTrips = upcoming.slice(1);
+
+      if (futureSorted.length > 0) {
+        this.currentTrip = { ...futureSorted[0], status: 'imminente' };
+        this.futureTrips = futureSorted.slice(1);
       } else {
-        this.currentTrip = null;
         this.futureTrips = [];
       }
     }

@@ -193,6 +193,6 @@ ion-fab-button {
 .dest-list,
 .trend-list,
 .my-trips {
-  background: linear-gradient(to bottom, #ffffff 0%, #cdcdcd 100%);
+  background: linear-gradient(to bottom, var(--color-background) 0%, var(--color-background4) 100%);
 }
 

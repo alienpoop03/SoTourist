@@ -131,6 +131,7 @@ export class ItinerarioPage implements AfterViewInit {
           const url = results[0].photos[0].getUrl({ maxWidth: 800 });
           this.ngZone.run(() => {
             this.heroPhotoUrl = url;
+            localStorage.setItem(`coverPhoto-${this.tripId}`, url);
           });
         }
       }
