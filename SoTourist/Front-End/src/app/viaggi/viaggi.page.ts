@@ -16,6 +16,7 @@ import {
 import { AppHeaderComponent } from '../components/header/app-header.component';
 
 interface Trip {
+  id: number;
   city: string;
   start: string;  // ISO date
   end: string;    // ISO date
@@ -95,7 +96,7 @@ export class ViaggiPage {
 
   deleteTrip(trip: TripWithId) {
     const stored: Trip[] = JSON.parse(localStorage.getItem('trips') || '[]');
-    const updated = stored.filter((_, i) => i !== trip.id);
+const updated = stored.filter(t => t.id !== trip.id);
     localStorage.setItem('trips', JSON.stringify(updated));
     this.ionViewWillEnter();
   }

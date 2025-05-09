@@ -99,7 +99,7 @@ export class ItinerarioPage implements AfterViewInit {
     this.tripId = +idParam;
 
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    this.trip = trips[this.tripId];
+this.trip = trips.find((t: any) => t.id === this.tripId);
     this.daysCount = this.trip?.days || 0;
 
     this.loadHeroPhoto();
