@@ -21,6 +21,8 @@ export interface TripWithId {
   days: number;
   itinerary?: any[];
   status?: 'in_corso' | 'imminente';
+  photo?: string; // ✅ aggiungi questa riga
+
 }
 
 @Component({

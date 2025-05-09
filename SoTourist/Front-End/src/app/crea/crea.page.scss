@@ -100,3 +100,49 @@ ion-label {
 }
 
 
+.travel-mode-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  align-items: center;
+
+  @media (min-width: 500px) {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.travel-mode-card {
+  width: 100%;
+  max-width: 300px;
+  height: 140px;
+  background: var(--color-background);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  text-align: center;
+  padding: 1rem;
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+  }
+
+  ion-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-highlight);
+  }
+
+  span {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}

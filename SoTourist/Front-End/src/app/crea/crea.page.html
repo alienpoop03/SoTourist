@@ -31,17 +31,22 @@
     <div [@fadeInUp]>
       
       <!-- STEP 1 -->
-      <div *ngIf="step === 1" class="step-wrapper">
-        <h2>Siamo già in viaggio?</h2>
-        <div class="options">
-          <ion-button expand="block" (click)="selectMode('vacation')">
-            Sì, sono già in viaggio
-          </ion-button>
-          <ion-button expand="block" (click)="selectMode('planned')">
-            No, voglio pianificare
-          </ion-button>
-        </div>
-      </div>
+<div *ngIf="step === 1" class="step-wrapper">
+  <h2>Stai già viaggiando?</h2>
+
+  <div class="travel-mode-options">
+    <div class="travel-mode-card" (click)="selectMode('vacation')">
+      <ion-icon name="airplane-outline"></ion-icon>
+      <span>Sì, sono già in viaggio</span>
+    </div>
+
+    <div class="travel-mode-card" (click)="selectMode('planned')">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <span>No, voglio pianificare</span>
+    </div>
+  </div>
+</div>
+
 
       <!-- STEP 3 -->
       <div *ngIf="step === 3" class="step-wrapper">

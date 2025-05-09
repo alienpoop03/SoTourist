@@ -1,7 +1,4 @@
-<app-header
-  [title]="'SoTourist'"
-  [iconName]="'home-outline'"
-  [showBackButton]="false">
+<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false">
 </app-header>
 
 <ion-content class="home-content" fullscreen>
@@ -31,7 +28,8 @@
           <ion-card-title>{{ city.name }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-button fill="clear" size="small">Aggiungi <ion-icon slot="end" name="add-outline"></ion-icon></ion-button>
+          <ion-button fill="clear" size="small">Aggiungi <ion-icon slot="end"
+              name="add-outline"></ion-icon></ion-button>
         </ion-card-content>
       </ion-card>
     </div>
@@ -50,26 +48,19 @@
         <ion-card-content>{{ t.city }}</ion-card-content>
       </ion-card>
     </div>
-    
+
   </ion-list>
 
   <!-- ───── I TUOI VIAGGI ───── -->
   <ion-list *ngIf="trips.length" lines="none" class="my-trips">
     <ion-list-header>Storico viaggi</ion-list-header>
 
-    <ion-card *ngFor="let trip of trips; let i = index" (click)="openItinerary(i)">
-      <ion-card-header>
-        <ion-card-title>{{ trip.city }}</ion-card-title>
-        <ion-card-subtitle>{{ trip.start | date:'dd/MM' }} – {{ trip.end | date:'dd/MM/y' }}</ion-card-subtitle>
-        <ion-button fill="clear" color="danger" size="small" (click)="deleteTrip(i); $event.stopPropagation()">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-card-header>
-      <ion-card-content>
-        🏨 {{ trip.accommodation }}<br>
-        ⏳ {{ trip.days }} giorni
-      </ion-card-content>
-    </ion-card>
+    <app-trip-card *ngFor="let trip of trips"
+      [trip]="trip"
+      (remove)="deleteTrip($event)"
+      (open)="openItinerary($event)">
+    </app-trip-card>
+
   </ion-list>
 
 </ion-content>
