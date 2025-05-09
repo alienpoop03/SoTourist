@@ -57,8 +57,12 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) {}
+
   
+  username: string = '';
+  email: string = '';
+  password: string = ''
   profileImageUrl: string | null = null;
 
   onImageSelected(event: Event) {
@@ -72,6 +76,18 @@ export class LoginPage implements OnInit {
 
   triggerFileInput() {
     document.querySelector<HTMLInputElement>('input[type=file]')?.click();
+  }
+
+  saveProfile() {
+    const profile = {
+      username: this.username,
+      email: this.email,
+      password: this.password
+    };
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+
+    // ✅ vai alla Home
+    this.router.navigate(['/tabs/home']);
   }
 
   ngOnInit() {

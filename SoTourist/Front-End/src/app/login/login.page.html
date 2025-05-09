@@ -1,5 +1,26 @@
-<app-profile-icon
-    [src]="profileImageUrl"
-    [editable]="true"
-    (changed)="profileImageUrl = $event">
-  </app-profile-icon>
+<ion-content class="ion-padding" fullscreen>
+  <div class="login-container">
+    
+    <!-- Avatar centrato -->
+    <div class="avatar-container">
+      <app-profile-icon
+        [src]="profileImageUrl"
+        [editable]="true"
+        (changed)="profileImageUrl = $event">
+      </app-profile-icon>
+    </div>
+
+    <!-- Form con sfondo e campi ben visibili -->
+    <div class="form-block">
+      <ion-input label="Username" label-placement="floating" fill="outline"
+                 [(ngModel)]="username" maxlength="20"></ion-input>
+      <ion-input label="Email" label-placement="floating" fill="outline"
+                 [(ngModel)]="email" type="email" maxlength="30"></ion-input>
+      <ion-input label="Password" label-placement="floating" fill="outline"
+                 [(ngModel)]="password" type="password" autocomplete="new-password"></ion-input>
+      
+      <ion-button expand="block" color="success" (click)="saveProfile()">Login</ion-button>
+    </div>
+
+  </div>
+</ion-content>
