@@ -12,15 +12,27 @@
 
     <!-- Form con sfondo e campi ben visibili -->
     <div class="form-block">
-      <ion-input label="Username" label-placement="floating" fill="outline"
-                 [(ngModel)]="username" maxlength="20"></ion-input>
       <ion-input label="Email" label-placement="floating" fill="outline"
                  [(ngModel)]="email" type="email" maxlength="30"></ion-input>
       <ion-input label="Password" label-placement="floating" fill="outline"
                  [(ngModel)]="password" type="password" autocomplete="new-password"></ion-input>
       
-      <ion-button expand="block" color="success" (click)="saveProfile()">Login</ion-button>
+      <ion-button expand="block" 
+        color="success" 
+        (click)="saveProfile()" 
+        [disabled]="!email || !password">Login</ion-button>
+      
+      <ion-button
+        expand="block"
+        fill="clear"
+        color="medium"
+        (click)="goToRegister()"
+        class="register-button"
+      >
+        Non hai un account? Registrati
+      </ion-button>
     </div>
 
+    
   </div>
 </ion-content>

@@ -22,6 +22,8 @@ import {
 import { AppHeaderComponent } from '../components/header/app-header.component';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component'; // 👈 importa il componente
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -57,10 +59,10 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   
-  username: string = '';
+  //username: string = '';
   email: string = '';
   password: string = ''
   profileImageUrl: string | null = null;
@@ -78,16 +80,29 @@ export class LoginPage implements OnInit {
     document.querySelector<HTMLInputElement>('input[type=file]')?.click();
   }
 
-  saveProfile() {
-    const profile = {
-      username: this.username,
-      email: this.email,
-      password: this.password
-    };
-    localStorage.setItem('userProfile', JSON.stringify(profile));
+  async saveProfile() {
+  if (!this.email || !this.password) {
+    alert('Inserisci email e password');
+    return;
+  }
 
-    // ✅ vai alla Home
-    this.router.navigate(['/tabs/home']);
+  const bcrypt = await import('bcryptjs');
+  const passwordHash = bcrypt.hashSync(this.password, 10);
+
+  this.auth.login(this.email, passwordHash).subscribe({
+    next: (res: any) => {
+      localStorage.setItem('userId', res.userId);
+      this.router.navigate(['/tabs/home']);
+    },
+    error: () => {
+      alert('Email o password non corretti');
+    }
+  });
+}
+
+
+  goToRegister() {
+    this.router.navigateByUrl('/registrazione');
   }
 
   ngOnInit() {

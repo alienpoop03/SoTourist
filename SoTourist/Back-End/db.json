@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "userId": "user_174682743214861516",
+    "username": "Sas",
+    "email": "sas@sas.it",
+    "type": "standard",
+    "itineraries": []
+  },
+  {
+    "userId": "user_174682776006245164",
+    "username": "",
+    "email": "",
+    "type": "standard",
+    "itineraries": []
+  }
+]

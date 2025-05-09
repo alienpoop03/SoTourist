@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { StatusBar, Style } from '@capacitor/status-bar'; // 👈 importa il plugin
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,22 @@ import { StatusBar, Style } from '@capacitor/status-bar'; // 👈 importa il plu
 export class AppComponent implements OnInit {
 
   
-  constructor() {
+  constructor(private router: Router) {
     this.configureStatusBar(); // 👈 resta qui
   }
 
   ngOnInit() {
+     // 🌙 Tema scuro
     const dark = localStorage.getItem('darkMode') === 'true';
     document.body.classList.toggle('dark', dark);
+
+    // 🔐 Controllo login
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.router.navigateByUrl('/tabs/home', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    }
   }
 
   async configureStatusBar() {

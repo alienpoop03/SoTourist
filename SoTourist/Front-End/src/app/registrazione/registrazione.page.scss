@@ -28,6 +28,7 @@
   flex-direction: column;
   gap: 1rem;
 
+
   ion-input {
     --background: var(--color-background);
     --color: var(--color-text1);
@@ -41,12 +42,4 @@
   ion-button {
     margin-top: 1rem;
   }
-  
-}
-
-.register-button {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--color-primary);
-  text-align: center;
 }
