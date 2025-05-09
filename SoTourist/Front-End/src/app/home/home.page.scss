@@ -200,3 +200,7 @@ ion-fab-button {
     right: 24px; // default è 16px circa, puoi aumentare per spostarlo
   }
 
+  
+ion-content {
+  --padding-bottom: 80px;
+}
