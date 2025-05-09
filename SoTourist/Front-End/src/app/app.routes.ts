@@ -28,9 +28,13 @@ export const routes: Routes = [
   {
     path: 'viaggi',
     loadComponent: () => import('./viaggi/viaggi.page').then( m => m.ViaggiPage)
-  },  {
+  },
+  {
     path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },  {
+    path: 'registrazione',
+    loadComponent: () => import('./registrazione/registrazione.page').then( m => m.RegistrazionePage)
   },
 
 

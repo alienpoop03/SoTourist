@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "userId": "user_174683097904186136",
+    "username": "sas",
+    "email": "sas@sas.it",
+    "password": "$2b$10$CG0VJFfP9EVksTwnVzArv./OzVRUA2h4nkZqs8eG5Bm1XJHjBMa7O",
+    "type": "standard",
+    "itineraries": []
+  }
+]

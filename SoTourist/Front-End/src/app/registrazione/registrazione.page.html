@@ -1,0 +1,46 @@
+<ion-content class="ion-padding" fullscreen>
+  <div class="login-container">
+
+    <!-- Avatar centrato -->
+    <div class="avatar-container">
+      <app-profile-icon
+        [src]="profileImageUrl"
+        [editable]="true"
+        (changed)="onProfileChanged($event)"
+>
+      </app-profile-icon>
+    </div>
+
+    <!-- Form con sfondo e stile migliorato -->
+    <div class="form-block">
+      <ion-input
+        label="Username"
+        label-placement="floating"
+        fill="outline"
+        [(ngModel)]="username"
+        maxlength="20">
+      </ion-input>
+
+      <ion-input
+        label="Email"
+        label-placement="floating"
+        fill="outline"
+        [(ngModel)]="email"
+        type="email"
+        maxlength="30">
+      </ion-input>
+
+      <ion-input
+        label="Password"
+        label-placement="floating"
+        fill="outline"
+        [(ngModel)]="password"
+        type="password"
+        autocomplete="new-password">
+      </ion-input>
+
+      <ion-button expand="block" color="primary" (click)="onRegister()">Registrati</ion-button>
+    </div>
+
+  </div>
+</ion-content>
