@@ -20,6 +20,10 @@ import {
   IonSelectOption,
 } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from '../components/header/app-header.component';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component'; // 👈 importa il componente
+
 
 @Component({
   selector: 'app-settings',
@@ -41,12 +45,16 @@ import { AppHeaderComponent } from '../components/header/app-header.component';
     AppHeaderComponent,
     IonSelect,
     IonSelectOption,
+    ProfileIconComponent,
   ],
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SettingsPage {
+  constructor(private alertCtrl: AlertController, private router: Router) {}
+
+
   /* profilo */
   username = '';
   email = '';
@@ -114,19 +122,28 @@ export class SettingsPage {
   }
 
   async confirmLogout() {
-    const alert = document.createElement('ion-alert');
-    alert.header = 'Logout';
-    alert.message = 'Vuoi davvero uscire?';
-    alert.buttons = [
-      { text: 'Annulla', role: 'cancel' },
-      { text: 'Logout', role: 'destructive', handler: () => this.logout() },
-    ];
-    document.body.appendChild(alert);
+    const alert = await this.alertCtrl.create({
+      header: 'Logout',
+      message: 'Vuoi davvero uscire?',
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Logout',
+          role: 'destructive',
+          handler: () => this.logout()
+        }
+      ]
+    });
+
     await alert.present();
   }
 
   logout() {
     console.log('❗ Logout effettuato');
+    this.router.navigate(['/tabs/login'], { replaceUrl: true });
   }
 
   async confirmDeleteAccount() {

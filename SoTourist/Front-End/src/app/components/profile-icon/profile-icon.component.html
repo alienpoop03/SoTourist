@@ -1,3 +1,14 @@
-<p>
-  profile-icon works!
-</p>
+<div class="avatar-wrapper" (click)="triggerFileInput()">
+  <img *ngIf="src; else placeholder" [src]="src" alt="Foto profilo" />
+  <ng-template #placeholder>
+    <ion-icon name="person-outline" id="profile-img-id"></ion-icon>
+  </ng-template>
+  <input
+    id="fileInput"
+    type="file"
+    hidden
+    accept="image/*"
+    (change)="onImageSelected($event)"
+  />
+</div>
+

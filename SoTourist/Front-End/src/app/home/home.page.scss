@@ -196,3 +196,7 @@ ion-fab-button {
   background: linear-gradient(to bottom, var(--color-background) 0%, var(--color-background4) 100%);
 }
 
+.custom-fab {
+    right: 24px; // default è 16px circa, puoi aumentare per spostarlo
+  }
+
