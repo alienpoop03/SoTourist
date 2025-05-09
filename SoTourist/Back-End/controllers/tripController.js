@@ -106,3 +106,18 @@ exports.getItinerariesByCity = (req, res) => {
 
   res.json(itineraries);
 };
+
+// 🔍 Itinerario pubblico per ID
+exports.getItineraryById = (req, res) => {
+  const { itineraryId } = req.params;
+  const db = readDB();
+
+  for (const user of db) {
+    const itinerary = user.itineraries.find(it => it.itineraryId === itineraryId);
+    if (itinerary) {
+      return res.json(itinerary);
+    }
+  }
+
+  return res.status(404).json({ error: 'Itinerario non trovato' });
+};
