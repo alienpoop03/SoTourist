@@ -143,7 +143,7 @@ export class SettingsPage {
 
   logout() {
     console.log('❗ Logout effettuato');
-    this.router.navigate(['/tabs/login'], { replaceUrl: true });
+    this.router.navigate(['/login'], { replaceUrl: true });
   }
 
   async confirmDeleteAccount() {
