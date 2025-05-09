@@ -1,15 +1,9 @@
 [
   {
-    "userId": "user_174682743214861516",
-    "username": "Sas",
+    "userId": "user_174683097904186136",
+    "username": "sas",
     "email": "sas@sas.it",
-    "type": "standard",
-    "itineraries": []
-  },
-  {
-    "userId": "user_174682776006245164",
-    "username": "",
-    "email": "",
+    "password": "$2b$10$CG0VJFfP9EVksTwnVzArv./OzVRUA2h4nkZqs8eG5Bm1XJHjBMa7O",
     "type": "standard",
     "itineraries": []
   }

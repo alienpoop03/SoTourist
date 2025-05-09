@@ -142,7 +142,9 @@ export class SettingsPage {
   }
 
   logout() {
-    console.log('❗ Logout effettuato');
+   console.log('❗ Logout effettuato');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userProfile');
     this.router.navigate(['/login'], { replaceUrl: true });
   }
 
@@ -184,6 +186,14 @@ export class SettingsPage {
     } else {
       document.body.classList.remove('dark');
     }
+
+    // ✅ Carica dati profilo
+    const profile = localStorage.getItem('userProfile');
+    if (profile) {
+      const parsed = JSON.parse(profile);
+      this.username = parsed.username || '';
+      this.email = parsed.email || '';
+    } 
   }
 
 }

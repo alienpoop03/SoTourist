@@ -30,10 +30,7 @@ export class RegistrazionePage {
   constructor(private auth: AuthService, private router: Router) {}
 
   async onRegister() {
-    const bcrypt = await import('bcryptjs');
-    const passwordHash = bcrypt.hashSync(this.password, 10);
-
-    this.auth.register(this.username, this.email, passwordHash).subscribe({
+      this.auth.register(this.username, this.email, this.password).subscribe({
       next: () => {
         alert('Registrazione completata!');
         this.router.navigateByUrl('/login');

@@ -89,13 +89,17 @@ export class LoginPage implements OnInit {
   const bcrypt = await import('bcryptjs');
   const passwordHash = bcrypt.hashSync(this.password, 10);
 
-  this.auth.login(this.email, passwordHash).subscribe({
-    next: (res: any) => {
+  this.auth.login(this.email, this.password).subscribe({
+    next: (res) => {
       localStorage.setItem('userId', res.userId);
-      this.router.navigate(['/tabs/home']);
+      localStorage.setItem('userProfile', JSON.stringify({
+        username: res.username,
+        email: this.email
+      }));
+      this.router.navigateByUrl('/tabs/home');
     },
     error: () => {
-      alert('Email o password non corretti');
+      alert('Credenziali non valide');
     }
   });
 }

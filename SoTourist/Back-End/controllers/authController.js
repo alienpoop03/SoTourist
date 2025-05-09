@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const generateId = require('../utils/idGenerator');
-
+const bcrypt = require('bcryptjs');
 const DB_PATH = path.join(__dirname, '../db.json');
 
 function readDB() {
@@ -13,19 +13,25 @@ function writeDB(data) {
 }
 
 // ✅ REGISTRAZIONE con hash già pronto dal frontend
-exports.register = (req, res) => {
-  const { username, email, passwordHash, type } = req.body;
-  const db = readDB();
+exports.register = async (req, res) => {
+  const { username, email, password, type } = req.body;
 
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: 'Dati mancanti' });
+  }
+
+  const db = readDB();
   if (db.some(u => u.email === email)) {
     return res.status(400).json({ error: 'Email già registrata' });
   }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = {
     userId: generateId('user_'),
     username,
     email,
-    password: passwordHash, // direttamente l'hash
+    password: hashedPassword,
     type: type || 'standard',
     itineraries: []
   };
@@ -38,7 +44,7 @@ exports.register = (req, res) => {
 
 // 🔐 LOGIN: riceve email e hash già calcolato
 exports.login = (req, res) => {
-  const { email, passwordHash } = req.body;
+  const { email, password } = req.body;
   const db = readDB();
 
   const user = db.find(u => u.email === email);
@@ -46,7 +52,8 @@ exports.login = (req, res) => {
     return res.status(401).json({ error: 'Credenziali non valide' });
   }
 
-  if (user.password !== passwordHash) {
+  const passwordMatch = bcrypt.compareSync(password, user.password);
+  if (!passwordMatch) {
     return res.status(401).json({ error: 'Credenziali non valide' });
   }
 
