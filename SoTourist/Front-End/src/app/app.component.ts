@@ -9,6 +9,7 @@ import { StatusBar, Style } from '@capacitor/status-bar'; // 👈 importa il plu
 })
 export class AppComponent implements OnInit {
 
+  
   constructor() {
     this.configureStatusBar(); // 👈 resta qui
   }
@@ -28,4 +29,6 @@ export class AppComponent implements OnInit {
       console.warn('Status bar configuration skipped:', err);
     }
   }
+
+  
 }

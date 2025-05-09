@@ -85,8 +85,15 @@ export class SettingsPage {
 
   /*Preferenze*/
   toggleDarkMode() {
-    document.body.classList.toggle('dark', this.darkMode);
-    localStorage.setItem('darkMode', String(this.darkMode));
+    /*document.body.classList.toggle('dark', this.darkMode);
+    localStorage.setItem('darkMode', String(this.darkMode));*/
+    localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
+
+    if (this.darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   }
 
   toggleNotifications() {
@@ -150,4 +157,16 @@ export class SettingsPage {
   openPrivacy() {
     console.log('Apri privacy');
   }
+
+  ngOnInit() {
+    const saved = localStorage.getItem('darkMode');
+    this.darkMode = saved === 'true'; 
+
+    if (this.darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
+
 }
