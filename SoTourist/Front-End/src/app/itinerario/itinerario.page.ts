@@ -83,6 +83,7 @@ export class ItinerarioPage implements AfterViewInit {
   itineraryId!: string;
   daysCount = 0;
   heroPhotoUrl = '';
+  isLocalTrip = false;
 
   /* Flag UI */
   customizationVisible = false;
@@ -122,9 +123,35 @@ export class ItinerarioPage implements AfterViewInit {
 
   ionViewWillEnter() {
     this.itineraryId = this.route.snapshot.queryParamMap.get('id')!;
+
+    // 1. Prova a caricare dal localStorage (bozza)
+    const localTrips = JSON.parse(localStorage.getItem('trips') || '[]');
+    const localTrip = localTrips.find((t: any) => {
+      return t.id?.toString() === this.itineraryId || t.itineraryId === this.itineraryId;
+    });
+
+    if (localTrip) {
+      // Normalizza in TripWithId
+      this.trip = {
+        itineraryId: localTrip.id.toString(),
+        city: localTrip.city,
+        startDate: localTrip.start,
+        endDate: localTrip.end,
+        accommodation: localTrip.accommodation,
+        style: 'generico',
+        itinerary: []
+      };
+      this.isLocalTrip = true;
+      this.daysCount = this.calculateDays(localTrip.start, localTrip.end);
+      this.loadHeroPhoto();
+      return;
+    }
+
+    // 2. Altrimenti carica dal backend
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
       next: (res) => {
         this.trip = res;
+        this.isLocalTrip = false;
         this.daysCount = this.calculateDays(res.startDate, res.endDate);
         this.loadHeroPhoto();
       },
@@ -134,6 +161,7 @@ export class ItinerarioPage implements AfterViewInit {
       }
     });
   }
+
 
 
   /* ───── Scroll hero dinamico ───── */
