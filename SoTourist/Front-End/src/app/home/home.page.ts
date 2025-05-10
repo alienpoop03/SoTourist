@@ -27,8 +27,6 @@ import {
 import { AppHeaderComponent } from "../components/header/app-header.component";
 import { TripCardComponent, TripWithId } from '../components/trip-card/trip-card.component';
 
-
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -65,6 +63,7 @@ export class HomePage {
   trips: any[] = [];
   lastTrip: any = null;
   allTrips: TripWithId[] = [];
+  heroScale = 1;  // valore di default della scala
 
 
   // destinazioni da mostrare
@@ -104,21 +103,30 @@ export class HomePage {
       const cover = localStorage.getItem(`coverPhoto-${id}`);
       this.lastTrip.photo = cover || '../assets/images/PaletoBay.jpeg';
     }
+        this.heroScale = 1;  // reset ogni volta che entri nella pagina
+
+  }
+
+  onContentScroll(event: any) {
+    const scrollTop = event.detail.scrollTop as number;
+    // Calcola scala: 1 → 0.6 al massimo dello scroll (adjustabile)
+    const minScale = 0.6;
+    const maxScroll = 300; // dopo 300px di scroll arrivo a minScale
+    const scale = 1 - (scrollTop / maxScroll) * (1 - minScale);
+    this.heroScale = scale < minScale ? minScale : scale;
   }
 
   openItinerary(index: number) {
     this.router.navigate(['/tabs/itinerario'], { queryParams: { id: index } });
   }
 
-
   deleteTrip(id: string) {
     const trips = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
-    const updated =trips.filter(t => t.itineraryId !== id); // ✅ CORRETTO
+    const updated = trips.filter(t => t.itineraryId !== id); // ✅ CORRETTO
     localStorage.setItem('trips', JSON.stringify(updated));
     // ricarica la lista
     this.ionViewWillEnter();
   }
-
 
   openCreate(city: string) {
     this.router.navigate(['/tabs/crea'], { queryParams: { city } });
@@ -127,8 +135,6 @@ export class HomePage {
   openLastTrip() {
     this.openItinerary(0);
   }
-
-
 
   goToCreate() {
     this.router.navigate(['/crea']);
