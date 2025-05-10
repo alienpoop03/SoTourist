@@ -1,64 +1,41 @@
+/* ========== LAYOUT BASE ========== */
 .crea-content {
   --background: var(--color-background1);
   display: flex;
   flex-direction: column;
-  height: 100vh; // 🧠 forza l’altezza a viewport fissa
-  overflow: hidden; // 🚫 disabilita scroll interno
-  padding: 0; // ❗ rimuove padding che causa overflow
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
 }
 
-.step-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.intro-box {
   text-align: center;
-  color: var(--color-text2);
-  padding: 16px; // spazio interno
+  margin: 1rem auto 1.5rem;
+  max-width: 90%;
+  padding: 1rem;
+  background: var(--color-background2);
+  border-radius: 12px;
+  color: var(--color-text1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+  h1 {
+    color: var(--color-primary);
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: var(--color-text2);
+  }
 }
 
-
-input#cityInput,
-input#accommodationInput {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: var(--color-background);
-  color: var(--color-text);
-  margin-top: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-input#cityInput:focus,
-input#accommodationInput:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(123, 30, 30, 0.2); // puoi anche usare un rgba della primary dinamico, ma questo va bene
-}
-
-ion-item {
-  --background: transparent;
-  --highlight-background: transparent;
-  --min-height: 60px;
-  border: none;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 400px;
-}
-
-ion-label {
-  color: var(--color-text);
-  font-weight: 500;
-}
-
+/* ========== TIMELINE ========== */
 .timeline-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 16px;
-  margin-bottom: 1.5rem;
+  padding: 0 16px 24px;
 }
 
 .timeline-step {
@@ -66,24 +43,20 @@ ion-label {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #ccc; // default grigio chiaro, può restare fisso se vuoi contrasto neutro
-  color: white;
+  background: #ccc;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s;
 
   &.active {
-    background: rgba(123, 30, 30, 0.6); // Bordeaux spento
-    color: white;
+    background: rgba(123, 30, 30, 0.6);
   }
-
   &.current {
-    background: var(--color-highlight); // Giallo acceso
-    color: var(--color-primary);        // Testo bordeaux
-    font-weight: 700;
+    background: var(--color-highlight);
+    color: var(--color-primary);
   }
 }
 
@@ -92,19 +65,47 @@ ion-label {
   height: 2px;
   background: #ccc;
   margin: 0 8px;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
 
   &.filled {
-    background: rgba(123, 30, 30, 0.6); // linea bordeaux spento
+    background: rgba(123, 30, 30, 0.6);
   }
 }
 
+/* ========== STEP WRAPPER ========== */
+.step-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 0 16px;
+  color: var(--color-text2);
 
+  h2 {
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--color-highlight);
+    background: var(--color-background1);
+    border-radius: 0 8px 8px 0;
+    display: inline-block;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+    .h2-icon {
+      margin-right: 0.5rem;
+      color: var(--color-highlight);
+    }
+  }
+}
+
+/* ========== TRAVEL MODE CARDS ========== */
 .travel-mode-options {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 1rem 0;
   align-items: center;
 
   @media (min-width: 500px) {
@@ -120,29 +121,123 @@ ion-label {
   background: var(--color-background);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 2px solid transparent;
   text-align: center;
   padding: 1rem;
   color: var(--color-text);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: transform 0.2s, border-color 0.2s;
   cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
 
   &:hover {
     transform: translateY(-4px);
-    border-color: var(--color-primary);
+    border: 2px solid var(--color-primary);
   }
 
   ion-icon {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
     color: var(--color-highlight);
+    margin-bottom: 0.5rem;
   }
 
   span {
-    font-size: 1rem;
     font-weight: 600;
   }
+}
+
+/* ========== STEP 2 – INPUT CARD ========== */
+.location-card {
+  background: var(--color-background);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  max-width: 400px;
+  margin: 1rem auto;
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0.5rem 0 0.2rem;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 12px;
+  background: var(--color-background1);
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
+
+  &:focus {
+    border-color: var(--color-highlight);
+    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.3);
+    outline: none;
+  }
+}
+
+/* ========== STEP 4 – RIEPILOGO ========== */
+.hero-photo {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: fadeInScale 0.5s ease;
+}
+
+.summary-card {
+  background: var(--color-background);
+  padding: 2rem;
+  width: 95%;
+  max-width: 680px;
+  margin: 0 auto 1.5rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: left;
+  color: var(--color-text);
+  animation: fadeInScale 0.4s ease 0.1s forwards;
+
+  h3 {
+    color: var(--color-primary);
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+
+    strong {
+      color: var(--color-highlight);
+    }
+  }
+}
+
+/* ========== BOTTONE FINALE ========== */
+.confirm-btn {
+  --background: var(--color-highlight);
+  --color: var(--color-primary);
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-top: 1rem;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* ========== ANIMAZIONI ========== */
+@keyframes fadeInScale {
+  0%   { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
 }

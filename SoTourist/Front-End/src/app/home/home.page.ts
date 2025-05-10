@@ -129,6 +129,6 @@ export class HomePage {
 
 
   goToCreate() {
-    this.router.navigate(['/tabs/crea']);
+    this.router.navigate(['/crea']);
   }
 }

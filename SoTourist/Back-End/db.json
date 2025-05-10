@@ -6,5 +6,13 @@
     "password": "$2b$10$CG0VJFfP9EVksTwnVzArv./OzVRUA2h4nkZqs8eG5Bm1XJHjBMa7O",
     "type": "standard",
     "itineraries": []
+  },
+  {
+    "userId": "user_174683375571350402",
+    "username": "Gabry Fara",
+    "email": "gabriele.faraone.gf@gmail.com",
+    "password": "$2b$10$od9mw/X2yKjG3BOziobWdu1HvwqQc25OLZXUCUMQ50TnIJa/P9Of.",
+    "type": "standard",
+    "itineraries": []
   }
 ]

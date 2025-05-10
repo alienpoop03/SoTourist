@@ -27,19 +27,14 @@ export const routes: Routes = [
           import('../profilo/profilo.page').then((m) => m.ProfiloPage),
       },
       {
-        path: 'crea',
-        loadComponent: () =>
-          import('../crea/crea.page').then( m => m.CreaPage),
-      },
-      {
         path: 'map',
         loadComponent: () =>
-          import('../map/map.page').then( m => m.MapPage),
+          import('../map/map.page').then(m => m.MapPage),
       },
       {
         path: 'settings',
         loadComponent: () =>
-          import('../settings/settings.page').then( m => m.SettingsPage),
+          import('../settings/settings.page').then(m => m.SettingsPage),
       },
       {
         path: 'viaggi',
@@ -53,5 +48,10 @@ export const routes: Routes = [
       },
     ]
   },
-  
+  {
+    path: 'crea',
+    loadComponent: () =>
+      import('../crea/crea.page').then(m => m.CreaPage),
+  },
+
 ];

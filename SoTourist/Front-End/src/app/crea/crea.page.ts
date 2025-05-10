@@ -20,7 +20,7 @@ import {
   IonCardContent,
   IonList
 } from '@ionic/angular/standalone';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 declare var google: any;
 
@@ -46,22 +46,32 @@ declare var google: any;
   styleUrls: ['./crea.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
-    trigger('slideIn', [
-      transition(':enter', [
-        style({ transform: 'translateY(100%)', opacity: 0 }),
-        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
-      ])
-    ]),
-    trigger('fadeInUp', [
-      transition(':enter', [
-        style({ transform: 'translateY(100%)', opacity: 0 }),
-        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
-      ])
+  trigger('slideIn', [
+    transition(':enter', [
+      style({ transform: 'translateY(100%)', opacity: 0 }),
+      animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
     ])
-  ]
+  ]),
+  trigger('fadeInUp', [
+    transition(':enter', [
+      style({ transform: 'translateY(100%)', opacity: 0 }),
+      animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+    ]),
+    transition(':leave', [
+      animate('300ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
+    ])
+  ]),
+  trigger('fadeStep', [
+    transition(':enter', [
+      style({ opacity: 0, transform: 'translateY(20px)' }),
+      animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+    ]),
+    transition(':leave', [
+      animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
+    ])
+  ])
+]
+
 
 })
 export class CreaPage implements AfterViewInit {

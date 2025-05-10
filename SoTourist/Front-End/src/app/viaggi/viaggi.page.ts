@@ -61,6 +61,6 @@ export class ViaggiPage {
   }
 
   goToCreate() {
-    this.router.navigate(['/tabs/crea']);
+    this.router.navigate(['/crea']);
   }
 }

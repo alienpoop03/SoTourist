@@ -1,151 +1,146 @@
 <ion-page>
-  <ion-content
-  fullscreen
-  class="crea-content"
-  *ngIf="animateEntry"
-  [@slideIn]
->
 
+  <!-- ion-content SEMPRE montato: niente *ngIf qui -->
+  <ion-content fullscreen class="crea-content" [@slideIn]>
 
-    <!-- TIMELINE SEMPRE VISIBILE -->
-    <div class="timeline-container">
-      <ng-container *ngFor="let s of [1,2,3,4]; let i = index">
-        <div
-          class="timeline-step"
-          [class.active]="step >= s"
-          [class.current]="step === s"
-          (click)="goToStep(s)"
-        >
-          {{ s }}
+    <!-- wrapper che compare solo quando animateEntry === true -->
+    <div *ngIf="animateEntry">
+
+      <!-- INTRO -->
+      <div class="intro-box">
+        <h1>🎒 Inizia il tuo viaggio</h1>
+        <p>Completa questi 4 step per pianificare la tua prossima avventura.</p>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="timeline-container">
+        <ng-container *ngFor="let s of [1,2,3,4]; let i = index">
+          <div
+            class="timeline-step"
+            [class.active]="step >= s"
+            [class.current]="step === s"
+            (click)="goToStep(s)">
+            {{ s }}
+          </div>
+          <div
+            class="timeline-line"
+            *ngIf="i < 3"
+            [class.filled]="step > s"></div>
+        </ng-container>
+      </div>
+
+      <!-- WRAPPER DI TUTTI GLI STEP -->
+      <div [@fadeInUp]>
+
+        <!-- STEP 1 – modalità viaggio -->
+        <div *ngIf="step === 1" class="step-wrapper" [@fadeStep]>
+          <h2>Stai già viaggiando?</h2>
+
+          <div class="travel-mode-options">
+            <div class="travel-mode-card" (click)="selectMode('vacation')">
+              <ion-icon name="airplane-outline"></ion-icon>
+              <span>Sì, sono già in viaggio</span>
+            </div>
+
+            <div class="travel-mode-card" (click)="selectMode('planned')">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <span>No, voglio pianificare</span>
+            </div>
+          </div>
         </div>
-        <div
-          class="timeline-line"
-          *ngIf="i < 3"
-          [class.filled]="step > s"
-        ></div>
-      </ng-container>
-    </div>
-    
 
-    <!-- WRAPPER DI TUTTI GLI STEP -->
-    <div [@fadeInUp]>
-      
-      <!-- STEP 1 -->
-<div *ngIf="step === 1" class="step-wrapper">
-  <h2>Stai già viaggiando?</h2>
+        <!-- STEP 2 – città & alloggio -->
+        <div *ngIf="step === 2" class="step-wrapper" [@fadeStep]>
 
-  <div class="travel-mode-options">
-    <div class="travel-mode-card" (click)="selectMode('vacation')">
-      <ion-icon name="airplane-outline"></ion-icon>
-      <span>Sì, sono già in viaggio</span>
-    </div>
+          <h2>
+            <ion-icon name="location-outline" class="h2-icon"></ion-icon>
+            Dove stai andando?
+          </h2>
 
-    <div class="travel-mode-card" (click)="selectMode('planned')">
-      <ion-icon name="calendar-outline"></ion-icon>
-      <span>No, voglio pianificare</span>
-    </div>
-  </div>
-</div>
+          <ion-card class="location-card">
+            <ion-card-content>
 
+              <label for="cityInput" class="input-label">Città</label>
+              <input id="cityInput"
+                     [(ngModel)]="city"
+                     placeholder="Es. Roma"
+                     class="custom-input" />
 
-      <!-- STEP 3 -->
-      <div *ngIf="step === 3" class="step-wrapper">
-        <h2>Seleziona la data d'inizio</h2>
-        <ion-item>
-          <ion-datetime
-            presentation="date"
-            display-format="DD MMM YYYY"
-            
-            (ionChange)="onStartDateChange($event)"
-            
-            [value]="startDate"
-            [min]="today"
-            locale="it-IT"
-          ></ion-datetime>
-        </ion-item>
-      </div>
+              <label for="accommodationInput" class="input-label">Alloggio</label>
+              <input id="accommodationInput"
+                     [(ngModel)]="accommodation"
+                     placeholder="Es. Hotel Roma"
+                     class="custom-input" />
 
-      <div *ngIf="step === 3.5" class="step-wrapper">
-        <h2>Seleziona la data di fine</h2>
-        <ion-item>
-          <ion-datetime
-            presentation="date"
-            display-format="DD MMM YYYY"
-            
-            (ionChange)="onEndDateChange($event)"
+            </ion-card-content>
+          </ion-card>
 
-            [value]="endDate"
-            [min]="startDate"
-            locale="it-IT"
-          ></ion-datetime>
-        </ion-item>
-        <ion-button
-          expand="block"
-          [disabled]="!canProceedDates()"
-          (click)="confirmDates()"
-        >
-          Avanti
-        </ion-button>
-      </div>
+          <ion-button expand="block"
+                      [disabled]="!canProceedCity()"
+                      (click)="confirmCity()">
+            Avanti
+          </ion-button>
+        </div>
 
-      <!-- STEP 2 -->
-      <div *ngIf="step === 2" class="step-wrapper">
-        <h2>In quale città?</h2>
-        <ion-item>
-          <ion-label position="stacked">Città</ion-label>
-          <input
-            id="cityInput"
-            [(ngModel)]="city"
-            placeholder="Es. Roma"
-            class="native-input"
-          />
-        </ion-item>
+        <!-- STEP 3 – data inizio -->
+        <div *ngIf="step === 3" class="step-wrapper" [@fadeStep]>
+          <h2>Quando inizia il viaggio?</h2>
+          <ion-item>
+            <ion-datetime presentation="date"
+                          display-format="DD MMM YYYY"
+                          (ionChange)="onStartDateChange($event)"
+                          [value]="startDate"
+                          [min]="today"
+                          locale="it-IT">
+            </ion-datetime>
+          </ion-item>
+        </div>
 
-        <ion-item>
-          <ion-label position="stacked">Alloggio</ion-label>
-          <input
-            id="accommodationInput"
-            [(ngModel)]="accommodation"
-            placeholder="Es. Hotel Roma"
-            class="native-input"
-          />
-        </ion-item>
+        <!-- STEP 3.5 – data fine -->
+        <div *ngIf="step === 3.5" class="step-wrapper" [@fadeStep]>
+          <h2>Quando finisce il viaggio?</h2>
+          <ion-item>
+            <ion-datetime presentation="date"
+                          display-format="DD MMM YYYY"
+                          (ionChange)="onEndDateChange($event)"
+                          [value]="endDate"
+                          [min]="startDate"
+                          locale="it-IT">
+            </ion-datetime>
+          </ion-item>
 
-        <ion-button
-          expand="block"
-          [disabled]="!canProceedCity()"
-          (click)="confirmCity()"
-        >
-          Avanti
-        </ion-button>
-      </div>
+          <ion-button expand="block"
+                      [disabled]="!canProceedDates()"
+                      (click)="confirmDates()">
+            Avanti
+          </ion-button>
+        </div>
 
-      <!-- STEP 4 -->
-      <div *ngIf="step === 4" class="step-wrapper">
-        <img
-  *ngIf="heroPhotoUrl"
-  [src]="heroPhotoUrl"
-  alt="Foto di {{ city }}"
-  style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem;"
->
+        <!-- STEP 4 – riepilogo -->
+        <div *ngIf="step === 4" class="step-wrapper" [@fadeStep]>
 
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Riepilogo</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p><strong>Città:</strong> {{ city }}</p>
+          <img *ngIf="heroPhotoUrl"
+               [src]="heroPhotoUrl"
+               alt="Foto di {{ city }}"
+               class="hero-photo">
+
+          <div class="summary-card">
+            <h3>📍 Viaggio a {{ city }}</h3>
             <p><strong>Dal:</strong> {{ startDate | date:'fullDate' }}</p>
             <p><strong>Al:</strong> {{ endDate | date:'fullDate' }}</p>
-            <p><strong>Giorni:</strong> {{ calendarDays.length }}</p>
-          </ion-card-content>
-        </ion-card>
-        <ion-button expand="block" color="secondary" (click)="confirmSurvey()">
-          Conferma e salva
-        </ion-button>
-      </div>
+            <p><strong>Durata:</strong> {{ calendarDays.length }} giorni</p>
+          </div>
 
-    </div>
+          <ion-button class="confirm-btn"
+                      expand="block"
+                      (click)="confirmSurvey()">
+            Conferma e salva
+          </ion-button>
+        </div>
+
+      </div> <!-- /fadeInUp wrapper -->
+
+    </div> <!-- /animateEntry wrapper -->
 
   </ion-content>
 </ion-page>
