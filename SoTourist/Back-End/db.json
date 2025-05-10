@@ -5,7 +5,18 @@
     "email": "sas@sas.it",
     "password": "$2b$10$CG0VJFfP9EVksTwnVzArv./OzVRUA2h4nkZqs8eG5Bm1XJHjBMa7O",
     "type": "standard",
-    "itineraries": []
+    "itineraries": [
+      {
+        "city": "Breslavia, Polonia",
+        "accommodation": "Świętego Mikołaja 67, 50-127 Wrocław, Polonia",
+        "startDate": "2025-05-10",
+        "endDate": "2025-05-11",
+        "style": "generico",
+        "coverPhoto": "",
+        "places": [],
+        "itineraryId": "trip_174688379058151952"
+      }
+    ]
   },
   {
     "userId": "user_174683375571350402",
