@@ -35,11 +35,19 @@
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <div *ngIf="trip?.itinerary?.[i]?.style" class="day-style">
-              <strong>Stile:</strong> {{ trip.itinerary[i].style }}
-            </div>
-            <p>Programma per il giorno {{ i + 1 }}...</p>
+            <!-- Se ho dei dati per il giorno, li mostro -->
+            <p *ngIf="getDayItems(i).length > 0; else placeholder">
+              <ng-container *ngFor="let item of getDayItems(i); let last = last">
+                <strong>•</strong> {{ item }}<span *ngIf="!last">&nbsp;&nbsp;</span>
+              </ng-container>
+            </p>
+
+            <!-- Altrimenti mostro un placeholder di default -->
+            <ng-template #placeholder>
+              <p>Programma per il giorno {{ i + 1 }}…</p>
+            </ng-template>
           </ion-card-content>
+
         </ion-card>
 
       </div>

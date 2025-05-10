@@ -14,5 +14,24 @@
     "password": "$2b$10$od9mw/X2yKjG3BOziobWdu1HvwqQc25OLZXUCUMQ50TnIJa/P9Of.",
     "type": "standard",
     "itineraries": []
+  },
+  {
+    "userId": "user_174688377607441164",
+    "username": "suca",
+    "email": "suca",
+    "password": "$2b$10$j7sAApeziXbSlPxo3QkvVegEktKieoKIIxce4JFfmoaxnaxHBpjQ2",
+    "type": "standard",
+    "itineraries": [
+      {
+        "city": "Breslavia, Polonia",
+        "accommodation": "Świętego Mikołaja 67, 50-127 Wrocław, Polonia",
+        "startDate": "2025-05-10",
+        "endDate": "2025-05-11",
+        "style": "generico",
+        "coverPhoto": "",
+        "places": [],
+        "itineraryId": "trip_174688379058151963"
+      }
+    ]
   }
 ]

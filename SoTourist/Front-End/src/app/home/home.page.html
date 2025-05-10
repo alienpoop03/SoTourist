@@ -15,8 +15,6 @@
     </div>
   </div>
 
-
-
   <!-- ───── DESTINAZIONI IMPERDIBILI ───── -->
   <ion-list class="dest-list">
     <ion-list-header>Destinazioni imperdibili</ion-list-header>
@@ -33,12 +31,13 @@
         </ion-card-content>
       </ion-card>
     </div>
+    
   </ion-list>
 
   <!-- ───── PIÙ VISITATI QUESTA SETTIMANA ───── -->
   <ion-list class="trend-list">
     <ion-list-header>I più visitati questa settimana</ion-list-header>
-
+  
     <div class="trend-scroll">
       <ion-card *ngFor="let t of trending">
         <img [src]="t.photo" alt="{{ t.city }}">
@@ -48,19 +47,7 @@
         <ion-card-content>{{ t.city }}</ion-card-content>
       </ion-card>
     </div>
-
-  </ion-list>
-
-  <!-- ───── I TUOI VIAGGI ───── -->
-  <ion-list *ngIf="trips.length" lines="none" class="my-trips">
-    <ion-list-header>Storico viaggi</ion-list-header>
-
-    <app-trip-card *ngFor="let trip of trips"
-      [trip]="trip"
-      (remove)="deleteTrip($event)"
-      (open)="openItinerary($event)">
-    </app-trip-card>
-
+  
   </ion-list>
 
 </ion-content>
