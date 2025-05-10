@@ -1,0 +1,67 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.trip-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: var(--color-background);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.trip-layout {
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+}
+
+.trip-photo {
+  flex: 1;
+  min-width: 120px;
+  background-size: cover;
+  background-position: center;
+}
+
+.trip-details {
+  flex: 2;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--color-text);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.trip-city {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.trip-dates {
+  font-size: 0.9rem;
+  color: var(--color-highlight);
+  margin: 0 0 0.25rem;
+}
+
+.trip-accommodation,
+.trip-days {
+  font-size: 0.85rem;
+  color: var(--color-text2);
+  margin: 0;
+}
