@@ -25,5 +25,13 @@
     "password": "$2b$10$od9mw/X2yKjG3BOziobWdu1HvwqQc25OLZXUCUMQ50TnIJa/P9Of.",
     "type": "standard",
     "itineraries": []
+  },
+  {
+    "userId": "user_174688427128853295",
+    "username": "asdf",
+    "email": "asdf",
+    "password": "$2b$10$l4ls9MFPcaD0Z/BbMjq40eRSEtMMK91T7pMMBKPgRXdC/87x3un6m",
+    "type": "standard",
+    "itineraries": []
   }
 ]
