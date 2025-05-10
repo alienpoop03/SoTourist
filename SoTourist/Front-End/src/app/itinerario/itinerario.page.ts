@@ -8,13 +8,14 @@ import {
   NgZone
 } from '@angular/core';
 
+import { TripWithId } from '../models/trip.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
 import { ApiService } from '../services/api.service';
 import { GenerationOverlayComponent } from '../components/generation-overlay/generation-overlay.component';
+import { ItineraryService } from '../services/itinerary.service';
 
 /* ───── Ionic standalone components usati nel template ───── */
 import {
@@ -77,9 +78,9 @@ export class ItinerarioPage implements AfterViewInit {
   overlayOpacity = 1;
 
   /* Dati del viaggio */
-  trip: any = null;
+  trip: TripWithId | null = null;
+  itineraryId!: string;
   daysCount = 0;
-  tripId!: number;
   heroPhotoUrl = '';
 
   /* Flag UI */
@@ -104,7 +105,8 @@ export class ItinerarioPage implements AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private ngZone: NgZone,
-    private api: ApiService
+    private api: ApiService,
+    private itineraryService: ItineraryService
   ) { }
 
   /* ───── Lifecycle ───── */
@@ -113,19 +115,20 @@ export class ItinerarioPage implements AfterViewInit {
   }
 
   ionViewWillEnter() {
-    this.tripId = +this.route.snapshot.queryParamMap.get('id')!;
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    this.trip = trips.find((t: any) => t.id === this.tripId);
-    this.daysCount = this.trip?.days || 0;
-
-    this.loadHeroPhoto();
-
-    /* Se l’itinerario è già presente, salvo in LS per la mappa */
-    if (this.trip?.itinerary) {
-      localStorage.setItem('dailyItinerary', JSON.stringify(this.trip.itinerary));
-      localStorage.setItem('tripAccommodation', this.trip.accommodation || '');
-    }
+    this.itineraryId = this.route.snapshot.queryParamMap.get('id')!;
+    this.itineraryService.getItineraryById(this.itineraryId).subscribe({
+      next: (res) => {
+        this.trip = res;
+        this.daysCount = this.calculateDays(res.startDate, res.endDate);
+        this.loadHeroPhoto();
+      },
+      error: (err) => {
+        console.error('Errore caricamento itinerario:', err);
+        this.router.navigate(['/tabs/viaggi']);
+      }
+    });
   }
+
 
   /* ───── Scroll hero dinamico ───── */
   onScroll(ev: CustomEvent) {
@@ -155,7 +158,7 @@ export class ItinerarioPage implements AfterViewInit {
           const url = results[0].photos[0].getUrl({ maxWidth: 800 });
           this.ngZone.run(() => {
             this.heroPhotoUrl = url;
-            localStorage.setItem(`coverPhoto-${this.tripId}`, url);
+            localStorage.setItem(`coverPhoto-${this.itineraryId}`, url);
           });
         } else {
           this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg';
@@ -171,7 +174,7 @@ export class ItinerarioPage implements AfterViewInit {
       return;
     }
     this.router.navigate(['/tabs/map'], {
-      queryParams: { tripId: this.tripId, day: index + 1 }
+      queryParams: { itineraryId: this.itineraryId, day: index + 1 }
     });
   }
 
@@ -179,10 +182,13 @@ export class ItinerarioPage implements AfterViewInit {
   toggleCustomizationSheet() { this.customizationVisible = !this.customizationVisible; }
 
   openDayCustomization(index: number) {
+    if (!this.trip) return;  // 👈 blocca subito se è null
+
     if (!this.trip.itinerary) this.trip.itinerary = [];
     if (!this.trip.itinerary[index]) {
       this.trip.itinerary[index] = { style: '', atmosphere: '', mustSee: '' };
     }
+
     this.selectedDayIndex = index;
     this.isTripCustomization = false;
     this.customizationVisible = true;
@@ -197,25 +203,32 @@ export class ItinerarioPage implements AfterViewInit {
   saveDayStyle() {
     if (this.selectedDayIndex === null) return;
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    trips[this.tripId] = this.trip;
+    trips[this.itineraryId] = this.trip;
     localStorage.setItem('trips', JSON.stringify(trips));
   }
 
   /* ───── Genera itinerario via backend dummy ───── */
   generateItinerary() {
-    if (!this.trip?.city || !this.trip?.days) return;
+    if (!this.trip || !this.trip?.city || !this.trip?.startDate || !this.trip?.endDate) return;
     this.isLoading = true;
 
-    this.api.getItinerary(this.trip.city, this.trip.days, this.trip.accommodation)
+    const start = new Date(this.trip.startDate);
+    const end = new Date(this.trip.endDate);
+    const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+    this.api.getItinerary(this.trip.city, days, this.trip.accommodation)
       .subscribe({
         next: res => {
-          this.trip.itinerary = res.itinerary;
+          this.trip!.itinerary = res.itinerary;
           const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-          trips[this.tripId] = this.trip;
-          localStorage.setItem('trips', JSON.stringify(trips));
+          const index = trips.findIndex((t: any) => t.itineraryId === this.itineraryId);
+          if (index !== -1) {
+            trips[index] = this.trip;
+            localStorage.setItem('trips', JSON.stringify(trips));
+          }
 
           localStorage.setItem('dailyItinerary', JSON.stringify(res.itinerary));
-          localStorage.setItem('tripAccommodation', this.trip.accommodation || '');
+          localStorage.setItem('tripAccommodation', this.trip!.accommodation || '');
           if (res.coverPhoto) localStorage.setItem('coverPhoto', res.coverPhoto);
 
           this.isLoading = false;
@@ -226,6 +239,7 @@ export class ItinerarioPage implements AfterViewInit {
         }
       });
   }
+
 
   /* ───── Dati da mostrare nella card giorno ───── */
   getDayItems(index: number): string[] {
@@ -242,5 +256,20 @@ export class ItinerarioPage implements AfterViewInit {
       day.atmosphere,
       ...splitMustSee
     ].filter(Boolean);    // scarta undefined / ''
+  }
+
+  //calcolo giorni
+  private calculateDayCount(start: string, end: string): number {
+    const s = new Date(start);
+    const e = new Date(end);
+    const diff = e.getTime() - s.getTime();
+    return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
+  }
+
+  private calculateDays(start: string, end: string): number {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const diff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    return diff + 1;
   }
 }

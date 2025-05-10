@@ -6,7 +6,7 @@ export interface TripWithId {
   accommodation: string;
   coverPhoto?: string;
   style?: string;
-  places?: any[];
+  itinerary?: any[]; // ← o specifica il tipo preciso se hai definito un'interfaccia `Place[]`
 }
 
 export interface Place {
