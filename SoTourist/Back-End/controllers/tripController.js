@@ -121,3 +121,25 @@ exports.getItineraryById = (req, res) => {
 
   return res.status(404).json({ error: 'Itinerario non trovato' });
 };
+
+exports.updateItinerary = (req, res) => {
+  const { userId, itineraryId } = req.params;
+  const updatedData = req.body;
+
+  const db = readDB();
+  const user = db.find(u => u.userId === userId);
+  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+
+  const itinerary = user.itineraries.find(it => it.itineraryId === itineraryId);
+  if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
+
+  // Applica modifiche ai campi (solo quelli presenti nel body)
+  Object.keys(updatedData).forEach(key => {
+    if (key !== 'itineraryId') {
+      itinerary[key] = updatedData[key];
+    }
+  });
+
+  writeDB(db);
+  res.status(200).json(itinerary);
+};
