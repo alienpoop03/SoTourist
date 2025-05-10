@@ -15,4 +15,8 @@ router.delete('/users/:userId/itineraries/:itineraryId', tripController.deleteIt
 // 📄 GET itinerari per città (tra i vari utenti)
 router.get('/itineraries', tripController.getItinerariesByCity);
 
+// GET itinerario singolo per ID
+router.get('/itineraries/:itineraryId', tripController.getItineraryById);
+
+
 module.exports = router;
