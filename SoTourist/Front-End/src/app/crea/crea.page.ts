@@ -129,7 +129,7 @@ export class CreaPage implements AfterViewInit {
     this.city = '';
     this.accommodation = '';
 
-    const saved = localStorage.getItem('unfinishedCards');
+    const saved = localStorage.getItem('trips');
     this.unfinishedCards = saved ? JSON.parse(saved) : [];
 
     this.animateEntry = false;
@@ -243,11 +243,11 @@ export class CreaPage implements AfterViewInit {
 
     // salva nel localStorage
     this.unfinishedCards.push(this.currentDraft);
-    localStorage.setItem('unfinishedCards', JSON.stringify(this.unfinishedCards));
+    localStorage.setItem('trips', JSON.stringify(this.unfinishedCards));
 
     // naviga alla pagina Viaggi passando il draftId
     this.router.navigate(['/tabs/viaggi'], {
-      queryParams: { draftId: this.currentDraft.itineraryId }
+      queryParams: { id: this.currentDraft.itineraryId }
     });
   }
 

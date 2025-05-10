@@ -85,7 +85,7 @@ export class ViaggiPage {
     });
 
     // 🔴 Carica le bozze dal localStorage
-    const raw = localStorage.getItem('unfinishedCards');
+    const raw = localStorage.getItem('trips');
     this.drafts = raw ? JSON.parse(raw) : [];
   }
 
@@ -118,7 +118,7 @@ export class ViaggiPage {
   }
   deleteDraft(id: string) {
     this.drafts = this.drafts.filter(t => t.itineraryId !== id);
-    localStorage.setItem('unfinishedCards', JSON.stringify(this.drafts));
+    localStorage.setItem('trips', JSON.stringify(this.drafts));
   }
 
   goToCreate() {
