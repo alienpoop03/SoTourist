@@ -102,7 +102,7 @@ export class HomePage {
     if (this.lastTrip) {
       const id = this.lastTrip.id || 0;
       const cover = localStorage.getItem(`coverPhoto-${id}`);
-      this.lastTrip.photo = cover || 'https://wefloatsirmione.com/wp-content/uploads/2023/08/wefloat-tour-bardolino-1080x1000-c-default.jpg';
+      this.lastTrip.photo = cover || '../assets/images/PaletoBay.jpeg';
     }
   }
 

@@ -28,16 +28,6 @@
   color: white;
   padding: 1rem;
   transition: opacity 0.2s ease-out;
-
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 0.3rem;
-  }
-
-  p {
-    font-size: 1rem;
-    opacity: 0.85;
-  }
 }
 
 /* ───── LISTA GIORNI ───── */
@@ -46,36 +36,55 @@
   background: var(--color-background1);
 }
 
+.no-days {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-text2);
+}
+
+/* ───── TIMELINE ───── */
+.timeline-container {
+  position: relative;
+  padding-left: 24px;
+  border-left: 3px solid var(--color-highlight);
+  margin-left: 1rem;
+}
+
+.timeline-entry {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -11px;
+  top: 1rem;
+  width: 14px;
+  height: 14px;
+  background: var(--color-primary);
+  border: 3px solid var(--color-background1);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* ───── CARD GIORNO ───── */
 .day-card {
+  margin-left: 1rem;
+  border-left: 5px solid var(--color-primary);
   border-radius: 12px;
+  padding-left: 1rem;
   background: var(--color-background);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  margin-bottom: 1rem;
-  transition: transform 0.2s;
-  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
 
   &:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
   }
 
-  ion-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    ion-card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--color-text);
-      display: flex;
-      align-items: center;
-    }
-
-    .style-ed-btn {
-      margin-left: auto;
-      font-size: 1.2rem;
-      color: var(--color-highlight);
-    }
+  .day-label {
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: var(--color-text);
   }
 
   ion-card-content {
@@ -84,13 +93,17 @@
   }
 }
 
-.no-days {
-  text-align: center;
-  font-style: italic;
-  color: var(--color-text2);
+/* ───── ICONA AGENDA ───── */
+.style-ed-btn.top-right-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  font-size: 1.2rem;
+  --color: var(--color-highlight);
 }
 
-/* ───── SCHEDA DI PERSONALIZZAZIONE ───── */
+/* ───── MODALE PERSONALIZZAZIONE ───── */
 .customization-sheet {
   position: fixed;
   bottom: -100%;
@@ -142,33 +155,22 @@
   color: var(--color-primary);
 }
 
+/* ───── FAB E GENERA ───── */
 .fab-above-tab {
   position: fixed;
   right: 16px;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
   z-index: 1000;
-  padding: 0;
-  margin: 0;
   background: transparent;
-  box-shadow: none !important; // rimuove eventuali ombre del wrapper
 
   ion-fab-button {
     --background: var(--color-primary);
     --color: var(--color-highlight);
-    box-shadow: none; // rimuove l’ombra del bottone stesso
     border-radius: 50%;
-    padding: 0;
-    margin: 0;
     width: 56px;
     height: 56px;
-    min-width: unset;
-    min-height: unset;
   }
 }
-
-
-
-
 
 .generate-container {
   position: fixed;
@@ -187,7 +189,4 @@
   font-size: 1rem;
   padding: 0 1rem;
   height: 44px;
-  text-align: center;
 }
-
-

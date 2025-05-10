@@ -1,27 +1,47 @@
-/* Sfondo e padding della pagina */
 .viaggi-content {
   --background: var(--color-background1);
-  padding: 1rem;
+  padding: 1rem 1rem 6rem; // padding inferiore per il FAB
 }
 
-/* Messaggio “nessun viaggio” */
 .welcome-section {
   text-align: center;
-  margin: 2rem 0;
+  margin: 3rem 1rem 2rem;
+  padding: 2rem 1.5rem;
+  background: var(--color-background2);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  animation: fadeIn 0.4s ease-in-out;
+  border-left: 5px solid var(--color-highlight);
 }
 
-/* Logo e testo di benvenuto */
+.welcome-section h1 {
+  color: var(--color-primary);
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+  color: var(--color-text2);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
 .logo {
-  width: 100px;
+  width: 72px;
   margin-bottom: 1rem;
+  opacity: 0.95;
 }
 
-/* FAB “Crea” */
+@keyframes fadeIn {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .custom-fab {
   right: 24px;
+  bottom: 24px;
 }
 
-/* Forza che ogni trip-card sia full-width e in colonna */
 .viaggi-content app-trip-card {
   width: 100%;
   display: block;

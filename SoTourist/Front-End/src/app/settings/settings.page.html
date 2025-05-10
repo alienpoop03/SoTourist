@@ -1,9 +1,6 @@
 <ion-page>
   <!-- HEADER -->
-  <app-header
-    [title]="'SoTourist'"
-    [iconName]="'settings-outline'"
-    [showBackButton]="false">
+  <app-header [title]="'SoTourist'" [iconName]="'settings-outline'" [showBackButton]="false">
   </app-header>
 
   <!-- CONTENUTO -->
@@ -11,13 +8,11 @@
 
     <ion-card class="profile-card">
       <ion-item lines="none">
-      <!-- -->
-        <app-profile-icon class="profile-icon"
-          [src]="profileImageUrl"
-          [editable]="true"
+        <!-- -->
+        <app-profile-icon class="profile-icon" [src]="profileImageUrl" [editable]="true"
           (changed)="profileImageUrl = $event">
         </app-profile-icon> <!---->
-       
+
         <ion-label>
           <h2>{{ username || 'Nuovo utente' }}</h2>
           <p>{{ email || 'email@example.com' }}</p>
@@ -31,35 +26,29 @@
 
       <div *ngIf="editing" class="edit-fields">
         <ion-input label="Username" [(ngModel)]="username" maxlength="20"></ion-input>
-        <ion-input label="Email"    [(ngModel)]="email" type="email" maxlength="20"></ion-input>
+        <ion-input label="Email" [(ngModel)]="email" type="email" maxlength="20"></ion-input>
         <ion-input label="Password" [(ngModel)]="password" type="password" autocomplete="new-password"></ion-input>
         <ion-button expand="block" color="success" (click)="saveProfile()">Salva</ion-button>
       </div>
     </ion-card>
 
-    <ion-list lines="inset" inset="true">
+    <ion-list inset="false" lines="full" class="settings-section">
 
       <ion-list-header>Preferenze</ion-list-header>
 
       <ion-item>
         <ion-label>Notifiche</ion-label>
-        <ion-toggle slot="end"
-                    [(ngModel)]="notificationsEnabled"
-                    (ionChange)="toggleNotifications()"></ion-toggle>
+        <ion-toggle slot="end" [(ngModel)]="notificationsEnabled" (ionChange)="toggleNotifications()"></ion-toggle>
       </ion-item>
 
       <ion-item>
         <ion-label>Tema scuro</ion-label>
-        <ion-toggle slot="end"
-                    [(ngModel)]="darkMode"
-                    (ionChange)="toggleDarkMode()"></ion-toggle>
+        <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
       </ion-item>
 
       <ion-item>
         <ion-label>Lingua</ion-label>
-        <ion-select slot="end" interface="popover"
-                    [(ngModel)]="language"
-                    (ionChange)="changeLanguage()">
+        <ion-select slot="end" interface="popover" [(ngModel)]="language" (ionChange)="changeLanguage()">
           <ion-select-option value="it">Italiano</ion-select-option>
           <ion-select-option value="en">English</ion-select-option>
         </ion-select>
@@ -67,9 +56,7 @@
 
       <ion-item>
         <ion-label>Sync automatica</ion-label>
-        <ion-toggle slot="end"
-                    [(ngModel)]="autoSync"
-                    (ionChange)="toggleAutoSync()"></ion-toggle>
+        <ion-toggle slot="end" [(ngModel)]="autoSync" (ionChange)="toggleAutoSync()"></ion-toggle>
       </ion-item>
 
       <ion-item *ngIf="lastSync">
@@ -79,7 +66,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list lines="inset" inset="true">
+    <ion-list inset="false" lines="full" class="settings-section">
       <ion-list-header>Sicurezza</ion-list-header>
 
       <ion-item button detail (click)="changePassword()">
@@ -93,7 +80,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list lines="inset" inset="true">
+    <ion-list inset="false" lines="full" class="settings-section">
       <ion-list-header>App</ion-list-header>
 
       <ion-item button detail (click)="openAbout()">
