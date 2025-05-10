@@ -110,9 +110,8 @@ ion-list-header {
 }
 
 .trend-scroll ion-card {
-  min-width: 130px;
-  flex: 0 0 auto;
-  scroll-snap-align: start;
+  flex: 0 0 200px;
+  //scroll-snap-align: start;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
@@ -128,7 +127,7 @@ ion-list-header {
     position: absolute;
     top: 8px;
     left: 8px;
-    background: var(--color-highlight);
+    background: white;
     color: var(--color-primary);
     font-size: 0.7rem;
     padding: 3px 6px;
@@ -155,5 +154,5 @@ ion-list-header {
 }
 
 ion-content {
-  --padding-bottom: 80px;
+  --padding-bottom: 45px; // DA MODIFICARE
 }
