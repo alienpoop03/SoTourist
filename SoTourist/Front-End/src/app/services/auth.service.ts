@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000/api/auth';
+  //private baseUrl = 'http://192.168.17.185:3000/api/auth';
+    private baseUrl = 'http://localhost:3000/api/auth';
+
 
   constructor(private http: HttpClient) {}
 
