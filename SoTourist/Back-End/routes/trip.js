@@ -18,5 +18,7 @@ router.get('/itineraries', tripController.getItinerariesByCity);
 // GET itinerario singolo per ID
 router.get('/itineraries/:itineraryId', tripController.getItineraryById);
 
+router.put('/users/:userId/itineraries/:itineraryId', tripController.updateItinerary);
+
 
 module.exports = router;

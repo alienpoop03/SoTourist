@@ -64,3 +64,38 @@ exports.login = (req, res) => {
     type: user.type
   });
 };
+
+// 🗑 Elimina un utente
+exports.deleteUser = (req, res) => {
+  const { userId } = req.params;
+  let db = readDB();
+  const initialLength = db.length;
+
+  db = db.filter(user => user.userId !== userId);
+
+  if (db.length === initialLength) {
+    return res.status(404).json({ error: 'Utente non trovato' });
+  }
+
+  writeDB(db);
+  res.status(204).end();
+};
+
+// ✏️ Modifica un utente (username, email, password, tipo)
+exports.updateUser = (req, res) => {
+  const { userId } = req.params;
+  const { username, email, password, type } = req.body;
+
+  const db = readDB();
+  const user = db.find(u => u.userId === userId);
+
+  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+
+  if (username) user.username = username;
+  if (email) user.email = email;
+  if (password) user.password = password;
+  if (type) user.type = type;
+
+  writeDB(db);
+  res.status(200).json(user);
+};
