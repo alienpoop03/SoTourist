@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TripWithId } from 'src/app/models/trip.model';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ItineraryService {
@@ -28,12 +30,24 @@ export class ItineraryService {
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries`, itinerary);
   }
 
-  getUserItineraries(userId: string, filter: 'all' | 'current' | 'upcoming' | 'future' | 'past') {
-    return this.http.get<any[]>(`${this.baseUrl}/users/${userId}/itineraries?filter=${filter}`);
+  // 🔁 Recupera un itinerario specifico
+  getItineraryById(itineraryId: string): Observable<TripWithId> {
+    return this.http.get<TripWithId>(`${this.baseUrl}/itineraries/${itineraryId}`);
   }
 
+  // 📄 Recupera tutti gli itinerari dell’utente filtrati
+  getUserItineraries(userId: string, filter: 'all' | 'current' | 'upcoming' | 'future' | 'past'): Observable<TripWithId[]> {
+    return this.http.get<TripWithId[]>(`${this.baseUrl}/users/${userId}/itineraries?filter=${filter}`);
+  }
+
+  // ❌ Elimina itinerario
   deleteItinerary(userId: string, itineraryId: string) {
     return this.http.delete(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`);
+  }
+
+  // ✏️ Aggiorna itinerario
+  updateItinerary(userId: string, itineraryId: string, updatedData: Partial<TripWithId>) {
+    return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`, updatedData);
   }
 
 }
