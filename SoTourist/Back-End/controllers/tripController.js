@@ -12,6 +12,14 @@ function writeDB(data) {
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 }
 
+function datesOverlap(start1, end1, start2, end2) {
+  return (
+    new Date(start1) <= new Date(end2) &&
+    new Date(end1) >= new Date(start2)
+  );
+}
+
+
 // 📄 GET: tutti gli itinerari di un utente
 exports.getItineraries = (req, res) => {
    const { userId } = req.params;
@@ -61,11 +69,20 @@ exports.getItineraries = (req, res) => {
 exports.addItinerary = (req, res) => {
   const { userId } = req.params;
   const newItinerary = req.body;
-  console.log(`➡️ Tentativo di aggiungere itinerario a user ${userId}`, newItinerary);
+  //console.log(`➡️ Tentativo di aggiungere itinerario a user ${userId}`, newItinerary);
 
   const db = readDB();
   const user = db.find(u => u.userId === userId);
   if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+
+  const overlap = user.itineraries.some(it =>
+    new Date(newItinerary.startDate) <= new Date(it.endDate) &&
+    new Date(newItinerary.endDate) >= new Date(it.startDate)
+  );
+
+  if (overlap) {
+    return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
+  }
 
   newItinerary.itineraryId = generateId('trip_');
   user.itineraries.push(newItinerary);
@@ -133,6 +150,18 @@ exports.updateItinerary = (req, res) => {
 
   const itinerary = user.itineraries.find(it => it.itineraryId === itineraryId);
   if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
+
+  if (updatedData.startDate && updatedData.endDate) {
+    const overlap = user.itineraries.some(it =>
+      it.itineraryId !== itineraryId &&
+      new Date(updatedData.startDate) <= new Date(it.endDate) &&
+      new Date(updatedData.endDate) >= new Date(it.startDate)
+    );
+
+    if (overlap) {
+      return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
+    }
+  }
 
   // Applica modifiche ai campi (solo quelli presenti nel body)
   Object.keys(updatedData).forEach(key => {
