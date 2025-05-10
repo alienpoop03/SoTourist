@@ -23,4 +23,33 @@ export class AuthService {
       { email, password }
     );
   }
+
+  
+  // 💾 Salva info utente localmente
+  saveSession(userId: string, profile: { username: string; email: string }) {
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+  }
+
+  // 🔐 Logout
+  logout() {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userProfile');
+  }
+
+  // 📤 Leggi ID utente
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
+  // 📤 Leggi profilo utente
+  getUserProfile(): { username: string; email: string } | null {
+    const raw = localStorage.getItem('userProfile');
+    return raw ? JSON.parse(raw) : null;
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getUserId();
+  }
+
 }

@@ -21,6 +21,8 @@ import {
   IonList
 } from '@ionic/angular/standalone';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { ItineraryService } from '../services/itinerary.service';
+import { AuthService } from '../services/auth.service';
 
 declare var google: any;
 
@@ -100,7 +102,7 @@ export class CreaPage implements AfterViewInit {
   accommodation: string = '';
 
 
-  constructor(private router: Router, private ngZone: NgZone) {
+  constructor(private router: Router, private ngZone: NgZone, private itineraryService: ItineraryService, private auth: AuthService ) {
     const today = new Date();
 
     this.startDate = today.toISOString().split('T')[0];   // formato YYYY-MM-DD
@@ -268,19 +270,34 @@ export class CreaPage implements AfterViewInit {
 
   // STEP 4
   confirmSurvey() {
-    const trips: any[] = JSON.parse(localStorage.getItem('trips') || '[]');
-    trips.unshift({
-      id: Date.now(),
-      city: this.city,
-      days: this.calendarDays.length,
-      start: this.startDate,
-      end: this.endDate,
-      accommodation: this.accommodation
-    });
+    const userId = this.auth.getUserId();
+    if (!userId) {
+      alert('Utente non loggato');
+      return;
+    }
 
-    localStorage.setItem('trips', JSON.stringify(trips));
-    this.router.navigate(['/tabs/viaggi'], { replaceUrl: true });
+    if (!this.startDate || !this.endDate) {
+      alert('Seleziona una data valida');
+      return;
+    }
+
+    this.itineraryService.createItinerary(userId, {
+      city: this.city,
+      accommodation: this.accommodation,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      photo: this.heroPhotoUrl ?? '',
+      style: 'generico'  // puoi anche omettere se vuoi usare il default nel service
+    }).subscribe({
+      next: () => {
+        this.router.navigate(['/tabs/viaggi'], { replaceUrl: true });
+      },
+      error: () => {
+        alert('Errore nel salvataggio dell’itinerario');
+      }
+    });
   }
+
 
   private loadHeroPhoto() {
     if (!this.city) return;

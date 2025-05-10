@@ -91,11 +91,10 @@ export class LoginPage implements OnInit {
 
   this.auth.login(this.email, this.password).subscribe({
     next: (res) => {
-      localStorage.setItem('userId', res.userId);
-      localStorage.setItem('userProfile', JSON.stringify({
+      this.auth.saveSession(res.userId, {
         username: res.username,
         email: this.email
-      }));
+      });
       this.router.navigateByUrl('/tabs/home');
     },
     error: () => {

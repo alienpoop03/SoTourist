@@ -61,6 +61,7 @@ exports.getItineraries = (req, res) => {
 exports.addItinerary = (req, res) => {
   const { userId } = req.params;
   const newItinerary = req.body;
+  console.log(`➡️ Tentativo di aggiungere itinerario a user ${userId}`, newItinerary);
 
   const db = readDB();
   const user = db.find(u => u.userId === userId);
@@ -142,4 +143,27 @@ exports.updateItinerary = (req, res) => {
 
   writeDB(db);
   res.status(200).json(itinerary);
+};
+
+// aggiunta tappe
+exports.addPlaceToItinerary = (req, res) => {
+  const { userId, itineraryId } = req.params;
+  const newPlace = req.body;
+
+  const db = readDB();
+  const user = db.find(u => u.userId === userId);
+  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+
+  const itinerary = user.itineraries.find(it => it.itineraryId === itineraryId);
+  if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
+
+  if (!itinerary.places) itinerary.places = [];
+
+  // Genera ID se non fornito
+  newPlace.placeId = newPlace.placeId || generateId('place_');
+
+  itinerary.places.push(newPlace);
+
+  writeDB(db);
+  res.status(201).json(newPlace);
 };
