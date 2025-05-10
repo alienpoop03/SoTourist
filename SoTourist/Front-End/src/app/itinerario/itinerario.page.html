@@ -16,28 +16,35 @@
 
   <!-- Giorni -->
   <div class="day-list">
-    <ng-container *ngFor="let _ of [].constructor(daysCount); let i = index">
-      <ion-card (click)="openDay(i)" class="day-card">
-        <ion-card-header>
-          <ion-card-title>
-            🗓 Giorno {{ i + 1 }}
-            <ion-button size="small" fill="clear" class="style-ed-btn"
-              (click)="openDayCustomization(i); $event.stopPropagation()">
-              📅
-            </ion-button>
+    <div class="timeline-container">
+      <div *ngFor="let _ of [].constructor(daysCount); let i = index" class="timeline-entry">
 
-          </ion-card-title>
-        </ion-card-header>
+        <!-- Punto sulla linea -->
+        <div class="timeline-dot"></div>
 
-        <ion-card-content>
-          <div *ngIf="trip?.itinerary?.[i]?.style" class="day-style">
-            <strong>Stile:</strong> {{ trip.itinerary[i].style }}
-          </div>
-          <p>Programma per il giorno {{ i + 1 }}...</p>
-        </ion-card-content>
-      </ion-card>
+        <!-- Card -->
+        <ion-card (click)="openDay(i)" class="day-card">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="day-label">Giorno {{ i + 1 }}</div>
+              <ion-button fill="clear" size="small" class="style-ed-btn top-right-btn"
+                (click)="openDayCustomization(i); $event.stopPropagation()">
+                <ion-icon name="calendar-outline"></ion-icon>
+              </ion-button>
 
-    </ng-container>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div *ngIf="trip?.itinerary?.[i]?.style" class="day-style">
+              <strong>Stile:</strong> {{ trip.itinerary[i].style }}
+            </div>
+            <p>Programma per il giorno {{ i + 1 }}...</p>
+          </ion-card-content>
+        </ion-card>
+
+      </div>
+    </div>
+
 
     <div *ngIf="daysCount === 0" class="no-days">
       Nessun giorno da mostrare.
@@ -89,7 +96,7 @@
       </ng-container>
 
       <!-- 👇 SOLO SE È PERSONALIZZAZIONE DI UN GIORNO -->
-      <ng-container *ngIf="!isTripCustomization && selectedDayIndex !== null">
+      <ng-container *ngIf="!isTripCustomization && selectedDayIndex !== null && trip?.itinerary?.[selectedDayIndex]">
         <!-- Stile della giornata -->
         <ion-item>
           <ion-label position="stacked">Come vuoi passare il giorno {{ selectedDayIndex + 1 }}?</ion-label>
@@ -112,14 +119,11 @@
 
         <ion-item lines="none">
           <ion-label position="stacked">Posti da non perdere</ion-label>
-          <ion-textarea
-            autoGrow="true"
-            [(ngModel)]="trip.itinerary[selectedDayIndex].mustSee"
-            (ionBlur)="saveDayStyle()"
-            placeholder="Inserisci luoghi specifici (es. Colosseo, Fontana di Trevi...)">
+          <ion-textarea autoGrow="true" [(ngModel)]="trip.itinerary[selectedDayIndex].mustSee"
+            (ionBlur)="saveDayStyle()" placeholder="Inserisci luoghi specifici (es. Colosseo, Fontana di Trevi...)">
           </ion-textarea>
         </ion-item>
-        
+
 
 
       </ng-container>

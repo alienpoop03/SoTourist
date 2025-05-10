@@ -99,7 +99,7 @@ export class ItinerarioPage implements AfterViewInit {
     this.tripId = +idParam;
 
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-this.trip = trips.find((t: any) => t.id === this.tripId);
+    this.trip = trips.find((t: any) => t.id === this.tripId);
     this.daysCount = this.trip?.days || 0;
 
     this.loadHeroPhoto();
@@ -133,6 +133,8 @@ this.trip = trips.find((t: any) => t.id === this.tripId);
             this.heroPhotoUrl = url;
             localStorage.setItem(`coverPhoto-${this.tripId}`, url);
           });
+        } else {
+          this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg'
         }
       }
     );
@@ -176,10 +178,24 @@ this.trip = trips.find((t: any) => t.id === this.tripId);
   }
 
   openDayCustomization(index: number) {
+    if (!this.trip.itinerary) {
+      this.trip.itinerary = [];
+    }
+
+    // Crea l’oggetto per il giorno se non esiste
+    if (!this.trip.itinerary[index]) {
+      this.trip.itinerary[index] = {
+        style: '',
+        atmosphere: '',
+        mustSee: ''
+      };
+    }
+
     this.selectedDayIndex = index;
     this.isTripCustomization = false;
     this.customizationVisible = true;
   }
+
 
   openTripCustomization() {
     this.selectedDayIndex = null;
@@ -196,68 +212,45 @@ this.trip = trips.find((t: any) => t.id === this.tripId);
   }
 
 
-  editDayStyle(event: Event, index: number) {
-    event.stopPropagation(); // previene il trigger del click sulla card
 
-    const styles = [
-      'Standard',
-      'Giornata al mare',
-      'Giornata nei musei',
-      'Relax',
-      'Shopping',
-      'Avventura',
-      'Food tour',
-      'Escursione'
-    ];
-
-    const scelta = prompt(`Scegli lo stile per il Giorno ${index + 1}:\n` + styles.map((s, i) => `${i + 1}. ${s}`).join('\n'));
-
-    const sceltaIndex = parseInt(scelta || '', 10) - 1;
-    if (!isNaN(sceltaIndex) && styles[sceltaIndex]) {
-      this.trip.itinerary[index].style = styles[sceltaIndex];
-      const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-      trips[this.tripId] = this.trip;
-      localStorage.setItem('trips', JSON.stringify(trips));
-    }
-  }
 
   isLoading = false;
 
   // ... dentro a ItinerarioPage
 
-generateItinerary() {
-  if (!this.trip?.city || !this.trip?.days) return;
+  generateItinerary() {
+    if (!this.trip?.city || !this.trip?.days) return;
 
-  this.isLoading = true;
+    this.isLoading = true;
 
-  this.api.getItinerary(this.trip.city, this.trip.days, this.trip.accommodation)
-    .subscribe({
-      next: (res) => {
-        // <<<— qui logghiamo tutta la risposta
-        console.log('🛰️ Itinerary API full response:', res);
-      console.log('🗺️ Solo l’array di tappe:', res.itinerary);
+    this.api.getItinerary(this.trip.city, this.trip.days, this.trip.accommodation)
+      .subscribe({
+        next: (res) => {
+          // <<<— qui logghiamo tutta la risposta
+          console.log('🛰️ Itinerary API full response:', res);
+          console.log('🗺️ Solo l’array di tappe:', res.itinerary);
 
-        this.trip.itinerary = res.itinerary;
+          this.trip.itinerary = res.itinerary;
 
-        const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-        trips[this.tripId] = this.trip;
-        localStorage.setItem('trips', JSON.stringify(trips));
+          const trips = JSON.parse(localStorage.getItem('trips') || '[]');
+          trips[this.tripId] = this.trip;
+          localStorage.setItem('trips', JSON.stringify(trips));
 
-        localStorage.setItem('dailyItinerary', JSON.stringify(res.itinerary));
-        localStorage.setItem('tripAccommodation', this.trip.accommodation || '');
+          localStorage.setItem('dailyItinerary', JSON.stringify(res.itinerary));
+          localStorage.setItem('tripAccommodation', this.trip.accommodation || '');
 
-        if (res.coverPhoto) {
-          localStorage.setItem('coverPhoto', res.coverPhoto);
+          if (res.coverPhoto) {
+            localStorage.setItem('coverPhoto', res.coverPhoto);
+          }
+
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('❌ Errore nella generazione:', err);
+          this.isLoading = false;
         }
-
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('❌ Errore nella generazione:', err);
-        this.isLoading = false;
-      }
-    });
-}
+      });
+  }
 
 
 }

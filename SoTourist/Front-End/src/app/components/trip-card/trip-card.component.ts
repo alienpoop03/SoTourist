@@ -44,7 +44,7 @@ export interface TripWithId {
 export class TripCardComponent {
   @Input() trip!: TripWithId;
   @Output() remove = new EventEmitter<number>();
-  @Output() open   = new EventEmitter<number>();
+  @Output() open = new EventEmitter<number>();
 
   onDelete(event: Event) {
     event.stopPropagation();
@@ -54,4 +54,28 @@ export class TripCardComponent {
   onClick() {
     this.open.emit(this.trip.id);
   }
+  getCityName(): string {
+  if (!this.trip.city) return '';
+  const raw = this.trip.city.split(',')[0].trim();
+
+  // Rimuove eventuali CAP (numeri di 5 cifre) e sigle come "TR", "RM"
+  const cleaned = raw.replace(/\b\d{5}\b/g, '')         // rimuove il CAP
+                     .replace(/\b[A-Z]{2}\b/g, '')       // rimuove sigle tipo RM, TR
+                     .replace(/\s{2,}/g, ' ')            // rimuove spazi doppi
+                     .trim();
+
+  // Capitalizza correttamente
+  return cleaned
+    .toLowerCase()
+    .split(' ')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+
+  getAccommodationName(): string {
+    if (!this.trip.accommodation) return '';
+    return this.trip.accommodation.split(',')[0]; // prende solo "Hotel Roma" da "Hotel Roma, Via Nazionale, Roma"
+  }
+
 }
