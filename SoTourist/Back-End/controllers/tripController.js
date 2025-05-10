@@ -48,9 +48,16 @@ exports.getItineraries = (req, res) => {
       break;
     }
 
-    case 'future':
-      result = user.itineraries.filter(it => it.startDate > today);
+    case 'future': {
+      // Ordina per data
+      const sorted = user.itineraries
+        .filter(it => it.startDate > today)
+        .sort((a, b) => a.startDate.localeCompare(b.startDate));
+
+      // Rimuovi il primo (quello imminente)
+      result = sorted.slice(1);
       break;
+    }
 
     case 'past':
       result = user.itineraries.filter(it => it.endDate < today);

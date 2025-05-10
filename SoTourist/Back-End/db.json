@@ -8,13 +8,23 @@
     "itineraries": [
       {
         "city": "Palermo PA, Italia",
-        "accommodation": "Foro Italico Umberto I, 22/B, 90133 Palermo PA, Italia",
-        "startDate": "2025-05-24",
-        "endDate": "2025-05-24",
+        "accommodation": "Via Roma, 398, 90139 Palermo PA, Italia",
+        "startDate": "2025-05-17",
+        "endDate": "2025-05-17",
         "style": "generico",
         "coverPhoto": "",
         "places": [],
-        "itineraryId": "trip_17468872727177057"
+        "itineraryId": "trip_174689232350847231"
+      },
+      {
+        "city": "Padova PD, Italia",
+        "accommodation": "Via Niccolò Tommaseo, 61, 35131 Padova PD, Italia",
+        "startDate": "2025-05-13",
+        "endDate": "2025-05-13",
+        "style": "generico",
+        "coverPhoto": "",
+        "places": [],
+        "itineraryId": "trip_174689236521227079"
       }
     ]
   },
