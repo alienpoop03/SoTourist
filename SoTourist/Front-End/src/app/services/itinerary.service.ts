@@ -27,4 +27,13 @@ export class ItineraryService {
 
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries`, itinerary);
   }
+
+  getUserItineraries(userId: string, filter: 'all' | 'current' | 'upcoming' | 'future' | 'past') {
+    return this.http.get<any[]>(`${this.baseUrl}/users/${userId}/itineraries?filter=${filter}`);
+  }
+
+  deleteItinerary(userId: string, itineraryId: string) {
+    return this.http.delete(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`);
+  }
+
 }

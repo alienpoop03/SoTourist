@@ -7,20 +7,44 @@
 <ion-content class="viaggi-content">
 
   <!-- Se non ci sono viaggi -->
-  <div *ngIf="allTrips.length === 0" class="welcome-section">
+  <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0" class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
     <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
   </div>
 
-  <!-- Elenco unificato -->
-  <ng-container *ngFor="let trip of allTrips">
+   <!-- 🔴 Viaggio in corso -->
+  <div *ngIf="inCorso" class="trip-section">
+    <h2>Viaggio in corso</h2>
     <app-trip-card
-      [trip]="trip"
-      (open)="openItinerary($event)"
-      (remove)="deleteTrip($event)">
+      [trip]="inCorso"
+      (remove)="deleteTrip($event)"
+      (open)="openItinerary($event)">
     </app-trip-card>
-  </ng-container>
+
+  </div>
+
+  <!-- 🟡 Viaggio imminente -->
+  <div *ngIf="imminente" class="trip-section">
+    <h2>Viaggio imminente</h2>
+    <app-trip-card
+      [trip]="imminente"
+      (open)="openItinerary(imminente.itineraryId)"
+      (remove)="deleteTrip(imminente.itineraryId)">
+    </app-trip-card>
+  </div>
+
+  <!-- 🔵 Prossimi viaggi -->
+  <div *ngIf="futuri.length > 0" class="trip-section">
+    <h2>Prossimi viaggi</h2>
+    <ng-container *ngFor="let trip of futuri">
+      <app-trip-card
+        [trip]="trip"
+        (open)="openItinerary(trip.itineraryId)"
+        (remove)="deleteTrip(trip.itineraryId)">
+      </app-trip-card>
+    </ng-container>
+  </div>
 
 </ion-content>
 

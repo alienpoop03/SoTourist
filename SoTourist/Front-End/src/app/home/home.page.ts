@@ -111,9 +111,9 @@ export class HomePage {
   }
 
 
-  deleteTrip(id: number) {
+  deleteTrip(id: string) {
     const trips = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
-    const updated = trips.filter(t => t.id !== id);
+    const updated =trips.filter(t => t.itineraryId !== id); // ✅ CORRETTO
     localStorage.setItem('trips', JSON.stringify(updated));
     // ricarica la lista
     this.ionViewWillEnter();

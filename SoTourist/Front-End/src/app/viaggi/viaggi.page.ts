@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonFab, IonFabButton, IonIcon } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from '../components/header/app-header.component';
-import { TripCardComponent, TripWithId } from '../components/trip-card/trip-card.component';
+import { TripCardComponent } from '../components/trip-card/trip-card.component';
+import { TripWithId } from 'src/app/models/trip.model';
+import { ItineraryService } from '../services/itinerary.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-viaggi',
@@ -22,10 +25,16 @@ import { TripCardComponent, TripWithId } from '../components/trip-card/trip-card
 })
 export class ViaggiPage {
   allTrips: TripWithId[] = [];
+  inCorso: any = null;
+  imminente: any = null;
+  futuri: any[] = [];
+  loaded = false;
+  private callsCompleted = 0;
 
-  constructor(private router: Router) {}
 
-  ionViewWillEnter() {
+  constructor(private router: Router, private itineraryService: ItineraryService, private auth: AuthService) {}
+
+  /*ionViewWillEnter() {
     const data = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
     const today = new Date();
 
@@ -44,20 +53,63 @@ export class ViaggiPage {
       this.allTrips.push({ ...ongoing, status: 'in_corso' });
     }
     this.allTrips.push(...future);
+  }*/
+  ionViewWillEnter() {
+    const userId = this.auth.getUserId();
+    if (!userId) return;
+
+    this.loaded = false;
+    this.inCorso = null;
+    this.imminente = null;
+    this.futuri = [];
+
+    // Viaggio in corso
+    this.itineraryService.getUserItineraries(userId, 'current').subscribe({
+      next: (res) => this.inCorso = res[0] || null,
+      error: () => this.inCorso = null,
+      complete: () => this.checkAllLoaded()
+    });
+
+    // Viaggio imminente
+    this.itineraryService.getUserItineraries(userId, 'upcoming').subscribe({
+      next: (res) => this.imminente = res[0] || null,
+      error: () => this.imminente = null,
+      complete: () => this.checkAllLoaded()
+    });
+
+    // Viaggi futuri
+    this.itineraryService.getUserItineraries(userId, 'future').subscribe({
+      next: (res) => this.futuri = res || [],
+      error: () => this.futuri = [],
+      complete: () => this.checkAllLoaded()
+    });
   }
 
+
+
+
   /** riceve SOLO l’id e naviga */
-  openItinerary(id: number) {
+  openItinerary(id: string) {
     this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
   }
 
   /** riceve SOLO l’id, filtra via id e ricarica */
-  deleteTrip(id: number) {
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
-    const updated = trips.filter(t => t.id !== id);
-    localStorage.setItem('trips', JSON.stringify(updated));
-    // ricarica la lista
-    this.ionViewWillEnter();
+  deleteTrip(id: string) {
+    const userId = this.auth.getUserId();
+    if (!userId) return;
+
+    this.itineraryService.deleteItinerary(userId, id).subscribe({
+      next: () => this.ionViewWillEnter(), // Ricarica la lista
+      error: () => alert('Errore durante la cancellazione')
+    });
+  }
+
+  private checkAllLoaded() {
+    this.callsCompleted++;
+    if (this.callsCompleted >= 3) {
+      this.loaded = true;
+      this.callsCompleted = 0;
+    }
   }
 
   goToCreate() {

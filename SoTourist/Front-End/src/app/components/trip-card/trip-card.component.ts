@@ -1,5 +1,5 @@
 // trip-card.component.ts
-
+//import { TripWithId } from 'src/app/models/trip.model';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -13,16 +13,14 @@ import {
 } from '@ionic/angular/standalone';
 
 export interface TripWithId {
-  id: number;
+  itineraryId: string;
   city: string;
-  start: string;
-  end: string;
+  startDate: string;
+  endDate: string;
   accommodation: string;
-  days: number;
-  itinerary?: any[];
-  status?: 'in_corso' | 'imminente';
-  photo?: string; // ✅ aggiungi questa riga
-
+  coverPhoto?: string;
+  style?: string;
+  places?: any[];
 }
 
 @Component({
@@ -41,19 +39,21 @@ export interface TripWithId {
   templateUrl: './trip-card.component.html',
   styleUrls: ['./trip-card.component.scss'],
 })
+
 export class TripCardComponent {
   @Input() trip!: TripWithId;
-  @Output() remove = new EventEmitter<number>();
-  @Output() open = new EventEmitter<number>();
+  @Output() open = new EventEmitter<string>();
+  @Output() remove = new EventEmitter<string>();
+  
 
-  onDelete(event: Event) {
-    event.stopPropagation();
-    this.remove.emit(this.trip.id);
+  onDelete(event: Event) { 
+   this.remove.emit(this.trip.itineraryId);
   }
 
   onClick() {
-    this.open.emit(this.trip.id);
+    this.open.emit(this.trip.itineraryId);
   }
+
   getCityName(): string {
   if (!this.trip.city) return '';
   const raw = this.trip.city.split(',')[0].trim();
@@ -77,5 +77,13 @@ export class TripCardComponent {
     if (!this.trip.accommodation) return '';
     return this.trip.accommodation.split(',')[0]; // prende solo "Hotel Roma" da "Hotel Roma, Via Nazionale, Roma"
   }
+
+  calculateTripLength(start: string, end: string): number {
+    const s = new Date(start);
+    const e = new Date(end);
+    const diff = e.getTime() - s.getTime();
+    return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
+  }
+  
 
 }

@@ -2,7 +2,8 @@
   <div class="trip-layout">
 
     <!-- Foto a sinistra -->
-    <div class="trip-photo" [style.background-image]="'url(' + (trip.photo || '../assets/images/PaletoBay.jpeg') + ')'">
+    <div class="trip-photo"
+         [style.background-image]="'url(' + (trip.coverPhoto || '../assets/images/PaletoBay.jpeg') + ')'">
     </div>
 
     <!-- Dettagli a destra -->
@@ -11,14 +12,17 @@
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
 
-<h3 class="trip-city">{{ getCityName() }}</h3>
-      <p class="trip-dates">
-        {{ trip.start | date:'dd/MM/yyyy' }} – {{ trip.end | date:'dd/MM/yyyy' }}
-      </p>
-      <p class="trip-accommodation">🏨 {{ getAccommodationName() }}
+      <h3 class="trip-city">{{ getCityName() }}</h3>
 
+      <p class="trip-dates">
+        {{ trip.startDate | date:'dd/MM/yyyy' }} – {{ trip.endDate | date:'dd/MM/yyyy' }}
       </p>
-      <p class="trip-days">⏳ {{ trip.days }} giorni</p>
+
+      <p class="trip-accommodation">🏨 {{ getAccommodationName() }}</p>
+
+      <p class="trip-days">
+        ⏳ {{ calculateTripLength(trip.startDate, trip.endDate) }} giorni
+      </p>
     </div>
 
   </div>
