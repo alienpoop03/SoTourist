@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root' // ✅ corretto per standalone
 })
 export class ApiService {
-  private readonly BASE_URL = 'http://localhost:3000/api'; // oppure '/api' se usi proxy
+  //private readonly BASE_URL = 'http://192.168.17.185:3000/api'; // oppure '/api' se usi proxy
+    private readonly BASE_URL = 'http://localhost:3000/api'; // oppure '/api' se usi proxy
+
 
   constructor(private http: HttpClient) {}
 
