@@ -11,6 +11,17 @@
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  /* Sticky in alto e sempre visibile */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  /* Non farlo mai ridursi sotto questa altezza */
+  min-height: 60px;
+
+  /* Assicurati che lo shrink sia sempre dal top-center */
+  transform-origin: top center;
+  will-change: transform;
 
   .hero-overlay {
     position: absolute;
