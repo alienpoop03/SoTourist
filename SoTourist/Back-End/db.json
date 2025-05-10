@@ -5,28 +5,7 @@
     "email": "sas@sas.it",
     "password": "$2b$10$CG0VJFfP9EVksTwnVzArv./OzVRUA2h4nkZqs8eG5Bm1XJHjBMa7O",
     "type": "standard",
-    "itineraries": [
-      {
-        "city": "Palermo PA, Italia",
-        "accommodation": "Via Roma, 398, 90139 Palermo PA, Italia",
-        "startDate": "2025-05-17",
-        "endDate": "2025-05-17",
-        "style": "generico",
-        "coverPhoto": "",
-        "places": [],
-        "itineraryId": "trip_174689232350847231"
-      },
-      {
-        "city": "Padova PD, Italia",
-        "accommodation": "Via Niccolò Tommaseo, 61, 35131 Padova PD, Italia",
-        "startDate": "2025-05-13",
-        "endDate": "2025-05-13",
-        "style": "generico",
-        "coverPhoto": "",
-        "places": [],
-        "itineraryId": "trip_174689236521227079"
-      }
-    ]
+    "itineraries": []
   },
   {
     "userId": "user_174683375571350402",

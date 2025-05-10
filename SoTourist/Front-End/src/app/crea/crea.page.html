@@ -15,17 +15,10 @@
       <!-- TIMELINE -->
       <div class="timeline-container">
         <ng-container *ngFor="let s of [1,2,3,4]; let i = index">
-          <div
-            class="timeline-step"
-            [class.active]="step >= s"
-            [class.current]="step === s"
-            (click)="goToStep(s)">
+          <div class="timeline-step" [class.active]="step >= s" [class.current]="step === s" (click)="goToStep(s)">
             {{ s }}
           </div>
-          <div
-            class="timeline-line"
-            *ngIf="i < 3"
-            [class.filled]="step > s"></div>
+          <div class="timeline-line" *ngIf="i < 3" [class.filled]="step > s"></div>
         </ng-container>
       </div>
 
@@ -61,23 +54,16 @@
             <ion-card-content>
 
               <label for="cityInput" class="input-label">Città</label>
-              <input id="cityInput"
-                     [(ngModel)]="city"
-                     placeholder="Es. Roma"
-                     class="custom-input" />
+              <input id="cityInput" [(ngModel)]="city" placeholder="Es. Roma" class="custom-input" />
 
               <label for="accommodationInput" class="input-label">Alloggio</label>
-              <input id="accommodationInput"
-                     [(ngModel)]="accommodation"
-                     placeholder="Es. Hotel Roma"
-                     class="custom-input" />
+              <input id="accommodationInput" [(ngModel)]="accommodation" placeholder="Es. Hotel Roma"
+                class="custom-input" />
 
             </ion-card-content>
           </ion-card>
 
-          <ion-button expand="block"
-                      [disabled]="!canProceedCity()"
-                      (click)="confirmCity()">
+          <ion-button expand="block" [disabled]="!canProceedCity()" (click)="confirmCity()">
             Avanti
           </ion-button>
         </div>
@@ -86,12 +72,8 @@
         <div *ngIf="step === 3" class="step-wrapper" [@fadeStep]>
           <h2>Quando inizia il viaggio?</h2>
           <ion-item>
-            <ion-datetime presentation="date"
-                          display-format="DD MMM YYYY"
-                          (ionChange)="onStartDateChange($event)"
-                          [value]="startDate"
-                          [min]="today"
-                          locale="it-IT">
+            <ion-datetime presentation="date" display-format="DD MMM YYYY" (ionChange)="onStartDateChange($event)"
+              [value]="startDate" [min]="today" locale="it-IT">
             </ion-datetime>
           </ion-item>
         </div>
@@ -100,43 +82,40 @@
         <div *ngIf="step === 3.5" class="step-wrapper" [@fadeStep]>
           <h2>Quando finisce il viaggio?</h2>
           <ion-item>
-            <ion-datetime presentation="date"
-                          display-format="DD MMM YYYY"
-                          (ionChange)="onEndDateChange($event)"
-                          [value]="endDate"
-                          [min]="startDate"
-                          locale="it-IT">
+            <ion-datetime presentation="date" display-format="DD MMM YYYY" (ionChange)="onEndDateChange($event)"
+              [value]="endDate" [min]="startDate" locale="it-IT">
             </ion-datetime>
           </ion-item>
 
-          <ion-button expand="block"
-                      [disabled]="!canProceedDates()"
-                      (click)="confirmDates()">
+          <ion-button expand="block" [disabled]="!canProceedDates()" (click)="confirmDates()">
             Avanti
           </ion-button>
         </div>
 
+
         <!-- STEP 4 – riepilogo -->
         <div *ngIf="step === 4" class="step-wrapper" [@fadeStep]>
 
-          <img *ngIf="heroPhotoUrl"
-               [src]="heroPhotoUrl"
-               alt="Foto di {{ city }}"
-               class="hero-photo">
+          <!-- Preview con il tuo componente -->
+          <app-unfinished-card *ngIf="currentDraft" [trip]="currentDraft"></app-unfinished-card>
 
-          <div class="summary-card">
-            <h3>📍 Viaggio a {{ city }}</h3>
-            <p><strong>Dal:</strong> {{ startDate | date:'fullDate' }}</p>
-            <p><strong>Al:</strong> {{ endDate | date:'fullDate' }}</p>
-            <p><strong>Durata:</strong> {{ calendarDays.length }} giorni</p>
-          </div>
 
-          <ion-button class="confirm-btn"
-                      expand="block"
-                      (click)="confirmSurvey()">
+          <!-- (Se vuoi ancora il riepilogo testuale, puoi tenerlo qui sotto) -->
+          <!--
+  <div class="summary-card">
+    <h3>📍 Viaggio a {{ city }}</h3>
+    <p><strong>Dal:</strong> {{ startDate | date:'fullDate' }}</p>
+    <p><strong>Al:</strong> {{ endDate | date:'fullDate' }}</p>
+    <p><strong>Durata:</strong> {{ calendarDays.length }} giorni</p>
+  </div>
+  -->
+
+          <ion-button class="confirm-btn" expand="block" (click)="confirmSurvey()">
             Conferma e salva
           </ion-button>
         </div>
+
+
 
       </div> <!-- /fadeInUp wrapper -->
 

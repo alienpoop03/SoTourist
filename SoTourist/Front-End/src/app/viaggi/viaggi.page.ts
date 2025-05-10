@@ -30,9 +30,11 @@ export class ViaggiPage {
   futuri: any[] = [];
   loaded = false;
   private callsCompleted = 0;
+  drafts: TripWithId[] = [];
 
 
-  constructor(private router: Router, private itineraryService: ItineraryService, private auth: AuthService) {}
+
+  constructor(private router: Router, private itineraryService: ItineraryService, private auth: AuthService) { }
 
   /*ionViewWillEnter() {
     const data = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
@@ -63,27 +65,30 @@ export class ViaggiPage {
     this.imminente = null;
     this.futuri = [];
 
-    // Viaggio in corso
+    // Carica viaggi reali da backend
     this.itineraryService.getUserItineraries(userId, 'current').subscribe({
       next: (res) => this.inCorso = res[0] || null,
       error: () => this.inCorso = null,
       complete: () => this.checkAllLoaded()
     });
 
-    // Viaggio imminente
     this.itineraryService.getUserItineraries(userId, 'upcoming').subscribe({
       next: (res) => this.imminente = res[0] || null,
       error: () => this.imminente = null,
       complete: () => this.checkAllLoaded()
     });
 
-    // Viaggi futuri
     this.itineraryService.getUserItineraries(userId, 'future').subscribe({
       next: (res) => this.futuri = res || [],
       error: () => this.futuri = [],
       complete: () => this.checkAllLoaded()
     });
+
+    // 🔴 Carica le bozze dal localStorage
+    const raw = localStorage.getItem('unfinishedCards');
+    this.drafts = raw ? JSON.parse(raw) : [];
   }
+
 
 
 
@@ -110,6 +115,10 @@ export class ViaggiPage {
       this.loaded = true;
       this.callsCompleted = 0;
     }
+  }
+  deleteDraft(id: string) {
+    this.drafts = this.drafts.filter(t => t.itineraryId !== id);
+    localStorage.setItem('unfinishedCards', JSON.stringify(this.drafts));
   }
 
   goToCreate() {

@@ -15,7 +15,7 @@ import { TripWithId } from 'src/app/models/trip.model';
 
 
 @Component({
-  selector: 'app-trip-card',
+  selector: 'app-unfinished-card',
   standalone: true,
   imports: [
     CommonModule,
@@ -31,14 +31,14 @@ import { TripWithId } from 'src/app/models/trip.model';
   styleUrls: ['./unfinished-card.component.scss'],
 })
 
-export class unfinishedCardComponent {
+export class UnfinishedCardComponent {
   @Input() trip!: TripWithId;
   @Output() open = new EventEmitter<string>();
   @Output() remove = new EventEmitter<string>();
-  
+
 
   onDelete(event: Event) {
-   this.remove.emit(this.trip.itineraryId);
+    this.remove.emit(this.trip.itineraryId);
   }
 
   onClick() {
@@ -75,6 +75,6 @@ export class unfinishedCardComponent {
     const diff = e.getTime() - s.getTime();
     return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
   }
-  
+
 
 }

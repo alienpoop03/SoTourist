@@ -20,9 +20,11 @@ import {
   IonCardContent,
   IonList
 } from '@ionic/angular/standalone';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
+import { UnfinishedCardComponent } from '../components/unfinished-card/unfinished-card.component';
+import { TripWithId } from 'src/app/models/trip.model';
 
 declare var google: any;
 
@@ -43,93 +45,81 @@ declare var google: any;
     IonCardTitle,
     IonCardContent,
     IonList,
+    UnfinishedCardComponent
   ],
   templateUrl: './crea.page.html',
   styleUrls: ['./crea.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
-  trigger('slideIn', [
-    transition(':enter', [
-      style({ transform: 'translateY(100%)', opacity: 0 }),
-      animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
-    ])
-  ]),
-  trigger('fadeInUp', [
-    transition(':enter', [
-      style({ transform: 'translateY(100%)', opacity: 0 }),
-      animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+    trigger('slideIn', [
+      transition(':enter', [
+        style({ transform: 'translateY(100%)', opacity: 0 }),
+        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ])
     ]),
-    transition(':leave', [
-      animate('300ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
-    ])
-  ]),
-  trigger('fadeStep', [
-    transition(':enter', [
-      style({ opacity: 0, transform: 'translateY(20px)' }),
-      animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ transform: 'translateY(100%)', opacity: 0 }),
+        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
+      ])
     ]),
-    transition(':leave', [
-      animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
+    trigger('fadeStep', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
+      ])
     ])
-  ])
-]
-
-
+  ]
 })
 export class CreaPage implements AfterViewInit {
   animateEntry = false;
   heroPhotoUrl: string | null = null;
 
+  unfinishedCards: TripWithId[] = [];
+  currentDraft: TripWithId | null = null;
+
   step = 1;
-  stepmax = this.step; // numero totale di step
+  stepmax = this.step;
   stepscelta = 3;
 
-  // STEP 1
   mode: 'vacation' | 'planned' | null = null;
 
-  // STEP 2
   today = new Date().toISOString().split('T')[0];
   endDate: string | null = null;
   startDate: string | null = null;
   calendarDays: Date[] = [];
 
-  //dateRange: { from: string; to: string } | null = null;
-
-
-
-  // STEP 3
   city = '';
-  accommodation: string = '';
+  accommodation = '';
 
-
-  constructor(private router: Router, private ngZone: NgZone, private itineraryService: ItineraryService, private auth: AuthService ) {
+  constructor(
+    private router: Router,
+    private ngZone: NgZone,
+    private itineraryService: ItineraryService,
+    private auth: AuthService
+  ) {
     const today = new Date();
-
-    this.startDate = today.toISOString().split('T')[0];   // formato YYYY-MM-DD
-    this.endDate = this.startDate; // inizialmente uguale a startDate
+    this.startDate = today.toISOString().split('T')[0];
+    this.endDate = this.startDate;
   }
 
-  ngAfterViewInit() {
-    // non inizializziamo subito, aspettiamo STEP 3
-  }
+  ngAfterViewInit() { }
 
   goToStep(s: number) {
     if (s >= 1 && s <= 4 && s <= this.stepmax) {
       this.step = s;
-
-      // Eventuale inizializzazione autocomplete se serve
-      if (s === 2) {
-        setTimeout(() => this.initAutocomplete(), 300);
-      } else if (s === 3) {
-        this.step = this.stepscelta;
-      }
+      if (s === 2) setTimeout(() => this.initAutocomplete(), 300);
+      else if (s === 3) this.step = this.stepscelta;
     }
   }
 
-
-
   ionViewWillEnter() {
-    // Reset stato viaggio
     this.step = 1;
     this.stepmax = this.step;
     this.mode = null;
@@ -139,86 +129,68 @@ export class CreaPage implements AfterViewInit {
     this.city = '';
     this.accommodation = '';
 
-    // Forza animazione slide-in ogni volta che entri
+    const saved = localStorage.getItem('unfinishedCards');
+    this.unfinishedCards = saved ? JSON.parse(saved) : [];
+
     this.animateEntry = false;
-    setTimeout(() => {
-      this.animateEntry = true;
-    }, 50); // tempo minimo per far partire l'animazione
+    setTimeout(() => (this.animateEntry = true), 50);
   }
 
-
-
-  // STEP 1
   selectMode(m: 'vacation' | 'planned') {
     this.mode = m;
     this.stepmax = 1;
-    if (!this.startDate) {
-      this.startDate = this.today;
-    }
-    if (!this.endDate) {
-      this.endDate = this.startDate; // inizialmente uguale a startDate
-    }
+    if (!this.startDate) this.startDate = this.today;
+    if (!this.endDate) this.endDate = this.startDate;
 
-
-    if (m === 'vacation') {
-      this.stepscelta = 3.5; // 3 step
-    } else {
-      this.stepscelta = 3; // 3 step
-    }
-    setTimeout(() => this.step = 2, 200);
-    if (this.step > this.stepmax) {
-      this.stepmax = this.step;
-    }
-
+    this.stepscelta = m === 'vacation' ? 3.5 : 3;
+    setTimeout(() => (this.step = 2), 200);
+    if (this.step > this.stepmax) this.stepmax = this.step;
     setTimeout(() => this.initAutocomplete(), 300);
   }
-
-  // STEP 3
-
-
 
   canProceedDates(): boolean {
     return !!this.endDate;
   }
+
   confirmDates() {
-    if (!this.endDate || !this.startDate) return;
-    //this.startDate = this.today;
-    const s = new Date(this.startDate), e = new Date(this.endDate);
+    const s = new Date(this.startDate!), e = new Date(this.endDate!);
     this.calendarDays = [];
     for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
       this.calendarDays.push(new Date(d));
     }
     this.step = 4;
-    if (this.step > this.stepmax) {
-      this.stepmax = this.step;
-    }
+
+    // crea la bozza per la preview
+    this.currentDraft = {
+      itineraryId: `draft_${Date.now()}`,
+      city: this.city,
+      accommodation: this.accommodation,
+      startDate: this.startDate!,
+      endDate: this.endDate!,
+      coverPhoto: this.heroPhotoUrl ?? ''
+    };
   }
-  //*
-  onStartDateChange(event: any) {
-    this.startDate = event.detail.value;
+
+  onStartDateChange(ev: any) {
+    this.startDate = ev.detail.value;
     if (this.endDate && this.startDate && this.endDate < this.startDate) {
-      this.endDate = this.startDate; // Se la data di fine è prima della data di inizio, la imposto come data inizio
+      this.endDate = this.startDate;
     }
     this.step = 3.5;
   }
 
-  onEndDateChange(event: any) {
-    this.endDate = event.detail.value;
+  onEndDateChange(ev: any) {
+    this.endDate = ev.detail.value;
   }
-  //*/
-  // STEP 2
+
   initAutocomplete() {
     const cityInput = document.getElementById('cityInput') as HTMLInputElement;
     const accommodationInput = document.getElementById('accommodationInput') as HTMLInputElement;
 
-    // Dichiaro la variabile con il "definite assignment assertion"
     let acAcc!: google.maps.places.Autocomplete;
 
     if (accommodationInput) {
-      acAcc = new google.maps.places.Autocomplete(accommodationInput, {
-        types: ['lodging']
-      });
-
+      acAcc = new google.maps.places.Autocomplete(accommodationInput, { types: ['lodging'] });
       acAcc.addListener('place_changed', () => {
         this.ngZone.run(() => {
           const p = acAcc.getPlace();
@@ -228,18 +200,13 @@ export class CreaPage implements AfterViewInit {
     }
 
     if (cityInput) {
-      const acCity = new google.maps.places.Autocomplete(cityInput, {
-        types: ['(cities)']
-      });
-
+      const acCity = new google.maps.places.Autocomplete(cityInput, { types: ['(cities)'] });
       acCity.addListener('place_changed', () => {
         this.ngZone.run(() => {
           const p = acCity.getPlace();
           this.city = p.formatted_address ?? p.name ?? '';
-
           const bounds = p.geometry?.viewport;
           if (bounds) {
-            // Qui TypeScript ora è sicuro che acAcc è stato inizializzato
             acAcc.setBounds(bounds);
             acAcc.setOptions({ strictBounds: true });
           }
@@ -247,82 +214,58 @@ export class CreaPage implements AfterViewInit {
       });
     }
 
-
-    // Fix per scroll su mobile
-    setTimeout(() => {
-      document.querySelectorAll('.pac-container')
-        .forEach((el: any) => el.setAttribute('data-tap-disabled', 'true'));
-    }, 500);
+    setTimeout(() =>
+      document.querySelectorAll('.pac-container').forEach((el: any) => el.setAttribute('data-tap-disabled', 'true')), 500);
   }
-
-
-
 
   canProceedCity(): boolean {
     return !!this.city;
   }
+
   confirmCity() {
     this.step = this.stepscelta;
-    if (this.step > this.stepmax) {
-      this.stepmax = this.step;
-    }
+    if (this.step > this.stepmax) this.stepmax = this.step;
   }
 
-  // STEP 4
+  /** Salva la bozza e va su /tabs/viaggi */
   confirmSurvey() {
-    const userId = this.auth.getUserId();
-    if (!userId) {
-      alert('Utente non loggato');
-      return;
+    // se per qualche motivo currentDraft non è stato creato, lo creo ora
+    if (!this.currentDraft) {
+      this.currentDraft = {
+        itineraryId: `draft_${Date.now()}`,
+        city: this.city,
+        accommodation: this.accommodation,
+        startDate: this.startDate!,
+        endDate: this.endDate!,
+        coverPhoto: this.heroPhotoUrl ?? ''
+      };
     }
 
-    if (!this.startDate || !this.endDate) {
-      alert('Seleziona una data valida');
-      return;
-    }
+    // salva nel localStorage
+    this.unfinishedCards.push(this.currentDraft);
+    localStorage.setItem('unfinishedCards', JSON.stringify(this.unfinishedCards));
 
-    this.itineraryService.createItinerary(userId, {
-      city: this.city,
-      accommodation: this.accommodation,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      photo: this.heroPhotoUrl ?? '',
-      style: 'generico'  // puoi anche omettere se vuoi usare il default nel service
-    }).subscribe({
-      next: () => {
-        this.router.navigate(['/tabs/viaggi'], { replaceUrl: true });
-      },
-      error: () => {
-        alert('Errore nel salvataggio dell’itinerario');
-      }
+    // naviga alla pagina Viaggi passando il draftId
+    this.router.navigate(['/tabs/viaggi'], {
+      queryParams: { draftId: this.currentDraft.itineraryId }
     });
   }
 
-
   private loadHeroPhoto() {
     if (!this.city) return;
-
     const query = `${this.city} attrazione turistica`;
-
-    const dummyDiv = document.createElement('div');
-    const map = new (window as any).google.maps.Map(dummyDiv);
+    const dummy = document.createElement('div');
+    const map = new (window as any).google.maps.Map(dummy);
     const service = new (window as any).google.maps.places.PlacesService(map);
 
     service.findPlaceFromQuery(
-      {
-        query,
-        fields: ['photos']
-      },
+      { query, fields: ['photos'] },
       (results: any[], status: any) => {
         if (status === 'OK' && results[0]?.photos?.length) {
           const url = results[0].photos[0].getUrl({ maxWidth: 800 });
-          this.ngZone.run(() => {
-            this.heroPhotoUrl = url;
-          });
+          this.ngZone.run(() => (this.heroPhotoUrl = url));
         }
       }
     );
   }
-
 }
-

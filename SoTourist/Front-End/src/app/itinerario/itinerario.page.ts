@@ -112,7 +112,7 @@ export class ItinerarioPage implements AfterViewInit {
     private ngZone: NgZone,
     private api: ApiService,
     private itineraryService: ItineraryService,
-    private auth: AuthService 
+    private auth: AuthService
   ) { }
 
   /* ───── Lifecycle ───── */
@@ -213,6 +213,22 @@ export class ItinerarioPage implements AfterViewInit {
     localStorage.setItem('trips', JSON.stringify(trips));
   }
 
+
+  /*this.itineraryService.createItinerary(userId, {
+      city: this.city,
+      accommodation: this.accommodation,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      photo: this.heroPhotoUrl ?? '',
+      style: 'generico'  // puoi anche omettere se vuoi usare il default nel service
+    }).subscribe({
+      next: () => {
+        this.router.navigate(['/tabs/viaggi'], { replaceUrl: true });
+      },
+      error: () => {
+        alert('Errore nel salvataggio dell’itinerario');
+      }
+    });*/
   /* ───── Genera itinerario via backend dummy ───── */
   generateItinerary() {
     if (!this.trip || !this.trip.city || !this.trip.startDate || !this.trip.endDate) return;
