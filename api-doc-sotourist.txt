@@ -1,136 +1,49 @@
 
-# 📘 API REST – SoTourist Backend
+Sto sviluppando il progetto SoTourist con frontend in Angular + Ionic (mobile-first) e backend in Express con file JSON locale (`db.json`) come database simulato.
 
-Queste API gestiscono utenti e itinerari all’interno del progetto **SoTourist**, con un database locale (`db.json`) simulato tramite file JSON. Tutti gli endpoint sono accessibili sotto forma di chiamate HTTP e gestiti da Express.
+Tutte le password sono gestite lato backend e cifrate con `bcrypt`.
 
----
+API disponibili lato backend:
 
-## 🔐 Autenticazione – `/api/auth`
+- `POST /api/auth/register` → Registra un utente (username, email, password, tipo)
+- `POST /api/auth/login` → Login con email + password, restituisce userId
+- `GET /api/users/:userId/itineraries?filter=...` → Ottiene gli itinerari dell’utente (`filter = all | current | upcoming | future | past`)
+- `POST /api/users/:userId/itineraries` → Crea un itinerario per un utente (senza itineraryId, viene generato)
+- `DELETE /api/users/:userId/itineraries/:itineraryId` → Elimina un itinerario
+- `GET /api/itineraries?city=...` → Ottiene tutti gli itinerari creati da altri utenti per una città
+- `GET /api/itineraries/:itineraryId` → Ottiene un itinerario specifico (cercando tra tutti gli utenti)
 
-### ▶️ POST `/api/auth/register`
-**Registra un nuovo utente.**
-
-**Request body:**
+Ogni utente è così strutturato:
 ```json
 {
+  "userId": "user_...",
   "username": "gabry",
   "email": "gabry@example.com",
-  "passwordHash": "HASH_GENERATO_DAL_CLIENT",
-  "type": "standard"
+  "password": "hash",
+  "type": "standard",
+  "itineraries": [ ... ]
 }
 ```
 
-**Risposte:**
-- `201 Created` → utente registrato
-- `400 Bad Request` → email già esistente
-
----
-
-### ▶️ POST `/api/auth/login`
-**Esegue il login verificando l’hash.**
-
-**Request body:**
+Ogni itinerario contiene:
 ```json
 {
-  "email": "gabry@example.com",
-  "passwordHash": "HASH_GENERATO_DAL_CLIENT"
-}
-```
-
-**Risposte:**
-- `200 OK` → login riuscito, restituisce ID utente e tipo
-- `401 Unauthorized` → credenziali errate
-
----
-
-## 👤 Itinerari utente – `/api/users/:userId/itineraries`
-
-### ▶️ GET `/api/users/:userId/itineraries?filter=...`
-**Restituisce gli itinerari di un utente con possibilità di filtrare per stato.**
-
-**Filtri disponibili (facoltativi):**
-
-| `filter`    | Descrizione                                       |
-|-------------|---------------------------------------------------|
-| `all`       | Tutti gli itinerari (default)                     |
-| `current`   | Quelli attualmente in corso                       |
-| `upcoming`  | Il prossimo che deve ancora iniziare              |
-| `future`    | Tutti quelli futuri (non ancora iniziati)         |
-| `past`      | Itinerari già conclusi                            |
-
-**Esempio:**
-```
-GET /api/users/user_123/itineraries?filter=past
-```
-
----
-
-### ▶️ POST `/api/users/:userId/itineraries`
-**Crea un nuovo itinerario per un utente.**
-
-**Request body:**
-```json
-{
+  "itineraryId": "trip_...",
   "city": "Roma",
   "accommodation": "Hotel Centro",
   "startDate": "2025-07-01",
   "endDate": "2025-07-05",
   "style": "culturale",
-  "coverPhoto": "https://...",
-  "places": [ ... ]
+  "coverPhoto": "...",
+  "places": [
+    {
+      "placeId": "place_...",
+      "name": "Colosseo",
+      "day": 1,
+      "timeSlot": "morning"
+    }
+  ]
 }
 ```
 
-**Risposte:**
-- `201 Created` → itinerario aggiunto
-- `404 Not Found` → utente non trovato
-
----
-
-### ▶️ DELETE `/api/users/:userId/itineraries/:itineraryId`
-**Elimina un itinerario specifico.**
-
-**Risposte:**
-- `204 No Content` → eliminazione riuscita
-- `404 Not Found` → utente o itinerario non trovato
-
----
-
-## 🌍 Esplora itinerari pubblici – `/api/itineraries`
-
-### ▶️ GET `/api/itineraries?city=...`
-**Restituisce tutti gli itinerari creati da qualsiasi utente per una specifica città.**
-
-**Esempio:**
-```
-GET /api/itineraries?city=Napoli
-```
-
-**Risposta:**
-```json
-[
-  {
-    "itineraryId": "trip_123",
-    "city": "Napoli",
-    "startDate": "2025-06-01",
-    "endDate": "2025-06-05",
-    "places": [ ... ]
-  },
-  ...
-]
-```
-
----
-
-## 📦 JSON Structure
-
-- Gli utenti sono salvati in `db.json` come array
-- Ogni utente ha un array `itineraries`
-- Ogni itinerario ha un campo `places` con tappe giornaliere
-
----
-
-## 🛡 Sicurezza
-
-- Le password **devono essere hashate dal frontend**
-- Le richieste devono essere fatte su connessione **HTTPS** (in produzione)
+Quando lavoriamo sul frontend, dobbiamo usare queste API per tutte le operazioni.
