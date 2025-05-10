@@ -74,13 +74,15 @@ export class HomePage {
     { name: 'Tokyo', photo: '../assets/images/Tokyo.jpeg' },
     { name: 'New York', photo: '../assets/images/new-york.jpeg' },
     { name: 'Barcellona', photo: '../assets/images/barcellona.jpeg' },
+    { name: 'Paleto Bay', photo: '../assets/images/PaletoBay.jpeg' },
+
   ];
 
   trending = [
-    { city: 'Londra', photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg', count: 124 },
-    { city: 'Amsterdam', photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg', count: 97 },
-    { city: 'Berlino', photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg', count: 81 },
-    { city: 'Madrid', photo: '../assets/images/photo-1496442226666-8d4d0e62e6e9.jpeg', count: 76 },
+    { city: 'Londra', photo: '../assets/images/londra.jpeg', count: 124 },
+    { city: 'Amsterdam', photo: '../assets/images/amsterdam.jpeg', count: 97 },
+    { city: 'Berlino', photo: '../assets/images/berlino.jpeg', count: 81 },
+    { city: 'Madrid', photo: '../assets/images/madrid.jpeg', count: 76 },
   ];
 
   constructor(private router: Router) { }
