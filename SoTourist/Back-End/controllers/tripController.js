@@ -182,9 +182,18 @@ exports.updateItinerary = (req, res) => {
 };
 
 // aggiunta tappe
-exports.addPlaceToItinerary = (req, res) => {
+exports.addPlacesToItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
-  const newPlace = req.body;
+  let places = req.body;
+
+  // Adatta oggetto singolo a array
+  if (!Array.isArray(places)) {
+    if (typeof places === 'object' && places !== null) {
+      places = [places];
+    } else {
+      return res.status(400).json({ error: 'Formato tappa non valido' });
+    }
+  }
 
   const db = readDB();
   const user = db.find(u => u.userId === userId);
@@ -195,11 +204,11 @@ exports.addPlaceToItinerary = (req, res) => {
 
   if (!itinerary.places) itinerary.places = [];
 
-  // Genera ID se non fornito
-  newPlace.placeId = newPlace.placeId || generateId('place_');
-
-  itinerary.places.push(newPlace);
+  for (const place of places) {
+    place.placeId = place.placeId || generateId('place_');
+    itinerary.places.push(place);
+  }
 
   writeDB(db);
-  res.status(201).json(newPlace);
+  res.status(201).json(itinerary.places);
 };

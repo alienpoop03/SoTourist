@@ -50,4 +50,7 @@ export class ItineraryService {
     return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`, updatedData);
   }
 
+  addPlacesToItinerary(userId: string, itineraryId: string, places: any[]) {
+    return this.http.post(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, places);
+  }
 }

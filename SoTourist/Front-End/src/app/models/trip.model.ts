@@ -2,7 +2,7 @@ export interface TripWithId {
   itineraryId: string;
   city: string;
   startDate: string;
-  endDate: string;
+  endDate:   string;
   accommodation: string;
   coverPhoto?: string;
   style?: string;

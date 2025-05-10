@@ -11,17 +11,8 @@ import {
   IonButton,
   IonIcon
 } from '@ionic/angular/standalone';
+import { TripWithId } from 'src/app/models/trip.model';
 
-export interface TripWithId {
-  itineraryId: string;
-  city: string;
-  startDate: string;
-  endDate: string;
-  accommodation: string;
-  coverPhoto?: string;
-  style?: string;
-  places?: any[];
-}
 
 @Component({
   selector: 'app-trip-card',

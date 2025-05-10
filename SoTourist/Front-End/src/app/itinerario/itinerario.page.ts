@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { GenerationOverlayComponent } from '../components/generation-overlay/generation-overlay.component';
 import { ItineraryService } from '../services/itinerary.service';
+import { AuthService } from '../services/auth.service';
 
 /* ───── Ionic standalone components usati nel template ───── */
 import {
@@ -89,6 +90,10 @@ export class ItinerarioPage implements AfterViewInit {
   isTripCustomization = false;
   isLoading = false;
 
+
+  //alte cose
+  currentDay: number | null = null;
+
   /* Opzioni predefinite */
   dayStyles = [
     'Standard',
@@ -106,7 +111,8 @@ export class ItinerarioPage implements AfterViewInit {
     private router: Router,
     private ngZone: NgZone,
     private api: ApiService,
-    private itineraryService: ItineraryService
+    private itineraryService: ItineraryService,
+    private auth: AuthService 
   ) { }
 
   /* ───── Lifecycle ───── */
@@ -209,7 +215,7 @@ export class ItinerarioPage implements AfterViewInit {
 
   /* ───── Genera itinerario via backend dummy ───── */
   generateItinerary() {
-    if (!this.trip || !this.trip?.city || !this.trip?.startDate || !this.trip?.endDate) return;
+    if (!this.trip || !this.trip.city || !this.trip.startDate || !this.trip.endDate) return;
     this.isLoading = true;
 
     const start = new Date(this.trip.startDate);
@@ -218,8 +224,10 @@ export class ItinerarioPage implements AfterViewInit {
 
     this.api.getItinerary(this.trip.city, days, this.trip.accommodation)
       .subscribe({
-        next: res => {
+        next: (res) => {
           this.trip!.itinerary = res.itinerary;
+
+          // Salva localmente
           const trips = JSON.parse(localStorage.getItem('trips') || '[]');
           const index = trips.findIndex((t: any) => t.itineraryId === this.itineraryId);
           if (index !== -1) {
@@ -231,14 +239,34 @@ export class ItinerarioPage implements AfterViewInit {
           localStorage.setItem('tripAccommodation', this.trip!.accommodation || '');
           if (res.coverPhoto) localStorage.setItem('coverPhoto', res.coverPhoto);
 
-          this.isLoading = false;
+          // Salva anche nel backend
+          const userId = this.auth.getUserId();
+          if (!userId) {
+            console.error('User ID mancante');
+            this.isLoading = false;
+            return;
+          }
+
+          const allPlaces = [].concat(...res.itinerary.map((dayObj: any) => dayObj.ordered || []));
+          this.itineraryService.addPlacesToItinerary(userId, this.itineraryId, allPlaces).subscribe({
+            next: () => {
+              console.log('Tappe salvate nel backend');
+              this.isLoading = false;
+            },
+            error: (err) => {
+              console.error('Errore salvataggio tappe:', err);
+              this.isLoading = false;
+            }
+          });
         },
-        error: err => {
+        error: (err) => {
           console.error('Errore nella generazione:', err);
           this.isLoading = false;
         }
       });
   }
+
+
 
 
   /* ───── Dati da mostrare nella card giorno ───── */
@@ -272,4 +300,9 @@ export class ItinerarioPage implements AfterViewInit {
     const diff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
     return diff + 1;
   }
+
+  get selectedDay() {
+    return this.selectedDayIndex !== null ? this.trip?.itinerary?.[this.selectedDayIndex] : null;
+  }
+
 }

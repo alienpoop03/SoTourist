@@ -25,8 +25,8 @@ import {
 } from '@ionic/angular/standalone';
 
 import { AppHeaderComponent } from "../components/header/app-header.component";
-import { TripCardComponent, TripWithId } from '../components/trip-card/trip-card.component';
-
+import { TripCardComponent,} from '../components/trip-card/trip-card.component';
+import { TripWithId } from 'src/app/models/trip.model';
 
 
 @Component({

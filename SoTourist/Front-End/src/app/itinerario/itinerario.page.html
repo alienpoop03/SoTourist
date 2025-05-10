@@ -8,21 +8,18 @@
     <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
       <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ trip?.city }}</h1>
       <p [ngStyle]="{ 'font-size': subtitleFontSize + 'rem' }">
-        Dal {{ trip?.start | date:'dd/MM' }} al {{ trip?.end | date:'dd/MM' }}
+        Dal {{ trip?.startDate | date:'dd/MM' }} al {{ trip?.endDate | date:'dd/MM' }}
       </p>
     </div>
   </div>
-
 
   <!-- Giorni -->
   <div class="day-list">
     <div class="timeline-container">
       <div *ngFor="let _ of [].constructor(daysCount); let i = index" class="timeline-entry">
 
-        <!-- Punto sulla linea -->
         <div class="timeline-dot"></div>
 
-        <!-- Card -->
         <ion-card (click)="openDay(i)" class="day-card">
           <ion-card-header>
             <ion-card-title>
@@ -31,56 +28,44 @@
                 (click)="openDayCustomization(i); $event.stopPropagation()">
                 <ion-icon name="calendar-outline"></ion-icon>
               </ion-button>
-
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <!-- Se ho dei dati per il giorno, li mostro -->
             <p *ngIf="getDayItems(i).length > 0; else placeholder">
               <ng-container *ngFor="let item of getDayItems(i); let last = last">
                 <strong>•</strong> {{ item }}<span *ngIf="!last">&nbsp;&nbsp;</span>
               </ng-container>
             </p>
-
-            <!-- Altrimenti mostro un placeholder di default -->
             <ng-template #placeholder>
               <p>Programma per il giorno {{ i + 1 }}…</p>
             </ng-template>
           </ion-card-content>
-
         </ion-card>
 
       </div>
     </div>
-
 
     <div *ngIf="daysCount === 0" class="no-days">
       Nessun giorno da mostrare.
     </div>
   </div>
 
-
-  <!-- Pulsante fluttuante -->
+  <!-- FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-above-tab">
-    <ion-fab-button (click)="openTripCustomization()">
-      ✏️
-    </ion-fab-button>
+    <ion-fab-button (click)="openTripCustomization()">✏️</ion-fab-button>
   </ion-fab>
-
-
 
   <!-- Scheda personalizzazione -->
   <div class="customization-sheet" [class.visible]="customizationVisible">
     <div class="sheet-header">
       <h2 *ngIf="isTripCustomization">Personalizza il tuo viaggio</h2>
       <h2 *ngIf="!isTripCustomization && selectedDayIndex !== null">Personalizza Giorno {{ selectedDayIndex + 1 }}</h2>
-
       <ion-button size="small" fill="clear" (click)="toggleCustomizationSheet()">Chiudi</ion-button>
     </div>
 
     <div class="sheet-content">
 
-      <!-- 👇 SOLO SE È PERSONALIZZAZIONE VIAGGIO -->
+      <!-- Personalizzazione viaggio -->
       <ng-container *ngIf="isTripCustomization">
         <ion-item>
           <ion-label position="stacked">Luogo che non vuoi perdere</ion-label>
@@ -103,20 +88,18 @@
         </ion-item>
       </ng-container>
 
-      <!-- 👇 SOLO SE È PERSONALIZZAZIONE DI UN GIORNO -->
-      <ng-container *ngIf="!isTripCustomization && selectedDayIndex !== null && trip?.itinerary?.[selectedDayIndex]">
-        <!-- Stile della giornata -->
+      <!-- Personalizzazione giorno -->
+      <ng-container *ngIf="!isTripCustomization && selectedDay">
         <ion-item>
-          <ion-label position="stacked">Come vuoi passare il giorno {{ selectedDayIndex + 1 }}?</ion-label>
-          <ion-select [(ngModel)]="trip.itinerary[selectedDayIndex].style" (ionChange)="saveDayStyle()">
-            <ion-select-option *ngFor="let style of dayStyles" [value]="style">{{ style }}</ion-select-option>
+          <ion-label position="stacked">Come vuoi passare il giorno {{ selectedDayIndex! + 1 }}?</ion-label>
+          <ion-select [(ngModel)]="selectedDay.style" (ionChange)="saveDayStyle()">
+            <ion-select-option *ngFor="let s of dayStyles" [value]="s">{{ s }}</ion-select-option>
           </ion-select>
         </ion-item>
 
-        <!-- Atmosfera desiderata -->
         <ion-item>
           <ion-label position="stacked">Atmosfera desiderata</ion-label>
-          <ion-select [(ngModel)]="trip.itinerary[selectedDayIndex].atmosphere" (ionChange)="saveDayStyle()">
+          <ion-select [(ngModel)]="selectedDay.atmosphere" (ionChange)="saveDayStyle()">
             <ion-select-option value="Romantica">💕 Romantica</ion-select-option>
             <ion-select-option value="Divertente">🎉 Divertente</ion-select-option>
             <ion-select-option value="Spirituale">🛐 Spirituale</ion-select-option>
@@ -127,22 +110,19 @@
 
         <ion-item lines="none">
           <ion-label position="stacked">Posti da non perdere</ion-label>
-          <ion-textarea autoGrow="true" [(ngModel)]="trip.itinerary[selectedDayIndex].mustSee"
-            (ionBlur)="saveDayStyle()" placeholder="Inserisci luoghi specifici (es. Colosseo, Fontana di Trevi...)">
+          <ion-textarea autoGrow="true" [(ngModel)]="selectedDay.mustSee" (ionBlur)="saveDayStyle()"
+            placeholder="Inserisci luoghi specifici (es. Colosseo, Fontana di Trevi...)">
           </ion-textarea>
         </ion-item>
-
-
-
       </ng-container>
 
     </div>
-
   </div>
 
+  <!-- Genera itinerario -->
   <div class="generate-container">
     <ion-button class="generate-btn" (click)="generateItinerary()"
-      *ngIf="!isLoading && (!trip?.itinerary || trip.itinerary.length === 0)">
+      *ngIf="!isLoading && (!trip?.itinerary?.length)">
       Genera Itinerario
     </ion-button>
 
