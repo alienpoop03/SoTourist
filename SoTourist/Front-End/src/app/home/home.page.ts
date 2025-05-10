@@ -65,6 +65,7 @@ export class HomePage {
   trips: any[] = [];
   lastTrip: any = null;
   allTrips: TripWithId[] = [];
+  heroScale = 1;
 
 
   // destinazioni da mostrare
@@ -132,5 +133,11 @@ export class HomePage {
 
   goToCreate() {
     this.router.navigate(['/crea']);
+  }
+
+  onContentScroll(event: any) {
+    // esempio base: scroll verticale
+    const scrollTop = event.detail.scrollTop;
+    this.heroScale = 1 + Math.min(scrollTop / 300, 0.3); // valore arbitrario per effetto zoom
   }
 }
