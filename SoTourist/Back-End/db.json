@@ -44,5 +44,24 @@
         "itineraryId": "trip_174688379058151963"
       }
     ]
+  },
+  {
+    "userId": "user_174688798813850028",
+    "username": "sdfg",
+    "email": "sdfg",
+    "password": "$2b$10$ca6cv6dPxmIcjTPrlBhkwueEoCo8OEgjdbcto5NelazJI/dsU2Ai2",
+    "type": "standard",
+    "itineraries": [
+      {
+        "city": "Roma RM, Italia",
+        "accommodation": "Via Appia Nuova, 633, 00179 Roma RM, Italia",
+        "startDate": "2025-05-10",
+        "endDate": "2025-05-12",
+        "style": "generico",
+        "coverPhoto": "",
+        "places": [],
+        "itineraryId": "trip_174688801246052945"
+      }
+    ]
   }
 ]
