@@ -135,9 +135,15 @@ export class HomePage {
     this.router.navigate(['/crea']);
   }
 
+    // adesso
   onContentScroll(event: any) {
-    // esempio base: scroll verticale
-    const scrollTop = event.detail.scrollTop;
-    this.heroScale = 1 + Math.min(scrollTop / 300, 0.3); // valore arbitrario per effetto zoom
+    const scrollTop = event.detail.scrollTop as number;
+    const minScale = 0.6;      // fattore minimo di scala
+    const maxScroll = 300;     // soglia scroll dopo la quale sei a minScale
+
+    // calcola scale che va da 1 (scrollTop=0) → minScale (scrollTop>=maxScroll)
+    const scale = 1 - (scrollTop / maxScroll) * (1 - minScale);
+    this.heroScale = scale < minScale ? minScale : scale;
   }
+
 }
