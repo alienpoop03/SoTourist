@@ -1,21 +1,12 @@
 <app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false">
 </app-header>
 
-<ion-content
-  class="home-content"
-  fullscreen
-  [scrollEvents]="true"
-  (ionScroll)="onContentScroll($event)"
->
+<ion-content class="home-content" fullscreen [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
   <!-- HERO / ULTIMO VIAGGIO -->
-  <div
-    *ngIf="lastTrip"
-    class="hero"
-    [ngStyle]="{
+  <div *ngIf="lastTrip" class="hero" [ngStyle]="{
       'background-image': 'url(' + lastTrip.photo + ')',
       'transform': 'scale(' + heroScale + ')'
-    }"
-  >
+    }">
     <div class="hero-overlay">
       <h2>{{ lastTrip.city }}</h2>
       <p>{{ lastTrip.start | date:'dd MMM' }} → {{ lastTrip.end | date:'dd MMM y' }}</p>
@@ -30,10 +21,7 @@
   <ion-list class="dest-list">
     <ion-list-header>Destinazioni imperdibili</ion-list-header>
     <div class="dest-grid">
-      <ion-card
-        *ngFor="let city of suggestedCities"
-        (click)="openCreate(city.name)"
-      >
+      <ion-card *ngFor="let city of suggestedCities" (click)="openCreate(city.name)">
         <img [src]="city.photo" [alt]="city.name" />
         <ion-card-header>
           <ion-card-title>{{ city.name }}</ion-card-title>
@@ -61,7 +49,36 @@
       </ion-card>
     </div>
   </ion-list>
+
+  <!-- ───── CONSIGLIATI PER TE ───── -->
+<ion-list class="recommended-list">
+  <ion-list-header>Consigliati per te</ion-list-header>
+  <div class="trend-scroll">
+    <ion-card *ngFor="let r of recommendedTrips" (click)="openCreate(r.city)">
+      <img [src]="r.photo" [alt]="r.city" />
+      <ion-card-content>{{ r.city }}</ion-card-content>
+    </ion-card>
+  </div>
+</ion-list>
+
+<!-- ───── ESPLORA NELLE VICINANZE ───── -->
+<ion-list class="nearby-list">
+  <ion-list-header>Esplora nelle vicinanze</ion-list-header>
+  <div class="trend-scroll">
+    <ion-card *ngFor="let n of nearbyCities" (click)="openCreate(n.city)">
+      <img [src]="n.photo" [alt]="n.city" />
+      <div class="trend-label">
+        <ion-icon name="location-outline"></ion-icon>&nbsp;{{ n.distance }}
+      </div>
+      <ion-card-content>{{ n.city }}</ion-card-content>
+    </ion-card>
+  </div>
+</ion-list>
 </ion-content>
+
+
+
+
 
 <!-- FAB CREA -->
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">

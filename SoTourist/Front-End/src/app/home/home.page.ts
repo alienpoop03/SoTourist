@@ -25,7 +25,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { AppHeaderComponent } from "../components/header/app-header.component";
-import { TripCardComponent,} from '../components/trip-card/trip-card.component';
+import { TripCardComponent, } from '../components/trip-card/trip-card.component';
 import { TripWithId } from 'src/app/models/trip.model';
 
 
@@ -86,6 +86,19 @@ export class HomePage {
     { city: 'Madrid', photo: '../assets/images/madrid.jpeg', count: 76 },
   ];
 
+  // Mock "Consigliati per te"
+  recommendedTrips = [
+    { city: 'Siena', photo: 'assets/images/PaletoBay.jpeg' },
+    { city: 'Verona', photo: 'assets/images/PaletoBay.jpeg' },
+    { city: 'Matera', photo: 'assets/images/PaletoBay.jpeg' }
+  ];
+
+  // Mock "Esplora nelle vicinanze"
+  nearbyCities = [
+    { city: 'Napoli', photo: 'assets/images/PaletoBay.jpeg', distance: '27 km' },
+    { city: 'Pompei', photo: 'assets/images/PaletoBay.jpeg', distance: '39 km' },
+    { city: 'Salerno', photo: 'assets/images/PaletoBay.jpeg', distance: '52 km' }
+  ];
   constructor(private router: Router) { }
 
   ionViewWillEnter() {
@@ -114,7 +127,7 @@ export class HomePage {
 
   deleteTrip(id: string) {
     const trips = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
-    const updated =trips.filter(t => t.itineraryId !== id); // ✅ CORRETTO
+    const updated = trips.filter(t => t.itineraryId !== id); // ✅ CORRETTO
     localStorage.setItem('trips', JSON.stringify(updated));
     // ricarica la lista
     this.ionViewWillEnter();
@@ -135,7 +148,7 @@ export class HomePage {
     this.router.navigate(['/crea']);
   }
 
-    // adesso
+  // adesso
   onContentScroll(event: any) {
     const scrollTop = event.detail.scrollTop as number;
     const minScale = 0.6;      // fattore minimo di scala
