@@ -94,8 +94,11 @@ export class ItinerarioPage implements AfterViewInit {
   isLoading = false;
 
 
-  //alte cose
+  //altre cose
   currentDay: number | null = null;
+  tripMustSee: string = '';
+  tripTransport: string = '';
+  tripPrompt: string = '';
 
   /* Opzioni predefinite */
   dayStyles = [

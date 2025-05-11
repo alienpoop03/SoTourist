@@ -1,21 +1,36 @@
+/* ------------- IMPOSTAZIONI GENERALI ------------- */
+/* ----------------- ION-CONTENT ----------------- */
 .itinerario-content {
-  --background: var(--color-background1);
-  min-height: 100vh;
-  padding-bottom: 80px;
+  /* blocchiamo di proposito lo scroll nativo */
+  --overflow: hidden;
+  /* (Ionic 7) */
+  overflow: hidden;
+  /* fallback */
+  background: var(--color-background);
+  /* ✅ aggiunto */
+
+  height: 100vh;
+  /* riempi viewport */
+  display: flex;
+  flex-direction: column;
 }
 
-/* ───── HERO ───── */
+/* ------------- HERO ------------- */
 .hero {
+  flex: 0 0 auto;
+  /* occupa solo la sua altezza */
   position: sticky;
   top: 0;
   z-index: 10;
   width: 100%;
   height: 40vh;
   min-height: 180px;
+  background: var(--color-background);
+  /* ✅ uniformato al bianco */
+
   background-size: cover;
   background-position: center;
   transition: height 0.2s ease-out;
-  will-change: height;
   display: flex;
   align-items: flex-end;
   border-radius: 0 0 20px 20px;
@@ -24,16 +39,56 @@
 
 .overlay {
   width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
-  color: white;
+  background: linear-gradient(to top, rgba(0, 0, 0, .6), transparent 60%);
+  color: #fff;
   padding: 1rem;
-  transition: opacity 0.2s ease-out;
+  transition: opacity .2s ease-out;
 }
 
-/* ───── LISTA GIORNI ───── */
+/* wrapper orizzontale */
+.scroll-container {
+  /* altezza = schermo – altezza hero (in px)               *
+   * se l’hero è dinamico puoi stimarla in TS e mettere     *
+   * uno style binding tipo [style.height.px]="scrollH"     */
+  height: calc(100vh - 40vh);
+  /* 40 vh = hero di default   */
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  background: var(--color-background);
+  /* ✅ uniformato al bianco */
+
+}
+
+/* slide generica – può scrollare se serve */
+.slide-page {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 1rem;
+  background: var(--color-background);
+  /* ✅ uniformato al bianco */
+
+
+  /* fa sì che la slide possa scrollare se SERVE */
+  overflow-y: auto;
+  min-height: 0;
+  /* necessario con flexbox */
+}
+
+/* variante che NON deve scrollare in verticale */
+.slide-page.no-vert-scroll {
+  overflow-y: hidden;
+
+}
+
+/* ------------- LISTA GIORNI & TIMELINE ------------- */
 .day-list {
   padding: 1rem;
-  background: var(--color-background1);
+  background: transparent;
 }
 
 .no-days {
@@ -42,7 +97,6 @@
   color: var(--color-text2);
 }
 
-/* ───── TIMELINE ───── */
 .timeline-container {
   position: relative;
   padding-left: 24px;
@@ -67,33 +121,33 @@
   z-index: 1;
 }
 
-/* ───── CARD GIORNO ───── */
+/* ------------- CARD GIORNO ------------- */
 .day-card {
   margin-left: 1rem;
   border-left: 5px solid var(--color-primary);
   border-radius: 12px;
   padding-left: 1rem;
   background: var(--color-background);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+  transition: transform .2s ease;
 
   &:active {
-    transform: scale(0.97);
+    transform: scale(.97);
   }
 
   .day-label {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 1.05rem;
     color: var(--color-text);
   }
 
   ion-card-content {
-    font-size: 0.95rem;
+    font-size: .95rem;
     color: var(--color-text2);
   }
 }
 
-/* ───── ICONA AGENDA ───── */
+/* ------------- ICONA EDIT ------------- */
 .style-ed-btn.top-right-btn {
   position: absolute;
   top: 8px;
@@ -103,7 +157,7 @@
   --color: var(--color-highlight);
 }
 
-/* ───── MODALE PERSONALIZZAZIONE ───── */
+/* ------------- SHEET PERSONALIZZAZIONE ------------- */
 .customization-sheet {
   position: fixed;
   bottom: -100%;
@@ -112,9 +166,9 @@
   height: 100%;
   background: var(--color-background);
   z-index: 999;
-  transition: bottom 0.3s ease-in-out;
+  transition: bottom .3s ease-in-out;
   border-radius: 16px 16px 0 0;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, .15);
   display: flex;
   flex-direction: column;
 }
@@ -138,7 +192,7 @@
   }
 
   ion-button {
-    font-size: 0.9rem;
+    font-size: .9rem;
     color: var(--color-highlight);
   }
 }
@@ -149,35 +203,21 @@
 }
 
 .day-style {
-  font-size: 0.9rem;
+  font-size: .9rem;
   font-weight: 500;
   margin-bottom: 6px;
   color: var(--color-primary);
 }
 
-/* ───── FAB E GENERA ───── */
-.fab-above-tab {
-  position: fixed;
-  right: 16px;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
-  z-index: 1000;
-  background: transparent;
-
-  ion-fab-button {
-    --background: var(--color-primary);
-    --color: var(--color-highlight);
-    border-radius: 50%;
-    width: 56px;
-    height: 56px;
-  }
-}
-
+/* ------------- GENERA / FAB ------------- */
 .generate-container {
   position: fixed;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
+  bottom: calc(env(safe-area-inset-bottom, 0) + 40px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 1001;
+  
+
 }
 
 .generate-btn {
@@ -196,7 +236,7 @@ ion-card-content p {
   line-height: 1.4;
 
   strong {
-    margin-right: 0.25rem;
+    margin-right: .25rem;
   }
 
   span {
