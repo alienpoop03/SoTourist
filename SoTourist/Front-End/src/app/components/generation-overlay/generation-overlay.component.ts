@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 
 @Component({
   selector: 'app-generation-overlay',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   standalone: true,
 })
 export class GenerationOverlayComponent  implements OnInit {
-
+  @Input() message: string | null = null;
   constructor() { }
 
   ngOnInit() {}
