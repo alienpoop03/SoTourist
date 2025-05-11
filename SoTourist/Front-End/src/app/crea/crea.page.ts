@@ -246,9 +246,19 @@ export class CreaPage implements AfterViewInit {
     localStorage.setItem('trips', JSON.stringify(this.unfinishedCards));
 
     // naviga alla pagina Viaggi passando il draftId
-    this.router.navigate(['/tabs/viaggi'], {
-      queryParams: { id: this.currentDraft.itineraryId }
-    });
+    /*this.router.navigate(['/tabs/viaggi'], {
+      queryParams: { id: this.currentDraft.itineraryId }, replaceUrl: true
+    });*/
+    
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        if (this.currentDraft) {this.router.navigate(['/tabs/viaggi'], {
+            queryParams: { id: this.currentDraft.itineraryId },
+            replaceUrl: true
+          });
+        }
+      });
+    
+
   }
 
   private loadHeroPhoto() {
