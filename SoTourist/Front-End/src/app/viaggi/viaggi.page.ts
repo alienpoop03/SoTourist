@@ -7,6 +7,7 @@ import { TripCardComponent } from '../components/trip-card/trip-card.component';
 import { TripWithId } from 'src/app/models/trip.model';
 import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
+import { UnfinishedCardComponent } from '../components/unfinished-card/unfinished-card.component';
 
 @Component({
   selector: 'app-viaggi',
@@ -19,6 +20,7 @@ import { AuthService } from '../services/auth.service';
     IonIcon,
     AppHeaderComponent,
     TripCardComponent,
+    UnfinishedCardComponent
   ],
   templateUrl: './viaggi.page.html',
   styleUrls: ['./viaggi.page.scss']

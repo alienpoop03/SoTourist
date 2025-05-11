@@ -14,10 +14,12 @@
   <div *ngIf="drafts.length > 0" class="trip-section">
     <h2>Bozze locali</h2>
     <ng-container *ngFor="let trip of drafts">
-      <app-trip-card [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteDraft(trip.itineraryId)">
-      </app-trip-card>
+      <app-unfinished-card [trip]="trip" (open)="openItinerary($event)" (remove)="deleteDraft($event)">
+      </app-unfinished-card>
     </ng-container>
   </div>
+
+
 
 
   <!-- 🔴 Viaggio in corso -->
