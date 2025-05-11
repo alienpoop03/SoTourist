@@ -17,6 +17,8 @@ import { ApiService } from '../services/api.service';
 import { GenerationOverlayComponent } from '../components/generation-overlay/generation-overlay.component';
 import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
+import { PhotoService } from '../services/photo.service';
+
 
 /* ───── Ionic standalone components usati nel template ───── */
 import {
@@ -113,7 +115,9 @@ export class ItinerarioPage implements AfterViewInit {
     private ngZone: NgZone,
     private api: ApiService,
     private itineraryService: ItineraryService,
-    private auth: AuthService
+    private auth: AuthService,
+    private photoService: PhotoService,
+
   ) { }
 
   /* ───── Lifecycle ───── */
@@ -148,7 +152,10 @@ export class ItinerarioPage implements AfterViewInit {
 
       this.isLocalTrip = true;
       this.daysCount = this.calculateDays(this.trip.startDate, this.trip.endDate);
-      this.loadHeroPhoto();
+      this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
+        this.heroPhotoUrl = url;
+      });
+
       return;
     }
 
@@ -158,7 +165,10 @@ export class ItinerarioPage implements AfterViewInit {
         this.trip = res;
         this.isLocalTrip = false;
         this.daysCount = this.calculateDays(res.startDate, res.endDate);
-        this.loadHeroPhoto();
+        this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
+          this.heroPhotoUrl = url;
+        });
+
       },
       error: (err) => {
         console.error('Errore caricamento itinerario:', err);
@@ -182,30 +192,6 @@ export class ItinerarioPage implements AfterViewInit {
     this.overlayOpacity = Math.max(0, 1 - scrollTop / 150);
   }
 
-  /* ───── Caricamento foto hero via Places API ───── */
-  private loadHeroPhoto() {
-    if (!this.trip?.city) return;
-
-    const query = `${this.trip.city} attrazione turistica`;
-    const dummyDiv = document.createElement('div');
-    const map = new (window as any).google.maps.Map(dummyDiv);
-    const service = new (window as any).google.maps.places.PlacesService(map);
-
-    service.findPlaceFromQuery(
-      { query, fields: ['photos'] },
-      (results: any[], status: any) => {
-        if (status === 'OK' && results[0]?.photos?.length) {
-          const url = results[0].photos[0].getUrl({ maxWidth: 800 });
-          this.ngZone.run(() => {
-            this.heroPhotoUrl = url;
-            localStorage.setItem(`coverPhoto-${this.itineraryId}`, url);
-          });
-        } else {
-          this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg';
-        }
-      }
-    );
-  }
 
   /* ───── Navigazione giorno / mappa ───── */
   openDay(index: number) {
@@ -247,23 +233,6 @@ export class ItinerarioPage implements AfterViewInit {
     localStorage.setItem('trips', JSON.stringify(trips));
   }
 
-
-  /*this.itineraryService.createItinerary(userId, {
-      city: this.city,
-      accommodation: this.accommodation,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      photo: this.heroPhotoUrl ?? '',
-      style: 'generico'  // puoi anche omettere se vuoi usare il default nel service
-    }).subscribe({
-      next: () => {
-        this.router.navigate(['/tabs/viaggi'], { replaceUrl: true });
-      },
-      error: () => {
-        alert('Errore nel salvataggio dell’itinerario');
-      }
-    });*/
-  /* ───── Genera itinerario via backend dummy ───── */
   generateItinerary() {
     if (!this.isLocalTrip) return; // Non generare se non è una bozza
 
@@ -330,9 +299,9 @@ export class ItinerarioPage implements AfterViewInit {
                       'dailyItinerary',
                       'tripAccommodation',
                       `coverPhoto-${oldId}`,
-                      `trip-${oldId}` 
+                      `trip-${oldId}`
                     ];
-                    keysToRemove.forEach(k => localStorage.removeItem(k));  
+                    keysToRemove.forEach(k => localStorage.removeItem(k));
                     this.isLocalTrip = false;
                     this.isLoading = false;
                   },
