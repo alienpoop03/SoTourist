@@ -58,7 +58,18 @@ export class ViaggiPage {
     }
     this.allTrips.push(...future);
   }*/
-  ionViewWillEnter() {
+
+  ionViewDidEnter() {
+    const id = this.auth.getUserId();
+    
+    console.log('✅ ID ricevuto:', id); // solo debug
+
+    this.loadTrips();
+
+  }
+
+  loadTrips() {
+    console.log('🔄 Ricarico i viaggi...');
     const userId = this.auth.getUserId();
     if (!userId) return;
 
@@ -106,7 +117,7 @@ export class ViaggiPage {
     if (!userId) return;
 
     this.itineraryService.deleteItinerary(userId, id).subscribe({
-      next: () => this.ionViewWillEnter(), // Ricarica la lista
+      next: () => this.loadTrips(), // Ricarica la lista
       error: () => alert('Errore durante la cancellazione')
     });
   }
