@@ -76,12 +76,17 @@ exports.getItineraries = (req, res) => {
 exports.addItinerary = (req, res) => {
   const { userId } = req.params;
   const newItinerary = req.body;
-  //console.log(`➡️ Tentativo di aggiungere itinerario a user ${userId}`, newItinerary);
 
   const db = readDB();
   const user = db.find(u => u.userId === userId);
   if (!user) return res.status(404).json({ error: 'Utente non trovato' });
 
+  // ✅ Validazione minima
+  if (!newItinerary.city || !newItinerary.startDate || !newItinerary.endDate) {
+    return res.status(400).json({ error: 'Dati insufficienti per creare un itinerario' });
+  }
+
+  // ✅ Check sovrapposizione date
   const overlap = user.itineraries.some(it =>
     new Date(newItinerary.startDate) <= new Date(it.endDate) &&
     new Date(newItinerary.endDate) >= new Date(it.startDate)
@@ -97,6 +102,7 @@ exports.addItinerary = (req, res) => {
   writeDB(db);
   res.status(201).json(newItinerary);
 };
+
 
 // 🗑 DELETE: elimina un itinerario
 exports.deleteItinerary = (req, res) => {

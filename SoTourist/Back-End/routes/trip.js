@@ -20,5 +20,8 @@ router.get('/itineraries/:itineraryId', tripController.getItineraryById);
 
 router.put('/users/:userId/itineraries/:itineraryId', tripController.updateItinerary);
 
+// ➕ Aggiunge una o più tappe (places) a un itinerario esistente
+router.post('/users/:userId/itineraries/:itineraryId/places', tripController.addPlacesToItinerary);
+
 
 module.exports = router;

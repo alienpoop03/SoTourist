@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class ItineraryService {
   private baseUrl = 'http://localhost:3000/api'; // metti il tuo IP reale
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createItinerary(userId: string, rawData: {
     city: string;
@@ -23,9 +23,10 @@ export class ItineraryService {
       startDate: rawData.startDate,
       endDate: rawData.endDate,
       style: rawData.style || 'generico',
-      coverPhoto: rawData.photo || '',
-      places: [] // inizialmente vuoto, verrà popolato dopo
+      photo: rawData.photo || '', // ✅ usa 'photo' al posto di 'coverPhoto'
+      places: []
     };
+
 
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries`, itinerary);
   }

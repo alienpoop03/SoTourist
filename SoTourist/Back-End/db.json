@@ -73,5 +73,637 @@
         "itineraryId": "trip_174689510765939947"
       }
     ]
+  },
+  {
+    "userId": "user_17469584462141094",
+    "username": "123",
+    "email": "123",
+    "password": "$2b$10$rWyqiB76SGKAbUHlb8IJtuf3H0oqbwmndjKQKDsyfLLm7ieKZ0h56",
+    "type": "standard",
+    "itineraries": [
+      {
+        "city": "Palermo PA, Italia",
+        "accommodation": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italia",
+        "startDate": "2025-05-11",
+        "endDate": "2025-05-13",
+        "style": "generico",
+        "photo": "",
+        "places": [
+          {
+            "name": "Caffetteria del Corso",
+            "address": "Via Vittorio Emanuele, 370, 90134 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQhTGn2U5MO9BY4aqbKjjNk63nthDAWrk_0JIqzLIEK7tfPcMpl6zQTZYN38UVx49u7ZssqH_oALMh2t6efxUQ1I1q9gREM0QPZHDYGrBDz7msyO3AB5BZWAeMJYBiP7Y7m-4RKvQTsjusAd5GKTfw_V79X4FNZ1f-7GdelsWcfZGJNrAKruptbLmKSnSCy1rqPqCtQjhz6AL1pGBg8qPVKK5z5oAriOG4fXFGMbROjNP0lBNLwiBuocWc3h3juMpWkdqIaQbjYJ1eLohz3Vlf_QufA4mHJ3wGuKlsN3APyZObS7PXomdsB0SKUK936XZ-IEzEj-WjP7YVLR7Y9zXL4kHokrdL7Ou9VmhD1pNJ1E19-FiLaiJmUZaOjneeGcgdl4CTb1a0wj6WN2e5jerZpGgrSDoue1w1XxieyC0wluUzaIZp4OPfOSVj8Z076FYO8eVd6_4PELCApMXOZcJAK7GWukkgZsc9On2x8y87dx4pCEPosDtRwLSdVDHQm1FjEbUX9IUfeo8gbblhn4WR7fAGKbDwm1FR7N3x-RTPVAjzZ0Jnf1o54RzQX9DODbpwVLzqdXv_a5A&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1148138,
+            "longitude": 13.3594975,
+            "distanceToNext": "0.31 km",
+            "placeId": "place_174696148069091782"
+          },
+          {
+            "name": "Palermo Cathedral",
+            "address": "Via Vittorio Emanuele, 490, 90134 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSnUHiZSbmu2rZTwruH3rPQg-o1V0ygl_xlCuivarrh3PZOdV8_whqXDiacyBwXw-oREN6Z3hVJWPUE-FQ59gSEgE_tyw-efunyjPKAD5hhJo3nYfvA-bCr92SHVFEb5Sx4PuQ4ZhoJYDQ_-zT9JoVfQEDrtFHNwdKDuwFOlrmG1BAQl8oa5aH0pX6ec6FXGytozE0sZKk0_ZrvxGf08XoDNRBJcfiZte3cQTy6c0bNzD9Qt_YxrnamsS9vOBCiWSxc5rPas4WIofqrdWAKFfCLLNkm-ieaAY8E8g-UQQreW1D0Xww7VZsIBVw981j0vLZPuc1c4HYzj7pyIA-o-cbJy2OA5VlmttDZP4pJY77m67Aw4U8FkMASAXOHOgVOGryAolNSVRHzan3cDjAIBP5sPdWFw-FSX9tArfIsIEO7y9Snq4fy8Oh5KUaQUG2g_NA6K40ljrCAFAvpL80Arny0VJmKqb2OWZG_KSadyoumXXLjzpem4BOg0ISgqTEA19JTyA0gwMMjF_0U8tns78_uLZ9qrDzE2XkIoOSoA-F0LU5QG219_MB3CqvURqWR0bI2TA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1143321,
+            "longitude": 13.3560504,
+            "distanceToNext": "0.50 km",
+            "placeId": "place_17469614806905628"
+          },
+          {
+            "name": "Taverna Dei Canti",
+            "address": "Via Maqueda, 229, 90133 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTZ0YnvCltG6mRGj9F6lmqoTbcX0rtJNHFP7xL3xekWRv1UnxZTX6yq2jWGFpKW2uklFm1SZVZx9wlDnetOrR9FctDhjPLRrAJyobKuQP5twXxiYcKSHtErBIZNQJD3T7HHNVFDjxkh-UCwGqjBs25WmrH05_PgkxZHTcOfjl098nivrAvZ-DfqKu7UtB35t19RApYm6O72Y72tpago432bV2FAVQvitPfyz4IuOPZvodl0cqOgmvIfvaVNIQ4siv8_zbbrQP29YVvcPnqlDTJIe71000b21tBHq9wqsuStzS8dPQShPoSGcbv7hFVN6Ftdp-BYtt9b5HBpLq1jsu9fFIW3HCY4kB3iYpdJQsG7RYQTMKtp7SR3LB1pjhigKIGNkb4xnmhgXWSK9PYqe-VV23o75j8-nZmLyya5xWy6RvUfVrTJ69Ix_al2MeLBlD5xBtDLuEVPIbybgunIPxagNsVHN0bgoAb8R1fG7QZQxhWqGM-R0rdtcgd6rsPwvcXGOKRbPt7tyCkDNvgBGyCVkt6DoEIkwhbVDNMJZvaYJX7prhN2b2THCia4S1RLDJ2DHzUg7w-anQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1163269,
+            "longitude": 13.3611404,
+            "distanceToNext": "1.06 km",
+            "placeId": "place_174696148069030057"
+          },
+          {
+            "name": "Orto Botanico di Palermo",
+            "address": "Via Lincoln, 2, 90133 Palermo PA, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQDICoJocT4wd9th9ywiREO5FhhRjUfvT1ccg_iVo-gtetOxjj6s9uau-puFEtMeT_7aCvwu40fvHXBY4FoH3IXwFyVP7BPfUOJWgZZ9MpzRhEc71Js3yg7lbPEjK193fqkXm1EZ7aLX2PvuFSER4kK_U_pU4ogg4HaivDFqjR-wFQWSMZQ913F0V4hAEJ-EMKhOXSFsFxfrkrCch0dTTOUDguKEg0tv2EBg3AnTyX1WuDbLUmD_BA6Y9Ae5fmzYzWGE4TwODzLa3w7Sqh0GIjCwybdWcMQ4P87JGVSBcG0qAwQMoJKGhRyhhB8HRqVy6SNKWPLAysaulpKD0v2CV-Q5exHHm0CqMjPK5RZLZm92wI0AtnABMfWFY4s0Nn7pJPor_cUqVjW1QHCtSyw7iwssrZhJ0SgsakfUdtnbFvj639DMbgw5_TVnuY6eDpMO2oOE6GJN9JUSyd_k55_UkK7L-_vWyiz_azApwkIa_t7DRZ0nwJdY-YmU3JTjQVdzzNNi_4FhXvcgmHtKkucSBXCIi9SEn9amDaaYiryn4m4lyzyZoCSUvfT89N_qlBDvHS_lQ7n&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1134249,
+            "longitude": 13.3727197,
+            "distanceToNext": "0.34 km",
+            "placeId": "place_174696148069011397"
+          },
+          {
+            "name": "Ristorante Quattro mani",
+            "address": "Via Francesco Riso, 3, 90133 Palermo PA, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSL6bNHH1s4RG82jtmYaTo5KV826GQzEeOSvHQAQE_bkkNKy2HSzbP9Ki_NAWrLiDo4FpUJc-wKK0M1l1n3VmpoFiFcDZzXhuvZBgqv6UJfaOcFK0Uk6SoSAiMKToBcIk74v9poVDnnN9lqd0roaD0yqjuu5vUMuzcdkXhXu1LvlCIG0hT3PQA7tkV1VKKuT3Kj9-s6Ydo_BV5K9kfp52W2s0emsQdBFCobnOzW5eEdQY3CgSDZII1SfuXB98ZTWz9-KkugitVnqARtZm_T7WtYGaoqn84oVruJnE2vHtOwoHuFJyHO21_KT-lUaD-LyWhjUiEUE42UpTzcpvqf85kPGzlkUCLg8uF0rWchxoVGvH9qUsDkKafyaOPSih1sCp9NVVff39GtTeRGts6We1WM1RNfYtvMTIswMof3TkJIE4V8Xc4o3RXCgQ6SRi_bkbiw6WbJ8rThOibWxqTd-F1ETlv44nWXxuqdIO7nQJhUjcL1fu_w1IJ05Hlsy5SCZg83Z1BW9cUE0rkMXk0JaAIRRHz6Ns5ou9KEpBfIW85OpWiCS92BGWcqaUi_A0UtjD89MtWp&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1155732,
+            "longitude": 13.3699006,
+            "distanceToNext": "1.77 km",
+            "placeId": "place_174696148069021395"
+          },
+          {
+            "name": "Berlin Cafè",
+            "address": "Via Isidoro la Lumia, 21, 90139 Palermo PA, Italy",
+            "rating": 3.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTlCzHtlAxagxOWvRTXDx-YBzUnJQySCiabwKJ9ibGT1DcP-vxe57cK4lV1SyTV9KJMNwlP8v51j_jrw9-Aad9xm5FLPJpqgXcDxk4woustg_g20vVjOgI11ddaQCY1p_ZmQk4WmFWIV25W8m5MXp4o98xBoIJSBjCEdWSD-7tgRTsYhvZOT9E4gRYL-BpgKC3kSeoCOeVX1aCrDhUulAAZ4CJFV7-l9dLvom-9PKtui1yIWLXclV_aHQ72oWgDu3zh6aVg2x_sqGlsfADVMu_bGs0MvSF6horLJeFNhEOpmlPjG3w&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.12722309999999,
+            "longitude": 13.356141,
+            "distanceToNext": "0.53 km",
+            "placeId": "place_174696148069069565"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696148069066348"
+          },
+          {
+            "name": "Bar Rosanero",
+            "address": "Piazzetta Porta Reale, 6, 90133 Palermo PA, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSku3lXoLMNdOxQfWHLetCnchZ6irxkl1lkZjoFLKwJjhkbsG-ACoENwwAViqqZQeH5QiJBL0YqOTj15mt7kqdjMMj0TWOdXyWTbgPyBN9HZzEiZHHyg_ff8x1QCTrGYc6gWmgE45ADxTtzbONwNulEit-7_uAsoawrPmO65o7bvYWEPbnFTCYJ_C1IyIeS5F2eP4RNF47WSo7pwFtNjRmWxBPLgn9M8oaeyiufIECD55L3XwM-eVnFWFAMhy6IFt5YznFXjDEQZMrIW-LZneZTgOwo14cr1htx4thn7HQHWGhPkv1qcn3Bu_0A_jed7R2gyn5tM5gSQx6jBZZtJ5IbrlfFNmfEU6bVtUGhp7Yt-EnXLuB9qT9b4mjrBphE7FYQMPFUB9DOcJOYjCxdEJu1keHBNnZWsHw_36bSA4dyGV5XYyu4vEV6Th2CME1BSiqP-LlQ_Gp9K_8C9M1FqeAoiTViBLV3b70TwTWEtrEK18t00M87IgR_16Qd6ismSmK-PwH7mYeCz6CH2sdE0D7snWyxZFJbSaQyApA-z2YI147s35liBKhh1r23rxs0u5ezPg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1144263,
+            "longitude": 13.3740874,
+            "distanceToNext": "1.11 km",
+            "placeId": "place_174696148069086082"
+          },
+          {
+            "name": "Quattro Canti",
+            "address": "Piazza Vigliena, 90133 Palermo PA, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSocuNrqUeZ2lKWJW53yky7vsPiG-OIRA2mOgS0X91u7uqfMSDv9Ezwr_Cihy5LoFJmWyutya3nU84_6COwRfR6MlBhlonnaZYPp8FtVSgtSOPNqxk701xBcDEaxljUQLMu-6IA45Z4DQNqfSL-qDhLuSqUgS2K1L452K1PunBtbIRoAyGE1rcUmwLht5a4uDUshrKJFAtPbgvQsyRUqsPyV2KMZmIniwQuplSDOzi4XL7QEPx-Xox-g0w-_TeCIRXY4WA81gqN_cMrDJnVx_nSiOQrGKVOjBMOSHbd82z_jG4MtXuDv5PYdlxD30sLsmeNLv2rv5qMOdNA7p134CXgxvqu1alxR2lf8Nkx2yI1VTrp_wvP7OZjcLoR1naGh1v09hKGyYN6V9mNYgfoeaTUtlfKIFBqEicwdcp12T7Pxm7QpvBmdSTzZecghT7iZrLEsiQiOsq4h_qfOLgSojN6S0iGWhjt_oB_zfwdPA-vUOtimIjnLWzc-WWUxY85S-ltrCcLhWurV84TnEjEy84PRIuJKQ1RSIJt5-rLwrmBo0ecsEL6NT8PalmOeEpx6sPKn2_espufnw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1156958,
+            "longitude": 13.361452,
+            "distanceToNext": "1.61 km",
+            "placeId": "place_174696148069066190"
+          },
+          {
+            "name": "Lo Scrigno di Donna Rosa",
+            "address": "Via Agrigento, 12, 90141 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQtRZq8Py24zBmDQeYHP3JTDOKuoNNHZc3-eglSxNDPccW2UuAk4SoPoiDd-vvEg8Kwwrm18ZnNoEyzyNsXsii5JUtdxBe8LTE2IEXLLMdEnatAZMk8GvwNLgRBST5KjGZKSfwz2kkusOhYcDd2c29guvztAsFQyhWrWPwtG-AcofNC2QmOBKfATF9J3P6BZ7Gb8VZquqZborR1VbB4xvtHgvpvfQC7bNKv_sGwAb5ZvVvTLxm98x0FOv1Jo6880dqPrdzNMT5nzhg2ZuLl9Cv1G4tV1VpNA8YXgWSapHYoosQBr-M1QFyXnldjGxDV5-pj3L_u8J-HX4DZRkxS7odImZ1fY8_CsgDk0-CGx2AVDsQjzB1etB-Oias-_dyvJZHTaE0jGhP2-ZlIKYVlTT7ksfoseFbOA5mx3ayrTxzsKAY0wphHNK2HBbXrbljVVcn4RJBdmkTn2vwHXm_RDCB9mItc60UP9Md6-CWN8cRR_D6G7t1ku1nnosGrrz4b5Cui-isDs2_LolfEGb_9VrG5368ogvx9V33-q-tDsUY9tizq1CY6yee71aFFdhz-H1u9g1rD&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1281869,
+            "longitude": 13.3520878,
+            "distanceToNext": "1.09 km",
+            "placeId": "place_174696148069049439"
+          },
+          {
+            "name": "Regional Archeological Museum Antonio Salinas",
+            "address": "Piazza Olivella, 90133 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTNFhxWmeCy5igwrvdjbAQTey84EBmLHL36YCC5YEbbz404962jB3KM7gsuo5B427RjT4ozIqmuriEAK2K7gQNvgN-Xlfbzf4frVhNwTWu8FktKbjGbTYY-OiKih54WRIAVm9Nh72x6WuBVpl0YZPJRLZcLqhNZFBSnmwjCMLM2zVMSrqw40_mQUBE2sAjCsW9i0mtdPZu0FnFoTSKfjSfc6JyN7F9vybeMynpuw0F8sQMWWma4vGBXIlW17YrB2tlHFp5ocRMlN76yby5MLQISXhVIcIgfDCgYunUJEfHYIziAGrQ8LEerYuVnQQrtwizGeOmr-oPCitQX9KfwhaKiPaMsK_W7YGYKJzAJH0ftvkeZF5EPKadhPg_BvxKiJAn2ziQ_3_P8Ua-dY652N70PgJ-adozbdc3W7rPcsgV_w97eOAv6EG8A1mxutetEATyiVS9_ovrPoJz0jLUr0SHyZohnCj1a3_4884oH6F643rJoNh6TOXtEFJV1HWuOz_oz7X4ekY1RzaKJavyaAXWE66ehFCQfZPRYNpzqTqV0_DLBxfW_B-TGGm9NGTQjJoCiJW0N&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1207911,
+            "longitude": 13.360305,
+            "distanceToNext": "1.11 km",
+            "placeId": "place_174696148069095275"
+          },
+          {
+            "name": "Trattoria Calessino",
+            "address": "Via Giovanni Naso, 5, 90134 Palermo PA, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQOQYSCfv-JPxNOSkLbe_IP6fPqMWbcyc5g5aBmVJahr_bwxhVvmCGw6wNeye5WQVQQDjLL0sFcJE6pbsSQcDiIog6zHjFj8f3Q2Mnor107dOQd4DEoNI6iLwbrDwY5S5gkH5nXtgB1qP2-e1gQNOhLdWsts7WS4CjyEX9lc_tke3Vqwl7d4bzWCEKIjZHLr3cdwF-eI1S-pa7dhFcJYf0Do1idCq83_H_f_uc86wGh0nZzsGgHmsoNjyZrIU3kr74SLchlma1TcIi-sv3T4PUxb4vrdZ1ozQRutoZzKTa7nCgRRKIus0ZgbSugcB_Hpn1pzKrerC1gRc_WfPmkPavxrNvoJGp7YPY8p3QbIMVjYTNtwDvHHdDruIb80WqfuszrDHbhAOpBFedXSZ-85qHCyrOGU9-eL3Slt5hM5EN5uSCfe8Ga6cwmtilm46CN2-VCtyfu3ZDA4wS-dLA6bC23gS5JrASyNi2_IJ-FlW-hvA1i0Q2Wi4-w_KiR2_gETLlSMCgBvZjeCoNZzkB-ZlgM9GxmK7Gp7QfRRT87lidqEqwVkkM3zJOayQzeXyMc6iNMmN4oGIUiGQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1109813,
+            "longitude": 13.3628539,
+            "distanceToNext": "0.84 km",
+            "placeId": "place_174696148069016250"
+          },
+          {
+            "name": "Honey Rum La drinkeria",
+            "address": "Via Chiavettieri, 34, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNReJdQEfXwaHojCteHdXCLqD3gk_dron15KybucDLk9ZztR3i6VU1q-208dODWnH44SrSEQdGs7CECjqvSj22VZjYonqiITIPC3az3Ts4Rcv_p80lWY5jcsrxlgdG6IfCdL814XXKf9gYFdYArj-i3V3Cs6pc2siY2HUz070F7Ctbg6INKYomjbJ-yFGDXIWnnO2XXl4UMjTMzH0uE2kdjWdOAvV_H7OPVVsdmHXGza0Y2Pw3aqM5aykmdqPzuwccJPAGonZD-YulSyWvzqWj1fOYzAP0UP9tHOwgrX03dXkwADaJZHImBVBsKhGKrn1eREEBt_WfXa-uEibKXUQ39zcIQmBLy4g7oB4hQMCK-BR6rEvkFs8CnReeq-Tr46HxJw7hht3M2AVL0HX2msfxN141OCWY0bqFTaATx8RHMBINiig9b3-mBBGx1v3BraaW2urUhkhtHa3XCY2dxxkdQ2vESayPTkgX7w323RTwkjRX5HX1wYIxwzSCOIFjoq3usTHCae0Gs58VoBlex0tQB1jHYY5nDUzxSQwwDt8IoUcmxmbUS9-IYwrroT_oMEFNhsg-jv&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1180757,
+            "longitude": 13.3660309,
+            "distanceToNext": "1.58 km",
+            "placeId": "place_174696148069066885"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696148069058156"
+          },
+          {
+            "name": "Bar Del Corso",
+            "address": "Via Vittorio Emanuele, 99, 90133 Palermo PA, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRUwZikyyjtMB37I9OSkGElUaYF5Fe-TTKrQXzkC9_jB9U3JtMsn5dm3mZRLSnGY8O_QkX94DEmQh_VP-FnUc7yPuspvwVTGQ8qZuklmoQSdh_R75gTCoNVc6cAo_HdeHH_CEnSe2bQiprFH2nZX23fTURenjM7bA8o5OFFAqs9K5CZmlz0cRKhZSVK6qYXNnGvj0nKy2xLlnm4poXUFLUmXglrcMx_m58NVh4B0XRnPwBQs1yoICAJqx1YSNwNOcFKyKVFGVnX80rWiq-7n0DRsxE6JufEHx1c90qPHYuRnG1gbwP7ZC9slF7oTIjb-V9KM4iLz-54VhtW2Q67DJ_76t2fU98nEpmw8OGhdbPQ21ZohDAoSXlAbYfn77WbfkafX41TEalkcrx52IeRfihdXQcmmWrqDR8PPBJpgBLrrDWlWYPr-P5zm_tm9WQb-WATELpOeM9LJJBox9wZIobUn4Pc2hUP-MM_MI56lIxOU7vyT0yK8kbPGtS0HJ2KnoYZBEYaH_hn2rKsXMMu1Mq31g6U2mS6YjaxGIBxQ_ao1yM-jn1X2QJT-ycbsOPUO_B-bg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1179475,
+            "longitude": 13.366859,
+            "distanceToNext": "1.41 km",
+            "placeId": "place_174696148069038141"
+          },
+          {
+            "name": "Palazzo dei Normanni",
+            "address": "Piazza del Parlamento, 1, 90129 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT3C02_WoQgl7uCH6DOUCtxJYvn2QhCIo_bFCOGh-ghTjioQkLhA-PENW8h0suCiLUR_dAtEYiR2b4ooiY1geZCIcaVZ0P3gZPnIu6BTn-76xoSdb0PUgF_QxUzuvTc-7aGekvhBGBpPqbntVZwIvU_QcJNQFyj8OswdgOoDwPoSRS-ZYBNMKjftL5s8OYjAfk7iF-5yw4QvSAStduyXbIh-xHk_5naz9gtuxxt75K8jKMKmd2KCBaZOWKTpA4BQVUjTVI1IwvrZLOZl2bw_fZlXbI1G456YlJqDoAZliHB11GfcyKZX_BI8HWlLnYe8bBvtg0wdfYsQMZF9758u4ZF6XO2FGy1elcnT6fgF9f-ZbOI961FZP7crXlMdrxF3DHCcoKwIaQK466WxZgtIx9yW6P-c4XG59UHdmo0GnQOczGLBs1suroQRPaYPWlJ_XcIyQvyUzSLhOlKO53HP3qCmNrQaVx5RXpZ32Q9iHO1q7c-EcRfBkqBSH_cDTTXa4Xn1uV5jZXu_1Zd58gzoCWEAN-ygq3xJ3r2r9EcnKYhQf_RvQ9e-P_lv6UxdWTmgRosrfrg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1109199,
+            "longitude": 13.3534896,
+            "distanceToNext": "0.91 km",
+            "placeId": "place_17469614806909896"
+          },
+          {
+            "name": "Vucìa - Cucina Siciliana",
+            "address": "Via Maqueda, 255, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSXvLbBNG87iWQTBAOJb7xBUmv0dtyvBeRv4nvISYyNPfYf88-tKla0zJqucEBdMBhRGB0-7ry8TsqQL3ZkzZIdTBCuEJvxj4RuWQSERqriZEBCjYaDYRXaYO6oNY884HporczHkNK-3PpDiZje79DZ3vKb1MMBcT_8zPipEqif7zy5sXfyTH53HQ7OK3xbTqMNupQw1lMzPVuLsl2stgGCwrYwSw30nxAZsjf1F_FS8oOWJy-YHisRwr8_YvUxHXOIE9KfFaKmY5n811tn8XaSkVF9OTO-rqAYthTzBQKxCAbkxcSbgemxxOmpjIGKzCftQ6EvbSaSdYkBe4g6LHPXuvxF7qmeToY6dQloJpBRzAGv5ohjwcKMozz_GMX0t_D_9H7vB0GncqtI9U_Hyq8KLDmLljP763qtnnS42-O-jVLQC5plUQHiddl-4hfqGtsfxDn2QnjHCQIRRX6hjlfRxnw5Fc7OIjx_VNr73DQKp5Y-xHPY-niLhoSo_r19mnhg0n3f9nzC-y_sBj4cNv7n3QPNCDDKGA35XnFyhDa9iaqZKQnHVWgSrB0iADooYDrhYGs-&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.11668590000001,
+            "longitude": 13.3609513,
+            "distanceToNext": "1.29 km",
+            "placeId": "place_174696148069065472"
+          },
+          {
+            "name": "Villa Giulia",
+            "address": "Via Lincoln, 90123 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTkfu7kTbFoM4gi9WsWbc1L3PnTrpvN0OpaGSLs01z_eZdgGRjuQLdDJF3igxN6WHmrwBdtkRamU5l0nmPWxrRwmHjLYBwuK5rDPpaEx3PeaA_TEgMpDv5dNn0ak2ClikuUf9Lit9OUNCGL6lls8XqXcJKphxgwH9i-sNI2I_VRjA7MjutvqXgR0gZJIeAqVzOSWPAOHHGVl1rJH65uE28j72mIL-9j2dR-l7lKqsxaYoig6wbWXbXreVaU4u-UvtECCvc0n_4W7SWMf7iA1N4ksGPXM_DXSvMbbYH0pil79HWT0AgwERiheUUGEZBKw45bdnIbHgZtcHPk41GL6qER9XT9KnacbEzozKfnXbUO12dOaSO01qMiaL-3pRRCkHNGBy_yRF5ZRY1YHxNlZ73K7NM3q1mHATl7VPmA6KOWCYjlRLSBhX29w_AFci3WZ0BYpzF_x0-A0go8D0nRW-Tp5yJXM9lT3nqZR9SaNFZlmtn2Gua31Uc48Z00GUSGAngj1NYGkPI-tV3JHCwKfmmsG8d6rRUn851XmH1JW3T4rCd7mmbCCsnSEKGL-ONFZLHLwhXV&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1139902,
+            "longitude": 13.3752396,
+            "distanceToNext": "1.14 km",
+            "placeId": "place_174696148069047423"
+          },
+          {
+            "name": "Il Cambusone",
+            "address": "Sant'Andrea, Piazza Sant'Andrea, 4, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNS2jfXD_BFjNc8gymxNYwjsloneCPjS101hNteS-50Qs6M3qMfATDbPHD0AnXM_sN4-SJxIkycAZHzyOTY88ubJWMrUOUrfcDxUp1GO-2eNCvV2JL5BR23EFcZxi0kHVhZtzeYashYeW0UbnXNkUVaFZ67hMLXOpTDf44n9NrcsCl8bsg5TeLQXWVssDP8xaWuaUIcNtn9Lo8LHZGgu8l989pEcYcZDdFE0tS_RcPvIlBs0BoYszfP4ARCQ300PeGE439t2uaC5ExZ19EnuYUJBM6IClul2uT78LkH5JOAEbsX3Wt3lduPuMmY1Jp_WXwrAqxNdjCOt7x7Ru0feVXMoYv4mQ9Em4fIFiK3VaYs6P4M4BmMi5tawU41RUwKKV10VdTJAeRuKHNEFmCfA4xGFIZR-X-yAcQyhvD7lbFnJ7IwWPKOSL3PnLN6JDVoQs8E74_NA-JCETDMQv8pqUNSMx4a37OHP_ifFuQR1D5Qff7UA42fZS3A9lpz5MeBfpc0F4eYTDbQd_J8EX9OQLrjPa_l_-SST4mpeTHy_ADdz6AWOxj4bP3a1Cdyr8KNvyyGn9qQt&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1184007,
+            "longitude": 13.3635119,
+            "distanceToNext": "0.43 km",
+            "placeId": "place_174696148069011961"
+          },
+          {
+            "name": "Drunk's",
+            "address": "Piazza Sant'Anna, 1, 90133 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSjEKqGxfCwZ0yzD13kEiUQHNWwqgJOyL8Q_YYp8U0vSQnFliGzU4NBPSxJQLG01RcMMWG6ckGOB3gAvUZLUJcE8z3uCf6QHF-Box57dnvoLb7fSKoyfpWMfW5ZUXyHv3XACsGamZM9txQ_pHXBXtP4YSxEARfG2H3Ecz3jGu8F6cjjIbmJy7uKBJO5npUor-se2JNlf7yqQPDnqvZCrxJ7jRYc9s7K7_fC9R2xmNxNFEYjNUg3bdUDGO-Gl2wTSXWKRsDbdjJLG8wTDWE7VbxICVDhKMsraSDSJ3km0aqELqynBxpuZqJjSyWgFAJgRfIveaE6tBCuMZpZTeyq7H24ZoRUK5k7iH7dF6REhjb9LZ1ALgFITPbiTVufHeFov5KhNl-6XLT6iEJjmfEmqp-oSH2vMmkzGjwCcYROxta6f-CcrLaG_Zz_B8vstnLLQ_FNAWVXXGeaSGTt8CHlOVSRuxiCmyTwtiVKSEOlW1FnkofksPqUF340Fv8yJaS9pc-Q301cg3n-V8q3jktJcgUe8CKPxKs0uABsBEPDrSJvVWR8LqscT8Br0G4HXIQWIVjyuA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.114708,
+            "longitude": 13.3650844,
+            "distanceToNext": "1.74 km",
+            "placeId": "place_174696148069072768"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696148069031015"
+          },
+          {
+            "name": "Caffetteria del Corso",
+            "address": "Via Vittorio Emanuele, 370, 90134 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTmSu5eWnMKgszwjS8NghCSj72YFIcl3Ji2NKCjRgVrx7FZoDPrVR01tI0WFpH6RHc80BiuOvtPkV1o6whjbnznd8KB34IrzM2BvuE8YgFcqZvv8tc5XdU0bwBprMe-Y8GXJQfpISyeYXq4zMa37HUXmqvQ1VF0mSKEuqEQ43XGCH23mTDdcBi5Kck4Y_qNJHi9XNpNcat40YtgK6AqpiPLaQgJ-_xnb1Z4lHtxklpYRrZa7JEwfayl-6wPgKPGQz4BT6-UXvOehTLF3U0sGvjZqbNAnz7Eb45a6Uu4yuAueZWrQmDONrYE0SV2VXHw9CCY6dkl4Ta7cyymyVoHQDftejlgDFG9WGxRZYjm5fALEaN2DQNlA_xWSz-dgaieVi27zAUImwVsFf0EDUCp_yPvHg8QqKZU4OzaU316hsA8fdtbt7016t2X1aijujLBrup7Pg59_yf_D8hfULmaBJ9Vx1qHWvZ93ThqLfveCWPZpQeTaeFKxXJVxZGMLWmxUnsUF_vbHXLmeQ-fEYxg3MAT6pSCm3uc3ilSgsieyFF_aFqsyNkd-CzVG8RDNmQlwNZkiAUr_9_STA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1148138,
+            "longitude": 13.3594975,
+            "distanceToNext": "0.31 km",
+            "placeId": "place_174696156036962579"
+          },
+          {
+            "name": "Palermo Cathedral",
+            "address": "Via Vittorio Emanuele, 490, 90134 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSSiTbIHL01Qa-bO9jDA0HPq71ON77yTHufxJrak7gNWw0B8URYB92nZEvhfh8pt2umSGcEmNLaTSMBwTOgpbBuTVZvlH0fZIt_n_JHDVIM49HvbLhG1tyBO6qDUqcAVp5MVopUs9EhZoF2ZHMW6Xt7X57hjJk4kci08LTp0mabRXEmuGKfnrLB7JhEdOls4jedzr-5YXXRKLy5lT76E1_bxLlCJK26KLeMFKLfW5Z8W2gNBmN4RhrwmyL-lAH9_jSEwbRS2Yi8mQyvTwNyHKnB6_4lu1RHa3DhkqwVYxue5lnL9ayhg7Fkb6JeLxNHuf79T1_vUmq4vtSG4xeODVZ6Iucyh47WTVBf5mRQbkKh7u5FPPxIpwg_8CJorMd4O4vS9jfyzUWsuK8wtrHxP45wwfliHAPzlyJBYYpdCWQFGFhrwbZxMVEx4do1zMhe_qLkPYEmv8im9aDRxtcgiguuF1P2ck58FZsTcW_K4bIAd0Kzs8BVPCAximr9Z2oWmLkhdiwbB4_IHLV_48g0c9YlPfWwFw-kqhKm6MKsEpwgQUrZ4qvr_5gh4Oz0uGtbjaW0lg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1143321,
+            "longitude": 13.3560504,
+            "distanceToNext": "0.50 km",
+            "placeId": "place_174696156036914190"
+          },
+          {
+            "name": "Taverna Dei Canti",
+            "address": "Via Maqueda, 229, 90133 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSUOYpPm2Rr1eRDaI3EiKG_qpLW04ZD4x83Xku7EnIXHJge-8BBoYFt5riw7UWlwkakXpKMpkttKbagULZ3qXBBGz2v16pgqKvIPyjVcy9KApf5jI4m3eths1Qe52eDf4FT58pzJQzhchCgHE8FWOWc7X6w2iKSImtJT1YItGANAoQmaeNZM4HiIw-rwouaujOhz4NT4IVGuH82lG38KXXQpJ4D0xf2BjwGdDefAnVfVuXsRAqUcrSp0ak9wJpI3CSu35gBXXAk-Sj5nx8eUmergko7LXSC-K-OZk0PpASyj7I-MW_Wi_N-389LhyLYnILLSPLCqC0WtTMOZ1Y6Orf9PFIjIlhY9ESGdvqEtvSqsS_y-zM7YNQgc56ChugpKagtWnOF_029XBTln-D4TT2oWyeRKuOMJq6webtD5Yu0-XqSfAxtgWvAHWbwgi9ndrZ_2KdzY1j2Spkm1kaOJCvGgORwGvLiU_neS0lwr7ymHhA7gT0afFleh4QPds6kg0-g9HjCjGwZL9vUv-cafMIwPBUIjCDY_XfYPVO22kdwgEVmW5d-3kymuhXeWIdirdJQnTdFNeoJyQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1163269,
+            "longitude": 13.3611404,
+            "distanceToNext": "1.06 km",
+            "placeId": "place_17469615603696616"
+          },
+          {
+            "name": "Orto Botanico di Palermo",
+            "address": "Via Lincoln, 2, 90133 Palermo PA, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQ_OdPtaCx8H44rnhu1npcaXMs_3cHi60VTawE0dH7uMv1Sj98tfaZ6JbwtuZo_YG2st7MM8XhzE2kn1LZcoeOirKrwpHJooD0JKi1UraTHwc2id_ijRN4IjT-CZ-cV1RZju1h108VyyCo4Gi1uIgRIX4eKNMyq6wCgdXO7VHqe0XYvbg0P4354Br7nB44Y5zIBWU4MdGqR06Et98IkAu_yjohYr2rqowNV0AJ2KV5Cq2AycKvniG2I0PmT2lWwvT1EvXlZGxzEmrpK3SeDDtmSavD_euEwfAUVT01rVKZu85-qsgO4CrooOzGXvFgFZjEeB_5nHFgT55qw6qHT-9E7OBCCo23PgfqYi0UMcP_g3WaOM0xjPAchPiZuQrjAYh08yrhCEZI50TK8zEsWN-VsUXpwE027LW-AWK0gCnqJb1xvKlT0PYKHk1mSyxQzNdQFmv6fhQX8v2rv0-_ke2rLAxHFHMotTqOPxIEHUBLMXA0v2H1uNjEILocyq64t6X1uJOwY7Kcyo4riLbjc8FH2-F92UYt0HdPc4e6FEk_2570G1F3KeiWGO-o80kKOkctrTA8h&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1134249,
+            "longitude": 13.3727197,
+            "distanceToNext": "0.34 km",
+            "placeId": "place_174696156036954045"
+          },
+          {
+            "name": "Ristorante Quattro mani",
+            "address": "Via Francesco Riso, 3, 90133 Palermo PA, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRbGlVYi_nc2OVigZPRnYeQjseQut-3Z7eKsT7DAh8J9UjXM35FVTo3Z6I_5FPhhVJVtN0gF21VxZyCS-jNHBoP7yAeM5uRYEQN-gMijOxcOGM2yZ4b4h3DIw8FutF9EVgbn8_AOehrUYpUA_xEIi2fV2nLtHbHqnLv1YcMoe6-KWbg7_wgreVAfsQ_7i6ZQw70eZ4aZfQU-OdKGT60qnSsvlSsAn1J3XbMNGy7u2_PWuvBqfamQ6hE7qZs4cVKaGDl173gysYu1D-q6uwLowjq7BSm3638pWbkuzwzC1wb2H3zQtBd9pLgZEPIdChgNCBr6AHNB2srQkAQNrMdBZHLsacVB2bZQ6OGOW-oDnbbO9DAXUwuVy_Fm9i4ule5UUFCeP8527rWWELwyPtHA4nIPSKD7lp0VlkaQI-Tpf0fQSbPvTTB0Xv4JJNV8LXpbX8bv1h3RIcAAhQLiBU1Pkd6M_5cH_sLXq7ruT4YCqaIQYLBzHCr2V6U2gxRDoWb60RZUmEoh_bCH7txKVJXewZIj7rraX26RVz0v7e2e7yqMeurjo7CpikgedDIyJ3V_L0CreiL&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1155732,
+            "longitude": 13.3699006,
+            "distanceToNext": "1.77 km",
+            "placeId": "place_174696156036924460"
+          },
+          {
+            "name": "Berlin Cafè",
+            "address": "Via Isidoro la Lumia, 21, 90139 Palermo PA, Italy",
+            "rating": 3.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTJEvtLFOw7j1bqcI4-4egIL5uzoIcUlRb7W2t1O98sCeCSEvM90_4t7ZPdHtIta62vCXd9oynyE-dTlsaIqzyw2NEqoEjLie3y00w2tI92Ffcwd3slHxW5q5EPaZKj0nCBcoj5Ra7zDI67qHUQ1oJesUee7Bbo9LmG4pGRsWrhNSbj5cpuuDk6SvzJPQqk8QKzKOBmHlqm5Y4PDuQcDJT-yZOCD3AL8OkKIhOr0RmktSRSjt0NeM91kH4KvCuEmINXRtftUtmFsrJC28dA6SGWNfXoGup3RcDRh3Wy3srqk1bWsj4&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.12722309999999,
+            "longitude": 13.356141,
+            "distanceToNext": "0.53 km",
+            "placeId": "place_174696156036939449"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696156036968840"
+          },
+          {
+            "name": "Bar Rosanero",
+            "address": "Piazzetta Porta Reale, 6, 90133 Palermo PA, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQH0ov3KN2E0nKhfLK05tN2OFlUPOWWtw1SwdQy-jFNzfMIc2L5kqCf-mYkyk7_BRUsnk8QjGxxY3Nuwuy6utNR-yt9JXJiPzZ6rsC3vrQbYEStJ83kLg5uxvqydgCbPs9et5bpzMdKX2CT2LrWLnSAmY7rzROH1v7jFvKXb9YJrKfQn7dt336HeCCGUWLEQbplnMwsQpJgkRdhfthdU2BNi2f4bS19_NG9d2KsR-XqU_RrkjGHWl2jLOTPJDJGdpIUHyK5AL-DbbEoJjtVL__EkJuSMyPWMsJ0jxAKrEccZdJIMBj6qRMJhOzZIAEfdFyJeig4GoFdESOO6HZRcKz7raB5-tGXJLRpGKQ_GfcMU4KSh-WQ4vm3C_wWqQ5m13aat7tFzmQdQCfUFNVJ2bnAMzAXC_b83XUKQwrYwPlAOOC6j0tdNIzcbNdB63MzYXKQ02k-FvO54OrsWTJJNrB6ELS7fGH1_4aGxTpeK1RZ4LyUQS32tBWZVBhjJv1_c5EpuGjtkULN_7deW5C81JdBjRKWIUgfkgJi9JmtL6gxKFIoBhTWU5kTTlKAEMeEEGbbCQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1144263,
+            "longitude": 13.3740874,
+            "distanceToNext": "1.11 km",
+            "placeId": "place_174696156036959142"
+          },
+          {
+            "name": "Quattro Canti",
+            "address": "Piazza Vigliena, 90133 Palermo PA, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTr4DARugK9ORy4MG8j-B0Hn7mjrszBY5ipZdDNxpBO97OEYVHc1JbTp1Rg87H4gCjTVD-IFejRPCMmsUuk7_W3EN2--5TG97OtpCIwLGON3Q3vbaXScJxG7VMkp7Z8d1-SJahu9in-p5HG6MVrvnuJfCJYkZi1Z90tI5LNmOZCmAvzLWJd2saWkjzw70KEM23k2xy6wVBcF8Ak8yUOTLIcz70oWaXqTbddqa3nCiM_H3qAY6mC1dOAV7I6kVEK0LxLXtixKESbAdrLvOYFo62jswkd8-QDtrogc-b_vAU3ABJnpS6nVBH6fEEAiZbmlPQ5rnev2YNzm0mzH7iHSjhxSlZCW2sCU09AVxfWL5hm25569yI5lxLYvX8f1zwOf1zGrKuwbGFxlgTZ7qzustnjRxIaMu0MWjn5-A_dA3x2ZMe4II_4Edlgi9DNAoodJxqvMXAfRzAYX6vMVeNyTd_YXmMjK2_lwF4zu5-iwOCIMmfLOdo9DB4R7UtLCiGe-U2_HE0BoaQkNxofT9ibhMdz6FzlswPr3rt6QEkIQfZXUVspnD0C_LXN19CGRq6S6SUKE4bmzKKjzg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1156958,
+            "longitude": 13.361452,
+            "distanceToNext": "1.61 km",
+            "placeId": "place_174696156036948248"
+          },
+          {
+            "name": "Lo Scrigno di Donna Rosa",
+            "address": "Via Agrigento, 12, 90141 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT73LdSjP8NiHkkVZ9VsxFcPOWbzR2bOwwiS6Yj8B0NhhfBkNs_pPt7pXr8be25PiPa9Pzc2swv2zOHgqeDni_cWZ8BfXvpK_wBeE1kjOcXrBHbVkEaho9iFUz0LZZtXY9pHPJ5-m7ixuYd3hra-v5Zy1aeXQQZQedlmCWd5tFHCh0RHVpcYaVxqCdiDY3tPw_U_yd3IlAySCrhW_FdDtMbWfT4lRRhU-s8bhpIlF68s5AU6_zAsd-P6JTmAH4g1JciiMp2IL9ae6po5whx-7ATo6I3nxgm8R9RM6qZbI_PIVfvi7VxHCv_9cGJgt_tORm-ZEr3lIOtTq7_FzuIkLKtL-obpXNqELcGf_joRvRojc6iVlSMg2l2PeqbvJ1c_xmFRLBeDL4OX9U2SdpEBWs_whOAqlXhWZ9v6LHR0dAoYHFUqL1MCJUHIg_7bfHCF9hMiIAN42lh-DNygZXdJt2_k8j8qEVqcUNuaWR5v1n1W_GI6_NuKudn8NPLcoog9EPwUtfgD5Q7xBpTV_Jj8iK_PL7uMFYVz-31xMZMmGAMONonjLAHMFD5c2QMct1ruyhn4AKC&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1281869,
+            "longitude": 13.3520878,
+            "distanceToNext": "1.09 km",
+            "placeId": "place_174696156036948686"
+          },
+          {
+            "name": "Regional Archeological Museum Antonio Salinas",
+            "address": "Piazza Olivella, 90133 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQhMrMOdrgWdgoPfKr3yt70sFIpjt7P4mQqN3ITQKhtYjf-izRw6zpWINUiRJTNlIEoSkRjCJ4nJuvvrv-qMfxBmsJJIWi-xTow3qSwl7B1RKnTQw2As7bwCJGd5Wpm86m1woa-fWbOUf-bK_-_fm8po0LgG9NeSGoV4Bnu0aoNyDu0r9HhSMn489A3N1gm_G4keeYU2vL7baZ0PIIvrcr-2yG5KJL5p4voFikd6-87woTPh_KDdEhcOPsyfRCVC547B0lDv7t_bJaxmJx2kmGZwEeTu42OUnzbwBzpjembARa3ze7XzMOGkHfRkm_P9Y7dax085IfaEcaGzJKBkzMzvA9KY73zB0tFF_WTwByTt_dJq7IQ2Ugyc3hDhi7wx3yLcNla9fHWwGHri_SChwjL3yHNYCgTsq0n7bHsLWR0ZysnIj1lIIlngL0puG-sGpF4fApGytFURzIJyYpvY5l3JQZir-KxFrK6BZuXa4-pc2e2ke8FnU7uq5lg7BGJz1q0KySTuD6CZuxEmRwafeDO7vROQwBvYnjdil7Zl6cepHmUqdKNXTLjChaZTOp17tghiN5l&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1207911,
+            "longitude": 13.360305,
+            "distanceToNext": "0.39 km",
+            "placeId": "place_174696156036923218"
+          },
+          {
+            "name": "Il Cambusone",
+            "address": "Sant'Andrea, Piazza Sant'Andrea, 4, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTR9UAxiJeOtL5QdU4sGX7krNSrT_euzZpkfYsIbILlo25dtHr0PxNUMGXgk5wreBAl-oaTiOMks4H_I7PBcMFEJvn9BwyA2ZU3RiWdPRa7y-Qtr7vkh2rmILW9Pyl72YNtsq2v9P92gZYqnAEJos7Cxo2ZT27rT2kZ_f7rWDP_u_J-M62AWp6lAcrmdA914pAWMyeJPAg21vJ7YEvgR-dCWs7umNl9hMErJbSNlo5cgmOfFAI-7WOAivTIqPvKsNGaiskW-77ZfuKn-KhTrFGOLrtTq8utHsUqyeyhF_ss4y1yqpIA3aXuuBKn75w5KtwqM7RtSSmtw1GI1e7FsjRMyjILOa90myNYuNi3gvR9zEUJiE7dxbBZfwEdGgrPlmNR17KSQA5CQViJ3SF9knyCRZy5ka6XmnBCdfTCKwvRBvsQVYmCeXgU3NHmDYNghOmtXxHtiFhDqMeL0kEvPcGm_1Uk4yZcxny0Tv1vzy4YhWHfesE1TvLQTRdjSXbmQ92yGRhtPqMUn8yeG0xTFx4i-lig7zqOS1uCWA8sSvv_i_XIZFD9zV4uDpfFfXv50JuLqb6W&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1184007,
+            "longitude": 13.3635119,
+            "distanceToNext": "0.22 km",
+            "placeId": "place_174696156036953693"
+          },
+          {
+            "name": "Honey Rum La drinkeria",
+            "address": "Via Chiavettieri, 34, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQgMXm5ZTN9SsBh4yRFwNsvlPhwWsWEsjuekMruJOk5QvyDeYcCuIsut2-NPYD_03gZpY4kOAUsg7CWFrCrUMxY5DGPecAy7Gf_Gh60ZiL09Jwn6hN2bgwJT4VddERYENFR9r6-OCk-VrBsk6IWOZ9msgk1tZf15Sk1spvlAVKed07okONp3DEcTlEMH1TNUy2KbxiuA3EHS9nMg1DOTkIsDz39CRMOHbXzRQ-NZmuza_WzuRqLfBKglTzc6EqUwn0n81wg5o56vxReciYJRaL4SL229qJya7wZ0aUA8SJJyNgPi_ooIT0nnJI7vy1tTaNNN1dctw4EtX_wAn6jUGpWlcJFAzmI-38sQf6YHx1phPL8h7xdERrorEL5gxuLEHzKGkqa4vb-5VCTP5SBAtPRqjTtkcInYxGr-yAT3vvXibE-KkOxNVPGpJlAGxTLr9dd9IUkNLWF4tWl6W3M2UZBNBlKhnkgLnUQGkajIyETCq639vxOQCXBcFEfsGOHzJGK2s1sheYv0btDEG6gbVzsNAXIiI85_2-uduLzClRhu1Jhs9rjs3xIWtLX2opFDaEETHen&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1180757,
+            "longitude": 13.3660309,
+            "distanceToNext": "1.58 km",
+            "placeId": "place_174696156036935483"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696156036932359"
+          },
+          {
+            "name": "Bar Del Corso",
+            "address": "Via Vittorio Emanuele, 99, 90133 Palermo PA, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQtrHC6_QnHhr9zPGTyPovOHvqp6Vr4TFNo9ss8yH68bNFvIRHTh6TKue9T3hSTeeKNPN4PMx4xiCefWtiq9YEM3k0_1AriHpILLDxMFv5NLXv7_EBhNLxhcRJoSxSdgV73bufJlHZ7Z8Mox_Ny4BMyQkqFCMGqiygzns7owch1_tYghv09z-siMobuBenWtcsOh2q8w6mBBWtuwJ6zupB7uh9oiFKnBYUdOaZTw7ifX96Ruw6vmsKlImHOxnzAtocCJy-aiGxq_LytEEPrb7KaLbBJRpAO_Xja9e8E78homc7jvswCDROTZGDgjU0HU74kY3Lo0i9xvGvivkjSlfhovijs1MSsHKcW_fOvAycGCEPO6poEaV93A0TFzKHu5_c4ZRktmQDBjshQBX56H1Aycnb5hQZX3gMHHQ32gYyNg5rOrysKjEYzEH1_iKORbGgG4pZyetD9bHFMjRg_g-wQuHTIMUG_W8geNkO-IvHZRBJ9PZDxyQxUJlcofuOXXa-9iggrARRMal1bXDB_eRdGmPRqLfi3LSIs4Guhr23KciJRhZEXczxuvOgldq8KVFu_0g&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1179475,
+            "longitude": 13.366859,
+            "distanceToNext": "1.41 km",
+            "placeId": "place_174696156036952195"
+          },
+          {
+            "name": "Palazzo dei Normanni",
+            "address": "Piazza del Parlamento, 1, 90129 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQnW6YAKVV7L_q52XI14uWbKA7P2mxe2_-bnQFA5aFy0qbK2zUT2k4g23YCqkT_7oF-bsp2lYsXtkND23WEA4EQy5yihuDLW_qc5MfZIvVvoe1XTkPsSVIJ8q7WDi0d302yUbNju87M6kUW8kI1pd3SA1hXPmAFvV1Ra9A3pQzMX7rGwwbN67F1gZQkp_SreipWDpcE-gs6nb21jMdG5UkzrcvqW3r2XXe9G_qpOWsfAkpmz1UlbIxw3TQq_AD67ClMCkja0r5m6e9ZjgWtCYCtTPBNSsfax2GYqEaHgEYfVnoHEf2g8tEeNrijbTv0uZ1AmT_7YRHdoIrrO6qx_oqACfs5tUwrF5TjFL1ImU71vXcd3SrxNDdLkgv2mTEymOvk47zTGaZO3MPHxbogjn6uubnt879ZZkYZbGJOBFTuz9moPdgOB54C-PQ-umQduOUJr7GI9ImmKGxLUEAkUp6uV69O24Ss2c_7vVPO3V1leTITrnms3dVS-bgclFSsLPHZ9fqRGKNQAK9fFD0GsyJEpHpd0nyOn0x6e1FDb_8yVI0T8IzwRJwHCX-Q4icSpQ_IiJzM&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1109199,
+            "longitude": 13.3534896,
+            "distanceToNext": "0.82 km",
+            "placeId": "place_17469615603695908"
+          },
+          {
+            "name": "Trattoria Calessino",
+            "address": "Via Giovanni Naso, 5, 90134 Palermo PA, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTC2YXPjEzywkvna7hUEL44OhXnwTfM3P6FcIRONHvI1jJas6WBDn1kGYRg86G4Eu7-6X0tprVPoMXv_rQ92zMHIJoXkVLjBhWhH9zs6CBnTFhVYZZPJYqJsRjgqLkA3dFOuwibqYduqEESj_Oz89-Ud5-9cNiCSoqwdUupdN0kYZCZVuPKSxme8xC6tIabkfAtxT6V48MlbGaG9jMc_5PpSMrnKVV5DNjGM2Tfqn0z9HKeV3yxeLFl8jZVfc6idATDHcowtZNFDwt7bVyrykkCj3_QBGLuoUH8dM9LKI9Gg9t6P9aXBzgNJZaw9uVdSJL2cSwLIN3PwtDpnv7KuT-KB_EsdmEg_hh7HZ3mOpQ7_2UrYa4e6Y47EOYEJLY61sXL71AG6BwD1k1Cg0q4QYiH-aa7O015f7UKGXhb3FyVyTK4L-_a-FVur9US2eFJQpBfzSYNikKKpw-T_zFMuln0DvNwR9wIDa0HXVzUB0f-bYS21-jbviDImF-CA6tUcXILkmVQ_oc982c3xvzSrikQcqexx61JeUyw6MxTUfivSIbVRVnAy3ZssBP8TK1EWOfG75ILI21xlg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1109813,
+            "longitude": 13.3628539,
+            "distanceToNext": "1.13 km",
+            "placeId": "place_174696156036915184"
+          },
+          {
+            "name": "Villa Giulia",
+            "address": "Via Lincoln, 90123 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQ5bb3x8u83S0Qcqi8ugIeMfVSsghmQOEonU5b-Qi7uvKpadA-NQlRqGDNLd1KC41Q-r8bksMqTlIrwP-uopts9cx6j0vKBZR8jTixC6dKuIUSJth5pL3TQVFZrrjxlWgktdun34zPZvunHKajVSp6cHYd6hjnEFKK2fh0VTcsV2guchmfbUoB2vhNSeQlkzGLcjoH8ixt6zV19UpKwaGX-NT4fH3m8U9UFv6uH2TeU_Yvz_7x0DzNFJyiUd006x1i7KFR8cqJfOmIKQ8XdiYYXwLb5mppGuIs-8NcZSMavcbTkjRe6ysH5OlzKtaXU-jqs5JwRm9B-D5YaNkcM8r6NtmXgOu1lr39TjADmhg88FlcRQ5b67JTaekdvaEVn6j9S2ycOuqPTjgfJoi5lPmzfMjzFgNHEJ-FY9aVDb8hVYf7gbBvEjJVwrFvMQc980TQ-XHcRppnrFRX0blXqTeYtvZWcMbJUUkeP6z-8wVecJ87TNNaBEu8iLc95NAkha9Yu7NBfGNybWDfjwiLZKdV2SC5Mx1eiEjNnlvyxMZNitQP8lhFtCO08c7YHdiQ3cWO5BY1N&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1139902,
+            "longitude": 13.3752396,
+            "distanceToNext": "1.09 km",
+            "placeId": "place_174696156036930054"
+          },
+          {
+            "name": "SALMORIGLIO Griglia & Cucina Siciliana",
+            "address": "Via Vittorio Emanuele, 233/235, 90133 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRVdzh1JmcktPJa_a3u2cxtEV_kd_qeA9WtZo4mqELWc6yz1wE2WayvxFXngYzWxbQChgToZvcBlskqH7oLSLFXrV77QvRGgLB_33RuhIp4Sk6mXKP05qvGSxVGw-vz8nv4RNp2rIuMvN0XrENfFkUtMSFx5eo1NWbYbw5DqfGo52HtR9ZP26cyjRVDtl47Cw7JAG6vOQ8UQ-xLYs2PHfeDyp4h_MC28QgUd0hsW6ESnen7y4SOmfvypNs-0anDTJ2A-dDB4-E19LNnV9OrVr4lZT8IX4xPQY8ZQV_j8qvTThoJGE3I_mMbHDSEWjoqkI6FwTFkDMZnY-bAztFFg9UNcB0Euq_xPbQbJpwosvKGLnExDfYkFOrWzIcljDXhiO7lvh59mxNuWs6viZE6fQDn874griDXyI44oTqi5I8B2i4v55mZ3DKsD_fd-9RaqjUx-Bi0UovT3HYmY33eToCBkPltkp5rQ6Sx9nePp2i297lDWCLLjg3oHFoAaLJhR4OT8F3F4l35meiEVD-XFxpUiPZgne9CKsL_tfmnD6HjsdAEvA8i3J6BZCvyPc1dYVhYNatc&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1164742,
+            "longitude": 13.3631601,
+            "distanceToNext": "0.38 km",
+            "placeId": "place_174696156036938801"
+          },
+          {
+            "name": "SPINA BAR PALERMO",
+            "address": "Piazzetta della Messinese, 6, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTWyiOO4ExAiIDm54nQdkhgC3iUG4-9kZvu_X-FjkxQDjao3dPJKzL0adNlOYrkn_Laqz2GpyCsj79zgxz9K0XruIYGDQpqHwiDyqoIoJjcqPj0nEuwQrecVFLTGNANLEwjres87wM-_8TiAum_ojUJ5IzD8Dd5DvQs8UzhT8qDovLXK0ZoM5FNGcZFZPe3i14ajy_yh8q3G019Q700FPg7cniara-k98j5-07VpZi-acjITxuSHiEZeoSUONPzHDP5tlTAhzDHxvmGrU6swM_BDjldUxjA6Qlb4yNZcnkNvYEbwiI&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1135098,
+            "longitude": 13.3653961,
+            "distanceToNext": "1.85 km",
+            "placeId": "place_174696156037047313"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696156037044702"
+          },
+          {
+            "name": "Caffetteria del Corso",
+            "address": "Via Vittorio Emanuele, 370, 90134 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRt31ykW-Rp47ERZNLD10NU2BkJJtlJpufFBmgFNYeavM6yxzdPXErrAhf3uEFrjDaghvZd0Wj3UwsPXfFdJ1N3mz3CjeYxib78r6vzwotvr-D3GIBEV3-NTPh9X1Z2ODn8hk34zsezKY6FNajCoBUhGK96-1unTc7E-d-EGVKoSMSK5Rl_-eItMOpHOA6kptcSldIW0xwemAHuMSc-OCaO_Nmb7CpU0kj8zKCQSHHn3NHVly2cPTWnAjGOf626g_6NV-dQhgDWj5rliwsC2sYaM94ah_wpPLSYOzaSJWV6WO-Nqa_xg3FI6v88gbexkdMIK4ReUyxVG7Wzd8Cn9C7Qt70e_CblJ-B7vMyhsPXkExz6MbC8xKHbW675bZaupANxllWlFejfMEPiZNhQtKGWNfaxT1C5wnnBwP0wO9GyAiw2ICMEWqvY5xoquDC-sff-izxcM-P7nGIXTz4c2KYD7cHHlCWiOIRnVNkouYsl3I7SFLtOLi_7NJirNQpO_hc3mqdIo0wuNVoG5lxtjZGSM4GPI4JC3BaS_gyRmucXH_AZ5FNkCXJRQMEls7UqyEDUBUBKmPnGYA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1148138,
+            "longitude": 13.3594975,
+            "distanceToNext": "0.31 km",
+            "placeId": "place_174696159400024912"
+          },
+          {
+            "name": "Palermo Cathedral",
+            "address": "Via Vittorio Emanuele, 490, 90134 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRDsf74zqW8eyCGDMM06IY8z5y8AUowFyfTG-gRB9gulgbI2jkSZTtF3uFDUR9Cl4KGQj6bfkPuPVkYaeQw7DHQWoDRPscxWgvjwuLMd6L7mcoy8is7i0k2mlO4rDwQAWfSRo-if9eo17ou-sufodimULbfVVoEIzy5g174ADZUx-U4hFMcpPDGj_NBxsAAix4-CpF28blBWpYzWvneYlJHldlxEqeiso3px_Kfd9rUa2AByrrpsWN4moQLZDtlZGJtni-E0BTexS2-4AXycOxhR_Dg_DXdRSsYCpyaSpygp1djY6rr81Mi5wD2qt9pcEKW8dM4jegXgiGm6Z-bs5I-zN7jUzjHZhjUSaxD_Iea4Jpw_2Xo8c4piJt-Itkli_mNAsJqVPWKL1oAkyl_mu6N-CNcVLMqdP3PrU3qJPnnSNf6kMd0tLdjlXS3DjqsvKwDtyWc5VLoHB7WjFy0kEFunNWbO1CGImYgMTiUblJM3swJRT_95HwE6wCLPCtM8emtWdI1JsHf0WQGWfuZwK03xBz79o07lZyE89kmorf2aWLIaPklrElJMT8UgFz3kAXdNQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1143321,
+            "longitude": 13.3560504,
+            "distanceToNext": "0.50 km",
+            "placeId": "place_174696159400034835"
+          },
+          {
+            "name": "Taverna Dei Canti",
+            "address": "Via Maqueda, 229, 90133 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTcVxjuABd8UYdAKdyWRKU2FztpkzvXjt2V017b_a6_FqVdgzxzsAKucgwJnxNErC20Bcpj0z9d0fhDvP0pE9AZ5RDe9GI--E60WZFaHKyWRiyubK6E-e8XNqJGDEVryxEb42hZnxUT8Fw7AlIt8iGreKEo85r6hoXC68GmSezAJTKBbP3S-bkgfZxk7xDz0XR9HhZLncn88pdvwMPaZa9VkHFJmUwtuQ1tF7gP8jJI_akpCynSmSQJq2XgkOe1wJ5QDG942ZbRlD_o0KlC62O_b02KFc5uSTOTCzQhxmyMVj5xd22C8cRrmrUfZVYuWnKVVEoxUUg1UcKl_uSu06JQmIVQRthIEGFW_z5mdMKI1ZBnzPdgs-fM6xbMoWSsDZChxq4Ugw3Q3NGSkAOYsGgC2AiKRrLnXr8_B3r3UvyymiW2BJbdoSB5SsnjRoy7uEa2g9OkcHM2Zm7y1CQJQojWECUUEuuJjol0jCFDkZQrv-gg1_bVPdonolJuMFoDljddayz1YgDdxuiRDd58yR-O6EQky72nmEFYJgomjEfN4qtzcQU6NBpLWR0FMeYTXJboBNmiZ3Sgfw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1163269,
+            "longitude": 13.3611404,
+            "distanceToNext": "1.06 km",
+            "placeId": "place_174696159400061980"
+          },
+          {
+            "name": "Orto Botanico di Palermo",
+            "address": "Via Lincoln, 2, 90133 Palermo PA, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTm3eKcdE3CHCJ-CUoSSUYQ6Vg-tkHA93Gp7pP5deY3_xw_1jksMRNQY9URxNTkwowE3REPEF7hG99hAqXSEilJYcHL0NDn7Rx0GUhq6X6L5Q7aspERGxMSyeXwPHydG-tnF5WVNQsB6J248l9SC11YmhbQ6vb8hF7NK8ka8IPwePmDMmTJwmupS8smCCN8F5U7e3UX9Mcjgddb0dk1NtGLiBEEXueFEdxs49Xu-6dzdIr3MIPApnUQ42F2DHTOA7vsdFhcQMR2adH3h_DB0WbTehG9iJnzIqO8s0kErRcPmNqx2CSdH9oWYkwrn4q5604CU6lZvIzUJACCkuE6deV2RTNQMJ-iFBJnoA9WJs1PF_t0TDBauTh_1q-7BDauToVrdF0QWBjtwmv88Bhp_ogaDYdo1K2Myd3X0dzYawG7dqNkbo8ofDJgmqHGbTqEu7i6s0ZUuz1u9_9Qn2CznKmEG3bIZYYVAbitBIHAVkbRg0SN1VE08de9TEJriM5JtRuDXCvbLL6X5lG-lahPtKgiyvIRNqBUv2nFE3KdMXLD0H6TEDa7k8aLk1Yrxf3BdzKDdCMm&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1134249,
+            "longitude": 13.3727197,
+            "distanceToNext": "0.34 km",
+            "placeId": "place_174696159400053127"
+          },
+          {
+            "name": "Ristorante Quattro mani",
+            "address": "Via Francesco Riso, 3, 90133 Palermo PA, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQFm3jDU-a5N-xsXQ30XUM-2CGHRMatoFkP_ZYeQEQvgdqIOmyE2-5Lnp4snbjDmQjtjOxpMzM6bEg6h73xRlJsQqQ9hvk9AAETbhldleGd_DhvAkkXjKOpO1YMCMAQ5NaRi5YZQh5rquj9KRiq7C3f4mR5M7WlgRgZvVRq6gn2xPwPp-Sn_UXStmqhGr2MFGOsjDiTBLyOaTtMnoNuy6kIpRAqIIow8X1D3tZFGwTBRPQX6aE1UKzYMQG2j262y7YWhuFBcuq_C-HSogm6Ad6xv0HTyEY38KITZ3n6mqJFdAin-mh1jwZTbDDoqEtX5aU_wqRVJlJTtqCidWhSIeKvExKOSbz7vYC5-hzatQCkLX5t_XxU2QkHShc8PtBk0fOse4m0brkXG5C2ZkuwmOjIOw-zUUYdpD-QbHiE2FFqtrFDw7pgmZJlYYDMFhkqlf9s3hk_G--pKURBHxFyG37pPn7_eBHx_TRCkTLQs0FpcyCRxZPSETay1Y-loL-lfCoFPC3mG872xEwYF9S2tg08rNWcyRJziSmQMDNQOhd4RqyyMjdvqLKdqVrZgKjYbSrpg_W7&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1155732,
+            "longitude": 13.3699006,
+            "distanceToNext": "1.77 km",
+            "placeId": "place_174696159400036009"
+          },
+          {
+            "name": "Berlin Cafè",
+            "address": "Via Isidoro la Lumia, 21, 90139 Palermo PA, Italy",
+            "rating": 3.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTvRNLVTiRTBuFju_9fNGrpAa22roX8fRX2ECHT2dsefPh5xSV_Bibwb_j49ym3V3kKfs-jIKq9ojiUUMU78QT83zhSGwohvKQuLZm2nNkZhhz_yjUXHNXPwC6kxfQq9EkiVfPXp5OsrygXzaYblrnhVlGuUGToDkGM8y5Uve-ovoQMen7VyFVPWzaNVllChHZ-r1GogcAhMxtrPk13MWFA4_zp1s5vX8Hk-9XmwjkVKZt7AKDtlbcGK1FI_AqwY_K2oT3IBd9_5ydy-T6hyj9HgJBhqMIDokjtVqLqXFkig5gtisk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.12722309999999,
+            "longitude": 13.356141,
+            "distanceToNext": "0.53 km",
+            "placeId": "place_174696159400073338"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696159400080819"
+          },
+          {
+            "name": "Bar Rosanero",
+            "address": "Piazzetta Porta Reale, 6, 90133 Palermo PA, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQYy6FTPyAq_AtbWsq-Ed_1LHkMFhKll7BqGjB8c3Ww1wRTHZcI5cppPPCEYyGHXc48HEwWQXGRVeszxzZ46LAA0oAzPGe5cP7ebzBXxJTfI6MmN_CQ5fTaHI8RjNBw5NHiWI53L3dSNM4-4acnxRquYjRFpcVlHXhPwjxMsiytieui19U9Z50VxDVL0Gw7FyiomxS1cDZlCFITlHRM23AGF2dqnwu32biiffHTG3XtI-sGDfZRTz7BWj7znqCLEXlWfzf85IBR12Y8jYmqALw7C_Qj1fpcRJPSwNM_oYEAWku2B9vS1GiUghAvtamiHiV7h9bEWeFrAaAyqbQGik16pD8PX1BkAi2a4WpHWRtpuWXix-jdybQEm83AC-NNnngcCUMMlyX7286gIm65Nsw5RBghfi1ZVEcHZ2jAFV4OSBIaLZ1EkaUN-mTNcaILFvBXdo28ZpsgFLE6_TRqybXiIpig834-n0gqkz6ikWURwPYGSHNJB4lR8W8ypRMBXdTWGm1EOV5Bg5Dtxe1Ym8Kyd9OUp4WBt24eUWtT-Oe9l6RcROkMlF3IUjmCG8rDXSDhBA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1144263,
+            "longitude": 13.3740874,
+            "distanceToNext": "1.11 km",
+            "placeId": "place_174696159400044307"
+          },
+          {
+            "name": "Quattro Canti",
+            "address": "Piazza Vigliena, 90133 Palermo PA, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQA3drp90G9JclQXn2k0ncx7pX0NMSZ0vBYjB5KhNeh9weD1tFLhEeJ64mYJQwIGE9FwBPWD5Tj4c9o4u1Ij2M1I7rfO5SYoy1bGVFkBcRvz28xxc5rmW3sAXMPXtdE5d14s5Y6qDfBCKWePKcn7E6uZsb57QUtJ3hJWYGbQx6tXBFDaInrYsR8LJyAmQjmCM5o6UK3Wo8ks-4WoPa5h5Gfl2J1G95g9sN_jRDWS6kFygFuI9o_jkYiXxnD8msQwFvVBmYvs9J8rglapHKhSbmGC_ruYGnm50qbqnOYU4MgybQXcqJgaP1FN82V25tqzFZSQ94ERHbWZ0pkSfW32_7CenpOeaL_z6QPzgceGGh_tZSxT06rYFDuFyP_YbfHvlJbZdFEz0-kjsJexMTz3i5xJJsEdLx8gzGMWlwcrBZT19JXNEFqrwC2TswFp6z55eLYLSnxAQKoXdBRngkdwLfoaU7hsBiFpW9aoO5Ev0XZmwsHkQXUi32FU3GIIC4Ekyqa2jOsrkokA0I9_fvbwilnBUkBFG6CMaMen_hPThxdfXBhnAnT5qpA71nsWJyL3jqdCEJST-wfag&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1156958,
+            "longitude": 13.361452,
+            "distanceToNext": "1.61 km",
+            "placeId": "place_174696159400047945"
+          },
+          {
+            "name": "Lo Scrigno di Donna Rosa",
+            "address": "Via Agrigento, 12, 90141 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTawFMHXnTsQxUR9QO0dNNMtVVCDuxIJMSVx-e0kELkYYXzZoCfktduzw3wNSzh4ANX8_wepe_RkUEfizhhehWw_pmVQHg9EKVxIHpf21VZyYvZaxHYkUVwTr_PGBe7m47Km51iQ_FKtNq32Iioa2tHtaHlfsZfR9H_kkCuEhpscQNBL4qy9SOQEzzLQY3dwrOAgi81wK3n5P8ZX9RD-nR-Cdhrz5bwDt7gmhW5xPFEEQODzaQm3cyTafwHqGcNvrmahUMx7oTyP8cJeBUkjUVqEssMMamZWPgtvzXuHlc6qH7C4VdZQ7zfPtXxMCThV9vFKUuS8KxbXpSmFNDCJXq6iYNAJfUsmMaf5rkMwwdbLCPXAlaYdWvLejsr2vdzKTIzIPO5FPWQyB8ioTpKSEmca9b1FSZJaqxMxaVta4tdslMIaAd-QEMqdShN8iBqjsDT2DXbQkhWVSX90V6SxXAsxe2F5aQCjqCwChI3RgXO9SJSNTKlQ8K5DeGIw8BCTGJ9k3A3rgapMqjZDJ3pPxvvgF-Xbv8OlbVwjhHEDxXiFFn2IZ1vlRNrYJ2yTx2gBS-yt_e2&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1281869,
+            "longitude": 13.3520878,
+            "distanceToNext": "1.09 km",
+            "placeId": "place_174696159400099315"
+          },
+          {
+            "name": "Regional Archeological Museum Antonio Salinas",
+            "address": "Piazza Olivella, 90133 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSuxdIf0_H-VpvbJXvG_rLAxJhIg-iguzZ0kOHgUV8ecluE7gtk2sTDpZJrXuvc3heT0gLpEdkz1zlx2wa883SS1qeSIqqvmbClwQR2EgdECowRIKI9AEbr5pcHnB1P4ywlCgA-nzS9hw9XZ6d-dY-7OtPhibh3Xep4PQMkiLqIT7_GZdz3O8i9S0J2obhDPW2k7VzLoLbbyPO1PXt7DUjXIbwzR7P6pTL-Ago2S_yU-9kkzqnRiPeW6bQPd_6RyIpErJV6nf15FmkiQ4VJJDi8iwGzNdkOWHSWToo9p10OdplYMW1aiUVUSV-PO5BRkugu-i9cA-3Mx7pAGJyu1efw-TllQkuak2kq7JlPAF8-cFlC5We-IvKx6qLUiPd9wUeqFqbN2AzX_mnNY2IeY4TRXbvuKdzUfBBVNChhTnIfibbALHQ4F2Rhme6R3ZIAPqpuPTHlJmNKDgan_DYvlE-qLn_dEOd_FUSobLWjI56NyKa-kJgBxIsvqCD4IIqclcsuHAVBKz4cp_ZcSpnaJOAOGOci1tWRvEgsKPNirjH9ezR1JsngiIYn6GDGUgmVS11t2JS8&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1207911,
+            "longitude": 13.360305,
+            "distanceToNext": "0.39 km",
+            "placeId": "place_17469615940008559"
+          },
+          {
+            "name": "Il Cambusone",
+            "address": "Sant'Andrea, Piazza Sant'Andrea, 4, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQM2C6igUYLBbi8Z-7Uo7hNoOnzotapEbDYTtVtk2O69vGNt1BQ5XFEfHMrxZpGxtSniqGu500EtwhkhEFwnrt0uXe1Fo7hR69RKAemMdsUM5H-oiWniqIPlhl3K96h_6BnXW5lt40BJAXk_ICfZD0Ds9VgOE8FsnloR_PU0cYB0z-bI_f95rY0Y7wLolyAcOwgaSSCPmrfIkR7GI5Fgg0IWZ78Tys-q3kGNmX0lmdjL104W1-96D02NH-0wjRvNCmqYuOWqlMbcOuBg7P7qScNRA2z5s_efIHGJ04XGN7zeY83TtGPSRj00WHy10vBVdIhhiqlXDNV81bR8TNyWEaey5mM72M5wgAZXMsQk5vMtHULpeGmG7dldSZypqGnR15LcxGCx6d6j6OMIXwYrlqK3GwY9hKhJ5hYFw_91OPdHeQcjUhE3FR9VYuQabkCqvo5Czv9Wid9GrIIHqYYB8ThTWdd3UHAWEIvIc3lC0jRT0zPYOVQxu8idPfgB37053CAPvU2q-BzbeRsa9G31ren3MmtzlcCg1TcZs6pB4eeIWpj-VVy_ittdtgXnHzMFhhcQHGq&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1184007,
+            "longitude": 13.3635119,
+            "distanceToNext": "0.22 km",
+            "placeId": "place_17469615940007193"
+          },
+          {
+            "name": "Honey Rum La drinkeria",
+            "address": "Via Chiavettieri, 34, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT-5W4g5mqXMeYCYxinh69jdqtO3EpwYQK6FuxzChNB1j00sWR7nsqe_L_F4bW3MacNP6OtfTlNDCpIHtMnWQHAtOXFK6UWICZWtqBQEu5oswVXOIcDbyibi7tmuz0jwiMQ3b-c70y3ZN0I8CxT3OB9F36aArlvIzg3oynFNcQXaLpUl0Q-BoHrBbDQcPRUzgm-O6cF3Ac0QXJhCxbN71O-gOhhND52kgrBZiTM-Z-1QawpoQl44fOlWUp2ADXy9hZiD-Nv6qk5hGzhs2LRT4ojH5ZZOCG3gwlOp9xKojJZKRLyzSvZAQFpgvRY2covKZM-nELZXGVBCOee_aXSGZo5IVPz7W2U2xuewviLLh6PxmKWXXUOYRyhCYUi4Jr9EBgerYS5D5jsOBWHDbZn3PklC-uJRDhqL_9Jntabc-V1ofcA7_vROV85xOjcMHQyQLKilntC4So1OF_CHFdEB3F8UKCrszrV4QxMB0-hZUhpm1JiE_l-Rp-60_DpWTP-a7DmqIwDNWSi8kxkh9041bIPoTXV31xjX06pQoJHxCn98GwKfW37WKqfidGG1QRz0It4eZ6Z&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1180757,
+            "longitude": 13.3660309,
+            "distanceToNext": "1.58 km",
+            "placeId": "place_174696159400086855"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696159400075073"
+          },
+          {
+            "name": "Bar Del Corso",
+            "address": "Via Vittorio Emanuele, 99, 90133 Palermo PA, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQqCZsEkAoTUxTXYgg8di6XCJ8sZCUHnzSIEdYPYIzmhnztjZ7HeKomAYw4CvcX14479ews8qTvqJZVwnghn8zX_Gp0amRV35c3FCN1rRcZpETN5RImMaK59W7LdtbtyB73aOC0JCVY_pqeqvYmLjXTrsMVq8S-9N6MlKgMoJTG0U8zfLMeY4UKbBFWOv2BfpE9_j6zQay4u8y8SZT_fe-98tGU-LCpNIrlVc74OuU5V3lG9HBGqm-5nrs0cfdo1Yi72E_4FEvGG5dOG15aWbNwKVZG-qnETMWEPS3YKCUUcoqOWmPm1Bvbm2GMJbpPPhYQciLEKocxkb8FhlPrWiBDhiG-ei9Mg8GHMv7AtgLcjHRXmdBFkOIGbWVE9SgAScm59Vb1nnuXKHXtDuwL2Pzp-tzK_bmhiqbo9rW5rIymApRy9rSnK9p8wKLziD_GIWKzO--TOm6HJnpFYuYRD-EHrV1xCa4r_71NbRv7m0ASyUkNQ0Rd2YZaPVeOLE5zL5IOSU1hS4kMhOjGbDizxjLcvJf8k8duAGBH0UVin1-UsikFP5XGE5jZmRXVxBmUdXD8mQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1179475,
+            "longitude": 13.366859,
+            "distanceToNext": "1.41 km",
+            "placeId": "place_174696159400015847"
+          },
+          {
+            "name": "Palazzo dei Normanni",
+            "address": "Piazza del Parlamento, 1, 90129 Palermo PA, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSS4FRSSkqN6z-gjlZhmg5Bt-Uwa1Rt6RdkevPb4EUi76AcJGUzFqYhSFCgkDhBwnG5sVgOsBNvYAtarqRzKJb1_OUMRJo0E6Hn81BtasEbpJ_WljMYjqlm1fcxHOArDzh-pb4bbDOKve3zJNsBd_eEkpZCONSnPHnrFE4tnJjOohisKOJAjXSZM6pla_NLQWphZSBQe7JvUhV6LZiKLkZ9zWRsFKfElsHInxNza29J-wVMS5IGn8--o6VRz9vxhUdf2I4QH3W30C6EIUv_8XioN2m_4me7I4xyIt5-4m8FY7nMG3uzLI-9jD_iUxNx3TvnPTOoYjQsKN8Mw_0Nn1Yh3-DKIaldfZ9TRtowFuJ8uWQehG-VYDsDDx0SMznO-O95sxI4DSmDxdYX3sse5uLDoePnPSN-9bCqHrKlqwhSZoyZrzPw-8Vc9VrxYomoY9POP853DR4B6Rl2J9OQvT9pN43rMS8PzCNphPEYfvoHfo9eQuu11lvqNrRRQcTQ0EpPpjozUd6KOVPYhWHmhWsykwVIV-1ij90X4K0fvmXYaGpwyHfs5JEqvQTrCVNPICLhEkms&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1109199,
+            "longitude": 13.3534896,
+            "distanceToNext": "0.82 km",
+            "placeId": "place_174696159400039472"
+          },
+          {
+            "name": "Trattoria Calessino",
+            "address": "Via Giovanni Naso, 5, 90134 Palermo PA, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRHZpzqKu-TVdtXwGA9scPvwaFeAhAL0pUQeE-j259SoetZXixXU1pH-HqWsFYZlJ1xqDYz0E-Quve3p5w_MkCCLHk0usuc6VBNIADuPfKrrpAcBwZ11diqmgVwlml-N143zR8vk9vmg3fhe9DHJu6xxY39xlGJ8ol7uCTn3fMkm-T8czW86bPC-0tJAWP_5kqBe0WjCWgjo6mCk785QYx9FXvxjvrWauhAV9XTh0rWtgTTmL8B3Tih2dsvRa1xI-MtGFCYnvCGb0p-r6Uul8agpoES0Nqc622PyDw_lx7cAqlaB-Okb57yHN3v8ULtOQolZbsoGkCwIxVc1cbXiCXEMCpRHfDEKDdrC5BDHVbmzIRUPMYBU94jh_d4iLKbGoqzZH2GsPwMX9sQvxD2PqgWVY_T_oUSJwadaOICMt7cCehbUiI7HN6CfrxQsga7WmJMWsxWwj7jzDzqfjiNhqMmA9dk56o_mEHfpijbnENIy5H52j3kG7T53p8qo6gMobea4cfEzteKrEgyhFW48k_2_8-9tYrOQRFRtW58ybvnlZslBREZJ42kq4O27XVJUqB-BGJ225zwSA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1109813,
+            "longitude": 13.3628539,
+            "distanceToNext": "1.13 km",
+            "placeId": "place_174696159400074771"
+          },
+          {
+            "name": "Villa Giulia",
+            "address": "Via Lincoln, 90123 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTIA4xIdYSd405jNwrYTLRi-g3bx3tp_KsRv3JajmtUGzp9MvlBBe8yK-KFvQETGSzO2RoYpG3hsQHnBVoBcxjOOpmlSpP8GozqrzE_ZevOXsbvw7QOsn3tBCKwQvkJ-7cSzzlYj0YmABONHknswh-A1e6ZmFdEPNhUYrwUXrb-qfgHAuHXtDVrAQswEelKuJDykLc08xW4Lkf47Pb8QLLkDUZS7zunFGbToxkCdocGqkMqkzI3IOXSP6SM3s5ZwKApXpbsj48ROMyb_ih4HSCmdkHHhLtOe-r2KIkKaIvQ-zJjaTSzIlm21h2J322mnjcHD95r0jYruKdD-4uxYaIKJ_16eD-c8pz02uRohXImCoCuWOUEjxNfnxXNne487StQEZwOvqZ_lVLOAna7BsufMk7BYMJMnTDVpsUXBKdQpgu8BLJYRvGOFS0owWlm1ivhd04nWBUlAnt4qK8eIWbWdjTbEcLfcfBiDPXlNwzmV731E-tJ1mcCoNTprDvSuBskM8uOmAukN4E_0gympvmik3FZoc-xlW7_NfRZQuQKqmFNy1dFiOGIxR4qxMQAdeYUu9wv&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1139902,
+            "longitude": 13.3752396,
+            "distanceToNext": "1.09 km",
+            "placeId": "place_174696159400080368"
+          },
+          {
+            "name": "SALMORIGLIO Griglia & Cucina Siciliana",
+            "address": "Via Vittorio Emanuele, 233/235, 90133 Palermo PA, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT4CB8Jn4391kyJzBgtZOsTIAF20SK1b3Yn7lJnw3OIxBdjad2zQfkl50nnChuR7PyQxW2L2qSYxz_cIfksHbniIEjX7rEoWOIBslk_4E4hZiMfHeUya7imVzXj4C-DmfZlvNLe0y-sFYX2DOXY4YUpT0Z5mGYuS_g2aVFmDV8SVe0V8rnRAIOFgoptCMpWmQ-xPPJswSISE-2Twdqyv8S0rQRF0mWqIl40KrdLK7EClFyS-hA7ctxtiKiUQGFqjAZRVmc_hrctv9eJqxmStBGEj1sqqV3mDvwMeOvaThSx1TzEvJBZcGla5VmaCpkunLJSyeChod_0eiW-SMXRkEEy7K0OLYYUfo6sCPz1jf7vej9ON6xxJ9Hptd4G78k9k3skztNgQJZtDsONIbV6ykb2WX4n09UiMKVvX5MeAspeKh_iYpVFCurGwazAskfKS0VvS6Lvlnz6yUADZ7fMWKyj2dY6kitKs4NvwpUE0rUItE36MRxux5-wFx5Lpo7cx8uKV7N_zuIssGyYzhEIZ11pD8YyvK3BDbb5biZQpYSLYv6wuNIDFJ3XSLXxizi3oJSvWNo4&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1164742,
+            "longitude": 13.3631601,
+            "distanceToNext": "0.38 km",
+            "placeId": "place_174696159400021106"
+          },
+          {
+            "name": "SPINA BAR PALERMO",
+            "address": "Piazzetta della Messinese, 6, 90133 Palermo PA, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT_2vy6OknC544WjdijxrcjJBFxBniLVFpDaMl1ExaZnKp-2zqwPuszbZgwIzt8MV8uUDrN9smwVS02J1IN7CzFd--FI3SQcoC2fy0Npj28GXTX9gJL4n3E5OiR4rKzciNJsZT0_10f2pi3ThsQm9DorEW4-YodFuznnMq2ZJzSPuu-kOrkirh6ZiI1GKv19cqU0NDWzuE1K-NFUGPgdUd8u5T9z8ZL-7vzUOgbD8_nFhsXqrt8xU1_SbmfyzfcqoLKZIpBpG0dbLGMiFdPIQtMMvBeKtlqsIsMQ_ik3sMrXZ7z9qg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 38.1135098,
+            "longitude": 13.3653961,
+            "distanceToNext": "1.85 km",
+            "placeId": "place_174696159400096361"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Giuseppe de Spuches, 24, 90141 Palermo PA, Italy",
+            "photo": null,
+            "latitude": 38.1253911,
+            "longitude": 13.3505151,
+            "placeId": "place_174696159400072901"
+          }
+        ],
+        "itineraryId": "trip_174696148048169344"
+      }
+    ]
   }
 ]
