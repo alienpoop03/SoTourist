@@ -544,6 +544,755 @@
           }
         ],
         "itineraryId": "trip_174696230751820388"
+      },
+      {
+        "city": "Roma RM, Italia",
+        "accommodation": "Via Pinerolo, 43, 00182 Roma RM, Italia",
+        "startDate": "2025-05-21",
+        "endDate": "2025-05-31",
+        "style": "generico",
+        "photo": "",
+        "places": [
+          {
+            "name": "Caffè Cornetto Roma",
+            "address": "Via Ricasoli, 21/23/25, 00185 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSRsHPXGY-B8M0zTQz01ZjOJ7kVj8awYZdX8EYaoaV7FV1IxbCd_zPuOVljrqqiscyNM7sFw3KfdaEajJuKZWkVgXE-57xHwrnyGWk75FOq2DxvTEcgs_LVH2_z3vW5kwqzx3GbS0PaZtEDGMfRGZVwkXXYSnbJ1sJnALpqD4VD0fnShusLQwNCgW4CsE7pt7GDOtl_ZJ8XPzAdNs5XPYQuKt7X3QTLhUr4KQjkgvhMYzI2zMKbnCCSlez7n-hsZAU9z4Pf1TOcpa2gWvLuSD1nAQK-QoFph1wzBpyx7ijZW-YVow-JFQpXOjbCqMJT-nkz0dxlU3QQK8KFlv2hb16SmNqbbNuGwlWlVwcbAun7Z7jRVSntWPhe1rZV9BRI6jYZNqP2dQreMm74zZfYIQDhRDVn4PfkyG6kwKZDvlRckiplgyihS7AJOv8lTvBZhrVUFiX9bOS0D0JHKplyyKvTOAB7ubcNROw1MHsIyEXWKol6iRdg9MlY1Vyca6YnaK7rCtNRDodUYOqHMnbPqyv8tw1sOebDJTjaTRlZOTzLBJM6BQgLNbZP8167sU4pBW0p8SN00WSTcA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8952019,
+            "longitude": 12.5059236,
+            "distanceToNext": "1.65 km",
+            "placeId": "place_174697251673099846"
+          },
+          {
+            "name": "Roman Forum",
+            "address": "00186 Rome, Metropolitan City of Rome Capital, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRlZNtumhSY-QNqWVZEG9WumLc1y07J01_GX7juDYIl4ZTe3ptfDy3em4HKgU2DlTTdK8EtOb0hC9ua4rH4tnRQma1mINusznGkT7Y_1TCF72jRMtLDhzZQy2jBSr74zN42bAaJ_7jI9tLam0tP1OOx2GS6yf7EaHThLAfzDxe2JBvOvSVZwt-vaZl27XkVlUqJ42VH3MTbdQkfjRhJkSOKmVDZVNdhzvGYiU1KFCoDBta0B_qUVwkvrN8CU1LSBgzKTmwBxoVkf2PihhMXrz72XxlI8LtcF_6UkVxhi5RAKs_kTo68iaTT7OPOAzgLFB-TM4CayJmjFVrvtjObO0AZqD-SzSbvHuyXeT_khfaIDDo1ZNDbpFJhyjNmy7qQe_-m3HSXY7yBlPYc9a4AqT9dFrQLNhIs7K4CbtMXaF4lPVMDEMNazyhNoFEwKdKGNDfhAfTdYlSWu1JBk2toYe4XXquTBofKz8DyZzISpSNeuSdfsmabCMq1WN4nOecEp3oHvik5txMHVkaCcu-U-OKEvtpixeu_I4iZwlKiX8GftOdaiPBzgdmNJF1bq-Kq7iBen1bhR2EmEA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8920906,
+            "longitude": 12.4864378,
+            "distanceToNext": "1.44 km",
+            "placeId": "place_174697251673053224"
+          },
+          {
+            "name": "Tonnarello | Paglia",
+            "address": "V. della Paglia, 1/2/3, 00153 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSYky4LIvyQ4j4soeitGH_gSx3Y4y6az2ZcdffpMBYcKUO_BY2tecchZf6PKvbItlasVEA6pH1BaSZS2wNKDDT4gesnBofDGdeL8Q80kpXfVieMJ0moCHHRMblxbd2yIw4lfgDSorc3_MR3kn9Gz74HX8WvtU6b8nSwTEhv78HAbfEhaMKFMmdmCGFlng-_bAtT5459GjxfvBgS3HHWUqWb0l4LFn_45L7sMdgH8IMavJHnGgqqJ_OgIpyBsjwul0GRj262xM2Ke5qffiLBE0JQvrhZn3u2XqBW4U0th8t_85GFV-t2_xcnfFD1YTR-pOGq_PdrO7XL7r68zzZgLvreHa6IMnJs1WBe5ZGQxKvqDQ6LiLdnY3AZw47KAExYeYXBrQly7zTwaeMe7dDgtsdwZ2fSLaIFUjJf9Bx9lD5IWUKNFYxzdUiQeg2MSFdk2JhToxvVkBwodfsStgJtKvZm8zKoz3VmP9ZGQOUQJrQjAAn3sIgP1tC6qLzT85Frq0Ggb8uQ5pRc4nGTRWhvh_COMHPYKmVdqR_1jxEXIu6jAbbhTxKWnD-VeGoXzF-M9XI8YJZ9&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.889804,
+            "longitude": 12.4693004,
+            "distanceToNext": "1.58 km",
+            "placeId": "place_174697251673058595"
+          },
+          {
+            "name": "Parco della Mole Adriana",
+            "address": "Piazza Adriana, 00193 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQjcvjiQjZKHB-hDF75ex2tjM9Jt0td00AOwPnV1XuTnC2I_6k7uLfU8yNQY11Hz9mqsb3UbjhiINAV_FOMHtHJPs0mpxTDlhAmHpD2FfP3HYPpaos5WsU7PQC-rOFFcH0Xzxty_a7AkdNVNSMmvbuAyzF30_2wlN4bych4oi3AjGiya3maGMl0f8JZQnOD81cYHQEmwiyukCAiJMS_bhnIdbiWkVb8hNgDW2LxuJJiCspjUxpEuiQIl3tjR-RIbW7DYGPiCMFWK5-ySeuTE092YvfAQ_Wv6zdo6iU_O509GmdWscDo-UFrYPcEPQ_BL7n64mlLaduD0S-UuyQbq-tBdf37ox3zzgJb7fgKUqPiaibdAVdqQjDDCXw1ISJrZlW9TfCpI9ynqWmxn2AcNyUQye9rhEnXjfKW1RMgjOUQ1HUPfEDuc2LLbSZof_PsKwJESlIsf-HGhzs0290utTQq8wjmtWgw3i1G-oQyarS7_M_yAtuH5VVboCSnfLpLV_n0L23WbmhNo9Ao-O4VlKOsFY-AVIKFEIB5J7j-eTFk_ZmP6TqxagHeMItfiVniEqHZjatq&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9038701,
+            "longitude": 12.4663003,
+            "distanceToNext": "1.24 km",
+            "placeId": "place_174697251673043665"
+          },
+          {
+            "name": "La locanda del tempio",
+            "address": "Via di Pietra, 85, 00186 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR0vaVlcg7HibKpBidw2HU3sbE90rY7XOEX8VjJQhmKIP9UWUm4DeCwPreYgMCbDEEoaEvu2RTlQPanwfHjfOjyI_hTimBGDDg66eUmf6sAlttqPcfU3-JYGVIWwjPk7UZJNaEZCzLPUTqHpQii1iWDiW3F7rmnlGKkwBA_cXYQGJ-DbBrcksEE9ab33rHrtnzmHVrw_rS0C9Yy68Gqq3S3ZSrRtbb6vxTQ6G3u3SP-g9SyMGFOrm0JNplxlC1XS92r-V03R-21gt4fN1AFIPzZ5I_g3etH0K8xs7bydEmA_nJO9P6hhqxZ01mE8YTcTWveuaUackn_sJiHSQ9AkV8D3nft5duFm9cENetn3f0aJWr-bVb9aBQCdh6jbOCeq44JAAiq5NXrqsexQpgHAbOIH4HJiwVSRnBCBxHQt2jvDbdWqZePoMCna7VPUI-3e6CA8mFG49UFXtVTLL2_vu27vzhY3ZDPSnzm7D5aLp8dWxiNkRlYTM4om9ftpPdjzRCo3fWpsvK0Ax6ksyTZeIBkp9Ca4_JUTFEr0oagKh8xZx8nVT1KnC_T4PKaFap_mQoOpSAR&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.89998749999999,
+            "longitude": 12.4803759,
+            "distanceToNext": "0.96 km",
+            "placeId": "place_17469725167302578"
+          },
+          {
+            "name": "Ice Club Roma",
+            "address": "Via della Madonna dei Monti, 18/19, 00184 Roma RM, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTx24_Ni0s1FqXyGtsRmuc5e8Jh80-Xkrb3qDhrzV0aKkw9QtqO_A_orFIonxhnkZYeTMoOKixjJQKDYxtC4DBoiue7WOHKPSxoax7jXzI7sP3BrUh68KQcNvXNiL8c6kPbsByr86_lwxlyjYTUugFGgifGIliGZaHeRvN3xmX4RMK0c8v6477e1YMYtbchqrboaA9E9NP0ZdiAGKJISS_U-1r9Z4BW2ap7p7_di-E36HJdMAyk7a0cmPLan9bJA1LNy_mRYXlygoD9PYc03fKrIgv5p4RtSfmE70JopLNyyzK2fNz_v-1UczjaQaz2696dsHyzIMrES5mPO-Ymd9kp-uH4Km5eAhQOz-ZabJtjdfITdnlW4bUQi8qOu419qUJu3qB3kLxCIDmCZ_YK7R6uZN5nbFuplRgNhSLMPdbAnNwW-bbSNwYB_vrMLUnXWJY9AGNLxFWiQsc6btPBuudgwfrvgETuYRF7yIxJuLXa6JgNQAVCsxXrRMBDFO4EChB6rTYasNNk9Nz7_oBUp59PTPnbLoDTnU1kMeNJFtKRj1P6fMnAdWVHZEDrS6UeeH8DfE5A&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8941234,
+            "longitude": 12.4889199,
+            "distanceToNext": "2.57 km",
+            "placeId": "place_174697251673059444"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673097491"
+          },
+          {
+            "name": "Trecaffè - Via dei due Macelli",
+            "address": "Via dei Due Macelli, 107, 00187 Roma RM, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTMYNSPz8OCL2tD8wYU92yMhaWmzHNB5BVJI6uiJTyMiqhXfgSu00bLWgYQxCxtOoUjP2TKwYsFMgdXYn2dakGu0yhXs4ohR9FjRkIQ6aRyf6E9JnV0nDdh88UcctjLjO0MRVouNa7afhur3uM9T85yjBMudS8H0OKFX1IG3OZyZRNzLrohNaJm8Gz8gHzC5VFLiWkrRknoVEsRLOvCA_Jvai6OQChdhTWKc3b4q7tE59dANCM0ZiQFXoqQdJ9ntQHuRzfLaNnkyKf5tbs0_TQPbeFWDVzXJ9NZj4dpgrYvmwoBOzNdMuAxEYZWbw5bGWmiIjfrC8swkWaeOEXKDmxYjkFdyKwxG38heQIc9NqK1dqK7XzIy7HgET6b_Wmo6NCiioPtoWLJTYRLjiLJXzwJjNNpYn9tRVG5Lvr89h-y2Vp4XQuA772K5vH_mksKWjb3c6C2gN0h6ONbjVLPMI36h9-ohHzTCTjSjDu7-y8wKxJxtOa3NMzxS-O1R5e9nSrnR_1XoR3iEqp3QmcXaL7KsdVt7dqpp_DTtWat7WYG48F0Dm68tx-d36vI2ZHSZVIKg7TE&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9033594,
+            "longitude": 12.4851352,
+            "distanceToNext": "1.58 km",
+            "placeId": "place_174697251673019433"
+          },
+          {
+            "name": "Colosseum",
+            "address": "Piazza del Colosseo, 1, 00184 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTT__oyEiLvQJvQ7rCKnH3GwVqrMfdTLXcAEa48ifq9aVN8ys65B1EWOT9_CiNyz8oBFCkFvuPnmupC7uIslj1Nzy4kSmTNA5rRTS3lppUm42oesebYCCfa6DlSqlkKNua3Dhx894iXL7VJ5aOVXico2zgcpBnRY_VF9VUzbuD6vz9AOA8ef375lsU3WIYoFKklmzUnnDvO-RA9C8SHyhrdCiltiYnxXzyD95jQ4TfY9u4250xooB4jTJR-IKB4y26dBDU08EXqESVCgPbAGN29tcqSGKZ2RRoZJRxNHxI4AHPvgaIHudYk-yQmoaUajJ7Wh_w4lp_S6lPskmpJWC8TXDjVO4Nc6QdyCT7bqOc_wqHpLgt6iJF_m6BH5oQ9BqD-y3hNN_ranYLigAUZIEimj0DwSr6stSM3XY2ViHgRa1BNBSF3io8Z6O28vAlHug0_4XiFAaL6bXPp1MgkdjWOEqjP3nLjRvbNCyj76ZjxlOHygP3ZzzoYjJci4qVy0erGa_oUpLhsPCLsJgEBT1ZzKHfhUY77F2biLSR1sHjVsQNCH_sed-QE4kpx7sgNyLwnFqAaTK9ePA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8902102,
+            "longitude": 12.4922309,
+            "distanceToNext": "0.43 km",
+            "placeId": "place_174697251673013758"
+          },
+          {
+            "name": "La Nuova Piazzetta",
+            "address": "Vicolo del Buon Consiglio, 23/a, 00184 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSiIx6K7__3lBNoExq4bYpET96aNy7ewb3BYHJe-0lhVJYxSUCQjEUrrcV3ERs3akzHLvENKbRlfc2vG7jpAHipFLUTxZsS2OKiewT1i7Cx8-1i6Bk_4RZJaTjPUWPwGw1wYVPG5rQ1deiqRCjjA2Ezq2NZm0kwWK3dFbRfUUQ73QQ8tlHvu2Lo9NFTJ99AmgByaBSi6yKkbFq5duuUH_lw9kWXGUr5apu6SqBqaLM8FDRAjSgPO3iym7x5B6ao-sXSrMI0Pv0Ksg59T3dy3E6NwC3TCN7hDOaiTvWDwAIEOYqQDUZJM1v2eNPprmGRML4tQe7x90VR055y4mrnJlbrBSNZEa7xB3qNJ4cj-0n_XbwIcqnZx4vCe3wCy1PBDWhtOuCPFB25BDJFcolzlEAnTJylKuQ4StddBJJMqTZwAdp5-Tyya23vNXW-R--r8edfeHe94iqQaEJidtt8ZI3AJn0o076BARXq9OiuPmdZWXsdPAocVNzNY7rQ8uYkmG3BhqWSJI3dPyFx8BE_HT28psvSzCu-fB0T2sl8wwdwkIXL64-SMp6uwPUX4vxWsgvaVp7U&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.89332460000001,
+            "longitude": 12.489191,
+            "distanceToNext": "1.17 km",
+            "placeId": "place_174697251673059661"
+          },
+          {
+            "name": "Giardino degli Aranci",
+            "address": "Piazza Pietro D'Illiria, 00153 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTiO96wR0NL4HbKIglYn8SP_BgPyMCcGyQ1aZC5VV8ExZP2iemEVBoxXLKhsMapnkq0Hl5k-he3rYo7dFYPQPSQmyXLFlFu_ThB61g_zP7VbEEYohRPyyjEQZR6diHBp3lfgonxpJpDLQ9SA9lYu75jRsf0Tj24xhgLBa-ETysyJH4YNxtA5idIvuSz3w9n-Ep-yV-Shm1MGo6SZ49srOIl2xS0XdEVbXiLC-Ra6j8W9c8qbUjA5cEKWMtCGsdSA8SR9WRti5sK_2m7KveE8OVhDvdC6ZD75R1768uH36QPMCx-wI8lcMpe2_Hibl4V3dmasPys4W5aDZlzA346gZFGU--6aYTGJSsalNrOAZJKLILjmzoetlkhcqJ2_uqxFnonliwXnjPWXApJZOP9PknnOKlu9G8xbUsvtOXW7txL14dOmUKWdkjUrobaoSart-EA0JY469GSyaSxQLEuixBWpOk-S8fISKgyVRxMOG-jhicXVciodx_5wn7ppeZU7p64bi7Ieirm_pJ_c0YALQ1OW0Ao8e3Y_2viAUBhectxtFRfggDeT-dGfiwlseWNnIVa1YjU&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8849628,
+            "longitude": 12.4806625,
+            "distanceToNext": "1.22 km",
+            "placeId": "place_174697251673039177"
+          },
+          {
+            "name": "Tonnarello Scala",
+            "address": "Piazza della Scala, 19/21, 00153 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSrh5OC3xRsd0u661G_gRHV526keUnprzTsk2BBE9tlTydJC_0C-mQknDnBKFaOFNSjqUZh6krd7dpsT27ZLmJR4dTfkr8MINXkFunZE1WmEBwxGpAGHvTv1-92QvAaL-m4iLKBcTDJ4UzF9Mk16IC_G7YF0xD2mPcrTTbtr4PWbaOt3_Q6w1_nPguXVE1Qi3u-xA7nqTEUtP2xM-jkQAswgVGeyWeLHgloUCd10EyK_Vsx95d-TI43c-_OWtc7FOl7pEBnATgupkqahhRK1q4u6MObsSs7GvEhY18BO94deA2X0TBvqgo7wp6mTYnNA_NKcSF9Q8vKsdxzuR_NFYX6xt7wLt586NYkU8Ds-FUzTNDL7SVfsJhbhfn4tyjzcfKkhyKuYvZx1AhRJ5649GHgzXt9iQG7L9utMEIlaa9FNvyXeaMUtkFVMVG_kWtxdIL5EV6tnUAsy5uxVrek2yuqlw3uDovq_zs852Uzg3_L0Yg9eRQpGABXAfsmTCNue0OiCBgCTmkP7hlPYjvd6LfIKklN7zgzOwI9Q38n-HilAuCnJa6M9U80vTgr3H_7rySmyq3CNWDp7w&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8909113,
+            "longitude": 12.4682918,
+            "distanceToNext": "0.84 km",
+            "placeId": "place_174697251673018314"
+          },
+          {
+            "name": "Santa Cocktail Club - Roma",
+            "address": "Corso Vittorio Emanuele II, 110, 00186 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQyubcxEqjDyAgJfNI0ybU2zQDPQQZOTyPLyYh08kyJ3KQQceRpCjEYIdhjlw7b1l9GPJIPB7UgY23ejAQSWHC28Z-muAOpe0JfvjtJjm9H35ITOqQyjuEvy5OjYo4sgyPErp-90AacjD1vmThcTpCiyIpXwB9kPnJfRPC4FYItrFt-eMm_XMm0qPp7XDFxKYZlEPlEpEvwfAdcslzc_LdG-kI36R_nr4e4MtzCF3hD89RwDMq1b38VUZ4lXYSnILEgCiuJ-UzEiqdNS-iboChZRz5TYxNpVnAykx1eaQBxfgQi2GWwq_sx6sJwPezQkV4lei7PAH2VnkMBTTPZKNUR8_QaC115VdCq00YERn0CI5RE5XeICScGGnd4e8RXbxgZtLG_iPFVyqXRJX0uQ6jmZQ8wFW8NJL8j_X3El0_pXwUN9eaV7wCieGMr6dTLyO2sqeHIEaTLpgSnl_g_sKd8qYJ6ojbstsiw_88VfBVh2_xnOP2js5kyH8BeigDTQ3Gxf13DlekhbGYJFFgy4ly6qw1vHGLPJWNiFyUyQATavtmAsz6TLlOILLO6lkjba9dfVLJFja-mUw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8961247,
+            "longitude": 12.4756564,
+            "distanceToNext": "3.66 km",
+            "placeId": "place_174697251673023334"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673070820"
+          },
+          {
+            "name": "D’Angelo Caffè & Gastronomia - Bar Bistro Caffetteria Napoletana a Roma",
+            "address": "Via Venti Settembre, 25, 00185 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTHmGGcS9S0dYrqxj6mD62S8FpFZ3uI34jSDk0QZBN6PxqUN3-oFlGGWTzeE3cj1UiqcQzD62_Tu6QSXkMDL1d9GZ7Nlk-apFxOIGj9H24dNK-AA7qkw7ojbixJeJpXHlrRm84vvzK6BasfvSlqQpGb2VXPjvp4FFHgWBroQKh9P5XQEmcn8H2Q3S_9DZBjUNHBjbBsYVZ7uFX_2XwirZrhuN0PEQmR7oGMY6UyHrqzFWQUlDo707vUkvcqm8Kfu_ZT1i8K55cOBox7mJCoBXD1U4R80iXehYJGnM6xWP3b4cegh3dYWHk5F2_Yq87dwmLiMHdpm9vAMU0PaxZioHxzFp7rHXyOfLzaFoEOcOuDS7KqJegDrbUs43hw5cuH3RiiceDUGBOW6CP3GME0PcKmA8oXhbmuoGk1ZEnCGA1x3x2u7y_EG-2hFl_BYqWHrVvn-PFIYC7QkDRhJ5TmkqNhKNBBDJRSADS1vqhxujH2b4EFYB6YYYbMq3E9MiizvVFVLtXZK0NelxZF3ZnsKtQm8phvteUUkP4XlqHAU44dMJFnUWLs9iKOZ-8sVvhzr2tws86q&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.90549900000001,
+            "longitude": 12.495645,
+            "distanceToNext": "1.73 km",
+            "placeId": "place_174697251673049260"
+          },
+          {
+            "name": "Pantheon",
+            "address": "Piazza della Rotonda, 00186 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSHpNgjzVi2Z76F2jF79R2Ewi6X35ilrl0PAkYr9TzIsXH-K0NaUPwEO0QmcV2yMEDO5C4nZ21wSFh2o-HFZnDXR4m4yu4eKLITe-lRvZgyUm9-11hCXkJ-6kUL6Ai90MZLkkdaHJBAZx9EJqMp421BIxusYTZrKU2JlHHdztV1Zohuuej18y_7-a_8O1403nCijBPa94K9pvhBseZKdufqY8GgRovJxPsU4kfx7ff3yIjFCH4EfWIEaxv7rsdQYagVIVI-oghlqljACfvYMX6P7Jsf7bng0Lzb4Dvw3mnR_H0YEcyHvNisU92kELqhYShz2wNElsK4X020a_icxVMVt0jiKD0PijGnMr2j1N4_DZFAF-rmArX12ctoSFH1JdZmI9JYich6LHcH11W_DgXgptPOeBzmEekYaGpad2q7Z9U3-u0GIpKI57P-KQzJ5mneRyOJq03ivT9zcsf5XtjNTLQLc4nqkf2ZbEeEZSB0CVpYyRbeIRKNBp22I1fvz_oHLVEO-zTDFjm9AmkYkeBPYG5LyHBBLE_l-aKDoVvJ-ncXzMNSybAKlwFPxkw-v8MVOzsv&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8986108,
+            "longitude": 12.4768729,
+            "distanceToNext": "0.56 km",
+            "placeId": "place_174697251673093320"
+          },
+          {
+            "name": "Osteria da Fortunata - Baullari",
+            "address": "Via Dei Baullari, 112, 00186 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSYJTERCv3slX99xZnyGnq2b3R_MtPW8zLnO6D0UIsQRQq_D4XYqbmzn0xWVqC27oP5ihoJjys3ilSZtHDZtgmd5Hnbok6TAdqrYZW6i8IS49pjXPGIprAdU7cEpsTTe5sibH53JPpESgOwWaYXiGeG9qOmMmIVdSCE2paXg8H-2p2Uu0lOl76ZeiL52Bp4jq7tkd-qeUWioaihGSEsfNiPGUdOV8j1k7lRaIuDWyEN5o3V8mRq1Wji2l9y4yuKaIqNdV3-cnAmdxmWVp7x92UxIfp5kQvhoxl4_N_G6PSi3GPsGUnBr1Tct4r5QO5xQStft136yP9epOC8qkY1SzraAg8nJx59CJqnRm9kknF6KTvAKqnkvN7Iw28HuiFBE9bzdt3EMU5b3J5v1KnEFr-4NMY-ChyHSoxZJEuGsRaNJ1RZ2_gUZ9pKPNO68eQYJqfPsmoJQtv_S8b8jkbMCpBCpmv6MHd9J2fPlwlBqNw0tx43-XFCrC57smfuI8vy09Ic9UUnL8XaG01QixSO4t6ssBnTQF9lBFi_yAz3wflDURgnaUyLlBeC3PP7ggwbNb9RH9yS&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8955166,
+            "longitude": 12.4715911,
+            "distanceToNext": "1.46 km",
+            "placeId": "place_174697251673047550"
+          },
+          {
+            "name": "Villa Sciarra",
+            "address": "V.le delle Mura Gianicolensi, 11, 00152 Roma RM, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRwHaUfZyeYJZyH--VBdZOqVG_CXxdBLTrchl_JRYwpWr8Y-oCJXeNajTcWrffNjSDoEgPew76NZBYEfYGDRbSzjRr1nWZXM4ODsJrSlyGyghuVDALOTZzi66K1Htdtj7MtHhtjJsXWHW6V4ZoR8Qv9MupdgtFqdPdzSvtFvLcJniQLl9voY53zGhMgtMpvS7hOly4hA1d2HYcA74IX0kmtc5kClFNa-aUjez9aVuWS7KIsHXAjSVer3s5qwe4VCWjftTOcjGzCbLPwtf-DxFgjYUs3x-hjF4IP7m9brbWC8vAaTTmZNWShTGYAJ8GIWFKw6kmtIg3vj0NgP5xlirV0PvXITOJIy1TYGzQS2YiJWro7AsvBQnFO1EM4qmseNYJj3ZHSqs_VZxxwpf2OGg6UC0nN5dp93Qcmlq_nTBPGSwkirmuz0sPQTjsUpifbpW3M2YzSNo0nMLBV0KeRiI65tztDjuJrAOzBvyvq0R5qBCs24eTXFM2w1bmmeHzwmkyAbESEsunpLG7YMwyx-kahGqhZ8TaAqC-a98iYGYoVN0NH4uVM5EtIGoQqo_THxqYJ0YWz&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8834801,
+            "longitude": 12.4646959,
+            "distanceToNext": "1.71 km",
+            "placeId": "place_174697251673023234"
+          },
+          {
+            "name": "Cantina e Cucina",
+            "address": "V. del Governo Vecchio, 87, 00186 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSjVUcZzHy8iQGc8wlCKs6SCQ3k-MsB1uNmowLJeKaCw01Q_L2r5rSsDr1pf6OLQTceKiNkXfilxLUYGtAP0IHyUscMdcW6ItlX_r5NHN9QrTgfp9TJaAC9vQqx8y58N1wu9p7KGakGw_oBEezZE0UmfJeQVxdn-BpDnoLEmspp3UfFGHFAMu_ezmlFSQmj18-vi55sr9BmFSLLi79B86kbYm4AOrQSho4MWZMX_ZiHFZ7RSdRjvDXUPc3nNp0V49hOHInaksqJhrhdIfQhshdI4WFMFoLpLjWgnZV3Qb0sIebb8Yxb37w4yf_Qiys_xRQSAvMLl96n5iv6uIPyHydjPxKzHXpvg2VaZy2PIdIvoXM9YGAXxIsHRZwfHhNGACUwo0W9Q4vdyFVFoVWmNnUtlf5rSEAAqqLURByr1A8-e433MyEYeU3eJzRYs2VEXsFcKOaFMLqTgDUw8Su-4NI1LpMLj_TdmsvDL5YXrRreIjMSH-DaHor0Oa4zsco8L87CMzRV0LS47E2V2OTHjXcQTZvFnyfzGt8gdPJNWFAs0EO5W6uYZ5glgEbWw6k6jD3_C5b_nspYGQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8979644,
+            "longitude": 12.4716531,
+            "distanceToNext": "0.37 km",
+            "placeId": "place_174697251673035257"
+          },
+          {
+            "name": "Sharivari",
+            "address": "Via de' Nari, 14, 00186 Roma RM, Italy",
+            "rating": 3.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTVD9LI4tWiIR_-GbbYUU8MfakJs507hFwwmIax6ge3FhyW3D0CzSpPrkTYvmqBN-7LH_SsH-SKWX4v1BC6Q-cKVD5IG65eKWbAJWcTZtNiRpEOvRi9H0Lev4_4xljbP9ATp5Bha_W9Owprdaw5zaljZbeOdHaw7300g7rOvRrJLKKP_mEFd9QrlWkw5wbqn6qgaCPGyBaEjgKw_xng5tuDYv1jXg0_DXhkI4q0TvCBoEkcWaHyhDXd6D72-b7qP-C0I9IXivxDETUy9Q-0hz4nRiL4dKIunrzQaj0Hy-OF-1e5nBA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8973052,
+            "longitude": 12.4760536,
+            "distanceToNext": "3.69 km",
+            "placeId": "place_174697251673079710"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673041226"
+          },
+          {
+            "name": "Caffè Delle Commari",
+            "address": "Via Santamaura, 22, 00192 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT8xnVv0WB9nwxdUZSA9mYmJQoijwJjimsdtueQLBh3M7NPyaUr-4SyZhEXwOFKtpZle_D-mObDrOGwnqCpLxlJKM4BtprLaZj621aiZVvXdyJ22MxmKNhtSeTg9l8BAbMR_wBjRes357e29Y4uTPIPwBiRDmj2YheSodYrNip5M7ck_4hr-0qwkGJSyktcSv4ygUOucnhDuwAJi4FuF4V_5wY29ZnTSEl55qzegSUtxk_U8pJINB3izvXj8I1E-vGS7zsN4440h_Oz9DA4sd6pmCkrRQLeVYlsiiv_mrg0FSfF4m8&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9080192,
+            "longitude": 12.4540759,
+            "distanceToNext": "1.86 km",
+            "placeId": "place_174697251673038902"
+          },
+          {
+            "name": "Piazza Navona",
+            "address": "Piazza Navona, 00186 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSTY8WXsbeiQr-f0ZnmCav_674ON7YS0GwtEGgJDDSMXhGOAKczlY35u1SwjHJr2YN237f1IjtmSsoE4KqvKnd4ekaw9S5L3tAPeDMOWOCS7lslfTvo2geWsvns3ym-97Rplf2_O5-R-VkaupXYt_E612BjiRsYT3q6Q9qXaKu3Ffils7XjVFZH51Ns811u06JJ0rBe_zg-Ln6toH9ax2cTQgObkKJkDz3FmbplZvzTCUxYpPyr3_uOAcHUBtXFvbYLGVYyXV_skWhzvh1DCzBvQvNzSwAnYhomOy6lCvMDrBsJWEfAw4CDDc2GXbKgtrrmqB-9KcICtqBertFHJ07ohTSLM0Mf9WFd8EmY9gMkByTtXQlgC2YTJQb8VWMYzYoJoUFOudfrvWaxw0sY9V5R18PupKD3q9g0NZ85xc0Qd_J5lDuuBrxyOFa-XqT3RGsesEI4QPBGUsOkxVaT9RyUZR7ADK_NrYyAzjUYSeDjve4tcz-6G5zLfbh2o7xKS_w9zI9tlUdvVxrj8s_y-ZeGcTY86KCeFpVL0UXkgyLzcZFSfesHLwoQ_NVopecV1pcM1MuZcZoLmA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8991633,
+            "longitude": 12.4730742,
+            "distanceToNext": "1.33 km",
+            "placeId": "place_174697251673014632"
+          },
+          {
+            "name": "Tonnarello San Pietro",
+            "address": "Via del Mascherino, 80, 00193 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTT6inPNkQexFKoEa3hdM4LDyxvt_rEk0GzI044lVmp6jUb1qxFg2vv4y5B8joWwIT2fgu7XJMOP14HTISZ6jJfhvf5jwDt24tM9JzqXSYB7Eyi0YvXJmtrW3eUkpzXtJgwo7oGDoFEp7DVaDdXtu1g7NBlX7T0638srWf5Jk_R5dC0nfCe1ZSZskL6rnJipQU1wYmsRh1z2eU5uknF_hC5oVQJu2jvzySCoyAygomo84yWPW6Bx6KLOpjTMD-oburl5PBAx-4uVe4Va9YPk0XGd07SjnCigv31IiOaPO1LNe-2n-DUYKrT1l0tP21GQBMqDIqlkf8AmoDxJ0eZgZm95O_VzhLBve0uHoBy-pkUFHgxI5wgCzmaDr5puGQEu8j5wAm-JIb5LOI_-CN0R7j2YiTA42bcmuS2hOjn4iMnNgqhBHMI0bU56flYx8BMAjtDApycFqKxk-xOkxhUCs55KpsFS9AdgOJzaaKkUNXsVblKYlHi3dlFjwqfmppKbrpIM70lA-rVLg4fnPpLzhj2jMNZi6IuSRiOQRKXdYjBZUkck0_epGq5Rwf-iucniX3wz4Pyv_FKXQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9048543,
+            "longitude": 12.4589588,
+            "distanceToNext": "1.73 km",
+            "placeId": "place_174697251673027415"
+          },
+          {
+            "name": "Explora - Il Museo dei Bambini di Roma",
+            "address": "Via Flaminia, 80/86, 00196 Roma RM, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTOVr0W-cDRWD13PMdTTeoUtO8FeoikqK9M0vWyR2sqKvNDNfF8E-Pe39q7IYUQcbyQJYNhlgapkDW7cIhCkaTaZQx3f6jNMSVSZdlpbfzmGJpMzPxvp02TSf4FI-wI30VH1fIzgAMc6vsJhTA4saSPdlFXpiKlQ2UT6ClrZmKfZo4YStmLwtN29Xcqgb3ngkJQfwgoI_Oi7_naBQlAukQOpoOr9MqPQegCM6xe3rdkyieym-YgOk80n9fk5dH1y8sFhKjKFEBlPnATlHNxBKgPimPTNM4LcL0aCHLNia6GnfC_FTHAUS-qGaS_CRKqR2XhC-puosfSYgzs0nSR7CpH6XH9VKWRKVDioMyOqlM3XJ42DG2k9Xe44nqrqAhdtsmpJ8HmtAS_xBzdQ6qGVJBE71fdO2jOn_3x_pWBpP1JE6sk98XpjDr83lP80_2VwVe0Ektby8bHpBHtC2QVonq6EU65fnRcZfFN4bnFQ_zHTnBshB7BvTyHAT7AtT44gqRhekMef6ZqFnrlQcELnTJANVvxB7XTbOzbJX5N3EpFtCUvAC-PORBwyug_Ch3N8NUeu7nCOqJNZg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9151209,
+            "longitude": 12.4747027,
+            "distanceToNext": "1.89 km",
+            "placeId": "place_174697251673065036"
+          },
+          {
+            "name": "433",
+            "address": "V. del Governo Vecchio, 123, 00186 Roma RM, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTjZ-F3qSHA_kSFHXeSqn865Fn4QSd58u761DBQ1gHSvJg7cGuPKys1T0Fze0Hj2tDefvaSia0qsWpwpjBxrtHLyKG3YV3abpapI-34_lCXFKeUOH6FdpUcv4wXCHIftANQqGbZrmG4hcJwgZXHg3DrEpD71gKfNmM9qLsA5IxGAGWIw_ZLWNI6LfAC3_mqXlPAnmKXwAg3qyjYjsrgsnnP8pMH9vjd46xTyYb2tVEqXH94E2NWQAi4yn3qc7POmSvx2FGMiwzrbXc7njLqvZiyrpO7YZk-IslgZ_nez_8Q4o9OuT5x8GYHs3Otj7p8VCMKuYvTDz28Z4E1rU3L-PRgnVWdzdyKLLDxiS7jB25SOI6crKuffgLHjYSQ56repCa3H3hmTdoici25bXlpnnZOOKj_iEQBTS--BwqccCBONLL0TqjkszCNVj7TdzXJrQiL77JHEtbE1cxxNLOc68dKVLk_1ipA1eJTH2Aqz6bJequ29VdoyHrt6PHK_ZbVuTd5yxOyNIiW67NwMk5itM-8FhMa0F-tAdHicexuT8CWb8ojJttqyrn1a_sV1V0QG-zl01Fj&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8985251,
+            "longitude": 12.4698499,
+            "distanceToNext": "1.27 km",
+            "placeId": "place_174697251673038125"
+          },
+          {
+            "name": "FullMoonClub Roma",
+            "address": "12/13, Via Luigi Santini, 00153 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTBFAZpEMYH_-kUky6T8TNAYSrQDSIce0_sKfZz1WHs702791jVv5-_LOizpXjaXrdJxWy3n0LW798T9ie6MlSSH7GZtvyMkge2aGQyYIGDy1Uy3bBt_CWsIaS_0qANLebiSYYqfGf_QGrfcknCNaAHoXbfQa0MCQEv6CwIQ0ebBGoH8ERBIzl69W-WQHqj9z3kzYv7og8aw_LUc0OA9eYJidmljj5bv5vTaPJxWrtfMthBV2aHkBorecXhi5a5TlUEvn6gQs7vIjQ-dgi-ncZtg1ciHDzWn_e_fE99r9tX-XEa1kY&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8871648,
+            "longitude": 12.4682353,
+            "distanceToNext": "4.01 km",
+            "placeId": "place_174697251673064438"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673015513"
+          },
+          {
+            "name": "Café Merenda",
+            "address": "Via del Gazometro, 5a, 00154 Roma RM, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSZIf72mc3Gx-5u2KHczcLVElJIsar9ZxwIqqQkAflNpUWw9pg1ZLdZnhUEPPKpv1nPYvBBBsSYnwiar3Dz7WT6VVLlz8nQPkgkN5urBQ88mfNBazVZCtUSLD1hA6TXaUoQU33KOnA8vnCGMSN7bSl7BZayJXTzRarNwzfQMl6YA-0ySJtR7YqELLWsLDnrlyKHEfkoEnZWizW0wfPTw7_fOSsxfDJOZRqdP5_T2mJqAZ5En_RrebRvJaFD8QEqu8AEQqoOfA3KKiALpfvglC5njDqQwQPYcrY2yus9qyobIGiLoMfz0G0ex9gYiac6ws0_r24lWRZOmh1EmJDV_Lx9QPtsBHZk97vv1SFq3O-MEQ_VpV4o8IJuT_kEAhpfE58WCME7g8BlIYG-eayso6hCyKSyfFfnaPB307XlJoYZj1F24y5mB8Svm-RGk8BsaYFw82N4XzaZPD9dn73iGNE6qnmKvdx4qflHhg0rNsO-W7Ra0Dc7b3Z3zX7sqt0X44hw7AwXX0orBpX6RsUaICHUk2PIo2--ZKFYiJ5Yw7yPvaRf-3byGKT98Z4SRQsgSDkDltCs7lnzIw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8711073,
+            "longitude": 12.4790887,
+            "distanceToNext": "1.73 km",
+            "placeId": "place_174697251673031682"
+          },
+          {
+            "name": "Circus Maximus",
+            "address": "00186 Rome, Metropolitan City of Rome Capital, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTPDXQT9L1z2t8jV-wdmu4F_zUMFxqTCmbFwku8yksPEFAmUDi6U-KRIAmkt111Ts85du_zxCtBh6maHqZlw1sJ2-C6Q0pLh1-Tby7_BswCVfCY707PEUYS19gwB8DWWqrFqqEvm4VLcHsWtMdt5h9RBQQoqYinYISNMvOPBIg824tQNweacFUAu4IAJ4WPVfqh7e7KUtMPfy3Gn1IDx6Q3MO-FigJm26z9TexIbX5UllJh--iDOoe0EDjCN5P7kc5Z5z5DFk0RZjOxstNVJPbkuZurxUa6seZi7rx0TK3hCaGvTG2ou7nw7IxDjauBRGG-95POoPsDG7Mpm-XjmqmmUlt1zTfD_hnDQFi9f2lvCPY5XPTusD51Cje0NLnIAf3rOTANHX_A1iILWvU9Dve7_ymXQegJ15spfPT-ZD_yz_bgIE3zJUB4sgOa7sH3Fz7J9Ucq0UQvzUnRwHbrn1ETujgdg_8t3wTB_gr6m6KZDHDoEPd93OlCEUy0hbww8qfukcwN09HTEwWLN2xunlerMgWIOLm6YJx3uLdZRx1I-1_GlRZMjd_vshCeD_fy1gjt882sQ09znw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8858762,
+            "longitude": 12.4857578,
+            "distanceToNext": "1.63 km",
+            "placeId": "place_174697251673077386"
+          },
+          {
+            "name": "Osteria da Fortunata",
+            "address": "Via del Pellegrino, 11, 00186 Roma RM, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSxRlWCkqfDGvSPtsw0eCQiydAlI9yC7d5DNdAdHuku2lPvda-IqvvXiGyxJJw5BQi3xka3L5-xGbOHoaTUkzhWQS9ZuA2CMfeQ7MvIvn99_8D4tB1Ck4JOfdVOMUr2-lhW3DwIzQZaNz-JgG1rSpfCjegsV3GcZ7Qj_Pzlx8RfL9cVnzu9kJJn7yjyGP7aglvqZpy9gw4wanbKCSgUnEhUQTZZXtVtoW3Y6HhkrhrF0pz1v4ItaH8TXIA9JlUcum7dpSk5dzVdFs-Qjow0JgloYD31RwZVsgdWf4WIjAsh06hSMZu_1yjo9AhsolUWo8wjSFdix02iy_7TTPQPPjCzc0ZQ53Rogb51HlxkX1fVghhQsgDnbl4AQUmgCR0JsmMgOHq2ERVJYyXh9emDhbSaLm0LnwVuV4vjrpQ9Xtv1Wy2sFfBu4vRgWRR9gXonY7FCvKb-L9kly6XZhjB3gfJh3EMTAmPJorSLi7KVfFFUrZyPppQYhb2kIDEguUR_MZ5C4dk7qyHuLQjxbRWbSH3lcvKM1R4UXo4TMRwXpI1lVA9uZ88x7VqhC2tFR1ppqC1TeFfBJFlbvQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8961336,
+            "longitude": 12.4716305,
+            "distanceToNext": "1.82 km",
+            "placeId": "place_174697251673034745"
+          },
+          {
+            "name": "Passeggiata del Pincio",
+            "address": "Viale Gabriele D'Annunzio, 00197 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRNBsv3c16AXh7cdkJB97urr2kjAvArnfCNOM_JGouDzmt3pC7Ol1Bt-iuMp-Ora5HVNKsyBhtkH8OJmyHLz9JQLYpTkw5n14LaSr9NfK2k8CvIImFq1SWwM2J8UcG8CQfccCUV8o3CkCBHMZ9ase7HUXFP_JHRG0TDmz-IgB8MtfLkKcjKF6_5Zv2jbf-Pl4nnroAFDrWW76Vm7w2azpGauexGieRmngOUTl8aSdvgAD3aJzsCLiDgtjo5nGYgLOQFP4VZdvpDILnceqjov3LwrIk1VsO5IXyU2qnxfqDszbDqP_fcJ28w3sfHoqE_Gm9waIkNCZPqDFVqC2pELC3a18eX4-NnT8C3u03_hAmUWeAM46S2Fv-g3FDSQD2KiOYjkvMXQt_AMsbeZv-ED1SMwxUMX30DO0xMdQnlB1iwlO-ssrlA7Yk1CI8vcdCUBoa18Avp0kYqZMw4jXCYNlV4_UQjA4ET-xSj5jwP31DxCN0KKmpdtAIUuw04kKeShtqsTuXsgfymcPx1FQabn5TCLrcn0nvBdBAfoVvgjh3mFy_HXv7CvZ167KwnStm-3xcI4_Mr&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9109886,
+            "longitude": 12.4809335,
+            "distanceToNext": "1.92 km",
+            "placeId": "place_174697251673087490"
+          },
+          {
+            "name": "Centro",
+            "address": "Via Cavour, 61, 00184 Roma RM, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRp2QiMAPXyVCP3PDS0Bx2oZqRvOiFQaE0giaoYeGt9l8o-Jja5wHWc4KasmGjPPbAoA_jmMJRXFkCslo8e3EZ97jhZLJsYW20UdgZGpJnC8AmFoKGwRrQTXjfZw7Sl8G6OI05zwINlJmNCZOgClJqdnK6nb9oB6wLA_v4UcdsRqTCNLbX_UP3ip5bTw-ToqlysXStRWq4DsprABjrVVDV0SpDp5vzF1_Omz78HSMASWVMxLsIF-jaqM5LqFn6QNg7MmdOHqBpLcBx_oFzZI7vi3mz2EVbHYYDogy2ph9AodgooAZ9jwLZtLvaRz0VhtWNfIf110sgPjZJG5r-2dOAp8v5UFbz4c5L-dcLXiGZOML0ZDIljnroYD7oLgBVKXZgNRxhyvwxwcklURTC_dcMBFvcUWZbwdNUyCwIUU_TqJZq-_6Oj-8HrL2T3V-ubKi_fcvhC6mP7lmb_J1EM0EqUqzuk0OifpmiKLMtDtU_hGtCjm04-uOosQKG4ttEi_2bBqRUnabaMNSRQqaezkkRNx44r8wDd8svB-h4gVDczGcOv9SGGIT6dxjegrjx1N1QjIEFU&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8993405,
+            "longitude": 12.4979938,
+            "distanceToNext": "1.13 km",
+            "placeId": "place_174697251673084017"
+          },
+          {
+            "name": "The Race Club",
+            "address": "Via Labicana, 52, 00184 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTUmSbdz4ZJcgm79A4TpsNW5_1W4jlHqcBRVER2UC7eUD6WNnKDEk4IDLesksNePFjHRLRHsHQIrkIjyKf3boBxiVu8hIOhT17MU3hiUJWxUhFm_H3bhR7n6kAIl2SAddcHX3Y0oNzfI7-0tTNJvzQnODHt3V3nQUm5AJhdrEAyOxchv7oHeJ1scwB6BK7MO4DGHzY9578OQpcl8PuZLud0h6AHi_FfTcewJVukcvq91RHn-kKvJ04gL_PFVXr1EznPpjoJunhvWIZihSeVHFvrae-VQspbaCX6qP5KyXGeYjOHIrc&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8894335,
+            "longitude": 12.5008724,
+            "distanceToNext": "1.46 km",
+            "placeId": "place_174697251673076907"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673043903"
+          },
+          {
+            "name": "Sciascia Caffè 1919",
+            "address": "Via Fabio Massimo, n.80/a, 00192 Roma RM, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRWF9be29qbsIFCmuoUR34HcRoHtzok0j7xIcXJeYoB_lD5E6XqsdIZGsjw8CdjTop3fpAs6l3FmamRmPRnT9-nfMl1hRinA0iVGjbmWyAft6x-9v9DB-WjLzESjoap78qi4vGUfsyKnoBoppuh6bxJyVC_d-gRx3HqvBdnSruw0Y7FtAfafVZ--wEy8moVEUoHXhiMS3UZ-K55B5BeAYY0qe414DrwRI1pdi7kZnXZB30Q-y-Hq53iE0gqX86FWU01nVF_Iq_pcVE94vOKzewctKV_G2KGOhRJo9PPloZMFoi48Nk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.909859,
+            "longitude": 12.461994,
+            "distanceToNext": "0.83 km",
+            "placeId": "place_174697251673049652"
+          },
+          {
+            "name": "Castel Sant'Angelo",
+            "address": "Lungotevere Castello, 50, 00193 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSqKzoYrbAcB7RpwaYDLwVaqq5otC3gltngHDszrcM4PUkfDD0CdlmJ3okoI4mHL5u7PAf-RJtJzG4yK7v4HWLoBk6wEfTrnQVTe0mZAovMGuIx-TOLkZCvLpZbkALVRsEqigmCY27sGlpzBgf9DyXtfY5dnPvGUF1Gt87x1tXQIdfSJhO9q_I3lkgriOscaMkEl_okQ9sdJKR3sZNL10Rrn79bvxkhdyX1_BHIA9MTXvk5g-2-f3MBQxXcn2oCDyYQBtvjvo273nC_IM8_gOcB1rKpaAMGHWKtOpELHEZmLhh99nngo4Riq1ZKJ0a2wm75hQZSFPSKLePJKmfp1w1x-Ait6JIgcBF2QtiMqREcB0bLaPQ69U6oasfBymQwIX5VKxaI3UxtRqLiP6HZ0SWvuhNLzxe-r2dNm_q5_1eowBefP3maPD_tJ4VEhIHk2kx0wrVJen9tdx72fo134HM-CEK5d84LLXlbCTpHwt8_25MTY_6ehF_Lx0_dIGM7aLNRgciXTF1LtXWVZpYAAXzBSuEpPSfN9T0J83HB6l2wui9aklZ7r59moFK9dEdUXxSM0g&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9030632,
+            "longitude": 12.466276,
+            "distanceToNext": "1.62 km",
+            "placeId": "place_17469725167302966"
+          },
+          {
+            "name": "Nannarella",
+            "address": "Piazza di S. Calisto, 7/a, 00153 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQBH-hKSLs0Xe_0EEBTRQR3g00GlbZh56sqVR-Zky8D9ooPicxQ2cEeelZpxmvLRRQ86THhMGED7VD05bvQy0vR5HhGxIAlgQ9uYl-XSUCQvV2tIUuySMvq1VqGd0K-xH1ECEM_h9ZB--gOyRP6CTFHiLPuqbcWXRcStoCbc4FeVZ6lUDxk2718FrRUSbsLQIdlR9NmTu63WAYAR87__saZj3y8ktKhEG3f5w_U7AdS1e1OKNlJ1q0mv7SFYHH5P31e5gWd2gggCwI0RpEzDTBGIr26bfNx7aAjhYowy0FOVA9c_F9BGVdZiggRlJzpmpVzIHtYFvg6mnOCI1rjLNsVyWDkTgYex3oub7_E0MqfDd4GLFL7Ha6R_6jlqtfi_C6J9S4XPh-WVPsgaXjtld4UCNnva0CflPxmJV1qW_0fEatZRnVVkTwddikhed-jpIOZvQkCw7BsZurWspaZmHD7FtoPwtDTL4GChug4OrrtRWm4zHatnytV5HdchfCwrX9Q90qE0A74Icpd2T0XnI93i9lt5dOy5L4bNHS74b4UsDi5dcTPifbOrLnxF_3u7rmCYYGbGOzcJQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8889194,
+            "longitude": 12.4707297,
+            "distanceToNext": "1.08 km",
+            "placeId": "place_174697251673051076"
+          },
+          {
+            "name": "Capitoline Museums",
+            "address": "Piazza del Campidoglio, 1, 00186 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRdcCpEmFBHQhnotJwE3-glV4-23GZq98OVlLC47bawOMoQ0L4o_oM4QIsDO_sYKYCOjVlpkY8tgC9JXFxNcjWo46jIMgSqRTJpH07swhM4Y25x-kkBpS2D_lM7MlAHCkKhce8tgJxWf2_5uuM4k95RjIpPpV6gdvuutuZjcjE_d_kS3NN_QHpo5AXTJ8W7u9uVyka5_qWP-DO4Kow0Q7bWr8xqdDIgQeyR3Ia-uN6nA1P3b4TY00c2N8EfnlWCl2SdOAOSamzT93AGxMBf2BPxWunpFmkoSWO6uZswTYMNNCzbD33QFAZz6ydgh_oMMtFG4idqURB6Iw628oGfL6tQYchkBZCfH0vqj6ZW8AvGZEzKdI_SXA0v958GLARLFFayv71lanDVhp1Xfgxw2nrwOlylv5R12FkTJiugYZE8b3fppGhrVdHKk0xa19Ld5p9U6zKz8xl7hnxa8i808FK7aGpBMFX6qQknOeqpKlZsh9v9VIl_P4R8MJM2Je4mYbWQmF3bAp2sHAjJPQw1b4Tc6E9rDhJQyZhhQKSkl4yWQTqJ5lj3Gsyug7NSyt2iE3LGyXUaF3Akzw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8929428,
+            "longitude": 12.4825577,
+            "distanceToNext": "1.95 km",
+            "placeId": "place_174697251673013966"
+          },
+          {
+            "name": "RomAntica",
+            "address": "Via Emanuele Filiberto, 52, 00185 Roma RM, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQjlbphwW09fw2N1o6aj8YdJh9PIxN2pBj-Gxk3F7JA-Ho-m5LzKnhZwH9NKy2umdl2Iy2Oj6sznkK30AeH6g_AJOGG3myfjkb2TFt6ckR0V47zSIKoSsCs0JMSygzLtDE5PvcB1LHdPo_vY8O0AMqbnirQ-SFDGVbyMJYDg6H4wmoQAz5O3pQe7S4EmO9kcnTbfXuHB_IlmY4NfVogRlHd1SbRTbCVnQZEoWuxZ7L8m4VEdVZXxvRO17jqVp8go5u45mP35_6aRSfrj8RSwt0wP0nK0b1BudMk7vu5D-kUKoZIwdY&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.892166,
+            "longitude": 12.506101,
+            "distanceToNext": "1.42 km",
+            "placeId": "place_174697251673075684"
+          },
+          {
+            "name": "Yellow Bar",
+            "address": "Via Palestro, 40, 00185 Roma RM, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRVPVIbGonKrdot_1Nwk_4SXdUCl_eKmw5iEoi-UL_boo7fBoTP0wR9frc6my2vE33Prco6MvTPWRf7Bpq1H3qpKmyDxPmgtaVz1lI658-nHgCFvCC9CrFbmwzBcNb_-TsyP2ks8QyV3LULYKjvrxOxi-0KpyFCATeFQ3343Sz-q51u2PYcNhGFH-ln4h0mFoJCkiq7nP4UVWF9NqKFi2oboU8KsWCwusQhMVftNCgOEyQPl4wGZX7pDTS6m_L4kbxIu8DBpHAnWpRX8NN4z2NGmV9I_zfEj91anvvg-aP3EsbUCDk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.904907,
+            "longitude": 12.5045377,
+            "distanceToNext": "2.60 km",
+            "placeId": "place_174697251673043769"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673077406"
+          },
+          {
+            "name": "Roscioli Caffè Pasticceria",
+            "address": "Piazza Benedetto Cairoli, 16, 00186 Roma RM, Italy",
+            "rating": 3.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTJv6VehB2k96Thse-B8zBucr5M99OOyspRYn3SxWrNMWUqKGO3l4h-OePGSYUSyDJdxM8JU7pZoJPrHiZhQ9djbO6uIDpWeeecvh6uEcMPnHyuxJ3QaKXKr8n7yvZmmGGMeI9a1fME82oL1Cg1y1wQg6HjZKJCDjQrc5mccXFEblP7v9feDBZRKz0xGtBVNiqBqFcIDDa9fW4XIs1MZihs87n-iRA4WrgVGY3hILiQj2YR0TObn_nbjr_E_xgyCmk4la2CXorftjd8-9SUg-8VSX1D26xrPg-Cv57CcJYGZ0D3yCxBtDBnhNf2-KWUjjXHEaEXeuGLf2IrxDxFHkOGlCi6bcblVKEmmlWxzPleEcw3FSLgjqsXurCC-XvzzE-0OKzwQvFpHoU0j0vFDlfcPJMnrmpA0m_OwDSdaf07XDmZ67-0rDzoTJIhmuoSsBcKIdj3ifZNu9ApKgEYAAWGP9-_zJ0JmxXVg9n6BXr8sP5uYirv7WJSf6-PDWa084Q8W7Nujd8-WXSQk8vR-pfWn208Vkbk6SYCPwQTK16Nz9uco64jL1QqiHblsLgZBn8zUJgC&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8941457,
+            "longitude": 12.4744403,
+            "distanceToNext": "1.05 km",
+            "placeId": "place_174697251673083910"
+          },
+          {
+            "name": "Trevi Fountain",
+            "address": "Piazza di Trevi, 00187 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTETzRHjVfbQd5uUCUD89doIJl-PMyCH3alF5UzdlDS1zAzx235hwfZZ7XXcCZr244HLhmQBLX_wCdBViK3RZRS2OxrwgwIbxJNRtB3lZ4TWwSQZb6XNlUBvnzDPGkwfSQVGPMPRh-yWEcAfS4CK_jkKg1vPPzgt8gkU0xdKzbG5CgYVPmWVui2YUJ7_VJZRG4NrCGgngGhFUP8MEnphnUQ1gilFi00o_RUIHqsYYIKL7XspmWQYQM6iKbrWPDo_aqBmJohQNG2P62LETHA0Ov4SN9_SHYe2CffRsQhvzQhmyRSgFzt8ffbq1oF_kOGftzcaSzdqYwzlcQ_ndYRRWYqPNh_SCzHCeQiPP3r0m997xk-8wrG6qVAmI5GhTwWNs9vIIomtgiD2jaJNYGEB7cBNtTyza-vZh3HIYE2wL-bcjrYzMhC9iXw98Vmm4tauxlBa7oVCQFNJzLau0KKQI8G_zBxKVH9Jt8oDYInJ_tK5r-DJMx_byXX37JqAQ2TJGO4CZP4SYCChnZnirBCZMQuQ2vnPs3ttHg73KXLuAEDvSoUVLmOd1WKXxp8Ww7bT6etKugBroJ4Lw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9009325,
+            "longitude": 12.483313,
+            "distanceToNext": "1.78 km",
+            "placeId": "place_1746972516730331"
+          },
+          {
+            "name": "Trattoria Vecchia Roma",
+            "address": "Via Ferruccio, 12/b/c, 00185 Roma RM, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSAx_ILmLN3cxUPTxetACETFyFFyoAqWXRvFD7_MChBb9LkMbjRhJFxjR9m5_06E0Bb8AxpQm3EdWHrp6Wd2DzmZrolmirSAJQ6G3-gvqeofzXVWSwLYB6cMvfyLqSSOp6QB13djv31LdiZGuJlLI3UGd0iMZE_eMKyGTFC6QJefk7Ez3GgF6U1EQzVMMgdQzFBVK-YsqZ5oZH_sEabjpg5EuuJQWsrlB7giGse6tdX9sA4ETYJkthm_7hm2pB57bQzDQENAFIUu-AxmNNw5_YmPtv5XnLVEFW95qfANSIpISGj_XO7JAYE7aA5he8nS3mx9ZAWee4tMs9tXqEstxUVlVIhXARXCqUCehciDID0OxzjkFeJcM__lAYq3Y1C1Q_pkLLDR0pHVKVipOEJNb8A4FJjNrldms6bSkCvfyzuC8XgoHnzh3am7djz-3pDyOvf4aokopklPlzZ9viMo40vCaFMrHRPhopp-d0wIgqzrTLueSfFsWVYaHdLJjKxcLejYXrpBMTCdZfqxGTCmyAZXP_dgbyJO5Vzu0f0QWQk6VGuNVyfsh0eqfVJU_wf55XT4A&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8936997,
+            "longitude": 12.502435,
+            "distanceToNext": "1.03 km",
+            "placeId": "place_174697251673080810"
+          },
+          {
+            "name": "GAMM Game Museum",
+            "address": "Via delle Terme di Diocleziano, 36, 00185 Roma RM, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSNIlhBmPe2Xct39XU-4cWSdr3pCixTqY5pYY9oUJfI5ke0_LE7OK3P24Psae0viWxQcm__ctohmWpGcAjVyC776dEyPg_xJnU7xTFEtO7Il6I8l-MxkaLSTIoczPGCm4q1whZuorR3Eqc5btSZw7LScS8C8UPeeIukxElEk_ChmKQ-thpVPqUJQhc7_HVPLaXER3kfOYyDEmr6emmLOOidqnLSRYYj7ynVyrlnx3uDxRAGg3YXBBY9u_i67yZP3-oXGgQGgX8aYRWFZJGeYmjqW-Vf4z1rzOEG7SuyiveIQJAmPQ_uvLQ31Ux0zICBLMFBerRKl3rMyX5-IjY4d3fRmqM_sKCqlUWXzrW3VVBxH392JSuT9RU8dZ_SmtoCh00pkwAVETXkWklGNcfFvE5lD4tXw7vRSxOqTD21X24ZmfKpaXRHxXbp6UM1GnmfmQyT8cXH3gXyep6drAPeXfBpN_cq5JQBH-MD411TbjP-_3KvZu3WRcr3AMEbAGbWOtGeoVBbkQMMCzLcApR6-oTgOFIPb4kv4k2Xd_zXuOT1E_KMFvMNznJDEBcnu3byx4EIxw8jNqTQNg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9019862,
+            "longitude": 12.4969131,
+            "distanceToNext": "1.46 km",
+            "placeId": "place_174697251673020426"
+          },
+          {
+            "name": "Taverna dei migliori",
+            "address": "Viale Manzoni, 107, 00185 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR96kaeFaMeNHJy6pLPU7xnBjBN4P53bjhzdh52HTwnVssrlpd8FQuUZNsitjUroYIz17fU3Tt64mSUMjwqBlPEKZWIqUoV-iGqazQ_XsCDV2y1mtsNVSiGrQLh-Ryag01UzwLdZIzMel1YMjcmDAj7E0hEGo6ITqxKamVgUTYKtf4lYFRwAW6HqrbJEihyspHrUjljggDq87Uw67HHMNLaE3-YK1DBksvp74jKxWcTYgkr9PT_ixRMrMWGMnI5x1Jr_TDHEWLhqYJqlCjgQgqzu4ejRjnxoOEHtDM6qOSEpUFvZuk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.89410240000001,
+            "longitude": 12.5109484,
+            "distanceToNext": "1.29 km",
+            "placeId": "place_174697251673044028"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673018303"
+          },
+          {
+            "name": "Caffè Italia",
+            "address": "Via di S. Croce in Gerusalemme, 6, 00185 Roma RM, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSfcv3CbuuW_1TitZn7x56J7ye6A8M2uDlWDGkxyHlsWPze0NKh0vheIpE8WbWLo6vzJiUJFX1oQam0BNh028dkd-4iJDB0oePkOPXA4vFo4pG7wye40TqLSW3Vi7-Qt7IOz83tIupwtMJ5sDFKPP6GTDghZULLoq30xyucuydO6Y9FtrO9IMPS-PGkJNXWctLoLsnFvQgiYmnn99A2R_cM4BFWCuHbAUThfMCrsImhuidHbSQasjkKWfM7gF_lkDc6muoVq17EWDih-8DMzbvqFDPhcbTxX6V_xvqv7wm2cqKTDvsTyh1cv6viqE6FBCaSlcSCEG_HV8M7QVGn7hGIvIvSJVJq7x2zlstfp0gQbRUvio3ewQhDzFVCxAtpKeRbOm7xToRB3eqr_rgsEGR1dvd0iGobx87fEbjnxDQ67YqxnzI7vvECC3TkLM2V-hCY3deSPnh1Jk5rCa1mRCcHyX-VSAOSKwHqbU29-4rDanyVc8wZ3Ce44fwpO2ZKAyrTPnudxjLh4MsizT9TbB2qiN4H562Ei0OdMCE6q6KTccPdFrw_7yLjJJSaRBFgwIliADi_M2n5p0rNR301w-0aCo0l6g&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8890993,
+            "longitude": 12.5144753,
+            "distanceToNext": "1.97 km",
+            "placeId": "place_1746972516730430"
+          },
+          {
+            "name": "Arch of Constantine",
+            "address": "Piazza del Colosseo, 00184 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSMypVoHzIlS4WAQim0WWrxeqnttn3zpqe4ArzPqX-5YG3q-BzJLLN7ZMS71GQQWL0rO71cXtQwgnBtQhzvG2UyNxkjDQX4Q43zrgAf9xlrrwgXZDA6ihSC4F0BvPgH4Sh7lNqW7sD8UWddpUXs_VKovnp7-Sl_NwBP5cXwoL6-kcS5qumXX0FWMHCoryXhNs_ZfE8wt5p_FyWz3h4fsMgs6hnplP5q4CoNiaG2Z4NEkgI-5WqLgm57ZFUW_sckPB5O8VM7QPtFgpyhmyZEz5TNrftXSowxDBxLlv3GKkVYe2whQv1zhsWu0hbG26ikC4C2rEZm1vpYh33PGwuoF_jSY-jiCUURkxU00F23NSZeINjCmzL9iAQxx1dh4m1AjYw9iKMbGG5pQSbQPY9CdVT0cf2x6xqLlZwa1LR-fWI4Gfb9IS4Rb8nHk2Oi7JfgtKtWQDN3PEHvasMQYkdTec3YOv3oipNVoz7g66gm_Sldy70EOJnYYEcqXHmmgtvbKOKa-6TT1H1-qQzUxhZ6L0od_Jy1r34DuWve4TIEMSs92FJtXFhV3K2ypWnirVV3OkBluzEB&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8898113,
+            "longitude": 12.4906782,
+            "distanceToNext": "1.16 km",
+            "placeId": "place_174697251673025983"
+          },
+          {
+            "name": "Grano Trattoria",
+            "address": "Via Celsa, 7, 00186 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQb9Xe7udeCXZMNMy6NWb_n6g45a_gVwOUuH9huPkmZY88XHsCHTnpiKSGodVb1Q_5ELhBcQnKDwc6ynG4y2aDDkHKsQw100Hs72emOcXxlIhDNCq6mCeMfMhSQ5WAz7bgIyIZrtydhtxj64n2Qguay0dpD3HhC1AM0-JqzXAAEV2LE7FiINKrdpl3-GktK1xje8jh1jSfCMD4_OHy-euTewA_NIks7plLUdBd1PZWG-_UuzMcJJTvgO4qo3GV938ws9abebwIKTLnCR3-GrLVUdr1TJ4jaR4SgT2bk0Nqkue0ktpYqnssdMDU8E_z5f4G7VStknlXgrWyZKWpOuKGOM1fDeWGnXfMePAHNo4QcWVdNZb7YK7f1X6dmSGb2-_CH1IcDtR8YP7ZJfi4mRwCmJLh6k-R0vy_z60ICz3-t-AlpUUTIOYsrQ_0TOM55BIKtK-GXJb-PAnSYqX9NjRDFL5vqhI63JM-x93BQzcvpEobhQqYVqp7K_hCRRx_BGSsE8Jt82U7mJwbfngJ9EBi5G834Ml8tzHcxDwZzOjhP-HtNWYA6YbD5jtHeRuMtH9efCh8Y&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8954714,
+            "longitude": 12.4788638,
+            "distanceToNext": "0.56 km",
+            "placeId": "place_174697251673026262"
+          },
+          {
+            "name": "Museo di Roma - Palazzo Braschi",
+            "address": "Piazza di S. Pantaleo, 10, 00186 Roma RM, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSl3vo3aagxMaksQzNcuykKj_33fcpNlOc5FSAyQBx3jMuR3xDNb43XpbimNIzoC7yKkH0glc0vrtsGrX2b2jEqzcTi4AlXFZb2SrY_28xMAvkrsDbnqN5oU_1p9aOsUqezdszLvnNK5bw8ksjOQw9Y2plERmuTKE74yFc4xHjZ5ZmgYSjrLhZKTI57BP9FTfR5hgxf1QF3AzoaD438FHoJguj6fexQg0BpJt0sAsmyZ0ZWNQK9KHJItYPMYJGvIj5pfPEw8k7aYZig38JhfCiy1CYZOKC3lRtjOkFMD_m2nxPVu9w84y0uyIDisRLSwcYiYgifc0X2L3KIq_23GVB2kOVQBlQ8CA-U1rIFJVBNnqZqvuEAczhGmc1K6CEoWErjm24RHtqsTop649BD5DGxr23ETVuBdeNB5yNahev15rEvUOfsE8JAgbIh0PhzknvD6zdg_ZK5Z4ByqFpgzl3zk-_flONxakpJiYqYrFJsohYngao9gbxOpNoWtXYh-5mzIxox-4Wog-_EZyiLlOqFc7S5lZMcWBCuCmIc8LmnYZbVUUaQ4NiPGvEPUc8MG7C_YMPW&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.897551,
+            "longitude": 12.4727241,
+            "distanceToNext": "1.97 km",
+            "placeId": "place_17469725167303425"
+          },
+          {
+            "name": "Ristoro Della Salute",
+            "address": "Piazza del Colosseo, 2A, 00184 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRtgl-rQl4KkopkFVsTkMNCVRZePbKTTLq5wx4nD6KUtUuspHg0F33XF8itj_G_p-i8Z2JNSD2aFTt8p2DGvUE2sBBAUbcB_RZqKtZTYEJirkcx3YBqqEdm4souIdghfOEZYi_tXPCtwygFCkPpDf9NsMQb8FFslpLOcRpB0-EMQRuGaR9ANe6t7Oe4uzilFYbVN8fZic_edT3KmEPZAkIxwB2G7cXQcutvzgWBIjFr7u5WGA-IXDKAd0BB2Vyna4WqtH2C1bUAVQCMGhvWDjwiVxTdeMkqWHOQ9XuJx8hYEABwYCE&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8899263,
+            "longitude": 12.4942359,
+            "distanceToNext": "1.37 km",
+            "placeId": "place_174697251673056473"
+          },
+          {
+            "name": "Escopazzo",
+            "address": "Via d'Aracoeli, 41/43, 00186 Roma RM, Italy",
+            "rating": 3.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSsZ6hVIfLuUdRV90TaDmdRkABe8cd373AmS69an4UBvejpTfIWjDKWBF1gVVa53jMCJPaz6L-8jlQbhPi-HZZ9zGjKbtF4wj_FbScI_5zzp3oGUU5P1-c37HvGayHmOOckJ6j64-uRpXXmp5HzLfDFHDylA9xVGxbpmtTB0ji7Cv0JJ6BVD85LT1gWvOIM_Tj0OFmFQFohO-iGmMY9M7h17KT1cVKr-Vu-co2U97aG1__G_s-s1oYhg3fPMaZtYhQV1HyqnmNR32Y8FVkzHTOF1eP5OlLVWzGTqKFmRW1Vaq0V&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8954032,
+            "longitude": 12.4794385,
+            "distanceToNext": "3.34 km",
+            "placeId": "place_174697251673067070"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673016626"
+          },
+          {
+            "name": "La Licata",
+            "address": "Via dei Serpenti, 165, 00184 Roma RM, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRyrRdfZjNygpnXVZt67_fznaSE_rDaZ6lA0UgG1dNSQyIS3tHSY1iLtu5DvesKshTJIHkz0zLw7RXr-SZ1idT-LfFNa7oArEIhcs-qo6bRNA1r4Swa7GjYRDl9ynl6qCNq969gyzIjn4mAS-nzcESRYvyru5VNGVKOPa6bca1Q0XWfsmTi4igD07GEDxGv3rTrIZYdqaf-nmFTI7wn8to7O1NYmK0wqPOk2oi3wNs2Waz9R28FpAzBt90LzBf0JY16dfsZTBDnqSu7tWI0Gve0WbaXK1Xm8-oaLgQMgSdCERpxAly1O4MXrjQe4_1EqMIpq1A_FZw03YiHwtKzBXdd1YOZVpVbUgxMy5ixkVP1m_r47y47hVKNn1BRN0lSR1IeKQVNA1rmhAcn7ShfD8Aw_vhGrfMRwyWSIckkRP3eOSAioDvC0SSAJ8HeTNqmYBuCVhkM5i3JeZ-8bOQZtPoM4QmfuTESjP8axHx8boPaMSzAvAzr4gvs8B8229Ux-n7_4X2RQBsKUPXBvq9nU_3vEmejlk-1PwRszWJOM-m7e4hJwmg6fe655AsMLNss8Q91Fdla&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8946536,
+            "longitude": 12.4909007,
+            "distanceToNext": "0.64 km",
+            "placeId": "place_174697251673010695"
+          },
+          {
+            "name": "Monument to Victor Emmanuel II",
+            "address": "Piazza Venezia, 00186 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTpmejEDsN9qMeToJfCLbel-xXUhosmEqDQrhrWsnnQL1aAFJOUxsQClzX_ajChCc7MXJrElrIwCnalmYpHjIrNjyjx8Y6Ond8iW0BjDdYOZgvIXhp7Xu-uoSXOp9xIbF-EgJ_TnGi6xzIo8p2X_ygrShpVsWUW3jGkTZ5hNsVx34HxQHiPApmUD58Ll5JLb218FeSkmtOdoFDMg8abtg3kZ1OqIG9Xb2SAhE09Uk4u-iJ5LDRe5wqPxfIyqTWYh7WYUdXfRKqPLDy_0n1WUZam7bN3mIkYkeheJjhUn23eTVLvnoglbaVfR6tPOJYJocYxXFVV-UA9C2FrIT7ZZOvO73J7UE_Cpmd0XdyDpT40td5mOrHlMMXUVvl5ydsCnJVry59QFo0SvS_vaXN2JvEcHUOAKHvm9pQuCe3TvMhdqB2c45PQbhdBkVbifHheoH76IhSKS7_RacKJ5i04a6nRGWqFwqifDLBQZM19nU1aajjVXpISuYZzejeOfBGiw5hLTm_G6Uhsc0IcHjmh8qKbX7X1CKKE9_5jsD65q8CJY0v-UMtXJJyROy3ggMXKGiazYA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8945976,
+            "longitude": 12.4831269,
+            "distanceToNext": "0.57 km",
+            "placeId": "place_174697251673056978"
+          },
+          {
+            "name": "La Base Ristorante",
+            "address": "Via Cavour, 272, 00185 Roma RM, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR1VP7gf9RT5rL3F4814i3365sR7UcZsbygcCM2xSpAeE-9sgP1vRNxiVplIgtYddjNscgeMxT71BDpustlva1dEGjV61jPpnlNVPFM9yeYhR5STBNEHRN17q7Oyf-0l8XZHFVzI8maN_CHpnvQ1JYpdl6Eml7DtPFtcLI8QciJj53m7dCdOjeib6vqkA5JMfm4n_N_PxzgU0_a5em4vxV_1dfVCfoDnVy4vbInJQubuvLUn3N-WBHh2icwopOsp9fd2WHxOqV6JqyEEfsz0O58kaGuTDy8gyxwof_Y30Ixj_EEL11zGS5I_we-EAPnX_Z9aMDyOtGYYvBPhjyivzU1UhQ3wxNQBUE3N778N2fq0LGDwQH7BajCWKmsiN-ZoArS6KgUqXEbmlzfWxlfFdYQmpo3bPrMLfUcWm195B7fj98z_j90k06-HhyybZfGacfy-zI3ayMYgtKOLEwdI8bTZnl3lcVzAWeFjbWTCUK0H_jbn8kuGUXwtZONsnOwxHG-wQQsy4z4ptuWEYokPBnLA6tks5gvHUCc9VCyRwKgLcUklzWgrFI7Tolhkl6T8sqM5AqNNg2Y_w&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8937625,
+            "longitude": 12.4899698,
+            "distanceToNext": "1.61 km",
+            "placeId": "place_174697251673055444"
+          },
+          {
+            "name": "Welcome To Rome",
+            "address": "Corso Vittorio Emanuele II, 203, 00186 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRemJiOnd3CW0xMte3HVI-T8ImhBt7G6qS3lirqFa4ZEXgiQ-IKZZNKjlfAar3hYXJ0RRFtVpX3yvLviwtc_SvmGctjwLf9-h0l5wsbagQAdpvjtl-5DS3EWu4Gjf61xCJiD2RxiypuA6d0T5YwdcTBKRjzElLsc4Z9WBozJ2CSapFBP9m3NS-T2HI17bBFSCukdte3smSS1VRVK-aEBE-LpQU_FaPMH4f_iZIODsmW2g-dZuaDl1J7XhjP0tIfwRfAyCcAdE_OK-WGKqkKQw0X97sLJoS5sZ7ElUPqzG_m-JG9ROU&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8973551,
+            "longitude": 12.4710878,
+            "distanceToNext": "0.08 km",
+            "placeId": "place_174697251673021102"
+          },
+          {
+            "name": "Terra di Siena",
+            "address": "Piazza di Pasquino, 77/78, 00186 Roma RM, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQC2FDWponPdKfapAFy6PonDtTDVBjyj_z23tADPyeL6LcuC0NZwjj95oZAQcEY71muQkLLpLnABzFnIUVFqjGTO_oBpfhaD3tDgPQqUDMFSLlx7mX07ezoZO_DVssmomR8mkOltbTOvIoDbQoNuP7TmweWpRKwJ1k7q3JO5JfpFob6d1XKqA1rqnbBTdfjLiF61MRdjLj2SNv2957v7LZWKFC39wRn0dYX-coe_zXYffM-A9m2NVYy2So5a7nmsf0jvRahad7Oj-FflJMFyUTx5gz1JeJ_dvSP6vOmWLiCgYUGnuI&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8977938,
+            "longitude": 12.4719237,
+            "distanceToNext": "1.28 km",
+            "placeId": "place_174697251673029968"
+          },
+          {
+            "name": "The Basement - Pub. Cocktail Bar. Events",
+            "address": "Via Properzio, 15, 00193 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRh_cdL6Cv1xUSRPheE06H_Kr3hcVLpxWFVwSEN0kHSlVevtwR88iWG5wzy9UbZUlNiCUXAnPlZxGVdzFtrC1skUsGYjhHZdw3bBZV-3QIV4tNQVZ0p-PgFMTlXXAxb5RSdyGVzr8ox-G6LmX6UjP7NyM4hih04YUaOvBRCitHTEYdIYrXSlLX8fsfkN9QKi5FaWlQ-gF-UrwA9aHo3-caJ9qakymMvLz0S34vbfy7UQOH8BKys64qxIOzyY_WLZSwUBQvFSwDzc_Ux-UXYSKZnk2VR0OungeH2v6WOeOhTuBQHKqw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.906276,
+            "longitude": 12.4614204,
+            "distanceToNext": "5.22 km",
+            "placeId": "place_174697251673054286"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673019194"
+          },
+          {
+            "name": "Le Levain Café",
+            "address": "Via Piave, 8, 00187 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTE2zIlewOHJRNpu0JxRl6jl5g4W0kL2tFfcDvpvg8K1poGU9qIYuuTwlzLwDa-IH39kbZpUENY4VqpJAIikXwB-gTn9RwcWF_jHei9XktlYAW_08DA-zf8f9u490RiVxQWtmjawDEPjTJBRGekhePQXZBvvfcOx-L11rBNTGOuYYh3VOoVMDn6zXFF3S1xP5rZVP9qSmFnUlR3ZTeI7mdy8mLP_Vxn9Q-tfcu0AlSaQagNAEVRGCOhvXzEqzr4YCoxmeJZSdj7y59C9DeJH-wr4exQ2bSJEX2PfYt_H2oT9fq8_Bnv9FJRTdLxLBe8aiZoRCiyqkSQO0hYTGOzJIeE3Vq3KikuGMS_9W1fEk4ylfybBpSDn1MLGt0K76kGe5fPVvz_2raEQBCClpv2bHWTVMyx301dOKGLKkNO63uICCQTReYtzISlxFrzC2HHBo6aKyWeutfOY2qBRcOoG8pLgZyR3PxHiZ01pctLxXedhT6cTB1VqIWznqAOre3AEA9ytruSzF4txqP2VrllKvhZAGN-B752XLz6i5qx1-dZyOsCpV7Rs_fzbr81VWCmqF-gRMrts8uyiw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9081534,
+            "longitude": 12.498558,
+            "distanceToNext": "1.84 km",
+            "placeId": "place_174697251673038286"
+          },
+          {
+            "name": "Trajan's Forum",
+            "address": "Via dei Fori Imperiali, 00186 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRgsyc0ogh6CmkZqKtapv3QrWEsYQhzIv3fa0vukI71pCKjl7E6Cfh1lkRpE-a2hkGH3LWYsdPuCgE4jqoHCoEbvQ3A832tfPFLv4lvOiCVvYbq5_p-9aV7UGwyj4hFMaZM8fHYirDd1WDXQOOnX98LdltmDnp_cKwlDksyKPspejb24yp6FxGxgtEVAB1neWM4rXBeAjFqbT48LBz_WVdl85zkUKT4SDirbJxbA9YxPvDA639t-N5y5cCuOj3nUI-ioF6MfSLePBviqYKONUorNYaHAEITzgiVTzLzhlromU8VH7ne3VeRTr2AAEg1oGQHRBO2he5isaC6qEucprnBG3fhau0x9UwMCMCIwPv_d7SvIQclL2Zza9EuNJqaQIKR3s1V3abz6J29IIfpj3GFW66FDoaurDB-KKTUq0yY7vNnrXuUEBy4hkd92fzewRVuCvrtLD8ArKG7EO7DhsknNIi5DCM4A4GFuu6hMx5T5_bsBwbjk_tzOAxomGnDZuVSooPHCjGazS9BiqMmeTVybKVAjErFqQXsuIAZ6L-MOmUP2zyEpi09KHWfue9M389crVkkZ3Ei8g&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8948698,
+            "longitude": 12.48529,
+            "distanceToNext": "1.23 km",
+            "placeId": "place_174697251673050754"
+          },
+          {
+            "name": "Saltimbocca ristorante",
+            "address": "Via di Tor Millina, 5, 00186 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTdJ3DZj-vxGi0GWyFeu8vtHRe9otd5ttRfIR3IcAz6LThUxpJcuySxkvyW_QbQ6O1kLomYb70kVpDgH5ksH9LUZEYK6pZKC0q5j1p6Tc-1sWYvrGdam6xp2IunIwUw36XMOzrKI2rVcxvyo6xtOCKx_fo6F5zWQALCiCRU55GID0JZOaNcnC7-Yg_eO2NFeZVj0epmMX3m-N-Jf9phOeC49JeFG4BnEg20k6XovC8qJR17WqHReQL9hHQ5ZVtPGmZKgs9N302pV5Qo7l3EXEjP_3rCWgLBG3oZKM9WfXmW2lc6Xd5tWUo_uHs6mmmZDy0z05tSI3Db3zTfcv-Q5TvoJu4q3Ak7mt3rNl754O5tJA_QRrqSOIgRjZRvybggkrNgWgkD53gOOeWBO_ztBa8Rz3Q55qV7SYT5N41KX7ueODRtTE37avMU89ku65FpNMB_qHKFNrmpNUyHSnH2289pYf-7LuTuyIoBlrqE1nX0gik5wBJTNoepGkUYxBFN6CBKHone4wgLR_jWT1UgPMGOAM3fJUVSEU8GgvtIsWB3iKuG6tpu9ajGaRvx_dp7FGh2sZHjC9l19Q&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8992504,
+            "longitude": 12.4715825,
+            "distanceToNext": "1.99 km",
+            "placeId": "place_174697251673094392"
+          },
+          {
+            "name": "Villa Borghese",
+            "address": "00197 Rome, Metropolitan City of Rome Capital, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSPJT--ex9F-KAmUJhsplw-oKMIlOxNPrMDk29pprmetdRagxmiMvuUDG7iZCKwuT_lu-pOyM700ELHRkd0OfAHamio349C5mz6XxBftpsBE6XWlGzBM55LMmtjXNbO2MHtOcBUdb-tl7On0rRKgbl9o2pkbOOYP7xTLJRjrLnK6UxBqHbt5jPRtDDN0dgymPdIk5jj1T1di3YLQFA9hFjj70opt0Ye4J_jg7x4R7TIYQzg2AlC-srrj-Zf-oXOBY0OzlW794E74ai12AjMYf5R7hbs5nnct_PM2n-QkqWjvhXCHJ4oIG5mAK_lgjNgG9jKj5l4sV_YfvKxpN-Yz3YJDQpXfBU-5J4WFMAHyzdNIu66WW8Oud9NDozXYxPnAkkx6bsM2M6F9uU5tsZL20XedjZ-ZBSyvJKKEEXTgm6CBEKpSQudCuocr4X2faQcoFlFVgGMjiOJUZiT9V-Ydd5-of7fNQnd2IiF4Envf9Qe8q-2w7zrGqPWUN7EEK1jVKRusVDxJR_Q52anukJnTOVoPkXcQRL71Sqlw9coLOIQj5TbD25OyEpshGqWisN0yWvxcHiG&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9138782,
+            "longitude": 12.4853818,
+            "distanceToNext": "1.61 km",
+            "placeId": "place_174697251673094309"
+          },
+          {
+            "name": "Ambrosia Rooftop Restaurant & Bar",
+            "address": "Via Nazionale, 22/Int.B, 00184 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNS8Mp0Lio8j228tWuDY8LreaUW_dlL3e13XymzwrSQB3paBGk6U09DDgNWP79CKHnura3Ts2pTYCZVbYCFuKQHqp8MU5rHh8WPJOFftCtw71kQlxvKPL0sdh01Nkk0MYkVA3EDrEGOIKCi38h7DCsd1rGp2YG3Yfccc8eBOufQR68Wn_yhorx43kwkOGlKN-MMR74kr0GBN4Yd2OfrfhEpgNrgX2spy8_rUlqsPVtcvlbyFNgDyb27JJS5afbal0d_YcmiiOZmNVG_l3QR_ApEfmUGaflgB3p25CsOBLN1IcDk0dhP9NpJLySwjaqLXGRW9352Iz7zNSAYYIs8eA_pluTvFNlL1VzcKF55UpF3e7kezIWO3gC-5udMJgJnR6Fl1USF5HGAPEOCX0R09iiQquse4O7o4xTWlQeOK4XtpDgPkvCwUzkaklugeYrciqQkAXjM30GmLQiuUSX4aJ7QWs2_RV6bdXSkQc99kE2tOiR9uhw_z8Ts3E9j-Aa1kAWNOS51U7-f2Zt3pzvVZMlSOjFjjUn_RvTAkLA_sgZtavepLsHjW8bHI8RMISdBFZdWqIg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.90082049999999,
+            "longitude": 12.4936516,
+            "distanceToNext": "1.31 km",
+            "placeId": "place_174697251673033112"
+          },
+          {
+            "name": "JOLIE Club",
+            "address": "Via Velletri, 13, 00198 Roma RM, Italy",
+            "rating": 2.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR38hL-MM70x0RpG8WgNlsA7Lal5dtcRKpJHOp7nja-Tno-rwnyJl7jkxHpxV00oPpIre8zlUyaFA35eoLtY-KFhBq3FFSqiILr9RWg_WFQGrA7BvpKp1HS1YHl4mbZp7KvkpzYEdtrV9ehn1R5yxoM7kdPSkDa9mBaGhgN6Khp9nYbbKg_UCfOrWhRLTO9sIdP2tfvmCUvsOTI5P2JFPDauM5FSebck6wr5PvE5kjR7Fg8j2Cin_zyeAU_E3B4L4Ixq9dAs6A1yu55XBvSVdRPiQK2cuIssMOiOpo8Hd2lWtRbWp0&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9119967,
+            "longitude": 12.4985973,
+            "distanceToNext": "3.52 km",
+            "placeId": "place_174697251673057656"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_174697251673085080"
+          },
+          {
+            "name": "Gran Caffè La Caffettiera",
+            "address": "P.za di Pietra, 65, 00186 Roma RM, Italy",
+            "rating": 4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTPihTlOpiFGn7qeV_UBPk_b2omzZFetFqRgk8xUkat7b4ICcDXe824cTKmAfrk0PNu6IRTv_-b2Vf3OfkIpq5WciZ7J6G8PM-8UM85dqkba3ZeUSB4zJHKAGPKOHMGzoPvXKoKQDX6BIz_ozb6adTX-2e7DdD8YmNLGHAcgOab7xUETZs2rl9P4dyD6Cpm6twrqFoHRzv9D-qP0ke2RQsrA-lQatdIEyGMEaKKoYlPIk-JxbG8dqq6WzY5CYg0yKBsxRrHdaDX_BWXT-PBaxAgKZkBHcSdxs2nNK3zE9CrDeZz0fIn5vjc0cBpqqIJwELSK0FN2KvSdbg_Iiob3Ez7EdwkiDpJ1-J-Oyx1p97D4wEryJ0quN_xuzeJKw9fgqFpqKI0FJymT_V0APL6QeJaB50N2z1JpVrAgDsGS2bgpyCIepVemIeP2GTgNNdJxPv6EmZ7WySzbAMqJ_zcqyuIB0nFl4fX6wfD1kW-qjRGWtPKSPW3bVKjafWhc9bp6ymOityUef-7TNNcWq3pKxraaYqBtgrdQ0FUd2SBDd3C-dtG6Py9yhfXHa6w5dga93LZHA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9000741,
+            "longitude": 12.4799216,
+            "distanceToNext": "0.81 km",
+            "placeId": "place_174697251673041669"
+          },
+          {
+            "name": "Campo de' Fiori",
+            "address": "Campo de' Fiori, 00186 Roma RM, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRPyXb982iL3wAayo-oVzh222emtb5JAQKkZgiS93kxLGHXU7Acfguv2c7NqGLbf3Au0f9t3wZy-EfmKwgipEwaIK1M-YYglT2nrcQSxKFKQS_TFI_ZIsM6fGg_982rSSVo22s47U4HSOo3tMr6zMUl0hiqiyRncf7aOc48WZr-m6dM7jdYdSUS1mLF05HjQb8BpmJSKHNQjkiMrENhv-bJKBsFhPwfqkTgrZxCEJLA0wgcepQq31-vbAmurzja2EA6CcS2TdqdmwhIOZK-9BDzgkXpo9c6R8A-eoL--z4ZSqyo_0ySeg2QjM2uAkPj_k45l6PnTurtChzYerTO-14HieXqPzq5QdP6KIDpStidDI9ro1InbkRoEb7YqAg3Yy4hdWiFwSJHNa1zZk828vWSe1ogWfO9ULBYtX1_YskoqmFJDM-tmOgmNzp0P--Vlfam2Vq-IzCluY-czUS0Stq0RrIQNYzXZ3xcdigatet-U_a8Koj3YQEpHO9vyxP_Yte7E61zbUzg9bYArMP4MG77myLzNAjDXR2zAracmUWbKa-I7QiYaXK2NNmxRVEn4m0P0BMK-TqnZw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.8956045,
+            "longitude": 12.4721757,
+            "distanceToNext": "0.97 km",
+            "placeId": "place_174697251673067614"
+          },
+          {
+            "name": "Pane e Salame",
+            "address": "Via Santa Maria in Via, 19, 00187 Roma RM, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSNudzSU0NasZvz6KGJGXdd-LHlTKiPvcvVPJJzfP38e1v1wcf49MI9Q1_lQLIZEbyh6WWjnEoFDGJPfFYXSp4bo_mjNNLqvjUDUC4G_NOPtsFHStvDnd2x3LriWbSVGQ98vVBF4VjBp8VQ3Ei49tzXQfU4cd4OprtiVa4Bb7h9L8mXezSrra-W-o7DAdXTKupL9MTeVV39dTDvavjUiwC8ePI8cjZo_7Sdrp4XuEvMKKElBbBLsUkHpuKU5ODl7YZGhI3WzutDDgo9IQJ9fEnVfa33P1Gv8lqyLHe94dAiLNBfzk9PzloGmYyKsiE1yyYSJT4ruwTbhr8nVavBJCNKlHBTPto5c1yshyCOjEmKW_DyoLMUrVtDXqFR4VAOn4gpQ9WkComT8nHPza2Nbn7dGmM3IqUZ-PZIgDHbK8qAbtlhsBwoqiZ2eby-IUdktD1eoj5gJC25bRNdaLGX-pvvuT7Wj6etSFQOsum5My9yNaqmDcana7KrPogKgfFWYEEmFSXlh8DOFh019S9IPfwh9Wr5L3j-yWk4F-pNfKtfiAUZ-t8xhkm_6ttdPx1qKxPDCg-4awqs9Q&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.900629,
+            "longitude": 12.481772,
+            "distanceToNext": "1.74 km",
+            "placeId": "place_174697251673013254"
+          },
+          {
+            "name": "Galleria Borghese",
+            "address": "Piazzale Scipione Borghese, 5, 00197 Roma RM, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSPSf83PhMekOTQHrep0p0XS6NgGl6uPhobg-EkZTWN7OG7O9-7pCu7_4qjaLzJQMh1RlrBbbZHOTFFWOSuwkQwBzo2XUcuTBTXV2d0sWaC6ioKc9mGv91QPiU8JYOBt2cCrz6ksdHKv0t9tYBTgEiuh1Qy6Emw_DxcDTJTZziJJ7rYK9NJtpu_N5p7z-qfMeHnDLm0a1ErX-Y6zrXaRYNSRTEKRWEqoHIZKwnN8QBHLoGhXm3ZocxK-j8Vfm477WaH82s14_Q3c-hyKxsxJSQvYZ6C3GhETjbPgUHaAySavk7s1znMZEtwQcqi82thvvcRbN-PxRSP2mqVOIl8cOZi633mEccWr77fSoLJPVHfuMiKqN0LZ0Ba_VDUNU5QSHZtgULCiu4LAbq-uIPWUw3-ZsKeVksa5VinxPDocixOiUBdi6EjLTdUTO90aDH6KFemk5fF5TYoCcJShr5cT5n9xqE-VNu_Xg1Js6KGl6oEoK2f5z2oIDnpPR-x0zlQva4lyf7vCCrmWU_SBPdhz_F_QhtMi9ChYXqNvWaNxOILuwjk4HIDnvNZYMXpNRL-sVoVn57b&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9142103,
+            "longitude": 12.4921442,
+            "distanceToNext": "1.52 km",
+            "placeId": "place_174697251673049718"
+          },
+          {
+            "name": "Nerone",
+            "address": "Via del Viminale, 7A, 00184 Roma RM, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRnn3w9cqsVdGpxS6NE96HfwXtPtE_bGTtN3ClVpWqgLdlXjizZ_0eHnKIMHUrD24uiNwSP6NQntj6brV8yLW5hoHm3Q47xXgE_DAgbHh-dw01C28Asswxd2vlQEu5V6AeE2k-a-IASlPj0P-5bZRodcHdWrDq6K7QPDl-hGJ-TXTzaHosDUiywtZmD56LYOjLk4bLUIMYllp1u85Me1CIBHnZOOxSHzLqbJQMmz1t_T9yaPWbz0MEsDzWDeG6UmVAkmTwMlSpvcbCdnq-dl0LCSSf7QwzaRggm9oPwzgCulSx6F0s&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9010527,
+            "longitude": 12.496901,
+            "distanceToNext": "0.89 km",
+            "placeId": "place_174697251673031255"
+          },
+          {
+            "name": "Jackie O'",
+            "address": "Via Boncompagni, 11, 00187 Roma RM, Italy",
+            "rating": 4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQWr6HCOtO0z60bS7INUMO4rdpQonn4JU77V62B5RNXagtcEv9KqRzDbfsCajqL_JtqepKqT7c1l6lcdJoMZqnNoNUc86lJ12MKRFvsGGp_rG0lmM2KLWG_VRYWfb6NXGTA7QCAzhlaB8cxPBMbQLs1WLRyte-ZhCtq9bssEGWCqkLdBCGcaO8djnuVYqfsxZnHrjZYr5N9xcYpwvefgHMFzjMiNsjR4mZiRIp6TU7EDUtKbdrMrlGAOyDop7X6XH0AUrhjYqVatuRoQ6E5fTC8VoheLqhaBlkwA_Rd-yZWsnsbf7M&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 41.9078336,
+            "longitude": 12.4911597,
+            "distanceToNext": "3.44 km",
+            "placeId": "place_17469725167302082"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Pinerolo, 43, 00182 Roma RM, Italy",
+            "photo": null,
+            "latitude": 41.8832653,
+            "longitude": 12.5163797,
+            "placeId": "place_17469725167303236"
+          }
+        ],
+        "itineraryId": "trip_17469725165173532"
       }
     ]
   }
