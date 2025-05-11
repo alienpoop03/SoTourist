@@ -5,7 +5,87 @@
     "email": "sas@sas.it",
     "password": "$2b$10$CG0VJFfP9EVksTwnVzArv./OzVRUA2h4nkZqs8eG5Bm1XJHjBMa7O",
     "type": "standard",
-    "itineraries": []
+    "itineraries": [
+      {
+        "city": "Padova PD, Italia",
+        "accommodation": "Via Niccolò Tommaseo, 61, 35131 Padova PD, Italia",
+        "startDate": "2025-05-17",
+        "endDate": "2025-05-17",
+        "style": "generico",
+        "photo": "",
+        "places": [
+          {
+            "name": "Caffeine",
+            "address": "Via Roma, 96, 35122 Padova PD, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQB9WKjbbK4I3HP4KseN9dmXG7ZBOZfr5lsoghIsF9YoNpprzVv2KIVMwXvt5mQ1fwJVcwPpranTe9TzXkgpUsYwqcTF2i13GEp5vgWP2a1wf7GZLjf0XuElr1aHXmvF_Bi7lSXJU11iBnWTZRU3ZPXo8ghjj4uAADETiGyKIe7GPDMl2QidNyWzYj4x757b2zvm7TRcvtzJMjKY-asxzvGRHBQZkxQ-J8xEv36jkNoZ2Bs_CwimCtjzpVqp7CuoGMtCmNKYoSmjfYV7pcIsKqIf8nRDW7mST3YySkcVuTsb55jwpJVpoe48oZ7VgdRxxX-_kKdSlrF6kjbhSWUIisoOR3qXwnxlt5N76YuIZUHFdebe8tFOXiihxn8yRoLOnpbHXhf8DR22pRr6K_stzxYORn0W5MnlpcdekD102rXQZ7tbTdYWaxdK9nujb5lycXR0-lXyVRNffMGIt1DP2sfXhfjIwEithscWK1dUog8YpZFn8pBuvmG42ofeaS2gLbw5mQsSqCk4IZgsgpzaoJMNWLdv0PGg0G6B5Q5EDy8cKM47oDEnbRQ-LQT8bivx0E26PUW&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 45.4041546,
+            "longitude": 11.8756696,
+            "distanceToNext": "0.35 km",
+            "placeId": "place_174697414609538560"
+          },
+          {
+            "name": "Ragione Palace",
+            "address": "Piazza delle Erbe, 35100 Padova PD, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQuvw2d6Whwjw1-hvq-d9ZeBdH63rK75fltm6i-kA4ATqF0OPW74I8cF1ayGYZ5ZJgTnP_MzDFDSxKRvLMfmZCJW5Avc1slwwC0jPa_PZCUWJ5Ol3vRBU721jw2ccqjE18CzUs9x1sktjMDme1LFRJcOLvNyDM9bxO1rRkJGoX4NT8-2p_nC-ZlsbWAXoJN-xlpyv1DNNtrc5W7yo5XWUr3cb7_BkmJuU1phB2FGx3bVvCg9vVZC58QpLc8pQpzhgJlMfnzn2kVnIp-iAd8Tle2q_ihq1sm2a0t8KERUtijVSyL3gtzfEgslLNziGL-LNul5e95PTnMG-0umwflpWN6b4-0F3hGHCDn-Q-_APwhLSX6N9yVPbVQ0acyBMB-NGV9UDi5gQQSd5XpqedtT8_26lfnHSzmbyeMPnoiwk0A5adQLDV7pWtX86yeZagITBI2FfSaxzCTE7QeiscQ5UymdYwDlQWHoFnw9TXPIdYOj_CWPo_zYyvy9u8w6yLDltEPC9wgPH9wYOnNLesVdfpFY1jKMo32Z9c9y1KkXlN_eRV8Lg86oXePc8MJ0iqbEMHB7dYq&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 45.4072512,
+            "longitude": 11.8752563,
+            "distanceToNext": "0.69 km",
+            "placeId": "place_174697414609555194"
+          },
+          {
+            "name": "A Banda Del Buso",
+            "address": "Via Bartolomeo Cristofori, 12a, 35137 Padova PD, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTVBuDGDI5Pmo7js9kVXaAMwW7Mxne0S_FRl5V_zzk-1T8XyGs2m_dnHkuIWRTfFgXkQ-W71sJpbGLgdptUNbEhnBHZ_QcY9HbUJnzPO8cXuvnSLN2oHWYL_67Z_i_yd8QW-xBqHWi_5scZxkcO86UFrH2OOo-VgKN26kd3IERRmgUb7qS2YPoG1C-X_cnQjot0k2pEvOkotWWpLaPuqB-u2wHoAbFyhZZLbUZgTXqLKAMJsbigfGRiEOyu1E9TknX63ElXNrtMndpjFiUFZvWeZp73sQ0JEtCAWWdRMpEiNnEweKHofWiMzxmm_ClO2X2BEK2vqEinwIEpdk80xamxbKVyPVInjYA3oJICaOPNH98SnCfkA4pUSe0j8U9ge555tly-a53gf3VG-PROoqXAoy15-DxVCD_07VZiHKzBU2AvMjS_bETNjuuMg_OMi0bxPLfDZkHUqit6QQqZ94QQY2qJ9yRAJXwLh355pScwhi6CcM2haoO9T4BU07PrleHRpdq02MJN7bQiSVeGVMr1q5EcCEBsHNWSlW3YxSwJFwk4vxn9rD6YCL4WclgjmsvjejyK&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 45.4127446,
+            "longitude": 11.8711627,
+            "distanceToNext": "1.09 km",
+            "placeId": "place_174697414609557204"
+          },
+          {
+            "name": "MUSME",
+            "address": "Via S. Francesco, 94, 35121 Padova PD, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR4UV6fscD7n8N5eI_4E_wCKlpXLh3KVmzis6GCKG83bN7lYVBD6yK0VGL7G4tvZ6yXXhav6g-It-5pLHkSMFO0MesPEuSQvyQ2ArcbXBer-SB8N8iCHtnJr3VzYfS9S23BiI13D8FdQDwBzUdvClBzSDxmaQcjSZbGcsMx1dALDnIFrPvTR39xdATaXw1-NuhfjSP0nJsiCQc42zapjvkDE2smpeNuxIORiX_qTpExEojernEgOf8OTD0na4gGjOJ5eTFp-YCgEPZ7VCcR3a6F9fKE8QHp_PDqgJixcfSZIESjwlk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 45.4053398,
+            "longitude": 11.8803496,
+            "distanceToNext": "0.62 km",
+            "placeId": "place_174697414609584544"
+          },
+          {
+            "name": "Bacaro Padovano",
+            "address": "Via S. Gregorio Barbarigo, 3, 35141 Padova PD, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQz0JdukQUTs_2XzOKTJpx7kcPgagwiFnZBM_TjbiHlqgzIqK-_yMwcxzsIn_PATWmHzu0hZUhQ9wxkmw2SOb-l-yy0Mc9-Y8jjHL0aV9pBN9zM_Hv3uoKicDYhd2AXiRCqrsZo-vWykQH-ig5M4XKYXjGMKh-yvM9kI-55RZyFwIR8EMfRjJ-5jistJePj9kzWCYBCdZp-ZccgTxXCEEY3MbjFbiWSD7gn_BT7fW2qx5f0ST9PrGa1_jDPVJGpMYp-PghsxN5i6kWARZl-mt7ymXEDmqmEk6ivreVmkcaYqdv_3X0&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 45.4054488,
+            "longitude": 11.8724432,
+            "distanceToNext": "0.80 km",
+            "placeId": "place_174697414609597579"
+          },
+          {
+            "name": "Lax Cocktail Club",
+            "address": "Via Volturno, 30/A, 35138 Padova PD, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRtl0GrZ8bF4FzxOgwZzocwhgm72SFxOtvgw9eQcBc0j9c3mLsmnpsAFr9BXVNYuG3ta9MJhOj9YOFEugV4LMDWN8LuFN5DnmAZsYByoCx-sNQAPMZ1wFQoid9okfPMKCOjKbQnYKJoUyEsoUvSx4ORD0sbI-TdizmHLYpUyezJT_cK4UyXDVWAj_jNMfNnCxADOgiGybCaaFptCAaFqBl67MeU3iUPkzJv4QEtes4YodndpBg_mSVpBQOFDQond00GcocnG_yZQfYOip5n70D5f4a7Fo2kOXzeKFrR3YLlmkzwfC4&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 45.4087623,
+            "longitude": 11.8634172,
+            "distanceToNext": "2.31 km",
+            "placeId": "place_174697414609531672"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via Niccolò Tommaseo, 61, 35131 Padova PD, Italy",
+            "photo": null,
+            "latitude": 45.4129348,
+            "longitude": 11.89237,
+            "placeId": "place_174697414609533176"
+          }
+        ],
+        "itineraryId": "trip_17469741458745983"
+      }
+    ]
   },
   {
     "userId": "user_174683375571350402",
