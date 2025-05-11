@@ -136,4 +136,6 @@
 
 </ion-content>
 
-<app-generation-overlay *ngIf="isLoading"></app-generation-overlay>
+<app-generation-overlay *ngIf="isLoading" 
+                        [message]="'Generazione in corso...'" >
+                      </app-generation-overlay>
