@@ -12,6 +12,9 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+
+
+
 /* ========== Layout Base ========== */
 html, body, ion-app, ion-router-outlet, ion-page {
   height: 100%;
@@ -87,7 +90,7 @@ ion-icon {
   --color-text2: #000000;
   --color-text-evid: #f9f9f9;
 
-  
+  --tabbar-height: 50px; //padding-bottom footer
 }
 
 /* Tema scuro */
@@ -110,4 +113,5 @@ ion-icon {
   --color-text1: #ffe680;
   --color-text2: #FFFFFF;
   --color-text-evid: #f9f9f9;
+  
 }

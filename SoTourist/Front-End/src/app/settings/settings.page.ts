@@ -149,19 +149,22 @@ export class SettingsPage {
   }
 
   async confirmDeleteAccount() {
-    const alert = document.createElement('ion-alert');
-    alert.header = 'Elimina account';
-    alert.message =
-      'Questa azione è irreversibile. Sei sicuro di voler procedere?';
-    alert.buttons = [
-      { text: 'Annulla', role: 'cancel' },
-      {
-        text: 'Elimina',
-        role: 'destructive',
-        handler: () => console.log('❗ Account eliminato'),
-      },
-    ];
-    document.body.appendChild(alert);
+    const alert = await this.alertCtrl.create({
+      header: 'Elimina account',
+      message: 'Questa azione è irreversibile. Sei sicuro di voler procedere?',
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Elimina',
+          role: 'destructive',
+          handler: () => this.deleteAccount()
+        }
+      ]
+    });
+
     await alert.present();
   }
 
@@ -194,6 +197,33 @@ export class SettingsPage {
       this.username = parsed.username || '';
       this.email = parsed.email || '';
     } 
+  }
+
+  deleteAccount() {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      console.error('Nessun utente loggato');
+      return;
+    }
+
+    console.log(`URL chiamato: http://localhost:3000/api/auth/users/${userId}`);
+
+    fetch(`http://localhost:3000/api/auth/users/${userId}`, {
+      method: 'DELETE'
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log('✅ Account eliminato');
+          localStorage.clear(); // oppure rimuovi solo userId e userProfile
+          this.router.navigate(['/login'], { replaceUrl: true });
+        } else {
+          throw new Error('Errore nella cancellazione');
+        }
+      })
+      .catch((err) => {
+        console.error('❌ Errore durante l\'eliminazione dell\'account:', err);
+        alert('Errore durante l\'eliminazione dell\'account.');
+      });
   }
 
 }

@@ -69,15 +69,19 @@ exports.login = (req, res) => {
 exports.deleteUser = (req, res) => {
   const { userId } = req.params;
   let db = readDB();
+
+  //console.log('🧠 Database iniziale:', db);
   const initialLength = db.length;
 
   db = db.filter(user => user.userId !== userId);
 
   if (db.length === initialLength) {
+    console.log('⚠️deleteUser: Utente non trovato:', userId);
     return res.status(404).json({ error: 'Utente non trovato' });
   }
 
   writeDB(db);
+  //console.log('✅ Utente eliminato:', userId);
   res.status(204).end();
 };
 

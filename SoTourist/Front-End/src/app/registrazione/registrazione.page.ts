@@ -45,4 +45,8 @@ export class RegistrazionePage {
   onProfileChanged(newUrl: string) {
     this.profileImageUrl = newUrl;
   }
+
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+  }
 }

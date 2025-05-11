@@ -58,6 +58,8 @@
   padding: 0;
   background: var(--color-background);
   border-radius: 0;
+  
+  padding-bottom: var(--tabbar-height);
 
   & + .settings-section {
     margin-top: 1rem;
@@ -117,3 +119,5 @@ ion-alert {
   --border-radius: 12px;
   --backdrop-color: rgba(0,0,0,0.4);
 }
+
+
