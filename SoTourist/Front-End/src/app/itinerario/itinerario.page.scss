@@ -50,13 +50,14 @@
   /* altezza = schermo – altezza hero (in px)               *
    * se l’hero è dinamico puoi stimarla in TS e mettere     *
    * uno style binding tipo [style.height.px]="scrollH"     */
-  height: calc(100vh - 40vh);
+  height: 100%;
   /* 40 vh = hero di default   */
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   background: var(--color-background);
+  // padding-bottom: 300px;
   /* ✅ uniformato al bianco */
 
 }
@@ -89,6 +90,7 @@
 .day-list {
   padding: 1rem;
   background: transparent;
+  padding-bottom: 300px;
 }
 
 .no-days {
