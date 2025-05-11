@@ -108,6 +108,16 @@ export class LoginPage implements OnInit {
     this.router.navigateByUrl('/registrazione');
   }
 
+  loginAsGuest() {
+  const guestId = 'guest_' + Date.now();
+  this.auth.saveSession(guestId, {
+    username: 'Ospite',
+    email: 'ospite@sotourist.app'
+  });
+  this.router.navigateByUrl('/tabs/home');
+}
+
+
   ngOnInit() {
   }
 
