@@ -33,7 +33,7 @@ export class ViaggiPage {
   loaded = false;
   private callsCompleted = 0;
   drafts: TripWithId[] = [];
-
+  isGuest = false;
 
 
   constructor(private router: Router, private itineraryService: ItineraryService, private auth: AuthService) { }
@@ -60,16 +60,19 @@ export class ViaggiPage {
   }*/
 
   ionViewDidEnter() {
-    const id = this.auth.getUserId();
-    
-    console.log('✅ ID ricevuto:', id); // solo debug
+    const userId = this.auth.getUserId();
+    this.isGuest = userId?.startsWith('guest_') || false;
+    //console.log('✅ ID ricevuto:', userId);
 
-    this.loadTrips();
-
+    if (userId?.startsWith('guest_')) {
+      this.loadOfflineTrips(); // solo bozze
+    } else {
+      this.loadTrips(); // backend + bozze
+    }
   }
 
   loadTrips() {
-    console.log('🔄 Ricarico i viaggi...');
+    //console.log('🔄 Ricarico i viaggi...');
     const userId = this.auth.getUserId();
     if (!userId) return;
 
@@ -102,7 +105,17 @@ export class ViaggiPage {
     this.drafts = raw ? JSON.parse(raw) : [];
   }
 
+  //load per i guest
+  loadOfflineTrips() {
+    //console.log('👤 Modalità ospite: caricamento solo bozze');
+    this.inCorso = null;
+    this.imminente = null;
+    this.futuri = [];
+    this.loaded = true;
 
+    const raw = localStorage.getItem('trips');
+    this.drafts = raw ? JSON.parse(raw) : [];
+}
 
 
 

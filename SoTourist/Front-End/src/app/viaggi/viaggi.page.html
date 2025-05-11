@@ -19,34 +19,33 @@
     </ng-container>
   </div>
 
-
-
-
-  <!-- 🔴 Viaggio in corso -->
-  <div *ngIf="inCorso" class="trip-section">
-    <h2>Viaggio in corso</h2>
-    <app-trip-card [trip]="inCorso" (remove)="deleteTrip($event)" (open)="openItinerary($event)">
-    </app-trip-card>
-
-  </div>
-
-  <!-- 🟡 Viaggio imminente -->
-  <div *ngIf="imminente" class="trip-section">
-    <h2>Viaggio imminente</h2>
-    <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
-      (remove)="deleteTrip(imminente.itineraryId)">
-    </app-trip-card>
-  </div>
-
-  <!-- 🔵 Prossimi viaggi -->
-  <div *ngIf="futuri.length > 0" class="trip-section">
-    <h2>Prossimi viaggi</h2>
-    <ng-container *ngFor="let trip of futuri">
-      <app-trip-card [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
+  <!--viaggi su cloud per chi è loggato-->
+  <div *ngIf="!isGuest">
+    <!-- 🔴 Viaggio in corso -->
+    <div *ngIf="inCorso" class="trip-section">
+      <h2>Viaggio in corso</h2>
+      <app-trip-card [trip]="inCorso" (remove)="deleteTrip($event)" (open)="openItinerary($event)">
       </app-trip-card>
-    </ng-container>
-  </div>
 
+    </div>
+
+    <!-- 🟡 Viaggio imminente -->
+    <div *ngIf="imminente" class="trip-section">
+      <h2>Viaggio imminente</h2>
+      <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
+        (remove)="deleteTrip(imminente.itineraryId)">
+      </app-trip-card>
+    </div>
+
+    <!-- 🔵 Prossimi viaggi -->
+    <div *ngIf="futuri.length > 0" class="trip-section">
+      <h2>Prossimi viaggi</h2>
+      <ng-container *ngFor="let trip of futuri">
+        <app-trip-card [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
+        </app-trip-card>
+      </ng-container>
+    </div>
+  </div>
 </ion-content>
 
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
