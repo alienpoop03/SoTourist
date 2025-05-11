@@ -1,4 +1,4 @@
-<ion-content class="itinerario-content" fullscreen >
+<ion-content class="itinerario-content" fullscreen>
 
   <!-- HERO -->
   <div #hero class="hero" [ngStyle]="{
@@ -17,7 +17,7 @@
   <div class="scroll-container">
 
     <!-- ▸ SLIDE 1  –  personalizzazione viaggio -->
-  <div class="slide-page no-vert-scroll">
+    <div class="slide-page no-vert-scroll">
 
       <h2 class="slide-title">Personalizza il tuo viaggio</h2>
 
@@ -133,11 +133,5 @@
 
 </ion-content>
 
-<<<<<<< HEAD
-<!-- Overlay durante la generazione -->
-<app-generation-overlay *ngIf="isLoading"></app-generation-overlay>
-=======
-<app-generation-overlay *ngIf="isLoading" 
-                        [message]="'Generazione in corso...'" >
-                      </app-generation-overlay>
->>>>>>> ae58cc78965cbfdaac5817622a026507a5d87ddc
+<app-generation-overlay *ngIf="isLoading" [message]="'Generazione in corso...'">
+</app-generation-overlay>
