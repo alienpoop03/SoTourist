@@ -69,6 +69,212 @@
     "email": "123",
     "password": "$2b$10$rWyqiB76SGKAbUHlb8IJtuf3H0oqbwmndjKQKDsyfLLm7ieKZ0h56",
     "type": "standard",
-    "itineraries": []
+    "itineraries": [
+      {
+        "city": "05100 Terni TR, Italia",
+        "accommodation": "Via del Cardellino, 65, 05100 Terni TR, Italia",
+        "startDate": "2025-05-11",
+        "endDate": "2025-05-13",
+        "style": "generico",
+        "photo": "",
+        "places": [
+          {
+            "name": "Caffè del Corso",
+            "address": "Galleria del Corso, 4, 6, 05100 Terni TR, Italy",
+            "rating": 4.1,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRPyU2zPq71Lrl0POlh_ep8mk-o1sL4jbzOqP8kFM6DEVyNLtzUNgwLlDc1oFga7yG3bk-mFC_8fg_MI0BfcyJVZ_Pj2pMXv2sQWIWsENmbwELr0L7_3VT9jbhugSOyLpyJmdKWt5EzX6vUHx-dfpwdu1RmWMHoFSox_S7LArLNYGVoF2cAofpjsh54NPj9Njg5jwAlCyPQXtboyQim81o6VxZojfF4mHz9EciA64poMwzQ8DffpcNzyGd1wJeZYCH2xePRMHTkFJSGiJMvJFHyVscDuiY5mNk2URrvEq6ovMNdMe8R71ze3-zGtJ8drV0oUp1S1bDTjCFXUorjocucbzAxwbH2RUnPyRKF7RerO8PGCJBIzWP13CDHRILRPvN1qLKTHxlGBUy_cPVb1iIQq8w_Ew6pJNBlbjwUMkZgHGxak0-pmNgvStpSPB3bnYxalCyUl622i5X9JqaN99ieoFPD1jjuSWiqYd_D-9kKx52f2t-LJ8o5P0yNYJ807hDYftWt9gqJl6NW0iwxuI3W9LNlPRfWacTLsby9pXWsxQEkt4BM4L-upnyX8GIBS6bev-Kixo5YTg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5632854,
+            "longitude": 12.6478821,
+            "distanceToNext": "0.35 km",
+            "placeId": "place_174697415126856325"
+          },
+          {
+            "name": "Porta Sant'Angelo",
+            "address": "Viale di Porta Sant'Angelo, 05100 Terni TR, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRwoQKUekU0vSBEMkGvl3_c5L8itiXx_HkI2fftoVSi3GaCcmVH20aTagumdKWO_M9JFtdwGyrbpdHjyOeBZyEl9Li8VlO92w5NQmn-Dwq8ozY5q8likGI78mT1f4oOdhd4PUfVoAfB3qQmM5YYNDbM_Imjra_nQQZV8TzPXOzgBbmiQHq4OY5s77MjXb6CaGIHKjvTgXpVvzWd8LAN8BmLJS7qocTVdPdYAePtpYHcozux80PNQk043_jDdr4NXwlu0ZDIjU9FPhisD8aNSB0lGAT-wwPJ099Lz4ZA9N2CznxblR37NZULB3iI0FMBWVlSMP9a2gTTusLeISAlmUx5gUFMt9OEQxK2fsnQCO37hPaaeryFwZZbId-J5PtrwnSEYGmmbGBRvmmZQE6eK8Ojo2ZVzhCD7TvHCqdqtx7kDjvToFCZvID9hzUp4R0QjmVkcuqOsCDS8LS_PKcvdKOp6aE4Vf7lY817Z41SF_q-wOMhmQ9UrODsBPt9zw4RvreYH3wWZoMqIfrKIvUjt-Dp6JCgwt3bJ1ExKUJbdTJ99dsQWZ2BJVZT21ZpzR21Yw_OKkAK&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5634094,
+            "longitude": 12.6436204,
+            "distanceToNext": "0.90 km",
+            "placeId": "place_17469741512683632"
+          },
+          {
+            "name": "Antica Osteria Friozzu",
+            "address": "Zona Fiori, 116, 05100 Terni TR, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSUmku5crZHxt4a1r1WImmcptHjBy_hf-jJ2ixVgTbADsnOhpdo7x7QXYZ7RHsEgV2sFxA547Sn91tmxV_-xZVNy8ft9L10qXFPdx_iWdrM7mZ2p6DnFeNfmmM1iLEgqgwbH-TO44MDnsQAFrP6BXc5_R-q7nU2lC_5tebEkc-Xyan8PdsfTCWLJIYdHAG7zztnySJQ9EZrMlrBdG0cULDOq3yFEL6mUL83I6LXvc8pMRtE6ZbXjIdv5Ke2F5-GsraMR24laV56nmIUoS1ovkouJC4ppdbO6gfV1ufedJbxt8UtYNU&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.57149870000001,
+            "longitude": 12.6427343,
+            "distanceToNext": "1.57 km",
+            "placeId": "place_174697415126898748"
+          },
+          {
+            "name": "CAOS - Centro Arti Opificio Siri",
+            "address": "via Franco Molé, 25, 05100 Terni TR, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSfchHkW9ECcEXCPzCMpXPyLfvnkFczsVHRSxNbu6Lbr4D6D05YsoL7eZO9v_ZvTQTLb6g7m6-tQWjYVpZGviLuuBy1zmseuNvFNWnNcLi0njSBCPjwalXFGhq_4P3Z5256j80ZJPJS1XCWTUEdRRU1RA8pM5cyqmymUjQf5tf8zsFSK4u7fMqLwovSqS6EEDx2aN7XBi55xh-86CKuNQ3qKvny5vLcuYbSw8QQxlLryqYI-72JTC8_H2GpZjg9OcLioEfHwQJ4CnNn7hz5f6FsEKn4Xhs6Pl2_EYgESB3NHPsGdAuC1TcyhbR_a419lg6pVX3WdD3o_Bu25WSKazlJqp5brY7H4ufbnz0tOQJszFL7qfqWMrWZb2omKUJmRSGZr7TvDduFq2cpfrz-ksYJoja16VAwN6bmxZrpZXogriom6Mgcprh5mD6m_HvtkFU7Qu1DrxZ0SR62-sEK204DRGkI3PB94QNiu_lHTEalGWE8gRcTf15foEjqaHzxUuYr8Yv5RFWByVznQ2drhFHytNre9kI-RPCfDIhthxmdtDssbjfSLX5ZIoEvdK7OfDDQwA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5594112,
+            "longitude": 12.6526822,
+            "distanceToNext": "0.37 km",
+            "placeId": "place_174697415126812879"
+          },
+          {
+            "name": "Taverna Del Contadino",
+            "address": "Via Castello, 55, 05100 Terni TR, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQX332LrSKKtw4Zmk2YzNb2nfp5UV697D9ABpsNKjqkl5bwg-WuGxj_uXuy283YpQomuJJgee2pC2QHZGwzZ58Ub3RLs6uF-wnQOFQBFI6owAmxGZQGm7pskQRqBaWO3KVbFwJ1_JoyfXEfylYZm39kTr_q62XR4iSmVaQQlCrsKUJ_K2I9XN_cZCy1zLJggi2GrwEheutec5IO23sg3j_dT439PzF_QlDNVk3BjsUVC_Ta8AgbHLUBaPfR01MDp1E6nsGvkXYYXaiPhMgcVwth--jNFQCw7yxRd3PxDbrWFfFr6T5wezm3M5jLs6z-AQWsFZN2sMqUbw1zGbwF2gKSJ0Xq5EK7agvOzvL2B2kRdWpS4-7Sx3OC6s6zV4MqTZDmFBLh_MzpNks23fzCFH4Y2CmHQhuwZKH-GDNBlKxbQHFAcI0UXi9w6YsetKSMMegNP9xeKsHQDxcyfsbdGnuIo7CeALYkCqbuVxUU4Fl-sJVc8A1fSAEvMwewoVrfDnB3QUqFHNBYrG7-yNv_sJGKnUCYUpQG5IzsZ8BK2YLyB_zqM38AwVO1dAA9LJKI3FRZQupNQyDNMQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.562711,
+            "longitude": 12.6520418,
+            "distanceToNext": "0.59 km",
+            "placeId": "place_174697415126873329"
+          },
+          {
+            "name": "People Drink Emotion",
+            "address": "Piazza dell'Olmo, 1, 05100 Terni TR, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSpVTrjs0vt8oXi0QAG8NTp8P1ADlIAgDHx8IoOXQr2Wk1V0pZ3kn6G9FY_9K-kCSnwH5ID1rCdyVXKsPoQBM9LuJjy2b69syRX1VHDMWnXOeqjGyBWQz44mv8pbXR7swFgcGJAcmFMSpGfIRUIlOgN4Ys1V487tS0Tno3k1CSXGXdhyc44gY6b1oDe4KmF2PoNu_tGLweVBVPlJGg_X11_ucEsg9rrzATzFKAIVr1iWYhOdLaH2qnQ8zgCILLCnl5iZEA2ggafZV2NibE8iXomTO2hZR14MSSbQLYPLT8CeE-UV0k&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5635886,
+            "longitude": 12.6449401,
+            "distanceToNext": "2.11 km",
+            "placeId": "place_174697415126855304"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via del Cardellino, 65, 05100 Terni TR, Italy",
+            "photo": null,
+            "latitude": 42.57905969999999,
+            "longitude": 12.6300714,
+            "placeId": "place_174697415126880239"
+          },
+          {
+            "name": "La Maison",
+            "address": "Str. di Sabbione, 23, 05100 Terni TR, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQrRlwE48UYW_YZxn-27zklhY6CvBD9sZEoqbm2jsI-388uwv4X2G0F1wAfwcCSwllhO0lM9dK3s7FTo-olo-ZIRR1fCwnEDQmNnTzirs3c7iYHkif6w_WSWQIfj7IzM7hGmf0_aWtdZIik_wQ64gNJ8zmaIX4h0y_k0fYUCvJORHPZ4seoqgbJiGJcRaaRQzSffekPrOitG6F5-YGg_soBHI6MlCkHDTRwxs6x99Z_vkjdKA2oL6L5u824395AwngFHOgbzel31wHwcN1Bnz4CDHcAd9tpHfkH-HlP3ks-32QcXj8&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5497752,
+            "longitude": 12.6112276,
+            "distanceToNext": "1.41 km",
+            "placeId": "place_174697415126894349"
+          },
+          {
+            "name": "Trattoria da Graziano",
+            "address": "Via Alfonsine, 17/19, 05100 Terni TR, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSU2L4h8xF5LqOpRWRK7W8rza0lfyTXdIz8gWJhpRyYWbAcsh90HUc1so6P97CMfRdfcboD0qHrcr0XkR8Tk2jocvQhAbP6ZEF5QauAgnVaX3-MY0j-KcyUPQ2mIQ2r6DERmIncDuKgGLB1YjGZ47k-0kYmL5-oY1DhCRd8qqdK4SpXt8qQKgYXeDpRgi1fSvD39gt_I7TKaB6S44nVsXwPDDHnm065ER7hUkv3rrmWkrrmeGvjACGDjfEO7rCfWPg4r3XM14Pvsq6QRKXX4681uCTAfTz4kOoXzQlNXk7c182PcWM&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5513992,
+            "longitude": 12.6282592,
+            "distanceToNext": "1.83 km",
+            "placeId": "place_174697415126812259"
+          },
+          {
+            "name": "Parco delle Grazie",
+            "address": "Viale Trento, 05100 Terni TR, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT8kaGbh3XXjzIwu1arFCWzedCR3QIhP4QsoKMhbMaGF-m7-cNbgxYX1df73mAJobLVFZ3WSHIeZz8hJ-a5LYV6a3fm25TlwERRSTkeQf9o0Hu1CP-DczvCaUzkRalvz5abthH38TtcyoliOGVRYGCOviFD9ZI53u5WEsr4TRFh3f_EsN3qVZO8Kmfv-ekqg4yy6ymVT_lpmoFBdThF2S2ee8eQdV_mrjKSErziXA4NLi2Glys9u2k9IiQjohQw0RYbJYKpLKB-YXo3addwaxGke9t6YgYdzdOXsJeQS0Mse36V6Bydf5O2MS4egWWRemRs6Y8Rymp7eF5754Gi87zgUab7koy-Xj_ipglQYdC4p8gTXDUTAaRoSLpW8JRQxP9lgyt47usOPvoY7t3lVwxMgaItN9D5GFfUwSgo-NPXlGJk5tWspRSiWyzB2980qn5lwxm24gjzLk4MFIce4rpna-QU_MiE6G5KckEGQHQPNrUnutibpMV1h69SNtEoLRtz7ufIyF6gS-dhpbW7PkzceZ1KGpuVQmeE1RB5R514r1ljQTZkHjfzJBgoQXuTuZxIaORF1Fl74w&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5508938,
+            "longitude": 12.6505626,
+            "distanceToNext": "1.45 km",
+            "placeId": "place_174697415126823878"
+          },
+          {
+            "name": "Osteria La città Vecchia",
+            "address": "Viale D. Giannelli, 81/83, 05100 Terni TR, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQPpcq5gfv1aLE-Q9c4s5IRq6q3BA5JzhwKqfNNNCv126FXHHdmBBu7yIt9M2mfcpJCpsUNC4Ve4Wx1zGtOPYxPWk7CKOal18bwt7zAFdfArA2rqS9VLVHFAn8awOBcYs-nXOMecRDFigoFOwngdUES2yu28zz7yhektNpNiU5hi1lWU3Cru2m34Hl8NEE2RmxKSoKbNYa5PTx6k0srtuCDl2DClFLQwH5Bb5CBr751nEI85t2NT7nG3a7chjCs4mU2fWh3DVHRLgLQLNAQylQI_O9_ATZmYB8O1gAmbCB9nxo_ws0VgMf9wglxeleK0op7RfbhGHIrOzPlQLIqIgiJ1VJ5j9EFxVoK6S95FX8fbjjH8Jk8wxfrA77UgNPMOOQdY3NhncaNgBEIaIGsg2-Abn29xtA_-wXXOC7ztScn1nN4ooL9FQd8ezTC66M9eJwNOweqaSNbL2Mg725R63W7lUrTX32WcpajEuAPyFz5iiJZBNQiND25HIodh77GSty60DuoR010D_pkBw05E7N9IGDPe_YJe0R-kVHgAIL09og56vpRpl8UCFPnRBHKa1f4b5po&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5630642,
+            "longitude": 12.6441687,
+            "distanceToNext": "1.33 km",
+            "placeId": "place_174697415126838242"
+          },
+          {
+            "name": "Terminal Club Terni",
+            "address": "Via Piemonte, 60, 05100 Terni TR, Italy",
+            "rating": 4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSBsEgF_ToVCUcOXNlzklMj-WIw1nnNPPTIGUILkMcedUi1SEP7ogkpXNQKNqICJ_yUf65vNkIKECF9UM4xuiLZSge-7NLYs14izZNP-SRT7nvyHOWcpm0COwmcHaJgy76pmjnbbWWfVMLSoAzJ18jkssPcpkaiE8BrfeXLabExgM-ycEANdwXaZQ2gbWm14DIF_JHIAoPCYRGvjcKnBVyZqGEP_FgIzz_TLE1A_Rs0tHDk0633H0e2tgz75T2180Kvp48ELy8URwBuuqV6k16yDnoKuJgX1sOGV4sIwDSuikiOE9m9Yokk6Q_Yw0bLS9c8xZhx-SgOkDcwSphAWfJzuXJcK2TN24qy3PrrAiuZm4SmqEDYThmO_RUdcOZKeqIvtFFjruM48Z3mrY7kVk4O7m73DZg8Ghbn3SX2lQFRxZwbjLPAFYW2-xUNEaLmhqWbHNMYJQh_G33RaF-Njr6N-HiqghoAK-qt-zOBkXsdOb7cS1B4FKrL0Xfd9ijdk9aEutGjiOSo-EcjECFTvUZ2IAM9Xn3NTayaT6rfKy3MDoKxMqquRnoln5lKIU4OaID-UkgS&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5700832,
+            "longitude": 12.6573642,
+            "distanceToNext": "2.45 km",
+            "placeId": "place_174697415126851253"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via del Cardellino, 65, 05100 Terni TR, Italy",
+            "photo": null,
+            "latitude": 42.57905969999999,
+            "longitude": 12.6300714,
+            "placeId": "place_174697415126863482"
+          },
+          {
+            "name": "La Raffineria",
+            "address": "Via XX Settembre, 58, 05100 Terni TR, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNS_5rHOqjYR6cEF_X9ZGyA7PIF2FHgawDLGhztF4l7G8HeWiYQyE0ggiFjfdBpK26HUuvQbsr_w0WPUG_viXdXNeHzDQ67gAEiMMPqhPhXk9ZXP6rKhqy8s-QlT-_eRm6FfXTJTGsKY-MiosM5oZRpRcKTDJELyY5Q5V84zpf_Ih9LhhYPdO6shQXZf-h3YHHYd9jrbVlbw-eMLY75Fv36Yyl2slXKf67SrQS2TvPL_JkTqse6Ryn3rizFNcZlDSNskDkn3QQGOANNNyEYNOjrDo11BV42HrhnXfXxUcjApluDrhfE&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5547267,
+            "longitude": 12.6388772,
+            "distanceToNext": "0.95 km",
+            "placeId": "place_174697415126887123"
+          },
+          {
+            "name": "Saint Alo",
+            "address": "Via Sant'Alò, 18, 05100 Terni TR, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSsgzCUmqqA33markkA91GVLjQbddxzeUfqPonvMyni-YbWLT22KuJPGazKKemPfIMM6I5v3U0Ioq6zCoBuJR59EphuH5FR2d3hcW_1ZBxruz6mFHgilft9sqJG0UCloKosHEtnbZ7jnoIn_x9LPlHPyfj38LQqi3S7YNMis6aiMa2INpDyxnMV_iISQXJT1_Ja-KgcSUzhr53sYP1rU4KfGyRPrywOBAL6dK40K42LDJkPzEk_3WmdK4pEIJYfZMSL8BU5AIrlLhCIsC6CTfWbpoUke5oRXdrP7yu_6nC2XzwqV1dBV426bJDn1fmEjK5Ud9h9zDx8c_AvOESYZitovxR77k3-wNRN2lNNCkt7gKK_kxkBbWv-MzocYXXR2Fkpe5pF5_GAPNA5qUOKnt6mwVhPoZsJ5wlfvlUKKJzaOSb_h5TbqPU_avp7W08_UF7VeAw3WySMapDS4_G2PfkWtZiMQYwP_Bf1MRFug2H_1v7B0piN8Zy8r0IaiKzZKDhrWlCHOXV95_ED7uG0NzGaoXRHGnwFHqCItkXFbbRcShxbB-FALuMngv7714Yqvf66bh-k&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5622374,
+            "longitude": 12.6442954,
+            "distanceToNext": "0.66 km",
+            "placeId": "place_17469741512685620"
+          },
+          {
+            "name": "Trattoria La Mora Cucina Tipica Umbra",
+            "address": "Str. di S. Martino, 44, 05100 Terni TR, Italy",
+            "rating": 4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTew_uNhfpsGuaM1XYL-AhI5nUFpz2hrBXvBYqiJuEhmHvuaW1saMB2-obIj0zQGPrk73Z5a91DOoDal0CMvbrFEpaqiXipEPs3I0WeiAJ_xfCvZ5eZTtI-2C7kvYX7fcjuqB6-Qv0ReeReCaVaybcCukgQ6SEWqzvlEfAdWV_2fTMQrkF9wYkDUwbKIgQMYyTmKyZm-E7c1XAQsotlMgz4CVXdg-cf-shIqiRJMdKZO6SdmoXQaSU5SO4wMptx9L1lwuvl3kITeTMmkI9Rhhj84PsV2l174g6xxTHgV0-hHQ47wrA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5579681,
+            "longitude": 12.6387558,
+            "distanceToNext": "1.21 km",
+            "placeId": "place_174697415126843691"
+          },
+          {
+            "name": "Prehistoric Museum",
+            "address": "Via S. Tommaso, 6, 05100 Terni TR, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQcjRv1pq3rRD5y2q9IipF4ZrrqH5SE0p1lq9bJ9YwrLVPVCij3d5nE7_1Qlxu0eahzVVoGotk_YU8crZ5bGVfSyBicHLhcRA68WPi73cwz7_qq9o46Kg8vBk0v_rMluXgnnRHVUlal2XCTgCQywoE1jt8UmSxahjhZLpH1PbOq8RJYqx8nCutpyXx-ilVefmnDDktDjkUi8RxWz38T661C5D-2F_Sfd1tIC-oXrIZFFbK3Tqnvr8lJmYbizEWX1Vz0fRe2DmbFMeA5uS_SUs1S-o_I37AXA7d4WrArysy1-d7_1Fo&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.564647,
+            "longitude": 12.6503719,
+            "distanceToNext": "0.45 km",
+            "placeId": "place_174697415126891781"
+          },
+          {
+            "name": "Trattoria Carpe Diem",
+            "address": "Via Giuseppe Garibaldi, 124/126, 05100 Terni TR, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNS0ToClAa7OOr86hNoXx4DInz-gS3w00n7bPAuLq5sC1IGnFV-tWxZAnF4tMgv1KfihcPdXp_P_TAUR1LKdKW-VHA0oL3C3euxH2fxQBZu1w8ORI_Kammic6nu_udjjoMAziZEXkV57VyaWqXFmkunLgDcnmw6FFPCvEQn131x_nF38KSFqPNPRiHVyeSOTzi1uEfckRtq_pVnHvb4X8WMRY6oE-SVbsv9BybYe4sFhw8SxEwnNMx2yc9IQ6NBOD-azIut1B9EJr6XSTzmycU04nBagFe5TD4N1cntjcQRY_yuGKuuCFOk4KWBrIptqlqc8Ed7dzWnkNFSln7LgQcV8_8wekaZ4VGG7j3RztOl83cEz0Pf1o89SMflJJcj6YaVLvlPpk0-Rg9oG5yu4QR0jKpU9ejQROqvgXUgbt41y7rWiNMXRJfRTbHrfrRy7d2ZYhdVCR7bChg2vwAMjZTD0qxbM_o0hkBRJ-dqimJIjFTxle2cJYzXd37E-FC_NPKVORtPuzSkSPq63a_eFKzMBZ1Cmkx4HtjBk-W8qq0rTyel65GlirhOPjN4xfHLJKdVCJuR-&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5611172,
+            "longitude": 12.6476051,
+            "distanceToNext": "1.97 km",
+            "placeId": "place_174697415126855541"
+          },
+          {
+            "name": "Opificio Club",
+            "address": "Via del Sersimone, 8, 05100 Terni TR, Italy",
+            "rating": 3.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSSBAsJoUQJ5dlgLmKhlg_Mb1V8fDmVMTgFEEgFiZvwpONVJZlZPBqtFUZtxgWLpspAkU9GQHIC3W0UwNhFoaJiXDVmJWQ2tNh7Li8MHpMbX9x_UT-Pr8syUDBll6tVDKVc7XWeDupW29JGn1MTulyp9mDqAFffb3qpq9AQyqyDrlOCbTYZYDa167aVEscZpU2UxdoSKvsE59UscAY03h0KiiDdoY-AcLeWaMb999G4a5XQPXqYagiS9cCPRXBb-7UJYZPmVGk5yfE7ZtFSABH53C_pjgXiwGz11I6elovC7Ni70LtyD9ulv-n0A35c5Ov0oawVwMeHW3SSRnI2puR3s-_Dx6NMMmXquGSL5NZbNPyZd6OXSokw_3Tv_D29IHwDnKZ9A5P4qQENpq8ldv9UwOgJudl6CXPM1KLMW81GZHYZXzYiS3uZenDGoeXp6Tr9litXKz2hFqdu2bcZ1Tuvftk1L-fw5YeYCFdNA___InoMS71xkt4qYoOoXpeCF8Mw8Hl7bfNShhvN9m_wnXw0Xw41m91H4F_tLjqyb-8nHBGkuT6U3PV1cc_JBi-h0a7gh_QlaT27tQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 42.5703263,
+            "longitude": 12.6271259,
+            "distanceToNext": "1.00 km",
+            "placeId": "place_174697415126871130"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "Via del Cardellino, 65, 05100 Terni TR, Italy",
+            "photo": null,
+            "latitude": 42.57905969999999,
+            "longitude": 12.6300714,
+            "placeId": "place_174697415126890225"
+          }
+        ],
+        "itineraryId": "trip_174697415105374224"
+      }
+    ]
   }
 ]
