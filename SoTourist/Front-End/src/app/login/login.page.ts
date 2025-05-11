@@ -81,27 +81,33 @@ export class LoginPage implements OnInit {
   }
 
   async saveProfile() {
-  if (!this.email || !this.password) {
-    alert('Inserisci email e password');
-    return;
-  }
-
-  const bcrypt = await import('bcryptjs');
-  const passwordHash = bcrypt.hashSync(this.password, 10);
-
-  this.auth.login(this.email, this.password).subscribe({
-    next: (res) => {
-      this.auth.saveSession(res.userId, {
-        username: res.username,
-        email: this.email
-      });
-      this.router.navigateByUrl('/tabs/home');
-    },
-    error: () => {
-      alert('Credenziali non valide');
+    if (!this.email || !this.password) {
+      alert('Inserisci email e password');
+      return;
     }
-  });
-}
+
+    const bcrypt = await import('bcryptjs');
+    const passwordHash = bcrypt.hashSync(this.password, 10);
+
+    this.auth.login(this.email, this.password).subscribe({
+      next: (res) => {
+        this.auth.saveSession(res.userId, {
+          username: res.username,
+          email: this.email
+        });
+        const redirect = localStorage.getItem('redirectAfterLogin');
+        if (redirect) {
+          localStorage.removeItem('redirectAfterLogin');
+          this.router.navigateByUrl(redirect);
+        } else {
+          this.router.navigate(['/tabs/home']);
+        }
+      },
+      error: () => {
+        alert('Credenziali non valide');
+      }
+    });
+  }
 
 
   goToRegister() {
@@ -109,13 +115,13 @@ export class LoginPage implements OnInit {
   }
 
   loginAsGuest() {
-  const guestId = 'guest_' + Date.now();
-  this.auth.saveSession(guestId, {
-    username: 'Ospite',
-    email: 'ospite@sotourist.app'
-  });
-  this.router.navigateByUrl('/tabs/home');
-}
+    const guestId = 'guest_' + Date.now();
+    this.auth.saveSession(guestId, {
+      username: 'Ospite',
+      email: 'ospite@sotourist.app'
+    });
+    this.router.navigateByUrl('/tabs/home');
+  }
 
 
   ngOnInit() {
