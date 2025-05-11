@@ -121,7 +121,7 @@
 
   <!-- Genera itinerario -->
   <div class="generate-container">
-    <ion-button class="generate-btn" (click)="generateItinerary()" *ngIf="!isLoading && (!trip?.itinerary?.length)">
+    <ion-button class="generate-btn" (click)="generateItinerary()" *ngIf="!isLoading && isLocalTrip">
       Genera Itinerario
     </ion-button>
 
@@ -129,7 +129,7 @@
       Caricamento...
     </ion-button>
 
-    <ion-button class="generate-btn" disabled *ngIf="trip?.itinerary?.length">
+    <ion-button class="generate-btn" disabled *ngIf="!isLoading && !isLocalTrip">
       Itinerario già generato
     </ion-button>
   </div>

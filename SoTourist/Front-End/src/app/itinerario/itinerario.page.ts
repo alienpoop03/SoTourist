@@ -209,7 +209,7 @@ export class ItinerarioPage implements AfterViewInit {
 
   /* ───── Navigazione giorno / mappa ───── */
   openDay(index: number) {
-    if (!this.trip?.itinerary?.length) {
+    if (!this.trip?.itinerary?.length && this.isLocalTrip) {
       alert('Devi prima generare l’itinerario per poter accedere ai dettagli!');
       return;
     }
@@ -265,6 +265,8 @@ export class ItinerarioPage implements AfterViewInit {
     });*/
   /* ───── Genera itinerario via backend dummy ───── */
   generateItinerary() {
+    if (!this.isLocalTrip) return; // Non generare se non è una bozza
+
     const trip = this.trip;
     if (!trip) {
       this.isLoading = false;
@@ -323,6 +325,15 @@ export class ItinerarioPage implements AfterViewInit {
                 this.itineraryService.addPlacesToItinerary(userId, createdTrip.itineraryId, allPlaces).subscribe({
                   next: () => {
                     console.log('Tappe salvate nel backend');
+
+                    const keysToRemove = [
+                      'dailyItinerary',
+                      'tripAccommodation',
+                      `coverPhoto-${oldId}`,
+                      `trip-${oldId}` 
+                    ];
+                    keysToRemove.forEach(k => localStorage.removeItem(k));  
+                    this.isLocalTrip = false;
                     this.isLoading = false;
                   },
                   error: (err) => {
