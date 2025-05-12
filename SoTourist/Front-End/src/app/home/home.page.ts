@@ -66,6 +66,7 @@ export class HomePage {
   lastTrip: any = null;
   allTrips: TripWithId[] = [];
   heroScale = 1;
+  heroCollapsed = false;
 
 
   // destinazioni da mostrare
@@ -135,7 +136,7 @@ export class HomePage {
 
 
   openCreate(city: string) {
-    this.router.navigate(['/tabs/crea'], { queryParams: { city } });
+    this.router.navigate(['/crea'], { queryParams: { city } });
   }
 
   openLastTrip() {
@@ -151,12 +152,11 @@ export class HomePage {
   // adesso
   onContentScroll(event: any) {
     const scrollTop = event.detail.scrollTop as number;
-    const minScale = 0.6;      // fattore minimo di scala
-    const maxScroll = 300;     // soglia scroll dopo la quale sei a minScale
-
-    // calcola scale che va da 1 (scrollTop=0) → minScale (scrollTop>=maxScroll)
-    const scale = 1 - (scrollTop / maxScroll) * (1 - minScale);
-    this.heroScale = scale < minScale ? minScale : scale;
+  
+    // Appena si scende da zero, scatta subito collapsed
+    this.heroCollapsed = scrollTop > 0;
   }
+  
+  
 
 }

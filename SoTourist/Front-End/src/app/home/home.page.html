@@ -3,19 +3,25 @@
 
 <ion-content class="home-content" fullscreen [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
   <!-- HERO / ULTIMO VIAGGIO -->
-  <div *ngIf="lastTrip" class="hero" [ngStyle]="{
-      'background-image': 'url(' + lastTrip.photo + ')',
-      'transform': 'scale(' + heroScale + ')'
-    }">
-    <div class="hero-overlay">
-      <h2>{{ lastTrip.city }}</h2>
-      <p>{{ lastTrip.start | date:'dd MMM' }} → {{ lastTrip.end | date:'dd MMM y' }}</p>
-      <ion-button size="small" color="light" (click)="openItinerary(0)">
-        Riprendi itinerario
-        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-      </ion-button>
-    </div>
-  </div>
+<div
+*ngIf="lastTrip"
+class="hero"
+[class.collapsed]="heroCollapsed"
+(click)="openItinerary(0)">
+
+<!-- Copertina -->
+<div
+  class="hero-cover"
+  [style.background-image]="'url(' + lastTrip.photo + ')'">
+</div>
+
+<!-- Info -->
+<div class="hero-info">
+  <h2>{{ lastTrip.city }}</h2>
+  <p>{{ lastTrip.start | date:'dd MMM' }} → {{ lastTrip.end | date:'dd MMM y' }}</p>
+</div>
+</div>
+
 
   <!-- ───── DESTINAZIONI IMPERDIBILI ───── -->
   <ion-list class="dest-list">

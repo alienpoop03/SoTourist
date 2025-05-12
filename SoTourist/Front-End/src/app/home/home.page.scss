@@ -4,54 +4,87 @@
 }
 
 /* ─── HERO ─── */
+/* ─── HERO con layout dinamico ─── */
 .hero {
-  position: relative;
-  height: 200px;
-  border-radius: 0 0 24px 24px;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  /* Sticky in alto e sempre visibile */
   position: sticky;
   top: 0;
   z-index: 10;
-
-  /* Non farlo mai ridursi sotto questa altezza */
+  display: flex;
+  flex-direction: column;        /* full-size = colonna */
+  height: 220px;
   min-height: 60px;
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
+  transition: height 0.3s ease, padding 0.3s ease;
 
-  /* Assicurati che lo shrink sia sempre dal top-center */
-  transform-origin: top center;
-  will-change: transform;
+  /* Cover full-size */
+  .hero-cover {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
+  }
 
-  .hero-overlay {
+  /* Testo full-size */
+  .hero-info {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent 60%);
-    padding: 1.5rem;
-    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    padding: 1.4rem;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
+    transition: padding 0.3s ease, background 0.3s ease;
+  }
+
+  h2 { font-size: 1.6rem; margin: 0 0 4px; }
+  p  { font-size: 1rem;  margin: 0;      }
+}
+
+/* ─── Stato compresso ─── */
+.hero.collapsed {
+  height: 70px;
+  flex-direction: row;
+  padding: 0 0.8rem;
+  background: var(--color-background2);
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  .hero-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    flex: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero-info {
+    position: static;
+    flex: 1;
+    background: transparent;
+    padding: 0 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     h2 {
-      margin: 0 0 4px;
-      font-size: 1.6rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text1);
+      margin: 0;
+      line-height: 1.2;
     }
 
     p {
-      margin: 0 0 10px;
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    ion-button {
-      --background: var(--color-highlight);
-      --color: var(--color-primary);
-      --border-radius: 8px;
+      font-size: 0.75rem;
+      color: var(--color-text2);
+      margin: 2px 0 0;
     }
   }
 }
+
+
 
 /* ─── LIST HEADERS ─── */
 ion-list-header {
