@@ -120,7 +120,13 @@ export class LoginPage implements OnInit {
       username: 'Ospite',
       email: 'ospite@sotourist.app'
     });
-    this.router.navigateByUrl('/tabs/home');
+    const redirect = localStorage.getItem('redirectAfterLogin');
+    if (redirect) {
+      localStorage.removeItem('redirectAfterLogin');
+      this.router.navigateByUrl(redirect);
+    } else {
+      this.router.navigate(['/tabs/home']);
+    }
   }
 
 
