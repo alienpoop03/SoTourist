@@ -237,6 +237,16 @@ export class ItinerarioPage implements AfterViewInit {
   }
 
   generateItinerary() {
+    const userId = this.auth.getUserId();
+
+    // ⚠️ Blocco per ospiti
+    if (userId?.startsWith('guest_')) {
+      //this.showLoginAlert();
+      localStorage.setItem('redirectAfterLogin', '/tabs/itinerario?id=' + this.trip?.itineraryId);
+      this.router.navigate(['/login']);
+      return;
+    }
+
     if (!this.isLocalTrip) return; // Non generare se non è una bozza
 
     const trip = this.trip;
@@ -333,7 +343,23 @@ export class ItinerarioPage implements AfterViewInit {
     });
   }
 
-
+  async showLoginAlert() {
+    const alert = document.createElement('ion-alert');
+    alert.header = 'Accesso richiesto';
+    alert.message = 'Per salvare l’itinerario devi effettuare il login.';
+    alert.buttons = [
+      { text: 'Annulla', role: 'cancel' },
+      {
+        text: 'Accedi',
+        handler: () => {
+          localStorage.setItem('redirectAfterLogin', '/tabs/itinerario?id=' + this.trip?.itineraryId);
+          this.router.navigate(['/login']);
+        }
+      }
+    ];
+    document.body.appendChild(alert);
+    await alert.present();
+  }
 
   // ➕ Funzione separata per salvare le tappe
   private savePlaces(userId: string, itineraryId: string, places: any[]) {
