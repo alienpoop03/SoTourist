@@ -7,83 +7,763 @@
     "type": "standard",
     "itineraries": [
       {
-        "city": "Padova PD, Italia",
-        "accommodation": "Via Niccolò Tommaseo, 61, 35131 Padova PD, Italia",
-        "startDate": "2025-05-17",
-        "endDate": "2025-05-17",
+        "city": "Catania CT, Italia",
+        "accommodation": "SP429, 84024 Bagni di Contursi SA, Italia",
+        "startDate": "2025-04-30",
+        "endDate": "2025-05-10",
         "style": "generico",
         "photo": "",
         "places": [
           {
-            "name": "Caffeine",
-            "address": "Via Roma, 96, 35122 Padova PD, Italy",
+            "name": "Caffè Europa",
+            "address": "Corso Italia, 302, 95100 Catania CT, Italy",
             "rating": 4.3,
-            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQB9WKjbbK4I3HP4KseN9dmXG7ZBOZfr5lsoghIsF9YoNpprzVv2KIVMwXvt5mQ1fwJVcwPpranTe9TzXkgpUsYwqcTF2i13GEp5vgWP2a1wf7GZLjf0XuElr1aHXmvF_Bi7lSXJU11iBnWTZRU3ZPXo8ghjj4uAADETiGyKIe7GPDMl2QidNyWzYj4x757b2zvm7TRcvtzJMjKY-asxzvGRHBQZkxQ-J8xEv36jkNoZ2Bs_CwimCtjzpVqp7CuoGMtCmNKYoSmjfYV7pcIsKqIf8nRDW7mST3YySkcVuTsb55jwpJVpoe48oZ7VgdRxxX-_kKdSlrF6kjbhSWUIisoOR3qXwnxlt5N76YuIZUHFdebe8tFOXiihxn8yRoLOnpbHXhf8DR22pRr6K_stzxYORn0W5MnlpcdekD102rXQZ7tbTdYWaxdK9nujb5lycXR0-lXyVRNffMGIt1DP2sfXhfjIwEithscWK1dUog8YpZFn8pBuvmG42ofeaS2gLbw5mQsSqCk4IZgsgpzaoJMNWLdv0PGg0G6B5Q5EDy8cKM47oDEnbRQ-LQT8bivx0E26PUW&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
-            "latitude": 45.4041546,
-            "longitude": 11.8756696,
-            "distanceToNext": "0.35 km",
-            "placeId": "place_174697414609538560"
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR8nKfVvxQpA35TjZErf13amKRD8xz5IfDnu4hGho1cukA9GUa4LrykZ_T5i23Wo5LZyUc6xah8kntrjdQY-U-_XrXFVw_OFC_y9k6o0aITdWQSOTD7PpmN7oeeCw9ss_ygrDpIr9u216dVuj9wiTAIFGn6wZ-KlEX95GOgMGPD6Kkh16GyT72XQ2k7M74cGXHxiL8UI1PtsJDh_EDyJHoNY0xvXhXmhVssosg9l-ayrt5tFM-T3wrSF1JvF7U9JEYg5tILA-19_XhwIcm7bN542M9Qjh_87is0G1Y8HsnaA0dTN_Dxjs5-9obtL92bpQjbdRvBaAGdt06vrLSWelSomtRKMHpGJdyoP356Vlt79TxuRGU24voDgE_htOZi06Nhlmo2UQktVPmV5fZLeisO1fUzM2U_tG2q6bjh0MdJTynUjrBEjaH--lT5-quzsJguMvmLNrMmhQhGaanyO-93taVsGWZ1ZUbSgwYaxzMv9SmKPn-7FxpESYUsqEBYXX3xhKWFeBxKuXIrQVlw9ReqmJ421w8_NRtcDqLUxzjUNn7R1wRxZVw4p2Cd_Fj2wIN7VQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5163071,
+            "longitude": 15.1045849,
+            "distanceToNext": "1.96 km",
+            "placeId": "place_174703432519775023"
           },
           {
-            "name": "Ragione Palace",
-            "address": "Piazza delle Erbe, 35100 Padova PD, Italy",
-            "rating": 4.6,
-            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQuvw2d6Whwjw1-hvq-d9ZeBdH63rK75fltm6i-kA4ATqF0OPW74I8cF1ayGYZ5ZJgTnP_MzDFDSxKRvLMfmZCJW5Avc1slwwC0jPa_PZCUWJ5Ol3vRBU721jw2ccqjE18CzUs9x1sktjMDme1LFRJcOLvNyDM9bxO1rRkJGoX4NT8-2p_nC-ZlsbWAXoJN-xlpyv1DNNtrc5W7yo5XWUr3cb7_BkmJuU1phB2FGx3bVvCg9vVZC58QpLc8pQpzhgJlMfnzn2kVnIp-iAd8Tle2q_ihq1sm2a0t8KERUtijVSyL3gtzfEgslLNziGL-LNul5e95PTnMG-0umwflpWN6b4-0F3hGHCDn-Q-_APwhLSX6N9yVPbVQ0acyBMB-NGV9UDi5gQQSd5XpqedtT8_26lfnHSzmbyeMPnoiwk0A5adQLDV7pWtX86yeZagITBI2FfSaxzCTE7QeiscQ5UymdYwDlQWHoFnw9TXPIdYOj_CWPo_zYyvy9u8w6yLDltEPC9wgPH9wYOnNLesVdfpFY1jKMo32Z9c9y1KkXlN_eRV8Lg86oXePc8MJ0iqbEMHB7dYq&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
-            "latitude": 45.4072512,
-            "longitude": 11.8752563,
-            "distanceToNext": "0.69 km",
-            "placeId": "place_174697414609555194"
+            "name": "Roman Amphitheater of Catania",
+            "address": "P.zza Stesicoro, 95124 Catania CT, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNS63a-lZT_Iusr_vZz59XM0v_d7AEhwLifR7rGYGat-jJelvRSvyfe2CM-ZEjaZxSmmoqmBAGkmKF8KXipr62EnXFTmOgDKeuMaMaVNTCAg3usQNE795T0UGvkAdCPeeRmjz2y5mPS6vC-yl2haql5R9Uot_racHVKVM1NP_DXoS_Yj7qITpKjMw-0Brt_HU4nWprEK6AfK_gFzx1THELwh-dCpMjtcci804lbsDyeaNazly8nBuNUekH_rom9Qk3Y7mTNYg84JYhsPGQk5zkH2eM3pNScVF3FPqWqW-efRMpPPQPbTTntb3P3-9Ee9XMBu361hWUPseObXoYQfpoozJcarinzx6z2fFfCSi9EtQYQQqSHWfqDlqJAh_Rg7i89jAys2x1_KbsDGmUZgAiXhxeqlQqxBtL47P8frPwnfaYOejjvToXkKbeNL6fo_SK3ViC3ELua8BwuS8OpgnIiis44l2FjlFfV7c5KXJcLZc4iWWYmQYwXWcuuOZLjeE8Y37oPyWhDtl8qRt65bHBzpAtgS9KRbTDywlxE1PYdaZhcNkIQRPdIitgN1whMoHHw-bzaGUbz6aw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.507392,
+            "longitude": 15.0854378,
+            "distanceToNext": "0.18 km",
+            "placeId": "place_174703432519752584"
           },
           {
-            "name": "A Banda Del Buso",
-            "address": "Via Bartolomeo Cristofori, 12a, 35137 Padova PD, Italy",
-            "rating": 4.5,
-            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTVBuDGDI5Pmo7js9kVXaAMwW7Mxne0S_FRl5V_zzk-1T8XyGs2m_dnHkuIWRTfFgXkQ-W71sJpbGLgdptUNbEhnBHZ_QcY9HbUJnzPO8cXuvnSLN2oHWYL_67Z_i_yd8QW-xBqHWi_5scZxkcO86UFrH2OOo-VgKN26kd3IERRmgUb7qS2YPoG1C-X_cnQjot0k2pEvOkotWWpLaPuqB-u2wHoAbFyhZZLbUZgTXqLKAMJsbigfGRiEOyu1E9TknX63ElXNrtMndpjFiUFZvWeZp73sQ0JEtCAWWdRMpEiNnEweKHofWiMzxmm_ClO2X2BEK2vqEinwIEpdk80xamxbKVyPVInjYA3oJICaOPNH98SnCfkA4pUSe0j8U9ge555tly-a53gf3VG-PROoqXAoy15-DxVCD_07VZiHKzBU2AvMjS_bETNjuuMg_OMi0bxPLfDZkHUqit6QQqZ94QQY2qJ9yRAJXwLh355pScwhi6CcM2haoO9T4BU07PrleHRpdq02MJN7bQiSVeGVMr1q5EcCEBsHNWSlW3YxSwJFwk4vxn9rD6YCL4WclgjmsvjejyK&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
-            "latitude": 45.4127446,
-            "longitude": 11.8711627,
-            "distanceToNext": "1.09 km",
-            "placeId": "place_174697414609557204"
+            "name": "Trattoria del Cavaliere",
+            "address": "Via Paternò, 11, 95131 Catania CT, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRPJYn0sbsQWB7IiiDwy9YzLhW3b1vFFCpQGnQKCbEiuwY3LdUkyBuXmQqGB_dzwmM2NXEDhVfItugR2fqaXJm-SV4HLOMpC-Z5LNZxcFw1fw6LZnAVW7Hv2mveGZKXUoumFOIpflh1rEtn0ao_Fn1zQTayxNe32-nmqXsQdIK8Pk-5ueSzwfwn5tRqO8aHxlp1tn0tngfDnLkZFSrzRFo353SKjLnr586JWzDO-EeGZfxnha2q18f9s4fl4D3cyAPqIRvYlmHXAFKajHqDBTkcJMs9IrMt924TdxrdL7e636BKqOS03G-HCC-ReSwheFB39MhXZYukuglEjeOmJTUEnIZtlFbnEnKr5NdKh_EKjKFB_ADMfdDqD25GUGdJIDfkEqtFr3ODXhrFK2gnQV23dGGuYHX3xPmM4oFYISGfgbcZBl1DICDQqcOaFXRMpzqCQ1Uo_JaoK_JZAilkUqPUCvlW_w518WA-XhtuNt0uq4URhh0RC90KtV-F4fxpvRVASURX7xH4j9c-T05k6G8sH-0tpXEWxJqulcLXDfYPXgJj01EisSSJBZVv8B0DXCSfPKKL&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5067804,
+            "longitude": 15.0873238,
+            "distanceToNext": "0.48 km",
+            "placeId": "place_174703432519781214"
           },
           {
-            "name": "MUSME",
-            "address": "Via S. Francesco, 94, 35121 Padova PD, Italy",
-            "rating": 4.5,
-            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR4UV6fscD7n8N5eI_4E_wCKlpXLh3KVmzis6GCKG83bN7lYVBD6yK0VGL7G4tvZ6yXXhav6g-It-5pLHkSMFO0MesPEuSQvyQ2ArcbXBer-SB8N8iCHtnJr3VzYfS9S23BiI13D8FdQDwBzUdvClBzSDxmaQcjSZbGcsMx1dALDnIFrPvTR39xdATaXw1-NuhfjSP0nJsiCQc42zapjvkDE2smpeNuxIORiX_qTpExEojernEgOf8OTD0na4gGjOJ5eTFp-YCgEPZ7VCcR3a6F9fKE8QHp_PDqgJixcfSZIESjwlk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
-            "latitude": 45.4053398,
-            "longitude": 11.8803496,
-            "distanceToNext": "0.62 km",
-            "placeId": "place_174697414609584544"
+            "name": "Villa Bellini/Chiosco Bellini",
+            "address": "Via Etnea, 292, 95131 Catania CT, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQuylY_4mUr--5jTvZbnf-TMPHiwUe6AwrnCrPa-lA18lEoJpeEAfzpbERlbHDk_dYtiD4QiwyEFzNeAQmYdrRE0rcCuGOOjXkyPPxy5MrP3SXv_QO3whzNID3iNS8koFvm3rIfDx0sDnT0tqp0bN7xvOWz3dlPtw3NnHkfbeBzNh1PsqvrWKXLWW9ieWUWZHk-LPvdp7XZW4db0NnsAbb4t0GJ1VkvaO0reF2ZXr9r5S7jBVmytfFIuBGYzyxd-nuMOVKF306Ouz5gmQvoRtt5dCTD-tYcsFFCww-wCMYeHJZpFsMIO7hrdHTWu-XBN0Q8EjJsPPqBqwSHDKG-f5d17kZl2_zuL2mH4cvbwDVGHs6PE2q3nt4yS2Tn8cGcgjdKoccCZGiMUamfmyQ2gN3Vw_btWre_5CkkIw3RwFeqRIC0JxCFPQqaBrtd8prfh5KFZeGimFTNv1C9XUWNCYIS1QtfPxbHa8QmVDbwAHkysziL72iv87jnwdY94_c35p3H-yF30Dt0FCUjELcICLcXiarMj6Uuj2K6D0vQVaUIpcqn17nE-x2t4IRHGH7-0VyH4A&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.510677,
+            "longitude": 15.0849635,
+            "distanceToNext": "0.87 km",
+            "placeId": "place_174703432519743830"
           },
           {
-            "name": "Bacaro Padovano",
-            "address": "Via S. Gregorio Barbarigo, 3, 35141 Padova PD, Italy",
-            "rating": 4.5,
-            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQz0JdukQUTs_2XzOKTJpx7kcPgagwiFnZBM_TjbiHlqgzIqK-_yMwcxzsIn_PATWmHzu0hZUhQ9wxkmw2SOb-l-yy0Mc9-Y8jjHL0aV9pBN9zM_Hv3uoKicDYhd2AXiRCqrsZo-vWykQH-ig5M4XKYXjGMKh-yvM9kI-55RZyFwIR8EMfRjJ-5jistJePj9kzWCYBCdZp-ZccgTxXCEEY3MbjFbiWSD7gn_BT7fW2qx5f0ST9PrGa1_jDPVJGpMYp-PghsxN5i6kWARZl-mt7ymXEDmqmEk6ivreVmkcaYqdv_3X0&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
-            "latitude": 45.4054488,
-            "longitude": 11.8724432,
-            "distanceToNext": "0.80 km",
-            "placeId": "place_174697414609597579"
+            "name": "L’Oste Pazzo",
+            "address": "Via Monsignor Ventimiglia, 72, 95131 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNS33uzqZJXmZUiHBKSF0djBy0QuqJDN0fQW9xUQbwkJFz0mqF9WFBDlkBqDMXLWtX0UjMkIEgUcBZySjYEno1AJIgQ16PzQPsybs9SaktpGoKMa5zy7QiK7_I6a5FSBc1Pplmx13h3Ori4o3GCcPL973rM4z3g0w5ZuqqJ_1GbfgpiqRTbWy7Cv8Uri3hOlsq0G7m0tBZ6EYevJJ57P4WZ72c0eb5AYA4oD51C-968SSRy91Xz2zXxZnaq4IWO887mebyGkdGyxGcJiVgDyJyidI5d8g3uZRshut5YyfzUUMWM9RG4s35tORtcT7CbxfnOr-Ry-zRgRNiE7rA1GEGfqM21BjQRDsXsrMvckACShK_uzj3J-OWyAlyvtEVyGx0W1mjuRdHt4-hiSsfEUEvZhjsWic-_x6fckdDP4pwVqSJET2N2_GBvryo5E_pbkZaMzobZAfWWsrfQlhq3DpH6tMPHbMcom8DW1JR2SxDvqKe-UEcrHOstg17mAoSMcQlU3a1wu1KKvJp0QYnM3jOmPbA7C3vPL0_YlAsv1fBopvrsnfd72ovZdBa6uh99hftQZwg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5063831,
+            "longitude": 15.0931931,
+            "distanceToNext": "1.00 km",
+            "placeId": "place_174703432519775490"
           },
           {
-            "name": "Lax Cocktail Club",
-            "address": "Via Volturno, 30/A, 35138 Padova PD, Italy",
-            "rating": 4.5,
-            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRtl0GrZ8bF4FzxOgwZzocwhgm72SFxOtvgw9eQcBc0j9c3mLsmnpsAFr9BXVNYuG3ta9MJhOj9YOFEugV4LMDWN8LuFN5DnmAZsYByoCx-sNQAPMZ1wFQoid9okfPMKCOjKbQnYKJoUyEsoUvSx4ORD0sbI-TdizmHLYpUyezJT_cK4UyXDVWAj_jNMfNnCxADOgiGybCaaFptCAaFqBl67MeU3iUPkzJv4QEtes4YodndpBg_mSVpBQOFDQond00GcocnG_yZQfYOip5n70D5f4a7Fo2kOXzeKFrR3YLlmkzwfC4&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
-            "latitude": 45.4087623,
-            "longitude": 11.8634172,
-            "distanceToNext": "2.31 km",
-            "placeId": "place_174697414609531672"
+            "name": "MA Catania",
+            "address": "Via Vela, 6, 95121 Catania CT, Italy",
+            "rating": 4.1,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSn0lkYHzNvbcUrpRwAp-UO9Xyu8a-eo85pd-zLUmNxNu9dlbI0f6gg-oY2ieBFm7S1lUsB6No-0qRiU_LAvFMNaYHhO549kLSTLZ0x9ZjezN4ORBS2Kd2_uafwO4SjWX522NEHUct1byOtyl7afICdTsuLIpYQJrUzkkf7cIe89AZxu0B51usazerBiM0InhqmeO4Z4d-__IP5U-ZfZpJLl-HOU466uv_yGCb1snXXNMMwfwGEGgzAKyIRHajh5uz-KiZ1SALt80DfhpMUEf__A1W8vEocSSxUhoDi13e1Zj-z7xI&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.499539,
+            "longitude": 15.0858593,
+            "distanceToNext": "355.05 km",
+            "placeId": "place_174703432519793820"
           },
           {
             "name": "Torna all'alloggio",
-            "address": "Via Niccolò Tommaseo, 61, 35131 Padova PD, Italy",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
             "photo": null,
-            "latitude": 45.4129348,
-            "longitude": 11.89237,
-            "placeId": "place_174697414609533176"
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519758911"
+          },
+          {
+            "name": "Caffè Puglisi",
+            "address": "Via Plaia, 94, 95121 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQIRco_X2FsJjfO8hFH8k5ladDXFnTgJ5ZKYlxtWjYBNvj-Gy4yG1-UNwNuZT5nNUZlsbqYEzYMuCz7QZe30xYvZYXougd9D_xV_H_FETZteKiziv4-QCVdo1nkDax_QaVYVe75TzdPzODXNeC5ImGfgAE0_a_txV_wGepu5jYSJ3OjXzZyMLaw-r7mQVh869CsFpiVWHWCzOWdsksn5jyEhMNLDPZOvP3Mw8fmVq2v1vAxEsazsT3uqf15Vqv583ZHzE3kugvmyqzdSHD6sTqY7EkQDGra3Gj1ZeOpK7YmbihC2DCIoLvqhLojsFkn2w8du9-ZzOpwbOp2eFoAL_Ld9peeN7ie4lrPLSjeN_pzJX0ZcLYwHLq7MIideo1gW2-puIE3gMFMVqK_4ailJlwiRm3nK_L2N0U7CtLUlakzPDeEm5q1AH9pVL4ze52r6V9aaNY-Qawt_PsSjltDDTm-qX7n2ENJufsYAiKAdZ5FAYPFgkG2uAdqGqUOUq_y4W4CKM_A17-Cv7RFlY7p5t-G1FzgZC_4rOTY0qb236rEv-Hos-q6byf5ejplNMI6fw7FMvKUkhZQvw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.4955214,
+            "longitude": 15.0854013,
+            "distanceToNext": "0.79 km",
+            "placeId": "place_174703432519763093"
+          },
+          {
+            "name": "Fontana dell'Elefante ('u Liotru)",
+            "address": "Piazza del Duomo, 95124 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSEbKXFHAahkb6kFEHGrROh7PcIp3r1TRm6taVdX4QcmG5akoCctp8uZxIiiQG3fAwUMN11a9cpOFqx3oLjfDtUZHP50J1AV1u2GYAkdov374rGPxoYX8lTxIV5WO4QY70z7FwUAiwhwe7MLVnfsuATFHgLMBppqDdl6sthzgnjmYhPGbe0E0R4TDdD9sE0PPJjhWPkaPMjUWG5t80_EBWBdF3CR5cUC4cX82uMYmTuJdHxsKde7_E8_gUgbdqyHh7tVY2Mw1rWhzY_q_4-l2P3JS8qjX4iZzwgbd3sXYaW3hEB-nVq6BtDc6BZjS_ycHkIxkQx2ad6rpkDkYlfpVrI0HaCLAXNI0GXUD7hIayHgyOWHFYhR1wd3RhkNEvYdxr6aarIZOMC_buFNz0l1BymQ8yqn4KXL_rb-u2AXphHFt2QEP-RAlNO1rDapNbR2Z1kUwxB1nn16uGEblEtNY-JDncsQ82Mq2jnoUBG2pcVRnvsa-SfhmBpOGbFryn2PoqfxTr1pz7K99-t5uQ47Jlgm4YixF4KwiYOk-Yoe9ZS2Rk_Ekw6yK7DOUllfwc_BzZWHz3s&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5025169,
+            "longitude": 15.0870996,
+            "distanceToNext": "0.13 km",
+            "placeId": "place_174703432519747186"
+          },
+          {
+            "name": "Vuciata",
+            "address": "V. Gisira, 8, 95121 Catania CT, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQBtgCbw_DAfvhJo81Yo0IeXxGhRojKxNneqay-oDrCL4KbIDmZxMszibfBURZJoLYMI6hPA-dPoOXNz9-IkKBMQGB2usTuR_pKQYlwNs1SfYuOOUyW54UhUAP1EaNcLRW8gAIIbkJpHRikd2cN_wLl7EruVZaWCXDYBPqsgnHv9nSwdjOabwYGrfIpAo67NQZP0iXvpKbat8PHwB1QGW23_tzBrCP-NbbWnhfdW1NfELKbb1P80imGOEjU9tS0cOaPi4hcx-AOCRFME4wFkH2vU8wT-7VUH7GdrWjBzJXgXlMWlNS2ZkaaLzgXJVbxq41c-58G2m5cy4bYKcs0EN4Mhkz3tFHIlICqio3IZK947P2df84WffSyFVMLWAsbJb5qYyofGalQPle99IZJvfxrZJpnlikabtZV7Di2HPoGs_IC0CcPgMZUR_2Q17_7En3ogSdEgL4RuG6wNeyjvdQnnO2KGIv9rpzoPwE0xqBzmrut4c7wSiglpokGbSrh3BodXsijVUHyUHxYpFiuUbaPH122BI3c5XbQAOi8u0DexLACzhvaIaCo1dXzI8jN0FY&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5016732,
+            "longitude": 15.0861402,
+            "distanceToNext": "1.58 km",
+            "placeId": "place_17470343251973924"
+          },
+          {
+            "name": "Orto Botanico di Catania",
+            "address": "Via Etnea, 397, 95128 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSx7_1WYEMnggdIAlAuKKgNsBA7T6FF1jsQT5wavF6DyTlijFDomwqsD22TvQPbxo4V6sQuSjJvW1W_S4C0KGblSoJfTrRbdmMezs1Mun_qx-TsEl_pqiWUk4CVUU5tnLsoIccrKOycPQCqgx-cRVRdeA1qBc1ZqRl9eTD2uhRol3CVeiwOa2o-VBRAuuvoK8BSbF4JsXerMeiUTR0YL0AafnEMOAqNvK1IvpSWfgOTHhsts6GR0HUpUqZeGqQeaTvJJVo7l4vXvU4cMrHq6xep1IdZ8Udiw3fRcbS8ktOej_3T_wMFkuEOPCN_2GDpZ0g02y-cRxpDBHbvONvDpz8Ae0Kl4Osv7QUBeWs0VCMnPqUKtDosYFZR6Y0an05lvJ9JGbQEOWd4P5r6hFgxf-7jXv57loyLzyoaeimOg3h-CM-1JUrEyyxxw8VgMI7BLn3IPl6htOHNlpgNPPXhTsq2DM-XFW1yC8X4AYOu85ARSJFfXEW1poZWuvxg2dhJpiz0lI7SuXJtt_vBGZ_cbttSiqsTL_VkPrqqjkARKEsW3FXeen5nhSE2KYpVJVZ5vMl5kEt4&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5157496,
+            "longitude": 15.0839978,
+            "distanceToNext": "1.85 km",
+            "placeId": "place_174703432519745690"
+          },
+          {
+            "name": "Il Gambero Pazzo",
+            "address": "Via Vela, 1, 95100 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTmr4TzD3ZyDXFzIijOBv7F28EW-gAcnD5LMcoIj7M99mR6OEGNciGLfRhIxgyziQXza6RoTaw087GfAxHZqXxqUgPBhZIF95VR5NWkp5bY8pgpy_14mWVJNM5jZtqP6DVs05EUXvWqbBMbm2KtuKG5YGN6yIy3kVeuUCPvGorBmDYADtou3Cnpgm1OtT8aMTzZk2eGD6MtPJnUcCiELimExkb70yMhvfazFmqtGO1e9IB6ouaRIzB7mu8X8tJBQGSx68LyWb5CMxfohxzK7KnhTLbfDr9dBO_JhqYMqPsL5BHxsB59EjbeqnJgECAGL0DI9dMcoVj0cPlK1OoVlsndwdh5_1AthZg2rR_pfMZ79W25UZVrZSXbTEz3EcJqkyUEg3RFQQE9JeDo9PcUFKCDoBWZVjNY8naqP7ioFY8gFWwlikzdCR60FxhJ0XISTsKJgjQE47gHh8nyM0G571oGt6mecnOOD8x7fbIphs06LJwl-R8iy_7jXhnvTke7Itx-W-PfhJ23SdcX33U7wzqlBtanLWRzYqOU4EymrQt7xkW8rq2H4eFLArfOT1sZACSO1dW8dGxcVA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.4991956,
+            "longitude": 15.0855545,
+            "distanceToNext": "0.83 km",
+            "placeId": "place_17470343251975216"
+          },
+          {
+            "name": "Bohéme Mixology Bar",
+            "address": "Via Montesano, 27/29, 95100 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQBqEEWzZNoMExO6vy0zdaU8Qi0hMYRLWjfSAPvaSZygsv0zFIO1dBR5MofQ3KbWk9kkHd2c5uwnkudjXatdJh9MBx0MMgKLDvG4ftKuWTbp1iuX7Njny9GuFLKmArB5mjDmhvY6deK0XWjV9vzxbtBhyS0ixQMAbFYUXIX2uBVlyTNqHCHCYI_wXOItNrgVKAxdDp5A0mMgb5sTAzQ0rK1JsQHGQPYDFQW6yP1zNQL08tyOrNOJ4-EWzdjLws-UvlIkMoCByxtBVs9M0aSIYpWxaBcw_yZufnSgiqXozbzdVpzDfk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5065326,
+            "longitude": 15.0875522,
+            "distanceToNext": "354.27 km",
+            "placeId": "place_17470343251972972"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_17470343251975342"
+          },
+          {
+            "name": "Epoca",
+            "address": "Piazza Europa, 16, 95127 Catania CT, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTr1Z1GOHhi0d-jkHAB3lheZjZdX4D9Kfp89YNLqA7bVqFaX1HNfh5Mekli5s_cx3fxmkegOaouQgXyakVmQkpdbOphHKRjQMcTsqIGc9lw1dPqkIuNeoZJ3-NsoVK1Y8VDxNpFk_QmY-XmRcpXRkM_dn5lVtoYdDFDO6m0omQeweUN5b_b4oRabHT6tSucD7KAx4dzHyPVIpqgLrd79F6VwZwpl-PWK4DRFcJi4vNRl7lMt17SneDfeJXUfTnGYVXSTkd-OvQFbe0fnLF65xz8OZPYQaWFf_LJ6qn3tjF92PsPsFq4kyVgWDQfjJ7wQVs20AGrftIL-2dSv4AA0E52Bk_IAY5Af2VEBIUfQIIi_ucmZ0Fk6rCzqVrI1vYKGlY5DeIBcRKb9nk7TJnAF3WF3pc9lGd7w356ofEWC0D6kZeqI-PJRO3OOZwM04OraLS4Z7gEzZEIQFGhSPy3mpcAt6CJLchf3nuFNyd0SsTJ1OEU1G9HPWkokjdmzcnzoyLc13-vHLa9yQYGvGT0oI6yROQYYj7-INXmvAUNF5Ag8C7c3kJCkRzafKWDGHwunUrCujyTrEp5RA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5173022,
+            "longitude": 15.1057369,
+            "distanceToNext": "0.99 km",
+            "placeId": "place_17470343251978552"
+          },
+          {
+            "name": "Museo Storico dello Sbarco in Sicilia 1943",
+            "address": "Piazzale Rocco Chinnici, 95129 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT7LF_0JobY0NXmVJb_C0OYixs9KiFqqOUh1zRjwFGtyJiAINR4KA-RtLHJFRlDKly6Te5iEvoat1YAnB8UXe_QthZBAxEwYsnC00yW4B80WThz-dPN1kEClqMJlsClq7Pcuk9lv-2t1BZUSknjFvFaems6-gC2mL1MyJRLONbQo6dfvl2yAceTyaAaQ7ChgVFx1Q-LdetQyEstLczMSWh5OcD9hv3veG5sQpT50A5K2lgShjy_eA6ZqRIpxs3crrGWaWJN5AWriy3T1-IOU_KXCHr9y3ch_o00CG8nglPL9uF8enetqKkVjg2VHZYF4Pfbu7vlRRDo2jpLuw-d5vOB7NYwPN4qgQ2Y169EiG-fSCRNQ8EqG2ebjDvXFL1KY2JXMFF5HlfNyDPFC4TGL6FCEiEVHoW7BQb--vyLCU_NFMg0Zb4CcYC5BnJhmwY6ccqAJzkkop0ipksecKY_2ie0sKxY94sPUeD_9_kVB7VubbZqmj6EgBztwrHq40wGBDHf1PLLFHtyWBfNOlNnp2VehMGz5RIkMO3DYhXQa-8QY47o3CUccJONEpCsfM8L5ykw9ZVl&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5088016,
+            "longitude": 15.1024998,
+            "distanceToNext": "1.36 km",
+            "placeId": "place_174703432519737116"
+          },
+          {
+            "name": "Trattoria U Fucularu",
+            "address": "Via Euplio Reina, 20, 95131 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQc7NghBA8zMPQ385Bewcq7FS9pRJZtmWKoSUXB3EIIlw6jLUpjdeUZ9MrUH6i6yW2oRKdU40eIbW3Za18dqeh0jQeWVhF5_WWDq5dDen0z0xAYhix2Ls-Z3QM3RXRclgvwIrrBUKVNyKni8DoXLPS0P-_BYEGqRyDmByLP6PB057gQD02VtdZOF_TljZ5408HZ9Pr9YHtK5EiDccQVWlUIKg8J2r8rLocXEExRiEXA_qk3jDFHcWChuMjSZ0pyCFwvbCHdVPh0idHdp5f_WlsTx8xXD68ALDp4PIUCfyAOaIryl9P0yNyrydOqJqo3FnpdmuAG3r1rEI_gk0U90HAeL2v5x7KusPO1jtlV3Oii-MhsYiMgzrVMGeTGhjXOS5UUl0IyIXuC86YI9AqmvsgFgaveb-PeSICk7qNVb2d77EyytXH-nhbRomRaAR9JsZmFAvrIrASA-ZJ8wKlAuFO6k8khGmepcUlKU7cksRU3igwovIuwDAjK_OWsKapIMh3EnhN_-xImcdB7bHQhqk0dl2GK-vz8qIlmhawN60IP4q4ru3UCBHkxoFqMHzSySc7YNQLjcvAekwa_vpnx0xjOcDx_IQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5040376,
+            "longitude": 15.0883065,
+            "distanceToNext": "1.07 km",
+            "placeId": "place_174703432519783774"
+          },
+          {
+            "name": "Museum of Zoology of the University of Catania",
+            "address": "Via Lago di Nicito, 38b, 95124 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQv8M8ZGlq58b25bjbnbF_UNfRMW0FJKlDJZbp5ydj-eSm24osHShMNVCLnabmqC3nKzEdVh-XCbUYpUcZdAXxTZoeKxQuDbsBqZKDScpRst22OlI5HxV2I6FYEGwSw--oR87-aL3ycvSj8SgSolAggsw3mrx54kUft9-pzKgOh3rFSu6wuxG28v-MXjrfakbqK2xUQhxGqpbiTinO6tkaTmZ2CQepnHB2dQhQ14mIRIKHcv79UCUVNt_rqjf0CXJRkpOa7TC2egW8Sl8P-E0BpOA92CTu4xYTaNZMVj44R5hWdVd7mQ0FQi-QeiMvZAfV1mQb3nqiFEkiU4lKfKIDk1PeFJi6i_8Gi6qjNxZsKZTNWTlhFoCTznvlbR6F6mAXlHN8pF6Tg7_hv7VD7PYoBeWPzPpVbBA7GdlScYwuoIOHhkPJ6LG0yj3_pFsv_XLqkzLVkhDDVye_gGHvndNBg3AIIbckXDCLPySGQNmf6pvQds5E6FDrFZyuGwz0Qfk8mBNlLzDawAFBo2fV_VkKFVpiWLhFkoeNpo_2qknO1gB7yqkeFDZ1ddFjwNm6ix4giDQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5104229,
+            "longitude": 15.0792489,
+            "distanceToNext": "1.06 km",
+            "placeId": "place_174703432519782865"
+          },
+          {
+            "name": "La Pentolaccia",
+            "address": "Via Coppola, 30, 95131 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNREmdkdoeMiHpNhq-vW0hv8zhkKY1_DgNu6zT5WvvKcaL4HPDnNkQ88gCv3NC21hJi6zFRvUbGt73sONkGcQs-MRllKEJFFGLTKTzZ48rED5WZQHL_JCNoo5xa7ADZQWHjZDIxR_Fr0hSJMM4rewSiJJpJqjZupyIYfGfSzFFgqbXaxybXF1xjsCjOyluD7qPD_pDStJ36ktgLRS91sybT2zKrkAXp7nLmsH3YyQkfshMaqSwgWyyM4Y7jAwIrEUZrq6zI5-Np8K7LCV8y0vK4GDaHHEqdPfKqL_6nPYC8wenxLh-J64Qp3kJQIgP14qX6r2brqG_THsKA3t_znVFaEnkXPZGGLVKYQbEuT7yHqAUe61Zg7onqm0wtKhwonkwokaOD2MFXNyVNCdiSOLkU_rqa4HkAUrno9A8BkCTpq2xu3eiYYzM4xWCIh7hIDgUQ5g-KphVicsOk_hQ9o06ZF31weuvZ77c7Mc9wB_J5TKRu0OlMwQlCALARlznFPMdO-tPO9650BpFXViMuPRca4HXzr8fUUo9gcfFI1HSEtiPcj4dn0jMATDkLN3I7WKXwWjHSG&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5055138,
+            "longitude": 15.0895359,
+            "distanceToNext": "1.99 km",
+            "placeId": "place_174703432519791820"
+          },
+          {
+            "name": "Industrie",
+            "address": "Via Acquicella Porto, 13, 95121 Catania CT, Italy",
+            "rating": 3.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQF-7zZSbzInA5cFvQLOGszv1ye7tLxlJhfuPyv5i66ky2-ueTJjrjiR50TcWfdNV76kzcpEmRNnT2n_pGy3WGQa147awM6UOlmTp0jRi_nzwDkgM0xfVobU8iJEAREs3CRPCT_sThXyAZmg4Dgdz8UPFK95RHe0P2sYnvGOsA7BLVGWi7qINbUBvtWSixAb3Cll8dOfAwZwoyH3aK7i6whECnt2XttbXwxkSLnPWDXFmzMWHWFia3pwNeuOMaA8qhtERmJgwhkuhcNvqfDI-dhZ--gzPPgsA-bETLwbXRGMCAZFac&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.4890932,
+            "longitude": 15.0806897,
+            "distanceToNext": "356.23 km",
+            "placeId": "place_174703432519792733"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519711078"
+          },
+          {
+            "name": "Caffè Opera",
+            "address": "Piazza Vincenzo Bellini, 15, 95131 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR8Hi5pPyCsf_QPnjcbgQsu21kLvA4jdHzb9ucf0iKmjr1I155B30RhmtM7ZUOvES_HTAvGXvnVGesf5Gkaisr0ooTxnm1uxxGetbD3PFRke64L5BoO9AVcAmc70Jh-U0PlUPLr7FJRcrY2mByzfu3Pa70GlL20ttJkYk-1kFAgi1oxpWDJH3Rrv0x5Vq-vRIBVDuF7s8s32cjkJIQzR1hC5alvH027vNtFKXtRLSTexQRQ9vNZ3RGKKywVrBaSR-70fqXVYNrgBg3vkMT7o1AYfGfmrr_yF1fSWFSHrLihr44klVnylnPKCsrbELeRTGxabPEFC-Hpn1r39p0T6WyPmdF7Ul8Wr1RZZlhR3FyV44EuYazJpjuWiqthXRZblXkuif6jER8WErcKPUor-vRnmA661UG3OTPnkeEf5kE0UepDShR_fqjuv8_6N6enyavk5DNn-_cRXt5qoscU_45q3toMHNBBZs90nk0QW33wvsxRlskUlLKUwQAhRNoFP0U5gAbIh-doiBn0Ss846VTf5ELUg7wDswQPiFiixb_ht3PtrUsHtV0eZwLoX0i_N40EJOfB&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5045608,
+            "longitude": 15.0904948,
+            "distanceToNext": "0.24 km",
+            "placeId": "place_174703432519788304"
+          },
+          {
+            "name": "Palazzo Biscari",
+            "address": "Via Museo Biscari, 10, 95131 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQVNhvSZUsoi3NwmHtCJztjDToBdzVXGbMOhrN9yF9L5JlSBVJpeUcnTcSjyYtPKPqEv2BG_ta-TcszE62XwDFSVllNMLs698Lcuu-smZwsE7agfACo4rEA6sJO2RkyuVUp00tqDYT2vLcepwNINjXuBRPAQD8q0oRyqFAgbHeZL5NuOinmYi3xZg8JtpJrbfvunbud2LBENdnvGOeKUImN1Z06da42u0NFoYHzCkTy4W4JfETfDQGwZCOCNpBpo-b6TtBM0e0sOxWUKp1yI4H4MA8LRCshOPRVg_SNGlpVAbPCWPbeXibzrOS2VcA-MwfoS7l3I1z6sOjcFEBZquHuj4Z_xCXW4WiWKebO5Rb-Ip9uLiUa8U4zb57wW1dGEajFWCX7BxRz8o3tynr1boFm65SiBmIUGtCBIovQrRxrO7wQhL7yRPxWX5ZEKNsV7pJyV4kqm37-yp8sJf1AAWXE__bge6BYnAIKNjTTfYH71wKSB53YIEJp-bRmv05PyhR2CtIP122Rfb2tPp4sU-c2AF__jNBIKW8Awbrwj9nInGVtfX7DnxT3z5rlfp1iPCx4Fw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5023663,
+            "longitude": 15.0906488,
+            "distanceToNext": "1.17 km",
+            "placeId": "place_174703432519728186"
+          },
+          {
+            "name": "Putì",
+            "address": "Via Sant'Euplio, 108, 95125 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSuj3W3EsPpKHtDILcEYyIovfJImcqXB-A_O3nG4SHQUQHhz9gZaPaQ35wiwF8GtfUHzC0QTgY36QyALUAAbfpBnl9R92M-_Ep_Lr5A13bECwDJ1vIN7oyDZ3SIaRBzWdSzpq3K89yIn89tz_wSCi8njG2cGZlMua0aP3XN26Ln4EIPQdHZuxO27s07Mi7vja3iKSaYYrUaH9VeZWR2w9V9mLwyICA2tDicgb56a5uLWGNBLzTNS-tW40WTGfiLAKsi6XgxvY752RScbrp8R0YJ_VU8yBkSLhoIhlWf0Xxow9AUYGaIgBhCzUsqBNNp9VLZzWPkY1OxiZ7BZ_zA-ltbcxhnOOU4aOPBrsp23_1nkTkVRCj63aiSdkwpwnv9euhORSkmBJ8oEMwPsvuTQOA_pmqiYIqGSCwGJHtZxeFesGofF7sWW07fEumAD56_l_jijI_uxRRrzdAdCjZkayU9DZQH54nRwtEtO5mOjKktNXUq4VzErB0roKub9V-xvIE-508LRZzZzXdxi_SMv9PqFkDD7Ra4vWw9oFveCfQ8PopSrIuyyp1SPa2Ft8hsuE165g&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.51164300000001,
+            "longitude": 15.0843228,
+            "distanceToNext": "1.42 km",
+            "placeId": "place_174703432519787367"
+          },
+          {
+            "name": "LUDUM Science Museum Catania",
+            "address": "Via Guido Gozzano, 2, 95128 Catania CT, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSihL_Qrt6UCrnQYu9PbvIc4xe_zKZiOlvk-RAQWwg7tK2HI2s2MI8dsTcTNBUK-3fF2R3gVrGon29BYY-cwDSiN6vOVc0stKfTaREYNeBFVmEQXgmND_kTrHubM-fiO0RulX337r0k7UVtX_QjxthIz11hs-StgjyQIiLnAFLmgeyYLAZqNIikU9ENv770ilLVFxFmJbzx8q8UPTy2Hc-6NQ063PbMuongOMRPc8e_RLvzrAtPr_hLDnirsAuKk4EwRFoJ3l4v--ZD7l_8MjuGGIRYWRk9Tj6id_iM-NqeKbBF-Ll5rC56fW_PVarwOHRk8MGEmmWAE4i3zeDZnUivxC8RwKhVJTD5saSq3vcI2FWqRGFTvv-dpnJWitmAEo5XKeaIFQ5F66R4ZrECElogWOLVXW2GfGw-rFgdCc8jbkBIADdeXSBtoLcV3mNZbjE5HJ6utO8h37bY7g1kWubzgvCW9jQ7c-g3wFvq_Cgq3cwsgFfawfREmp1otd0J9WbNjITxd2LworxJczZN2a2VzVP9P8rEtt-rfWfX8sVi_xFNAdCmiAUM0U68kIBZ6w4IUe9C&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5242886,
+            "longitude": 15.0866357,
+            "distanceToNext": "1.69 km",
+            "placeId": "place_174703432519744556"
+          },
+          {
+            "name": "Due Pistacchi Restaurant",
+            "address": "Via Salvatore Tomaselli, 9, 95124 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTqzD1BEA1b2W8lqYJUSFgwRLO7GphXo7gjOTeoOFN4P_3Ih-5bl0Tj6NNlhra-9QJRGknoYlR7XAQ2H-67q4VO1EwxL6FRueSHnwG9dBbaLQpSrzFfVjH6JLefmh6Zf9Ag1j60gEoB5ddf5u6TnyN9V9IQ5rw0JYlj7AxJUtBBozqWS-iOd0DM7Oz-HGpwnBqvzyIe_Z1WTmfTIGaq_gUba1Nufo6wNprXrHrwsSCsGhcHALAEyPeKSy0JP8MVBqhiuh04-X5aW3ELc3Ylj9kK61kcEwtqC9usVEfaA1zypHgztvY&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5094397,
+            "longitude": 15.0825135,
+            "distanceToNext": "0.99 km",
+            "placeId": "place_17470343251974116"
+          },
+          {
+            "name": "Mezzaparola Cocktail Art Pub",
+            "address": "Via Landolina, 23, 95131 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSk_YZkGghFKpiGEG_IgHF6TFelhf0MkhakA4ijq4QavdGYYmaW85aGJReytEkRvc1aw2XU7_FzzwuXzEm9HtPLxrvo1Rl6gfEFD7lQasc2FCLIfh9yjd9fEGn8slK5UG2dGI0dmtSz5rl3tExDNdAv3gOnsh6d0UPI4SnIQSolBjLRDA2Yz5rqdWzpYr-x6pbpTa_ULdpHFeg-uSvkSvbbAly5D-Bzl8WOg-qMXgkz27EGd6LrtjjEWKs7xx8OWlYmFa6FZppDaMpnAnV_z_uq_0trzunqWs2F-2EOL2qa2z1Rofg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5033717,
+            "longitude": 15.0907602,
+            "distanceToNext": "354.61 km",
+            "placeId": "place_174703432519776611"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519785587"
+          },
+          {
+            "name": "Verso Coffice Catania",
+            "address": "Via Monserrato, 116, 95128 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRYqq_sbamH1ZXqzp8IgtuNMpTOjCm9pvL5Eq4apHpEmdBnx9jtsJKDBkvw2qscYo-00bYb5IMWpJhN3tgqAwgvHH4Y3K2GhGyKllNhN0ukkQ0clyJLYeq_hAC4osIPCYKhvrNSl5eOtwxfAIzNYOOWzRA1TiwFxcAvynk_Jd1OAYX29c_gvLnua5AqGLOqJUsuBIwA5UeegWuUCHjsxYQrYQbZNo6UV8mdjMgsONoS4ORj_MhNloDvHGtURZqc8MiYWhJqWm1f0f0_QjfpWF6Zk0UuGUm5R1muaH7cxL6EWKXoqBoXz0ZhoISDm5EMGd7P86-9PcbVKJVHNhz4d9JIvWwb3wXeXc-GVjJ5WXU0h93I4mgfQE2WSnB5JyPIgZ1r3PX7UwaG3XspeJMzPnOwjO9g-EdhT2QXmicWzzc-3cbOJHjOsEXiqDQWgZvVfbNFOkOCM8LL53KPE9tirkFznuU9pd3kZgzCmymLYh-6ynjuntopnnJBSr-rfWaFcU6ngs3cVufYdAT7tUU2wsoIHTB-4dP-93x-fYuwJWb_e11vQwtcPS5p_JY_NOH48hoNmA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5168513,
+            "longitude": 15.0875356,
+            "distanceToNext": "1.61 km",
+            "placeId": "place_174703432519741422"
+          },
+          {
+            "name": "Basilica Cattedrale di Sant'Agata",
+            "address": "Piazza del Duomo, 95100 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTuCE2fmkh4vsef1xC4e3eQ8UKnOo3v4uh6MWwolaH7ChXjy1osi3NTjZxULyiPZG1P_SFv5dqE8NVA71ybjzfEXWVXohi5n8x_0t237aAqwaCtLHY7S7meRTPF3zPNxIVHewCB4ypTezjrVO3BSiHRuCKyMIAfPmabAwDlbcC7sFSnWOwpBQ20khvOJ1h41PKknagTcPY-ifyoXDDDMg_dpQ6Q1IJ9ZRAIqsF6LXanhomNEeNP5x-b_dtJVTV3a89SLjsWwTnmwlVai5vFA8dJl_0CcTN_3MEzx4OoPlXlMY9fpviDWkVC0OcR9kIlTWxSIyPP3JBLfQC5AvqW9W3_tH6aVOXw6nqITmHQOX4a1bjbaEImmCXIyTs-DZF2SFyHHwqAteo9l1O4qfq_CO47X4E4Gy5f8o9leJbwjN8Nu9BAMv9oaNWW54406hVPjUJd92cO4OpXv7X0hn6E9Vy07345gTWVexuwOl_9wrbpTyN8gHQuvOJy-DZFC5_uKGYbg93ri_J0Is8jblZaZZQIQ7xKiPvBVnd29x8Mt9i-sK6Ws7U0ORoaKCpyUtmyaINm-n8k&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5024087,
+            "longitude": 15.0877191,
+            "distanceToNext": "1.25 km",
+            "placeId": "place_174703432519757044"
+          },
+          {
+            "name": "Catania Ruffiana",
+            "address": "Via Aloi, 50, 95129 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQDPLCkqC3scZp1Fg8aOoFR_IiamUfAXSj3IT6Jbxi3A9actTcIQZy59qggP1w48AGYetyz0lsKIoVJDeeGmvPJKdNkDL23sUr5lA8bjXuWFd1_aBeFSQAkqF6LWBY-b9t2d8dll2Bl8jOebltpM7COp8X8FZJKN-R5ulfKtAXjdVnysPqxWg_GkchDd6wRi_PFkgLIThKA_sm0m3v5PGiW0YNmkQzI5wHaUUxVv3TNaM0LgIT4T4UxPJUKS3HGBNOvp8m9mIXkoY7gQUe9U2B88P8fk9eQmVkDpThRfTeXC8OnggJeYTIAWDBHb0uG43lY3ho1qkIITGwsbakIJ3HPw37K-hsU1BTSf5lLaYt5ZOK9UlfRO6GwmqOnL7447Yu-lR7m4Yv49iBh-JdOnojRjU2uXPo-ScjyTswweCplVpVq9gItXCZDeK7tcAFcGCMO1tPOYKLpytumbsXzTrddLeZU6mhMO89nC4_VAQeXVIH4NXtNXTbShsvSNspFCm0E5kmyjT_WNZolCmIEQq2JqCuUBxsK06Q7YIR-F60BNHEaYD52MAFJR1XTGzeit9CcQgFTSUjTpg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5132987,
+            "longitude": 15.0910265,
+            "distanceToNext": "1.38 km",
+            "placeId": "place_174703432519755809"
+          },
+          {
+            "name": "Parco Vulcania",
+            "address": "Piazza Aldo Moro, 4, 95128 Catania CT, Italy",
+            "rating": 3.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRAr3c_JCzaWqZ6RoHEChKyJDk4b9FaNPgOuSPC5gGSmQ6LeKxAZa-f1MzJs27NC35tw43ubi6Z_rtLoAprxtwXhD12AWFQu5h2zy0c6gHAcb2zd6F93miZWjarLd6jw69BSb3vMhHZu3trDYRhlNsGl9EmRna8cm0MrTJjDGnjaqxFzfObBpdobKPmm514WB2R7crr9VZje8ICC4ozuZ-LuxofkDdZzC9TcUEk0N4oooBw8dvSKTn9nO1utJGnOTdyPuJwo_5xKNoNWU5wCvYcFVDedWdyaIkqj-D-42veJ4BDVjaG145ppBdiX0ZvA4wblvQ5hRIARV_EGMlKq2JrZ8dG-zqzPj9X4dZpmlO8w7QJP203ip7lDglcQdxe2VqPPmH7cLqofmOud1usK9pQu3vS685Ol5iCLaRkpTbWWa-vuE90WuE4BQI1IYczwzBanqyAEA3oiPnQumXq8kBiXU5op6bTkbZGFHD3tQ1IatsjUraZW3q_PEYvHCcT9ANYtB4J0tjfZfmnSFhuA9Qd0mE7jlAantimj9wQBbeH4oOkUzimcJCYW9qsLIh8iSAjkQNv&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5252483,
+            "longitude": 15.0866128,
+            "distanceToNext": "0.39 km",
+            "placeId": "place_174703432519713407"
+          },
+          {
+            "name": "Ristorante e Pizzeria \" Primopiano\"",
+            "address": "Via Etnea, 736, 95128 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTmffnYiqPaN1iNmm3dUG2xYlCMuszEwjVforNogXFzAodra_SKiY44-3KjzRfQQiKcmO14RZp8Gc9bLpl_WcJ4KwhdDikheMwtYp6-EfwH9rKYYG8MKEszg38FEqIZDZ8_J-EFNdIpkry8LsUGIYwCQoszRYhcWlw3RzudeU_cGIS6khXCYhaQ1WSJmkoDDrv3WAc9KlJ990cmif995OBaF8VWd6oLmJVbwJRR1w-vS4jF7xCmeoSqWP4bflZc7Dm7i1oQhxcmcQhdna_t6NLWSlIQcfeIyxYdvRZ0Q53780O60Oi5qf3FLLkaBNpWcCTVA-KBX4Hu-mohBsmE_hNad4F6VZkXm4grqJh8q5TNakxTuwYxzJD9u81Rfk-n5KdKeJAIVPDXQgzIJyYxg4t1JhCm0UE0-6LRZXhKmUdB5-Qn10MXCzmI0jFDAqd6jaRG4buS29teO15MlUInojg1IOlprej5qm8VyvJwpekXqxRVQB-zIErL1RHvbGQVj4e7DK0UhX4cdqiDXrSXS9lz4uoWj17NyptNXSLEeY2VnLbode8-bTgvLD0L3FDU7dwZzQaFA5FR6A&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5246794,
+            "longitude": 15.082303,
+            "distanceToNext": "1.72 km",
+            "placeId": "place_174703432519793043"
+          },
+          {
+            "name": "Retrò - Cocktail Bar",
+            "address": "Via Pacini, 54, 95131 Catania CT, Italy",
+            "rating": 4.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT-LjPcgpyin_bN2pFB9e4oiByDBdwhY3kcC3rniwbtmTWGm3RHGlj2BHaBor130C-oIZiXD5ZeFtqgWBn-053nObFV6eqhAP4AcIMBFA6tW1WKZxSmKddAzLN8ZslSCFWOsLfWERFqguhMEZtPmDXXQLzVjrU2CK3lt-g25FFZHgAjVlAj6Du_yi3MMsJ5F489_J76j_CLVNgGcj8YutMEsTx6AhBKq9djGeTK6lfOnVWAGOhuWFwbt_jJ2ep5ObhaWs-oJVoElRLaKXp_I0TkI7vnTT8P-lrzx1RIuTGMgIarIYtUggBcOdGK3fDF7jto0lKXSKL8Y0b63iC-e6bsG7cLLoLUpdeTDJOzJVf7mvov36KrZdzxmHUTx-vnd8m7kp6mbgykljDKR1NEMNcsihZGgLjqr0pZxHZpp5LjHrXf3PNAhgSmRIzUxnruA2jksM753kk0CbA0eqX6IRAjw_wPa-riRh4XQMmrUZLyd53XNjct5RPgJqUth1yJrj1FKt4my3RPYC6agSmVPG50gOJThKunv9N26yeab5myLjgYcUQ4AutObWlio5cBe2i2DudWFcGJOw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5096541,
+            "longitude": 15.0868436,
+            "distanceToNext": "353.93 km",
+            "placeId": "place_174703432519765110"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519779883"
+          },
+          {
+            "name": "Gran Caffè Pam Pam",
+            "address": "Via Etnea, 206, 95131 Catania CT, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT4CZEfMtqUkeGAmvxjk5X_Ea9xoDTKBS9F2D-eM978H1nxtn_QZ6KhQZyRcog29poMSHAZwPYd8JQGegusmvOHnEu_e1PTsJKs8xwrKuC7H24C9AytcFZev8A9uDlj6uBUlUdFTeZ57uac-zOy5u9lzhHWn2Q3gCvV290XRCynXdGVoMIvhZ0uSyD8QnExzVyIo07JgpzjvZaUSOAeG-wemLOzRkA3Ez757Sf32JmRe1WNIDrizmmIOSqMp8oKApu7AAsE8CS4ftA5aySOkuBERKHgMu60kaePowpZQTSAtcK1JfJyRBCQlVKVNkpISzxS9zxfARs1zmmwRKlrxjePM1XOrtcJdpb9m7QQYkQOllaIP1Lw1SiZYt5Oygbsu5-_-vfr11UiCqy0L-GOCitYTcHsp1DqySumgBQq0Zg5c2LlaTK1kThgELqLkiDdsLvArdfqmoliI3muL5vmRzwgIO2rZITspwIHvBoWcXZCogoqfMXjGVL0jiTyBJIphb1mIAxHnT3BqDolRCdXYn65V0LYkD5QcKlqPhlDbW2-liKl6-_-te6pBdkjcYXhBCsKOW8S&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5087565,
+            "longitude": 15.086042,
+            "distanceToNext": "0.66 km",
+            "placeId": "place_174703432519719831"
+          },
+          {
+            "name": "Palazzo degli Elefanti",
+            "address": "Piazza del Duomo, 1, 95131 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQPACoxkOUs6n9GRajd6G04lhvVILVqt8vFWkwRhNgdz5v-YL33_aEiHRoDftaAQUf5-uFkVus-KfLNqIhOzZgnE9LYegGXNC0iPSku_ukckQ8JkPdxUDrvNDLaaojrO6tNAIvzi4DQ777JI6YlIX-C17BtYuUOdSP-UC_AGIvYLD3SKBZziyB1ATKr2QHVrjhxDNeu6dOm-sc34WqWLZk2yPMsNbuzHMKvWCmHDX_pK4W9isBREk-HhQxXKe6Mu8PvwAVRHs03dyJbX1p2fnlxgOMhuZ2Go_1Vjhe4YT4n1NCJSMHpHvEsb_5O9s1u1lFfz2cuGAWYdabkpsn-jbCeqgMFrzxVUUvXXsPiFPcv1yADpclfgMP7Frm-B67S9kDEM7R9nwP9dtuXv3t5Mr-KmIyRpC1QrAm65s4upLzqTz8ss-CBp0Gtmm6FooEJGNamAfz4Ns5AH-rVjt88nNxaPCf0QPQLnVhimq3yVreAGsrJcZFnsfuyJJ0xp4kI3h1OzA3XkKKP79Ji0b-HurH3ENCxJsLWxlmks-8KP_mknWxcqEokgBioNHR9m685LiA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5028541,
+            "longitude": 15.0871515,
+            "distanceToNext": "0.41 km",
+            "placeId": "place_174703432519776791"
+          },
+          {
+            "name": "Ristorante da Antonio",
+            "address": "Via Castello Ursino, 59, 95121 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT_PuHUnjzh-KPXndIF3bTAfMj0XU00fAL9ieHCmWLHd6H3b67BpLDzjAWAiBkWrizS5LU_fE2yI_w6mWPpdoXF_1U548fHrsyqJ6ITnev39wG6snFyLV5QFHe6FTjzoKcYmPM7opeqpzolM0lMgfP-qdI9X2Rk0bOIP8-yG9rjmMQuq-7n01YcafYjPTr9qg6G0-OyJHW0PZZ_A8H3a89_Sk9kA8Xa4YiVld7aBpvAXgFbcrojceBhC2Lxt_OzAaA86kQE4GexHqxTDKitOtnvRXjkeZ39Lmn5W8Ow8jaDhrweOH_lx8WSeX0ZnbW5syXMKtrRbPCUdA0Vd-BagGJNtc4rIrRY2anngEa2HdsKtCl8I4A3CdETPXzpMkOs737uPHHmbGKlW8jn1atoQET63VYSzNRN1idqq2rLzmoBEBMrNAK0Y88PmNOE7dXA3nqfOThjm0bZa1wsoj_1UHRdk2tsa2Fv_zLRIBo1rsygUBVVhZfNU5D4IG8LWEG_HBdG05kNA4LKOIlGDaaZ-5B6eUAPDvi2WcL77AZM7pCoVUeMCpDKMZ_VqKD9JR0esoC653R31V691A&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5002021,
+            "longitude": 15.0839749,
+            "distanceToNext": "1.64 km",
+            "placeId": "place_174703432519716271"
+          },
+          {
+            "name": "City of Science",
+            "address": "Via Simeto, 23, 95131 Catania CT, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTYmjobAdNUqdCMrS1ywS1zV-zeyiGSqQoGxjm16ArIoRuxTCppWvwL5eXJZRVk-uJJ8bF4ZlVHGUPYuCq70cgKBX9bGabukEZVHXq9Xg_Z864vMoCVd_IzPKz1j7Stkd1yDt8AQGUQt7jgERo7htS2P2Ld6u8G9MK6_lcZCz-vhCCIVZr2GPRYra72-tXdUrzf673HOnfF_4XitvaAGWDW1tRAgajwDI6lEXRNcni03tuhhD5WHa2r6tIxIZcFnLyDNA6zR2f-cfcHHH19q0yCQxw1AT7UCubCtHWeUVjmVh52dbc&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5095325,
+            "longitude": 15.0984165,
+            "distanceToNext": "1.43 km",
+            "placeId": "place_17470343251972457"
+          },
+          {
+            "name": "TANTìKKIA - cucina e vino",
+            "address": "V. Gisira, 28, 95121 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSXUygFaJW67rkgCjcoNqJzLhRMA9OMVAmMDAYBgpG-hvDMizeVc6Jk5GE4RjIQvhQy5MigahLWT4Vh8WuJNmpdltjkbnjealATiF_vCQVCJgl8t541tG2UoqCCBr9gGi0hh_rEtgsw_ehR9MnfUWkRI3u-917Ht6Yr_IBmNfvZE-KYLlaQbhVVFbVZ54_6-cM3sKyWNY0kko3-JYUYqYoqG7WuOlRzBfnoVjFcFGJ3YcqVMeLNK4v2jt8-y6Kuz1jFUR9NStkKM7l58kKBzl1p61ona_t6jmrHp223O-dAV_CM3Ks&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5016006,
+            "longitude": 15.0856401,
+            "distanceToNext": "0.38 km",
+            "placeId": "place_174703432519763766"
+          },
+          {
+            "name": "Drinkeria Cocktail bar",
+            "address": "Piazza Ogninella, 7, 95131 Catania CT, Italy",
+            "rating": 4.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR9EdrbZC-R_rggBZBKcbojw09e9coSPdCroBXbAeWeM8wmStVvQfZ6Q9vX4dNhKWIHLpuZJEYAR8JLglKh9Asqs1vbGitnP3rZpMyfOGYsft-SAv1Tx7KRY42Tb8pIs9T44w-6_Xtrd5eNx6LCV6yyTQUHqX0Kn8Ua0HpKKi_BmbWHSyO5Q8zB9dFmJIBkpDA-a7pB1h-S2OjGDiIUm4ISNjM-AuZ-VAV6RbkYhaAA2OLselForV6QxO4nj2RnoXB34ffXbRtN98-xAkImf0lx4XyJoVRr0EDATksFZz-L9ES4pKk&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5040501,
+            "longitude": 15.0886764,
+            "distanceToNext": "354.54 km",
+            "placeId": "place_174703432519719044"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_17470343251977399"
+          },
+          {
+            "name": "Ciao",
+            "address": "Via Cristoforo Colombo, 40, 95121 Catania CT, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNR_Ln24LT3463k9tKmFZCEBCWZOUirUuLLDrTPKaTMORjRMyM3ajHrJOecRDH05rW93aDTS1EX6H5PMkuGV7Xhuxq1rNnX1nRNfm7gWo8B2S4dhdk_P9uV7u-h-7dtdn9-jxTWpHVdJzcWzUPjbSM909b-AicSDeTWNK0hgDwfpGV_LqKFCVFTDOe0okwOQNzyV0c1afCyha1A1uKY_2bGqqmZV1wgMYi7zuGRVMrKr7VDq62v4LQgnDtZ6qEzQiL8fyGhm2XWiwAiWxRVQ2_RVg8Ps2lUg_aCA0ni6BwcuAAExVbNvv8UjnNmQgkUFperXi2Qc8cpiGtT_DxBOqPFeyR5Za4JzFLM41wMBdx5r8BEnaDTgst80QCleOwwIwcilFKkb3HM5KE6vejEcXhiTR7DSoF8AlXV2EmrM2jOgww5lqjWS9irLG0JKZy5ftPcuEvB0J5qG-aeHjuD-am7yg0Fc3ftTo2zjA3k-R-0dJ4-vu9FNAgI1WaVYiw1FpAjnVFaYbcuKa1G_jEYFqEdjqxhlvSjLzYBLwBJr-6uGmQ9gjFy6UH-7RK498rzmlZ_sHjd0&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5001463,
+            "longitude": 15.0879741,
+            "distanceToNext": "0.81 km",
+            "placeId": "place_174703432519794826"
+          },
+          {
+            "name": "Monastero dei Benedettini di San Nicolò l'Arena",
+            "address": "Piazza Dante Alighieri, 32, 95124 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSEOz-zbEsRPIS66B-fY84vfxKETNk98-r5HEQ_9jI6gdyKv26pdD0WEMOS22B1x9bokoFuqOJiYCUquLMi5LKgDID1xff4i_r8KkuddBEiR42iZagBUDJzd9p1n9U2uuX97aNJ_O70LAr2wz-GrmQWDh1ocQlPV9O3i-n2klP2gZeKArVN6Jx1bFLfTGRRMvGKIHkOKN6UU9HthyR8kI8KnndZ-rDILyRk87-UxS42J_OmWmGywOdATwtuOj_9gWGnp5ucXBan77gxDOcVrKjMblOGMSATjL5pKd7tpigfngHp_uw2iToYgSJW8ZmQXYRLDKtNDl1gcsPUPrbrq8C9Vq7LYAv1K82dHQ5_msAXUas_xt6bnfs5CYtotEaWTIdfGHHe5eqGUTp9654UDjsJQkYSxvtyRiqmH9xZdhEWhgOhQTb9y09THGCltGV5Ii1Ls0swxIIlj0LMx2-cByn_gXNUcpeuFsrgnZtTHvGhmSekqX9eN4RvA9Hfm57Vb58Ki_d1_As8h7IEHeSZqWCPUIoW2GcwS7NO3LZ3vuKkzgPgft5XP88arttZwJN5s1jFcg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5036918,
+            "longitude": 15.0800071,
+            "distanceToNext": "0.65 km",
+            "placeId": "place_174703432519773466"
+          },
+          {
+            "name": "Osteria Antica Marina",
+            "address": "Zona Pescheria, Via Pardo, 29, 95121 Catania CT, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRjlksk30FiunIuHHxU6xrId6dwe_EGUzl4qS1EYOHFy18nKCtuegydxo4zBX10U4O4gJ02BVjblERlFDcnyx5ouHcxemBS-b2G80V3cQMTulpqM4Rwk5vdX6AdAWMzvS1xYeXVzBzQgsIcyHx0wQMp5urnx1zs8VgRrADcgNgr0sfbieamwcCC3qsruXKlT1PX8Gn-yderrbze_ss-H1YU-HNoaAWx9Cq1QHoRlbLuVwPq_lMFhVgSmWhKSUgr5hg8UwQHU7bQIxUqd_RexWUpsuB6t7Fgu4pHTQtiSUGjHmx9X2Q&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5015689,
+            "longitude": 15.08684,
+            "distanceToNext": "0.25 km",
+            "placeId": "place_174703432519755420"
+          },
+          {
+            "name": "Museo Vincenzo Bellini",
+            "address": "Piazza S. Francesco d'Assisi, 3, 95124 Catania CT, Italy",
+            "rating": 4.2,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRCYW8jlfnfdko03rklh-iYSCYQ5PHgGo5Wm4YmoriKhwJZknQIYvU4w5eet2u-sb7Hkapb-xdimmc244acGPeQIF06zM6dYAFt5aKlpTsNhojDB5thAsDrU3r6M7lmeOQP18V6-t0g1XnbEiUhWOGONkEcwNaitcwKDrdORWwuk6ipbwftNAzdcCqIz9cd4bgEY3kDKuyYmIlD_QOYodYkJyjDoFTeQfouwWI63wqw5a2-vx8ePxwD3ydo0fZ1V01-6-3WAPEnvneY1j5IbPbMjVFxx6r1qhJGIY2d7i0_c5SLQI48kTJAd0v7nOGlpl1rJbEDzCxHZQHrqKDwmWWYOyMoU_z_AeWErqFfo3z-5-CyokoIAddNKpCoY0nKZDJhFs2QBr8t9Zqk6YWWj-QZb0S82iqNeZsSc_lI59M5Z7XOSaRyKcGGf67RcumyzWS1zEByqg4radStx9tNJYjVbhxLxmbcLPwgwpAizjbFVFunqSdtvribG-0Ewceg0TMdGFL84qsXsrLnZjdiErJiR4NEYPEdjGnWmpb0_iBsJrTzk_Q044B7xRO9D-CQwiAbRQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5027588,
+            "longitude": 15.0844431,
+            "distanceToNext": "0.44 km",
+            "placeId": "place_174703432519773048"
+          },
+          {
+            "name": "La Cucina Dei Colori",
+            "address": "Via S. Michele, 9, 95131 Catania CT, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSeKbVHwE247Kv0qmv_QWZb-76QYLt7v7wXQMUhIdy0j3FZGUQBfh8PRocVxzkFLzuKqLWklxD98FylIUarBwW3y-8JGQoI8qzcyHMq5iYXUHV902eCgxo18lZ7MUFtzkNPcfCj9ih1sfKdKmPcs2Tvjvch8jHOOKruUOGAduQOSNgn4997pRc60h4C2IRWhWkTBubg6is3KWvIpKqOL4_c8boqmKORLFm-DXglXeOZHW9FEuan78AUFquBByq5VKknajsvK9VupeknItVSAoSM8QQ_uupD-C9UHM9eThheeDScmDuiLxq9Pb38Tz0d8xNUvYRIieH3pED_rWONfXJB4nrfEkYni4lok60XbFRGAuX-w9yYkfH9bEaceRUpbtG3jXQ3vWLhq_fOTV9PvJR4hNhmZhL43_wLYGPR6QbzUg1WBMSSQ1ruLM7mQOrjI9rlsJ5-jzr5Je_g24oypoYf0XzF15H_B5msnAUwuvmAgFX3ViPqZOIo9dUAQI1v-AVEjozRv7R_L7r4a7MEw54jJV-WKqO4EmEsfMeBPYENOhUxuZMWFjkTkiCYueJw6mwOZkMP&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5059451,
+            "longitude": 15.087422,
+            "distanceToNext": "0.34 km",
+            "placeId": "place_174703432519752320"
+          },
+          {
+            "name": "Circus Cocktail Bar",
+            "address": "Via Sant'Elena, 13/15, 95124 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQd1l11d5OeNhdRBDnm10s9eK9iW3d25Bd2jOb8bv4G0BQ7RE6-mCwbKQQzlkq0njeQy2GVTo5JWVrAA1rEZRMVf0TaAVc4V2jbkVNdW44iWE-c6gFo-g_8v0PcVe-zQ9xwnFrYhI1_AivboFkjWzLFhOPBIfjlOiR6H6wd6yMARRkyFVp_7IXqG_LRQT8ca4nRsOgy2--fTIGhpTza9X5XE4mhEFTyRBQXiQY_v6jUg5r9fdCDHMk_XBpoJBkCHxijmKXUiYNPYOl0vuuVSX45lD3ioUigURB-5C6p9JdCzMTVGkQDtsNV_TFfQr_NU_sebKuJVucNcx8lPL5G4Z8OUtyy1aZRoJKwwdh8RyeLXnNsan1bUhj9hzJpSlkE1EfuMWHI8dOSbUqKql4MOCEE2VPrIwkgNXWiP6lKTo3msELizLTe1rGdvrNkAXact9y1ubocdMVgwbjW9_yKKFKDqn43a_Rsmnnx3yUoydBrVfU9yeCb5UAO1U22VvrEYh4JxIifSqgJ8qy9CuYw4i4Q44Gh-j3Ocx8NmeeYN2p86hX_YvV4wuDlkZ9y4NiIC2NXuQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.50566200000001,
+            "longitude": 15.0836069,
+            "distanceToNext": "354.38 km",
+            "placeId": "place_174703432519724536"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519721377"
+          },
+          {
+            "name": "Cafè Sauvage",
+            "address": "Corso Italia, 1, 95127 Catania CT, Italy",
+            "rating": 4.1,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQHlmmY28cxdRiyxT_1wTjXctC8eE2A4Ls5bWtdVAgkUyWIIPmM54W9T4iM308LtD0wcUGo3G-SSGy2Vtphvdf_aGgEMbGd4qJHspt99IcqsV68l1Q6VLJDuUONgfDABAtWW18RFq_zQDAC8JNnXiFNo8nVC4brwq69HfmPeZbCUmIQ8jblqBcBpnHt0lns2i91y2EvUzA8z6rdxcfRlgyVJIo7ChEhzSJ93oKuno4Z_WUh9NTfd6yEvuTSjhGKmN-_APCON5yDafe4afS_t2SiH9y9HeVHBpAY8FmNtcgnisVpxlxhHdVmcUPE1Tw3CEnM4LXUCXPz3MMqFbU8FiPSvry_Izl5dGZ6UEy9-rzEq3Z5JkbTecdl3Ye3LHzDQXIuLiAO7pvlob1C3jYx5mzyFaGai2Fyp_Fw4GonfjDs00nEONjdU6c09cvOBVsaU7D16s6DsndFrP2BimCOdoTKYqxUkWNoVjoHf2gHsIaUZX-EoWrZlHnz-7pTLItVXuvSHczK_29Ptjc5X_DlaZePd-OB7veYHyij_KG45dippBfqCtZLeOyMFLghsICI1IZvVQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5149113,
+            "longitude": 15.0936375,
+            "distanceToNext": "1.55 km",
+            "placeId": "place_174703432519765680"
+          },
+          {
+            "name": "Fontana dell’Amenano",
+            "address": "Piazza del Duomo, 95131 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTGJ2K_r9ZCu-uX8H4Xb3jtI9eENugEDEcZfNJsmrWS0SVDax-xnognzvsocoyJXuoL3pk8NeWAy29FceobmFknkDNT98sGmnYIuoZVcirlbBA16t-jkO2lo_i1NPmt0vX5PgdenqiBhiHDNSxpAvh7jhPp5B1BdriX61sXpvhyvzO7z8CN_zPUDJiFLH-3-0WJepTqXkI-Co-1jKA8-K-v-o3omaIiY6SI5sMkyeA1qg6vu12XumQ8uh1iZfyEvUsRPqhHVk2AU7q4Kak6CZKija5Fisic0FZ2tOH9RQ4t3R2W0Eg--jb934QGKHy291JCI8u77qBrKwzZy0nLM1SX3PiboSCsyiaaXja9s3xoIczoFOISzF8YFQPFPAEYn2KQUGZcOGQee4nKlgi6yUpvUGobrWS7cUzfK9RYTWOtFztBU27l5DWI262aRFKfJbk5VQpFOeT7X9Dz4m4apEA-snbkFPjeAoP7cdFWtejGluYk5ZgTqHlIllJ0HyENzI5f7MgjKG931yJ5cYdR0ny_71aDlfY3pp7XzcKEWmKn4f9lCwGnj-gFcDJ4td6DRKgQMnre7qp1Ig&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.50204069999999,
+            "longitude": 15.0870139,
+            "distanceToNext": "0.37 km",
+            "placeId": "place_174703432519787190"
+          },
+          {
+            "name": "Trattoria da Mario",
+            "address": "Via Crociferi, 29, 95125 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRBlCpv50h8Zvpf0sfYsGe5ovIHtLpA8_ozH23vXhCe5Px-4JkbfXMGnyRuBHNEM-F2fkqvGZKKHlboNVR1zVLsR2pso9e9i9GYfHAXOtljK2rfvqQH7fOEXwij2WMdovWoScv6bZJWL18XI16naGACfsmoDeGyw2nrfGOItrhHodczS1azIIMrARedsP1EdIwox85tnS0RT2gFw6lkrhM8uBHnd0BxsmIYWLzqWYWt0SmSE5kvk2aackDTIkYc3I1qo7pTF8iv3MSYAoqBkTXkBAbg16keqC9xnWo9iLMiaDBYqxPfXDZOFonXQ1_MGQuRUPgAUGQtNS_Bjc9bjoWMBWNAVpYm5ZYWrp4q_HUWrxUSDnZf8hpG2Q4bg-mPgKmtJ6Fdy4i6MW7IartAhzyY0Zgb4ygPmpFvK6t2k4dDhCH6vdZIgmVb-0faWXsFfUWxaXZOjSn1d3XDk7yV4n24dqNw0kBAoTVkCFtOCAy4tw8y-G9YPpKPSv4Ofh6hVgTBZfv6cFAWwk6eEmjTFshf-JWgstUUBUzhug2192pR_mpAujkbdm44jS8Vm7XS1xP5djVt&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.504785,
+            "longitude": 15.0846964,
+            "distanceToNext": "1.66 km",
+            "placeId": "place_174703432519748773"
+          },
+          {
+            "name": "Museo del Cinema di Catania",
+            "address": "Piazzale Rocco Chinnici, 95129 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSphEAxzD43hs1tGJzb12jAa5txs47SgqT33CklEo6lNSHdI8mEAyQaZSMpxBx1bBisj3UQSIxktajnN9K32TXKN-WIhFhhKPgNj3j6roix8RkqFheDlEHWYBO4qNGJxlewbJTJ3o8Nzvy_bF14KkrM_uXWr3482dDHGzPUXaGVQMATsH9a9H3mB-MtMIBUZiRu-DbYVWNT4uFj_CKECpRVQDflc1Ew5fFyrhyUSe4pI_3ZOD6FIGRKbRprzGGEtbMxo7KPhucqJ3rHNSABTTAKfOMbP_AidA0ZageJJkFHnslAkUxnmglFM5VJ-oHn1C-niM_vm0CVFGhkgMg-tFjfNlbJDHqLpXdm178jdKo7ghvvTYG7Tv1C86HFPtgDbkxEORdGKRI8asdRPrjUIM-WJthwQRJDKLJeFpFoV8WyWBrlTHK6PGOeY8OdH_QDg697dlGJFLl_ZGtjPiaR6WhPkq3Eo7Y6P2QeEksCU7l1ngQHbDV1N4_PQGMTkkxICL4sqFrBiX3IBzBFr_8DGG0L5rOZhdPS2g2CGz4hln6OR8icdNW7pPivsIXClgB3_suvROXZKzKoIA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5090224,
+            "longitude": 15.102784,
+            "distanceToNext": "1.72 km",
+            "placeId": "place_174703432519711516"
+          },
+          {
+            "name": "A Putia Dell'Ostello",
+            "address": "Piazza Currò, 3, 95121 Catania CT, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQTpjO3S1dDxuIJU0VkObTgFP128kEgvmi83GOS3Hp7qI4x1yp0j6Gpenqymwxuega15apDakYacSVGKh5WVVFo1d1SqOTkhq_HXDJeQurCVvzmduXBpJ4zmqN0D4UPSU5TW4sBZp9XtzbTL1G_rF6cFYxh0VfaJunqYesZDoiat9bVmpU_Tc84hwR69qI5qnCf0zy0L9_dEVCEcYbRlFbz10JuYJ2psFQgphJWYdQfrztBMKy6oT7D3fwb0uIWD1_9cZK_rJjIn2FzPG7kVlIBVhTx0aaKfR5flhBwk0vvgJEch5_X3uW943WKldbWhttCBC-SUN3_i9PyrLVxexIwSVo8X-zeFyzZ9cawTlBYoMtn2QBuJ08bHLIJWwmJPgy8jTKbhLiThmwRTaMSOeWF0m-LsN5WlxlbHCVzBG3mbg37IsKszv_JW6qRSaZIBSowVVzKeI5RW6EQd4Vshg0YZC_GChmJ-t_3zTCSdrICWB6Vwyrvo6MXJpQS-JOvFoMBJ3evEHnBbbnnspdhfAn3_RFA1oOMH2aToqH5SPYg1_tIligm_VeRBP-nj4xvHd0kstIF&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5009647,
+            "longitude": 15.0861822,
+            "distanceToNext": "1.51 km",
+            "placeId": "place_174703432519760615"
+          },
+          {
+            "name": "SPAZIO 22 music lab",
+            "address": "Via Simeto, 22, 95129 Catania CT, Italy",
+            "rating": 3.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRYL51w3cVzCOeDm4peyBk9olLTuGEkZcGPSGqobvsDFhezvlPQG5wttX__LlS9HyFDTBC-ZBjkqhB3FZLvJ6cVLoyGicufnnCEdLI4FFT1I9UvsnrQXcBFo4kcnjt2VCW44TjDfNlBqWAoomqygyGNasZD0qfNFjHdNkvyvEQqq-n51yOUBwWWnsIOdbSyaL0Bk43lkICbMqR2kuXGS3qfHn1_Z7f_8cpyociVIti45vLOG2JTfBijXaCdUy0ObErRyNfx-BM8z7OYba_dd4qQCkNMMcEpLVjnJO80nNrXPUcUp_c&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.509193,
+            "longitude": 15.0998046,
+            "distanceToNext": "353.93 km",
+            "placeId": "place_174703432519743853"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519730837"
+          },
+          {
+            "name": "La caffetteria del fortino",
+            "address": "Via Giuseppe Garibaldi, 371/373, 95122 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRcrx0YT9enO4zGw9AJqmuvVghJkXiFd0V65Llryc9F0xnsgqAfzOtlBHIr4X1EXfdRMRJqrxsXojzwzGAFC_So9GqAB8d4454RCMN2aychw5maOk7kP8GOUmzPw7inq4ix2kHwFMzY2LsEC6WGb4ZVExHjCNP86Oh9ndpV1rMAbEXNz2tVKlKVxEHdetO5WteBKlD7bN3qDlLaR4vafY-1_rPw7e-hkBj0QVFZrg1Ew6gMBr9OT3OxmCHu8paY2IWx61USkTYo7Xk1K5-liI4XjKiC2wZdzK4K4U8iA_vdse0Wvm-znzh3-QsrlhJxN4HBHNjMdplarvWDNoSg3X-oXYIOurnLJEimp_2Hk4ZzvYJAQhbMm79LpAkJ6XW93kP9VjhGC0sWNzQ7WuxGQuLwvyBhxKEpOSCcORGuaXhA1J5IIKSrk3vM-D69ivbju9DUcQjIVjdyA4xsMw4nUp4hYyVMrMs9jJ_VeoeBjWppHOsFQ4P-kNnOXW0_8yRxQ9RZBm2J1jCO0C9afWyYi7DxLJW8m6SuGlN1OtiS6UZm2TAlPNkvFzUCVkQGuBE13iPb2L8G&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.4997572,
+            "longitude": 15.0745623,
+            "distanceToNext": "1.19 km",
+            "placeId": "place_174703432519750688"
+          },
+          {
+            "name": "Piazza Università",
+            "address": "Via Etnea, 95124 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQpFmrnpp9mMLqUEbcnaahP3EdtCX-nUDIKAOQtE7f6r3XlSSxol1bd5kmeWboEaGiPbDqy__GEZ1uvH6xvYQNB7WIdXOVnT3K8EYkNKtioZeQs8Y6vtUwNkwIjD2s4_nmIf3n8gnqFGwdfGaQBh77QstQk9U6emXbtbVvZVdtJ0fLGUe1-F7zo9LKi_zqu2r2aulHKxICj3FHuSo1ApeR_Of74Xp3Nh9KcUEZta2tiRB6cV28z7IRoLYu05ERhHEqNaHBY00FL-_Lw2qV7w8cvXq_773u9f1tBRx44IHyYPGP0-MrB9N0a62XO_i-__V1Gps1jd1G1m-djy0lz9BLu0tdnA8e8qdd3QKVGUQSdjw30ye8-PkJD_MZU_hNLxKyR-pWyouwcWElS9V7M-M4Y3hLrWELA7zSwJZAVardkWmcrGWBfLQ2kRLyArwfu433r9ZObvW1_eANqyoPRfxrYoiykchEEULnLFL9SIH8S3LsCPDf3NinlfhXoHwjD0wk-A8Qa77BBJtMW3V05mtRKkxXtHpqheT7LfIYh3ay4RQ5lw8QZJK_zIStLeICODxacdL9ebCgNjg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.503638,
+            "longitude": 15.087167,
+            "distanceToNext": "0.52 km",
+            "placeId": "place_174703432519795211"
+          },
+          {
+            "name": "La Taverna del Grande Albero (Trattoria Mediterranea)",
+            "address": "Via Cappuccini, 21/23, 95124 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQYAaUusvHhzfm13PkgXtULDYfqFA3t5XBJsAO71Djr10g64I_B3i080bTTylYsB-QFXuFxSa1IU2Yb0ANNPvwwp0RCYoimEM4eStdd1nRt6QRgArf09Ey_4KJ5ptLnshOj9GIWArQGTm8YVyp35FpU4-wC8KFQLTz_guKx-_4l3PDxkePObYQTlOcBSTE1DpOJIuv6w_wvjfivPMxSw9JRzlZYZNnb7C4B4_eCZYVPSCgw_vTsncAXsqbLkw0SrpdSbaXd1dSs8P7uPc_ymIhE9YtIwoyOiLBByeL6HST8Ijeti_cE7t082xGUjzy2JfFaY1kRu5k5ZICodWY7znrlk1FD-f8hJNuWr5b1tOwFZLkAsn-8AvnGC3tTisuJHg0Qz-VhHflovu6k8Yl8w3-Wug1kovdjuFpYmVw5b1uk_yMX-Fgf90HB6JfLMHVvxdYk3g3yThL5hx4hdQ9_sRwORXJkHvReuzu0A5I8iJY40gJ0gpwaJXmQEcpRnDu9nGOJusV6JzoaTzTrso5I3ebIGteYDBPhE-_ef1svNGA5d30grTcQS5D-gaIR_mdTihlETs7co0H8ew&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5074453,
+            "longitude": 15.0837954,
+            "distanceToNext": "0.78 km",
+            "placeId": "place_174703432519828993"
+          },
+          {
+            "name": "Parco",
+            "address": "Via Lavandaie, 95121 Catania CT, Italy",
+            "rating": 3.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQ7ZInFCsKfrmOGsN0VpVglrZU9F7-xq5nAdroDq3su_dN_XiiO5CQBC8n6SSGsYhKlJytKSDUkzFqDhHnpqf0tD8SbULbWCET9b5Waaj6flYy86nTIw5gl6Fem9F49EnttjeiyKYg-RfznXe-TmPwAXFmSZeG5jpNpyYkiPF3dddKWrHROSRs7hy9T1UBlNjLpFXQGEzThNhRdL0ibz_kQiopwklypumuMKdvvauKrgcvv2N30HMUx7ztIZrZXhkqzW2aGNoQxnVwQ9MKaOJgei1Vz-KJ97gNZxEfKbyQUqmjCZR2UlXw4b3sH77Kt_v-xcN9ZqKvOP4boaTAyrBiSFqi-9weUDNbgrJm8QK-U1Q4L_Ks_Wm7rZyO_-z0IDDiGGq83Q6W6H4cF-r5r6MreTf2dZY-wqyM_4F3dOQSWKKHiEmLj0i1q2-4fp5mT7fExfjKui9RPGnYSGhjHBP5putQ7pOwQMzaAoHi-5T1kTxNxiuzW4LHgTy9iWX9U-Uy2Euei9ml5QxMRUjHPmLGpdZSl1hRhk2tvPyuFU9qq9QcGcyWfx5aurp4pXy1cQyyXv3cU8hd6BQ&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5011725,
+            "longitude": 15.0877011,
+            "distanceToNext": "0.29 km",
+            "placeId": "place_174703432519835115"
+          },
+          {
+            "name": "Catania Social Club | Ristorante, Pizzeria & Cocktail Bar",
+            "address": "Piazza Scammacca, 5, 95131 Catania CT, Italy",
+            "rating": 4.8,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSBMeVcXfP37tzCKvhdHi9rtDfKaLLOL66jN3WiQkoW-2GvGbLHLYPhyoIW2-ovYOZ9AFRPaucXGedsj8ipajUQBFpR3yIunLd9IXoq3ug0q7cMlpIeCi7wwoYEP1jwUYdrLrk55zaVe3kcQgcPK2fDmYV9iL-IFAFhfWYRFVcs5n42RzETkC4V_EHbHkqB8mrMAodUUfG6pmTjXgF8sPKIp6bQQaeq3htQxRJte-Ox4kNM_DMaoDLX4JbztNo7TPfPUJwfNItTe0EJlQiO8th16sVBcvZuisw_DFS1tLAge9wMQ2Fy_-v39HjlawzdUCiT0KqzlkYA5TAKASNxoTdYKeZ2_4byrevVU9w9wnQKhJz2LS6XYKv6yhrlN1XM-Bb8Dq5vW_7PltyVY4k6mOI3s0zc82jq0gRH-LYGPfXEQew3QDrYrp-pScaly4cZgHsPyS-bXanPh7J0fxjURx1NFYT2T3d6dtFcBlnYoGMp3SoEfpWJPOsaL2KJBUMKG4wBHvFhb7HneXf9xY29wjLOl2vUy7upbKEIpJJ7cIJmQYGYApr8ExN0a8CX0Gruv7BSThrw&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5036511,
+            "longitude": 15.088795,
+            "distanceToNext": "0.25 km",
+            "placeId": "place_174703432519885703"
+          },
+          {
+            "name": "The Orange Pub",
+            "address": "Via Pietro Antonio Coppola, 45, 95131 Catania CT, Italy",
+            "rating": 4.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQKi837YWr7ix0tCamq7DrTgiGR7WND56Lm5aOggLbJQ6yNdb6ZanU2S0ejvngcPeW97uZmgJdqewYx4FgJdHSx5yOQCuQ8Mf_dYADKoWBNVryH7IgTSwpwyeGVBZJUUjWzd5AS0y92mEprxyL5g598iHPWNPzFL9hb9uQYWHPjeMPcHVeBDxZJBIQzcqf5BFRjUS9mI6d6awu1i5GrjL4hIqFCdihvd6ma4vH-LrbtMlnwdS3koN1xs_aN6yK_byU6Zh3lZ5j_F9e_Sbf2GEaraQlp8trZtf42zpYw1jbiqGaMS4M&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5058848,
+            "longitude": 15.0887731,
+            "distanceToNext": "354.34 km",
+            "placeId": "place_174703432519887296"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519817780"
+          },
+          {
+            "name": "Insigne Cafè",
+            "address": "Via Santa Maddalena, 84, 95124 Catania CT, Italy",
+            "rating": 4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQyw9lOhuu0mDfPE3sHGEcvlm-JiT7SFaW0QE1CmNDPgDmjDKJN_TxJXrsJVwA7XBCeM43Xqux-oPIOrAKyrUMRalfPMz2xge4kTbzc-_fVMIU9GWLzbrkQsGnS9wUJdziCP9YCZlZWWkU0Ipl6PubWP0cFqH3GeP1CVIPhAC_Eudns92VTeDogeLZZpFGn4K54BGHp3o9ytN47ILoeJSO7OZO2Guf_8ncO0fANh95jziQeE4ufhBTLAp8IQJu73fUmPCWPNMT4FgIdLRsENq9DYgqaJBgj8cEElCTidC2alPyDoRxNtVyMJv14G75H2iQ99JKKMMcbhxVeVPk4CpS9rWT7vqSl9ePtsEdKpNT7CUkbo4QygUcqSV4Uv2lKel1gmV5LM0cK52AI9GiU1xiX-kU8gzQ2gp86DT2KAGESnkqXoFw5qBq35BLQqOiPH0jLlvzAq8ysYdm5oue_oj0xvibi0W9lOP_VHDyldub1lVv0JAul9MPrYDOU8x7lFQQ_Fqu0hBbMHkOAfcTL6eTayxQ7OYaadWC7fIwKqo_m7e9Xzz24tOY5NdoPXJSkyTcVsnRz&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5087523,
+            "longitude": 15.0827957,
+            "distanceToNext": "0.61 km",
+            "placeId": "place_174703432519860410"
+          },
+          {
+            "name": "Basilica della Collegiata",
+            "address": "Via Etnea, 23, 95131 Catania CT, Italy",
+            "rating": 4.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNTks36JVtSlJeQOwEBEFgMaOGre8p0jKToshHyY1v7Tjc2bnhtEiadiZ8m5auOCau1eykyb1IY89bTdKCThvCt9kBH1-Ak6C-yVF_EExlSysVT5uFVLmrVfuOgH5Cw0XbpjyCVmHzfQmYZOE1UC1QVpjzT2CiHobekFKzVQsJICCgAwGFQQEz0-EkH-GHkQQVwud67bPfbphely6xEVkadYf7lQgZksYkVWnS1SokArRRGJT5AydsPhpfg7uAoZ7LEoVoge6d8jczguwgDFIo2NmVrju7wlW205L4NgCzVRW8W2hE1JhjL57Nndc9DlQEFhm6f_uYglSp3Kn80z2NfP-VgM1wcWIPhBPWXLYDBX7ChANyfRHVx_cZAxDAyjIuUf5VpdA5I_lvwvDYnygmiHeQi2c9yqJJbKaLkpQv6YtOSpS_QNWb_XwD1Gz5R8bvaIHKjL7rKjYJnEnsryRN8vd0MsH-MyQHaRgdhQQaH5488w2jyxAK2sMSv50hPcJYKWCaaLEw_3bfamPwshsx9aONzEUC-rWJyQ01FUKx7NqhITjofGSG4nIe_5hr0lMgNa_G-6&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5042504,
+            "longitude": 15.0866968,
+            "distanceToNext": "0.12 km",
+            "placeId": "place_174703432519868102"
+          },
+          {
+            "name": "Antica Sicilia",
+            "address": "Via Roccaforte, 15/17, 95124 Catania CT, Italy",
+            "rating": 4.1,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRbz0X-W2ZBSG58jFYeXOuGVXG_1pw2XxuyFxJbXESk1sgj5cMGlYCifeT4hUAPNNWgT8bg7M_lgEPHllThdS4mwHMyUk9YotYRfKljFbfKaolrk2tj_eIrcRXlqhniykS86JGuhvviqyryyDhzRPp6LIw80VOfrq60SciEMDioyD3i2r7JZeWxpisIsR6PfvxvzIYs2XDo1P3IHgDRNJ9SxKKNtFFgtKzwkJu8beFRD_wxFrwTxKZ4ycfYQv4xhjyz1iiB4HQZvKej2mLcgX3uIcruFkK_CYbxfR_noRc6CCH8w503Mn18EMgk5e9TX3nc5TZfeHtMTIN_5v2JQth8SuRdI-fzgz-rsmkXg7DNx8QtfOXYnix77Kq_uFiY3Bi5c_XrYrNVFs4FgBRExsXf2331A_hwkwbq7fr8jEaZl3aRpnzOKDfIlbyNdei8T-Ko2enHSBmt-kXyCuU3ieDtV507Pp1a8gWdIi8ZzeSsWCKv2-uSsgIq0ca0zKR4h3iUxhsxKivqBGVTOR0fs-_oxtCTpITJTEAKOyJNiACKNZ7rWHRhPoXMkaxt6wg6cFb2Xg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5031849,
+            "longitude": 15.0863324,
+            "distanceToNext": "0.12 km",
+            "placeId": "place_17470343251989398"
+          },
+          {
+            "name": "Museum of Contemporary Art in Sicily",
+            "address": "Via S. Francesco D'Assisi, 30, 95124 Catania CT, Italy",
+            "rating": 4.4,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQWcsvHJYLgcY9UxBQqP-NIlAMwO-O6jWFcJYSECAiNUpE39rfot6-_SDaFxne-1RW4Cs1We0tACPodiVveG5PKyHExCMP8w15qZCYi9bc66rsa2c8xzmqZshM7_UZwDK1oaTWK2jDE-v-BKDtvX0wtvPL8ua6JmuMeJ9a9MLWAKMfrxkI9Tp-R3oqm3uXiEQFqQYpaBnc7tVuq8K_SOEgt9YHY1xrBs5OxI56hiuo-mVG6lie7CPuNMWgTx6joniKeikXBu3_hDortUEqQigMuI9h9HKnToBF4DI0gsM-b02QkSYxqW-DfHkPFpwElpM0s1zUKtNvYQndwA5fRH-O4kOkLq4g-9nQmCeNTUjPO8-3H9BSIfg8SHBy1_Tpy8_XpqGNLFcF-Qj2u_KiR6Tkz6QMib1t8MlalEJUx98ryZ20xzZSqxkuGo787e2ryYZxw8yXdzVld1q4VNxRMlxeMOFTJinCqoYRM8arCSW-dyxci5Iw9aFAObULCHL9c2TVQEVUciU9lWlKNZvtYOiOXa1q7ieMXaK-P8_PZ8MK8MjszVWn__fhIH3sSR0AHuRkpCY9R&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5033487,
+            "longitude": 15.0850316,
+            "distanceToNext": "0.48 km",
+            "placeId": "place_174703432519871163"
+          },
+          {
+            "name": "Ristorante Canni & Pisci",
+            "address": "Via Museo Biscari, 8, 95131 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQzr7wP0cVEeX0esmz5Z-KEzt4fRBnA-tiFKcJJi_IxSO0tUa4vlPS4SNbNKC8Lrumi0ejMNQW_EB_RD_3YERBzQ6TGr4GLpjJMcAeHvIqU1s1ifRZURJPZcqYQnIngvAAdl94lreRjYSLhHjbt0xgVKCNyyWKFZWSneExZjj-gy-y2QR9Z3wsrRrg6VzFzmrOt8ZAmyTkuUXVUpBtksfhXrG_1Qp3yCI1nQGIE0zOqdVt3FVelkPoXBlrHCRdGcEaAQ9QvaboEjtZc-ZFKzkBR8zqCVszKEImRIJ1B8jDF1E6S8wItpk7hoSCnVCWndzDb-meflqozSF36LRgtt_STnWAFc8lBsw9S2xoaCEw_rXkBHyi-gdPmj6psKdvN_2G1CzOUY-ugd0u40vxUUekdnMTYZuHArF8SEVo89r__PQlY2kqOYMMEAz58LA591Qi7vjkez_KM62bqnQ8c43-GEMlq2omxxLJS9E2rEQ5ZxB8oU8eBi9NdfQEdr1CfbKA87jijT7TGltrfefo4ZkwsWfqNbexNxlCPCqx6Na4tA8DOyDcEqjgx1Z7LQ7cTv3iCow&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5024392,
+            "longitude": 15.0904018,
+            "distanceToNext": "1.95 km",
+            "placeId": "place_174703432519873445"
+          },
+          {
+            "name": "Sipario Club",
+            "address": "Via Messina, Corso Italia, 245A, 95129 Catania CT, Italy",
+            "rating": 4.7,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNS2IuDKiGF0VkToW68jg2yFOMtZm8WHYJc6njduil0Pe8YhNhonuAxdQK7DTDYBJpKihbqXYcNiRHuG6yh86ERwnyVIS7qD6xIalOuJ_WJbJ4VeyXuFoV_K8he51iPR60CenPn7PM45b5u1MQcDEeLQOxx0Et3lYN9s7WDyInVYTTG01GWwnu7HpqVaXpEPweF-1yzwpWS3whJp0DwYo4TpS6zINZBlBkO38jutItES-mHmxFWMnis7J5JUWwh1Clwu2PM9TE1QAu7ttPtCILbnoaLQ4HNLN3N8iXw0GTCYYC-YRys&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5160649,
+            "longitude": 15.1042698,
+            "distanceToNext": "353.16 km",
+            "placeId": "place_174703432519825950"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_17470343251984838"
+          },
+          {
+            "name": "Bar Pasticceria Spinella",
+            "address": "Via Etnea, 292/298, 95131 Catania CT, Italy",
+            "rating": 3.6,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNT_OF5bwV2IP6CxF_o0stB9zw6L8yJ4Bolv1woKE-6Pa5zmre3eKGhRgXGiC_MpZm1qtQCqdTi1JSvJNKRkGhFUWwLKcWojo_fdnvzlL4wQL4oGujuao-VqpPz0dv3rxiCELXfAgk1Goq5rSM_opbe8GqcHfn3tAFeLWAqqxKdoX-JxuDqIZ48LDrHHN1krQ-iPbnuSx1xorywRFy-hdXbUOVLLDbtbjX-OgQA_-oFqI7DF8LzJd4BPTB540dhU6xZbzBzcA0KKMI64Zc12BZsZ-FsRqzaLIcpRO00iHNUm8Ef2Y8kNI7IXlB7I7Z5SyG2fmJilWg4G-mUQcKm6HEA2lRMioDmM0LxIyrp9QM3zI9B2jtS3yZ4lq0qXvXd9OjmMTBlBibCn2BP9jkBwUPInux-iW8UBvS3IhhFGHUqVPc08mfsaO0RrCCY3isRLB7z0-rl5Il-AvYjNMYBK-ZA8zxg6r7Yt-2CX0Ll4b4bebhOfCbZ738OznJDHA0xU0QUlrYsqwoQHftG4Vtp3TKETFwJeTZUsv794-THjTffm_w036vXhVL7XDnevnsOn8bT7iGuF&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.510712,
+            "longitude": 15.085641,
+            "distanceToNext": "0.96 km",
+            "placeId": "place_174703432519839413"
+          },
+          {
+            "name": "Terme Achilliane",
+            "address": "Piazza del Duomo, 8, 95124 Catania CT, Italy",
+            "rating": 3.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQUaDbkljHdpH28AXBJJy1xR_uGewiq1sZ5li4gAKZoi_PqLyC2VI2f0FwZI54j96OO4bNmBastzYlN--DBrQ5eTrlRt6EadLyKfW_EJH5U6BgT0bp-6HTxKqe7M3naY2XG6HcNZjvRnvI0rF6FqHKj3AzHVcCyFDggGbfpyam-5mCU9-aXlEnjS0PkZ2yArAJuQOu3RaFTGvXLl358CdoVDc8lMcetgbvBVbZY5aj95Z7v2C8mRDTEIa31lfHzJXkKvPLQ6WSQHS53AtFeNvxNDb--tUmxR7Nzgyt_auCduw9Iwr_YBNl0jUOi8A-X0seQQO2bH1Eq5byUAkqfqScxI4bT6YmfXEZJ7lawHI8PLGwVkFHwCPQHg_Af8Cm14TqIc4TifPigUpau1Kgssqv93nMsJiXPfmScCJUU5BWnJmlsQL_AWw00_UzdpXEhXN8sh80R5EAwJg7Xs4Q54KhpXb_fOtApaqZBZYOmI5yGEq380qH04kUMTNmMocv1PhIyATBNv8wA7EDhNwGb6JrUM4niHbKODeJhMCM67pQyyc6YQzc_X7C8Yzz8EpCIMUMYz8XYV97Rrg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5022196,
+            "longitude": 15.087655,
+            "distanceToNext": "0.36 km",
+            "placeId": "place_174703432519865349"
+          },
+          {
+            "name": "Trattoria Giglio Rosso",
+            "address": "Via Sant'Anna, 19, 95124 Catania CT, Italy",
+            "rating": 4.5,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNSOH6OOXqnYMOE5RV5N6Dpiku1SKN68i4DDS_mtqV4iZF5zd8IPN_4wdMaFyTLjjYdxT0juJoayLww8HMqJ4g_YpgSnvo-qh2HDjHXXTjiGHLC8xqLc6K6gll1MXobrIjzIqL3iucbqtK5HPF1JOm9VxLNSEsMeDktYJi_04heA5IbE-I_2folgR-ah5gPq2e5Mr8cCdrsvxFk96ghGLYSf8hFVueohdHpEBc-ekeFCOMbggQpkTZGw-jNjI9PVpzWPJ2_0v-8kgo2QlgMuO5vffJQsGjKQApRwB8P1BReAmMbi1XhjhP2y_yc1ECp0YJ1DMrwKEj58VSRCyhdWn8azld0vNMB2SZg2WnFMypdkpIJtf1WrPTbrGz-CxHx-9nI00G7fX4SUEMPvrqBiTY2VykqEhHZpwSOTJl0S2NuzHbSM3uUyPpUN8gsFQtsXQZ6lqtedFwNRyzxvSTiuhsC_IHXdLaQiDvt7NT9KC39TY7eFBCjBO9z3n82qQDWvjZ9U6BPN5unsRbA9mSQLZF4qvlrk2_Q4p78fdZoIR0HEK7TlDMetLaIoV5vKozffqLrIOA&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5020788,
+            "longitude": 15.0835761,
+            "distanceToNext": "0.36 km",
+            "placeId": "place_174703432519826183"
+          },
+          {
+            "name": "Museo Diocesano Catania",
+            "address": "Via Etnea, 8, 95124 Catania CT, Italy",
+            "rating": 4.3,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRuSYKx8qEQRIqVxY46miu8_KV5_vLJGMHrCtnJhr2SA1MqazW3PiT5VBDWTe0TEV-83AehNs6iApbIk4slE6uhdj1O2emDx3TAfsBa_tJtbMzFAGLs5FdwljVSWLmFdTO88rTW0ur4y67FE4CDdVAzml7ehGKefHrsXCvpzhOaVsHUGvft62BL9XU47BSDPxywdszi9VDMzU7GrNCHYSmRsb2asTX_hn28zAlfRf7Y8xDKo-VOnlOCu-ZbklZbSSIayUV06FYjwDqalS_rE_0Q6PD8vyxJuWy088uBX8RvdMft-vs&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.501956,
+            "longitude": 15.0876644,
+            "distanceToNext": "0.98 km",
+            "placeId": "place_174703432519850003"
+          },
+          {
+            "name": "La Terrazza Del Barone",
+            "address": "Via Lago di Nicito, 3/5, 95124 Catania CT, Italy",
+            "rating": 4.1,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNQc8BeeBNAbzZGa257E87dBw49CAUiFvz5B_7Q3D8GqkNtSpT70BDhXtAT6xi8NnsF9DuGwotdRXS0a3QSJx57qcasL7GKMEqTdSj-JYSdA2yE4SOU7vCFN0N6LgekxV7I4wo_BQVniV6w4hVfTxjtJmk-l7IxcAG_ozMxzfF6bCpy4ehoVyPMnQeg23FUZxTjGSLjlUyJsUpsaiZgethLSrC1T2QAD9oVA0WxJwliL4C4cyzHaULSSbzCexHNRhmj-v98J2KJ5KDU-5mOUH0aDe9TZv_PXf3XYHxQ0UpIWw77mXEDNwjsfAq3emhQMTZwu6uskI5MLb7c4nq7Pm1RagYMxwnGNjiu94dImU5qNCJMIioMvGfOI2iVMFY2-C7JHfY6zvbz75N08UgtlIa3RTrPyNowPSR8NGwVSnKPAOCqukyjuKYqcbfLLYwi5gXC-WuEciojeiXmDfIl3DxW_pQfYPu5VZeizk_GGDytwB0NEDb7NFaZ0jCLV00oJdn56_qS6Rn8OHBNvMwY0JMGSgoHGkPPHkYTM83YfJZWRfjvFJUSGXQrHIxSn19RwbYRYZg&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.507701,
+            "longitude": 15.079277,
+            "distanceToNext": "0.71 km",
+            "placeId": "place_174703432519870813"
+          },
+          {
+            "name": "Thirsty Corner",
+            "address": "Via Vittorio Emanuele II, 251, 95124 Catania CT, Italy",
+            "rating": 4.9,
+            "photo": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=AXQCQNRRgS0-gjDG_zifWjF8m3vWiNbXLX10duv0uswQaVzL4MHDHxdQqKFFoviP5lRlx6-diMyTSByV1XWK_vjOZaX39_0KJfkCnyOn_uFKVs-S6V7GbnV8GFxKel6Xp2iRLQqR6CBLUXLgfBNyymMs1UCFBe2yL6TXYLH2XiIxZAULen7JkCuJUFutHgeagHMQG-3WUihEBAk-DvUTwB63vrdbDCiQgCTNneHexio6vHgl7q1Df5-8ZnkKRcU1u1dbKx916I7PgVo1dRs5f86lPq3fzwsNecTj91uLI0gopNOPZdYg-Ec&key=AIzaSyDDkLtf6ql0g53dRWRLsNe8jzPL-13i9RI",
+            "latitude": 37.5023003,
+            "longitude": 15.0836708,
+            "distanceToNext": "354.75 km",
+            "placeId": "place_17470343251988258"
+          },
+          {
+            "name": "Torna all'alloggio",
+            "address": "SP429, 84024 Bagni di Contursi SA, Italy",
+            "photo": null,
+            "latitude": 40.6900184,
+            "longitude": 15.251803,
+            "placeId": "place_174703432519835286"
           }
         ],
-        "itineraryId": "trip_17469741458745983"
+        "itineraryId": "trip_174703432497093004"
       }
     ]
   },
