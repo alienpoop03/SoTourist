@@ -25,6 +25,7 @@ import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
 import { UnfinishedCardComponent } from '../components/unfinished-card/unfinished-card.component';
 import { TripWithId } from 'src/app/models/trip.model';
+import { RangeCalendarLiteComponent } from '../components/range-calendar-lite/range-calendar-lite.component';
 
 declare var google: any;
 
@@ -45,7 +46,9 @@ declare var google: any;
     IonCardTitle,
     IonCardContent,
     IonList,
-    UnfinishedCardComponent
+    UnfinishedCardComponent,
+    RangeCalendarLiteComponent  // 👈 AGGIUNGI QUI
+
   ],
   templateUrl: './crea.page.html',
   styleUrls: ['./crea.page.scss'],
@@ -56,26 +59,9 @@ declare var google: any;
         style({ transform: 'translateY(100%)', opacity: 0 }),
         animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
       ])
-    ]),
-    trigger('fadeInUp', [
-      transition(':enter', [
-        style({ transform: 'translateY(100%)', opacity: 0 }),
-        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
-      ])
-    ]),
-    trigger('fadeStep', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ]),
-      transition(':leave', [
-        animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
-      ])
     ])
   ]
+
 })
 export class CreaPage implements AfterViewInit {
   animateEntry = false;
@@ -86,14 +72,16 @@ export class CreaPage implements AfterViewInit {
 
   step = 1;
   stepmax = this.step;
-  stepscelta = 3;
+  //stepscelta = 3;
 
-  mode: 'vacation' | 'planned' | null = null;
+  //mode: 'vacation' | 'planned' | null = null;
 
   today = new Date().toISOString().split('T')[0];
   endDate: string | null = null;
   startDate: string | null = null;
   calendarDays: Date[] = [];
+  datesReady: boolean = false;
+
 
   city = '';
   accommodation = '';
@@ -112,17 +100,16 @@ export class CreaPage implements AfterViewInit {
   ngAfterViewInit() { }
 
   goToStep(s: number) {
-    if (s >= 1 && s <= 4 && s <= this.stepmax) {
+    if (s >= 2 && s <= 4 && s <= this.stepmax) {
       this.step = s;
       if (s === 2) setTimeout(() => this.initAutocomplete(), 300);
-      else if (s === 3) this.step = this.stepscelta;
     }
   }
 
   ionViewWillEnter() {
-    this.step = 1;
+    this.step = 2;
     this.stepmax = this.step;
-    this.mode = null;
+
     this.endDate = null;
     this.startDate = null;
     this.calendarDays = [];
@@ -134,17 +121,8 @@ export class CreaPage implements AfterViewInit {
 
     this.animateEntry = false;
     setTimeout(() => (this.animateEntry = true), 50);
-  }
 
-  selectMode(m: 'vacation' | 'planned') {
-    this.mode = m;
-    this.stepmax = 1;
-    if (!this.startDate) this.startDate = this.today;
-    if (!this.endDate) this.endDate = this.startDate;
-
-    this.stepscelta = m === 'vacation' ? 3.5 : 3;
-    setTimeout(() => (this.step = 2), 200);
-    if (this.step > this.stepmax) this.stepmax = this.step;
+    // 👇 AGGIUNGI QUESTO:
     setTimeout(() => this.initAutocomplete(), 300);
   }
 
@@ -160,7 +138,6 @@ export class CreaPage implements AfterViewInit {
     }
     this.step = 4;
 
-    // crea la bozza per la preview
     this.currentDraft = {
       itineraryId: `draft_${Date.now()}`,
       city: this.city,
@@ -223,13 +200,11 @@ export class CreaPage implements AfterViewInit {
   }
 
   confirmCity() {
-    this.step = this.stepscelta;
+    this.step = 3;
     if (this.step > this.stepmax) this.stepmax = this.step;
   }
 
-  /** Salva la bozza e va su /tabs/viaggi */
   confirmSurvey() {
-    // se per qualche motivo currentDraft non è stato creato, lo creo ora
     if (!this.currentDraft) {
       this.currentDraft = {
         itineraryId: `draft_${Date.now()}`,
@@ -245,37 +220,57 @@ export class CreaPage implements AfterViewInit {
     this.unfinishedCards.push(this.currentDraft);
     localStorage.setItem('trips', JSON.stringify(this.unfinishedCards));
 
-    // naviga alla pagina Viaggi passando il draftId
-    /*this.router.navigate(['/tabs/viaggi'], {
-      queryParams: { id: this.currentDraft.itineraryId }, replaceUrl: true
-    });*/
-    
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        if (this.currentDraft) {this.router.navigate(['/tabs/viaggi'], {
-            queryParams: { id: this.currentDraft.itineraryId },
-            replaceUrl: true
-          });
-        }
-      });
-    
-
-  }
-
-  private loadHeroPhoto() {
-    if (!this.city) return;
-    const query = `${this.city} attrazione turistica`;
-    const dummy = document.createElement('div');
-    const map = new (window as any).google.maps.Map(dummy);
-    const service = new (window as any).google.maps.places.PlacesService(map);
-
-    service.findPlaceFromQuery(
-      { query, fields: ['photos'] },
-      (results: any[], status: any) => {
-        if (status === 'OK' && results[0]?.photos?.length) {
-          const url = results[0].photos[0].getUrl({ maxWidth: 800 });
-          this.ngZone.run(() => (this.heroPhotoUrl = url));
-        }
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      if (this.currentDraft) {
+        this.router.navigate(['/tabs/viaggi'], {
+          queryParams: { id: this.currentDraft.itineraryId },
+          replaceUrl: true
+        });
       }
-    );
+    });
+
+
   }
+
+  areDatesValid(): boolean {
+    if (!this.startDate || !this.endDate) return false;
+    const start = new Date(this.startDate);
+    const end = new Date(this.endDate);
+    return start instanceof Date && end instanceof Date && !isNaN(start.getTime()) && !isNaN(end.getTime()) && start <= end;
+  }
+
+  onRangeSelected(range: { from: string, to: string }) {
+    console.log('Range ricevuto:', range); // 👈 deve apparire in console
+
+    this.startDate = range.from;
+    this.endDate = range.to;
+
+    // Forza il check del pulsante
+    this.step = this.step;
+  }
+
+  canProceedCurrentStep(): boolean {
+    if (this.step === 2) {
+      return !!this.city && !!this.accommodation;
+    } else if (this.step === 3) {
+      return !!this.startDate && !!this.endDate;
+    } else if (this.step === 4) {
+      return true; // step finale, già validato
+    }
+    return false;
+  }
+
+  handleStepAction() {
+    if (!this.canProceedCurrentStep()) return;
+
+    if (this.step === 2) {
+      this.confirmCity();
+    } else if (this.step === 3) {
+      this.confirmDates();
+    } else if (this.step === 4) {
+      this.confirmSurvey();
+    }
+  }
+
+
 }

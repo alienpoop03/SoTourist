@@ -23,27 +23,11 @@
       </div>
 
       <!-- WRAPPER DI TUTTI GLI STEP -->
-      <div [@fadeInUp]>
+      <div>
 
-        <!-- STEP 1 – modalità viaggio -->
-        <div *ngIf="step === 1" class="step-wrapper" [@fadeStep]>
-          <h2>Stai già viaggiando?</h2>
-
-          <div class="travel-mode-options">
-            <div class="travel-mode-card" (click)="selectMode('vacation')">
-              <ion-icon name="airplane-outline"></ion-icon>
-              <span>Sì, sono già in viaggio</span>
-            </div>
-
-            <div class="travel-mode-card" (click)="selectMode('planned')">
-              <ion-icon name="calendar-outline"></ion-icon>
-              <span>No, voglio pianificare</span>
-            </div>
-          </div>
-        </div>
 
         <!-- STEP 2 – città & alloggio -->
-        <div *ngIf="step === 2" class="step-wrapper" [@fadeStep]>
+        <div *ngIf="step === 2" class="step-wrapper">
 
           <h2>
             <ion-icon name="location-outline" class="h2-icon"></ion-icon>
@@ -62,59 +46,39 @@
 
             </ion-card-content>
           </ion-card>
+        </div>
 
-          <ion-button expand="block" [disabled]="!canProceedCity()" (click)="confirmCity()">
+        <!-- STEP 3 – con Litepicker -->
+        <div *ngIf="step === 3" class="step-wrapper step-scroll-wrapper">
+          <h2>Quando viaggerai?</h2>
+
+          <app-range-calendar-lite (datesSelected)="onRangeSelected($event)"></app-range-calendar-lite>
+        </div>
+
+        <!-- PULSANTE AVANTI fuori dallo scroll -->
+        <div *ngIf="step === 3" class="fixed-bottom-button">
+          <ion-button expand="block" [disabled]="!areDatesValid()" (click)="confirmDates()">
             Avanti
           </ion-button>
         </div>
-
-        <!-- STEP 3 – data inizio -->
-        <div *ngIf="step === 3" class="step-wrapper" [@fadeStep]>
-          <h2>Quando inizia il viaggio?</h2>
-          <ion-item>
-            <ion-datetime presentation="date" display-format="DD MMM YYYY" (ionChange)="onStartDateChange($event)"
-              [value]="startDate" [min]="today" locale="it-IT">
-            </ion-datetime>
-          </ion-item>
-        </div>
-
-        <!-- STEP 3.5 – data fine -->
-        <div *ngIf="step === 3.5" class="step-wrapper" [@fadeStep]>
-          <h2>Quando finisce il viaggio?</h2>
-          <ion-item>
-            <ion-datetime presentation="date" display-format="DD MMM YYYY" (ionChange)="onEndDateChange($event)"
-              [value]="endDate" [min]="startDate" locale="it-IT">
-            </ion-datetime>
-          </ion-item>
-
-          <ion-button expand="block" [disabled]="!canProceedDates()" (click)="confirmDates()">
-            Avanti
-          </ion-button>
-        </div>
-
 
         <!-- STEP 4 – riepilogo -->
-        <div *ngIf="step === 4" class="step-wrapper" [@fadeStep]>
-
+        <div *ngIf="step === 4" class="step-wrapper">
           <!-- Preview con il tuo componente -->
           <app-unfinished-card *ngIf="currentDraft" [trip]="currentDraft"></app-unfinished-card>
-
-
-          <!-- (Se vuoi ancora il riepilogo testuale, puoi tenerlo qui sotto) -->
-          <!--
-  <div class="summary-card">
-    <h3>📍 Viaggio a {{ city }}</h3>
-    <p><strong>Dal:</strong> {{ startDate | date:'fullDate' }}</p>
-    <p><strong>Al:</strong> {{ endDate | date:'fullDate' }}</p>
-    <p><strong>Durata:</strong> {{ calendarDays.length }} giorni</p>
-  </div>
-  -->
 
           <ion-button class="confirm-btn" expand="block" (click)="confirmSurvey()">
             Conferma e salva
           </ion-button>
         </div>
 
+        <!-- BOTTONE FISSO UNICO -->
+        <div class="fixed-bottom-button">
+          <ion-button expand="block" [disabled]="!canProceedCurrentStep()" (click)="handleStepAction()">
+            Avanti
+          </ion-button>
+
+        </div>
 
 
       </div> <!-- /fadeInUp wrapper -->

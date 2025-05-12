@@ -33,6 +33,7 @@
     "flatpickr": "^4.6.13",
     "ion2-calendar": "^3.5.0",
     "ionicons": "^7.0.0",
+    "litepicker": "^2.0.12",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -51,6 +52,7 @@
     "@capacitor/cli": "7.2.0",
     "@ionic/angular-toolkit": "^12.0.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/flatpickr": "^3.0.2",
     "@types/google.maps": "^3.58.1",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",

@@ -1,67 +1,104 @@
-:host {
-  display: block;
-  margin-bottom: 1rem;
+.trip-layout {
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+  position: relative;
+
+}
+
+/* FOTO */
+.trip-photo {
+  flex: 1.2;
+  min-width: 110px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* BLOCCO CENTRALE: dettagli + bottoni */
+.trip-center {
+  flex: 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+/* TESTO */
+.trip-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--color-text);
+
+  .trip-city {
+    margin: 0 0 0.25rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-primary);
+  }
+
+  .trip-dates {
+    font-size: 0.9rem;
+    color: var(--color-highlight);
+    margin: 0 0 0.25rem;
+  }
+
+  .trip-accommodation,
+  .trip-days {
+    font-size: 0.85rem;
+    color: var(--color-text2);
+    margin: 0;
+  }
+}
+
+/* BOTTONI VERTICALI */
+.side-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: 1rem;
+}
+
+.edit-btn,
+.delete-btn {
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 28px;
+  height: 28px;
+  font-size: 1.1rem;
+  z-index: 1;
+}
+
+/* FRECCIA */
+.trip-arrow {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .arrow-container {
+    background: var(--color-primary);
+    /* rosso bordeaux */
+    color: var(--color-highlight);
+    /* giallo */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+  }
 }
 
 .trip-card {
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); // opzionale per eleganza
   background: var(--color-background);
   transition: transform 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
   }
-}
-
-.trip-layout {
-  display: flex;
-  flex-direction: row;
-  height: 120px;
-}
-
-.trip-photo {
-  flex: 1;
-  min-width: 120px;
-  background-size: cover;
-  background-position: center;
-}
-
-.trip-details {
-  flex: 2;
-  padding: 1rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--color-text);
-}
-
-.delete-btn {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  --padding-start: 0;
-  --padding-end: 0;
-}
-
-.trip-city {
-  margin: 0 0 0.25rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--color-primary);
-}
-
-.trip-dates {
-  font-size: 0.9rem;
-  color: var(--color-highlight);
-  margin: 0 0 0.25rem;
-}
-
-.trip-accommodation,
-.trip-days {
-  font-size: 0.85rem;
-  color: var(--color-text2);
-  margin: 0;
 }
