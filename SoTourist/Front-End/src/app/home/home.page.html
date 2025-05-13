@@ -1,94 +1,50 @@
-<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false">
-</app-header>
+<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false"></app-header>
 
-<ion-content class="home-content" fullscreen [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
-  <!-- HERO / ULTIMO VIAGGIO -->
-<div
-*ngIf="lastTrip"
-class="hero"
-[class.collapsed]="heroCollapsed"
-(click)="openItinerary(0)">
+<ion-content class="home-content" fullscreen>
 
-<!-- Copertina -->
-<div
-  class="hero-cover"
-  [style.background-image]="'url(' + lastTrip.photo + ')'">
-</div>
-
-<!-- Info -->
-<div class="hero-info">
-  <h2>{{ lastTrip.city }}</h2>
-  <p>{{ lastTrip.start | date:'dd MMM' }} → {{ lastTrip.end | date:'dd MMM y' }}</p>
-</div>
-</div>
-
-
-  <!-- ───── DESTINAZIONI IMPERDIBILI ───── -->
-  <ion-list class="dest-list">
-    <ion-list-header>Destinazioni imperdibili</ion-list-header>
-    <div class="dest-grid">
-      <ion-card *ngFor="let city of suggestedCities" (click)="openCreate(city.name)">
-        <img [src]="city.photo" [alt]="city.name" />
-        <ion-card-header>
-          <ion-card-title>{{ city.name }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-button fill="clear" size="small">
-            Aggiungi
-            <ion-icon slot="end" name="add-outline"></ion-icon>
-          </ion-button>
-        </ion-card-content>
+  <!-- ─── Scopri oggi ─── -->
+  <section class="cards-section discover">
+    <h2 class="section-title">Scopri oggi</h2>
+    <div class="cards-scroll">
+      <ion-card *ngFor="let c of discoverToday" (click)="openCreate(c)">
+        <img src="../assets/images/PaletoBay.jpeg" alt="{{ c }}" />
+        <ion-card-content>{{ c }}</ion-card-content>
       </ion-card>
     </div>
-  </ion-list>
+  </section>
 
-  <!-- ───── PIÙ VISITATI QUESTA SETTIMANA ───── -->
-  <ion-list class="trend-list">
-    <ion-list-header>I più visitati questa settimana</ion-list-header>
-    <div class="trend-scroll">
-      <ion-card *ngFor="let t of trending">
-        <img [src]="t.photo" [alt]="t.city" />
-        <div class="trend-label">
-          <ion-icon name="trending-up-outline"></ion-icon>&nbsp;{{ t.count }}
-        </div>
-        <ion-card-content>{{ t.city }}</ion-card-content>
+  <!-- ─── Posti da visitare nel 2025 ─── -->
+  <section class="cards-section year2025">
+    <h2 class="section-title">Posti da visitare nel 2025</h2>
+    <div class="cards-scroll">
+      <ion-card *ngFor="let p of places2025" (click)="openCreate(p)">
+        <img src="../assets/images/PaletoBay.jpeg" alt="{{ p }}" />
+        <ion-card-content>{{ p }}</ion-card-content>
       </ion-card>
     </div>
-  </ion-list>
+  </section>
 
-  <!-- ───── CONSIGLIATI PER TE ───── -->
-<ion-list class="recommended-list">
-  <ion-list-header>Consigliati per te</ion-list-header>
-  <div class="trend-scroll">
-    <ion-card *ngFor="let r of recommendedTrips" (click)="openCreate(r.city)">
-      <img [src]="r.photo" [alt]="r.city" />
-      <ion-card-content>{{ r.city }}</ion-card-content>
-    </ion-card>
-  </div>
-</ion-list>
+  <!-- ─── Perché visitare Miami ─── -->
+  <section class="cards-section miami-highlight">
+    <h2 class="section-title">Perché visitare Miami</h2>
+    <div class="miami-wrapper">
+      <ion-card class="miami-card" (click)="openCreate('Miami')">
+        <img src="../assets/images/PaletoBay.jpeg" alt="Miami" />
+        <ion-card-content>Miami</ion-card-content>
+      </ion-card>
+      <p class="miami-review">“Spiagge da sogno, nightlife sfrenata e arte a ogni angolo: Miami &egrave; l'avventura che non sapevi di desiderare.”</p>
+    </div>
+  </section>
 
-<!-- ───── ESPLORA NELLE VICINANZE ───── -->
-<ion-list class="nearby-list">
-  <ion-list-header>Esplora nelle vicinanze</ion-list-header>
-  <div class="trend-scroll">
-    <ion-card *ngFor="let n of nearbyCities" (click)="openCreate(n.city)">
-      <img [src]="n.photo" [alt]="n.city" />
-      <div class="trend-label">
-        <ion-icon name="location-outline"></ion-icon>&nbsp;{{ n.distance }}
-      </div>
-      <ion-card-content>{{ n.city }}</ion-card-content>
-    </ion-card>
-  </div>
-</ion-list>
+  <!-- ─── Top viaggi ─── -->
+  <section class="cards-section top-trips">
+    <h2 class="section-title">Top viaggi</h2>
+    <div class="cards-scroll">
+      <ion-card *ngFor="let t of topTrips" (click)="openCreate(t)">
+        <img src="../assets/images/PaletoBay.jpeg" alt="{{ t }}" />
+        <ion-card-content>{{ t }}</ion-card-content>
+      </ion-card>
+    </div>
+  </section>
+
 </ion-content>
-
-
-
-
-
-<!-- FAB CREA -->
-<ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
-  <ion-fab-button (click)="goToCreate()">
-    <ion-icon name="add-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>

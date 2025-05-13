@@ -3,209 +3,94 @@
   padding-bottom: 80px;
 }
 
-/* ─── HERO ─── */
-/* ─── HERO con layout dinamico ─── */
-.hero {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;        /* full-size = colonna */
-  height: 220px;
-  min-height: 60px;
-  border-radius: 0 0 24px 24px;
-  overflow: hidden;
-  transition: height 0.3s ease, padding 0.3s ease;
+/* Sezioni generiche */
+.cards-section {
+  padding: 1.2rem 0 1.6rem;
 
-  /* Cover full-size */
-  .hero-cover {
-    flex: 1;
-    background-size: cover;
-    background-position: center;
-    transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
-  }
-
-  /* Testo full-size */
-  .hero-info {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.4rem;
-    color: #fff;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
-    transition: padding 0.3s ease, background 0.3s ease;
-  }
-
-  h2 { font-size: 1.6rem; margin: 0 0 4px; }
-  p  { font-size: 1rem;  margin: 0;      }
-}
-
-/* ─── Stato compresso ─── */
-.hero.collapsed {
-  height: 70px;
-  flex-direction: row;
-  padding: 0 0.8rem;
-  background: var(--color-background2);
-  border-radius: 0 0 12px 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-
-  .hero-cover {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    flex: none;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-  }
-
-  .hero-info {
-    position: static;
-    flex: 1;
-    background: transparent;
-    padding: 0 0 0 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-text1);
-      margin: 0;
-      line-height: 1.2;
-    }
-
-    p {
-      font-size: 0.75rem;
-      color: var(--color-text2);
-      margin: 2px 0 0;
-    }
+  /* piccolo stacco con sfumatura */
+  & + .cards-section {
+    background: linear-gradient(
+      to bottom,
+      var(--color-background1) 0%,
+      var(--color-background) 100%
+    );
   }
 }
 
-
-
-/* ─── LIST HEADERS ─── */
-ion-list-header {
-  color: var(--color-text);
+.section-title {
+  margin: 0 1rem 0.8rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  font-size: 1.15rem;
-  letter-spacing: 0.5px;
-  padding: 0 1rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
+  color: var(--color-text);
 }
 
-/* ─── DESTINAZIONI IMPERDIBILI ─── */
-.dest-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  padding: 0 1rem 1.5rem;
-}
-
-.dest-grid ion-card {
-  --background: var(--color-background);
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
-  overflow: hidden;
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  img {
-    height: 140px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 14px 14px 0 0;
-  }
-
-  ion-card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
-    padding: 0 1rem;
-  }
-
-  ion-card-content {
-    padding: 0.5rem 1rem 1rem;
-    display: flex;
-    justify-content: center;
-
-    ion-button {
-      --color: var(--color-primary);
-      --padding-start: 0;
-      --padding-end: 0;
-      font-weight: 500;
-    }
-  }
-}
-
-/* ─── TRENDING ─── */
-.trend-scroll {
+/* Scroll orizzontale */
+.cards-scroll {
   display: flex;
-  gap: 1rem;
-  padding: 0.5rem 1rem 1.5rem;
+  padding: 0 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
 
-.trend-scroll ion-card {
-  flex: 0 0 200px;
-  //scroll-snap-align: start;
+.cards-scroll ion-card {
+  flex: 0 0 130px;
+  height: 220px;
+  margin-right: 4px;
   position: relative;
-  border-radius: 12px;
   overflow: hidden;
-  background: var(--color-background);
+  border-radius: 12px;
+  background: none;
 
   img {
-    height: 90px;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .trend-label {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    background: white;
-    color: var(--color-primary);
-    font-size: 0.7rem;
-    padding: 3px 6px;
-    border-radius: 6px;
-    font-weight: bold;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
   }
 
   ion-card-content {
-    padding: 0.5rem;
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    width: 100%;
     text-align: center;
-    font-size: 0.85rem;
-    color: var(--color-text2);
+    z-index: 2;
+    color: var(--color-highlight); /* Giallo */
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  &:last-child {
+    margin-right: 0;
   }
 }
 
-.custom-fab {
-  right: 24px;
-  bottom: 24px;
-}
 
-.dest-list,
-.trend-list,
-.recommended-list,
-.nearby-list,
-.my-trips {
-  background: linear-gradient(to bottom, var(--color-background) 0%, var(--color-background4) 100%);
-}
 
-ion-content {
-  --padding-bottom: 45px; // DA MODIFICARE
-}
 
-.nearby-list .trend-label {
-  background: var(--color-highlight);
-  color: var(--color-primary);
-}
+/* Blocco “Perché visitare Miami” */
+.miami-highlight {
+  margin: 1rem;
+  background: var(--color-background);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
+  ion-card {
+    width: 90%;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .review {
+    padding: 0 1rem 1.2rem;
+    font-size: 0.9rem;
+    color: var(--color-text2);
+  }
+}

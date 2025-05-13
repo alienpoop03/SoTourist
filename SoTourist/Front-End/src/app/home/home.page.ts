@@ -4,159 +4,54 @@ import { CommonModule } from '@angular/common';
 import {
   IonContent,
   IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
   IonCardContent,
-  IonIcon,
-  IonButton,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
+  IonCardTitle,
   IonFab,
   IonFabButton,
-  IonList,
-  IonListHeader,
-  IonItem,
-  IonToggle,
-  IonSelect,
-  IonSelectOption,
+  IonIcon,
 } from '@ionic/angular/standalone';
 
-import { AppHeaderComponent } from "../components/header/app-header.component";
-import { TripCardComponent, } from '../components/trip-card/trip-card.component';
-import { TripWithId } from 'src/app/models/trip.model';
-
+import { AppHeaderComponent } from '../components/header/app-header.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
   imports: [
     CommonModule,
     IonContent,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
     IonCardContent,
-    IonIcon,
-    IonButton,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
+    IonCardTitle,
     IonFab,
     IonFabButton,
-    IonList,
-    IonListHeader,
-    IonItem,
-    IonToggle,
-    IonSelect,
-    IonSelectOption,
+    IonIcon,
     AppHeaderComponent,
-    TripCardComponent,
   ],
-
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss']
 })
 export class HomePage {
-  trips: any[] = [];
-  lastTrip: any = null;
-  allTrips: TripWithId[] = [];
-  heroScale = 1;
-  heroCollapsed = false;
+  /** Sezione “Scopri oggi” */
+  discoverToday = ['Roma', 'Parigi', 'Tokyo', 'New York', 'Barcellona'];
 
+  /** Sezione “Posti da visitare nel 2025” */
+  places2025 = ['Dubai', 'Bangkok', 'Melbourne', 'Lisbona', 'San Francisco'];
 
-  // destinazioni da mostrare
-  suggestedCities = [
-    { name: 'Roma', photo: '../assets/images/Roma.jpeg' },
-    { name: 'Parigi', photo: '../assets/images/Parigi.jpeg' },
-    { name: 'Tokyo', photo: '../assets/images/Tokyo.jpeg' },
-    { name: 'New York', photo: '../assets/images/new-york.jpeg' },
-    { name: 'Barcellona', photo: '../assets/images/barcellona.jpeg' },
-    { name: 'Paleto Bay', photo: '../assets/images/PaletoBay.jpeg' },
+  /** Blocco “Perché visitare Miami” */
+  miami = 'Miami'; // se in futuro vuoi usare più dati è già pronto
 
-  ];
+  /** Sezione “Top viaggi” */
+  topTrips = ['Londra', 'Amsterdam', 'Madrid', 'Praga', 'Vienna'];
 
-  trending = [
-    { city: 'Londra', photo: '../assets/images/londra.jpeg', count: 124 },
-    { city: 'Amsterdam', photo: '../assets/images/amsterdam.jpeg', count: 97 },
-    { city: 'Berlino', photo: '../assets/images/berlino.jpeg', count: 81 },
-    { city: 'Madrid', photo: '../assets/images/madrid.jpeg', count: 76 },
-  ];
+  constructor(private router: Router) {}
 
-  // Mock "Consigliati per te"
-  recommendedTrips = [
-    { city: 'Siena', photo: 'assets/images/PaletoBay.jpeg' },
-    { city: 'Verona', photo: 'assets/images/PaletoBay.jpeg' },
-    { city: 'Matera', photo: 'assets/images/PaletoBay.jpeg' }
-  ];
-
-  // Mock "Esplora nelle vicinanze"
-  nearbyCities = [
-    { city: 'Napoli', photo: 'assets/images/PaletoBay.jpeg', distance: '27 km' },
-    { city: 'Pompei', photo: 'assets/images/PaletoBay.jpeg', distance: '39 km' },
-    { city: 'Salerno', photo: 'assets/images/PaletoBay.jpeg', distance: '52 km' }
-  ];
-  constructor(private router: Router) { }
-
-  ionViewWillEnter() {
-    const saved = localStorage.getItem('trips');
-    const allTrips = saved ? JSON.parse(saved) : [];
-
-    const today = new Date();
-
-    // Viaggi conclusi (end < oggi)
-    this.trips = allTrips.filter((t: any) => new Date(t.end) < today);
-
-    // Ultimo viaggio (primo salvato = più recente)
-    this.lastTrip = allTrips.length ? allTrips[0] : null;
-
-    if (this.lastTrip) {
-      const id = this.lastTrip.id || 0;
-      const cover = localStorage.getItem(`coverPhoto-${id}`);
-      this.lastTrip.photo = cover || '../assets/images/PaletoBay.jpeg';
-    }
-  }
-
-  openItinerary(index: number) {
-    this.router.navigate(['/tabs/itinerario'], { queryParams: { id: index } });
-  }
-
-
-  deleteTrip(id: string) {
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
-    const updated = trips.filter(t => t.itineraryId !== id); // ✅ CORRETTO
-    localStorage.setItem('trips', JSON.stringify(updated));
-    // ricarica la lista
-    this.ionViewWillEnter();
-  }
-
-
+  /** Apre la pagina Crea pre-compilando la città */
   openCreate(city: string) {
     this.router.navigate(['/crea'], { queryParams: { city } });
   }
 
-  openLastTrip() {
-    this.openItinerary(0);
-  }
-
-
-
+  /** FAB “+” per creare un viaggio da zero */
   goToCreate() {
     this.router.navigate(['/crea']);
   }
-
-  // adesso
-  onContentScroll(event: any) {
-    const scrollTop = event.detail.scrollTop as number;
-  
-    // Appena si scende da zero, scatta subito collapsed
-    this.heroCollapsed = scrollTop > 0;
-  }
-  
-  
-
 }
