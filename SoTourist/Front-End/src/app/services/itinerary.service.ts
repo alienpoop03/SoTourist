@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TripWithId } from 'src/app/models/trip.model';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from './ip.config';
 
 @Injectable({ providedIn: 'root' })
 export class ItineraryService {
-  private baseUrl = 'http://localhost:3000/api'; // metti il tuo IP reale
+  private baseUrl = API_BASE_URL+'/api'; // metti il tuo IP reale
 
   constructor(private http: HttpClient) { }
 

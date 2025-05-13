@@ -124,7 +124,7 @@ exports.updateUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-
+// ➕Modifica il tipo di abbonamento
 exports.upgradeToPremium = (req, res) => {
   const { userId } = req.params;
   const { plan } = req.body; // es. "premium" o "gold"
@@ -157,6 +157,7 @@ exports.upgradeToPremium = (req, res) => {
   });
 };
 
+// ❌ Annulla abbonamento
 exports.cancelPremium = (req, res) => {
   const { userId } = req.params;
 

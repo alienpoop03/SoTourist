@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { API_BASE_URL } from './ip.config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   //private baseUrl = 'http://192.168.17.185:3000/api/auth';
-    private baseUrl = 'http://localhost:3000/api/auth';
+    private baseUrl = API_BASE_URL+'/api/auth';
 
 
   constructor(private http: HttpClient) {}

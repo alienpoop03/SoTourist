@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { API_BASE_URL } from './ip.config';
 @Injectable({
   providedIn: 'root' // ✅ corretto per standalone
 })
 export class ApiService {
   //private readonly BASE_URL = 'http://192.168.17.185:3000/api'; // oppure '/api' se usi proxy
-    private readonly BASE_URL = 'http://localhost:3000/api'; // oppure '/api' se usi proxy
+    private readonly BASE_URL = API_BASE_URL+'/api'; // oppure '/api' se usi proxy
 
 
   constructor(private http: HttpClient) {}
