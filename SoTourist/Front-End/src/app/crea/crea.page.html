@@ -49,18 +49,32 @@
         </div>
 
         <!-- STEP 3 – con Litepicker -->
-        <div *ngIf="step === 3" class="step-wrapper step-scroll-wrapper">
-          <h2>Quando viaggerai?</h2>
+        <div *ngIf="step === 3" class="step-wrapper">
 
-          <app-range-calendar-lite (datesSelected)="onRangeSelected($event)"></app-range-calendar-lite>
+          <!-- TITOLO FISSO -->
+          <div class="step-title-fixed">
+            <h2>
+              <ion-icon name="calendar-outline" class="h2-icon"></ion-icon>
+              Quando viaggerai?
+            </h2>
+          </div>
+
+          <!-- CALENDARIO SCROLLABILE -->
+          <div class="step-scroll-area">
+            <app-range-calendar-lite id="calendar"
+              (datesSelected)="onRangeSelected($any($event))"
+              [startFromDate]="today">
+            </app-range-calendar-lite>
+          </div>
+
         </div>
 
         <!-- PULSANTE AVANTI fuori dallo scroll -->
-        <div *ngIf="step === 3" class="fixed-bottom-button">
+        <!--<div *ngIf="step === 3" class="fixed-bottom-button">
           <ion-button expand="block" [disabled]="!areDatesValid()" (click)="confirmDates()">
             Avanti
           </ion-button>
-        </div>
+        </div>-->
 
         <!-- STEP 4 – riepilogo -->
         <div *ngIf="step === 4" class="step-wrapper">
@@ -73,7 +87,7 @@
         </div>
 
         <!-- BOTTONE FISSO UNICO -->
-        <div class="fixed-bottom-button">
+        <div *ngIf="step < 4" class="fixed-bottom-button">
           <ion-button expand="block" [disabled]="!canProceedCurrentStep()" (click)="handleStepAction()">
             Avanti
           </ion-button>

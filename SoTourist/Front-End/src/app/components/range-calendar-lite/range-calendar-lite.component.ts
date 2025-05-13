@@ -4,6 +4,7 @@ import {
   ViewChild,
   AfterViewInit,
   Output,
+  Input,
   EventEmitter
 } from '@angular/core';
 import Litepicker from 'litepicker';
@@ -17,6 +18,8 @@ import Litepicker from 'litepicker';
 export class RangeCalendarLiteComponent implements AfterViewInit {
   @ViewChild('calendarContainer', { static: true }) calendarContainer!: ElementRef;
   @Output() datesSelected = new EventEmitter<{ from: string, to: string }>();
+  @Input() startFromDate!: string; // Es. '2025-05-13'
+
 
   ngAfterViewInit() {
     new Litepicker({
@@ -27,23 +30,25 @@ export class RangeCalendarLiteComponent implements AfterViewInit {
       numberOfMonths: 12,
       numberOfColumns: 1,
       autoApply: true,
+      minDate: this.startFromDate,
+
       setup: (pickerInstance: any) => {
-  pickerInstance.on('selected', (start: any, end: any) => {
-    console.log('🔍 Valori grezzi ricevuti da Litepicker:', start, end);
+        pickerInstance.on('selected', (start: any, end: any) => {
+          console.log('🔍 Valori grezzi ricevuti da Litepicker:', start, end);
 
-    const fromDate = start?.dateInstance;
-    const toDate = end?.dateInstance;
+          const fromDate = start?.dateInstance;
+          const toDate = end?.dateInstance;
 
-    console.log('✅ Dopo conversione:', fromDate, toDate);
+          console.log('✅ Dopo conversione:', fromDate, toDate);
 
-    if (!fromDate || !toDate || isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) return;
+          if (!fromDate || !toDate || isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) return;
 
-    this.datesSelected.emit({
-      from: fromDate.toISOString().split('T')[0],
-      to: toDate.toISOString().split('T')[0]
-    });
-  });
-}
+          this.datesSelected.emit({
+            from: fromDate.toISOString().split('T')[0],
+            to: toDate.toISOString().split('T')[0]
+          });
+        });
+      }
 
 
 
