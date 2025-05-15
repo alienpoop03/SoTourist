@@ -228,5 +228,14 @@
         "itineraryId": "trip_174697415105374224"
       }
     ]
+  },
+  {
+    "userId": "user_174731694582013229",
+    "username": "789",
+    "email": "789",
+    "password": "$2b$10$1rmXV91pTV2iTlSgn8MKf.Rf7NxyXhCQAjaznDP7QFCai4iNdww62",
+    "type": "standard",
+    "subscriptionEndDate": null,
+    "itineraries": []
   }
 ]
