@@ -10,20 +10,11 @@
     <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
   </div>
 
-  <!-- ⚪️ Bozze salvate localmente -->
-  <div *ngIf="drafts.length > 0" class="trip-section">
-    <h2>Bozze locali</h2>
-    <ng-container *ngFor="let trip of drafts">
-      <app-unfinished-card [trip]="trip" (open)="openItinerary($event)" (remove)="deleteDraft($event)">
-      </app-unfinished-card>
-    </ng-container>
-  </div>
-
   <!--viaggi su cloud per chi è loggato-->
   <div *ngIf="!isGuest">
     <!-- 🔴 Viaggio in corso -->
-    <div *ngIf="inCorso" class="trip-section">
-      <h2>Viaggio in corso</h2>
+    <div *ngIf="inCorso" class="trip-section current-trip sticky-section">
+      <h2 class="Title_sezion">Viaggio in corso</h2>
       <app-trip-card [trip]="inCorso" (remove)="deleteTrip($event)" (open)="openItinerary($event)">
       </app-trip-card>
 
@@ -31,7 +22,7 @@
 
     <!-- 🟡 Viaggio imminente -->
     <div *ngIf="imminente" class="trip-section">
-      <h2>Viaggio imminente</h2>
+      <h2 class="Title_sezion">Viaggio imminente</h2>
       <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
         (remove)="deleteTrip(imminente.itineraryId)">
       </app-trip-card>
@@ -39,13 +30,24 @@
 
     <!-- 🔵 Prossimi viaggi -->
     <div *ngIf="futuri.length > 0" class="trip-section">
-      <h2>Prossimi viaggi</h2>
-      <ng-container *ngFor="let trip of futuri">
-        <app-trip-card [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
+      <h2 class="Title_sezion">Prossimi viaggi</h2>
+      <div class="card-grid">
+        <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
         </app-trip-card>
-      </ng-container>
+      </div>
     </div>
   </div>
+
+  <!-- ⚪️ Bozze salvate localmente -->
+  <div *ngIf="drafts.length > 0" class="trip-section">
+    <h2 class="Title_sezion">Bozze</h2>
+    <div class="card-grid">
+      <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)" (remove)="deleteDraft($event)">
+      </app-unfinished-card>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
 </ion-content>
 
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">

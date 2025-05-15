@@ -46,3 +46,48 @@
   width: 100%;
   display: block;
 }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr; // mobile: 1 colonna
+  }
+
+  app-trip-card,
+  app-unfinished-card {
+    width: 100%;
+  }
+}
+
+.trip-section.current-trip {
+  background-color: var(--color-current-trip-bg);
+  border-left: 5px solid var(--color-highlight);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.Title_sezion{
+  color: var(--color-title-viaggi);
+  font-size: 1.25rem;
+  font-weight: 800;
+   padding-left: 12px;
+}
+
+.spacer {
+  height: 135px; // o 100px se il FAB è più grande
+}
+
+.sticky-section {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-background1);
+  padding-bottom: 1rem;
+  //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // sottile separazione
+
+  transition: box-shadow 0.3s ease;
+}
