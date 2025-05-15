@@ -9,6 +9,8 @@ import {
   IonFab,
   IonFabButton,
   IonIcon,
+    IonButton, // ✅ AGGIUNGI QUESTO
+
 } from '@ionic/angular/standalone';
 
 import { AppHeaderComponent } from '../components/header/app-header.component';
@@ -28,6 +30,8 @@ import { AppHeaderComponent } from '../components/header/app-header.component';
     IonFabButton,
     IonIcon,
     AppHeaderComponent,
+      IonButton, // ✅ AGGIUNGI QUESTO
+
   ],
 })
 export class HomePage {
@@ -42,6 +46,12 @@ export class HomePage {
 
   /** Sezione “Top viaggi” */
   topTrips = ['Londra', 'Amsterdam', 'Madrid', 'Praga', 'Vienna'];
+
+
+  top10Today = [
+  'Roma', 'Londra', 'Tokyo', 'New York', 'Parigi',
+    'Barcellona', 'Dubai', 'Praga', 'Bangkok', 'Toronto'
+];
 
   constructor(private router: Router) {}
 
