@@ -1,96 +1,232 @@
+/*                        */
+/* ----- BASE LAYOUT -----*/
+/*                        */
 .home-content {
   --background: var(--color-background1);
   padding-bottom: 80px;
 }
 
-/* Sezioni generiche */
+/* Sezioni con stacco graduale */
 .cards-section {
-  padding: 1.2rem 0 1.6rem;
+  position: relative;
+  padding: 1.4rem 0 1.6rem;
+  background: var(--color-background);
 
-  /* piccolo stacco con sfumatura */
   & + .cards-section {
-    background: linear-gradient(
+    background-image: linear-gradient(
       to bottom,
       var(--color-background1) 0%,
       var(--color-background) 100%
     );
+    background-repeat: no-repeat;
+    background-size: 100% 34px;
   }
 }
 
+/* Badge */
+.section-badge {
+  display: inline-block;
+  margin: 0 1rem 0.4rem;
+  padding: 2px 10px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--color-primary);
+  background: var(--color-highlight);
+  border-radius: 10px;
+}
+
+/* Titolo sezione */
 .section-title {
-  margin: 0 1rem 0.8rem;
+  margin: 0 1rem 0.9rem;
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--color-text);
 }
 
-/* Scroll orizzontale */
+/*                        */
+/* ----- CARDS LIST  -----*/
+/*                        */
 .cards-scroll {
   display: flex;
   padding: 0 1rem;
+  gap: 2px;               /* quasi attaccate */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
 
 .cards-scroll ion-card {
-  flex: 0 0 130px;
-  height: 220px;
-  margin-right: 4px;
+  flex: 0 0 180px;
+  height: 260px;
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
   background: none;
+  box-shadow: none;
+  scroll-snap-align: start;
 
   img {
     position: absolute;
-    top: 0; left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: 1;
   }
 
-  ion-card-content {
+  &::after {                /* blur solo in fondo */
+    content: '';
     position: absolute;
-    bottom: 8px;
-    left: 0;
-    width: 100%;
-    text-align: center;
+    bottom: 0;
+    width: 100%; height: 80px;
+    backdrop-filter: blur(8px);
+    mask-image: linear-gradient(to top, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
     z-index: 2;
-    color: var(--color-highlight); /* Giallo */
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   }
 
-  &:last-child {
-    margin-right: 0;
+  ion-card-content {        /* targhetta testo */
+    position: absolute;
+    bottom: 12px; left: 8px; right: 8px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px);
+    text-align: center;
+    color: var(--color-highlight);
+    font-weight: 700;
+    font-size: 1rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    z-index: 3;
   }
 }
 
-
-
-
-/* Blocco “Perché visitare Miami” */
+/*                        */
+/* ----- MIAMI BLOCK -----*/
+/*                        */
 .miami-highlight {
-  margin: 1rem;
-  background: var(--color-background);
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
-  ion-card {
-    width: 90%;
-    margin: 1rem 0 0.5rem;
+  .miami-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .review {
-    padding: 0 1rem 1.2rem;
+  .miami-card {
+    max-width: 320px;
+  }
+
+  .miami-review {
+    margin-top: 1rem;
+    font-style: italic;
     font-size: 0.9rem;
     color: var(--color-text2);
+    text-align: center;
   }
 }
+
+/*                        */
+/* ----- FINALE -----*/
+/*                        */
+.end-message {
+  text-align: center;
+  padding-bottom: 5rem;
+
+  .final-subtext {
+    font-size: 0.95rem;
+    color: var(--color-text2);
+    margin: 0.6rem 1.5rem 1.2rem;
+    line-height: 1.4;
+  }
+
+  .final-button-wrapper {
+    padding: 0 1.5rem;
+  }
+
+  ion-button {
+    --background: var(--color-highlight);
+    --color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+}
+
+/* ----- KYOTO highlight ----- */
+.kyoto-highlight {
+  .kyoto-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .kyoto-card {
+    max-width: 320px;
+  }
+
+  .kyoto-review {
+    margin-top: 1rem;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--color-text2);
+    text-align: center;
+  }
+}
+
+/* ----- TOP 10 SECTION ----- */
+/* top10.component.scss */
+.top10-section {
+  padding-bottom: 1.6rem;
+
+  .top10-grid {
+    display: grid;
+    /* due colonne, larghezza minima 160px, altrimenti lo scroll orizzontale */
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+    column-gap: 4rem;       /* spazio ampio fra le due colonne */
+    overflow-x: auto;      /* scroll orizzontale se necessario */
+    padding: 0 1rem;
+  }
+
+  .top10-item {
+    min-width: 160px;       /* assicura la min-width usata nel grid */
+    display: flex;
+    align-items: center;
+    gap: 1rem;              /* spazio tra card e info */
+
+    ion-card {
+      flex: 0 0 100px;
+      height: 100px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: none;
+      box-shadow: none;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .top10-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .rank {
+        /* rosso semitrasparente e molto grande */
+        color: rgba(123, 30, 30, 0.6);
+        font-size: 3rem;
+        line-height: 1;
+                font-weight: 900;           /* <- numero molto più cicciotto */
+
+      }
+
+      .city-name {
+        margin-top: 0.25rem;
+        font-size: 0.9rem;
+        color: var(--color-text);
+      }
+    }
+  }
+}
+
