@@ -16,16 +16,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-     // 🌙 Tema scuro
+    // 🌙 Tema scuro
     const dark = localStorage.getItem('darkMode') === 'true';
     document.body.classList.toggle('dark', dark);
 
     // 🔐 Controllo login
     const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.router.navigateByUrl('/tabs/home', { replaceUrl: true });
-    } else {
-      this.router.navigateByUrl('/login', { replaceUrl: true });
+    const target = userId ? '/tabs/home' : '/login';
+
+    if (this.router.url !== target) {
+      this.router.navigateByUrl(target, { replaceUrl: true });
     }
   }
 
