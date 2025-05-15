@@ -1,101 +1,115 @@
-const fs = require('fs');
-const path = require('path');
+//const fs = require('fs');
+//const path = require('path');
 const generateId = require('../utils/idGenerator');
 const bcrypt = require('bcryptjs');
-const DB_PATH = path.join(__dirname, '../db.json');
+//const DB_PATH = path.join(__dirname, '../db.json');
 const { downgradeIfExpired } = require('../utils/subscriptionChecker');
+const db = require('../db/connection');
 
-function readDB() {
+/*function readDB() {
   return JSON.parse(fs.readFileSync(DB_PATH));
 }
 
 function writeDB(data) {
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}
+}*/
 
 // ✅ REGISTRAZIONE con hash già pronto dal frontend
 exports.register = async (req, res) => {
-  const { username, email, password, type } = req.body;
+ const { username, email, password, type } = req.body;
 
   if (!username || !email || !password) {
     return res.status(400).json({ error: 'Dati mancanti' });
   }
 
-  const db = readDB();
-  if (db.some(u => u.email === email)) {
-    return res.status(400).json({ error: 'Email già registrata' });
-  }
+  // Verifica se l'email è già registrata
+  db.get(`SELECT * FROM users WHERE email = ?`, [email], async (err, existingUser) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (existingUser) return res.status(400).json({ error: 'Email già registrata' });
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+    const bcrypt = require('bcryptjs');
+    const generateId = require('../utils/idGenerator');
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const userId = generateId('user_');
 
-  const newUser = {
-    userId: generateId('user_'),
-    username,
-    email,
-    password: hashedPassword,
-    type: 'standard',
-    subscriptionEndDate: null,
-    itineraries: []
-  };
+    let subscriptionEndDate = null;
 
-  db.push(newUser);
-  writeDB(db);
+    if (type === 'premium' || type === 'gold') {
+      const now = new Date();
+      const end = new Date();
+      end.setDate(now.getDate() + 30); // esempio: abbonamento di 30 giorni
+      subscriptionEndDate = end.toISOString().split('T')[0];
+    }
 
-  res.status(201).json({ message: 'Utente registrato con successo' });
+    // Inserimento nel database
+    db.run(
+      `INSERT INTO users (userId, username, email, password, type, subscriptionEnd) VALUES (?, ?, ?, ?, ?, ?)`,
+      [userId, username, email, hashedPassword, type || 'standard', subscriptionEndDate],
+      function (err) {
+        if (err) return res.status(500).json({ error: 'Errore nella creazione utente' });
+
+        res.status(201).json({ message: 'Utente registrato con successo' });
+      }
+    );
+  });
 };
 
 // 🔐 LOGIN: riceve email e hash già calcolato
 exports.login = (req, res) => {
   const { email, password } = req.body;
-  const db = readDB();
 
-  const user = db.find(u => u.email === email);
-  if (!user) {
-    return res.status(401).json({ error: 'Credenziali non valide' });
-  }
+  db.get(`SELECT * FROM users WHERE email = ?`, [email], (err, user) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!user) return res.status(401).json({ error: 'Credenziali non valide' });
 
-  const passwordMatch = bcrypt.compareSync(password, user.password);
-  if (!passwordMatch) {
-    return res.status(401).json({ error: 'Credenziali non valide' });
-  }
+    const passwordMatch = bcrypt.compareSync(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Credenziali non valide' });
+    }
 
-  const { downgradeIfExpired } = require('../utils/subscriptionChecker');
+    // Verifica e downgrade automatico se l'abbonamento è scaduto
+    const updatedUser = downgradeIfExpired(user);
 
-  const updatedUser = downgradeIfExpired(user);
+    // Se c'è stato un downgrade, aggiorna nel DB
+    if (updatedUser.type === 'standard' && user.type !== 'standard') {
+      db.run(
+        `UPDATE users SET type = ?, subscriptionEnd = NULL WHERE userId = ?`,
+        [updatedUser.type, updatedUser.userId],
+        (updateErr) => {
+          if (updateErr) console.error('⚠️ Errore durante il downgrade:', updateErr);
+        }
+      );
+    }
 
-  // se è stato downgradato, salviamo
-  if (updatedUser.type === 'standard' && user.type !== 'standard') {
-    const index = db.findIndex(u => u.userId === updatedUser.userId);
-    db[index] = updatedUser;
-    writeDB(db);
-  }
-
-  res.status(200).json({
-    message: 'Login riuscito',
-    userId: user.userId,
-    username: user.username,
-    type: updatedUser.type
+    res.status(200).json({
+      message: 'Login riuscito',
+      userId: user.userId,
+      username: user.username,
+      type: updatedUser.type
+    });
   });
 };
 
 // 🗑 Elimina un utente
 exports.deleteUser = (req, res) => {
   const { userId } = req.params;
-  let db = readDB();
 
-  //console.log('🧠 Database iniziale:', db);
-  const initialLength = db.length;
+  db.get(`SELECT * FROM users WHERE userId = ?`, [userId], (err, user) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!user) return res.status(404).json({ error: 'Utente non trovato' });
 
-  db = db.filter(user => user.userId !== userId);
+    // 1. Scollega gli itinerari
+    db.run(`UPDATE itineraries SET userId = NULL WHERE userId = ?`, [userId], (err1) => {
+      if (err1) return res.status(500).json({ error: 'Errore scollegamento itinerari' });
 
-  if (db.length === initialLength) {
-    console.log('⚠️deleteUser: Utente non trovato:', userId);
-    return res.status(404).json({ error: 'Utente non trovato' });
-  }
+      // 2. Elimina l'utente
+      db.run(`DELETE FROM users WHERE userId = ?`, [userId], function (err2) {
+        if (err2) return res.status(500).json({ error: 'Errore eliminazione utente' });
 
-  writeDB(db);
-  //console.log('✅ Utente eliminato:', userId);
-  res.status(204).end();
+        res.status(204).end(); // eliminazione completata
+      });
+    });
+  });
 };
 
 // ✏️ Modifica un utente (username, email, password, tipo)
@@ -103,103 +117,118 @@ exports.updateUser = async (req, res) => {
   const { userId } = req.params;
   const { username, email, password } = req.body;
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
+  db.get(`SELECT * FROM users WHERE userId = ?`, [userId], async (err, user) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!user) return res.status(404).json({ error: 'Utente non trovato' });
 
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+    // Prepara i campi da aggiornare
+    const updatedUsername = username || user.username;
+    const updatedEmail = email || user.email;
+    const updatedPassword = password
+      ? await bcrypt.hash(password, 10)
+      : user.password;
 
-  if (username) user.username = username;
-  if (email) user.email = email;
+    db.run(
+      `UPDATE users SET username = ?, email = ?, password = ? WHERE userId = ?`,
+      [updatedUsername, updatedEmail, updatedPassword, userId],
+      (err) => {
+        if (err) return res.status(500).json({ error: 'Errore aggiornamento utente' });
 
-  if (password) {
-    const hashed = await bcrypt.hash(password, 10);
-    user.password = hashed;
-  }
-
-  // ❌ Blocchiamo modifiche a tipo e abbonamento da qui
-  // if (type) user.type = type;
-  // if (subscriptionEndDate) user.subscriptionEndDate = subscriptionEndDate;
-
-  writeDB(db);
-  res.status(200).json(user);
+        res.status(200).json({
+          userId,
+          username: updatedUsername,
+          email: updatedEmail
+        });
+      }
+    );
+  });
 };
 
 // ➕Modifica il tipo di abbonamento
 exports.upgradeToPremium = (req, res) => {
   const { userId } = req.params;
-  const { plan } = req.body; // es. "premium" o "gold"
+  const { plan } = req.body;
 
-  const validPlans = { // per quanti giorni vale l'abbonamento
-    premium: 30, // 30 giorni
-    gold: 30     // 30 giorni
+  const validPlans = {
+    premium: 30,
+    gold: 30
   };
 
   if (!validPlans[plan]) {
     return res.status(400).json({ error: 'Piano non valido' });
   }
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
-
   const now = new Date();
   const end = new Date();
   end.setDate(now.getDate() + validPlans[plan]);
+  const subscriptionEnd = end.toISOString().split('T')[0];
 
-  user.type = plan;
-  user.subscriptionEndDate = end.toISOString();
+  db.run(
+    `UPDATE users SET type = ?, subscriptionEnd = ? WHERE userId = ?`,
+    [plan, subscriptionEnd, userId],
+    function (err) {
+      if (err) return res.status(500).json({ error: 'Errore aggiornamento abbonamento' });
 
-  writeDB(db);
-  res.json({
-    message: `Upgrade a ${plan} completato`,
-    type: user.type,
-    subscriptionEndDate: user.subscriptionEndDate
-  });
+      res.json({
+        message: `Upgrade a ${plan} completato`,
+        type: plan,
+        subscriptionEndDate: subscriptionEnd
+      });
+    }
+  );
 };
 
 // ❌ Annulla abbonamento
 exports.cancelPremium = (req, res) => {
   const { userId } = req.params;
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
+  db.get(`SELECT * FROM users WHERE userId = ?`, [userId], (err, user) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!user) return res.status(404).json({ error: 'Utente non trovato' });
 
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+    if (user.type === 'standard') {
+      return res.status(400).json({ error: 'L\'utente è già standard' });
+    }
 
-  // Se è già standard, non serve fare nulla
-  if (user.type === 'standard') {
-    return res.status(400).json({ error: 'L\'utente è già standard' });
-  }
+    db.run(
+      `UPDATE users SET type = 'standard', subscriptionEnd = NULL WHERE userId = ?`,
+      [userId],
+      (err) => {
+        if (err) return res.status(500).json({ error: 'Errore durante la cancellazione abbonamento' });
 
-  user.type = 'standard';
-  user.subscriptionEndDate = null;
-
-  writeDB(db);
-  res.json({
-    message: 'Abbonamento annullato',
-    type: user.type
+        res.json({
+          message: 'Abbonamento annullato',
+          type: 'standard'
+        });
+      }
+    );
   });
 };
 
 
 exports.getUserType = (req, res) => {
   const { userId } = req.params;
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
 
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+  db.get(`SELECT * FROM users WHERE userId = ?`, [userId], (err, user) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!user) return res.status(404).json({ error: 'Utente non trovato' });
 
-  const updatedUser = downgradeIfExpired(user);
+    const updatedUser = downgradeIfExpired(user);
 
-  if (updatedUser.type === 'standard' && user.type !== 'standard') {
-    const index = db.findIndex(u => u.userId === userId);
-    db[index] = updatedUser;
-    writeDB(db);
-  }
+    if (updatedUser.type === 'standard' && user.type !== 'standard') {
+      db.run(
+        `UPDATE users SET type = 'standard', subscriptionEnd = NULL WHERE userId = ?`,
+        [userId],
+        (err) => {
+          if (err) console.error('Errore durante downgrade automatico');
+        }
+      );
+    }
 
-  res.json({
-    userId: updatedUser.userId,
-    type: updatedUser.type,
-    subscriptionEndDate: updatedUser.subscriptionEndDate || null
+    res.json({
+      userId: updatedUser.userId,
+      type: updatedUser.type,
+      subscriptionEndDate: updatedUser.subscriptionEnd || null
+    });
   });
 };

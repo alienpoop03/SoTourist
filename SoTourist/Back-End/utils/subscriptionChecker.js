@@ -1,10 +1,10 @@
 function downgradeIfExpired(user) {
   if (
     user.type !== 'standard' &&
-    (!user.subscriptionEndDate || new Date(user.subscriptionEndDate) < new Date())
+    (!user.subscriptionEnd || new Date(user.subscriptionEnd) < new Date())
   ) {
     user.type = 'standard';
-    user.subscriptionEndDate = null;
+    user.subscriptionEnd = null;
   }
   return user;
 }
