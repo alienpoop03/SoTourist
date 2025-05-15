@@ -1,17 +1,17 @@
-const fs = require('fs');
-const path = require('path');
+//const fs = require('fs');
+//const path = require('path');
 const generateId = require('../utils/idGenerator');
+const db = require('../db/connection');
+//const DB_PATH = path.join(__dirname, '../db.json');
 
-const DB_PATH = path.join(__dirname, '../db.json');
-
-function readDB() {
+/*function readDB() {
   return JSON.parse(fs.readFileSync(DB_PATH));
 }
 
 function writeDB(data) {
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 }
-
+*/
 function datesOverlap(start1, end1, start2, end2) {
   return (
     new Date(start1) <= new Date(end2) &&
@@ -24,52 +24,46 @@ function datesOverlap(start1, end1, start2, end2) {
 exports.getItineraries = (req, res) => {
    const { userId } = req.params;
   const filter = req.query.filter || 'all';
+  const today = new Date().toISOString().split('T')[0];
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+  db.all(`SELECT * FROM itineraries WHERE userId = ? AND deleted = 0`, [userId], (err, itineraries) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
 
-  const today = new Date().toISOString().split('T')[0]; // formato YYYY-MM-DD
+    let result = itineraries;
 
-  let result = user.itineraries;
+    switch (filter) {
+      case 'current':
+        result = itineraries.filter(it => it.startDate <= today && it.endDate >= today);
+        break;
 
-  switch (filter) {
-    case 'current':
-      result = user.itineraries.filter(it =>
-        it.startDate <= today && it.endDate >= today
-      );
-      break;
+      case 'upcoming': {
+        const upcoming = itineraries
+          .filter(it => it.startDate > today)
+          .sort((a, b) => a.startDate.localeCompare(b.startDate));
+        result = upcoming.length > 0 ? [upcoming[0]] : [];
+        break;
+      }
 
-    case 'upcoming': {
-      const upcoming = user.itineraries
-        .filter(it => it.startDate > today)
-        .sort((a, b) => a.startDate.localeCompare(b.startDate));
-      result = upcoming.length > 0 ? [upcoming[0]] : [];
-      break;
+      case 'future': {
+        const sorted = itineraries
+          .filter(it => it.startDate > today)
+          .sort((a, b) => a.startDate.localeCompare(b.startDate));
+        result = sorted.slice(1); // Rimuove l'imminente
+        break;
+      }
+
+      case 'past':
+        result = itineraries.filter(it => it.endDate < today);
+        break;
+
+      case 'all':
+      default:
+        result = itineraries;
+        break;
     }
 
-    case 'future': {
-      // Ordina per data
-      const sorted = user.itineraries
-        .filter(it => it.startDate > today)
-        .sort((a, b) => a.startDate.localeCompare(b.startDate));
-
-      // Rimuovi il primo (quello imminente)
-      result = sorted.slice(1);
-      break;
-    }
-
-    case 'past':
-      result = user.itineraries.filter(it => it.endDate < today);
-      break;
-
-    case 'all':
-    default:
-      result = user.itineraries;
-      break;
-  }
-
-  res.json(result);
+    res.json(result);
+  });
 };
 
 // ➕ POST: aggiunge un itinerario
@@ -77,30 +71,47 @@ exports.addItinerary = (req, res) => {
   const { userId } = req.params;
   const newItinerary = req.body;
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
-
-  // ✅ Validazione minima
   if (!newItinerary.city || !newItinerary.startDate || !newItinerary.endDate) {
     return res.status(400).json({ error: 'Dati insufficienti per creare un itinerario' });
   }
 
-  // ✅ Check sovrapposizione date
-  const overlap = user.itineraries.some(it =>
-    new Date(newItinerary.startDate) <= new Date(it.endDate) &&
-    new Date(newItinerary.endDate) >= new Date(it.startDate)
-  );
+  db.all(`SELECT * FROM itineraries WHERE userId = ? AND deleted = 0`, [userId], (err, existingItineraries) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
 
-  if (overlap) {
-    return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
-  }
+    const overlap = existingItineraries.some(it =>
+      new Date(newItinerary.startDate) <= new Date(it.endDate) &&
+      new Date(newItinerary.endDate) >= new Date(it.startDate)
+    );
 
-  newItinerary.itineraryId = generateId('trip_');
-  user.itineraries.push(newItinerary);
+    if (overlap) {
+      return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
+    }
 
-  writeDB(db);
-  res.status(201).json(newItinerary);
+    const itineraryId = generateId('trip_');
+    db.run(
+      `INSERT INTO itineraries 
+        (itineraryId, userId, city, accommodation, startDate, endDate, style, coverPhoto, deleted)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`,
+      [
+        itineraryId,
+        userId,
+        newItinerary.city,
+        newItinerary.accommodation || '',
+        newItinerary.startDate,
+        newItinerary.endDate,
+        newItinerary.style || '',
+        newItinerary.coverPhoto || ''
+      ],
+      function (err2) {
+        if (err2) return res.status(500).json({ error: 'Errore salvataggio itinerario' });
+
+        res.status(201).json({
+          itineraryId,
+          ...newItinerary
+        });
+      }
+    );
+  });
 };
 
 
@@ -108,19 +119,15 @@ exports.addItinerary = (req, res) => {
 exports.deleteItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
-
-  const originalLength = user.itineraries.length;
-  user.itineraries = user.itineraries.filter(it => it.itineraryId !== itineraryId);
-
-  if (user.itineraries.length === originalLength) {
-    return res.status(404).json({ error: 'Itinerario non trovato' });
-  }
-
-  writeDB(db);
-  res.status(204).end();
+  db.run(
+    `UPDATE itineraries SET deleted = 1 WHERE userId = ? AND itineraryId = ?`,
+    [userId, itineraryId],
+    function (err) {
+      if (err) return res.status(500).json({ error: 'Errore database' });
+      if (this.changes === 0) return res.status(404).json({ error: 'Itinerario non trovato' });
+      res.status(204).end();
+    }
+  );
 };
 
 // 🔍 Itinerari pubblici filtrati per città
@@ -128,63 +135,95 @@ exports.getItinerariesByCity = (req, res) => {
   const city = req.query.city?.toLowerCase();
   if (!city) return res.status(400).json({ error: 'Parametro city mancante' });
 
-  const db = readDB();
-
-  // Cerca tra tutti gli utenti
-  const itineraries = db.flatMap(user =>
-    user.itineraries.filter(it => it.city.toLowerCase() === city)
+  db.all(
+    `SELECT * FROM itineraries WHERE LOWER(city) = ? AND deleted = 0`,
+    [city],
+    (err, rows) => {
+      if (err) return res.status(500).json({ error: 'Errore database' });
+      res.json(rows);
+    }
   );
-
-  res.json(itineraries);
 };
 
 // 🔍 Itinerario pubblico per ID
 exports.getItineraryById = (req, res) => {
-  const { itineraryId } = req.params;
-  const db = readDB();
+    const { itineraryId } = req.params;
 
-  for (const user of db) {
-    const itinerary = user.itineraries.find(it => it.itineraryId === itineraryId);
-    if (itinerary) {
-      return res.json(itinerary);
+  db.get(
+    `SELECT * FROM itineraries WHERE itineraryId = ? AND deleted = 0`,
+    [itineraryId],
+    (err, itinerary) => {
+      if (err) return res.status(500).json({ error: 'Errore database' });
+      if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
+      res.json(itinerary);
     }
-  }
-
-  return res.status(404).json({ error: 'Itinerario non trovato' });
+  );
 };
 
 exports.updateItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   const updatedData = req.body;
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+  db.get(
+    `SELECT * FROM itineraries WHERE itineraryId = ? AND userId = ? AND deleted = 0`,
+    [itineraryId, userId],
+    (err, itinerary) => {
+      if (err) return res.status(500).json({ error: 'Errore database' });
+      if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
 
-  const itinerary = user.itineraries.find(it => it.itineraryId === itineraryId);
-  if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
+      if (updatedData.startDate && updatedData.endDate) {
+        db.all(
+          `SELECT * FROM itineraries WHERE userId = ? AND itineraryId != ? AND deleted = 0`,
+          [userId, itineraryId],
+          (err2, others) => {
+            if (err2) return res.status(500).json({ error: 'Errore validazione date' });
 
-  if (updatedData.startDate && updatedData.endDate) {
-    const overlap = user.itineraries.some(it =>
-      it.itineraryId !== itineraryId &&
-      new Date(updatedData.startDate) <= new Date(it.endDate) &&
-      new Date(updatedData.endDate) >= new Date(it.startDate)
-    );
+            const overlap = others.some(it =>
+              new Date(updatedData.startDate) <= new Date(it.endDate) &&
+              new Date(updatedData.endDate) >= new Date(it.startDate)
+            );
 
-    if (overlap) {
-      return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
+            if (overlap) {
+              return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
+            }
+
+            applyUpdate();
+          }
+        );
+      } else {
+        applyUpdate();
+      }
+
+      function applyUpdate() {
+        const updatedFields = {
+          city: updatedData.city || itinerary.city,
+          accommodation: updatedData.accommodation || itinerary.accommodation,
+          startDate: updatedData.startDate || itinerary.startDate,
+          endDate: updatedData.endDate || itinerary.endDate,
+          style: updatedData.style || itinerary.style,
+          coverPhoto: updatedData.coverPhoto || itinerary.coverPhoto
+        };
+
+        db.run(
+          `UPDATE itineraries SET city = ?, accommodation = ?, startDate = ?, endDate = ?, style = ?, coverPhoto = ? WHERE itineraryId = ? AND userId = ?`,
+          [
+            updatedFields.city,
+            updatedFields.accommodation,
+            updatedFields.startDate,
+            updatedFields.endDate,
+            updatedFields.style,
+            updatedFields.coverPhoto,
+            itineraryId,
+            userId
+          ],
+          (err3) => {
+            if (err3) return res.status(500).json({ error: 'Errore aggiornamento' });
+            res.status(200).json({ itineraryId, ...updatedFields });
+          }
+        );
+      }
     }
-  }
-
-  // Applica modifiche ai campi (solo quelli presenti nel body)
-  Object.keys(updatedData).forEach(key => {
-    if (key !== 'itineraryId') {
-      itinerary[key] = updatedData[key];
-    }
-  });
-
-  writeDB(db);
-  res.status(200).json(itinerary);
+  );
 };
 
 // aggiunta tappe
@@ -192,7 +231,6 @@ exports.addPlacesToItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   let places = req.body;
 
-  // Adatta oggetto singolo a array
   if (!Array.isArray(places)) {
     if (typeof places === 'object' && places !== null) {
       places = [places];
@@ -201,20 +239,43 @@ exports.addPlacesToItinerary = (req, res) => {
     }
   }
 
-  const db = readDB();
-  const user = db.find(u => u.userId === userId);
-  if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+  db.get(`SELECT * FROM itineraries WHERE itineraryId = ? AND userId = ? AND deleted = 0`, [itineraryId, userId], (err, itinerary) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
 
-  const itinerary = user.itineraries.find(it => it.itineraryId === itineraryId);
-  if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
+    const inserted = [];
 
-  if (!itinerary.places) itinerary.places = [];
+    const insertNext = () => {
+      if (places.length === 0) {
+        return res.status(201).json(inserted);
+      }
 
-  for (const place of places) {
-    place.placeId = place.placeId || generateId('place_');
-    itinerary.places.push(place);
-  }
+      const place = places.shift();
+      const placeId = place.placeId || generateId('place_');
 
-  writeDB(db);
-  res.status(201).json(itinerary.places);
+      db.run(
+        `INSERT INTO places (placeId, itineraryId, name, day, timeSlot, lat, lng, address, photoUrl, type, note)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          placeId,
+          itineraryId,
+          place.name,
+          place.day,
+          place.timeSlot,
+          place.lat,
+          place.lng,
+          place.address || '',
+          place.photoUrl || '',
+          place.type || '',
+          place.note || ''
+        ],
+        (err2) => {
+          if (!err2) inserted.push({ placeId, ...place });
+          insertNext(); // ricorsivo
+        }
+      );
+    };
+
+    insertNext();
+  });
 };
