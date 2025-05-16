@@ -28,7 +28,6 @@ import {
   IonSelect, IonSelectOption,
   IonTextarea,
   IonButton,
-  IonFab, IonFabButton,
   IonIcon
 } from '@ionic/angular/standalone';
 
@@ -59,7 +58,6 @@ function whenGoogleMapsReady(): Promise<void> {
     IonSelect, IonSelectOption,
     IonTextarea,
     IonButton,
-    IonFab, IonFabButton,
     IonIcon,
 
     /* Componenti custom */

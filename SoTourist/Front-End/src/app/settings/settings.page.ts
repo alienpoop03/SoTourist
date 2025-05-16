@@ -14,8 +14,7 @@ import {
   IonInput,
   IonBadge,
   IonButton,
-  IonAlert,
-  IonAvatar,
+
   IonSelect,
   IonSelectOption,
 } from '@ionic/angular/standalone';
@@ -40,8 +39,7 @@ import { ProfileIconComponent } from '../components/profile-icon/profile-icon.co
     IonInput,
     IonBadge,
     IonButton,
-    IonAlert,
-    IonAvatar,
+
     AppHeaderComponent,
     IonSelect,
     IonSelectOption,

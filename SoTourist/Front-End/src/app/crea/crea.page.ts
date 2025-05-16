@@ -11,15 +11,10 @@ import { Router } from '@angular/router';
 import {
   IonContent,
   IonButton,
-  IonItem,
-  IonLabel,
-  IonDatetime,
-  IonInput,
+  
   IonCard,
-  IonCardHeader,
-  IonCardTitle,
+  
   IonCardContent,
-  IonList
 } from '@ionic/angular/standalone';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ItineraryService } from '../services/itinerary.service';
@@ -38,15 +33,8 @@ declare var google: any;
     FormsModule,
     IonContent,
     IonButton,
-    IonItem,
-    IonLabel,
-    IonDatetime,
-    IonInput,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
     IonCardContent,
-    IonList,
     UnfinishedCardComponent,
     RangeCalendarLiteComponent  // 👈 AGGIUNGI QUI
 

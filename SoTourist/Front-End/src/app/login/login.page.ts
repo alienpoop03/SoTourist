@@ -5,19 +5,10 @@ import { FormsModule } from '@angular/forms';
 
 import {
   IonContent,
-  IonList,
-  IonItem,
-  IonLabel,
-  IonToggle,
-  IonIcon,
+
   IonInput,
-  IonBadge,
   IonButton,
-  IonAlert,
-  IonAvatar,
-  IonSelect,
-  IonSelectOption,
-  IonCard,
+
 } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from '../components/header/app-header.component';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component'; // 👈 importa il componente
@@ -34,26 +25,15 @@ import { AuthService } from '../services/auth.service';
     CommonModule,
     FormsModule,
     IonContent,
-    IonList,
-    IonItem,
-    IonLabel,
-    IonToggle,
-    IonIcon,
+    
     IonInput,
-    IonBadge,
+    
     IonButton,
-    IonAlert,
-    IonAvatar,
-    AppHeaderComponent,
-    IonSelect,
-    IonSelectOption,
+   
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
+
     CommonModule,
     FormsModule,
-    IonCard,
     ProfileIconComponent,
   ]
 })

@@ -4,10 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
-  IonCardContent,
+  
   IonButton,
   IonIcon
 } from '@ionic/angular/standalone';
@@ -20,10 +17,7 @@ import { TripWithId } from 'src/app/models/trip.model';
   imports: [
     CommonModule,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCardContent,
+   
     IonButton,
     IonIcon
   ],

@@ -14,20 +14,11 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {
   IonContent,
-  IonButton,
   IonImg,
-  IonModal,
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonList,
-  IonListHeader,
-  IonItem,
-  IonLabel,
-  IonFab,
-  IonFabButton,
-  IonIcon,
 } from '@ionic/angular/standalone';
 
 interface PlaceItem {
@@ -53,20 +44,12 @@ interface PlaceItem {
   imports: [
     CommonModule,
     IonContent,
-    IonButton,
     IonImg,
-    IonModal,
     IonCard,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonList,
-    IonListHeader,
-    IonItem,
-    IonLabel,
-    IonFab,
-    IonFabButton,
-    IonIcon,
+
   ],
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss']

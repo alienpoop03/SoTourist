@@ -5,9 +5,6 @@ import {
   IonContent,
   IonCard,
   IonCardContent,
-  IonCardTitle,
-  IonFab,
-  IonFabButton,
   IonIcon,
     IonButton, // ✅ AGGIUNGI QUESTO
 
@@ -25,9 +22,6 @@ import { AppHeaderComponent } from '../components/header/app-header.component';
     IonContent,
     IonCard,
     IonCardContent,
-    IonCardTitle,
-    IonFab,
-    IonFabButton,
     IonIcon,
     AppHeaderComponent,
       IonButton, // ✅ AGGIUNGI QUESTO
