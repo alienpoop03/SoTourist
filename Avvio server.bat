@@ -17,7 +17,7 @@ echo export const API_BASE_URL = "http://%ip%:3000"; > SoTourist\Front-End\src\a
 start cmd /c "cd /d .\SoTourist && start code ."
 
 :: Avvia il frontend con host esplicito (non localhost)
-start cmd /k "cd /d .\SoTourist\Front-End && ionic serve --host=%ip%"
+start cmd /k "cd /d .\SoTourist\Front-End && ionic serve --host=!ip!"
 
 :: Avvia il backend
 start cmd /k "cd /d .\SoTourist\Back-End && set IP=%ip% && node index.js"
