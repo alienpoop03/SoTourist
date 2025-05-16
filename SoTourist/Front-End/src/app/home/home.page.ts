@@ -58,4 +58,5 @@ export class HomePage {
   goToCreate() {
     this.router.navigate(['/crea']);
   }
+
 }
