@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { TripCardComponent } from './trip-card.component';
+import { TripCardComponent } from '../trip-card/trip-card.component';
 
 describe('TripCardComponent', () => {
   let component: TripCardComponent;

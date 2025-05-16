@@ -76,5 +76,16 @@ export class UnfinishedCardComponent {
     return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
   }
 
+  getCoverPhotoUrl(): string {
+    const url = this.trip?.coverPhoto;
+    // Verifica se è una URL HTTP valida
+    if (url && /^https?:\/\//.test(url)) {
+      return url;
+    }
+    return '../assets/images/PaletoBay.jpeg';
+  }
 
+  ngOnInit() {
+    console.log('📸 coverPhoto:', this.trip?.coverPhoto);
+  }
 }

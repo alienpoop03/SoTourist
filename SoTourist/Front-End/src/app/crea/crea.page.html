@@ -3,6 +3,12 @@
   <!-- ion-content SEMPRE montato: niente *ngIf qui -->
   <ion-content fullscreen class="crea-content" [@slideIn]>
 
+    <!-- 🔄 OVERLAY LOADER -->
+    <div class="overlay-container" *ngIf="isLoading">
+      <div class="loader-animation"></div>
+      <h2>{{ message }}</h2>
+    </div>
+
     <!-- wrapper che compare solo quando animateEntry === true -->
     <div *ngIf="animateEntry">
 

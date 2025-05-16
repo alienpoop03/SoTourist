@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   NgZone,
 } from '@angular/core';
+import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -67,6 +68,9 @@ export class CreaPage implements AfterViewInit {
   animateEntry = false;
   heroPhotoUrl: string | null = null;
 
+  isLoading: boolean = false;
+  message: string = 'Generazione in corso...';
+
   unfinishedCards: TripWithId[] = [];
   currentDraft: TripWithId | null = null;
 
@@ -89,6 +93,7 @@ export class CreaPage implements AfterViewInit {
   constructor(
     private router: Router,
     private ngZone: NgZone,
+    private apiService: ApiService,
     private itineraryService: ItineraryService,
     private auth: AuthService
   ) {
@@ -212,25 +217,41 @@ export class CreaPage implements AfterViewInit {
         accommodation: this.accommodation,
         startDate: this.startDate!,
         endDate: this.endDate!,
-        coverPhoto: this.heroPhotoUrl ?? ''
+        coverPhoto: '' // sarà impostata qui sotto
       };
     }
 
-    // salva nel localStorage
-    this.unfinishedCards.push(this.currentDraft);
-    localStorage.setItem('trips', JSON.stringify(this.unfinishedCards));
+     this.isLoading = true;
+  this.message = 'Generazione dell’itinerario in corso...';
 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      if (this.currentDraft) {
-        this.router.navigate(['/tabs/viaggi'], {
-          queryParams: { id: this.currentDraft.itineraryId },
-          replaceUrl: true
-        });
-      }
-    });
+    this.apiService.getItinerary(this.city, this.calendarDays.length, this.accommodation)
+      .subscribe({
+        next: (res) => {
+          //console.log('✅ API response:', res);
+          //console.log('🎯 res.coverPhoto ricevuta:', res.coverPhoto);
 
+          // 🔥 QUI VIENE RISOLTO: assegna coverPhoto
+          this.currentDraft!.coverPhoto = res.coverPhoto || '../assets/images/PaletoBay.jpeg';
 
+          this.unfinishedCards.push(this.currentDraft!);
+          localStorage.setItem('trips', JSON.stringify(this.unfinishedCards));
+
+          this.isLoading = false;
+
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/tabs/viaggi'], {
+              queryParams: { id: this.currentDraft!.itineraryId },
+              replaceUrl: true
+            });
+          });
+        },
+        error: (err) => {
+          console.error('Errore nella generazione dell’itinerario:', err);
+          alert('Errore durante il salvataggio del viaggio. Riprova più tardi.');
+        }
+      });
   }
+
 
   areDatesValid(): boolean {
     if (!this.startDate || !this.endDate) return false;

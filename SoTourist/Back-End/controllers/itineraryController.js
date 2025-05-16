@@ -6,10 +6,35 @@ const getItinerary = async (req, res) => {
   const totalDays = parseInt(req.query.totalDays) || 1;
   const accommodationAddress = req.query.accommodation || null;  // <-- Alloggio dalla query
   const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-
+  
   const usedPlaceNames = new Set();
   let coverPhoto = null;
+  //console.log('🔍 Inizio fetch coverPhoto iconica per:', city);
 
+  try {
+    const cityRes = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
+      params: {
+        query: `attrazione più famosa di ${city}`,
+        key: GOOGLE_API_KEY
+      }
+    });
+
+    const topPlace = cityRes.data.results?.[0];
+      console.log('📍 Primo risultato ricevuto:', topPlace?.name);
+      
+    if (topPlace?.photos?.[0]?.photo_reference) {
+      const ref = topPlace.photos[0].photo_reference;
+      coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${GOOGLE_API_KEY}`;
+      //console.log('📸 Cover photo scelta da attrazione iconica:', coverPhoto);
+      //console.log('📸 COVER SETTATA:', coverPhoto);
+    }else{
+      //console.warn('❗ Errore fetch coverPhoto:', err.message);
+    }
+  } catch (err) {
+    console.warn('⚠️ Impossibile ottenere coverPhoto iconica:', err.message);
+  }
+
+ 
   // Funzione che chiama Places API e filtra i luoghi
    const fetchPlaces = async (query, count = 2, from = null) => {
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
@@ -185,6 +210,7 @@ const getItinerary = async (req, res) => {
 
     // Rispondiamo al frontend
     res.json({ itinerary, coverPhoto });
+    //console.log('✅ coverPhoto finale inviata al frontend:', coverPhoto);
   } catch (error) {
     console.error("Errore durante la generazione dell'itinerario:", error.message);
     res.status(500).json({ error: "Errore nella generazione dell'itinerario" });
