@@ -1,109 +1,130 @@
 <ion-page>
+  <ion-content class="crea-content" scrollY="false">
 
-  <!-- ion-content SEMPRE montato: niente *ngIf qui -->
-  <ion-content fullscreen class="crea-content" [@slideIn]>
+    <!-- overlay di caricamento (rimane dov’era) -->
+    <app-generation-overlay
+      *ngIf="isLoading"
+      [message]="message">
+    </app-generation-overlay>
 
-    <!-- 🔄 OVERLAY LOADER -->
-    <div class="overlay-container" *ngIf="isLoading">
-      <div class="loader-animation"></div>
-      <h2>{{ message }}</h2>
+    <!-- ░░░ PROGRESS BAR ░░░ -->
+    <div class="progress-wrapper">
+      <div class="progress-bar" [style.width.%]="(step - 1) * 33.333"></div>
     </div>
 
-    <!-- wrapper che compare solo quando animateEntry === true -->
-    <div *ngIf="animateEntry">
-
-      <!-- INTRO -->
-      <div class="intro-box">
-        <h1>🎒 Inizia il tuo viaggio</h1>
-        <p>Completa questi 4 step per pianificare la tua prossima avventura.</p>
+    <!-- ░░░ TRIP HEADER fisso ░░░ -->
+    <div class="trip-header" *ngIf="city || step > 1">
+      <div class="circle-logo">
+        <ion-icon name="airplane"></ion-icon>
       </div>
 
-      <!-- TIMELINE -->
-      <div class="timeline-container">
-        <ng-container *ngFor="let s of [1,2,3,4]; let i = index">
-          <div class="timeline-step" [class.active]="step >= s" [class.current]="step === s" (click)="goToStep(s)">
-            {{ s }}
-          </div>
-          <div class="timeline-line" *ngIf="i < 3" [class.filled]="step > s"></div>
-        </ng-container>
+      <div class="trip-info">
+        <h3 class="trip-title">
+          Trip to {{ city || '...' }}
+        </h3>
+        <p class="trip-sub" *ngIf="accommodation">
+          {{ accommodation }}
+        </p>
       </div>
+    </div>
 
-      <!-- WRAPPER DI TUTTI GLI STEP -->
-      <div>
+    <!-- ░░░ CONTENUTO STEP ░░░ -->
+    <div class="step-box">
 
+      <!-- STEP 1 – città -->
+      <ng-container *ngIf="step === 1">
+        <h2 class="question">Dove vuoi andare?</h2>
+        <input
+          id="cityInput"
+          [(ngModel)]="city"
+          class="pure-input"
+          type="text"
+          placeholder="Es. Roma"
+          autocomplete="off">
+      </ng-container>
 
-        <!-- STEP 2 – città & alloggio -->
-        <div *ngIf="step === 2" class="step-wrapper">
+      <!-- STEP 2 – alloggio -->
+      <ng-container *ngIf="step === 2">
+        <h2 class="question">
+          Dove alloggerai?
+          <span class="optional">(facoltativo)</span>
+        </h2>
+        <input
+          id="accommodationInput"
+          [(ngModel)]="accommodation"
+          class="pure-input"
+          type="text"
+          placeholder="Es. Hotel Centro"
+          autocomplete="off">
+      </ng-container>
 
-          <h2>
-            <ion-icon name="location-outline" class="h2-icon"></ion-icon>
-            Dove stai andando?
-          </h2>
+      <!-- STEP 3 – selezione date “alla Ryanair” -->
+      <!-- STEP 3 – selezione date “alla Ryanair” -->
+<ng-container *ngIf="step === 3">
+  <!-- tab bar -->
+  <div class="tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'departure'">
+      ➜ Departure
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'return'">
+      ↩︎ Return
+    </button>
+  </div>
 
-          <ion-card class="location-card">
-            <ion-card-content>
+  <!-- box date -->
+  <div class="date-selector">
+    <div class="date-box" (click)="setTab('departure')">
+      <span class="label">Departure</span>
+      <span class="value">{{ startDate || '-- / --' }}</span>
+    </div>
 
-              <label for="cityInput" class="input-label">Città</label>
-              <input id="cityInput" [(ngModel)]="city" placeholder="Es. Roma" class="custom-input" />
+    <div class="date-box" (click)="setTab('return')">
+      <span class="label">Return</span>
+      <span class="value">{{ endDate   || '-- / --' }}</span>
+    </div>
+  </div>
 
-              <label for="accommodationInput" class="input-label">Alloggio</label>
-              <input id="accommodationInput" [(ngModel)]="accommodation" placeholder="Es. Hotel Roma"
-                class="custom-input" />
-
-            </ion-card-content>
-          </ion-card>
-        </div>
-
-        <!-- STEP 3 – con Litepicker -->
-        <div *ngIf="step === 3" class="step-wrapper">
-
-          <!-- TITOLO FISSO -->
-          <div class="step-title-fixed">
-            <h2>
-              <ion-icon name="calendar-outline" class="h2-icon"></ion-icon>
-              Quando viaggerai?
-            </h2>
-          </div>
-
-          <!-- CALENDARIO SCROLLABILE -->
-          <div class="step-scroll-area">
-            <app-range-calendar-lite id="calendar"
-              (datesSelected)="onRangeSelected($any($event))"
-              [startFromDate]="today">
-            </app-range-calendar-lite>
-          </div>
-
-        </div>
-
-        <!-- PULSANTE AVANTI fuori dallo scroll -->
-        <!--<div *ngIf="step === 3" class="fixed-bottom-button">
-          <ion-button expand="block" [disabled]="!areDatesValid()" (click)="confirmDates()">
-            Avanti
-          </ion-button>
-        </div>-->
-
-        <!-- STEP 4 – riepilogo -->
-        <div *ngIf="step === 4" class="step-wrapper">
-          <!-- Preview con il tuo componente -->
-          <app-unfinished-card *ngIf="currentDraft" [trip]="currentDraft"></app-unfinished-card>
-
-          <ion-button class="confirm-btn" expand="block" (click)="confirmSurvey()">
-            Conferma e salva
-          </ion-button>
-        </div>
-
-        <!-- BOTTONE FISSO UNICO -->
-        <div *ngIf="step < 4" class="fixed-bottom-button">
-          <ion-button expand="block" [disabled]="!canProceedCurrentStep()" (click)="handleStepAction()">
-            Avanti
-          </ion-button>
-
-        </div>
+  <!-- ⬇️ calendario visibile sotto -->
+  <div class="calendar-under-tabs">
+    <app-range-calendar-lite
+      [startFromDate]="today"
+      (datesSelected)="onRangeSelected($event)">
+    </app-range-calendar-lite>
+  </div>
+</ng-container>
 
 
-      </div> <!-- /fadeInUp wrapper -->
+      <!-- STEP 4 – riepilogo -->
+      <ng-container *ngIf="step === 4">
+        <h2 class="question">Riepilogo</h2>
 
-    </div> <!-- /animateEntry wrapper -->
+        <ion-card class="summary-card">
+          <ion-card-content>
+            <p><strong>Città:</strong> {{ city }}</p>
+            <p *ngIf="accommodation">
+              <strong>Alloggio:</strong> {{ accommodation }}
+            </p>
+            <p>
+              <strong>Date:</strong>
+              {{ startDate | date:'dd/MM' }}
+              →
+              {{ endDate   | date:'dd/MM' }}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+
+    </div><!-- /step-box -->
+
+    <!-- ░░░ BOTTONE FISSO ░░░ -->
+    <div class="bottom-button">
+      <ion-button
+        expand="block"
+        (click)="handleStepAction()"
+        [disabled]="!canProceedCurrentStep()">
+        {{ step === 4 ? 'Salva' : 'Continua' }}
+      </ion-button>
+    </div>
 
   </ion-content>
 </ion-page>

@@ -1,389 +1,210 @@
-/*.crea-content {
-  --background: var(--color-background1);
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-  padding: 0;
-}
-
-/* INTRO e TIMELINE *
-.intro-box {
-  text-align: center;
-  margin: 1rem auto 1.5rem;
-  max-width: 90%;
-  padding: 1rem;
-  background: var(--color-background2);
-  border-radius: 12px;
-  color: var(--color-text);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-
-  h1 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    font-size: 1rem;
-    color: var(--color-text2);
-  }
-}
-
-.timeline-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding-bottom: 1.5rem;
-}
-
-.timeline-step {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #ccc;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-
-  &.active {
-    background: rgba(123, 30, 30, 0.6);
-  }
-
-  &.current {
-    background: var(--color-highlight);
-    color: var(--color-primary);
-  }
-}
-
-.timeline-line {
-  flex: 1;
-  height: 2px;
-  background: #ccc;
-
-  &.filled {
-    background: rgba(123, 30, 30, 0.6);
-  }
-}
-
-/* STEP WRAPPER (scrollabile) *
-.step-wrapper {
-  flex: 1;
-  overflow-y: auto;
-  max-height: calc(100vh - 220px); // spazio per intro e timeline
-  padding: 0 16px;
-  text-align: center;
-  color: var(--color-text2);
-
-  h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0 0 1rem;
-    padding: 0.5rem 1rem;
-    background: var(--color-background1);
-    border-left: 4px solid var(--color-highlight);
-    border-radius: 0 8px 8px 0;
-    display: inline-block;
-
-    .h2-icon {
-      margin-right: 0.5rem;
-      color: var(--color-highlight);
-    }
-  }
-}
-
-/* STEP 2: input città e alloggio *
-.location-card {
-  background: var(--color-background);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  max-width: 400px;
-  margin: 1rem auto;
-}
-
-.input-label {
-  display: block;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin: 0.5rem 0 0.2rem;
-}
-
-.custom-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1.5px solid #ccc;
-  border-radius: 12px;
-  background: var(--color-background1);
-  color: var(--color-text);
-  margin-bottom: 1rem;
-  transition: border 0.3s, box-shadow 0.3s;
-
-  &:focus {
-    border-color: var(--color-highlight);
-    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.3);
-    outline: none;
-  }
-}
-
-/* CARD riepilogo (step 4) *
-.summary-card {
-  background: var(--color-background);
-  padding: 2rem;
-  max-width: 680px;
-  margin: 0 auto 1.5rem;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  text-align: left;
-
-  h3 {
-    color: var(--color-primary);
-    font-size: 1.6rem;
-    margin-bottom: 1.2rem;
-  }
-
-  p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-
-    strong {
-      color: var(--color-highlight);
-    }
-  }
-}
-
-/* Pulsante fisso in basso *
-.fixed-bottom-button {
-  position: sticky;
-  bottom: 0;
-  padding: 1rem 1rem 1.5rem;
-  background: var(--color-background1);
-  z-index: 10;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-}*/
-
-/* ========== LAYOUT BASE ========== */
+/* ===== SFONDO MINIMALE ===== */
 .crea-content {
-  --background: var(--color-background1);
-  display: flex;
-  flex-direction: column;
+  --background: transparent;
+  background: linear-gradient(to bottom,
+      var(--color-background) 0%,
+      var(--color-background1) 100%);
   height: 100vh;
   overflow: hidden;
-  padding: 0;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.intro-box {
+/* ===== PROGRESS BAR ===== */
+.progress-wrapper {
+  position: absolute;
+  inset: 0 auto auto 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(0, 0, 0, .08);
+  z-index: 3;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--color-highlight);
+  transition: width .3s;
+}
+
+/* ===== TRIP-HEADER SEMPRE VISIBILE ===== */
+.trip-header {
+  position: sticky;
+  top: 4px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 8px 0 16px;
+  padding: 0 1rem;
+}
+
+.circle-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-highlight);
+  font-size: 1.8rem;
+}
+
+.trip-info {
+  text-align: left
+}
+
+.trip-title {
+  margin: 0;
+  font: 700 1.25rem/1 var(--ion-font-family, Arial);
+}
+
+.trip-sub {
+  margin: 0;
+  font-size: .9rem;
+  color: var(--color-text2);
+}
+
+/* ===== STEP-BOX (card centrale) ===== */
+.step-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  padding: 1.6rem;
+  background: var(--color-background);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
   text-align: center;
-  margin: 1rem auto 1.5rem;
-  max-width: 90%;
-  padding: 1rem;
-  background: var(--color-background2);
-  border-radius: 12px;
+}
+
+/* titoli & placeholder */
+.question {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.4rem;
   color: var(--color-text);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
 
-  h1 {
-    color: var(--color-text);
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-  }
+.optional {
+  font-size: .85rem;
+  color: var(--color-text2);
+}
 
-  p {
-    font-size: 1rem;
+/* input minimal */
+.pure-input {
+  width: 100%;
+  font-size: 1.2rem;
+  padding: .6rem 0;
+  text-align: center;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, .2);
+  background: transparent;
+  color: var(--color-text);
+
+  &::placeholder {
     color: var(--color-text2);
   }
-}
-
-/* ========== TIMELINE ========== */
-.timeline-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 16px 24px;
-}
-
-.timeline-step {
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #ccc;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  transition: all 0.3s;
-
-  &.active {
-    background: rgba(123, 30, 30, 0.6);
-  }
-  &.current {
-    background: var(--color-highlight);
-    color: var(--color-primary);
-  }
-}
-
-.timeline-line {
-  flex: 1;
-  height: 2px;
-  background: #ccc;
-  margin: 0 8px;
-  transition: background 0.3s;
-
-  &.filled {
-    background: rgba(123, 30, 30, 0.6);
-  }
-}
-
-/* ========== STEP WRAPPER ========== */
-.step-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 220px); // già usato in altri step
-  position: relative;
-  overflow: hidden;
-}
-
-/* Titolo sempre visibile in alto */
-.step-title-fixed {
-  background: var(--color-background1);
-  padding: 0 16px;
-  z-index: 2;
-
-  h2 {
-    color: var(--color-text);
-    font-size: 1.4rem;
-    font-weight: 700;
-    padding: 0.75rem 1rem;
-    margin: 0;
-    text-align: center;
-    border-left: 4px solid var(--color-highlight);
-    background: var(--color-background1);
-    border-radius: 0 8px 8px 0;
-    color: var(--color-text);
-    background: var(--color-background1);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-
-    .h2-icon {
-      margin-right: 0.5rem;
-      color: var(--color-highlight);
-    }
-  }
-}
-
-/* Scroll solo per il calendario */
-.step-scroll-area {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0 16px 1rem;
-}
-
-#calendar{
-  justify-content: center;
-  text-align: center;
-}
-
-
-
-/* STEP 2: input città e alloggio */
-
-.location-card {
-  background: var(--color-background);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  max-width: 400px;
-  margin: 1rem auto;
-}
-
-.input-label {
-  display: block;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin: 0.5rem 0 0.2rem;
-}
-
-.custom-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1.5px solid #ccc;
-  border-radius: 12px;
-  background: var(--color-background1);
-  color: var(--color-text);
-  margin-bottom: 1rem;
-  transition: border 0.3s, box-shadow 0.3s;
 
   &:focus {
-    border-color: var(--color-highlight);
-    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.3);
     outline: none;
+    border-color: var(--color-highlight);
   }
 }
 
-/* ========== STEP 4 – RIEPILOGO ========== */
-.hero-photo {
-  width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-  border-radius: 16px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  animation: fadeInScale 0.5s ease;
+/* ===== TAB BAR ===== */
+.tabs {
+  display: flex;
+  gap: .4rem;
+  margin-bottom: 1.2rem;
 }
 
-.summary-card {
-  background: var(--color-background);
-  padding: 2rem;
-  width: 95%;
-  max-width: 680px;
-  margin: 0 auto 1.5rem;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  text-align: left;
-  color: var(--color-text);
-  animation: fadeInScale 0.4s ease 0.1s forwards;
+.tab-btn {
+  flex: 1;
+  padding: .7rem 0;
+  border: none;
+  border-radius: 12px 12px 0 0;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--color-background2);
+  color: var(--color-text2);
+  transition: .25s;
 
-  h3 {
+  &.active {
+    background: var(--color-highlight);
     color: var(--color-primary);
-    font-size: 1.6rem;
-    margin-bottom: 1.2rem;
-  }
-
-  p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    line-height: 1.6;
-
-    strong {
-      color: var(--color-highlight);
-    }
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, .06);
   }
 }
 
-/* ========== BOTTONE FINALE ========== */
-.confirm-btn {
-  --background: var(--color-highlight);
-  --color: var(--color-primary);
-  font-weight: bold;
-  font-size: 1.1rem;
+/* ===== BOX DATE ===== */
+.date-selector {
+  display: flex;
+  gap: 1rem;
+}
+
+.date-box {
+  flex: 1;
+  padding: .9rem .4rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin-top: 1rem;
-  transition: transform 0.2s;
+  background: var(--color-background2);
+  border: 2px solid var(--color-highlight);
+  cursor: pointer;
+  transition: transform .2s;
+
+  .label {
+    display: block;
+    font-size: .75rem;
+    color: var(--color-text2);
+  }
+
+  .value {
+    display: block;
+    font: 600 1rem/1 var(--ion-font-family, Arial);
+  }
 
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
   }
 }
 
-/* ========== ANIMAZIONI ========== */
-@keyframes fadeInScale {
-  0%   { opacity: 0; transform: scale(0.95); }
-  100% { opacity: 1; transform: scale(1); }
+/* ===== RIEPILOGO ===== */
+.summary-card {
+  background: var(--color-background);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+  padding: 1.2rem;
+
+  p {
+    margin: .4rem 0;
+    color: var(--color-text);
+  }
+}
+
+/* ===== BOTTONE PILL ===== */
+.bottom-button {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+
+  ion-button {
+    --background: var(--color-highlight);
+    --color: var(--color-primary);
+    --border-radius: 999px;
+    font-weight: 600;
+  }
+}
+
+.calendar-under-tabs {
+  margin-top: 1rem;
+  padding: 0 1rem;
+  background: var(--color-background);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  height: 400px; // oppure 60vh, se preferisci
 }
