@@ -17,12 +17,16 @@
       </div>
 
       <div class="trip-info">
-        <h3 class="trip-title" [class.animate-up]="cityJustConfirmed">
-          Trip to {{ confirmedCity || '...' }}
-        </h3>
-        <p class="trip-sub" *ngIf="accommodation" [class.animate-up]="accommodationJustConfirmed">
-          {{ confirmedAccommodation }}
-        </p>
+        <!-- sostituisci SOLO queste due righe -->
+
+<h3 class="trip-title">
+  Trip to {{ confirmedCity || '...' }}
+</h3>
+
+<p class="trip-sub" *ngIf="accommodation">
+  {{ confirmedAccommodation }}
+</p>
+
       </div>
     </div>
 

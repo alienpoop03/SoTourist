@@ -41,7 +41,7 @@ declare var google: any;
   templateUrl: './crea.page.html',
   styleUrls: ['./crea.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  
+
 
 })
 export class CreaPage implements AfterViewInit {
@@ -62,9 +62,9 @@ export class CreaPage implements AfterViewInit {
   city = '';
   accommodation = '';
   cityJustConfirmed = false;
-accommodationJustConfirmed = false;
-confirmedCity = '';
-confirmedAccommodation = '';
+  accommodationJustConfirmed = false;
+  confirmedCity = '';
+  confirmedAccommodation = '';
 
 
 
@@ -106,7 +106,7 @@ confirmedAccommodation = '';
     setTimeout(() => this.initAutocomplete(), 300);
   }
 
-  
+
 
   private initAutocomplete() {
     const cityInput = document.getElementById('cityInput') as HTMLInputElement;
@@ -171,22 +171,22 @@ confirmedAccommodation = '';
       endDate: this.endDate!,
     };
   }
- confirmFirstStep() {
-  this.step = 2;
+  confirmFirstStep() {
+    this.step = 2;
 
-  this.confirmedCity = this.city;
-  this.cityJustConfirmed = true;
-  setTimeout(() => this.cityJustConfirmed = false, 600);
-}
+    this.confirmedCity = this.city;
+    this.cityJustConfirmed = true;
+    setTimeout(() => this.cityJustConfirmed = false, 600);
+  }
 
 
   confirmCity() {
-  this.step = 3;
+    this.step = 3;
 
-  this.confirmedAccommodation = this.accommodation;
-  this.accommodationJustConfirmed = true;
-  setTimeout(() => this.accommodationJustConfirmed = false, 600);
-}
+    this.confirmedAccommodation = this.accommodation;
+    this.accommodationJustConfirmed = true;
+    setTimeout(() => this.accommodationJustConfirmed = false, 600);
+  }
 
 
   confirmSurvey() {
@@ -233,26 +233,26 @@ confirmedAccommodation = '';
   }
 
   onRangeSelected(range: { from: string, to: string }) {
-  console.log('Range ricevuto:', range);
+    console.log('Range ricevuto:', range);
 
-  this.startDate = range.from;
-  this.endDate = range.to;
+    this.startDate = range.from;
+    this.endDate = range.to;
 
-  // Se non è stata selezionata nessuna data → departure
-  if (!this.startDate && !this.endDate) {
-    this.activeTab = 'departure';
-  }
-  // Se è stata selezionata solo una → evidenzia return
-  else if (this.startDate && !this.endDate) {
-    this.activeTab = 'return';
-  }
-  // Se entrambe → resta su return (o puoi impostare null)
-  else if (this.startDate && this.endDate) {
-    this.activeTab = 'return'; // oppure lascia invariato
-  }
+    // Se non è stata selezionata nessuna data → departure
+    if (!this.startDate && !this.endDate) {
+      this.activeTab = 'departure';
+    }
+    // Se è stata selezionata solo una → evidenzia return
+    else if (this.startDate && !this.endDate) {
+      this.activeTab = 'return';
+    }
+    // Se entrambe → resta su return (o puoi impostare null)
+    else if (this.startDate && this.endDate) {
+      this.activeTab = 'return'; // oppure lascia invariato
+    }
 
-  this.step = this.step; // forza il refresh visuale
-}
+    this.step = this.step; // forza il refresh visuale
+  }
 
 
   canProceedCurrentStep(): boolean {
