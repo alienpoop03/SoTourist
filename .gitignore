@@ -6,8 +6,10 @@ SoTourist/Front-End/www/
 SoTourist/Front-End/.idea
 SoTourist/Front-End/.angular
 SoTourist/Front-End/.browserslistrc
+SoTourist\Front-End/src/app/services/ip.config.ts
 .DS_Store
 Avvio server.bat
+
 
 # Script Mac
 SoTourist/Avvio SoTourist.app/Contents/Resources/InfoPlist.loctable
