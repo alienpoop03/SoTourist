@@ -29,3 +29,45 @@
   background-color: var(--color-highlight);
   color: var(--color-text);
 }
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-background);
+}
+
+#calendarContainer {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  position: relative;
+}
+
+.litepicker {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column;
+  background-color: var(--color-background1);
+  box-sizing: border-box;
+}
+
+.litepicker .container__months,
+.litepicker .container__days {
+  width: 100% !important;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.litepicker-day-item.is-in-range,
+.litepicker-day-item.is-start-date,
+.litepicker-day-item.is-end-date {
+  background-color: var(--color-highlight);
+  color: var(--color-text);
+}

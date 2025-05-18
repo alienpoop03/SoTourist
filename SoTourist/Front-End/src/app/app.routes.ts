@@ -32,10 +32,9 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
-  },  {
+  },
+  {
     path: 'registrazione',
     loadComponent: () => import('./registrazione/registrazione.page').then( m => m.RegistrazionePage)
   },
-
-
 ];
