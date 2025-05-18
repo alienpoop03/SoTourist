@@ -28,15 +28,16 @@
 
 /* ===== TRIP-HEADER SEMPRE VISIBILE ===== */
 .trip-header {
-  position: sticky;
-  top: 4px;
-  z-index: 2;
+  position: absolute;
+  top: 15%;             /* leggermente sotto il centro */
+  left: 30%;            /* centrato orizzontalmente */
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin: 8px 0 16px;
-  padding: 0 1rem;
+  z-index: 5;
 }
+
 
 .circle-logo {
   width: 60px;
@@ -145,31 +146,6 @@
   gap: 1rem;
 }
 
-.date-box {
-  flex: 1;
-  padding: .9rem .4rem;
-  border-radius: 12px;
-  background: var(--color-background2);
-  border: 2px solid var(--color-highlight);
-  cursor: pointer;
-  transition: transform .2s;
-
-  .label {
-    display: block;
-    font-size: .75rem;
-    color: var(--color-text2);
-  }
-
-  .value {
-    display: block;
-    font: 600 1rem/1 var(--ion-font-family, Arial);
-  }
-
-  &:hover {
-    transform: scale(1.03);
-  }
-}
-
 /* ===== RIEPILOGO ===== */
 .summary-card {
   background: var(--color-background);
@@ -207,4 +183,50 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   height: 400px; // oppure 60vh, se preferisci
+}
+@keyframes fadeUp {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-up {
+  animation: fadeUp 0.5s ease-out;
+}
+.inline-summary {
+  margin-bottom: 1.2rem;
+  text-align: center;
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  p {
+    font-size: 1rem;
+    color: var(--color-text2);
+    margin: 0.4rem 0 0;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-up {
+  animation: fadeUp 0.4s ease-out;
 }

@@ -2,9 +2,7 @@
   <ion-content class="crea-content" scrollY="false">
 
     <!-- overlay di caricamento (rimane dov’era) -->
-    <app-generation-overlay
-      *ngIf="isLoading"
-      [message]="message">
+    <app-generation-overlay *ngIf="isLoading" [message]="message">
     </app-generation-overlay>
 
     <!-- ░░░ PROGRESS BAR ░░░ -->
@@ -19,11 +17,11 @@
       </div>
 
       <div class="trip-info">
-        <h3 class="trip-title">
-          Trip to {{ city || '...' }}
+        <h3 class="trip-title" [class.animate-up]="cityJustConfirmed">
+          Trip to {{ confirmedCity || '...' }}
         </h3>
-        <p class="trip-sub" *ngIf="accommodation">
-          {{ accommodation }}
+        <p class="trip-sub" *ngIf="accommodation" [class.animate-up]="accommodationJustConfirmed">
+          {{ confirmedAccommodation }}
         </p>
       </div>
     </div>
@@ -34,12 +32,7 @@
       <!-- STEP 1 – città -->
       <ng-container *ngIf="step === 1">
         <h2 class="question">Dove vuoi andare?</h2>
-        <input
-          id="cityInput"
-          [(ngModel)]="city"
-          class="pure-input"
-          type="text"
-          placeholder="Es. Roma"
+        <input id="cityInput" [(ngModel)]="city" class="pure-input" type="text" placeholder="Es. Roma"
           autocomplete="off">
       </ng-container>
 
@@ -49,49 +42,31 @@
           Dove alloggerai?
           <span class="optional">(facoltativo)</span>
         </h2>
-        <input
-          id="accommodationInput"
-          [(ngModel)]="accommodation"
-          class="pure-input"
-          type="text"
-          placeholder="Es. Hotel Centro"
-          autocomplete="off">
+        <input id="accommodationInput" [(ngModel)]="accommodation" class="pure-input" type="text"
+          placeholder="Es. Hotel Centro" autocomplete="off">
       </ng-container>
 
       <!-- STEP 3 – selezione date “alla Ryanair” -->
-      <!-- STEP 3 – selezione date “alla Ryanair” -->
-<ng-container *ngIf="step === 3">
-  <!-- tab bar -->
-  <div class="tabs">
-    <button class="tab-btn" [class.active]="activeTab === 'departure'">
-      ➜ Departure
-    </button>
-    <button class="tab-btn" [class.active]="activeTab === 'return'">
-      ↩︎ Return
-    </button>
-  </div>
+      <ng-container *ngIf="step === 3">
+        <!-- tab bar -->
+        <div class="tabs">
+          <button class="tab-btn" [class.active]="activeTab === 'departure'">
+            ➜ Departure
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'return'">
+            ↩︎ Return
+          </button>
+        </div>
 
-  <!-- box date -->
-  <div class="date-selector">
-    <div class="date-box" (click)="setTab('departure')">
-      <span class="label">Departure</span>
-      <span class="value">{{ startDate || '-- / --' }}</span>
-    </div>
+        <!-- box date -->
 
-    <div class="date-box" (click)="setTab('return')">
-      <span class="label">Return</span>
-      <span class="value">{{ endDate   || '-- / --' }}</span>
-    </div>
-  </div>
 
-  <!-- ⬇️ calendario visibile sotto -->
-  <div class="calendar-under-tabs">
-    <app-range-calendar-lite
-      [startFromDate]="today"
-      (datesSelected)="onRangeSelected($event)">
-    </app-range-calendar-lite>
-  </div>
-</ng-container>
+        <!-- ⬇️ calendario visibile sotto -->
+        <div class="calendar-under-tabs">
+          <app-range-calendar-lite [startFromDate]="today" (datesSelected)="onRangeSelected($event)">
+          </app-range-calendar-lite>
+        </div>
+      </ng-container>
 
 
       <!-- STEP 4 – riepilogo -->
@@ -108,7 +83,7 @@
               <strong>Date:</strong>
               {{ startDate | date:'dd/MM' }}
               →
-              {{ endDate   | date:'dd/MM' }}
+              {{ endDate | date:'dd/MM' }}
             </p>
           </ion-card-content>
         </ion-card>
@@ -118,10 +93,7 @@
 
     <!-- ░░░ BOTTONE FISSO ░░░ -->
     <div class="bottom-button">
-      <ion-button
-        expand="block"
-        (click)="handleStepAction()"
-        [disabled]="!canProceedCurrentStep()">
+      <ion-button expand="block" (click)="handleStepAction()" [disabled]="!canProceedCurrentStep()">
         {{ step === 4 ? 'Salva' : 'Continua' }}
       </ion-button>
     </div>

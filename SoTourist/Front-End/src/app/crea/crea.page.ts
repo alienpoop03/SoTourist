@@ -11,15 +11,12 @@ import { Router } from '@angular/router';
 import {
   IonContent,
   IonButton,
-
   IonCard,
-
   IonCardContent,
 } from '@ionic/angular/standalone';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
-import { UnfinishedCardComponent } from '../components/unfinished-card/unfinished-card.component';
 import { TripWithId } from 'src/app/models/trip.model';
 import { RangeCalendarLiteComponent } from '../components/range-calendar-lite/range-calendar-lite.component';
 import { GenerationOverlayComponent } from '../components/generation-overlay/generation-overlay.component';
@@ -36,7 +33,6 @@ declare var google: any;
     IonButton,
     IonCard,
     IonCardContent,
-    UnfinishedCardComponent,
     RangeCalendarLiteComponent,  // 👈 AGGIUNGI QUI
     GenerationOverlayComponent
 
@@ -45,48 +41,32 @@ declare var google: any;
   templateUrl: './crea.page.html',
   styleUrls: ['./crea.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  animations: [
-    trigger('slideIn', [
-      transition(':enter', [
-        style({ transform: 'translateY(100%)', opacity: 0 }),
-        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
-      ])
-    ])
-  ]
+  
 
 })
 export class CreaPage implements AfterViewInit {
+
   animateEntry = false;
   heroPhotoUrl: string | null = null;
-
   isLoading: boolean = false;
   message: string = 'Generazione in corso...';
-
   unfinishedCards: TripWithId[] = [];
   currentDraft: TripWithId | null = null;
   activeTab: 'departure' | 'return' = 'departure';
-
-
   step = 1;
   stepmax = this.step;
-  //stepscelta = 3;
-
-  //mode: 'vacation' | 'planned' | null = null;
-
-  setTab(tab: 'departure' | 'return') {
-    this.activeTab = tab;
-  }
-
-
   today = new Date().toISOString().split('T')[0];
   endDate: string | null = null;
   startDate: string | null = null;
   calendarDays: Date[] = [];
-  datesReady: boolean = false;
-
-
   city = '';
   accommodation = '';
+  cityJustConfirmed = false;
+accommodationJustConfirmed = false;
+confirmedCity = '';
+confirmedAccommodation = '';
+
+
 
   constructor(
     private router: Router,
@@ -102,11 +82,8 @@ export class CreaPage implements AfterViewInit {
 
   ngAfterViewInit() { }
 
-  goToStep(s: number) {
-    if (s >= 2 && s <= 4 && s <= this.stepmax) {
-      this.step = s;
-      if (s === 2) setTimeout(() => this.initAutocomplete(), 300);
-    }
+  setTab(tab: 'departure' | 'return') {
+    this.activeTab = tab;
   }
 
   ionViewWillEnter() {
@@ -129,8 +106,53 @@ export class CreaPage implements AfterViewInit {
     setTimeout(() => this.initAutocomplete(), 300);
   }
 
-  canProceedDates(): boolean {
-    return !!this.endDate;
+  
+
+  private initAutocomplete() {
+    const cityInput = document.getElementById('cityInput') as HTMLInputElement;
+    const accommodationInput = document.getElementById('accommodationInput') as HTMLInputElement;
+
+    // dichiariamo l’istanza di autocomplete per l’alloggio
+    let acAcc!: google.maps.places.Autocomplete;
+
+    // 1) inizializziamo subito autocomplete sull’alloggio (anche se città non scelta)
+    if (accommodationInput) {
+      acAcc = new google.maps.places.Autocomplete(accommodationInput, { types: ['lodging'] });
+      acAcc.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const p = acAcc.getPlace();
+          this.accommodation = p.formatted_address ?? p.name ?? '';
+        });
+      });
+    }
+
+    // 2) inizializziamo autocomplete sulla città
+    if (cityInput) {
+      const acCity = new google.maps.places.Autocomplete(cityInput, { types: ['(cities)'] });
+      acCity.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const p = acCity.getPlace();
+          this.city = p.formatted_address ?? p.name ?? '';
+
+          // appena la città è stata scelta, ristrettiamo l’autocomplete dell’alloggio
+          const bounds = p.geometry?.viewport;
+          if (bounds && acAcc) {
+            acAcc.setBounds(bounds);
+            acAcc.setOptions({ strictBounds: true });
+          }
+        });
+      });
+    }
+
+    // 🔧 iOS tap‐fix
+    setTimeout(() => {
+      document.querySelectorAll('.pac-container')
+        .forEach((el: any) => el.setAttribute('data-tap-disabled', 'true'));
+    }, 500);
+  }
+
+  canProceedCity(): boolean {
+    return !!this.city;
   }
 
   confirmDates() {
@@ -147,76 +169,25 @@ export class CreaPage implements AfterViewInit {
       accommodation: this.accommodation,
       startDate: this.startDate!,
       endDate: this.endDate!,
-      coverPhoto: this.heroPhotoUrl ?? ''
     };
   }
+ confirmFirstStep() {
+  this.step = 2;
 
-  onStartDateChange(ev: any) {
-    this.startDate = ev.detail.value;
-    if (this.endDate && this.startDate && this.endDate < this.startDate) {
-      this.endDate = this.startDate;
-    }
-    this.step = 3.5;
-  }
-
-  onEndDateChange(ev: any) {
-    this.endDate = ev.detail.value;
-  }
-
-  private initAutocomplete() {
-  const cityInput = document.getElementById('cityInput') as HTMLInputElement;
-  const accommodationInput = document.getElementById('accommodationInput') as HTMLInputElement;
-
-  // dichiariamo l’istanza di autocomplete per l’alloggio
-  let acAcc!: google.maps.places.Autocomplete;
-  
-  // 1) inizializziamo subito autocomplete sull’alloggio (anche se città non scelta)
-  if (accommodationInput) {
-    acAcc = new google.maps.places.Autocomplete(accommodationInput, { types: ['lodging'] });
-    acAcc.addListener('place_changed', () => {
-      this.ngZone.run(() => {
-        const p = acAcc.getPlace();
-        this.accommodation = p.formatted_address ?? p.name ?? '';
-      });
-    });
-  }
-
-  // 2) inizializziamo autocomplete sulla città
-  if (cityInput) {
-    const acCity = new google.maps.places.Autocomplete(cityInput, { types: ['(cities)'] });
-    acCity.addListener('place_changed', () => {
-      this.ngZone.run(() => {
-        const p = acCity.getPlace();
-        this.city = p.formatted_address ?? p.name ?? '';
-
-        // appena la città è stata scelta, ristrettiamo l’autocomplete dell’alloggio
-        const bounds = p.geometry?.viewport;
-        if (bounds && acAcc) {
-          acAcc.setBounds(bounds);
-          acAcc.setOptions({ strictBounds: true });
-        }
-      });
-    });
-  }
-
-  // 🔧 iOS tap‐fix
-  setTimeout(() => {
-    document.querySelectorAll('.pac-container')
-      .forEach((el: any) => el.setAttribute('data-tap-disabled', 'true'));
-  }, 500);
+  this.confirmedCity = this.city;
+  this.cityJustConfirmed = true;
+  setTimeout(() => this.cityJustConfirmed = false, 600);
 }
 
 
-
-
-  canProceedCity(): boolean {
-    return !!this.city;
-  }
-
   confirmCity() {
-    this.step = 3;
-    if (this.step > this.stepmax) this.stepmax = this.step;
-  }
+  this.step = 3;
+
+  this.confirmedAccommodation = this.accommodation;
+  this.accommodationJustConfirmed = true;
+  setTimeout(() => this.accommodationJustConfirmed = false, 600);
+}
+
 
   confirmSurvey() {
     if (!this.currentDraft) {
@@ -261,23 +232,28 @@ export class CreaPage implements AfterViewInit {
       });
   }
 
-
-  areDatesValid(): boolean {
-    if (!this.startDate || !this.endDate) return false;
-    const start = new Date(this.startDate);
-    const end = new Date(this.endDate);
-    return start instanceof Date && end instanceof Date && !isNaN(start.getTime()) && !isNaN(end.getTime()) && start <= end;
-  }
-
   onRangeSelected(range: { from: string, to: string }) {
-    console.log('Range ricevuto:', range); // 👈 deve apparire in console
+  console.log('Range ricevuto:', range);
 
-    this.startDate = range.from;
-    this.endDate = range.to;
+  this.startDate = range.from;
+  this.endDate = range.to;
 
-    // Forza il check del pulsante
-    this.step = this.step;
+  // Se non è stata selezionata nessuna data → departure
+  if (!this.startDate && !this.endDate) {
+    this.activeTab = 'departure';
   }
+  // Se è stata selezionata solo una → evidenzia return
+  else if (this.startDate && !this.endDate) {
+    this.activeTab = 'return';
+  }
+  // Se entrambe → resta su return (o puoi impostare null)
+  else if (this.startDate && this.endDate) {
+    this.activeTab = 'return'; // oppure lascia invariato
+  }
+
+  this.step = this.step; // forza il refresh visuale
+}
+
 
   canProceedCurrentStep(): boolean {
     if (this.step === 1) {
@@ -292,7 +268,6 @@ export class CreaPage implements AfterViewInit {
     return false;
   }
 
-
   handleStepAction() {
     if (!this.canProceedCurrentStep()) return;
 
@@ -306,18 +281,5 @@ export class CreaPage implements AfterViewInit {
       this.confirmSurvey();
     }
   }
-
-
-  confirmFirstStep() {
-    this.step = 2;
-    if (this.step > this.stepmax) this.stepmax = this.step;
-  }
-
-  openCalendar(tab: 'departure' | 'return') {
-    this.activeTab = tab;
-    // apri la tua modal con il calendario full-screen
-  }
-
-
 
 }
