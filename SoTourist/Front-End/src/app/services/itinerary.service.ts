@@ -24,7 +24,7 @@ export class ItineraryService {
       startDate: rawData.startDate,
       endDate: rawData.endDate,
       style: rawData.style || 'generico',
-      photo: rawData.photo || '', // ✅ usa 'photo' al posto di 'coverPhoto'
+      coverPhoto: rawData.photo || '', // ✅ usa 'photo' al posto di 'coverPhoto'
       places: []
     };
 

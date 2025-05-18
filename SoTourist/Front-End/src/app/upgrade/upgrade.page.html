@@ -1,0 +1,9 @@
+<ion-content>
+  <app-plan-card planType="premium" [active]="currentType === 'premium'" (select)="upgrade('premium')"></app-plan-card>
+
+  <app-plan-card planType="gold" [active]="currentType === 'gold'" (select)="upgrade('gold')"></app-plan-card>
+
+  <ion-button expand="block" fill="clear" *ngIf="currentType !== 'standard'" (click)="cancel()">
+    ❎ Disdici abbonamento
+  </ion-button>
+</ion-content>

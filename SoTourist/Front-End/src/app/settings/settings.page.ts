@@ -22,7 +22,7 @@ import { AppHeaderComponent } from '../components/header/app-header.component';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component'; // 👈 importa il componente
-
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -39,7 +39,7 @@ import { ProfileIconComponent } from '../components/profile-icon/profile-icon.co
     IonInput,
     IonBadge,
     IonButton,
-
+  RouterModule,
     AppHeaderComponent,
     IonSelect,
     IonSelectOption,

@@ -5,10 +5,10 @@ import { API_BASE_URL } from './ip.config';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   //private baseUrl = 'http://192.168.17.185:3000/api/auth';
-    private baseUrl = API_BASE_URL+'/api/auth';
+  private baseUrl = API_BASE_URL + '/api/auth';
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   register(username: string, email: string, password: string) {
     return this.http.post(`${this.baseUrl}/register`, {
@@ -25,7 +25,7 @@ export class AuthService {
     );
   }
 
-  
+
   // 💾 Salva info utente localmente
   saveSession(userId: string, profile: { username: string; email: string }) {
     localStorage.setItem('userId', userId);
@@ -51,6 +51,28 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getUserId();
+  }
+
+  upgradeAccount(userId: string, plan: 'premium' | 'gold') {
+    return this.http.post(`${this.baseUrl}/users/${userId}/upgrade`, { plan });
+  }
+
+  cancelSubscription(userId: string) {
+    return this.http.post(`${this.baseUrl}/users/${userId}/cancel`, {});
+  }
+
+  getUserType(userId: string) {
+    return this.http.get<{ userId: string; type: string; subscriptionEndDate: string | null }>(
+      `${this.baseUrl}/users/${userId}/type`
+    );
+  }
+
+  updateUser(userId: string, data: { username?: string; email?: string; password?: string }) {
+    return this.http.put(`${this.baseUrl}/users/${userId}`, data);
+  }
+
+  deleteUser(userId: string) {
+    return this.http.delete(`${this.baseUrl}/users/${userId}`);
   }
 
 }

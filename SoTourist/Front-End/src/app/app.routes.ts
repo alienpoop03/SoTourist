@@ -36,5 +36,9 @@ export const routes: Routes = [
   {
     path: 'registrazione',
     loadComponent: () => import('./registrazione/registrazione.page').then( m => m.RegistrazionePage)
+  },  {
+    path: 'upgrade',
+    loadComponent: () => import('./upgrade/upgrade.page').then( m => m.UpgradePage)
   },
+
 ];

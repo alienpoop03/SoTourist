@@ -1,0 +1,32 @@
+.plan-card {
+  margin: 1rem;
+  border: 2px solid var(--color-primary);
+  background: var(--color-background);
+  color: var(--color-text);
+  transition: transform 0.2s ease;
+
+  &.active {
+    border-color: var(--color-highlight);
+    box-shadow: 0 0 12px var(--color-highlight);
+  }
+
+  ion-card-title {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+
+    li {
+      margin: 0.5rem 0;
+    }
+  }
+
+  ion-button {
+    --color: var(--color-highlight);
+    font-weight: bold;
+  }
+}

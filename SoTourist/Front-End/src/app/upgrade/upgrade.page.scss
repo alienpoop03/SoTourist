@@ -1,0 +1,8 @@
+ion-card {
+  margin: 1rem;
+  border: 2px solid var(--color-highlight);
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+}
