@@ -94,6 +94,8 @@ ion-icon {
    --color-current-trip-bg: #FFF5E5; 
 
   --tabbar-height: 50px; //padding-bottom footer
+
+  --overlay-blur-bg: rgba(255, 255, 255, 0.35);
 }
 
 /* Tema scuro */
@@ -121,4 +123,5 @@ ion-icon {
   --color-current-trip-bg: #2A1E00;
    
   --tabbar-height: 50px; //padding-bottom footer
+  --overlay-blur-bg: rgba(0, 0, 0, 0.35);
 }

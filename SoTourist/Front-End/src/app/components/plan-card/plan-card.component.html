@@ -1,14 +1,23 @@
-<ion-card class="plan-card" [class.active]="active">
+<ion-card class="plan-card" [class.active]="active" [ngClass]="planType">
+  <div class="badge" *ngIf="active">✔ Attivo</div>
+
+  <div class="icon-box">
+    <div class="emoji">
+      {{ planType === 'premium' ? '🌟' : planType === 'gold' ? '👑' : '🧭' }}
+    </div>
+  </div>
+
   <ion-card-header>
-    <ion-card-title>{{ getTitle() }}</ion-card-title>
+    <ion-card-title>{{ getTitle().slice(2) }}</ion-card-title>
   </ion-card-header>
+
   <ion-card-content>
     <ul>
-      <li *ngFor="let feature of getFeatures()">✔️ {{ feature }}</li>
+      <li *ngFor="let feature of getFeatures()">✔ {{ feature }}</li>
     </ul>
 
-    <ion-button expand="block" [disabled]="active" (click)="select.emit()">
-      {{ active ? 'Attivo' : 'Scegli' }}
+    <ion-button expand="block" [disabled]="active" (click)="select.emit()" fill="outline" color="light">
+      {{ active ? 'Attivo' : 'Scegli questo piano' }}
     </ion-button>
   </ion-card-content>
 </ion-card>
