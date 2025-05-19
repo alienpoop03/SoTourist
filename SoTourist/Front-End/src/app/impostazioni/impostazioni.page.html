@@ -1,13 +1,39 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>SUCAAAAA</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding settings-content">
+  <ion-list lines="inset" class="settings-boxes">
+    
+    <ion-list-header>Preferenze</ion-list-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">impostazioni</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-item>
+      <ion-icon name="notifications-outline" slot="start"></ion-icon>
+      <ion-label>Notifiche</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="notificationsEnabled" (ionChange)="toggleNotifications()"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="moon-outline" slot="start"></ion-icon>
+      <ion-label>Tema scuro</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="language-outline" slot="start"></ion-icon>
+      <ion-label>Lingua</ion-label>
+      <ion-select slot="end" interface="popover" [(ngModel)]="language" (ionChange)="changeLanguage()">
+        <ion-select-option value="it">Italiano</ion-select-option>
+        <ion-select-option value="en">English</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-icon name="sync-outline" slot="start"></ion-icon>
+      <ion-label>Sync automatica</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="autoSync" (ionChange)="toggleAutoSync()"></ion-toggle>
+    </ion-item>
+
+    <ion-item *ngIf="lastSync">
+      <ion-icon name="refresh-outline" slot="start"></ion-icon>
+      <ion-label>Ultima sync: {{ lastSync | date:'short' }}</ion-label>
+      <ion-button slot="end" size="small" (click)="manualSync()">Sync ora</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
