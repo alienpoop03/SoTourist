@@ -40,9 +40,15 @@
     <!-- STEP 2: ALLOGGIO -->
     <div class="step-card">
       <h2>Dove alloggi?</h2>
-      <app-google-autocomplete placeholder="Nome o indirizzo alloggio" [types]="['address']"
-        [(value)]="accommodationInput" (valueChange)="setAccommodation($event)">
-      </app-google-autocomplete>
+      <app-google-autocomplete
+  placeholder="Nome o indirizzo alloggio"
+  [types]="['lodging']"
+  [bounds]="cityBounds"
+  [strictBounds]="true"
+  [(value)]="accommodationInput"
+  (placeSelected)="handleAccommodationPlace($event)">
+</app-google-autocomplete>
+
       <button class="prev-btn" (click)="prevStep()">Indietro</button>
       <button class="next-btn" [disabled]="!accommodationInput"
         (click)="setAccommodation(accommodationInput)">Avanti</button>

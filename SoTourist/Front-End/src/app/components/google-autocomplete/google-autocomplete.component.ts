@@ -32,6 +32,7 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
   @Input() type = 'text';
   @Input() types: string[] = []; // es. ['(cities)'] o ['address']
   @Input() bounds: google.maps.LatLngBounds | null = null;
+@Input() strictBounds: boolean = false;
 
   @Output() valueChange = new EventEmitter<string>();
   @Output() placeSelected = new EventEmitter<google.maps.places.PlaceResult>();

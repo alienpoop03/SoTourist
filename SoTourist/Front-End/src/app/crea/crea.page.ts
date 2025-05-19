@@ -170,9 +170,26 @@ setCity(value: string) {
     this.accommodationInput = '';
   }
 
-  handleAccommodationPlace(place: google.maps.places.PlaceResult) {
-    this.accommodationInput = place.formatted_address ?? place.name ?? '';
-    this.accommodation = this.accommodationInput;
-    this.step = 3;
+  isPlaceInBounds(place: google.maps.places.PlaceResult): boolean {
+  if (!place.geometry || !place.geometry.location || !this.cityBounds) {
+    return false;
   }
+  return this.cityBounds.contains(place.geometry.location);
+}
+
+  handleAccommodationPlace(place: google.maps.places.PlaceResult) {
+  this.accommodationInput = place.formatted_address ?? place.name ?? '';
+  this.accommodation = this.accommodationInput;
+
+  // 🔥 Filtro: se non è dentro la città selezionata, avvisa e blocca
+  if (!this.isPlaceInBounds(place)) {
+    alert('Seleziona un alloggio nella città scelta!');
+    this.accommodationInput = '';
+    this.accommodation = '';
+    return;
+  }
+
+  this.step = 3;
+}
+
 }
