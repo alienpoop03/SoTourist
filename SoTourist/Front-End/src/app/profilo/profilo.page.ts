@@ -2,22 +2,19 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonContent,
-  IonAvatar,
   IonItem,
   IonLabel,
-  IonTextarea,
-  IonToggle,
   IonButton,
   IonIcon,
+  IonBadge,
+  IonToggle,
+  IonSelect,
+  IonSelectOption,
+  IonInput,
   IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
-  IonCardContent
 } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
 import { AppHeaderComponent } from '../components/header/app-header.component';
-import { AppMenuComponent } from '../components/menu/app-menu.component';
+import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component';
 
 @Component({
   selector: 'app-profilo',
@@ -25,55 +22,132 @@ import { AppMenuComponent } from '../components/menu/app-menu.component';
   imports: [
     CommonModule,
     IonContent,
-    IonAvatar,
     IonItem,
     IonLabel,
-    IonTextarea,
-    IonToggle,
     IonButton,
     IonIcon,
+    IonBadge,
+    IonToggle,
+    IonSelect,
+    IonSelectOption,
+    IonInput,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCardContent,
     AppHeaderComponent,
-    AppMenuComponent
+    ProfileIconComponent
   ],
   templateUrl: './profilo.page.html',
   styleUrls: ['./profilo.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProfiloPage {
-  name = 'Gabriele';
-  email = 'gabriele@email.com';
-  bio = '';
+  // Dati profilo
+  username = '';
+  email = '';
+  password = '';
+  profileImageUrl: string | null = null;
+  registrationDate: Date = new Date(); // O caricala da backend/localStorage
+  accountStatus: string = 'Standard';
+  editing = false;
+
+  // Abbonamento
+  subscriptionPlan: string = 'Standard'; // o 'Premium'
+  subscriptionExpiry: Date = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // esempio: +30gg
+
+  // Preferenze
   darkMode = false;
   notificationsEnabled = true;
-  trips: any[] = [];
+  language: 'it' | 'en' = 'it';
 
-  constructor(private router: Router) {}
+  // Viaggi salvati
+  savedTrips: any[] = [];
 
-  ionViewWillEnter() {
-    const saved = localStorage.getItem('trips');
-    this.trips = saved ? JSON.parse(saved) : [];
+  ngOnInit() {
+    // Carica dati profilo da localStorage (come in settings)
+    const profile = localStorage.getItem('userProfile');
+    if (profile) {
+      const parsed = JSON.parse(profile);
+      this.username = parsed.username || '';
+      this.email = parsed.email || '';
+    }
+
+    // Carica viaggi
+    const trips = localStorage.getItem('trips');
+    this.savedTrips = trips ? JSON.parse(trips) : [];
   }
 
+  // Modifica profilo (solo frontend)
+  saveProfile() {
+    this.editing = false;
+    localStorage.setItem(
+      'userProfile',
+      JSON.stringify({ username: this.username, email: this.email })
+    );
+  }
+
+  // Cambia avatar
+  triggerFileInput() {
+    document.querySelector<HTMLInputElement>('input[type=file]')?.click();
+  }
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.[0]) {
+      const reader = new FileReader();
+      reader.onload = e => (this.profileImageUrl = (e.target as any).result);
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // Preferenze
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
     document.body.classList.toggle('dark', this.darkMode);
+    localStorage.setItem('darkMode', String(this.darkMode));
+  }
+  toggleNotifications() {
+    // Metti logica se serve
+  }
+  changeLanguage() {
+    // Metti logica se serve
   }
 
+  // Sicurezza
+  changePassword() {
+    // Implementa la logica reale o apri una modale
+  }
+  confirmDeleteAccount() {
+    // Mostra alert di conferma, poi chiama deleteAccount()
+    if (confirm('Sei sicuro di voler eliminare il tuo account?')) {
+      this.deleteAccount();
+    }
+  }
+  deleteAccount() {
+    localStorage.clear();
+    window.location.href = '/login';
+  }
+
+  // Abbonamento
+  upgradeSubscription() {
+    // Implementa upgrade reale
+    this.subscriptionPlan = 'Premium';
+    this.subscriptionExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  }
+  manageSubscription() {
+    // Implementa gestione reale
+  }
+
+  // Viaggi
+  openTrip(trip: any) {
+    // Vai alla pagina del viaggio
+  }
+  // Logout
+  confirmLogout() {
+    if (confirm('Vuoi uscire dall\'account?')) {
+      this.logout();
+    }
+  }
   logout() {
-    this.router.navigate(['/login']);
-  }
-
-  goToTrips() {
-    this.router.navigate(['/tabs/profilo']);
-  }
-
-  deleteTrip(index: number) {
-    this.trips.splice(index, 1);
-    localStorage.setItem('trips', JSON.stringify(this.trips));
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userProfile');
+    window.location.href = '/login';
   }
 }

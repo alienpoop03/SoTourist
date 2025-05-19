@@ -5,46 +5,31 @@
 <!-- CONTENUTO -->
 <ion-content class="ion-padding settings-content" fullscreen>
 
-<!--
-<ion-item routerLink="/upgrade">
-  <ion-icon slot="start" name="star-outline"></ion-icon>
-  <ion-label>Upgrade account</ion-label>
-</ion-item> -->
-
   <ion-card class="profile-card">
-    <ion-item lines="none">
+    <ion-item button detail routerLink="/profilo" lines="none">
       <!-- -->
       <app-profile-icon class="profile-icon" [src]="profileImageUrl" [editable]="true"
         (changed)="profileImageUrl = $event">
       </app-profile-icon> <!---->
 
       <ion-label>
-        <h2>{{ username || 'Nuovo utente' }}</h2>
+        <h2><strong>{{ username || 'Nuovo utente' }}</strong></h2>
         <p>{{ email || 'email@example.com' }}</p>
         <ion-badge color="warning">Explorer ✨</ion-badge>
       </ion-label>
 
-      <ion-button slot="end" fill="clear" (click)="editing = !editing">
-        <ion-icon name="create-outline"></ion-icon>
-      </ion-button>
     </ion-item>
 
-    <div *ngIf="editing" class="edit-fields">
-      <ion-input label="Username" [(ngModel)]="username" maxlength="20"></ion-input>
-      <ion-input label="Email" [(ngModel)]="email" type="email" maxlength="20"></ion-input>
-      <ion-input label="Password" [(ngModel)]="password" type="password" autocomplete="new-password"></ion-input>
-      <ion-button expand="block" color="success" (click)="saveProfile()">Salva</ion-button>
-    </div>
   </ion-card>
 
-  <ion-list lines="none" class="settings-boxes">
+  <ion-list lines="none" class="boxes-style">
   <ion-item button detail routerLink="/impostazioni">
     <ion-icon name="settings-outline" slot="start"></ion-icon>
     <ion-label>Impostazioni avanzate</ion-label>
   </ion-item>
 </ion-list>
 
-  <ion-list lines="inset" class="settings-boxes">
+  <!-- <ion-list lines="inset" class="boxes-style">
     
     <ion-list-header>Preferenze</ion-list-header>
 
@@ -80,9 +65,9 @@
       <ion-label>Ultima sync: {{ lastSync | date:'short' }}</ion-label>
       <ion-button slot="end" size="small" (click)="manualSync()">Sync ora</ion-button>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
-  <ion-list lines="inset" class="settings-boxes">
+  <ion-list lines="inset" class="boxes-style">
     <ion-list-header>Sicurezza</ion-list-header>
 
     <ion-item button detail (click)="changePassword()">
@@ -96,7 +81,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list lines="inset" class="settings-boxes">
+  <ion-list lines="inset" class="boxes-style">
     <ion-list-header>App</ion-list-header>
 
     <ion-item button detail (click)="openAbout()">

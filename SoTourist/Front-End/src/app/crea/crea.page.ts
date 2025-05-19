@@ -22,7 +22,9 @@ import { inject } from '@angular/core';
 export class CreaPage {
 
   router = inject(Router); // se non usi il costruttore, usa Angular 16+ inject
-
+  cityBounds: google.maps.LatLngBounds | null = null;
+  readonly today: string = new Date().toISOString().split('T')[0];
+  
   // STEP tracking
   step = 1;
 
@@ -40,14 +42,38 @@ export class CreaPage {
   isConfirmed: boolean = false;
 
   // --- STEP 1: conferma città ---
-  setCity(value: string) {
-    if (value && value.trim()) {
-      this.city = value.trim();
-      this.step = 2;
-      // Reset input del prossimo step per UX
-      this.accommodationInput = '';
-    }
+setCity(value: string) {
+  if (value && value.trim()) {
+    this.city = value.trim();
+    this.step = 2;
+    this.accommodationInput = '';
+    // Non toccare altre variabili qui
+
+    const autocomplete = new google.maps.places.AutocompleteService();
+    autocomplete.getPlacePredictions({ input: this.city }, (predictions, status) => {
+      if (
+        status === google.maps.places.PlacesServiceStatus.OK &&
+        predictions != null &&
+        predictions.length > 0
+      ) {
+        const placeId = predictions[0].place_id;
+        if (!placeId) return;
+
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        service.getDetails({ placeId }, (place, status) => {
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK &&
+            place != null &&
+            place.geometry?.viewport
+          ) {
+            this.cityBounds = place.geometry.viewport;
+          }
+        });
+      }
+    });
   }
+}
+
 
   // --- STEP 2: conferma alloggio ---
   setAccommodation(value: string) {
@@ -83,10 +109,13 @@ export class CreaPage {
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
     trips.push(newDraft);
     localStorage.setItem('trips', JSON.stringify(trips));
-console.log('Salvo bozza:', newDraft);
+    console.log('Salvo bozza:', newDraft);
 
     // 3. Naviga alla pagina viaggi
-    this.router.navigate(['tabs/viaggi']);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['tabs/viaggi']);
+    });
+
   }
 
   // --- Step indietro ---
@@ -119,13 +148,31 @@ console.log('Salvo bozza:', newDraft);
 
   showFinalRecap = false;
 
-// Quando premi "Avanti" dopo le date
-showRecapOverlay() {
-  if (this.datesInput.start && this.datesInput.end) {
-    this.dates = { start: this.datesInput.start, end: this.datesInput.end };
-    this.showFinalRecap = true;
-    // NON step = 4
+  // Quando premi "Avanti" dopo le date
+  showRecapOverlay() {
+    if (this.datesInput.start && this.datesInput.end) {
+      this.dates = { start: this.datesInput.start, end: this.datesInput.end };
+      this.showFinalRecap = true;
+      // NON step = 4
+    }
   }
-}
 
+  handleCityPlace(place: google.maps.places.PlaceResult) {
+    this.cityInput = place.formatted_address ?? place.name ?? '';
+    this.city = this.cityInput;
+    this.step = 2;
+
+    if (place.geometry?.viewport) {
+      this.cityBounds = place.geometry.viewport;
+    }
+
+    // Reset input dello step successivo
+    this.accommodationInput = '';
+  }
+
+  handleAccommodationPlace(place: google.maps.places.PlaceResult) {
+    this.accommodationInput = place.formatted_address ?? place.name ?? '';
+    this.accommodation = this.accommodationInput;
+    this.step = 3;
+  }
 }

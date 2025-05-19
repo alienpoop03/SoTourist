@@ -1,0 +1,15 @@
+.settings-boxes {
+            /* usa ion-list lines="full" in HTML */
+  background: var(--color-background);
+  border-radius: 16px;
+  
+  // padding-bottom: var(--tabbar-height);
+
+  & + .settings-boxes {
+    margin-top: 1rem;
+  }
+}
+
+.settings-content {
+  //vuoto
+}

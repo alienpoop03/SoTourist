@@ -64,16 +64,6 @@
   --inner-padding-end:   1rem;
   --background: transparent;
   border-radius: 0;
-  width: 100%;        // <--- AGGIUNGI QUESTO
-  min-height: 56px;   // (opzionale: fissi l’altezza standard)
-  display: flex;      // <--- AGGIUNGI QUESTO (forza a riempire tutto)
-  align-items: center;
-  cursor: pointer;
-}
-
-.settings-boxes ion-item:hover {
-  background: var(--color-background3);
-  transition: background 2s;
 }
 
 /* Header di lista: padding standard e carattere più marcato */
