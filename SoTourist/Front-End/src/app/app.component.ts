@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   
   constructor(private router: Router) {
     this.configureStatusBar(); // 👈 resta qui
+    this.wakeUpBackend();
   }
 
   ngOnInit() {
@@ -40,5 +41,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  wakeUpBackend() {
+    fetch('https://sotourist.onrender.com/api/ping')
+      .then(() => console.log('✅ Backend svegliato'))
+      .catch(err => console.warn('⚠️ Backend in avvio:', err));
+  }
   
 }
