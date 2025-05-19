@@ -7,7 +7,6 @@ const tripRoutes = require('./routes/trip');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const HOST = (process.env.IP || 'localhost').trim();
 
 app.use(cors({
     origin: '*'
@@ -29,7 +28,7 @@ app.use('/api', tripRoutes);
 });*/
   
 
-app.listen(PORT, HOST, () => {
-  console.log(`✅ Server attivo su http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`✅ Server attivo su porta ${PORT}`);
 });
   
