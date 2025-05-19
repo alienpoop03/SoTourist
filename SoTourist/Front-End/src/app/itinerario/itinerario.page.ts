@@ -71,9 +71,17 @@ export class ItinerarioPage implements AfterViewInit {
   /* Riferimenti al DOM Ionic */
   @ViewChild(IonContent, { static: true }) content!: IonContent;
   @ViewChild('hero', { static: true }) heroEl!: ElementRef;
+  // ─── Pager: nomi delle slide e indice corrente ───
+  slideNames: string[] = ['Luoghi', 'Preferenze', 'Giorni'];
+  currentSlide = 1;
+
+  // Reference al container orizzontale
+  @ViewChild('scrollContainer', { static: true })
+  scrollContainer!: ElementRef<HTMLElement>;
+  // ────────────────────────────────────────────────
 
   /* Stato UI dinamico */
-  heroHeight = 240;
+  heroHeight = 200;
   titleFontSize = 1.8;
   subtitleFontSize = 1.1;
   overlayOpacity = 1;
@@ -107,7 +115,7 @@ export class ItinerarioPage implements AfterViewInit {
     'Shopping',
     'Avventura',
     'Food tour',
-    'Escursione'
+    'Escursione',
   ];
 
   constructor(
@@ -182,15 +190,20 @@ export class ItinerarioPage implements AfterViewInit {
 
 
   /* ───── Scroll hero dinamico ───── */
-  onScroll(ev: CustomEvent) {
-    const scrollTop = ev.detail.scrollTop;
-    const minHeight = 80, maxHeight = 240;
-    const minFont = 1.2, maxFont = 1.8;
-
-    this.heroHeight = Math.max(minHeight, maxHeight - scrollTop);
-    this.titleFontSize = Math.max(minFont, maxFont - scrollTop / 100);
-    this.subtitleFontSize = Math.max(0.9, 1.1 - scrollTop / 150);
-    this.overlayOpacity = Math.max(0, 1 - scrollTop / 150);
+  onScroll(ev: Event): void {
+    const c = this.scrollContainer.nativeElement;
+    const idx = Math.round(c.scrollLeft / c.clientWidth);
+    this.currentSlide = Math.min(Math.max(idx, 0), this.slideNames.length - 1);
+  }
+  /**
+   * Scrolla dolcemente alla slide i-esima
+   */
+  goToSlide(i: number): void {
+    const c = this.scrollContainer.nativeElement;
+    c.scrollTo({
+      left: i * c.clientWidth,
+      behavior: 'smooth'
+    });
   }
 
 
