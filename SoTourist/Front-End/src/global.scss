@@ -125,3 +125,42 @@ ion-icon {
   --tabbar-height: 50px; //padding-bottom footer
   --overlay-blur-bg: rgba(0, 0, 0, 0.35);
 }
+
+// STILE GLOBALE BOX
+.boxes-style{
+  background: var(--color-background);
+  border-radius: 16px;
+  
+  // padding-bottom: var(--tabbar-height);
+
+  & + .boxes-style {
+    margin-top: 1rem;
+  }
+}
+
+.boxes-style {
+            /* usa ion-list lines="full" in HTML */
+  background: var(--color-background);
+  border-radius: 16px;
+  
+  // padding-bottom: var(--tabbar-height);
+
+  & + .boxes-style {
+    margin-top: 1rem;
+  }
+}
+
+/* Item edge-to-edge con solo indent interno */
+.boxes-style ion-item {
+  --inner-padding-start: 1rem;
+  --inner-padding-end:   1rem;
+  --background: transparent;
+  border-radius: 0;
+}
+
+/* Header di lista: padding standard e carattere più marcato */
+.boxes-style ion-list-header {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-text);
+}
