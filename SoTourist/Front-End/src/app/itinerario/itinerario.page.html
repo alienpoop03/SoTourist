@@ -1,5 +1,4 @@
 <ion-content class="itinerario-content" fullscreen>
-
   <!-- HERO -->
   <div #hero class="hero" [ngStyle]="{
         'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
@@ -13,9 +12,60 @@
     </div>
   </div>
 
-  <!-- SLIDES -------------------------------------------------------------->
-  <div class="scroll-container">
+  <!-- ─── INDICATORE SLIDE ─── -->
+  <div class="slide-indicator">
+    <span *ngFor="let name of slideNames; let i = index" [class.active]="i===currentSlide" (click)="goToSlide(i)">
+      {{ name }}
+    </span>
+  </div>
 
+  <!-- SLIDES -------------------------------------------------------------->
+
+
+  <div class="slide-page">
+  </div>
+  <div #scrollContainer class="scroll-container" (scroll)="onScroll($event)">
+    
+    
+    <!-- ▸ SLIDE 0  –  personalizzazione viaggio -->
+    <div class="slide-page no-vert-scroll">
+
+      <h2 class="slide-title">Personalizza il tuo viaggio</h2>
+
+      <ion-item>
+        <ion-label position="stacked">Luogo che non vuoi perdere</ion-label>
+        <ion-input placeholder="Es. Colosseo, Torre Eiffel..." [(ngModel)]="tripMustSee"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Mezzo preferito</ion-label>
+        <ion-select placeholder="Scegli un mezzo" [(ngModel)]="tripTransport">
+          <ion-select-option value="walk">A piedi</ion-select-option>
+          <ion-select-option value="car">Auto</ion-select-option>
+          <ion-select-option value="bus">Bus</ion-select-option>
+          <ion-select-option value="bike">Bicicletta</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Chiedi un consiglio all'AI</ion-label>
+        <ion-textarea autoGrow="true" placeholder="Cosa vuoi chiedere?" [(ngModel)]="tripPrompt"></ion-textarea>
+      </ion-item>
+
+      <!-- bottone di generazione (solo se è ancora una bozza) -->
+      <div class="generate-container">
+        <ion-button class="generate-btn" (click)="generateItinerary()" *ngIf="!isLoading && isLocalTrip">
+          Genera Itinerario
+        </ion-button>
+
+        <ion-button class="generate-btn" disabled *ngIf="isLoading">Caricamento...</ion-button>
+        <ion-button class="generate-btn" disabled *ngIf="!isLoading && !isLocalTrip">Itinerario già
+          generato</ion-button>
+      </div>
+
+    </div>
+    
+    
     <!-- ▸ SLIDE 1  –  personalizzazione viaggio -->
     <div class="slide-page no-vert-scroll">
 
@@ -53,6 +103,8 @@
       </div>
 
     </div>
+    
+    
     <!-- ▸ SLIDE 2  –  lista dei giorni -->
     <div class="slide-page">
 

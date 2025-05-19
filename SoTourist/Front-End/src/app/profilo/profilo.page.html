@@ -1,77 +1,73 @@
-<app-menu></app-menu>
+<app-header [title]="'Profilo'" [iconName]="'person-circle-outline'" [showBackButton]="false"></app-header>
 
-<ion-page id="main-content">
-  <app-header></app-header>
+<ion-content class="ion-padding profile-content" fullscreen>
 
-  <ion-content class="profile-page">
-
-    <!-- Avatar e nome -->
-    <div class="profile-header">
-      <ion-avatar class="profile-avatar">
-        <img src="assets/avatar-placeholder.png" />
-      </ion-avatar>
-      <div class="profile-info">
-        <h2>{{ name }}</h2>
-        <p>{{ email }}</p>
+  <!-- CARD PROFILO UTENTE -->
+  <ion-card class="profile-main-card">
+    <div class="profile-main-flex">
+      <app-profile-icon class="avatar-lg" [src]="profileImageUrl" [editable]="true" (changed)="profileImageUrl = $event"></app-profile-icon>
+      <div>
+        <h2 class="user-name">{{ username || 'Nuovo utente' }}</h2>
+        <div class="user-email">{{ email || 'email@example.com' }}</div>
+        <ion-badge [color]="subscriptionPlan === 'Premium' ? 'warning' : 'medium'">{{ subscriptionPlan || 'Standard' }}</ion-badge>
+        <div class="profile-actions">
+          <ion-button size="small" fill="outline" (click)="editing = !editing">
+            <ion-icon name="create-outline"></ion-icon>
+            Modifica
+          </ion-button>
+        </div>
       </div>
     </div>
+    <div class="user-join">Iscritto dal: <b>{{ registrationDate | date:'mediumDate' }}</b></div>
+    <form *ngIf="editing" class="edit-fields">
+      <ion-input label="Username" [(ngModel)]="username" maxlength="20"></ion-input>
+      <ion-input label="Email" [(ngModel)]="email" type="email" maxlength="50"></ion-input>
+      <ion-input label="Password" [(ngModel)]="password" type="password"></ion-input>
+      <ion-button expand="block" color="success" (click)="saveProfile()">Salva</ion-button>
+    </form>
+  </ion-card>
 
-    <!-- Bio -->
-    <ion-item lines="full">
-      <ion-label position="stacked">Bio</ion-label>
-      <ion-textarea [(ngModel)]="bio" placeholder="Scrivi qualcosa su di te..."></ion-textarea>
+  <!-- ABBONAMENTO -->
+  <ion-list lines="full" class="boxes-style">
+    <ion-list-header>
+      <ion-icon name="ribbon-outline" slot="start"></ion-icon>
+      <ion-label>Abbonamento</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Piano: <b>{{ subscriptionPlan || 'Standard' }}</b></ion-label>
+      <ion-label slot="end">Scadenza: <b>{{ subscriptionExpiry | date:'mediumDate' }}</b></ion-label>
     </ion-item>
+    <ion-item lines="none" *ngIf="subscriptionPlan !== 'Premium'" button detail (click)="upgradeSubscription()">
+      <ion-icon name="rocket-outline" slot="start"></ion-icon>
+      <ion-label>Upgrade</ion-label>
+    </ion-item>
+    <ion-item *ngIf="subscriptionPlan === 'Premium'" button detail (click)="manageSubscription()">
+      <ion-icon name="settings-outline" slot="start"></ion-icon>
+      <ion-label>Gestisci abbonamento</ion-label>
+    </ion-item>
+  </ion-list>
 
-    <!-- Impostazioni -->
-    <div class="settings-block">
-      <ion-item lines="none">
-        <ion-label>Tema scuro</ion-label>
-        <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
-      </ion-item>
+  <!-- SICUREZZA -->
+  <ion-list lines="full" class="boxes-style">
+    <ion-list-header>
+      <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+      <ion-label>Sicurezza</ion-label>
+    </ion-list-header>
+    <ion-item button detail (click)="changePassword()">
+      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      <ion-label>Cambia password</ion-label>
+    </ion-item>
+    <ion-item lines="none" button detail color="danger" (click)="confirmDeleteAccount()">
+      <ion-icon name="trash-outline" slot="start"></ion-icon>
+      <ion-label>Elimina account</ion-label>
+    </ion-item>
+  </ion-list>
 
-      <ion-item lines="none">
-        <ion-label>Notifiche</ion-label>
-        <ion-toggle slot="end" [(ngModel)]="notificationsEnabled"></ion-toggle>
-      </ion-item>
-    </div>
-
-    <!-- Viaggi salvati -->
-    <div class="trips-section" *ngIf="trips.length > 0">
-      <h3>I miei viaggi</h3>
-
-      <ion-card *ngFor="let trip of trips; let i = index">
-        <ion-card-header>
-          <ion-card-title>{{ trip.city }}</ion-card-title>
-          <ion-card-subtitle>
-            {{ trip.start | date:'dd/MM' }} – {{ trip.end | date:'dd/MM' }}
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          🏨 {{ trip.accommodation }}<br />
-          ⏳ {{ trip.days }} giorni
-          <ion-button fill="clear" color="danger" size="small" (click)="deleteTrip(i)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
-        </ion-card-content>
-      </ion-card>
-    </div>
-
-    <div *ngIf="trips.length === 0" class="no-trips">
-      Nessun viaggio salvato.
-    </div>
-
-    <!-- Azioni -->
-    <div class="profile-actions">
-      <ion-button expand="block" color="primary" (click)="goToTrips()">
-        <ion-icon name="briefcase-outline" slot="start"></ion-icon>
-        I miei viaggi
-      </ion-button>
-
-      <ion-button expand="block" fill="clear" color="danger" (click)="logout()">
-        <ion-icon name="log-out-outline" slot="start"></ion-icon>
-        Esci
-      </ion-button>
-    </div>
-
-  </ion-content>
-</ion-page>
+  <!-- LOGOUT -->
+  <ion-list lines="none" class="boxes-style">
+    <ion-item lines="none" button detail color="danger" (click)="confirmLogout()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      <ion-label>Logout</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

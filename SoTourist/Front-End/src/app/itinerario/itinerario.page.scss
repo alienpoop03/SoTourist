@@ -218,7 +218,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1001;
-  
+
 
 }
 
@@ -252,3 +252,46 @@ ion-card-content p {
   margin-top: 1.5rem;
   animation: pulse 2s infinite;
 }
+/* ─── INDICATORE SLIDE ─────────────────────────────────────────────────── */
+.slide-indicator {
+  display: flex;
+  justify-content: space-around;        /* suddivide equamente */
+  align-items: center;
+  background: var(--color-background1); /* tonalità leggermente diversa */
+  padding: 0.75rem 0;                   /* area più “corposa” */
+  border-bottom: 1px solid var(--color-background3);
+
+  span {
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text2);
+    cursor: pointer;
+    padding: 0.5rem 1rem;               /* padding verticale/orizzontale */
+    border-radius: 4px;                /* angoli smussati */
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background: var(--color-background2);
+    }
+
+    &.active {
+      color: var(--color-primary);
+      background: var(--color-background2);
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;                   /* subito sotto il box */
+        left: 10%;                      /* lascia margine ai lati */
+        right: 10%;
+        height: 3px;                    /* barra più evidente */
+        background: var(--color-highlight);
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+
+
