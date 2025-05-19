@@ -50,8 +50,8 @@
 /*                        */
 .cards-scroll {
   display: flex;
-  padding: 0 1rem;
-  gap: 2px;               /* quasi attaccate */
+  scroll-padding-left: 1rem;
+  scroll-padding-right: 1rem;  gap: 2px;               /* quasi attaccate */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
@@ -179,54 +179,63 @@
 
   .top10-grid {
     display: grid;
-    /* due colonne, larghezza minima 160px, altrimenti lo scroll orizzontale */
-    grid-template-columns: repeat(2, minmax(160px, 1fr));
-    column-gap: 4rem;       /* spazio ampio fra le due colonne */
-    overflow-x: auto;      /* scroll orizzontale se necessario */
+    grid-template-columns: repeat(2, 1fr);  // DUE COLONNE, responsive
+    gap: 1.2rem 1.4rem; // spazio tra righe e colonne
     padding: 0 1rem;
   }
 
   .top10-item {
-    min-width: 160px;       /* assicura la min-width usata nel grid */
     display: flex;
     align-items: center;
-    gap: 1rem;              /* spazio tra card e info */
+    gap: 1rem;    // spazio tra foto e testo
+    min-width: 0; // per evitare overflow in grid
+    max-width: 100%;
+    // height: 110px;  // opzionale se vuoi altezza fissa
+    cursor: pointer;
+  }
 
-    ion-card {
-      flex: 0 0 100px;
-      height: 100px;
-      border-radius: 12px;
-      overflow: hidden;
-      background: none;
-      box-shadow: none;
+  ion-card {
+    flex: 0 0 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: none;
+    box-shadow: none;
+    margin: 0;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .top10-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .rank {
-        /* rosso semitrasparente e molto grande */
-        color: rgba(123, 30, 30, 0.6);
-        font-size: 3rem;
-        line-height: 1;
-                font-weight: 900;           /* <- numero molto più cicciotto */
-
-      }
-
-      .city-name {
-        margin-top: 0.25rem;
-        font-size: 0.9rem;
-        color: var(--color-text);
-      }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
-}
 
+  .city-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 70px;
+    gap: 0.3rem;
+  }
+
+  .rank {
+    color: rgba(123, 30, 30, 0.85);
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .city-name {
+    font-size: 1.01rem;
+    color: var(--color-text);
+    white-space: normal;
+    word-break: break-word;
+    font-weight: 700;
+    line-height: 1.18;
+    max-width: 110px;
+  }
+}
