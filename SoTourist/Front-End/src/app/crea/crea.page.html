@@ -1,46 +1,10 @@
 <ion-content class="crea-content">
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <!-- overlay di caricamento (rimane dov’era) -->
-    <app-generation-overlay *ngIf="isLoading" [message]="message">
-    </app-generation-overlay>
-
-    <!--PROGRESS BAR-->
-    <div class="progress-wrapper">
-      <div class="progress-bar" [style.width.%]="(step - 1) * 33.333"></div>
-    </div>
-
-    <!--TRIP HEADER fisso-->
-    <div class="trip-header" *ngIf="city || step > 1">
-      <div class="circle-logo">
-        <ion-icon name="airplane"></ion-icon>
-      </div>
-
-      <div class="trip-info">
-        <!-- sostituisci SOLO queste due righe -->
-
-<h3 class="trip-title">
-  Trip to {{ confirmedCity || '...' }}
-</h3>
-
-<p class="trip-sub" *ngIf="accommodation">
-  {{ confirmedAccommodation }}
-</p>
-
-=======
   <!-- ░░░ RIEPILOGO DINAMICO (appare dopo la conferma della città) ░░░ -->
   <div class="riepilogo-header animated" [class.show]="city" *ngIf="city">
     <div class="circle-icon">
       <ion-icon name="airplane"></ion-icon>
     </div>
-=======
-  <!-- ░░░ RIEPILOGO DINAMICO (appare dopo la conferma della città) ░░░ -->
-  <div class="riepilogo-header animated" [class.show]="city" *ngIf="city">
-    <div class="circle-icon">
-      <ion-icon name="airplane"></ion-icon>
-    </div>
->>>>>>> Stashed changes
     <div class="trip-info">
       <span class="trip-city">{{ city }}</span>
       <div class="trip-details">
@@ -55,56 +19,49 @@
             <ng-container *ngIf="dates.end">- {{ dates.end | date:'dd/MM/yyyy' }}</ng-container>
           </span>
         </span>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
       </div>
     </div>
   </div>
 
   <!-- STEP 1: CITTÀ -->
-<div *ngIf="step === 1 && !city" class="step-card animate-in">
-  <h2>In quale città sei?</h2>
-  <app-google-autocomplete
-    placeholder="Inserisci città"
-    [types]="['(cities)']"
-    [(value)]="cityInput"
-    (valueChange)="setCity($event)">
-  </app-google-autocomplete>
-  <!-- Se vuoi puoi lasciare il pulsante 'Avanti' solo per fallback/manuale -->
-  <!-- <button class="next-btn" [disabled]="!cityInput" (click)="setCity(cityInput)">Avanti</button> -->
-</div>
+  <div *ngIf="step === 1 && !city" class="step-card animate-in">
+    <h2>In quale città sei?</h2>
+    <app-google-autocomplete
+      placeholder="Inserisci città"
+      [types]="['(cities)']"
+      [(value)]="cityInput"
+      (valueChange)="setCity($event)">
+    </app-google-autocomplete>
+    <!-- Bottone "Avanti" opzionale (solo se vuoi permettere inserimento manuale senza suggerimento)
+    <button class="next-btn" [disabled]="!cityInput" (click)="setCity(cityInput)">Avanti</button>
+    -->
+  </div>
 
-<!-- STEP 2: ALLOGGIO -->
-<div *ngIf="step === 2 && !accommodation" class="step-card animate-in">
-  <h2>Dove alloggi?</h2>
-  <app-google-autocomplete
-    placeholder="Nome o indirizzo alloggio"
-    [types]="['address']"
-    [(value)]="accommodationInput"
-    (valueChange)="setAccommodation($event)">
-  </app-google-autocomplete>
-  <button class="prev-btn" (click)="prevStep()">Indietro</button>
-</div>
+  <!-- STEP 2: ALLOGGIO -->
+  <div *ngIf="step === 2 && !accommodation" class="step-card animate-in">
+    <h2>Dove alloggi?</h2>
+    <app-google-autocomplete
+      placeholder="Nome o indirizzo alloggio"
+      [types]="['address']"
+      [(value)]="accommodationInput"
+      (valueChange)="setAccommodation($event)">
+    </app-google-autocomplete>
+    <button class="prev-btn" (click)="prevStep()">Indietro</button>
+  </div>
 
-
-
-  <!-- ░░░ FORM STEP 3: DATE ░░░ -->
+  <!-- STEP 3: DATE -->
   <div *ngIf="step === 3 && !dates.start" class="step-card animate-in">
     <h2>Quando?</h2>
-    <!-- Inserisci qui il componente calendario -->
     <app-range-calendar-lite (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
-
-    <button class="next-btn" [disabled]="!datesInput.start || !datesInput.end"
+    <button class="next-btn"
+      [disabled]="!datesInput.start || !datesInput.end"
       (click)="setDates(datesInput.start, datesInput.end)">
       Avanti
     </button>
     <button class="prev-btn" (click)="prevStep()">Indietro</button>
   </div>
 
-
-  <!-- ░░░ FORM STEP 4: CONFERMA ░░░ -->
+  <!-- STEP 4: RIEPILOGO E CONFERMA -->
   <div *ngIf="step === 4" class="step-card animate-in">
     <h2>Riepilogo viaggio</h2>
     <ul>
@@ -116,6 +73,6 @@
     <button class="prev-btn" (click)="prevStep()">Indietro</button>
   </div>
 
-  <!-- Dopo conferma puoi mostrare un messaggio di successo sopra il riepilogo -->
+  <!-- (Qui eventualmente puoi aggiungere overlay/finale animato se serve) -->
 
 </ion-content>
