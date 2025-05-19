@@ -1,7 +1,4 @@
-<app-header
-  [title]="'SoTourist'"
-  [iconName]="'home-outline'"
-  [showBackButton]="false">
+<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false">
 </app-header>
 
 <ion-content class="home-content" fullscreen>
@@ -13,7 +10,7 @@
 
     <div class="cards-scroll">
       <ion-card *ngFor="let city of discoverToday" (click)="openCreate(city)">
-<img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
+        <img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
         <ion-card-content>{{ city }}</ion-card-content>
       </ion-card>
     </div>
@@ -26,7 +23,7 @@
 
     <div class="cards-scroll">
       <ion-card *ngFor="let city of places2025" (click)="openCreate(city)">
-<img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
+        <img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
         <ion-card-content>{{ city }}</ion-card-content>
       </ion-card>
     </div>
@@ -39,7 +36,7 @@
 
     <div class="miami-wrapper">
       <ion-card class="miami-card" (click)="openCreate('Miami')">
-<img [src]="'../assets/images/Miami.jpeg'" alt="Miami" />
+        <img [src]="'../assets/images/Miami.jpeg'" alt="Miami" />
         <ion-card-content>Miami</ion-card-content>
       </ion-card>
       <p class="miami-review">
@@ -56,44 +53,38 @@
 
     <div class="cards-scroll">
       <ion-card *ngFor="let trip of topTrips" (click)="openCreate(trip)">
-<img [src]="'../assets/images/' + trip + '.jpeg'" [alt]="trip" />
+        <img [src]="'../assets/images/' + trip + '.jpeg'" [alt]="trip" />
         <ion-card-content>{{ trip }}</ion-card-content>
       </ion-card>
     </div>
   </section>
 
   <!-- Kyoto highlight -->
-<section class="cards-section kyoto-highlight">
-  <span class="section-badge">Consiglio</span>
-  <h2 class="section-title">Perché visitare Kyoto</h2>
+  <section class="cards-section kyoto-highlight">
+    <span class="section-badge">Consiglio</span>
+    <h2 class="section-title">Perché visitare Kyoto</h2>
 
-  <div class="kyoto-wrapper">
-    <ion-card class="kyoto-card" (click)="openCreate('Kyoto')">
-<img [src]="'../assets/images/Kyoto.jpeg'" alt="Kyoto" />
-      <ion-card-content>Kyoto</ion-card-content>
-    </ion-card>
-    <p class="kyoto-review">
-      “Templi secolari, ciliegi in fiore e pace assoluta: Kyoto è magia pura in ogni stagione.”
-    </p>
-  </div>
-</section>
+    <div class="kyoto-wrapper">
+      <ion-card class="kyoto-card" (click)="openCreate('Kyoto')">
+        <img [src]="'../assets/images/Kyoto.jpeg'" alt="Kyoto" />
+        <ion-card-content>Kyoto</ion-card-content>
+      </ion-card>
+      <p class="kyoto-review">
+        “Templi secolari, ciliegi in fiore e pace assoluta: Kyoto è magia pura in ogni stagione.”
+      </p>
+    </div>
+  </section>
 
-<!-- Top 10 di oggi -->
- <section class="cards-section top10-section">
+  <!-- Top 10 di oggi -->
+  <section class="cards-section top10-section">
   <span class="section-badge">Top</span>
   <h2 class="section-title">Top 10 di oggi</h2>
-
   <div class="top10-grid">
-    <div
-      class="top10-item"
-      *ngFor="let city of top10Today; let i = index"
-      (click)="openCreate(city)"
-    >
+    <div class="top10-item" *ngFor="let city of top10Today; let i = index" (click)="openCreate(city)">
       <ion-card>
-<img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
+        <img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
       </ion-card>
-
-      <div class="top10-info">
+      <div class="city-info">
         <span class="rank">{{ i + 1 }}</span>
         <span class="city-name">{{ city }}</span>
       </div>
@@ -105,21 +96,23 @@
 
 
 
-  <!-- Sezione finale -->
-<section class="cards-section end-message">
-  <h2 class="section-title">È tutto per oggi!</h2>
-  <p class="final-subtext">
-    Non hai ancora trovato la vacanza che fa per te?<br />
-    Prova a crearne una completamente personalizzata.
-  </p>
 
-  <div class="final-button-wrapper">
-    <ion-button expand="block" shape="round" size="large" (click)="goToCreate()">
-      Crea la tua vacanza
-      <ion-icon slot="end" name="add-outline"></ion-icon>
-    </ion-button>
-  </div>
-</section>
+
+  <!-- Sezione finale -->
+  <section class="cards-section end-message">
+    <h2 class="section-title">È tutto per oggi!</h2>
+    <p class="final-subtext">
+      Non hai ancora trovato la vacanza che fa per te?<br />
+      Prova a crearne una completamente personalizzata.
+    </p>
+
+    <div class="final-button-wrapper">
+      <ion-button expand="block" shape="round" size="large" (click)="goToCreate()">
+        Crea la tua vacanza
+        <ion-icon slot="end" name="add-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </section>
 
 
 </ion-content>
