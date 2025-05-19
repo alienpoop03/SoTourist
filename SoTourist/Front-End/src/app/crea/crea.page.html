@@ -25,30 +25,27 @@
 
   <!-- WRAPPER PER GLI STEP (scroll orizzontale) -->
   <div class="steps-wrapper" [style.transform]="'translateX(-' + (step - 1) * 100 + 'vw)'">
-    
+
     <!-- STEP 1: CITTÀ -->
     <div class="step-card">
       <h2>In quale città sei?</h2>
-      <app-google-autocomplete
-        placeholder="Inserisci città"
-        [types]="['(cities)']"
-        [(value)]="cityInput"
-        (valueChange)="setCity($event)">
+
+      <app-google-autocomplete placeholder="Inserisci città" [types]="['(cities)']" [(value)]="cityInput"
+        (placeSelected)="handleCityPlace($event)">
       </app-google-autocomplete>
-      <button class="next-btn" [disabled]="!cityInput" (click)="setCity(cityInput)">Avanti</button>
+
+      <button class="next-btn" [disabled]="!cityInput" (click)="step = 2">Avanti</button>
     </div>
 
     <!-- STEP 2: ALLOGGIO -->
     <div class="step-card">
       <h2>Dove alloggi?</h2>
-      <app-google-autocomplete
-        placeholder="Nome o indirizzo alloggio"
-        [types]="['address']"
-        [(value)]="accommodationInput"
-        (valueChange)="setAccommodation($event)">
+      <app-google-autocomplete placeholder="Nome o indirizzo alloggio" [types]="['address']"
+        [(value)]="accommodationInput" (valueChange)="setAccommodation($event)">
       </app-google-autocomplete>
       <button class="prev-btn" (click)="prevStep()">Indietro</button>
-      <button class="next-btn" [disabled]="!accommodationInput" (click)="setAccommodation(accommodationInput)">Avanti</button>
+      <button class="next-btn" [disabled]="!accommodationInput"
+        (click)="setAccommodation(accommodationInput)">Avanti</button>
     </div>
 
     <!-- STEP 3: DATE -->
@@ -56,8 +53,7 @@
       <h2>Quando?</h2>
       <app-range-calendar-lite [minDate]="today" (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
       <button class="prev-btn" (click)="prevStep()">Indietro</button>
-      <button class="next-btn"
-        [disabled]="!datesInput.start || !datesInput.end"
+      <button class="next-btn" [disabled]="!datesInput.start || !datesInput.end"
         (click)="setDates(datesInput.start, datesInput.end)">
         Avanti
       </button>
