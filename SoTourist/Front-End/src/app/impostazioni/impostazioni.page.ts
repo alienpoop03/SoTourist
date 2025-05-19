@@ -1,20 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonToggle,
+  IonIcon,
+  IonSelect,
+  IonSelectOption,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-impostazioni',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonContent,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonToggle,
+    IonIcon,
+    IonSelect,
+    IonSelectOption,
+  ],
   templateUrl: './impostazioni.page.html',
   styleUrls: ['./impostazioni.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ImpostazioniPage implements OnInit {
+export class ImpostazioniPage {
+  // Stato locale delle preferenze
+  darkMode = false;
+  notificationsEnabled = true;
+  autoSync = false;
+  language: 'it' | 'en' = 'it';
+  lastSync: Date | null = null;
 
-  constructor() { }
-
-  ngOnInit() {
+  toggleDarkMode() {
+    localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
+    if (this.darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   }
 
+  toggleNotifications() {
+    // Qui puoi mettere logica reale
+    console.log('Notifiche:', this.notificationsEnabled);
+  }
+
+  toggleAutoSync() {
+    // Logica per autosync
+    console.log('AutoSync:', this.autoSync);
+  }
+
+  changeLanguage() {
+    // Cambia lingua app
+    console.log('Lingua cambiata:', this.language);
+  }
+
+  manualSync() {
+    this.lastSync = new Date();
+    console.log('Sincronizzazione manuale eseguita');
+  }
 }
