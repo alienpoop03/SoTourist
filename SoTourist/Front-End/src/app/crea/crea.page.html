@@ -1,6 +1,6 @@
 <ion-content class="crea-content">
 
-  <!-- ░░░ RIEPILOGO DINAMICO (appare dopo la conferma della città) ░░░ -->
+  <!--RIEPILOGO DINAMICO (appare dopo la conferma della città)-->
   <div class="riepilogo-header animated" [class.show]="city" *ngIf="city">
     <div class="circle-icon">
       <ion-icon name="airplane"></ion-icon>
@@ -23,56 +23,58 @@
     </div>
   </div>
 
-  
-  <!-- STEP 1 - città -->
-  <div *ngIf="step === 1 && !city" class="step-card animate-in">
-    <h2>In quale città sei?</h2>
+  <!-- WRAPPER PER GLI STEP (scroll orizzontale) -->
+  <div class="steps-wrapper" [style.transform]="'translateX(-' + (step - 1) * 100 + 'vw)'">
+    
+    <!-- STEP 1: CITTÀ -->
+    <div class="step-card">
+      <h2>In quale città sei?</h2>
+      <app-google-autocomplete
+        placeholder="Inserisci città"
+        [types]="['(cities)']"
+        [(value)]="cityInput"
+        (valueChange)="setCity($event)">
+      </app-google-autocomplete>
+      <button class="next-btn" [disabled]="!cityInput" (click)="setCity(cityInput)">Avanti</button>
+    </div>
 
-    <app-google-autocomplete
-      placeholder="Inserisci città"
-      [types]="['(cities)']"
-      [(value)]="cityInput"
-      (placeSelected)="handleCityPlace($event)">
-    </app-google-autocomplete>
+    <!-- STEP 2: ALLOGGIO -->
+    <div class="step-card">
+      <h2>Dove alloggi?</h2>
+      <app-google-autocomplete
+        placeholder="Nome o indirizzo alloggio"
+        [types]="['address']"
+        [(value)]="accommodationInput"
+        (valueChange)="setAccommodation($event)">
+      </app-google-autocomplete>
+      <button class="prev-btn" (click)="prevStep()">Indietro</button>
+      <button class="next-btn" [disabled]="!accommodationInput" (click)="setAccommodation(accommodationInput)">Avanti</button>
+    </div>
+
+    <!-- STEP 3: DATE -->
+    <div class="step-card">
+      <h2>Quando?</h2>
+      <app-range-calendar-lite (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
+      <button class="prev-btn" (click)="prevStep()">Indietro</button>
+      <button class="next-btn"
+        [disabled]="!datesInput.start || !datesInput.end"
+        (click)="setDates(datesInput.start, datesInput.end)">
+        Avanti
+      </button>
+    </div>
+
+    <!-- STEP 4: RIEPILOGO E CONFERMA -->
+    <div class="step-card">
+      <h2>Riepilogo viaggio</h2>
+      <ul>
+        <li><b>Città:</b> {{ city }}</li>
+        <li><b>Alloggio:</b> {{ accommodation }}</li>
+        <li><b>Date:</b> {{ dates.start | date:'dd/MM/yyyy' }} - {{ dates.end | date:'dd/MM/yyyy' }}</li>
+      </ul>
+      <button class="prev-btn" (click)="prevStep()">Indietro</button>
+      <button class="next-btn conferma" (click)="confirm()">Conferma</button>
+    </div>
+
   </div>
-
-  <!-- STEP 2 - alloggio -->
-  <div *ngIf="step === 2 && !accommodation" class="step-card animate-in">
-    <h2>Dove alloggi?</h2>
-
-    <app-google-autocomplete
-      placeholder="Nome o indirizzo alloggio"
-      [types]="['address']"
-      [bounds]="cityBounds"
-      [(value)]="accommodationInput"
-      (placeSelected)="handleAccommodationPlace($event)">
-    </app-google-autocomplete>
-  </div>
-
-  <!-- STEP 3: DATE -->
-  <div *ngIf="step === 3 && !dates.start" class="step-card animate-in">
-    <h2>Quando?</h2>
-    <app-range-calendar-lite (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
-    <button class="next-btn"
-      [disabled]="!datesInput.start || !datesInput.end"
-      (click)="setDates(datesInput.start, datesInput.end)">
-      Avanti
-    </button>
-    <button class="prev-btn" (click)="prevStep()">Indietro</button>
-  </div>
-
-  <!-- STEP 4: RIEPILOGO E CONFERMA -->
-  <div *ngIf="step === 4" class="step-card animate-in">
-    <h2>Riepilogo viaggio</h2>
-    <ul>
-      <li><b>Città:</b> {{ city }}</li>
-      <li><b>Alloggio:</b> {{ accommodation }}</li>
-      <li><b>Date:</b> {{ dates.start | date:'dd/MM/yyyy' }} - {{ dates.end | date:'dd/MM/yyyy' }}</li>
-    </ul>
-    <button class="next-btn conferma" (click)="confirm()">Conferma</button>
-    <button class="prev-btn" (click)="prevStep()">Indietro</button>
-  </div>
-
-  <!-- (Qui eventualmente puoi aggiungere overlay/finale animato se serve) -->
 
 </ion-content>

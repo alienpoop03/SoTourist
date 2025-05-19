@@ -10,6 +10,7 @@
     #f8e4e4 100%
   );
   padding: 0;
+  overflow-x: hidden; /* blocca scroll orizzontale nativo */
 }
 
 ion-content.crea-content {
@@ -98,9 +99,17 @@ ion-content.crea-content {
   animation: slideInDown 0.5s;
 }
 
+/* --- WRAPPER PER GLI STEP --- */
+.steps-wrapper {
+  display: flex;
+  width: 400vw; /* 4 step x 100vw */
+  transition: transform 0.5s ease-in-out;
+  overflow: hidden;
+}
+
 /* --- Step Card --- */
 .step-card {
-  width: 98vw;
+  flex: 0 0 100vw; /* ogni step prende tutta la larghezza della viewport */
   max-width: 420px;
   margin: 0 auto 1.5rem auto;
   padding: 2rem 1.1rem;
@@ -142,7 +151,7 @@ ion-content.crea-content {
     border-radius: 14px;
     font-size: 1.01rem;
     padding: .67rem 2.1rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     cursor: pointer;
     transition: background .2s, color .2s;
     &:disabled { background: #eee; color: #ccc; }
@@ -172,4 +181,3 @@ ion-content.crea-content {
     margin-bottom: .3rem;
   }
 }
-
