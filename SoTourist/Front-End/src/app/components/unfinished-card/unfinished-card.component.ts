@@ -1,15 +1,20 @@
-// trip-card.component.ts
-//import { TripWithId } from 'src/app/models/trip.model';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  IonCard,
-  
-  IonButton,
-  IonIcon
-} from '@ionic/angular/standalone';
-import { TripWithId } from 'src/app/models/trip.model';
+import { IonCard, IonButton, IonIcon } from '@ionic/angular/standalone';
 
+// Migliora la tipizzazione per accettare sia startDate che start
+export interface TripWithId {
+  itineraryId: string;
+  city: string;
+  accommodation: string;
+  coverPhoto?: string;
+  // entrambi i formati:
+  startDate?: string; // da backend
+  endDate?: string;
+  start?: string; // da draft
+  end?: string;
+  // altri campi se servono...
+}
 
 @Component({
   selector: 'app-unfinished-card',
@@ -17,22 +22,20 @@ import { TripWithId } from 'src/app/models/trip.model';
   imports: [
     CommonModule,
     IonCard,
-   
     IonButton,
     IonIcon
   ],
   templateUrl: './unfinished-card.component.html',
   styleUrls: ['./unfinished-card.component.scss'],
 })
-
 export class UnfinishedCardComponent {
   @Input() trip!: TripWithId;
   @Output() open = new EventEmitter<string>();
   @Output() remove = new EventEmitter<string>();
 
-
   onDelete(event: Event) {
     this.remove.emit(this.trip.itineraryId);
+    event.stopPropagation();
   }
 
   onClick() {
@@ -42,14 +45,10 @@ export class UnfinishedCardComponent {
   getCityName(): string {
     if (!this.trip.city) return '';
     const raw = this.trip.city.split(',')[0].trim();
-
-    // Rimuove eventuali CAP (numeri di 5 cifre) e sigle come "TR", "RM"
-    const cleaned = raw.replace(/\b\d{5}\b/g, '')         // rimuove il CAP
-      .replace(/\b[A-Z]{2}\b/g, '')       // rimuove sigle tipo RM, TR
-      .replace(/\s{2,}/g, ' ')            // rimuove spazi doppi
+    const cleaned = raw.replace(/\b\d{5}\b/g, '')
+      .replace(/\b[A-Z]{2}\b/g, '')
+      .replace(/\s{2,}/g, ' ')
       .trim();
-
-    // Capitalizza correttamente
     return cleaned
       .toLowerCase()
       .split(' ')
@@ -57,13 +56,14 @@ export class UnfinishedCardComponent {
       .join(' ');
   }
 
-
   getAccommodationName(): string {
     if (!this.trip.accommodation) return '';
-    return this.trip.accommodation.split(',')[0]; // prende solo "Hotel Roma" da "Hotel Roma, Via Nazionale, Roma"
+    return this.trip.accommodation.split(',')[0];
   }
 
-  calculateTripLength(start: string, end: string): number {
+  // Accetta entrambi i formati
+  calculateTripLength(start: string | undefined, end: string | undefined): number {
+    if (!start || !end) return 1;
     const s = new Date(start);
     const e = new Date(end);
     const diff = e.getTime() - s.getTime();
@@ -72,14 +72,9 @@ export class UnfinishedCardComponent {
 
   getCoverPhotoUrl(): string {
     const url = this.trip?.coverPhoto;
-    // Verifica se è una URL HTTP valida
     if (url && /^https?:\/\//.test(url)) {
       return url;
     }
     return '../assets/images/PaletoBay.jpeg';
-  }
-
-  ngOnInit() {
-    console.log('📸 coverPhoto:', this.trip?.coverPhoto);
   }
 }

@@ -1,0 +1,14 @@
+.autocomplete-input {
+  width: 100%;
+  max-width: 330px;
+  font-size: 1.07rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  padding: .67rem 1rem;
+  background: var(--color-background2);
+  color: var(--color-text1);
+  outline: none;
+  transition: border .2s;
+  margin-bottom: 1.2rem;
+  &:focus { border: 2px solid var(--color-highlight); }
+}

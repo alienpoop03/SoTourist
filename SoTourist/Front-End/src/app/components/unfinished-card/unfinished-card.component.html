@@ -3,7 +3,7 @@
 
     <!-- FOTO -->
     <div class="trip-photo"
-      [style.background-image]="'url(' + (trip.coverPhoto || '../assets/images/PaletoBay.jpeg') + ')'">
+      [style.background-image]="'url(' + getCoverPhotoUrl() + ')'">
     </div>
 
     <!-- CONTENUTO CENTRALE: dettagli + pulsanti -->
@@ -11,14 +11,14 @@
       <div class="trip-details">
         <h3 class="trip-city">{{ getCityName() }}</h3>
         <p class="trip-dates">
-          {{ trip.startDate | date:'dd/MM/yyyy' }} – {{ trip.endDate | date:'dd/MM/yyyy' }}
+          {{ (trip.start || trip.startDate) | date:'dd/MM/yyyy' }} – {{ (trip.end || trip.endDate) | date:'dd/MM/yyyy' }}
         </p>
         <p class="trip-accommodation">🏨 {{ getAccommodationName() }}</p>
-        <p class="trip-days">⏳ {{ calculateTripLength(trip.startDate, trip.endDate) }} giorni</p>
+        <p class="trip-days">⏳ {{ calculateTripLength(trip.start || trip.startDate, trip.end || trip.endDate) }} giorni</p>
       </div>
 
       <div class="side-buttons">
-        <ion-button fill="clear" size="small" class="edit-btn">
+        <ion-button fill="clear" size="small" class="edit-btn" (click)="$event.stopPropagation()">
           <ion-icon name="create-outline" slot="icon-only"></ion-icon>
         </ion-button>
         <ion-button fill="clear" color="danger" size="small" class="delete-btn" (click)="onDelete($event)">

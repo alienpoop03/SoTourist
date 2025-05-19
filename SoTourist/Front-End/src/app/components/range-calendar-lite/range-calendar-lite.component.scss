@@ -4,46 +4,29 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
-#calendarContainer {
+// Wrapper che centra il calendario
+.calendar-host {
   width: 100%;
-  height: 100%;
+  min-height: 320px;
   display: flex;
-  justify-content: center;
-  align-items: stretch;
-  background-color: transparent;
+  justify-content: center;   // centra orizzontalmente
+  align-items: flex-start;   // metti 'center' se vuoi centrare anche in verticale nella card
 }
 
-.litepicker {
-  width: 100% !important;
-  max-width: 100% !important;
-  height: 100% !important;
-  max-height: 100% !important;
-  display: flex !important;
+// Contenitore interno, lascia solo il flex, niente width!
+#calendarContainer {
+  display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  background-color: var(--color-background1);
-    border: 3px dashed blue;
-
+  align-items: center;
+  justify-content: center;
 }
 
-.litepicker .container__main,
-.litepicker .container__months,
-.litepicker .container__days {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box;
-}
-
-.litepicker-day-item.is-in-range,
-.litepicker-day-item.is-start-date,
-.litepicker-day-item.is-end-date {
-  background-color: var(--color-highlight);
-  color: var(--color-text);
-}
+// Questo forza Litepicker a stare centrato anche se è più stretto del contenitore!
 ::ng-deep .litepicker {
-  width: 100% !important;
-  max-width: 100% !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  // Rimuovi ogni width/max-width se avevi messo da prove precedenti
 }
