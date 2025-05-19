@@ -23,7 +23,8 @@ export class CreaPage {
 
   router = inject(Router); // se non usi il costruttore, usa Angular 16+ inject
   cityBounds: google.maps.LatLngBounds | null = null;
-
+  today: string = new Date().toISOString().split('T')[0];
+  
   // STEP tracking
   step = 1;
 

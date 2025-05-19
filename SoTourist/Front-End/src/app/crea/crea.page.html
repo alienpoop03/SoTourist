@@ -52,7 +52,7 @@
   <!-- STEP 3: DATE -->
   <div *ngIf="step === 3 && !dates.start" class="step-card animate-in">
     <h2>Quando?</h2>
-    <app-range-calendar-lite (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
+    <app-range-calendar-lite [minDate]="today" (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
     <button class="next-btn"
       [disabled]="!datesInput.start || !datesInput.end"
       (click)="setDates(datesInput.start, datesInput.end)">
