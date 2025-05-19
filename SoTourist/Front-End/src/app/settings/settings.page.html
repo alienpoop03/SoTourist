@@ -37,21 +37,31 @@
     </div>
   </ion-card>
 
-  <ion-list inset="false" lines="full" class="settings-boxes">
+  <ion-list lines="none" class="settings-boxes">
+  <ion-item button detail routerLink="/impostazioni">
+    <ion-icon name="settings-outline" slot="start"></ion-icon>
+    <ion-label>Impostazioni avanzate</ion-label>
+  </ion-item>
+</ion-list>
 
+  <ion-list lines="inset" class="settings-boxes">
+    
     <ion-list-header>Preferenze</ion-list-header>
 
     <ion-item>
+      <ion-icon name="notifications-outline" slot="start"></ion-icon>
       <ion-label>Notifiche</ion-label>
       <ion-toggle slot="end" [(ngModel)]="notificationsEnabled" (ionChange)="toggleNotifications()"></ion-toggle>
     </ion-item>
 
     <ion-item>
+      <ion-icon name="moon-outline" slot="start"></ion-icon>
       <ion-label>Tema scuro</ion-label>
       <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
     </ion-item>
 
     <ion-item>
+      <ion-icon name="language-outline" slot="start"></ion-icon>
       <ion-label>Lingua</ion-label>
       <ion-select slot="end" interface="popover" [(ngModel)]="language" (ionChange)="changeLanguage()">
         <ion-select-option value="it">Italiano</ion-select-option>
@@ -59,7 +69,8 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item lines="none">
+      <ion-icon name="sync-outline" slot="start"></ion-icon>
       <ion-label>Sync automatica</ion-label>
       <ion-toggle slot="end" [(ngModel)]="autoSync" (ionChange)="toggleAutoSync()"></ion-toggle>
     </ion-item>
@@ -71,7 +82,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list inset="false" lines="full" class="settings-boxes">
+  <ion-list lines="inset" class="settings-boxes">
     <ion-list-header>Sicurezza</ion-list-header>
 
     <ion-item button detail (click)="changePassword()">
@@ -79,13 +90,13 @@
       <ion-label>Cambia password</ion-label>
     </ion-item>
 
-    <ion-item button detail color="danger" (click)="confirmDeleteAccount()">
+    <ion-item lines="none" button detail color="danger" (click)="confirmDeleteAccount()">
       <ion-icon name="trash-outline" slot="start"></ion-icon>
       <ion-label>Elimina account</ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-list inset="false" lines="full" class="settings-boxes">
+  <ion-list lines="inset" class="settings-boxes">
     <ion-list-header>App</ion-list-header>
 
     <ion-item button detail (click)="openAbout()">
@@ -98,7 +109,7 @@
       <ion-label>Privacy e licenze</ion-label>
     </ion-item>
 
-    <ion-item color="medium" button detail (click)="confirmLogout()">
+    <ion-item lines="none" color="medium" button detail (click)="confirmLogout()">
       <ion-icon name="log-out-outline" slot="start"></ion-icon>
       <ion-label>Logout</ion-label>
     </ion-item>

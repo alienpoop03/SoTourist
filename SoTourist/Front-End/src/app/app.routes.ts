@@ -40,5 +40,9 @@ export const routes: Routes = [
     path: 'upgrade',
     loadComponent: () => import('./upgrade/upgrade.page').then( m => m.UpgradePage)
   },
+  {
+    path: 'impostazioni',
+    loadComponent: () => import('./impostazioni/impostazioni.page').then( m => m.ImpostazioniPage)
+  },
 
 ];
