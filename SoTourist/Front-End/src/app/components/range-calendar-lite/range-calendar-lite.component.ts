@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Input  } from '@angular/core';
 import Litepicker from 'litepicker';
 
 @Component({
@@ -8,7 +8,7 @@ import Litepicker from 'litepicker';
   styleUrls: ['./range-calendar-lite.component.scss']
 })
 export class RangeCalendarLiteComponent implements AfterViewInit {
-
+  @Input() minDate!: string | Date;
   @ViewChild('calendarContainer', { static: true }) calendarContainer!: ElementRef;
   @Output() datesSelected = new EventEmitter<{ from: string, to: string }>();
   picker!: Litepicker;
@@ -23,6 +23,7 @@ export class RangeCalendarLiteComponent implements AfterViewInit {
       allowRepick: true,
       selectForward: true,
       lang: 'it-IT',
+      minDate: this.minDate, // ✅ ECCOLO QUI!
       setup: (picker) => {
         picker.on('selected', (start, end) => {
           this.datesSelected.emit({

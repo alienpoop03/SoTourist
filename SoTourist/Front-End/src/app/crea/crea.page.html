@@ -54,7 +54,7 @@
     <!-- STEP 3: DATE -->
     <div class="step-card">
       <h2>Quando?</h2>
-      <app-range-calendar-lite (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
+      <app-range-calendar-lite [minDate]="today" (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
       <button class="prev-btn" (click)="prevStep()">Indietro</button>
       <button class="next-btn"
         [disabled]="!datesInput.start || !datesInput.end"

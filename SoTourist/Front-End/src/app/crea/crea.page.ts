@@ -23,7 +23,8 @@ export class CreaPage {
 
   router = inject(Router); // se non usi il costruttore, usa Angular 16+ inject
   cityBounds: google.maps.LatLngBounds | null = null;
-
+  readonly today: string = new Date().toISOString().split('T')[0];
+  
   // STEP tracking
   step = 1;
 
@@ -41,36 +42,37 @@ export class CreaPage {
   isConfirmed: boolean = false;
 
   // --- STEP 1: conferma città ---
-  setCity(value: string) {
-    if (value && value.trim()) {
-      this.city = value.trim();
-      this.step = 2;
-      this.accommodationInput = '';
+setCity(value: string) {
+  if (value && value.trim()) {
+    this.city = value.trim();
+    this.step = 2;
+    this.accommodationInput = '';
+    // Non toccare altre variabili qui
 
-      const autocomplete = new google.maps.places.AutocompleteService();
-      autocomplete.getPlacePredictions({ input: value }, (predictions, status) => {
-        if (
-          status === google.maps.places.PlacesServiceStatus.OK &&
-          predictions != null &&
-          predictions.length > 0
-        ) {
-          const placeId = predictions[0].place_id;
-          if (!placeId) return;
+    const autocomplete = new google.maps.places.AutocompleteService();
+    autocomplete.getPlacePredictions({ input: this.city }, (predictions, status) => {
+      if (
+        status === google.maps.places.PlacesServiceStatus.OK &&
+        predictions != null &&
+        predictions.length > 0
+      ) {
+        const placeId = predictions[0].place_id;
+        if (!placeId) return;
 
-          const service = new google.maps.places.PlacesService(document.createElement('div'));
-          service.getDetails({ placeId }, (place, status) => {
-            if (
-              status === google.maps.places.PlacesServiceStatus.OK &&
-              place != null &&
-              place.geometry?.viewport
-            ) {
-              this.cityBounds = place.geometry.viewport;
-            }
-          });
-        }
-      });
-    }
+        const service = new google.maps.places.PlacesService(document.createElement('div'));
+        service.getDetails({ placeId }, (place, status) => {
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK &&
+            place != null &&
+            place.geometry?.viewport
+          ) {
+            this.cityBounds = place.geometry.viewport;
+          }
+        });
+      }
+    });
   }
+}
 
 
   // --- STEP 2: conferma alloggio ---
