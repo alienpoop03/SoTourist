@@ -1,6 +1,7 @@
 <ion-content class="crea-content">
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <!-- overlay di caricamento (rimane dov’era) -->
     <app-generation-overlay *ngIf="isLoading" [message]="message">
     </app-generation-overlay>
@@ -33,6 +34,13 @@
     <div class="circle-icon">
       <ion-icon name="airplane"></ion-icon>
     </div>
+=======
+  <!-- ░░░ RIEPILOGO DINAMICO (appare dopo la conferma della città) ░░░ -->
+  <div class="riepilogo-header animated" [class.show]="city" *ngIf="city">
+    <div class="circle-icon">
+      <ion-icon name="airplane"></ion-icon>
+    </div>
+>>>>>>> Stashed changes
     <div class="trip-info">
       <span class="trip-city">{{ city }}</span>
       <div class="trip-details">
@@ -47,6 +55,9 @@
             <ng-container *ngIf="dates.end">- {{ dates.end | date:'dd/MM/yyyy' }}</ng-container>
           </span>
         </span>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       </div>
     </div>
