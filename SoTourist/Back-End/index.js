@@ -28,7 +28,7 @@ app.use('/api', tripRoutes);
 });*/
   
 
-app.listen(PORT, HOST, () => {
+app.listen(PORT, () => {
   console.log(`✅ Server attivo su porta ${PORT}`);
 });
   
