@@ -23,30 +23,30 @@
     </div>
   </div>
 
-  <!-- STEP 1: CITTÀ -->
+  
+  <!-- STEP 1 - città -->
   <div *ngIf="step === 1 && !city" class="step-card animate-in">
     <h2>In quale città sei?</h2>
+
     <app-google-autocomplete
       placeholder="Inserisci città"
       [types]="['(cities)']"
       [(value)]="cityInput"
-      (valueChange)="setCity($event)">
+      (placeSelected)="handleCityPlace($event)">
     </app-google-autocomplete>
-    <!-- Bottone "Avanti" opzionale (solo se vuoi permettere inserimento manuale senza suggerimento)
-    <button class="next-btn" [disabled]="!cityInput" (click)="setCity(cityInput)">Avanti</button>
-    -->
   </div>
 
-  <!-- STEP 2: ALLOGGIO -->
+  <!-- STEP 2 - alloggio -->
   <div *ngIf="step === 2 && !accommodation" class="step-card animate-in">
     <h2>Dove alloggi?</h2>
+
     <app-google-autocomplete
       placeholder="Nome o indirizzo alloggio"
       [types]="['address']"
+      [bounds]="cityBounds"
       [(value)]="accommodationInput"
-      (valueChange)="setAccommodation($event)">
+      (placeSelected)="handleAccommodationPlace($event)">
     </app-google-autocomplete>
-    <button class="prev-btn" (click)="prevStep()">Indietro</button>
   </div>
 
   <!-- STEP 3: DATE -->
