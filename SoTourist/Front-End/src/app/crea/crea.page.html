@@ -5,12 +5,12 @@
     <app-generation-overlay *ngIf="isLoading" [message]="message">
     </app-generation-overlay>
 
-    <!-- ░░░ PROGRESS BAR ░░░ -->
+    <!--PROGRESS BAR-->
     <div class="progress-wrapper">
       <div class="progress-bar" [style.width.%]="(step - 1) * 33.333"></div>
     </div>
 
-    <!-- ░░░ TRIP HEADER fisso ░░░ -->
+    <!--TRIP HEADER fisso-->
     <div class="trip-header" *ngIf="city || step > 1">
       <div class="circle-logo">
         <ion-icon name="airplane"></ion-icon>

@@ -100,14 +100,14 @@ export class ViaggiPage {
       complete: () => this.checkAllLoaded()
     });
 
-    // 🔴 Carica le bozze dal localStorage
+    //Carica le bozze dal localStorage
     const raw = localStorage.getItem('trips');
     this.drafts = raw ? JSON.parse(raw) : [];
   }
 
   //load per i guest
   loadOfflineTrips() {
-    //console.log('👤 Modalità ospite: caricamento solo bozze');
+    //console.log(' Modalità ospite: caricamento solo bozze');
     this.inCorso = null;
     this.imminente = null;
     this.futuri = [];

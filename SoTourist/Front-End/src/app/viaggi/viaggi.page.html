@@ -12,7 +12,7 @@
 
   <!--viaggi su cloud per chi è loggato-->
   <div *ngIf="!isGuest">
-    <!-- 🔴 Viaggio in corso -->
+    <!--Viaggio in corso -->
     <div *ngIf="inCorso" class="trip-section current-trip sticky-section">
       <h2 class="Title_sezion">Viaggio in corso</h2>
       <app-trip-card [trip]="inCorso" (remove)="deleteTrip($event)" (open)="openItinerary($event)">
@@ -20,7 +20,7 @@
 
     </div>
 
-    <!-- 🟡 Viaggio imminente -->
+    <!--Viaggio imminente -->
     <div *ngIf="imminente" class="trip-section">
       <h2 class="Title_sezion">Viaggio imminente</h2>
       <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
@@ -28,7 +28,7 @@
       </app-trip-card>
     </div>
 
-    <!-- 🔵 Prossimi viaggi -->
+    <!--Prossimi viaggi -->
     <div *ngIf="futuri.length > 0" class="trip-section">
       <h2 class="Title_sezion">Prossimi viaggi</h2>
       <div class="card-grid">
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <!-- ⚪️ Bozze salvate localmente -->
+  <!--Bozze salvate localmente -->
   <div *ngIf="drafts.length > 0" class="trip-section">
     <h2 class="Title_sezion">Bozze</h2>
     <div class="card-grid">
