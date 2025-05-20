@@ -10,7 +10,7 @@
 
     <div class="cards-scroll">
       <ion-card *ngFor="let city of discoverToday" (click)="openCreate(city)">
-        <img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
+        <img [src]="'assets/images/' + city + '.jpeg'" [alt]="city" />
         <ion-card-content>{{ city }}</ion-card-content>
       </ion-card>
     </div>
@@ -23,7 +23,7 @@
 
     <div class="cards-scroll">
       <ion-card *ngFor="let city of places2025" (click)="openCreate(city)">
-        <img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
+        <img [src]="'assets/images/' + city + '.jpeg'" [alt]="city" />
         <ion-card-content>{{ city }}</ion-card-content>
       </ion-card>
     </div>
@@ -36,7 +36,7 @@
 
     <div class="miami-wrapper">
       <ion-card class="miami-card" (click)="openCreate('Miami')">
-        <img [src]="'../assets/images/Miami.jpeg'" alt="Miami" />
+        <img [src]="'assets/images/Miami.jpeg'" alt="Miami" />
         <ion-card-content>Miami</ion-card-content>
       </ion-card>
       <p class="miami-review">
