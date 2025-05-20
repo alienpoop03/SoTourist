@@ -1,3 +1,8 @@
-<ion-app>
+<app-generation-overlay
+  *ngIf="showOverlay"
+  [message]="'Collegamento al server...'">
+</app-generation-overlay>
+
+<ion-app *ngIf="!showOverlay">
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

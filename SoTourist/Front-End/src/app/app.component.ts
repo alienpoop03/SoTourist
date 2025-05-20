@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-import { StatusBar, Style } from '@capacitor/status-bar'; // 👈 importa il plugin
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { Router } from '@angular/router';
+import { BackendService } from './services/backend.service';
+import { GenerationOverlayComponent } from './components/generation-overlay/generation-overlay.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet],
+  imports: [IonApp, IonRouterOutlet, GenerationOverlayComponent, CommonModule,],
 })
 export class AppComponent implements OnInit {
+  showOverlay = true;
 
-  
-  constructor(private router: Router) {
-    this.configureStatusBar(); // 👈 resta qui
-    this.wakeUpBackend();
+  constructor(
+    private router: Router,
+    private backend: BackendService
+  ) {
+    this.configureStatusBar();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // ⏳ Risveglia il backend
+    console.log('Inizio wakeBackend');
+    await this.backend.wakeBackend();
+    console.log('Backend sveglio, chiudo overlay');
+    this.showOverlay = false;
+
     // 🌙 Tema scuro
     const dark = localStorage.getItem('darkMode') === 'true';
     document.body.classList.toggle('dark', dark);
@@ -40,11 +51,4 @@ export class AppComponent implements OnInit {
       console.warn('Status bar configuration skipped:', err);
     }
   }
-
-  wakeUpBackend() {
-    fetch('https://sotourist.onrender.com/api/ping')
-      .then(() => console.log('✅ Backend svegliato'))
-      .catch(err => console.warn('⚠️ Backend in avvio:', err));
-  }
-  
 }
