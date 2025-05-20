@@ -1,9 +1,39 @@
-<ion-content>
-  <app-plan-card planType="premium" [active]="currentType === 'premium'" (select)="upgrade('premium')"></app-plan-card>
+<ion-content class="upgrade-content">
 
-  <app-plan-card planType="gold" [active]="currentType === 'gold'" (select)="upgrade('gold')"></app-plan-card>
+  <!-- ✅ Le card -->
+  <app-plan-card
+    plan="standard"
+    [active]="selected === 'standard'"
+    (select)="selected = 'standard'">
+  </app-plan-card>
 
-  <ion-button expand="block" fill="clear" *ngIf="currentType !== 'standard'" (click)="cancel()">
-    ❎ Disdici abbonamento
+  <app-plan-card
+    plan="premium"
+    [active]="selected === 'premium'"
+    (select)="selected = 'premium'">
+  </app-plan-card>
+
+  <app-plan-card
+    plan="gold"
+    [active]="selected === 'gold'"
+    (select)="selected = 'gold'">
+  </app-plan-card>
+
+  <!-- ✅ Pulsanti -->
+  <ion-button
+    expand="block"
+    class="confirm-btn"
+    [disabled]="!selected || selected === currentType"
+    (click)="onConfirm()">
+    Conferma piano
   </ion-button>
+
+  <ion-button
+    *ngIf="currentType !== 'standard'"
+    expand="block"
+    color="danger"
+    (click)="cancel()">
+    Annulla abbonamento
+  </ion-button>
+
 </ion-content>

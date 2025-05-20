@@ -27,7 +27,7 @@ export class UpgradePage implements OnInit {
   userId: string = '';
   currentType: string = '';
   subscriptionEndDate: string | null = null;
-
+  selected: 'standard' | 'premium' | 'gold' | null = null;
   constructor(private auth: AuthService) {}
 
   ngOnInit() {
@@ -54,5 +54,14 @@ export class UpgradePage implements OnInit {
       this.currentType = 'standard';
       this.subscriptionEndDate = null;
     });
+  }
+
+  onConfirm() {
+    if (
+      (this.selected === 'premium' || this.selected === 'gold') &&
+      this.selected !== this.currentType
+    ) {
+      this.upgrade(this.selected);
+    }
   }
 }

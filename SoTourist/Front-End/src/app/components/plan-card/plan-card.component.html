@@ -1,4 +1,4 @@
-<ion-card class="plan-card" [class.active]="active" [ngClass]="planType">
+<!--<ion-card class="plan-card" [class.active]="active" [ngClass]="planType">
   <div class="badge" *ngIf="active">✔ Attivo</div>
 
   <div class="icon-box">
@@ -20,4 +20,29 @@
       {{ active ? 'Attivo' : 'Scegli questo piano' }}
     </ion-button>
   </ion-card-content>
-</ion-card>
+</ion-card>-->
+
+<div class="plan-card" [ngClass]="[plan, active ? 'active' : '']" (click)="select.emit()">
+  <div class="plan-content">
+
+    <!-- Parte sinistra -->
+    <div class="plan-left">
+      <div class="plan-header">
+        <img [src]="imageSrc" class="plan-icon" alt="{{ plan }}" />
+        <h2 class="plan-title">{{ title }}</h2>
+      </div>
+
+      <button class="price-btn" [disabled]="active">
+        {{ price }}
+      </button>
+    </div>
+
+    <!-- Parte destra -->
+    <ul class="plan-features">
+      <li *ngFor="let f of features">✓ {{ f }}</li>
+    </ul>
+
+  </div>
+</div>
+
+

@@ -1,4 +1,4 @@
-.plan-card {
+/*.plan-card {
   position: relative;
   overflow: hidden;
   margin: 1rem;
@@ -102,7 +102,7 @@
     font-weight: bold;
   }
 }
-
+*/
 
 /*.plan-card.premium {
   background-image: url('../../../assets/sfondi/sofondoPremim.png');
@@ -124,5 +124,116 @@
   border: 2px solid #7B1E1E;
 }
 */
+.plan-card {
+  background: var(--color-background);
+  border-radius: 1rem;
+  padding: 1rem 1.4rem;
+  margin: 1rem 0;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  &.active {
+    border-color: var(--color-highlight);
+    box-shadow: 0 0 8px var(--color-highlight);
+  }
+
+  .plan-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+
+    @media (max-width: 500px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  .plan-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    .plan-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .plan-icon {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .plan-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .price-btn {
+      background: var(--color-highlight);
+      color: var(--color-primary);
+      border: none;
+      border-radius: 8px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+    }
+  }
+
+  .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--color-text1);
+  }
+}
+
+
+.plan-icon-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.plan-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain; // 🔥 non taglia mai l'immagine
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+
+.plan-card.standard {
+  background: #f3f3f3;
+}
+
+.plan-card.premium {
+  background: #fffbea;
+}
+
+.plan-card.gold {
+  background: linear-gradient(to bottom, #fff5d0, #ffe680);
+}
+
+
+
+
 
 
