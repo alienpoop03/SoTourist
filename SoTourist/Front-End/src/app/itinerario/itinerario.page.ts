@@ -171,14 +171,20 @@ export class ItinerarioPage implements AfterViewInit {
     // 2. Altrimenti carica dal backend
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
       next: (res) => {
-        this.trip = res;
-        this.isLocalTrip = false;
-        this.daysCount = this.calculateDays(res.startDate, res.endDate);
-        this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
-          this.heroPhotoUrl = url;
-        });
+    this.trip = res;
+    this.isLocalTrip = false;
+    this.daysCount = this.calculateDays(res.startDate, res.endDate);
 
-      },
+    if (res.coverPhoto && res.coverPhoto.length > 0) {
+      // ✅ Usa la coverPhoto già salvata dal backend!
+      this.heroPhotoUrl = res.coverPhoto;
+    } else {
+      // 🔄 Solo se non esiste, genera la foto!
+      this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
+        this.heroPhotoUrl = url;
+      });
+    }
+  },
       error: (err) => {
         console.error('Errore caricamento itinerario:', err);
         this.router.navigate(['/tabs/viaggi']);
@@ -291,7 +297,7 @@ export class ItinerarioPage implements AfterViewInit {
             accommodation: trip.accommodation,
             startDate: trip.startDate,
             endDate: trip.endDate,
-            photo: res.coverPhoto ?? '',
+            coverPhoto: res.coverPhoto ?? '', // 👈 NOME GIUSTO!
             style: trip.style
           });
 
@@ -300,8 +306,10 @@ export class ItinerarioPage implements AfterViewInit {
             accommodation: trip.accommodation,
             startDate: trip.startDate,
             endDate: trip.endDate,
-            //photo: res.coverPhoto ?? '',
-            style: trip.style
+            coverPhoto: res.coverPhoto ?? '', // 👈 NOME GIUSTO!
+            style: trip.style,
+              places: [] // 👈 AGGIUNGI QUESTO! Serve SEMPRE un array, anche vuoto!
+
           }).subscribe({
             next: (createdTrip: any) => {
               const oldId = trip.itineraryId;
@@ -385,10 +393,6 @@ export class ItinerarioPage implements AfterViewInit {
       }
     });
   }
-
-
-
-
 
   /* ───── Dati da mostrare nella card giorno ───── */
   getDayItems(index: number): string[] {

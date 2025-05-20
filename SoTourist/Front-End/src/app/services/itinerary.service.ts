@@ -6,7 +6,7 @@ import { API_BASE_URL } from './ip.config';
 
 @Injectable({ providedIn: 'root' })
 export class ItineraryService {
-  private baseUrl = API_BASE_URL+'/api'; // metti il tuo IP reale
+  private baseUrl = API_BASE_URL + '/api'; // metti il tuo IP reale
 
   constructor(private http: HttpClient) { }
 
@@ -15,8 +15,9 @@ export class ItineraryService {
     accommodation: string;
     startDate: string;
     endDate: string;
-    photo?: string;
+    coverPhoto?: string;
     style?: string;
+    places?: any[]; // <-- aggiungi qui!
   }) {
     const itinerary = {
       city: rawData.city,
@@ -24,13 +25,14 @@ export class ItineraryService {
       startDate: rawData.startDate,
       endDate: rawData.endDate,
       style: rawData.style || 'generico',
-      coverPhoto: rawData.photo || '', // ✅ usa 'photo' al posto di 'coverPhoto'
-      places: []
+      coverPhoto: rawData.coverPhoto || '',
+      //places: rawData.places || [] // usa quello passato, o array vuoto
     };
-
 
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries`, itinerary);
   }
+
+
 
   // 🔁 Recupera un itinerario specifico
   getItineraryById(itineraryId: string): Observable<TripWithId> {
