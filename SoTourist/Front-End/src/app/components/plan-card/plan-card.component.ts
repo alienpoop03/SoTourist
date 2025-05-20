@@ -1,49 +1,36 @@
-/*import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
+import { AuthService } from '../../services/auth.service'; // o il path corretto
+import { HttpClientModule } from '@angular/common/http';
 
-@Component({
-  selector: 'app-plan-card',
-  standalone: true,
-  imports: [CommonModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton],
-  templateUrl: './plan-card.component.html',
-  styleUrls: ['./plan-card.component.scss']
-})
-export class PlanCardComponent {
-  @Input() planType: 'standard' | 'premium' | 'gold' = 'standard';
-  @Input() active: boolean = false;
-  @Output() select = new EventEmitter<void>();
-
-  getTitle(): string {
-    return this.planType === 'premium' ? '🌟 Premium' :
-           this.planType === 'gold' ? '👑 Gold' : '🧭 Standard';
-  }
-
-  getFeatures(): string[] {
-    switch (this.planType) {
-      case 'premium':
-        return ['Itinerari completi', 'Personalizzazione avanzata', 'Nessuna pubblicità'];
-      case 'gold':
-        return ['Tutto del Premium', 'AI illimitata', 'Assistenza prioritaria'];
-      default:
-        return ['Funzionalità base', 'Accesso limitato'];
-    }
-  }
-}*/
-
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-plan-card',
   standalone: true,
   templateUrl: './plan-card.component.html',
   styleUrls: ['./plan-card.component.scss'],
-  imports: [CommonModule]
+  imports: [CommonModule, HttpClientModule]
 })
-export class PlanCardComponent {
+export class PlanCardComponent implements OnInit {
   @Input() plan: 'standard' | 'premium' | 'gold' = 'standard';
   @Input() active = false;
-  @Output() select = new EventEmitter<void>();
+
+  userId: string | null = null;
+  currentType: 'standard' | 'premium' | 'gold' = 'standard';
+
+  constructor(private auth: AuthService) {}
+
+  ngOnInit() {
+    this.userId = this.auth.getUserId();
+    if (this.userId) {
+      this.auth.getUserType(this.userId).subscribe(res => {
+        this.currentType = res.type as 'standard' | 'premium' | 'gold';
+      });
+    }
+  }
+
+  get imageSrc(): string {
+    return `/assets/images/plans/${this.plan}.png`;
+  }
 
   get title(): string {
     switch (this.plan) {
@@ -72,15 +59,34 @@ export class PlanCardComponent {
     }
   }
 
-  get badge(): string | null {
-    switch (this.plan) {
-      case 'premium': return '⭐ Più scelto';
-      case 'gold': return '💎 Esclusivo';
-      default: return null;
+  get isCurrentPlan(): boolean {
+    return this.plan === this.currentType;
+  }
+
+  upgradePlan() {
+    if (this.userId && this.plan !== 'standard' && !this.isCurrentPlan) {
+      this.auth.upgradeAccount(this.userId, this.plan as 'premium' | 'gold').subscribe(() => {
+        this.currentType = this.plan;
+        alert(`✅ Sei passato a ${this.plan.toUpperCase()}`);
+      });
     }
   }
 
-  get imageSrc(): string {
-    return `assets/images/plans/${this.plan}.png`;
+  cancelPlan() {
+    if (this.userId && this.isCurrentPlan && this.plan !== 'standard') {
+      this.auth.cancelSubscription(this.userId).subscribe(() => {
+        this.currentType = 'standard';
+        alert('❎ Abbonamento annullato');
+      });
+    }
+  }
+
+  onCancel(event: Event) {
+    event.stopPropagation();
+    this.cancelPlan();
+  }
+
+  onSelect() {
+    this.upgradePlan();
   }
 }

@@ -1,48 +1,31 @@
-<!--<ion-card class="plan-card" [class.active]="active" [ngClass]="planType">
-  <div class="badge" *ngIf="active">✔ Attivo</div>
-
-  <div class="icon-box">
-    <div class="emoji">
-      {{ planType === 'premium' ? '🌟' : planType === 'gold' ? '👑' : '🧭' }}
-    </div>
-  </div>
-
-  <ion-card-header>
-    <ion-card-title>{{ getTitle().slice(2) }}</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
-    <ul>
-      <li *ngFor="let feature of getFeatures()">✔ {{ feature }}</li>
-    </ul>
-
-    <ion-button expand="block" [disabled]="active" (click)="select.emit()" fill="outline" color="light">
-      {{ active ? 'Attivo' : 'Scegli questo piano' }}
-    </ion-button>
-  </ion-card-content>
-</ion-card>-->
-
-<div class="plan-card" [ngClass]="[plan, active ? 'active' : '']" (click)="select.emit()">
+<div class="plan-card" [ngClass]="[plan, isCurrentPlan ? 'active' : '']" (click)="onSelect()">
   <div class="plan-content">
 
-    <!-- Parte sinistra -->
     <div class="plan-left">
       <div class="plan-header">
         <img [src]="imageSrc" class="plan-icon" alt="{{ plan }}" />
         <h2 class="plan-title">{{ title }}</h2>
       </div>
 
-      <button class="price-btn" [disabled]="active">
+      <!-- Pulsante dinamico -->
+      <button
+        *ngIf="isCurrentPlan && plan !== 'standard'"
+        class="cancel-btn"
+        (click)="onCancel($event)">
+        ❎ Annulla abbonamento
+      </button>
+
+      <button
+        *ngIf="!isCurrentPlan || plan === 'standard'"
+        class="price-btn"
+        [disabled]="isCurrentPlan">
         {{ price }}
       </button>
     </div>
 
-    <!-- Parte destra -->
     <ul class="plan-features">
       <li *ngFor="let f of features">✓ {{ f }}</li>
     </ul>
 
   </div>
 </div>
-
-

@@ -1,129 +1,3 @@
-/*.plan-card {
-  position: relative;
-  overflow: hidden;
-  margin: 1rem;
-  padding-top: 1rem;
-  border-radius: 20px;
-  border: 2px solid var(--color-primary);
-  background: var(--color-background);
-  color: var(--color-text);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-repeat: repeat;
-    filter: blur(2px);
-    z-index: 0;
-    opacity: 1;
-    background-color: var(--overlay-blur-bg);
-    transition: background-color 0.3s ease;
-  }
-
-  &.premium {
-    background-image: url('../../../assets/sfondi/sofondoPremim.png');
-    background-size: 200px 188px;
-
-    &::before {
-      background-image: url('../../../assets/sfondi/sofondoPremim.png');
-      background-size: 200px 188px;
-    }
-
-    color: white;
-  }
-
-  &.gold {
-    background-image: url('../../../assets/sfondi/sofondoGold.png');
-    background-size: 150px 150px;
-
-    &::before {
-      background-image: url('../../../assets/sfondi/sofondoGold.png');
-      background-size: 150px 150px;
-    }
-
-    color: #111;
-  }
-
-  > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  &.active {
-    border-color: var(--color-highlight);
-    box-shadow: 0 0 16px var(--color-highlight);
-  }
-
-  ion-card-title {
-    font-size: 1.6rem;
-    text-align: center;
-    margin: 0.5rem 0;
-  }
-
-  .badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--color-highlight);
-    color: var(--color-text);
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    z-index: 2;
-  }
-
-  .icon-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0.5rem 0;
-
-    .emoji {
-      font-size: 3rem;
-    }
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-
-    li {
-      margin: 0.4rem 0;
-      font-size: 1rem;
-    }
-  }
-
-  ion-button {
-    margin-top: 1rem;
-    font-weight: bold;
-  }
-}
-*/
-
-/*.plan-card.premium {
-  background-image: url('../../../assets/sfondi/sofondoPremim.png');
-  background-repeat: repeat;
-  background-size: auto; // Nessuna scalatura
-  background-size: 150px 150px;
-  background-position: top left;
-  color: white;
-  border: 2px solid #FFCC00;
-}
-
-.plan-card.gold {
-  background-image: url('../../../assets/sfondi/sofondoGold.png');
-  background-repeat: repeat;
-  background-size: auto; // Nessuna scalatura
-  background-size: 150px 150px;
-  background-position: top left;
-  color: #1e1e1e;
-  border: 2px solid #7B1E1E;
-}
-*/
 .plan-card {
   background: var(--color-background);
   border-radius: 1rem;
@@ -133,10 +7,10 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 
-  &.active {
+  /*&.active {
     border-color: var(--color-highlight);
     box-shadow: 0 0 8px var(--color-highlight);
-  }
+  }*/
 
   .plan-content {
     display: flex;
@@ -185,10 +59,10 @@
       font-weight: bold;
       cursor: pointer;
 
-      &:disabled {
+      /*&:disabled {
         opacity: 0.6;
         cursor: default;
-      }
+      }*/
     }
   }
 
@@ -221,18 +95,44 @@
 
 
 .plan-card.standard {
-  background: #f3f3f3;
+  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+  box-shadow: inset 0 1px 0 #fff, 0 4px 6px rgba(67, 67, 67, 0.5);
 }
 
 .plan-card.premium {
-  background: #fffbea;
+  background: linear-gradient(135deg, #fffdf5, #fff7cc);
+  box-shadow: 0 0 10px rgba(67, 67, 67, 0.5);
+ //border: 1px solid #ffcc00;
 }
 
 .plan-card.gold {
-  background: linear-gradient(to bottom, #fff5d0, #ffe680);
+  background: linear-gradient(to bottom right, #fff4c2, #ffd700, #f2c200);
+  box-shadow: 0 0 12px rgba(67, 67, 67, 0.5);
+  border: 2px solid gold;
 }
 
 
+
+.cancel-btn {
+  //background: #ffe5e5;
+  color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  /*&:hover {
+    background: #ffc9c9;
+  }*/
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
 
 
 

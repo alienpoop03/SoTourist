@@ -1,4 +1,4 @@
-<ion-content class="upgrade-content">
+<ion-content >
 
   <!-- ✅ Le card -->
   <app-plan-card
@@ -18,22 +18,5 @@
     [active]="selected === 'gold'"
     (select)="selected = 'gold'">
   </app-plan-card>
-
-  <!-- ✅ Pulsanti -->
-  <ion-button
-    expand="block"
-    class="confirm-btn"
-    [disabled]="!selected || selected === currentType"
-    (click)="onConfirm()">
-    Conferma piano
-  </ion-button>
-
-  <ion-button
-    *ngIf="currentType !== 'standard'"
-    expand="block"
-    color="danger"
-    (click)="cancel()">
-    Annulla abbonamento
-  </ion-button>
 
 </ion-content>
