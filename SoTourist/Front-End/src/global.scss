@@ -127,17 +127,6 @@ ion-icon {
 }
 
 // STILE GLOBALE BOX
-.boxes-style{
-  background: var(--color-background);
-  border-radius: 16px;
-  
-  // padding-bottom: var(--tabbar-height);
-
-  & + .boxes-style {
-    margin-top: 1rem;
-  }
-}
-
 .boxes-style {
             /* usa ion-list lines="full" in HTML */
   background: var(--color-background);
