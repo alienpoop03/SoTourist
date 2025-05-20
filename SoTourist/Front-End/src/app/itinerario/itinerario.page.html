@@ -25,31 +25,32 @@
   <div class="slide-page">
   </div>
   <div #scrollContainer class="scroll-container" (scroll)="onScroll($event)">
-    
-    
+
+
     <!-- ▸ SLIDE 0  –  personalizzazione viaggio -->
     <div class="slide-page no-vert-scroll">
 
-      <h2 class="slide-title">Personalizza il tuo viaggio</h2>
+      <h2 class="slide-title">Selezione Luoghi</h2>
 
-      <ion-item>
-        <ion-label position="stacked">Luogo che non vuoi perdere</ion-label>
-        <ion-input placeholder="Es. Colosseo, Torre Eiffel..." [(ngModel)]="tripMustSee"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Mezzo preferito</ion-label>
-        <ion-select placeholder="Scegli un mezzo" [(ngModel)]="tripTransport">
-          <ion-select-option value="walk">A piedi</ion-select-option>
-          <ion-select-option value="car">Auto</ion-select-option>
-          <ion-select-option value="bus">Bus</ion-select-option>
-          <ion-select-option value="bike">Bicicletta</ion-select-option>
-        </ion-select>
-      </ion-item>
-
+      <!-- Luoghi da non perdere -->
       <ion-item lines="none">
-        <ion-label position="stacked">Chiedi un consiglio all'AI</ion-label>
-        <ion-textarea autoGrow="true" placeholder="Cosa vuoi chiedere?" [(ngModel)]="tripPrompt"></ion-textarea>
+        <ion-label position="stacked">Luoghi che non vuoi perdere</ion-label>
+        <ion-textarea autoGrow="true" placeholder="Es. Colosseo, Torre Eiffel..."
+          [(ngModel)]="tripMustSee"></ion-textarea>
+      </ion-item>
+
+      <!-- Posti dove vuoi mangiare -->
+      <ion-item lines="none">
+        <ion-label position="stacked">Posti dove vuoi mangiare</ion-label>
+        <ion-textarea autoGrow="true" placeholder="Es. ristoranti, street food, specialità locali..."
+          [(ngModel)]="tripEatPlaces"></ion-textarea>
+      </ion-item>
+
+      <!-- Posti già visitati -->
+      <ion-item lines="none">
+        <ion-label position="stacked">Posti già visitati</ion-label>
+        <ion-textarea autoGrow="true" placeholder="Es. luoghi già visti e da evitare nel viaggio"
+          [(ngModel)]="tripAlreadyVisited"></ion-textarea>
       </ion-item>
 
       <!-- bottone di generazione (solo se è ancora una bozza) -->
@@ -64,8 +65,9 @@
       </div>
 
     </div>
-    
-    
+
+
+
     <!-- ▸ SLIDE 1  –  personalizzazione viaggio -->
     <div class="slide-page no-vert-scroll">
 
@@ -103,8 +105,8 @@
       </div>
 
     </div>
-    
-    
+
+
     <!-- ▸ SLIDE 2  –  lista dei giorni -->
     <div class="slide-page">
 
