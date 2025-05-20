@@ -1,38 +1,47 @@
+/* CONTAINER PRINCIPALE */
 .crea-content {
   min-height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: center; /* Centra orizzontalmente i figli diretti */
-  align-items: center; /* Centra verticalmente i figli diretti */
+  justify-content: flex-start; /* Aligns content to the start (top) */
+  align-items: center; /* Centra orizzontalmente i figli diretti */
   background: linear-gradient(180deg, #fff 0%, #f8e4e4 100%);
   padding: 0;
   overflow: hidden; /* Importante per evitare scrollbars durante le animazioni */
   margin: 0;
-  position: relative; /* Necessario per posizionare il riepilogo-header in modo assoluto */
+  position: relative;
+  flex-direction: column; /* Imposta colonna per sticky header + step-card */
 }
 
 ion-content.crea-content {
   --background: none !important;
-  background: linear-gradient(
-    180deg,
-    #fff 0%,
-    #f8e4e4 100%
-  ) !important;
+  background: linear-gradient(180deg, #fff 0%, #f8e4e4 100%) !important;
 }
 
+/* HEADER ADAPTED FOR FLEX FLOW */
 .riepilogo-header {
-  position: absolute; /* Rimuove il riepilogo-header dal flusso del documento */
-  top: 2rem; /* Posizionalo a 2rem dall'alto della pagina */
-  left: 50%; /* Inizialmente al 50% dal lato sinistro */
-  transform: translateX(-50%); /* Sposta indietro del 50% della sua larghezza per centrarlo orizzontalmente */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* margin: 2rem auto 2rem auto;  RIMOSSO - non serve con position: absolute */
-  width: 98vw;
-  max-width: 420px;
+  /* Remove absolute positioning */
+  /* position: absolute; */
+  /* top: 2rem; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  margin-top: 2rem; /* Add top margin for spacing */
+  margin-bottom: 2rem; /* Add margin below header to push content down */
+
+  /* These properties are now handled by crea-content's align-items: center */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+
+  /* Ensure it has a defined max-width and use auto margins to center within crea-content's flex row */
+  width: calc(100% - 2rem); /* Adjusted for side padding */
+  max-width: 420px; /* Limits its maximum width */
+  margin-left: auto; /* Centers it within the flex container */
+  margin-right: auto; /* Centers it within the flex container */
+
+
   min-height: 74px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 26px;
   border: 2px solid var(--color-primary);
   padding: 1.1rem 1.6rem;
@@ -42,6 +51,12 @@ ion-content.crea-content {
   opacity: 0; /* Inizialmente invisibile */
   pointer-events: none; /* Disabilita eventi del mouse quando invisibile */
   transition: opacity 0.3s ease-in-out; /* Transizione per la comparsa */
+
+  /* You might need to make the header itself a flex container again if it's not working */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* This will center the inner content if it doesn't take full width */
+
 
   &.show {
     opacity: 1; /* Rendi visibile quando ha la classe show */
@@ -65,14 +80,14 @@ ion-content.crea-content {
   .trip-info {
     display: flex;
     flex-direction: column;
-    gap: .13rem;
+    gap: 0.13rem;
   }
 
   .trip-city {
     font-size: 1.22rem;
     color: var(--color-primary);
     font-weight: 700;
-    letter-spacing: .01em;
+    letter-spacing: 0.01em;
     line-height: 1.08;
   }
   .trip-details {
@@ -89,7 +104,7 @@ ion-content.crea-content {
   .trip-detail-label {
     font-weight: 600;
     opacity: 0.66;
-    margin-right: .17em;
+    margin-right: 0.17em;
   }
   .trip-detail-val {
     font-weight: 500;
