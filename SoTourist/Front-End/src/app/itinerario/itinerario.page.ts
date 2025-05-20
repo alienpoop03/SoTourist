@@ -161,9 +161,10 @@ export class ItinerarioPage implements AfterViewInit {
 
       this.isLocalTrip = true;
       this.daysCount = this.calculateDays(this.trip.startDate, this.trip.endDate);
-      this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
-        this.heroPhotoUrl = url;
-      });
+      // 🚫 Niente richiesta a Google: usa fallback
+      this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg';
+      console.log('[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.');
+
 
       return;
     }
@@ -171,20 +172,24 @@ export class ItinerarioPage implements AfterViewInit {
     // 2. Altrimenti carica dal backend
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
       next: (res) => {
-    this.trip = res;
-    this.isLocalTrip = false;
-    this.daysCount = this.calculateDays(res.startDate, res.endDate);
+        this.trip = res;
+        this.isLocalTrip = false;
+        this.daysCount = this.calculateDays(res.startDate, res.endDate);
 
-    if (res.coverPhoto && res.coverPhoto.length > 0) {
-      // ✅ Usa la coverPhoto già salvata dal backend!
-      this.heroPhotoUrl = res.coverPhoto;
-    } else {
-      // 🔄 Solo se non esiste, genera la foto!
-      this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
-        this.heroPhotoUrl = url;
-      });
-    }
-  },
+        if (res.coverPhoto && res.coverPhoto.length > 0) {
+          // ✅ Usa la coverPhoto già salvata dal backend!
+          this.heroPhotoUrl = res.coverPhoto;
+          console.log('[📷 COVERPHOTO] ✅ Usata quella SALVATA dal backend:', res.coverPhoto);
+
+        } else {
+          // 🔄 Solo se non esiste, genera la foto!
+          this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
+            this.heroPhotoUrl = url;
+            console.log('[📷 COVERPHOTO] 🔄 Generata ex-novo da Google:', url);
+
+          });
+        }
+      },
       error: (err) => {
         console.error('Errore caricamento itinerario:', err);
         this.router.navigate(['/tabs/viaggi']);
@@ -292,6 +297,15 @@ export class ItinerarioPage implements AfterViewInit {
 
         // ✅ Se è una bozza → salvala nel backend prima
         if (this.isLocalTrip) {
+
+          // 🧠 DEBUG: origine della coverPhoto
+          if (res.coverPhoto) {
+            console.log('[📷 COVERPHOTO] ✅ Usata quella GENERATA dal backend:', res.coverPhoto);
+          } else if (trip.coverPhoto) {
+            console.log('[📷 COVERPHOTO] 🔁 Usata quella SALVATA nella bozza:', trip.coverPhoto);
+          } else {
+            console.warn('[📷 COVERPHOTO] ⚠️ Nessuna foto di copertina disponibile!');
+          }
           console.log('🟡 Dati inviati al backend:', {
             city: trip.city,
             accommodation: trip.accommodation,
@@ -308,7 +322,7 @@ export class ItinerarioPage implements AfterViewInit {
             endDate: trip.endDate,
             coverPhoto: res.coverPhoto ?? '', // 👈 NOME GIUSTO!
             style: trip.style,
-              places: [] // 👈 AGGIUNGI QUESTO! Serve SEMPRE un array, anche vuoto!
+            places: [] // 👈 AGGIUNGI QUESTO! Serve SEMPRE un array, anche vuoto!
 
           }).subscribe({
             next: (createdTrip: any) => {
