@@ -40,6 +40,9 @@ export class CreaPage {
 
   // Confermato finale
   isConfirmed: boolean = false;
+  isCityValid: boolean = false;
+isAccommodationValid: boolean = false;
+
 
   // --- STEP 1: conferma città ---
 setCity(value: string) {
@@ -79,7 +82,7 @@ setCity(value: string) {
   setAccommodation(value: string) {
     if (value && value.trim()) {
       this.accommodation = value.trim();
-      this.step = 3;
+      this.step = 3; //
       // Reset input date per UX
       this.datesInput = { start: '', end: '' };
     }
@@ -157,18 +160,45 @@ setCity(value: string) {
     }
   }
 
-  handleCityPlace(place: google.maps.places.PlaceResult) {
+  
+handleCityPlace(place: google.maps.places.PlaceResult) {
+  // ⚡️ Solo se place valido!
+  if (place && (place.place_id || place.geometry)) {
     this.cityInput = place.formatted_address ?? place.name ?? '';
     this.city = this.cityInput;
+    this.isCityValid = true;         // <--- FLAG!
     this.step = 2;
 
     if (place.geometry?.viewport) {
       this.cityBounds = place.geometry.viewport;
     }
 
-    // Reset input dello step successivo
+    // Reset step successivo
     this.accommodationInput = '';
+    this.isAccommodationValid = false;  // Reset flag!
+  } else {
+    this.isCityValid = false;
   }
+}
+
+handleAccommodationPlace(place: google.maps.places.PlaceResult) {
+  if (place && (place.place_id || place.geometry)) {
+    this.accommodationInput = place.formatted_address ?? place.name ?? '';
+    this.accommodation = this.accommodationInput;
+    // 🔥 Filtro città
+    if (!this.isPlaceInBounds(place)) {
+      alert('Seleziona un alloggio nella città scelta!');
+      this.accommodationInput = '';
+      this.accommodation = '';
+      this.isAccommodationValid = false; // flag KO
+      return;
+    }
+    this.isAccommodationValid = true; // flag OK
+    this.step = 3;
+  } else {
+    this.isAccommodationValid = false;
+  }
+}
 
   isPlaceInBounds(place: google.maps.places.PlaceResult): boolean {
   if (!place.geometry || !place.geometry.location || !this.cityBounds) {
@@ -177,19 +207,6 @@ setCity(value: string) {
   return this.cityBounds.contains(place.geometry.location);
 }
 
-  handleAccommodationPlace(place: google.maps.places.PlaceResult) {
-  this.accommodationInput = place.formatted_address ?? place.name ?? '';
-  this.accommodation = this.accommodationInput;
 
-  // 🔥 Filtro: se non è dentro la città selezionata, avvisa e blocca
-  if (!this.isPlaceInBounds(place)) {
-    alert('Seleziona un alloggio nella città scelta!');
-    this.accommodationInput = '';
-    this.accommodation = '';
-    return;
-  }
-
-  this.step = 3;
-}
 
 }

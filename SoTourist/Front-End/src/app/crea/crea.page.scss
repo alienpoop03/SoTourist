@@ -2,15 +2,13 @@
   min-height: 100vh;
   width: 100vw;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(
-    180deg,
-    #fff 0%,
-    #f8e4e4 100%
-  );
+  justify-content: center; /* Centra orizzontalmente i figli diretti */
+  align-items: center; /* Centra verticalmente i figli diretti */
+  background: linear-gradient(180deg, #fff 0%, #f8e4e4 100%);
   padding: 0;
-  overflow-x: hidden; /* blocca scroll orizzontale nativo */
+  overflow: hidden; /* Importante per evitare scrollbars durante le animazioni */
+  margin: 0;
+  position: relative; /* Necessario per posizionare il riepilogo-header in modo assoluto */
 }
 
 ion-content.crea-content {
@@ -23,10 +21,14 @@ ion-content.crea-content {
 }
 
 .riepilogo-header {
+  position: absolute; /* Rimuove il riepilogo-header dal flusso del documento */
+  top: 2rem; /* Posizionalo a 2rem dall'alto della pagina */
+  left: 50%; /* Inizialmente al 50% dal lato sinistro */
+  transform: translateX(-50%); /* Sposta indietro del 50% della sua larghezza per centrarlo orizzontalmente */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem auto 2rem auto;
+  /* margin: 2rem auto 2rem auto;  RIMOSSO - non serve con position: absolute */
   width: 98vw;
   max-width: 420px;
   min-height: 74px;
@@ -36,6 +38,15 @@ ion-content.crea-content {
   padding: 1.1rem 1.6rem;
   box-sizing: border-box;
   gap: 1.2rem;
+  z-index: 10; /* Assicura che sia sopra gli altri elementi */
+  opacity: 0; /* Inizialmente invisibile */
+  pointer-events: none; /* Disabilita eventi del mouse quando invisibile */
+  transition: opacity 0.3s ease-in-out; /* Transizione per la comparsa */
+
+  &.show {
+    opacity: 1; /* Rendi visibile quando ha la classe show */
+    pointer-events: auto; /* Abilita eventi del mouse */
+  }
 
   .circle-icon {
     min-width: 54px;
@@ -87,60 +98,69 @@ ion-content.crea-content {
   }
 }
 
-.riepilogo-header:not(.show) {
-  display: none;
-}
-
-@keyframes slideInDown {
-  from { opacity: 0; transform: translateY(-30px);}
-  to   { opacity: 1; transform: translateY(0);}
+/* L'animazione slideInDown non è più necessaria per la posizione, ma puoi usarla per l'opacity se vuoi */
+/* @keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-30px) translateX(-50%);}
+  to   { opacity: 1; transform: translateY(0) translateX(-50%);}
 }
 .riepilogo-header.animated {
   animation: slideInDown 0.5s;
-}
+} */
+
 
 /* --- WRAPPER PER GLI STEP --- */
 .steps-wrapper {
   display: flex;
-  width: 400vw; /* 4 step x 100vw */
+  width: 400vw; /* 4 step x 100vw - this is correct for horizontal scrolling */
   transition: transform 0.5s ease-in-out;
-  overflow: hidden;
+  /* Nessun overflow hidden qui, è gestito dal crea-content */
+  /* Questo elemento verrà centrato da crea-content */
 }
 
 /* --- Step Card --- */
 .step-card {
-  flex: 0 0 100vw; /* ogni step prende tutta la larghezza della viewport */
-  max-width: 420px;
-  margin: 0 auto 1.5rem auto;
-  padding: 2rem 1.1rem;
-  background: rgba(255,255,255,0.88);
-  border-radius: 22px;
-  border: 1.7px solid var(--color-background2);
+  flex: 0 0 100vw; /* Ogni step card occupa il 100% della larghezza della viewport */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Centra orizzontalmente il contenuto all'interno della card */
+  justify-content: center; /* Centra verticalmente il contenuto all'interno della card */
+
+  /* Il contenitore del contenuto effettivo all'interno dello spazio di 100vw */
+  max-width: 320px; /* Dimensione desiderata più piccola per la card */
+  margin: auto; /* Centra la card orizzontalmente all'interno dello spazio assegnato di 100vw */
+  padding: 1.5rem 1rem 1.2rem 1rem;
+  gap: 1.2rem;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 20px;
+  border: 1.5px solid var(--color-background2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
 
   h2 {
     color: var(--color-primary);
-    margin-bottom: 1.2rem;
-    font-size: 1.14rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
   }
 
-  input[type="text"], input[type="date"] {
-    width: 100%;
-    max-width: 320px;
+  input[type="text"],
+  input[type="date"] {
+    width: 100%; /* Occupa l'intera larghezza massima della step-card */
+    max-width: 100%;
     margin-bottom: 1rem;
     font-size: 1.04rem;
     border: 2px solid var(--color-primary);
     border-radius: 10px;
-    padding: .6rem 1rem;
+    padding: 0.6rem 1rem;
     background: var(--color-background2);
     color: var(--color-text1);
     outline: none;
-    transition: border .2s;
-    &:focus { border: 2px solid var(--color-highlight); }
+    transition: border 0.2s;
+
+    &:focus {
+      border: 2px solid var(--color-highlight);
+    }
   }
 
   .next-btn {
@@ -150,12 +170,22 @@ ion-content.crea-content {
     border: none;
     border-radius: 14px;
     font-size: 1.01rem;
-    padding: .67rem 2.1rem;
+    padding: 0.67rem 2.1rem;
     margin-top: 1rem;
+    margin-bottom: 0.3rem;
     cursor: pointer;
-    transition: background .2s, color .2s;
-    &:disabled { background: #eee; color: #ccc; }
-    &.conferma { background: var(--color-primary); color: var(--color-background); }
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:disabled {
+      background: #eee;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    &.conferma {
+      background: var(--color-primary);
+      color: var(--color-background);
+    }
   }
 
   .prev-btn {
@@ -163,21 +193,25 @@ ion-content.crea-content {
     color: var(--color-primary);
     font-weight: 500;
     border: none;
-    margin-top: .12rem;
-    font-size: .93rem;
+    margin-top: 0.12rem;
+    font-size: 0.93rem;
     cursor: pointer;
     text-decoration: underline;
-    transition: color .2s;
-    &:hover { color: var(--color-highlight);}
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-highlight);
+    }
   }
 
   /* Centratura calendario custom component */
-  app-range-calendar-lite, .calendar-host {
+  app-range-calendar-lite,
+  .calendar-host {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: .4rem;
-    margin-bottom: .3rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.3rem;
   }
 }
