@@ -6,7 +6,7 @@ const getItinerary = async (req, res) => {
   const totalDays = parseInt(req.query.totalDays) || 1;
   const accommodationAddress = req.query.accommodation || null;  // <-- Alloggio dalla query
   const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-  
+
   const usedPlaceNames = new Set();
   let coverPhoto = null;
   //console.log('🔍 Inizio fetch coverPhoto iconica per:', city);
@@ -20,23 +20,23 @@ const getItinerary = async (req, res) => {
     });
 
     const topPlace = cityRes.data.results?.[0];
-      console.log('📍 Primo risultato ricevuto:', topPlace?.name);
-      
+    console.log('📍 Primo risultato ricevuto:', topPlace?.name);
+
     if (topPlace?.photos?.[0]?.photo_reference) {
       const ref = topPlace.photos[0].photo_reference;
       coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${GOOGLE_API_KEY}`;
       //console.log('📸 Cover photo scelta da attrazione iconica:', coverPhoto);
       //console.log('📸 COVER SETTATA:', coverPhoto);
-    }else{
+    } else {
       //console.warn('❗ Errore fetch coverPhoto:', err.message);
     }
   } catch (err) {
     console.warn('⚠️ Impossibile ottenere coverPhoto iconica:', err.message);
   }
 
- 
+
   // Funzione che chiama Places API e filtra i luoghi
-   const fetchPlaces = async (query, count = 2, from = null) => {
+  const fetchPlaces = async (query, count = 2, from = null) => {
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
     const response = await axios.get(url, {
       params: {
@@ -145,31 +145,28 @@ const getItinerary = async (req, res) => {
 
     const itinerary = [];
 
-    
-    for (let day = 1; day <= totalDays; day++) {
-      const dayPlan = { day, morning: [], afternoon: [], evening: [] };
-/*
-      // per ogni sezione (mattina, pom, sera) fetchiamo i luoghi
-      for (const [section, queries] of Object.entries(itineraryStructure)) {
-        for (const { query, count } of queries) {
-          const places = await fetchPlaces(query, count);
-          dayPlan[section].push(...places);
 
-          // Se non abbiamo coverPhoto, impostiamone una
-          if (!coverPhoto && places[0]?.photo) {
-            coverPhoto = places[0].photo;
-          }
-        }
-      }
-//*/
+    for (let day = 1; day <= totalDays; day++) {
+      console.log(`\n🗓️  Giorno ${day}`);
+      const dayPlan = { day, morning: [], afternoon: [], evening: [] };
 
       let lastPlace = null;
 
       for (const [section, queries] of Object.entries(itineraryStructure)) {
+        console.log(`  ➤ Fase: ${section}`);
         for (const { query, count } of queries) {
+          console.log(`     🔍 Query: ${query}`);
           const places = await fetchPlaces(query, count, lastPlace);
-          
-          if (places.length === 0) continue;
+
+          if (places.length === 0) {
+            console.log('     ⚠️ Nessun luogo trovato');
+            continue;
+          }
+
+          console.log(`     ✅ Trovati ${places.length} luoghi:`);
+          places.forEach(p => {
+            console.log(`        - ${p.name} (${p.latitude}, ${p.longitude})`);
+          });
 
           dayPlan[section].push(...places);
           lastPlace = places[places.length - 1];
@@ -179,34 +176,32 @@ const getItinerary = async (req, res) => {
           }
         }
       }
-      // Ora uniamo i luoghi in un array ordinato
-      const orderedPlaces = [
-        ...dayPlan.morning,
-        ...dayPlan.afternoon,
-        ...dayPlan.evening
-      ];
 
-      // Calcoliamo la distanza tra le tappe
+      const orderedPlaces = [...dayPlan.morning, ...dayPlan.afternoon, ...dayPlan.evening];
+
       for (let i = 0; i < orderedPlaces.length - 1; i++) {
         const distance = getDistanceBetween(orderedPlaces[i], orderedPlaces[i + 1]);
         orderedPlaces[i].distanceToNext = distance;
       }
 
-      // Se abbiamo l'alloggio geolocalizzato, aggiungiamo tappa finale
       if (accommodationPlace) {
         if (orderedPlaces.length > 0) {
           const lastPlace = orderedPlaces[orderedPlaces.length - 1];
           const backDistance = getDistanceBetween(lastPlace, accommodationPlace);
           lastPlace.distanceToNext = backDistance;
         }
-        // Aggiungiamo la tappa dell'alloggio
         orderedPlaces.push(accommodationPlace);
+        console.log(`  🏨 Aggiunta tappa finale: ${accommodationPlace.name}`);
       }
 
-      // Salviamo l'array finale
       dayPlan.ordered = orderedPlaces;
       itinerary.push(dayPlan);
+      console.log('\n📦 Itinerario finale generato:');
+      console.log(JSON.stringify(itinerary, null, 2));
+      console.log('\n🖼️  Cover photo:', coverPhoto);
+
     }
+
 
     // Rispondiamo al frontend
     res.json({ itinerary, coverPhoto });

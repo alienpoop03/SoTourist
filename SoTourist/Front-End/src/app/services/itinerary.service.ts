@@ -18,6 +18,8 @@ export class ItineraryService {
     coverPhoto?: string;
     style?: string;
     places?: any[]; // <-- aggiungi qui!
+      itinerary?: any[]; // 👈 AGGIUNGI QUESTO CAMPO
+
   }) {
     const itinerary = {
       city: rawData.city,

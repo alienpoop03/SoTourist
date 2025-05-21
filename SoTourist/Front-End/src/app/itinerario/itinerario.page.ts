@@ -108,8 +108,8 @@ export class ItinerarioPage implements AfterViewInit {
 
   // slide 0
   tripMustSee: string = '';
-tripEatPlaces: string = '';
-tripAlreadyVisited: string = '';
+  tripEatPlaces: string = '';
+  tripAlreadyVisited: string = '';
 
 
   /* Opzioni predefinite */
@@ -138,7 +138,7 @@ tripAlreadyVisited: string = '';
   /* ───── Lifecycle ───── */
   async ngAfterViewInit() {
     await whenGoogleMapsReady();
-      this.goToSlide(0); // 👈 forza scroll a "Luoghi"
+    this.goToSlide(0); // 👈 forza scroll a "Luoghi"
 
   }
 
@@ -233,7 +233,12 @@ tripAlreadyVisited: string = '';
       return;
     }
     this.router.navigate(['/tabs/map'], {
-      queryParams: { itineraryId: this.itineraryId, day: index + 1 }
+      queryParams: {
+        itineraryId: this.itineraryId,
+        day: index + 1,
+        startDate: this.trip!.startDate,
+        endDate: this.trip!.endDate
+      }
     });
   }
 
@@ -293,9 +298,22 @@ tripAlreadyVisited: string = '';
 
     this.api.getItinerary(trip.city, days, trip.accommodation).subscribe({
       next: (res) => {
+
+        console.log('📥 Risposta completa da /api/itinerary:', res);
+        console.table(res.itinerary);
+        console.log('👉 Tutti i luoghi flattenati:',
+          ([] as any[]).concat(...res.itinerary.map((day: any) => day.ordered || []))
+        );
         trip.itinerary = res.itinerary;
 
-        const allPlaces = [].concat(...res.itinerary.map((dayObj: any) => dayObj.ordered || []));
+const allPlaces = res.itinerary
+  .flatMap((dayObj: any, dayIndex: number) =>
+    (dayObj.ordered || []).map((place: any) => ({
+      ...place,
+      day: dayIndex + 1,
+      timeSlot: place.timeSlot || 'morning' // fallback nel dubbio
+    }))
+  );
         const userId = this.auth.getUserId();
         if (!userId) {
           console.error('User ID mancante');
@@ -324,16 +342,14 @@ tripAlreadyVisited: string = '';
           });
 
           this.itineraryService.createItinerary(userId, {
-            city: trip.city,
-            accommodation: trip.accommodation,
-            startDate: trip.startDate,
-            endDate: trip.endDate,
-            coverPhoto: res.coverPhoto ?? '', // 👈 NOME GIUSTO!
-            style: trip.style,
-            places: [] // 👈 AGGIUNGI QUESTO! Serve SEMPRE un array, anche vuoto!
-
-          }).subscribe({
-            next: (createdTrip: any) => {
+  city: trip.city,
+  accommodation: trip.accommodation,
+  startDate: trip.startDate,
+  endDate: trip.endDate,
+  coverPhoto: res.coverPhoto ?? '',
+  style: trip.style
+}).subscribe({
+  next: (createdTrip: any) => {
               const oldId = trip.itineraryId;
               trip.itineraryId = createdTrip.itineraryId;
               this.itineraryId = createdTrip.itineraryId;
@@ -454,77 +470,77 @@ tripAlreadyVisited: string = '';
 
 
   // tutta la parte delle modali, evvai siamo a 500 righe di codice
-editorVisible = false;
-editorMode: EditorField | null = null;
-editorValue = '';
-selectedDays: number[] = [];
+  editorVisible = false;
+  editorMode: EditorField | null = null;
+  editorValue = '';
+  selectedDays: number[] = [];
 
 
-openEditorInline(mode: EditorField) {
-  console.log('EDITOR APERTO →', mode);
-  this.editorMode   = mode;
-  this.editorVisible = true;
-  this.editorValue   = this.getValueForMode(mode);
-  this.selectedDays  = this.getSelectedDaysForMode(mode);
-}
-
-
-saveEditorValue() {
-  if (!this.editorMode) return;
-  this.setValueForMode(this.editorMode, this.editorValue);
-  this.closeEditor();
-}
-
-closeEditor() {
-  this.editorVisible = false;
-  this.editorMode = null;
-  this.editorValue = '';
-  this.selectedDays = [];
-}
-
-getValueForMode(mode: EditorField): string {
-  switch (mode) {
-    case 'mustSee':    return this.tripMustSee;
-    case 'eat':        return this.tripEatPlaces;
-    case 'visited':    return this.tripAlreadyVisited;
-    case 'transport':  return this.tripTransport;
-    case 'ai':         return this.tripPrompt;
-    case 'style':      return this.trip?.style || '';
+  openEditorInline(mode: EditorField) {
+    console.log('EDITOR APERTO →', mode);
+    this.editorMode = mode;
+    this.editorVisible = true;
+    this.editorValue = this.getValueForMode(mode);
+    this.selectedDays = this.getSelectedDaysForMode(mode);
   }
-}
 
-setValueForMode(mode: EditorField, value: string): void {
-  switch (mode) {
-    case 'mustSee':   this.tripMustSee       = value; break;
-    case 'eat':       this.tripEatPlaces     = value; break;
-    case 'visited':   this.tripAlreadyVisited= value; break;
-    case 'transport': this.tripTransport     = value; break;
-    case 'ai':        this.tripPrompt        = value; break;
-    case 'style':     if (this.trip) this.trip.style = value; break;
+
+  saveEditorValue() {
+    if (!this.editorMode) return;
+    this.setValueForMode(this.editorMode, this.editorValue);
+    this.closeEditor();
   }
-}
 
-
-getSelectedDaysForMode(mode: string): number[] {
-  if (!this.trip?.itinerary) return [];
-
-  switch (mode) {
-    case 'mustSee':
-    case 'eat':
-    case 'visited':
-      return this.trip.itinerary
-        .map((day: any, i: number) => day.mustSee?.length > 0 ? i : null)
-        .filter((i: number | null) => i !== null) as number[];
-    default:
-      return [];
+  closeEditor() {
+    this.editorVisible = false;
+    this.editorMode = null;
+    this.editorValue = '';
+    this.selectedDays = [];
   }
-}
 
-selectValue(value: string) {
-  if (!this.editorMode) return;
-  this.setValueForMode(this.editorMode, value);
-  this.closeEditor();
-}
+  getValueForMode(mode: EditorField): string {
+    switch (mode) {
+      case 'mustSee': return this.tripMustSee;
+      case 'eat': return this.tripEatPlaces;
+      case 'visited': return this.tripAlreadyVisited;
+      case 'transport': return this.tripTransport;
+      case 'ai': return this.tripPrompt;
+      case 'style': return this.trip?.style || '';
+    }
+  }
+
+  setValueForMode(mode: EditorField, value: string): void {
+    switch (mode) {
+      case 'mustSee': this.tripMustSee = value; break;
+      case 'eat': this.tripEatPlaces = value; break;
+      case 'visited': this.tripAlreadyVisited = value; break;
+      case 'transport': this.tripTransport = value; break;
+      case 'ai': this.tripPrompt = value; break;
+      case 'style': if (this.trip) this.trip.style = value; break;
+    }
+  }
+
+
+  getSelectedDaysForMode(mode: string): number[] {
+    if (!this.trip?.itinerary) return [];
+
+    switch (mode) {
+      case 'mustSee':
+      case 'eat':
+      case 'visited':
+        return this.trip.itinerary
+          .map((day: any, i: number) => day.mustSee?.length > 0 ? i : null)
+          .filter((i: number | null) => i !== null) as number[];
+      default:
+        return [];
+    }
+  }
+
+  selectValue(value: string) {
+    if (!this.editorMode) return;
+    this.setValueForMode(this.editorMode, value);
+    this.closeEditor();
+  }
 
 
 }

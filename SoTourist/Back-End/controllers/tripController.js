@@ -23,7 +23,7 @@ function datesOverlap(start1, end1, start2, end2) {
 
 // 📄 GET: tutti gli itinerari di un utente
 exports.getItineraries = (req, res) => {
-   const { userId } = req.params;
+  const { userId } = req.params;
   const filter = req.query.filter || 'all';
   const today = new Date().toISOString().split('T')[0];
 
@@ -91,8 +91,8 @@ exports.addItinerary = (req, res) => {
     const itineraryId = generateId('trip_');
     db.run(
       `INSERT INTO itineraries 
-        (itineraryId, userId, city, accommodation, startDate, endDate, style, coverPhoto, deleted)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`,
+    (itineraryId, userId, city, accommodation, startDate, endDate, style, coverPhoto, deleted)
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`,
       [
         itineraryId,
         userId,
@@ -106,12 +106,19 @@ exports.addItinerary = (req, res) => {
       function (err2) {
         if (err2) return res.status(500).json({ error: 'Errore salvataggio itinerario' });
 
+        // ✅ qui correggi
         res.status(201).json({
           itineraryId,
-          ...newItinerary
+          city: newItinerary.city,
+          accommodation: newItinerary.accommodation || '',
+          startDate: newItinerary.startDate,
+          endDate: newItinerary.endDate,
+          style: newItinerary.style || '',
+          coverPhoto: newItinerary.coverPhoto || ''
         });
       }
     );
+
   });
 };
 
@@ -148,7 +155,7 @@ exports.getItinerariesByCity = (req, res) => {
 
 // 🔍 Itinerario pubblico per ID
 exports.getItineraryById = (req, res) => {
-    const { itineraryId } = req.params;
+  const { itineraryId } = req.params;
 
   db.get(
     `SELECT * FROM itineraries WHERE itineraryId = ? AND deleted = 0`,
@@ -156,10 +163,55 @@ exports.getItineraryById = (req, res) => {
     (err, itinerary) => {
       if (err) return res.status(500).json({ error: 'Errore database' });
       if (!itinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
-      res.json(itinerary);
+
+      db.all(
+        `SELECT * FROM places WHERE itineraryId = ? ORDER BY day ASC, 
+         CASE timeSlot
+           WHEN 'morning' THEN 1
+           WHEN 'afternoon' THEN 2
+           WHEN 'evening' THEN 3
+           ELSE 4
+         END`,
+        [itineraryId],
+        (err2, places) => {
+          if (err2) return res.status(500).json({ error: 'Errore nel recupero tappe' });
+
+          const grouped = [];
+
+          for (const place of places) {
+  const dayIndex = place.day - 1;
+
+  if (!grouped[dayIndex]) {
+    grouped[dayIndex] = {
+      day: place.day,
+      morning: [],
+      afternoon: [],
+      evening: [],
+      ordered: []
+    };
+  }
+
+  const converted = {
+    ...place,
+    latitude: place.lat,
+    longitude: place.lng
+  };
+
+  grouped[dayIndex][place.timeSlot]?.push(converted);
+  grouped[dayIndex].ordered.push(converted);
+}
+
+
+          res.json({
+            ...itinerary,
+            itinerary: grouped
+          });
+        }
+      );
     }
   );
 };
+
 
 exports.updateItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
@@ -228,6 +280,8 @@ exports.updateItinerary = (req, res) => {
 exports.addPlacesToItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   let places = req.body;
+  console.log('🔥 RICEVUTE TAPPE:', places);
+
 
   if (!Array.isArray(places)) {
     if (typeof places === 'object' && places !== null) {
