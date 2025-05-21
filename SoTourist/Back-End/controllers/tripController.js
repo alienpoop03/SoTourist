@@ -2,6 +2,7 @@
 //const path = require('path');
 const generateId = require('../utils/idGenerator');
 const db = require('../db/connection');
+const { checkOverlap } = require('../utils/dateUtils');
 //const DB_PATH = path.join(__dirname, '../db.json');
 
 /*function readDB() {
@@ -178,10 +179,7 @@ exports.updateItinerary = (req, res) => {
           (err2, others) => {
             if (err2) return res.status(500).json({ error: 'Errore validazione date' });
 
-            const overlap = others.some(it =>
-              new Date(updatedData.startDate) <= new Date(it.endDate) &&
-              new Date(updatedData.endDate) >= new Date(it.startDate)
-            );
+            const overlap = checkOverlap(updatedStart, updatedEnd, others);
 
             if (overlap) {
               return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
@@ -278,4 +276,25 @@ exports.addPlacesToItinerary = (req, res) => {
 
     insertNext();
   });
+};
+
+exports.checkDateOverlap = (req, res) => {
+  const { userId } = req.params;
+  const { startDate, endDate, excludeId } = req.query;
+
+  if (!startDate || !endDate) {
+    return res.status(400).json({ error: 'startDate e endDate sono obbligatori' });
+  }
+
+  db.all(
+    `SELECT * FROM itineraries WHERE userId = ? AND deleted = 0`,
+    [userId],
+    (err, itineraries) => {
+      if (err) return res.status(500).json({ error: 'Errore database' });
+
+      const overlapping = checkOverlap(startDate, endDate, itineraries, excludeId);
+
+      res.json({ overlap: overlapping });
+    }
+  );
 };

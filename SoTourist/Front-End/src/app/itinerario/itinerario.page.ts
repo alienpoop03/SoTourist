@@ -41,6 +41,7 @@ function whenGoogleMapsReady(): Promise<void> {
     }
   });
 }
+type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
 
 @Component({
   selector: 'app-itinerario',
@@ -451,19 +452,20 @@ tripAlreadyVisited: string = '';
 
 
   // tutta la parte delle modali, evvai siamo a 500 righe di codice
-  editorVisible = false;
-editorMode: 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | null = null;
+editorVisible = false;
+editorMode: EditorField | null = null;
 editorValue = '';
 selectedDays: number[] = [];
 
-openEditorInline(mode: 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai') {
-   console.log('EDITOR APERTO →', mode);   // <-- aggiungi questa riga
 
-  this.editorMode = mode;
+openEditorInline(mode: EditorField) {
+  console.log('EDITOR APERTO →', mode);
+  this.editorMode   = mode;
   this.editorVisible = true;
-  this.editorValue = this.getValueForMode(mode);
-  this.selectedDays = this.getSelectedDaysForMode(mode);
+  this.editorValue   = this.getValueForMode(mode);
+  this.selectedDays  = this.getSelectedDaysForMode(mode);
 }
+
 
 saveEditorValue() {
   if (!this.editorMode) return;
@@ -478,25 +480,28 @@ closeEditor() {
   this.selectedDays = [];
 }
 
-getValueForMode(mode: 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai'): string {
-  return {
-    mustSee: this.tripMustSee,
-    eat: this.tripEatPlaces,
-    visited: this.tripAlreadyVisited,
-    transport: this.tripTransport,
-    ai: this.tripPrompt
-  }[mode] || '';
-}
-
-setValueForMode(mode: string, value: string): void {
+getValueForMode(mode: EditorField): string {
   switch (mode) {
-    case 'mustSee': this.tripMustSee = value; break;
-    case 'eat': this.tripEatPlaces = value; break;
-    case 'visited': this.tripAlreadyVisited = value; break;
-    case 'transport': this.tripTransport = value; break;
-    case 'ai': this.tripPrompt = value; break;
+    case 'mustSee':    return this.tripMustSee;
+    case 'eat':        return this.tripEatPlaces;
+    case 'visited':    return this.tripAlreadyVisited;
+    case 'transport':  return this.tripTransport;
+    case 'ai':         return this.tripPrompt;
+    case 'style':      return this.trip?.style || '';
   }
 }
+
+setValueForMode(mode: EditorField, value: string): void {
+  switch (mode) {
+    case 'mustSee':   this.tripMustSee       = value; break;
+    case 'eat':       this.tripEatPlaces     = value; break;
+    case 'visited':   this.tripAlreadyVisited= value; break;
+    case 'transport': this.tripTransport     = value; break;
+    case 'ai':        this.tripPrompt        = value; break;
+    case 'style':     if (this.trip) this.trip.style = value; break;
+  }
+}
+
 
 getSelectedDaysForMode(mode: string): number[] {
   if (!this.trip?.itinerary) return [];
