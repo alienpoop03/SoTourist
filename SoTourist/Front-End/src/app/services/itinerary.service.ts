@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { TripWithId } from 'src/app/models/trip.model';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from './ip.config';
@@ -56,5 +56,20 @@ export class ItineraryService {
 
   addPlacesToItinerary(userId: string, itineraryId: string, places: any[]) {
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, places);
+  }
+
+    checkDateOverlap(userId: string, startDate: string, endDate: string, excludeId?: string): Observable<{ overlap: boolean }> {
+    let params = new HttpParams()
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+
+    if (excludeId) {
+      params = params.set('excludeId', excludeId);
+    }
+
+    return this.http.get<{ overlap: boolean }>(
+      `${this.baseUrl}/users/${userId}/itineraries/check-overlap`,
+      { params }
+    );
   }
 }

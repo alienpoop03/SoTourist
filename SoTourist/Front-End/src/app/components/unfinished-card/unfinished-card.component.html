@@ -1,38 +1,20 @@
-<ion-card class="trip-card" (click)="onClick()">
-  <div class="trip-layout">
+<ion-card class="trip-card" [class.conflict]="hasConflict" (click)="openTrip()">
+  <ion-card-header>
+    <h3 class="trip-city">{{ getCityName() }}</h3>
+  </ion-card-header>
 
-    <!-- FOTO -->
-    <!--<div class="trip-photo"
-      [style.background-image]="'url(' + getCoverPhotoUrl() + ')'">
-    </div>-->
+  <ion-card-content>
+    <p class="trip-accommodation">🏨 {{ getAccommodationName() }}</p>
+    <p class="trip-days">⏳ {{ calculateTripLength(trip.startDate, trip.endDate) }} giorni</p>
+    <p *ngIf="hasConflict">⚠️ Questo viaggio si sovrappone ad altri!</p>
 
-    <!-- CONTENUTO CENTRALE: dettagli + pulsanti -->
-    <div class="trip-center">
-      <div class="trip-details">
-        <h3 class="trip-city">{{ getCityName() }}</h3>
-        <p class="trip-dates">
-          {{ (trip.start || trip.startDate) | date:'dd/MM/yyyy' }} – {{ (trip.end || trip.endDate) | date:'dd/MM/yyyy' }}
-        </p>
-        <p class="trip-accommodation">🏨 {{ getAccommodationName() }}</p>
-        <p class="trip-days">⏳ {{ calculateTripLength(trip.start || trip.startDate, trip.end || trip.endDate) }} giorni</p>
-      </div>
-
-      <div class="side-buttons">
-        <ion-button fill="clear" size="small" class="edit-btn" (click)="$event.stopPropagation()">
-          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear" color="danger" size="small" class="delete-btn" (click)="onDelete($event)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </div>
-    </div>
-
-    <!-- FRECCIA -->
-    <div class="trip-arrow">
-      <div class="arrow-container">
-        <ion-icon name="arrow-forward-outline"></ion-icon>
-      </div>
-    </div>
-
-  </div>
+    <ion-button
+      fill="clear"
+      color="danger"
+      size="small"
+      class="delete-btn"
+      (click)="onDelete($event)">
+      ❌ Elimina
+    </ion-button>
+  </ion-card-content>
 </ion-card>
