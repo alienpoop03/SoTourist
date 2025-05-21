@@ -23,5 +23,6 @@ router.put('/users/:userId/itineraries/:itineraryId', tripController.updateItine
 // ➕ Aggiunge una o più tappe (places) a un itinerario esistente
 router.post('/users/:userId/itineraries/:itineraryId/places', tripController.addPlacesToItinerary);
 
+router.get('/users/:userId/itineraries/check-overlap', tripController.checkDateOverlap);
 
 module.exports = router;

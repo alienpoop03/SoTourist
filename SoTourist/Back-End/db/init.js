@@ -4,8 +4,8 @@ const path = require('path');
 const dbPath = path.join(__dirname, 'database.db');
 const db = new sqlite3.Database(dbPath);
 
-// Creazione tabella utenti
 db.serialize(() => {
+  // ✅ Tabella utenti
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       userId TEXT PRIMARY KEY,
@@ -17,10 +17,11 @@ db.serialize(() => {
     )
   `);
 
+  // ✅ Tabella itinerari (userId può essere NULL)
   db.run(`
     CREATE TABLE IF NOT EXISTS itineraries (
       itineraryId TEXT PRIMARY KEY,
-      userId TEXT NOT NULL,
+      userId TEXT,
       city TEXT NOT NULL,
       accommodation TEXT,
       startDate TEXT,
@@ -32,18 +33,21 @@ db.serialize(() => {
     )
   `);
 
+  // ✅ Tabella tappe (places)
   db.run(`
-    CREATE TABLE IF NOT EXISTS itineraries (
-      itineraryId TEXT PRIMARY KEY,
-      userId TEXT,                                -- ora è nullable
-      city TEXT NOT NULL,
-      accommodation TEXT,
-      startDate TEXT,
-      endDate TEXT,
-      style TEXT,
-      coverPhoto TEXT,
-      deleted INTEGER DEFAULT 0,
-      FOREIGN KEY (userId) REFERENCES users(userId)
+    CREATE TABLE IF NOT EXISTS places (
+      placeId TEXT PRIMARY KEY,
+      itineraryId TEXT NOT NULL,
+      name TEXT NOT NULL,
+      day INTEGER,
+      timeSlot TEXT,
+      lat REAL,
+      lng REAL,
+      address TEXT,
+      photoUrl TEXT,
+      type TEXT,
+      note TEXT,
+      FOREIGN KEY (itineraryId) REFERENCES itineraries(itineraryId)
     )
   `);
 
