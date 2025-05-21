@@ -33,25 +33,21 @@
       <h2 class="slide-title">Selezione Luoghi</h2>
 
       <!-- Luoghi da non perdere -->
-      <ion-item lines="none">
-        <ion-label position="stacked">Luoghi che non vuoi perdere</ion-label>
-        <ion-textarea autoGrow="true" placeholder="Es. Colosseo, Torre Eiffel..."
-          [(ngModel)]="tripMustSee"></ion-textarea>
+      <ion-item button (click)="openEditorInline('mustSee')">
+        <ion-label>Luoghi da non perdere</ion-label>
+        <div slot="end" class="item-preview">{{ tripMustSee || 'Nessun luogo inserito' }}</div>
       </ion-item>
 
-      <!-- Posti dove vuoi mangiare -->
-      <ion-item lines="none">
-        <ion-label position="stacked">Posti dove vuoi mangiare</ion-label>
-        <ion-textarea autoGrow="true" placeholder="Es. ristoranti, street food, specialità locali..."
-          [(ngModel)]="tripEatPlaces"></ion-textarea>
+      <ion-item button (click)="openEditorInline('eat')">
+        <ion-label>Posti dove vuoi mangiare</ion-label>
+        <div slot="end" class="item-preview">{{ tripEatPlaces || 'Nessuno specificato' }}</div>
       </ion-item>
 
-      <!-- Posti già visitati -->
-      <ion-item lines="none">
-        <ion-label position="stacked">Posti già visitati</ion-label>
-        <ion-textarea autoGrow="true" placeholder="Es. luoghi già visti e da evitare nel viaggio"
-          [(ngModel)]="tripAlreadyVisited"></ion-textarea>
+      <ion-item button (click)="openEditorInline('visited')">
+        <ion-label>Posti già visitati</ion-label>
+        <div slot="end" class="item-preview">{{ tripAlreadyVisited || 'Nessuno' }}</div>
       </ion-item>
+
 
       <!-- bottone di generazione (solo se è ancora una bozza) -->
       <div class="generate-container">
@@ -184,6 +180,36 @@
 
     </div>
   </div>
+
+
+  <!--  sostituisci l’attuale  -->
+<!--  <div class="inline-editor" *ngIf="editorVisible"> -->
+
+<div
+  class="customization-sheet inline-editor"
+  [class.visible]="editorVisible"
+>
+  <div class="sheet-header">
+    <h2>Modifica contenuto</h2>
+    <ion-button fill="clear" size="small" (click)="closeEditor()">
+      Chiudi
+    </ion-button>
+  </div>
+
+  <div class="sheet-content">
+    <ion-textarea
+      autoGrow="true"
+      [(ngModel)]="editorValue"
+      (ngModelChange)="setValueForMode(editorMode!, $event)"
+      placeholder="Scrivi qui..."
+    ></ion-textarea>
+
+    <ion-button expand="block" (click)="saveEditorValue()">
+      Salva
+    </ion-button>
+  </div>
+</div>
+
 
 </ion-content>
 

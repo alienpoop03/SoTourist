@@ -449,4 +449,70 @@ tripAlreadyVisited: string = '';
     return this.selectedDayIndex !== null ? this.trip?.itinerary?.[this.selectedDayIndex] : null;
   }
 
+
+  // tutta la parte delle modali, evvai siamo a 500 righe di codice
+  editorVisible = false;
+editorMode: 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | null = null;
+editorValue = '';
+selectedDays: number[] = [];
+
+openEditorInline(mode: 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai') {
+   console.log('EDITOR APERTO →', mode);   // <-- aggiungi questa riga
+
+  this.editorMode = mode;
+  this.editorVisible = true;
+  this.editorValue = this.getValueForMode(mode);
+  this.selectedDays = this.getSelectedDaysForMode(mode);
+}
+
+saveEditorValue() {
+  if (!this.editorMode) return;
+  this.setValueForMode(this.editorMode, this.editorValue);
+  this.closeEditor();
+}
+
+closeEditor() {
+  this.editorVisible = false;
+  this.editorMode = null;
+  this.editorValue = '';
+  this.selectedDays = [];
+}
+
+getValueForMode(mode: 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai'): string {
+  return {
+    mustSee: this.tripMustSee,
+    eat: this.tripEatPlaces,
+    visited: this.tripAlreadyVisited,
+    transport: this.tripTransport,
+    ai: this.tripPrompt
+  }[mode] || '';
+}
+
+setValueForMode(mode: string, value: string): void {
+  switch (mode) {
+    case 'mustSee': this.tripMustSee = value; break;
+    case 'eat': this.tripEatPlaces = value; break;
+    case 'visited': this.tripAlreadyVisited = value; break;
+    case 'transport': this.tripTransport = value; break;
+    case 'ai': this.tripPrompt = value; break;
+  }
+}
+
+getSelectedDaysForMode(mode: string): number[] {
+  if (!this.trip?.itinerary) return [];
+
+  switch (mode) {
+    case 'mustSee':
+    case 'eat':
+    case 'visited':
+      return this.trip.itinerary
+        .map((day: any, i: number) => day.mustSee?.length > 0 ? i : null)
+        .filter((i: number | null) => i !== null) as number[];
+    default:
+      return [];
+  }
+}
+
+
+
 }
