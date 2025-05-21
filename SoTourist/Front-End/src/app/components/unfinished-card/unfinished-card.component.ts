@@ -1,80 +1,76 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonCard, IonButton, IonIcon } from '@ionic/angular/standalone';
-
-// Migliora la tipizzazione per accettare sia startDate che start
-export interface TripWithId {
-  itineraryId: string;
-  city: string;
-  accommodation: string;
-  coverPhoto?: string;
-  // entrambi i formati:
-  startDate?: string; // da backend
-  endDate?: string;
-  start?: string; // da draft
-  end?: string;
-  // altri campi se servono...
-}
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ItineraryService } from 'src/app/services/itinerary.service';
+import { AuthService } from 'src/app/services/auth.service';
+import {
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonButton
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-unfinished-card',
-  standalone: true,
-  imports: [
-    CommonModule,
-    IonCard,
-    IonButton,
-    IonIcon
-  ],
   templateUrl: './unfinished-card.component.html',
   styleUrls: ['./unfinished-card.component.scss'],
+  standalone: true,
+  imports: [
+    IonCard,
+    IonCardHeader,
+    IonCardContent,
+    IonButton
+  ]
 })
-export class UnfinishedCardComponent {
-  @Input() trip!: TripWithId;
+export class UnfinishedCardComponent implements OnInit {
+  @Input() trip!: any;
   @Output() open = new EventEmitter<string>();
   @Output() remove = new EventEmitter<string>();
 
-  onDelete(event: Event) {
-    this.remove.emit(this.trip.itineraryId);
-    event.stopPropagation();
+  hasConflict = false;
+  userId!: string;
+
+  constructor(
+    private itineraryService: ItineraryService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.userId = this.authService.getUserId() ?? ''; // fix errore TS2322
+
+    if (this.trip?.startDate && this.trip?.endDate) {
+      this.itineraryService
+        .checkDateOverlap(this.userId, this.trip.startDate, this.trip.endDate, this.trip.itineraryId)
+        .subscribe(res => {
+          this.hasConflict = res.overlap;
+        });
+    }
   }
 
-  onClick() {
-    this.open.emit(this.trip.itineraryId);
+  openTrip() {
+    if (this.hasConflict) {
+      this.router.navigate(['/modifica-date'], { queryParams: { id: this.trip.itineraryId } });
+    } else {
+      this.router.navigate(['/tabs/itinerario'], { queryParams: { id: this.trip.itineraryId } });
+    }
   }
 
   getCityName(): string {
-    if (!this.trip.city) return '';
-    const raw = this.trip.city.split(',')[0].trim();
-    const cleaned = raw.replace(/\b\d{5}\b/g, '')
-      .replace(/\b[A-Z]{2}\b/g, '')
-      .replace(/\s{2,}/g, ' ')
-      .trim();
-    return cleaned
-      .toLowerCase()
-      .split(' ')
-      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(' ');
+    return this.trip?.city || 'Città sconosciuta';
   }
 
   getAccommodationName(): string {
-    if (!this.trip.accommodation) return '';
-    return this.trip.accommodation.split(',')[0];
+    return this.trip?.accommodation || 'Alloggio non specificato';
   }
 
-  // Accetta entrambi i formati
-  calculateTripLength(start: string | undefined, end: string | undefined): number {
-    if (!start || !end) return 1;
+  calculateTripLength(start: string, end: string): number {
     const s = new Date(start);
     const e = new Date(end);
-    const diff = e.getTime() - s.getTime();
-    return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
+    return Math.max(1, Math.ceil((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24)));
   }
 
-  getCoverPhotoUrl(): string {
-    const url = this.trip?.coverPhoto;
-    if (url && /^https?:\/\//.test(url)) {
-      return url;
-    }
-    return '../assets/images/PaletoBay.jpeg';
+  onDelete(event: Event) {
+    event.stopPropagation();
+    this.remove.emit(this.trip.itineraryId);
   }
 }
