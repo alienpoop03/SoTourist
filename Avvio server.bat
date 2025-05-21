@@ -16,4 +16,6 @@ start cmd /c "cd /d .\SoTourist && start code ."
 :: Avvia il frontend con host esplicito (non localhost)
 start cmd /k "cd /d .\SoTourist\Front-End && ionic serve --host=!ip!" --no-open
 
+start cmd /k "cd /d .\SoTourist\Back-End && node index.js
+
 start "" "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" http://%ip%:8100
