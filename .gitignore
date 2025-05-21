@@ -8,6 +8,8 @@ SoTourist/Front-End/.angular
 SoTourist/Front-End/.browserslistrc
 SoTourist\Front-End/src/app/services/ip.config.ts
 .DS_Store
+SoTourist/Back-End/node_modules
+
 Avvio server.bat
 
 
