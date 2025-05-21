@@ -74,7 +74,7 @@ export class ItinerarioPage implements AfterViewInit {
   @ViewChild('hero', { static: true }) heroEl!: ElementRef;
   // ─── Pager: nomi delle slide e indice corrente ───
   slideNames: string[] = ['Luoghi', 'Preferenze', 'Giorni'];
-  currentSlide = 1;
+  currentSlide = 0;
 
   // Reference al container orizzontale
   @ViewChild('scrollContainer', { static: true })
@@ -138,6 +138,8 @@ tripAlreadyVisited: string = '';
   /* ───── Lifecycle ───── */
   async ngAfterViewInit() {
     await whenGoogleMapsReady();
+      this.goToSlide(0); // 👈 forza scroll a "Luoghi"
+
   }
 
   ionViewWillEnter() {
@@ -518,6 +520,11 @@ getSelectedDaysForMode(mode: string): number[] {
   }
 }
 
+selectValue(value: string) {
+  if (!this.editorMode) return;
+  this.setValueForMode(this.editorMode, value);
+  this.closeEditor();
+}
 
 
 }

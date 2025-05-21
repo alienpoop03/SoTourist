@@ -39,17 +39,32 @@
 
 .overlay {
   width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, .6), transparent 60%);
+  padding: 1.2rem 1.4rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
   color: #fff;
-  padding: 1rem;
-  transition: opacity .2s ease-out;
+  transition: opacity 0.2s ease-out;
+
+  h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow:
+      0 0 3px #FFCC00,
+      0 0 6px rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+
+  p {
+    margin-top: 0.3rem;
+    font-size: 1.1rem;
+    color: #f0f0f0;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  }
 }
 
 /* wrapper orizzontale */
 .scroll-container {
-  /* altezza = schermo – altezza hero (in px)               *
-   * se l’hero è dinamico puoi stimarla in TS e mettere     *
-   * uno style binding tipo [style.height.px]="scrollH"     */
+
   height: 100%;
   /* 40 vh = hero di default   */
   display: flex;
@@ -80,11 +95,7 @@
   /* necessario con flexbox */
 }
 
-/* variante che NON deve scrollare in verticale */
-.slide-page.no-vert-scroll {
-  overflow-y: hidden;
 
-}
 
 /* ------------- LISTA GIORNI & TIMELINE ------------- */
 .day-list {
@@ -204,12 +215,6 @@
   overflow-y: auto;
 }
 
-.day-style {
-  font-size: .9rem;
-  font-weight: 500;
-  margin-bottom: 6px;
-  color: var(--color-primary);
-}
 
 /* ------------- GENERA / FAB ------------- */
 .generate-container {
@@ -246,19 +251,16 @@ ion-card-content p {
   }
 }
 
-.overlay-container h2 {
-  font-size: 1.5rem;
-  color: var(--color-primary);
-  margin-top: 1.5rem;
-  animation: pulse 2s infinite;
-}
 /* ─── INDICATORE SLIDE ─────────────────────────────────────────────────── */
 .slide-indicator {
   display: flex;
-  justify-content: space-around;        /* suddivide equamente */
+  justify-content: space-around;
+  /* suddivide equamente */
   align-items: center;
-  background: var(--color-background1); /* tonalità leggermente diversa */
-  padding: 0.75rem 0;                   /* area più “corposa” */
+  background: var(--color-background1);
+  /* tonalità leggermente diversa */
+  padding: 0.75rem 0;
+  /* area più “corposa” */
   border-bottom: 1px solid var(--color-background3);
 
   span {
@@ -267,8 +269,10 @@ ion-card-content p {
     font-weight: 600;
     color: var(--color-text2);
     cursor: pointer;
-    padding: 0.5rem 1rem;               /* padding verticale/orizzontale */
-    border-radius: 4px;                /* angoli smussati */
+    padding: 0.5rem 1rem;
+    /* padding verticale/orizzontale */
+    border-radius: 4px;
+    /* angoli smussati */
     transition: background 0.2s, color 0.2s;
 
     &:hover {
@@ -282,10 +286,13 @@ ion-card-content p {
       &::after {
         content: '';
         position: absolute;
-        bottom: -1px;                   /* subito sotto il box */
-        left: 10%;                      /* lascia margine ai lati */
+        bottom: -1px;
+        /* subito sotto il box */
+        left: 10%;
+        /* lascia margine ai lati */
         right: 10%;
-        height: 3px;                    /* barra più evidente */
+        height: 3px;
+        /* barra più evidente */
         background: var(--color-highlight);
         border-radius: 2px;
       }
@@ -294,4 +301,148 @@ ion-card-content p {
 }
 
 
+.slide-page.places {
 
+  ion-item {
+    --background: var(--color-background);
+    --inner-padding-start: 16px;
+    --inner-padding-end: 16px;
+    --padding-bottom: 12px;
+    --min-height: 64px;
+
+    margin: .5rem 0;
+    border-radius: 12px;
+    border-left: 5px solid var(--color-highlight);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .06);
+    transition: transform .15s;
+
+    &:active {
+      transform: scale(.97);
+    }
+
+    ion-label {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .item-preview {
+      font-size: .9rem;
+      color: var(--color-text2);
+      max-width: 45%;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.slide-page.prefs {
+
+  ion-item {
+    --background: var(--color-background1);
+    --inner-padding-start: 16px;
+    --inner-padding-end: 16px;
+    --padding-bottom: 14px;
+    --min-height: 70px;
+
+    margin: .6rem 0;
+    border: 1px solid var(--color-background3);
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+    transition: box-shadow .2s;
+
+    &:hover {
+      box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    ion-label {
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .item-preview {
+      font-size: .9rem;
+      color: var(--color-text2);
+      max-width: 50%;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.customization-sheet.inline-editor {
+  border-radius: 20px 20px 0 0;
+  padding-top: 0.5rem;
+
+  .sheet-header {
+    background: var(--color-background1);
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-background3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    ion-button {
+      font-size: 0.85rem;
+      --color: var(--color-highlight);
+    }
+  }
+
+  .sheet-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    ion-textarea,
+    ion-select {
+      --background: var(--color-background2);
+      --padding-start: 12px;
+      --padding-end: 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    ion-button {
+      --background: var(--color-highlight);
+      --color: var(--color-primary);
+      font-weight: 600;
+    }
+  }
+}
+
+
+.generate-container {
+  bottom: calc(env(safe-area-inset-bottom, 0) + 28px);
+  /* +2 px */
+}
+
+.generate-btn {
+  --background: var(--color-highlight);
+  --color: var(--color-primary);
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, .12);
+  --border-radius: 8px;
+  height: 46px;
+}
+
+.field-label {
+  font-weight: 600;
+  margin-top: 0.8rem;
+  margin-bottom: 0.2rem;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+}

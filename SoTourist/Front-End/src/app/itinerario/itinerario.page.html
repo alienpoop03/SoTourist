@@ -31,7 +31,7 @@
   <div #scrollContainer class="scroll-container" (scroll)="onScroll($event)">
 
     <!-- ▸ SLIDE 0 – LUOGHI ------------------------------------------------ -->
-    <div class="slide-page no-vert-scroll">
+<div class="slide-page places no-vert-scroll">
 
       <h2 class="slide-title">Selezione Luoghi</h2>
 
@@ -55,7 +55,7 @@
     </div>
 
     <!-- ▸ SLIDE 1 – PREFERENZE ------------------------------------------- -->
-    <div class="slide-page no-vert-scroll" *ngIf="trip">
+<div class="slide-page prefs  no-vert-scroll">
 
       <h2 class="slide-title">Personalizza il tuo viaggio</h2>
 
@@ -130,93 +130,110 @@
       </div>
 
       <!-- Bottom-sheet personalizzazione giorno -->
-      <div class="customization-sheet" [class.visible]="customizationVisible">
-        <div class="sheet-header">
-          <h2 *ngIf="selectedDayIndex !== null">
-            Personalizza Giorno {{ selectedDayIndex + 1 }}
-          </h2>
-          <ion-button size="small" fill="clear" (click)="toggleCustomizationSheet()">
-            Chiudi
-          </ion-button>
-        </div>
+     <div class="customization-sheet inline-editor" [class.visible]="editorVisible">
+  <div class="sheet-header">
+    <h2>
+      {{
+        {
+          mustSee: 'Luoghi da non perdere',
+          eat: 'Posti dove mangiare',
+          visited: 'Luoghi già visti',
+          transport: 'Mezzo preferito',
+          ai: 'Domanda per l’AI',
+          style: 'Stile vacanza'
+        }[editorMode!] || 'Modifica'
+      }}
+    </h2>
+    <ion-button fill="clear" size="small" (click)="closeEditor()">
+      Chiudi
+    </ion-button>
+  </div>
 
-        <div class="sheet-content" *ngIf="selectedDay">
-          <ion-item>
-            <ion-label position="stacked">Come vuoi passare il giorno?</ion-label>
-            <ion-select [(ngModel)]="selectedDay.style" (ionChange)="saveDayStyle()">
-              <ion-select-option *ngFor="let s of dayStyles" [value]="s">{{ s }}</ion-select-option>
-            </ion-select>
-          </ion-item>
+  <div class="sheet-content">
 
-          <ion-item>
-            <ion-label position="stacked">Atmosfera desiderata</ion-label>
-            <ion-select [(ngModel)]="selectedDay.atmosphere" (ionChange)="saveDayStyle()">
-              <ion-select-option value="Romantica">💕 Romantica</ion-select-option>
-              <ion-select-option value="Divertente">🎉 Divertente</ion-select-option>
-              <ion-select-option value="Spirituale">🛐 Spirituale</ion-select-option>
-              <ion-select-option value="Avventurosa">🧗‍♂️ Avventurosa</ion-select-option>
-              <ion-select-option value="Locale">🍷 Locale</ion-select-option>
-            </ion-select>
-          </ion-item>
+    <!-- Caso speciale: selettore di stile -->
+    <ng-container *ngIf="editorMode === 'style'; else textEditor">
+      <ion-item lines="none">
+        <ion-select [(ngModel)]="editorValue" interface="popover"
+                    (ionChange)="setValueForMode('style', editorValue)">
+          <ion-select-option *ngFor="let s of dayStyles" [value]="s">{{ s }}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-          <ion-item lines="none">
-            <ion-label position="stacked">Posti da non perdere</ion-label>
-            <ion-textarea autoGrow="true"
-                          [(ngModel)]="selectedDay.mustSee"
-                          (ionBlur)="saveDayStyle()"
-                          placeholder="Inserisci luoghi specifici (es. Colosseo, Fontana di Trevi…)">
-            </ion-textarea>
-          </ion-item>
-        </div>
-      </div>
+      <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
+    </ng-container>
+
+    <!-- Editor testuale -->
+    <ng-template #textEditor>
+      <ion-textarea autoGrow="true"
+                    [(ngModel)]="editorValue"
+                    (ngModelChange)="setValueForMode(editorMode!, $event)"
+                    placeholder="Scrivi qui...">
+      </ion-textarea>
+      <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
+    </ng-template>
+
+  </div>
+</div>
+
 
     </div><!-- fine slide 2 -->
   </div><!-- fine scroll-container -->
 
   <!-- ───── EDITOR INLINE (modalità testuale + select per ‘style’) ───── -->
   <div class="customization-sheet inline-editor" [class.visible]="editorVisible">
-
-    <div class="sheet-header">
-      <h2>Modifica contenuto</h2>
-      <ion-button fill="clear" size="small" (click)="closeEditor()">
-        Chiudi
-      </ion-button>
-    </div>
-
-    <div class="sheet-content">
-
-      <!-- Caso speciale: scelta “style” con select -->
-      <ng-container *ngIf="editorMode === 'style'; else textEditor">
-        <ion-item>
-          <ion-label position="stacked">Come vuoi passare il giorno?</ion-label>
-          <ion-select [(ngModel)]="editorValue"
-                      (ionChange)="setValueForMode('style', editorValue)">
-            <ion-select-option *ngFor="let s of dayStyles" [value]="s">
-              {{ s }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-button expand="block" (click)="saveEditorValue()">
-          Salva
-        </ion-button>
-      </ng-container>
-
-      <!-- Editor generico (textarea) -->
-      <ng-template #textEditor>
-        <ion-textarea autoGrow="true"
-                      [(ngModel)]="editorValue"
-                      (ngModelChange)="setValueForMode(editorMode!, $event)"
-                      placeholder="Scrivi qui…">
-        </ion-textarea>
-
-        <ion-button expand="block" (click)="saveEditorValue()">
-          Salva
-        </ion-button>
-      </ng-template>
-
-    </div>
+  <div class="sheet-header">
+    <h2>
+      {{
+        {
+          mustSee: 'Luoghi da non perdere',
+          eat: 'Posti dove mangiare',
+          visited: 'Luoghi già visti',
+          transport: 'Mezzo preferito',
+          ai: 'Domanda per l’AI',
+          style: 'Stile vacanza'
+        }[editorMode!] || 'Modifica'
+      }}
+    </h2>
+    <ion-button fill="clear" size="small" (click)="closeEditor()">Chiudi</ion-button>
   </div>
+
+  <div class="sheet-content">
+
+    <!-- Mezzo preferito (scelta diretta) -->
+    <ng-container *ngIf="editorMode === 'transport'">
+      <ion-list>
+        <ion-item button (click)="selectValue('walk')">🚶‍♂️ A piedi</ion-item>
+        <ion-item button (click)="selectValue('car')">🚗 Auto</ion-item>
+        <ion-item button (click)="selectValue('bus')">🚌 Bus</ion-item>
+        <ion-item button (click)="selectValue('bike')">🚴‍♀️ Bicicletta</ion-item>
+      </ion-list>
+    </ng-container>
+
+    <!-- Stile vacanza (scelta diretta) -->
+    <ng-container *ngIf="editorMode === 'style'">
+      <ion-list>
+        <ion-item button *ngFor="let s of dayStyles" (click)="selectValue(s)">
+          {{ s }}
+        </ion-item>
+      </ion-list>
+    </ng-container>
+
+    <!-- Editor testuale per gli altri -->
+    <ng-container *ngIf="editorMode !== 'style' && editorMode !== 'transport'">
+      <ion-textarea
+        autoGrow="true"
+        [(ngModel)]="editorValue"
+        (ngModelChange)="setValueForMode(editorMode!, $event)"
+        placeholder="Scrivi qui...">
+      </ion-textarea>
+
+      <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
+    </ng-container>
+
+  </div>
+</div>
+
 
   <!-- ───── GENERA ITINERARIO: pulsante flottante ───── -->
   <div class="generate-container fixed">
