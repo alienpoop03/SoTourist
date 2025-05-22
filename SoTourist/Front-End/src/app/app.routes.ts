@@ -44,5 +44,9 @@ export const routes: Routes = [
     path: 'impostazioni',
     loadComponent: () => import('./impostazioni/impostazioni.page').then( m => m.ImpostazioniPage)
   },
+  {
+    path: 'modifica-date',
+    loadComponent: () => import('./modifica-date/modifica-date.page').then( m => m.ModificaDatePage)
+  },
 
 ];

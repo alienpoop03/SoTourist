@@ -101,4 +101,9 @@
   &:hover {
     transform: translateY(-2px);
   }
+  //se in conflitto
+  &.conflict {
+    background: #ff0000; // rosso chiaro (puoi usare #ffcccc o simile)
+    border-left: 6px solid var(--color-primary); // opzionale per accentuare il bordo
+  }
 }

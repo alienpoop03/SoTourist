@@ -60,7 +60,8 @@ export class ItineraryService {
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, places);
   }
 
-    checkDateOverlap(userId: string, startDate: string, endDate: string, excludeId?: string): Observable<{ overlap: boolean }> {
+  //ceck date
+  checkDateOverlap(userId: string, startDate: string, endDate: string, excludeId?: string): Observable<{ overlap: boolean }> {
     let params = new HttpParams()
       .set('startDate', startDate)
       .set('endDate', endDate);
