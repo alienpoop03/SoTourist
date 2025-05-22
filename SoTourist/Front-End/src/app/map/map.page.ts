@@ -71,38 +71,43 @@ export class MapPage implements AfterViewInit {
 
   /* ---------- 1. Lifecycle (fetch & map) ----- */
   ionViewWillEnter() {
-  const id  = this.route.snapshot.queryParamMap.get('itineraryId');
-  const day = +this.route.snapshot.queryParamMap.get('day')! || 1;
+    const id = this.route.snapshot.queryParamMap.get('itineraryId');
+    const day = +this.route.snapshot.queryParamMap.get('day')! || 1;
 
-  if (!id) return;
 
-  console.log('[MapPage] 📡 calling getItineraryById(', id, ')');
+    if (!id) return;
 
-  this.itineraryService.getItineraryById(id).subscribe({
-    next: res => {
-      console.log('[MapPage] ← backend response:', res);
+    console.log('[MapPage] 📡 calling getItineraryById(', id, ')');
+
+    this.itineraryService.getItineraryById(id).subscribe({
+      next: res => {
+        console.log('[🧪 DEBUG] Risposta completa del backend:', JSON.stringify(res, null, 2));
+
+        console.log('[MapPage] ← backend response:', res);
         console.log('[MapPage] 📦 res.itinerary:', res.itinerary); // <--- aggiungi questo
 
 
-      if (!res.itinerary) {
-        console.warn('[MapPage] ⚠️ backend ha restituito senza itinerary');
-        return;
+        if (!res.itinerary) {
+          console.warn('[MapPage] ⚠️ backend ha restituito senza itinerary');
+          return;
+        }
+
+        // ✅ Prendi tutto l’oggetto così com’è
+        this.trip = res;
+
+this.days = res.itinerary.map((_: any, i: number) => i + 1);
+        this.currentDay = day;
+        this.refreshPlaces();
+        console.log('[🧪 DEBUG] after refreshPlaces →', this.todayPlaces);
+
+
+        this.whenGoogleReady().then(() => this.initMap());
+      },
+      error: err => {
+        console.error('[MapPage] errore caricamento itinerary:', err);
       }
-
-      // ✅ Prendi tutto l’oggetto così com’è
-      this.trip = res;
-
-      this.days = res.itinerary.map((_, i) => i + 1);
-      this.currentDay = day;
-      this.refreshPlaces();
-
-      this.whenGoogleReady().then(() => this.initMap());
-    },
-    error: err => {
-      console.error('[MapPage] errore caricamento itinerary:', err);
-    }
-  });
-}
+    });
+  }
 
 
 
@@ -142,29 +147,39 @@ export class MapPage implements AfterViewInit {
     this.renderMarkers();
   }
 
-  private renderMarkers() {
-    console.log('[MapPage] → renderMarkers, pulisco markers precedenti:', this.markers.length);
-    this.markers.forEach(m => m.setMap(null));
-    this.markers = [];
+ private renderMarkers() {
+  console.log('[MapPage] → renderMarkers, pulisco markers precedenti:', this.markers.length);
 
-    this.todayPlaces.forEach((p, idx) => {
-      console.log(`  • marker[${idx}] →`, p.name, p.latitude, p.longitude);
-      if (!p.latitude || !p.longitude) {
-        console.warn(`    - skip ${p.name} perché mancano coordinate`);
-        return;
-      }
+  this.markers.forEach(m => m.setMap(null));
+  this.markers = [];
 
-      const marker = new google.maps.Marker({
-        position: { lat: p.latitude, lng: p.longitude },
-        map: this.map,
-        title: p.name
-      });
-      marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
-      this.markers.push(marker);
+  this.todayPlaces.forEach((p, idx) => {
+    // prendi prima lat/lng, poi fallback su latitude/longitude (se un giorno verranno popolate)
+    const lat = (p as any).lat  ?? (p as any).latitude  ?? null;
+    const lng = (p as any).lng  ?? (p as any).longitude ?? null;
+
+    console.log(`  • marker[${idx}] →`, p.name,
+      `| lat=${lat}`, `| lng=${lng}`);
+
+    if (lat == null || lng == null) {
+      console.warn(`    - skip ${p.name} perché mancano coordinate (${lat}, ${lng})`);
+      return;
+    }
+
+    const marker = new google.maps.Marker({
+      position: { lat, lng },
+      map: this.map,
+      title: p.name
     });
 
-    console.log('  • markers finali:', this.markers.length);
-  }
+    marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
+    this.markers.push(marker);
+  });
+
+  console.log('  • markers finali:', this.markers.length);
+}
+
+
 
   /* ---------- 3.  Itinerary / UI ------------- */
   toggleDayList() { this.dayListOpen = !this.dayListOpen; }
@@ -177,26 +192,31 @@ export class MapPage implements AfterViewInit {
   }
 
  private refreshPlaces() {
-  console.log(`[MapPage] → refreshPlaces (day ${this.currentDay})`);
-
-  if (!this.trip?.itinerary || !Array.isArray(this.trip.itinerary)) {
-    console.warn('  ⚠️ itinerary non è un array valido:', this.trip?.itinerary);
-    this.todayPlaces = [];
-    return;
-  }
-
-  const dayObj = this.trip.itinerary[this.currentDay - 1];
-
+  const dayObj = this.trip?.itinerary?.[this.currentDay - 1];
   if (!dayObj) {
-    console.warn(`  ⚠️ Nessun oggetto per il giorno ${this.currentDay}`);
+    console.warn(`⚠️ Nessun giorno trovato per ${this.currentDay}`);
     this.todayPlaces = [];
     return;
   }
 
-  console.log('  🔍 dayObj:', dayObj);
-  this.todayPlaces = dayObj.ordered || [];
-  console.log(`  • trovati ${this.todayPlaces.length} luoghi:`, this.todayPlaces);
+  const morning   = Array.isArray(dayObj.morning)   ? dayObj.morning   : [];
+  const afternoon = Array.isArray(dayObj.afternoon) ? dayObj.afternoon : [];
+  const evening   = Array.isArray(dayObj.evening)   ? dayObj.evening   : [];
+
+  this.todayPlaces = [...morning, ...afternoon, ...evening];
+
+  // ←–––––– nuovo debug ––––––→
+  this.todayPlaces.forEach((p, i) => {
+    console.log(
+      `[DEBUG][${i}] keys:`,
+      Object.keys(p),
+      `| latitude=`, (p as any).latitude,
+      `| longitude=`, (p as any).longitude
+    );
+  });
+  console.log(`[🧪 DEBUG] todayPlaces flattenate:`, this.todayPlaces);
 }
+
 
 
 

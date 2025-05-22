@@ -31,6 +31,46 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 
+
+// IMPORT DEI NUOVI MODELLI, VEDIAMO CHE SUCCEDE
+import { GeneratedDay } from '../models/generated-day.model';
+import { Place } from '../models/trip.model';
+
+function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
+  const slotOrder: ('morning' | 'afternoon' | 'evening')[] = ['morning', 'afternoon', 'evening'];
+  const places: Place[] = [];
+
+  generatedDays.forEach((dayObj, dayIndex) => {
+    const day = dayIndex + 1;
+
+    slotOrder.forEach(timeSlot => {
+      const list = (dayObj as any)[timeSlot] || [];
+      list.forEach((p: any) => {
+        places.push({
+          placeId: generatePlaceId(p.name, day, timeSlot),
+          name: p.name,
+          day,
+          timeSlot,
+          latitude: p.latitude,    // questi due già c’erano
+          longitude: p.longitude,
+          address: p.address || '',  // ← aggiunto
+          photo: p.photo || ''   // ← aggiunto
+        });
+      });
+    });
+  });
+
+  return places;
+}
+
+
+function generatePlaceId(name: string, day: number, slot: string): string {
+  const clean = name.toLowerCase().replace(/\s+/g, '_').replace(/[^\w]/g, '');
+  return `place_${clean}_${day}_${slot}`;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
 /* Helper per attendere Google Maps/Places */
 function whenGoogleMapsReady(): Promise<void> {
   return new Promise(resolve => {
@@ -88,7 +128,7 @@ export class ItinerarioPage implements AfterViewInit {
   overlayOpacity = 1;
 
   /* Dati del viaggio */
-  trip: TripWithId | null = null;
+  trip: any = { itinerary: [] };
   itineraryId!: string;
   daysCount = 0;
   heroPhotoUrl = '';
@@ -298,22 +338,20 @@ export class ItinerarioPage implements AfterViewInit {
 
     this.api.getItinerary(trip.city, days, trip.accommodation).subscribe({
       next: (res) => {
-
-        console.log('📥 Risposta completa da /api/itinerary:', res);
+        console.log('✅ [GENERAZIONE] Risposta da backend:', res);
         console.table(res.itinerary);
-        console.log('👉 Tutti i luoghi flattenati:',
+
+        //console.log('📥 Risposta completa da /api/itinerary:', res);
+        // console.table(res.itinerary);
+        /*console.log('👉 Tutti i luoghi flattenati:',
           ([] as any[]).concat(...res.itinerary.map((day: any) => day.ordered || []))
-        );
+        );*/
         trip.itinerary = res.itinerary;
 
-const allPlaces = res.itinerary
-  .flatMap((dayObj: any, dayIndex: number) =>
-    (dayObj.ordered || []).map((place: any) => ({
-      ...place,
-      day: dayIndex + 1,
-      timeSlot: place.timeSlot || 'morning' // fallback nel dubbio
-    }))
-  );
+        const allPlaces: Place[] = convertGeneratedToPlaces(res.itinerary);
+        console.log('🔥 [CONVERSIONE] Risultato convertGeneratedToPlaces:', allPlaces);
+        console.table(allPlaces);
+
         const userId = this.auth.getUserId();
         if (!userId) {
           console.error('User ID mancante');
@@ -332,64 +370,77 @@ const allPlaces = res.itinerary
           } else {
             console.warn('[📷 COVERPHOTO] ⚠️ Nessuna foto di copertina disponibile!');
           }
-          console.log('🟡 Dati inviati al backend:', {
+          /*console.log('🟡 Dati inviati al backend:', {
             city: trip.city,
             accommodation: trip.accommodation,
             startDate: trip.startDate,
             endDate: trip.endDate,
             coverPhoto: res.coverPhoto ?? '', // 👈 NOME GIUSTO!
             style: trip.style
-          });
+          }); */
 
           this.itineraryService.createItinerary(userId, {
-  city: trip.city,
-  accommodation: trip.accommodation,
-  startDate: trip.startDate,
-  endDate: trip.endDate,
-  coverPhoto: res.coverPhoto ?? '',
-  style: trip.style
-}).subscribe({
-  next: (createdTrip: any) => {
+            city: trip.city,
+            accommodation: trip.accommodation,
+            startDate: trip.startDate,
+            endDate: trip.endDate,
+            coverPhoto: res.coverPhoto ?? '',
+            style: trip.style
+          }).subscribe({
+            next: (createdTrip: any) => {
+              // 1) Aggiorna gli ID
               const oldId = trip.itineraryId;
               trip.itineraryId = createdTrip.itineraryId;
               this.itineraryId = createdTrip.itineraryId;
               this.isLocalTrip = false;
 
+              // 2) Pulisci la bozza salvata in localStorage
               const localTrips = JSON.parse(localStorage.getItem('trips') || '[]');
               const updated = localTrips.filter((t: any) => t.itineraryId !== oldId);
               localStorage.setItem('trips', JSON.stringify(updated));
 
-              // 🔁 Ritarda la chiamata per dare tempo al backend di scrivere il file
-              setTimeout(() => {
-                this.itineraryService.addPlacesToItinerary(userId, createdTrip.itineraryId, allPlaces).subscribe({
-                  next: () => {
-                    console.log('Tappe salvate nel backend');
+              // 3) Prepara il payload corretto per le tappe
+              const placesPayload = allPlaces.map(p => ({
+                placeId: p.placeId,
+                name: p.name,
+                day: p.day,
+                timeSlot: p.timeSlot,
+                lat: p.latitude,
+                lng: p.longitude,
+                address: (p as any).address || '',
+                photoUrl: (p as any).photo || '',
+                type: '',
+                note: ''
+              }));
 
-                    const keysToRemove = [
-                      'dailyItinerary',
-                      'tripAccommodation',
-                      `coverPhoto-${oldId}`,
-                      `trip-${oldId}`
-                    ];
-                    keysToRemove.forEach(k => localStorage.removeItem(k));
-                    this.isLocalTrip = false;
-                    this.isLoading = false;
-                  },
-                  error: (err) => {
-                    console.error('Errore salvataggio tappe:', err);
-                    this.isLoading = false;
-                  }
-                });
+              console.log('🛠️ [PAYLOAD] placesPayload:', placesPayload);
+
+              // 4) Salva le tappe sul backend
+              setTimeout(() => {
+                this.itineraryService
+                  .addPlacesToItinerary(userId, createdTrip.itineraryId, placesPayload)
+                  .subscribe({
+                    next: () => {
+                      console.log('✅ Tappe salvate nel backend');
+                      this.isLoading = false;
+                    },
+                    error: (err) => {
+                      console.error('❌ Errore salvataggio tappe:', err);
+                      this.isLoading = false;
+                    }
+                  });
               }, 200);
             },
             error: (err) => {
-              console.error('Errore salvataggio itinerario:', err);
+              console.error('❌ Errore salvataggio itinerario:', err);
               this.isLoading = false;
             }
           });
 
+
         } else {
           // 🟢 Già esiste → salva direttamente le tappe
+          // dopo
           this.savePlaces(userId, this.itineraryId, allPlaces);
         }
       },
@@ -419,18 +470,35 @@ const allPlaces = res.itinerary
   }
 
   // ➕ Funzione separata per salvare le tappe
-  private savePlaces(userId: string, itineraryId: string, places: any[]) {
-    this.itineraryService.addPlacesToItinerary(userId, itineraryId, places).subscribe({
+ private savePlaces(userId: string, itineraryId: string, places: Place[]) {
+  const payload = places.map(p => ({
+    placeId:  p.placeId,
+    name:     p.name,
+    day:      p.day,
+    timeSlot: p.timeSlot,
+    lat:      p.latitude,
+    lng:      p.longitude,
+    address:  p.address   || '',
+    photoUrl: p.photo     || '',
+    type:     '',
+    note:     ''
+  }));
+  console.log('🛠️ [PAYLOAD-SAVE] payload:', payload);
+
+  this.itineraryService.addPlacesToItinerary(userId, itineraryId, payload)
+    .subscribe({
       next: () => {
-        console.log('Tappe salvate nel backend');
+        console.log('✅ Tappe salvate nel backend');
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Errore salvataggio tappe:', err);
+        console.error('❌ Errore salvataggio tappe:', err);
         this.isLoading = false;
       }
     });
-  }
+}
+
+
 
   /* ───── Dati da mostrare nella card giorno ───── */
   getDayItems(index: number): string[] {

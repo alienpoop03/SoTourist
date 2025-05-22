@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { TripWithId } from 'src/app/models/trip.model';
+import { TripWithId, Place } from 'src/app/models/trip.model';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from './ip.config';
+import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ItineraryService {
@@ -17,29 +18,35 @@ export class ItineraryService {
     endDate: string;
     coverPhoto?: string;
     style?: string;
-    places?: any[]; // <-- aggiungi qui!
-      itinerary?: any[]; // 👈 AGGIUNGI QUESTO CAMPO
-
+    places?: Place[];           // usa il tipo Place dal modello
   }) {
-    const itinerary = {
+    const payload = {
       city: rawData.city,
       accommodation: rawData.accommodation,
       startDate: rawData.startDate,
       endDate: rawData.endDate,
       style: rawData.style || 'generico',
       coverPhoto: rawData.coverPhoto || '',
-      //places: rawData.places || [] // usa quello passato, o array vuoto
+      places: rawData.places || []  // includi subito le tappe se le hai
     };
 
-    return this.http.post(`${this.baseUrl}/users/${userId}/itineraries`, itinerary);
+    console.log('[🟡 Dati inviati a POST]', payload);
+    return this.http.post(`${this.baseUrl}/users/${userId}/itineraries`, payload);
   }
 
 
 
   // 🔁 Recupera un itinerario specifico
-  getItineraryById(itineraryId: string): Observable<TripWithId> {
-    return this.http.get<TripWithId>(`${this.baseUrl}/itineraries/${itineraryId}`);
-  }
+  // 🔁 Recupera un itinerario specifico (raw JSON con campo `itinerary`)
+getItineraryById(itineraryId: string): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/itineraries/${itineraryId}`)
+    .pipe(
+      tap(raw => {
+        console.log('[📦 RAW-API itinerary]', raw.itinerary);
+      })
+    );
+}
+
 
   // 📄 Recupera tutti gli itinerari dell’utente filtrati
   getUserItineraries(userId: string, filter: 'all' | 'current' | 'upcoming' | 'future' | 'past'): Observable<TripWithId[]> {
