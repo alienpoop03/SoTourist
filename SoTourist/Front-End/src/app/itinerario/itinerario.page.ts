@@ -272,7 +272,7 @@ export class ItinerarioPage implements AfterViewInit {
       alert('Devi prima generare l’itinerario per poter accedere ai dettagli!');
       return;
     }
-    this.router.navigate(['/tabs/map'], {
+    this.router.navigate(['/map'], {
       queryParams: {
         itineraryId: this.itineraryId,
         day: index + 1,
@@ -469,34 +469,34 @@ export class ItinerarioPage implements AfterViewInit {
     await alert.present();
   }
 
-  // ➕ Funzione separata per salvare le tappe
- private savePlaces(userId: string, itineraryId: string, places: Place[]) {
-  const payload = places.map(p => ({
-    placeId:  p.placeId,
-    name:     p.name,
-    day:      p.day,
-    timeSlot: p.timeSlot,
-    lat:      p.latitude,
-    lng:      p.longitude,
-    address:  p.address   || '',
-    photoUrl: p.photo     || '',
-    type:     '',
-    note:     ''
-  }));
-  console.log('🛠️ [PAYLOAD-SAVE] payload:', payload);
+  // ➕ Funzione separata per salvare le tappe NEL BACK EDN SQLITE
+  private savePlaces(userId: string, itineraryId: string, places: Place[]) {
+    const payload = places.map(p => ({
+      placeId: p.placeId,
+      name: p.name,
+      day: p.day,
+      timeSlot: p.timeSlot,
+      lat: p.latitude,
+      lng: p.longitude,
+      address: p.address || '',
+      photoUrl: p.photo || '',
+      type: '', // per adesso vuoti
+      note: ''  // per adesso vuoti
+    }));
+    console.log('🛠️ [PAYLOAD-SAVE] payload:', payload);
 
-  this.itineraryService.addPlacesToItinerary(userId, itineraryId, payload)
-    .subscribe({
-      next: () => {
-        console.log('✅ Tappe salvate nel backend');
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('❌ Errore salvataggio tappe:', err);
-        this.isLoading = false;
-      }
-    });
-}
+    this.itineraryService.addPlacesToItinerary(userId, itineraryId, payload)
+      .subscribe({
+        next: () => {
+          console.log('✅ Tappe salvate nel backend');
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('❌ Errore salvataggio tappe:', err);
+          this.isLoading = false;
+        }
+      });
+  }
 
 
 

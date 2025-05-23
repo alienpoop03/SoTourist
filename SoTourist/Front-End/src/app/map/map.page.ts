@@ -12,15 +12,18 @@ import {
   IonButton
 } from '@ionic/angular/standalone';
 import { ItineraryService } from '../services/itinerary.service';
+import { GestureController } from '@ionic/angular';
 
 interface Place {
   name: string;
   address: string;
-  photo?: string;
+  photoUrl?: string;
   latitude?: number;
   longitude?: number;
   distanceToNext?: string;
   rating?: number;
+  timeSlot?: 'morning' | 'afternoon' | 'evening'; // 👈 aggiunto questo
+
 }
 
 @Component({
@@ -46,8 +49,7 @@ export class MapPage implements AfterViewInit {
   /* --------------- Drawer & Cards ------------ */
   @ViewChild('cardsContainer', { read: ElementRef }) cardsEl!: ElementRef<HTMLElement>;
   drawerExpanded = false;
-  dragging = false;
-  startY = 0;
+
 
   /* --------------- Itinerary ----------------- */
   trip: any = null;
@@ -61,11 +63,16 @@ export class MapPage implements AfterViewInit {
   detailOpen = false;
   detail?: Place;
 
+
+  dragging: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
-    private itineraryService: ItineraryService    // ← qui
+    private itineraryService: ItineraryService,    // ← qui
+    private gestureCtrl: GestureController
+
 
   ) { }
 
@@ -85,6 +92,8 @@ export class MapPage implements AfterViewInit {
 
         console.log('[MapPage] ← backend response:', res);
         console.log('[MapPage] 📦 res.itinerary:', res.itinerary); // <--- aggiungi questo
+        console.log('[🧪 typeof itinerary]', typeof res.itinerary);
+        console.log('[🧪 itinerary keys]', Object.keys(res.itinerary));
 
 
         if (!res.itinerary) {
@@ -92,10 +101,30 @@ export class MapPage implements AfterViewInit {
           return;
         }
 
-        // ✅ Prendi tutto l’oggetto così com’è
-        this.trip = res;
+        const itineraryArray = Array.isArray(res.itinerary)
+          ? res.itinerary
+          : Object.values(res.itinerary);
 
-this.days = res.itinerary.map((_: any, i: number) => i + 1);
+        // ✅ Prendi tutto l’oggetto così com’è
+        this.trip = { ...res, itinerary: itineraryArray };
+
+        console.log('[DEBUG][FULL TRIP]', this.trip);
+
+this.days = itineraryArray.map((_: any, i: number) => i + 1);
+        console.log('[DEBUG] Giorni generati da res.itinerary:', this.days);
+
+        res.itinerary.forEach((day: any, idx: number) => {
+          if (!day) {
+            console.warn(`[⚠️ ITINERARY] Giorno ${idx + 1} è undefined/null`);
+            return;
+          }
+          console.log(`🧭 [Giorno ${idx + 1}]`, {
+            morning: Array.isArray(day.morning) ? day.morning.length : 'non array',
+            afternoon: Array.isArray(day.afternoon) ? day.afternoon.length : 'non array',
+            evening: Array.isArray(day.evening) ? day.evening.length : 'non array',
+          });
+        });
+
         this.currentDay = day;
         this.refreshPlaces();
         console.log('[🧪 DEBUG] after refreshPlaces →', this.todayPlaces);
@@ -114,9 +143,13 @@ this.days = res.itinerary.map((_: any, i: number) => i + 1);
 
 
 
-  async ngAfterViewInit() {
-    await this.whenGoogleReady();
+  ngAfterViewInit() {
+    this.whenGoogleReady().then(() => {
+      this.initMap();
+      this.setupDrawerGesture();
+    });
   }
+
 
   private whenGoogleReady(): Promise<void> {
     return new Promise(res => {
@@ -147,37 +180,41 @@ this.days = res.itinerary.map((_: any, i: number) => i + 1);
     this.renderMarkers();
   }
 
- private renderMarkers() {
-  console.log('[MapPage] → renderMarkers, pulisco markers precedenti:', this.markers.length);
+  private renderMarkers() {
+    console.log('[MapPage] → renderMarkers, pulisco markers precedenti:', this.markers.length);
 
-  this.markers.forEach(m => m.setMap(null));
-  this.markers = [];
+    this.markers.forEach(m => m.setMap(null));
+    this.markers = [];
 
-  this.todayPlaces.forEach((p, idx) => {
-    // prendi prima lat/lng, poi fallback su latitude/longitude (se un giorno verranno popolate)
-    const lat = (p as any).lat  ?? (p as any).latitude  ?? null;
-    const lng = (p as any).lng  ?? (p as any).longitude ?? null;
+    this.todayPlaces.forEach((p, idx) => {
+      // prendi prima lat/lng, poi fallback su latitude/longitude (se un giorno verranno popolate)
+      const lat = (p as any).lat ?? (p as any).latitude ?? null;
+      const lng = (p as any).lng ?? (p as any).longitude ?? null;
 
-    console.log(`  • marker[${idx}] →`, p.name,
-      `| lat=${lat}`, `| lng=${lng}`);
+      console.log(`  • marker[${idx}] →`, p.name,
+        `| lat=${lat}`, `| lng=${lng}`);
 
-    if (lat == null || lng == null) {
-      console.warn(`    - skip ${p.name} perché mancano coordinate (${lat}, ${lng})`);
-      return;
-    }
+      if (lat == null || lng == null) {
+        console.warn(`    - skip ${p.name} perché mancano coordinate (${lat}, ${lng})`);
+        return;
+      }
 
-    const marker = new google.maps.Marker({
-      position: { lat, lng },
-      map: this.map,
-      title: p.name
+      const marker = new google.maps.Marker({
+        position: { lat, lng },
+        map: this.map,
+        title: p.name
+      });
+
+      marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
+      this.markers.push(marker);
     });
 
-    marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
-    this.markers.push(marker);
-  });
+    console.log('  • markers finali:', this.markers.length);
+    if (this.todayPlaces.length === 0) {
+      console.warn('[⚠️ renderMarkers] Nessuna tappa trovata per questo giorno!');
+    }
 
-  console.log('  • markers finali:', this.markers.length);
-}
+  }
 
 
 
@@ -185,37 +222,43 @@ this.days = res.itinerary.map((_: any, i: number) => i + 1);
   toggleDayList() { this.dayListOpen = !this.dayListOpen; }
 
   selectDay(d: number) {
+
     this.currentDay = d;
     this.dayListOpen = false;
+    console.log(`👉 Selezionato Giorno ${d}`);
+    console.log('→ dayListOpen:', this.dayListOpen);
+
     this.refreshPlaces();
     this.renderMarkers();
   }
 
- private refreshPlaces() {
-  const dayObj = this.trip?.itinerary?.[this.currentDay - 1];
-  if (!dayObj) {
-    console.warn(`⚠️ Nessun giorno trovato per ${this.currentDay}`);
-    this.todayPlaces = [];
-    return;
+  private refreshPlaces() {
+    const dayObj = this.trip?.itinerary?.[this.currentDay - 1];
+    console.log(`[🧪 refreshPlaces] currentDay=${this.currentDay}`, '| dayObj:', dayObj);
+
+    if (!dayObj) {
+      console.warn(`⚠️ Nessun giorno trovato per ${this.currentDay}`);
+      this.todayPlaces = [];
+      return;
+    }
+
+    const morning = Array.isArray(dayObj.morning) ? dayObj.morning : [];
+    const afternoon = Array.isArray(dayObj.afternoon) ? dayObj.afternoon : [];
+    const evening = Array.isArray(dayObj.evening) ? dayObj.evening : [];
+
+    console.log(`[🕓 TAPPE per giorno ${this.currentDay}]`);
+    console.log('  • morning:', morning);
+    console.log('  • afternoon:', afternoon);
+    console.log('  • evening:', evening);
+
+    this.todayPlaces = [...morning, ...afternoon, ...evening].map(p => ({
+      ...p,
+      photoUrl: p.photo || p.photoUrl || '',
+    }));
+
+    console.log(`[📍 todayPlaces] (${this.todayPlaces.length} tappe):`, this.todayPlaces);
   }
 
-  const morning   = Array.isArray(dayObj.morning)   ? dayObj.morning   : [];
-  const afternoon = Array.isArray(dayObj.afternoon) ? dayObj.afternoon : [];
-  const evening   = Array.isArray(dayObj.evening)   ? dayObj.evening   : [];
-
-  this.todayPlaces = [...morning, ...afternoon, ...evening];
-
-  // ←–––––– nuovo debug ––––––→
-  this.todayPlaces.forEach((p, i) => {
-    console.log(
-      `[DEBUG][${i}] keys:`,
-      Object.keys(p),
-      `| latitude=`, (p as any).latitude,
-      `| longitude=`, (p as any).longitude
-    );
-  });
-  console.log(`[🧪 DEBUG] todayPlaces flattenate:`, this.todayPlaces);
-}
 
 
 
@@ -238,17 +281,91 @@ this.days = res.itinerary.map((_: any, i: number) => i + 1);
     }
   }
 
-  /* ---------- 4. Drawer drag ----------------- */
-  startDrag(ev: PointerEvent) {
-    this.dragging = true;
-    this.startY = ev.clientY;
+
+
+  setupDrawerGesture() {
+    const drawer = document.querySelector('.drawer') as HTMLElement;
+    const maxHeight = window.innerHeight * 0.7;
+    const minHeight = 220;
+
+    let currentHeight = this.drawerExpanded ? maxHeight : minHeight;
+
+    const gesture = this.gestureCtrl.create({
+      el: drawer,
+      gestureName: 'swipe-drawer',
+      threshold: 0,
+      onStart: () => {
+        this.dragging = true;
+      },
+      onMove: ev => {
+        const newHeight = currentHeight - ev.deltaY;
+        drawer.style.transition = 'none';
+        drawer.style.height = Math.min(maxHeight, Math.max(minHeight, newHeight)) + 'px';
+      },
+      onEnd: ev => {
+        drawer.style.transition = '';
+        if (ev.deltaY < -50) {
+          drawer.style.height = maxHeight + 'px';
+          this.drawerExpanded = true;
+        } else if (ev.deltaY > 50) {
+          drawer.style.height = minHeight + 'px';
+          this.drawerExpanded = false;
+        } else {
+          drawer.style.height = this.drawerExpanded ? maxHeight + 'px' : minHeight + 'px';
+        }
+        currentHeight = parseInt(drawer.style.height);
+        this.dragging = false;
+
+        // Forza Angular a ricalcolare isDrawerCompact
+        this.zone.run(() => { });
+      }
+    });
+
+    gesture.enable(true);
   }
-  drag(ev: PointerEvent) {
-    if (!this.dragging) return;
-    const delta = ev.clientY - this.startY;
-    if (!this.drawerExpanded && delta < -60) this.drawerExpanded = true;
-    if (this.drawerExpanded && delta > 60) this.drawerExpanded = false;
+
+
+  get isDrawerCompact(): boolean {
+    return !this.drawerExpanded && !this.dragging;
   }
-  endDrag() { this.dragging = false; }
+  scrollToTimeSlot(slot: 'morning' | 'afternoon' | 'evening') {
+    const index = this.todayPlaces.findIndex(p => p.timeSlot === slot);
+    if (index !== -1) {
+      this.scrollToPlace(index);
+    } else {
+      console.warn(`❌ Nessuna tappa trovata per il timeSlot: ${slot}`);
+    }
+  }
+
+  scrollToPlace(i: number) {
+    const target = this.todayPlaces[i];
+    this.drawerExpanded = true;
+    this.selectedIndex = i;
+
+    // Pan sulla mappa
+    if (target?.latitude && target?.longitude) {
+      this.map.panTo({ lat: target.latitude, lng: target.longitude });
+    }
+
+    // Scroll alla card anche se la drawer è espansa
+    if (this.cardsEl) {
+      const cont = this.cardsEl.nativeElement;
+      const card = cont.children[i] as HTMLElement;
+
+      // Differenzia: orizzontale se compatta, verticale se espansa
+      if (this.isDrawerCompact) {
+        cont.scrollTo({
+          left: card.offsetLeft - (cont.clientWidth - card.clientWidth) / 2,
+          behavior: 'smooth'
+        });
+      } else {
+        cont.scrollTo({
+          top: card.offsetTop - 16, // padding-top approssimativo
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
+
 
 }
