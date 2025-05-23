@@ -16,6 +16,21 @@
   //width: 74px;
   //height: 74px;
 }
+.solid-rounded-btn {
+  --background: var(--color-primary);   /* bordeaux del tuo tema */
+  --color: #ffffff;                     /* testo bianco */
+  --border-radius: 16px;                /* arrotondamento morbido */
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  font-weight: 600;
+  //box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.delete-text {
+  color: var(--ion-color-danger, #eb445a) !important;
+  font-weight: bold;
+}
 .user-info{
   display: flex;
   flex-direction: column;
@@ -87,4 +102,8 @@
     font-size: 0.82rem;
     color: var(--color-text2);
   }
+}
+:host ::ng-deep ion-button.premium-button {
+  --background: var(--ion-color-warning);
+  --color: #000000;
 }

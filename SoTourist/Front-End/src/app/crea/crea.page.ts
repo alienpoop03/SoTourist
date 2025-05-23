@@ -6,6 +6,8 @@ import { RangeCalendarLiteComponent } from '../components/range-calendar-lite/ra
 import { GoogleAutocompleteComponent } from '../components/google-autocomplete/google-autocomplete.component';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
+import { Navigation } from '@angular/core/navigation_types.d-fAxd92YV';
 @Component({
   selector: 'app-crea',
   standalone: true,
@@ -14,7 +16,8 @@ import { inject } from '@angular/core';
     CommonModule,
     FormsModule,
     RangeCalendarLiteComponent,
-    GoogleAutocompleteComponent
+    GoogleAutocompleteComponent,
+    NavigationBarComponent
   ],
   templateUrl: './crea.page.html',
   styleUrls: ['./crea.page.scss']

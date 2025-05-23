@@ -1,5 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 import {
   IonContent,
   IonItem,
@@ -33,6 +34,7 @@ import { ProfileIconComponent } from '../components/profile-icon/profile-icon.co
     IonInput,
     IonCard,
     AppHeaderComponent,
+    NavigationBarComponent,
     ProfileIconComponent
   ],
   templateUrl: './profilo.page.html',

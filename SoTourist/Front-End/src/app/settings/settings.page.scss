@@ -12,7 +12,7 @@
 
 /* Profile-card full-width, margine solo sotto */
 .profile-card {
-  margin: 0 0 1rem 0;  // spazio esterno alla card, top | right | bottom | left
+  margin: 1rem 0 1rem 0;  // spazio esterno alla card, top | right | bottom | left
   padding: 1rem;
   display: flex;
   background: var(--color-background2);
@@ -45,6 +45,7 @@
   }
 }
 
+// SI PUO ELIMINARE PERCHE MESSA NEL GLOBAL
 /* Sezioni settings: full-width, nessun padding laterale, spazio tra blocchi */
 .settings-boxes {
             /* usa ion-list lines="full" in HTML */
@@ -72,6 +73,7 @@
   font-size: 1.1rem;
   color: var(--color-text);
 }
+///////////////////////////////////////////////
 
 /* Stile globale per gli ion-item */
 ion-item {
@@ -110,4 +112,12 @@ ion-alert {
   --backdrop-color: rgba(0,0,0,0.4);
 }
 
+:host ::ng-deep ion-button.logout-button {
+  --background: var(--color-primary);
+  --color: #ffffff;
+}
 
+:host ::ng-deep ion-button.premium-button {
+  --background: var(--color-primary);
+  --color: #ffffff;
+}

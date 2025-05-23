@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlanCardComponent } from '../components/plan-card/plan-card.component';
-
+import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 import {
   IonContent,
   IonButton
@@ -20,7 +20,8 @@ import { AuthService } from '../services/auth.service';
     FormsModule,
     IonContent,
     IonButton,
-    PlanCardComponent 
+    PlanCardComponent,
+    NavigationBarComponent
   ]
 })
 export class UpgradePage implements OnInit {

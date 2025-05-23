@@ -8,19 +8,8 @@
 
 /* Sezioni con stacco graduale */
 .cards-section {
-  position: relative;
-  padding: 1.4rem 0 1.6rem;
-  background: var(--color-background);
-
-  & + .cards-section {
-    background-image: linear-gradient(
-      to bottom,
-      var(--color-background1) 0%,
-      var(--color-background) 100%
-    );
-    background-repeat: no-repeat;
-    background-size: 100% 34px;
-  }
+  position: relative; //forse si puo togliere
+  // padding: 1.4rem 0 1.6rem;
 }
 
 /* Badge */
@@ -49,11 +38,21 @@
 /* ----- CARDS LIST  -----*/
 /*                        */
 .cards-scroll {
+  padding-right: 1rem;
+  padding-left: 1rem;
   display: flex;
-  scroll-padding-left: 1rem;
-  scroll-padding-right: 1rem;  gap: 2px;               /* quasi attaccate */
+  // gap: 2px;               /* quasi attaccate */
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: none;
+
+  // Per nascondere scrollbar
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE e Edge */
+}
+
+// Per nascondere scrollbar
+.cards-scroll::-webkit-scrollbar {
+  display: none;                   /* Chrome, Safari, Opera */
 }
 
 .cards-scroll ion-card {
@@ -142,13 +141,13 @@
   .final-button-wrapper {
     padding: 0 1.5rem;
   }
+}
 
-  ion-button {
-    --background: var(--color-highlight);
-    --color: var(--color-primary);
-    font-weight: 700;
-    font-size: 1.05rem;
-  }
+:host ::ng-deep ion-button.crea-button {
+  --background: var(--color-primary);
+  --color: var(--ion-color-warning);
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 /* ----- KYOTO highlight ----- */
@@ -239,3 +238,4 @@
     max-width: 110px;
   }
 }
+

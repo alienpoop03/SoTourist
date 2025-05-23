@@ -128,11 +128,12 @@ ion-icon {
 
 // STILE GLOBALE BOX
 .boxes-style {
-            /* usa ion-list lines="full" in HTML */
+  /* usa ion-list lines="full" in HTML */
   background: var(--color-background);
   border-radius: 16px;
-  
-  // padding-bottom: var(--tabbar-height);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 
   & + .boxes-style {
     margin-top: 1rem;
@@ -152,4 +153,15 @@ ion-icon {
   font-weight: 600;
   font-size: 1.1rem;
   color: var(--color-text);
+}
+
+ion-button.boxes-style {            /* la regola prende il bottone stesso */
+  --padding-top: 1rem;
+  --padding-bottom   : 1rem;
+  --border-radius : 16px;           /* variabile interna */
+
+  /* per sicurezza, forza anche la parte nativa */
+  &::part(native) {
+    border-radius: 16px;
+  }
 }
