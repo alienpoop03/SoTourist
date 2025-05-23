@@ -96,6 +96,7 @@ export class MapPage implements AfterViewInit {
         // --- 3. Aggiorna UI --------------------------------------------------
         this.refreshPlaces();
         this.whenGoogleReady().then(() => this.initMap());
+        console.log('Distanze tra i luoghi:', this.todayPlaces.map(place => place.distanceToNext));
       },
       error: err => console.error('[MapPage] errore caricamento itinerary:', err)
     });
@@ -157,61 +158,69 @@ export class MapPage implements AfterViewInit {
     this.renderMarkers();
   }
 
- private renderMarkers() {
-  this.markers.forEach(m => m.setMap(null));
-  this.markers = [];
+  private renderMarkers() {
+    this.markers.forEach(m => m.setMap(null));
+    this.markers = [];
 
-  console.log('🧭 Render markers - todayPlaces:', this.todayPlaces);
+    console.log('🧭 Render markers - todayPlaces:', this.todayPlaces);
 
-  this.todayPlaces.forEach((p, idx) => {
-    const lat = p.latitude;
-    const lng = p.longitude;
-    if (lat == null || lng == null) {
-      console.warn(`⚠️ Nessuna posizione per ${p.name}`, p);
+    this.todayPlaces.forEach((p, idx) => {
+      const lat = p.latitude;
+      const lng = p.longitude;
+      if (lat == null || lng == null) {
+        console.warn(`⚠️ Nessuna posizione per ${p.name}`, p);
+        return;
+      }
+
+      const marker = new google.maps.Marker({
+        position: { lat, lng },
+        map: this.map,
+        title: p.name
+      });
+
+      marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
+      this.markers.push(marker);
+    });
+
+    console.log('📍 Marker creati:', this.markers.length);
+  }
+
+  /* ==================== UI / Itinerary ==================== */
+  private refreshPlaces() {
+    const dayObj: any = this.trip?.itinerary?.[this.currentDay - 1];
+    if (!dayObj) {
+      this.todayPlaces = [];
       return;
     }
 
-    const marker = new google.maps.Marker({
-      position: { lat, lng },
-      map: this.map,
-      title: p.name
-    });
+    // Priorità a "ordered" se esiste
+    if ('ordered' in dayObj && Array.isArray(dayObj.ordered)) {
+      this.todayPlaces = dayObj.ordered;
+    } else {
+      this.todayPlaces = [
+        ...dayObj.morning,
+        ...dayObj.afternoon,
+        ...dayObj.evening
+      ];
+    }
 
-    marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
-    this.markers.push(marker);
-  });
+    // Calcolare la distanza tra i luoghi
+    for (let i = 0; i < this.todayPlaces.length - 1; i++) {
+      const currentPlace = this.todayPlaces[i];
+      const nextPlace = this.todayPlaces[i + 1];
 
-  console.log('📍 Marker creati:', this.markers.length);
-}
+      // Calcola la distanza tra il luogo corrente e il successivo
+      const distance = this.calculateDistance(currentPlace.latitude, currentPlace.longitude, nextPlace.latitude, nextPlace.longitude);
 
-  /* ==================== UI / Itinerary ==================== */
-private refreshPlaces() {
-  const dayObj: any = this.trip?.itinerary?.[this.currentDay - 1];
-  console.log('🔍 Giorno attuale:', this.currentDay);
-  console.log('📦 dayObj:', dayObj);
+      // Aggiungi la distanza come proprietà al luogo corrente
+      currentPlace.distanceToNext = distance.toFixed(2) + ' km'; // Converti in stringa
+    }
 
-  if (!dayObj) {
-    this.todayPlaces = [];
-    return;
+    // Visualizza per debug
+    console.log('Distanze tra i luoghi:', this.todayPlaces.map(place => place.distanceToNext));
+
+    this.cdr.detectChanges(); // Forza l'aggiornamento dell'interfaccia
   }
-
-  // Priorità a "ordered" se esiste
-  if ('ordered' in dayObj && Array.isArray(dayObj.ordered)) {
-    this.todayPlaces = dayObj.ordered;
-    console.log('📍 todayPlaces (from ordered):', this.todayPlaces);
-  } else {
-    this.todayPlaces = [
-      ...dayObj.morning,
-      ...dayObj.afternoon,
-      ...dayObj.evening
-    ];
-    console.log('📍 todayPlaces (from timeSlots):', this.todayPlaces);
-  }
-
-  this.cdr.detectChanges(); // Forza update
-}
-
-
 
   toggleDayList() { this.dayListOpen = !this.dayListOpen; }
 
@@ -264,7 +273,7 @@ private refreshPlaces() {
         }
         currentHeight = parseInt(drawer.style.height, 10);
         this.dragging = false;
-        this.zone.run(() => {}); // forza change detection
+        this.zone.run(() => { }); // forza change detection
       }
     });
 
@@ -297,4 +306,27 @@ private refreshPlaces() {
       }
     }
   }
+
+  // Funzione per calcolare la distanza tra due luoghi usando la formula Haversine
+  public calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371; // Raggio della Terra in km
+    const dLat = this.degToRad(lat2 - lat1);
+    const dLon = this.degToRad(lon2 - lon1);
+    const lat1Rad = this.degToRad(lat1);
+    const lat2Rad = this.degToRad(lat2);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distanza in km
+    return distance;
+  }
+
+  // Funzione di supporto per convertire i gradi in radianti
+  public degToRad(deg: number): number {
+    return deg * (Math.PI / 180);
+  }
+
 }

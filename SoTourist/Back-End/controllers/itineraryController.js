@@ -9,7 +9,6 @@ const getItinerary = async (req, res) => {
 
   const usedPlaceNames = new Set();
   let coverPhoto = null;
-  //console.log('🔍 Inizio fetch coverPhoto iconica per:', city);
 
   try {
     const cityRes = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
@@ -25,15 +24,12 @@ const getItinerary = async (req, res) => {
     if (topPlace?.photos?.[0]?.photo_reference) {
       const ref = topPlace.photos[0].photo_reference;
       coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${GOOGLE_API_KEY}`;
-      //console.log('📸 Cover photo scelta da attrazione iconica:', coverPhoto);
-      //console.log('📸 COVER SETTATA:', coverPhoto);
     } else {
       //console.warn('❗ Errore fetch coverPhoto:', err.message);
     }
   } catch (err) {
     console.warn('⚠️ Impossibile ottenere coverPhoto iconica:', err.message);
   }
-
 
   // Funzione che chiama Places API e filtra i luoghi
   const fetchPlaces = async (query, count = 2, from = null) => {
@@ -48,17 +44,6 @@ const getItinerary = async (req, res) => {
     let filtered = response.data.results.filter(
       place => place.geometry?.location && !usedPlaceNames.has(place.name)
     );
-
-    if (from) {
-      filtered = filtered.filter(place => {
-        const to = {
-          latitude: place.geometry.location.lat,
-          longitude: place.geometry.location.lng
-        };
-        const distance = parseFloat(getDistanceBetween(from, to));
-        return distance <= MAX_DISTANCE_KM;
-      });
-    }
 
     const selected = filtered.slice(0, count);
 
@@ -85,24 +70,6 @@ const getItinerary = async (req, res) => {
         longitude: place.geometry.location.lng
       };
     });
-  };
-
-  // Calcolo distanza con formula haversine
-  const getDistanceBetween = (origin, destination) => {
-    const toRad = deg => deg * Math.PI / 180;
-    const R = 6371; // raggio Terra km
-    const dLat = toRad(destination.latitude - origin.latitude);
-    const dLon = toRad(destination.longitude - origin.longitude);
-    const lat1 = toRad(origin.latitude);
-    const lat2 = toRad(destination.latitude);
-
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c;
-    return `${distance.toFixed(2)} km`;
   };
 
   // Struttura di base (da personalizzare come vuoi)
@@ -145,7 +112,6 @@ const getItinerary = async (req, res) => {
 
     const itinerary = [];
 
-
     for (let day = 1; day <= totalDays; day++) {
       console.log(`\n🗓️  Giorno ${day}`);
       const dayPlan = { day, morning: [], afternoon: [], evening: [] };
@@ -179,17 +145,7 @@ const getItinerary = async (req, res) => {
 
       const orderedPlaces = [...dayPlan.morning, ...dayPlan.afternoon, ...dayPlan.evening];
 
-      for (let i = 0; i < orderedPlaces.length - 1; i++) {
-        const distance = getDistanceBetween(orderedPlaces[i], orderedPlaces[i + 1]);
-        orderedPlaces[i].distanceToNext = distance;
-      }
-
       if (accommodationPlace) {
-        if (orderedPlaces.length > 0) {
-          const lastPlace = orderedPlaces[orderedPlaces.length - 1];
-          const backDistance = getDistanceBetween(lastPlace, accommodationPlace);
-          lastPlace.distanceToNext = backDistance;
-        }
         orderedPlaces.push(accommodationPlace);
         console.log(`  🏨 Aggiunta tappa finale: ${accommodationPlace.name}`);
       }
@@ -199,13 +155,10 @@ const getItinerary = async (req, res) => {
       console.log('\n📦 Itinerario finale generato:');
       console.log(JSON.stringify(itinerary, null, 2));
       console.log('\n🖼️  Cover photo:', coverPhoto);
-
     }
-
 
     // Rispondiamo al frontend
     res.json({ itinerary, coverPhoto });
-    //console.log('✅ coverPhoto finale inviata al frontend:', coverPhoto);
   } catch (error) {
     console.error("Errore durante la generazione dell'itinerario:", error.message);
     res.status(500).json({ error: "Errore nella generazione dell'itinerario" });
