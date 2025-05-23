@@ -1,9 +1,10 @@
-<ion-content class="map-content" fullscreen>
+<ion-content>
 
-  <!--  MAPPA  -->
-  <div #map id="map"></div>
 
-  <div class="time-buttons">
+<!--  MAPPA  -->
+<div #map id="map"></div>
+
+<div class="time-buttons">
   <button (click)="scrollToTimeSlot('morning')">☀️ Mattina</button>
   <button (click)="scrollToTimeSlot('afternoon')">🌤️ Pomeriggio</button>
   <button (click)="scrollToTimeSlot('evening')">🌙 Sera</button>
@@ -11,59 +12,59 @@
 
 
 
-  <!--  SELECT GIORNO  -->
- <div class="day-box" (click)="toggleDayList()">
+<!--  SELECT GIORNO  -->
+<div class="day-box" (click)="toggleDayList()">
   Giorno {{ currentDay }}
 </div>
 
 
-  <ion-list class="day-list" *ngIf="dayListOpen">
-    <ion-item *ngFor="let d of days" (click)="selectDay(d)" [class.active]="d === currentDay">
-      Giorno {{ d }}
-    </ion-item>
-  </ion-list>
+<ion-list class="day-list" *ngIf="dayListOpen">
+  <ion-item *ngFor="let d of days" (click)="selectDay(d)" [class.active]="d === currentDay">
+    Giorno {{ d }}
+  </ion-item>
+</ion-list>
 
-  <!--  DRAWER  -->
-  <div class="drawer" [class.expanded]="drawerExpanded">
+<!--  DRAWER  -->
+<div class="drawer" [class.expanded]="drawerExpanded">
 
-    <div class="handle"></div>
-    <div class="cards" [ngClass]="{ 'horizontal': isDrawerCompact }" #cardsContainer>
+  <div class="handle"></div>
+  <div class="cards" [ngClass]="{ 'horizontal': isDrawerCompact }" #cardsContainer>
 
 
-      <ion-card *ngFor="let p of todayPlaces; let i = index" [class.selected]="i === selectedIndex"
-        (click)="openPlace(i)">
-        <ion-img *ngIf="p.photoUrl; else ph" [src]="p.photoUrl"></ion-img>
-        <ng-template #ph>
-          <div class="placeholder">📍</div>
-        </ng-template>
+    <ion-card *ngFor="let p of todayPlaces; let i = index" [class.selected]="i === selectedIndex"
+      (click)="openPlace(i)">
+      <ion-img *ngIf="p.photoUrl; else ph" [src]="p.photoUrl"></ion-img>
+      <ng-template #ph>
+        <div class="placeholder">📍</div>
+      </ng-template>
 
-        <ion-card-header>
-          <ion-card-title>{{ p.name }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p class="addr">{{ p.address }}</p>
-          <p class="dist" *ngIf="p.distanceToNext">⇢ {{ p.distanceToNext }}</p>
-          <p *ngIf="p.rating">⭐ {{ p.rating }}</p>
-        </ion-card-content>
-      </ion-card>
-    </div>
+      <ion-card-header>
+        <ion-card-title>{{ p.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="addr">{{ p.address }}</p>
+        <p class="dist" *ngIf="p.distanceToNext">⇢ {{ p.distanceToNext }}</p>
+        <p *ngIf="p.rating">⭐ {{ p.rating }}</p>
+      </ion-card-content>
+    </ion-card>
   </div>
+</div>
 
-  <!--  MODALE DETTAGLIO  -->
-  <ion-modal [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
-    <ng-template>
-      <ion-card class="detail">
-        <ion-img *ngIf="detail?.photoUrl" [src]="detail?.photoUrl"></ion-img>
-        <ion-card-header>
-          <ion-card-title>{{ detail?.name }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p><strong>Indirizzo:</strong><br>{{ detail?.address }}</p>
-          <p *ngIf="detail?.rating"><strong>Rating:</strong> ⭐ {{ detail?.rating }}</p>
-        </ion-card-content>
-        <ion-button expand="block" (click)="detailOpen=false">Chiudi</ion-button>
-      </ion-card>
-    </ng-template>
-  </ion-modal>
+<!--  MODALE DETTAGLIO  -->
+<ion-modal [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
+  <ng-template>
+    <ion-card class="detail">
+      <ion-img *ngIf="detail?.photoUrl" [src]="detail?.photoUrl"></ion-img>
+      <ion-card-header>
+        <ion-card-title>{{ detail?.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Indirizzo:</strong><br>{{ detail?.address }}</p>
+        <p *ngIf="detail?.rating"><strong>Rating:</strong> ⭐ {{ detail?.rating }}</p>
+      </ion-card-content>
+      <ion-button expand="block" (click)="detailOpen=false">Chiudi</ion-button>
+    </ion-card>
+  </ng-template>
+</ion-modal>
 
 </ion-content>
