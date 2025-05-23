@@ -209,4 +209,11 @@ export class UnfinishedCardComponent implements OnInit {
     }
     return '../assets/images/PaletoBay.jpeg';
   }
+
+  editItinerario(event: Event){
+    event.stopPropagation();
+    this.router.navigate(['/modifica-date'], {
+      queryParams: { id: this.trip.itineraryId }
+    });
+  }
 }

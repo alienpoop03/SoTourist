@@ -34,8 +34,8 @@
       </div>
 
       <div class="side-buttons">
-        <ion-button fill="clear" size="small" class="edit-btn" (click)="$event.stopPropagation()">
-          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        <ion-button fill="clear" size="small" class="edit-btn" (click)="editItinerario($event)">
+          <ion-icon *ngIf="!hasConflict" name="create-outline" slot="icon-only"></ion-icon>
         </ion-button>
         <ion-button fill="clear" color="danger" size="small" class="delete-btn" (click)="onDelete($event)">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>

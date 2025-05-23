@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>modifica-date</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-navigation-bar title="Modifica Date"></app-navigation-bar>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">modifica-date</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="modifica-date-content" fullscreen>
+  <div class="container" *ngIf="trip">
+    <h1>Modifica le date</h1>
+
+    <p class="trip-info">
+      <strong>Città:</strong> {{ trip.city }}
+    </p>
+
+    <app-range-calendar-lite
+      [minDate]="today"
+      (datesSelected)="onDatesSelected($event)">
+    </app-range-calendar-lite>
+
+    <div class="selected-dates" *ngIf="newStartDate && newEndDate">
+      <p>
+        <strong>Nuove date selezionate:</strong><br>
+        Dal {{ newStartDate }} al {{ newEndDate }}
+      </p>
+    </div>
+
+    <ion-button expand="block" (click)="saveDates()" [disabled]="!newStartDate || !newEndDate">
+      Salva e continua
+    </ion-button>
+  </div>
 </ion-content>

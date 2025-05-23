@@ -1,0 +1,29 @@
+.modifica-date-content {
+  --background: var(--color-background);
+
+  .container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .trip-info {
+    font-size: 1.1rem;
+    color: var(--color-text1);
+  }
+
+  .selected-dates {
+    background: var(--color-background2);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--color-text2);
+  }
+
+  ion-button {
+    --background: var(--color-primary);
+    color: white;
+    margin-top: 16px;
+  }
+}
