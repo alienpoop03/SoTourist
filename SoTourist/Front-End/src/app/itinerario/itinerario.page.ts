@@ -46,15 +46,19 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
     slotOrder.forEach(timeSlot => {
       const list = (dayObj as any)[timeSlot] || [];
       list.forEach((p: any) => {
+        // fallback su p.lat / p.longitude per preservare entrambe le sorgenti
+        const latitude  = p.lat  ?? p.latitude;
+        const longitude = p.lng  ?? p.longitude;
+
         places.push({
-          placeId: generatePlaceId(p.name, day, timeSlot),
-          name: p.name,
+          placeId:   generatePlaceId(p.name, day, timeSlot),
+          name:      p.name,
           day,
           timeSlot,
-          latitude: p.latitude,    // questi due già c’erano
-          longitude: p.longitude,
-          address: p.address || '',  // ← aggiunto
-          photo: p.photo || ''   // ← aggiunto
+          latitude,                  // mappato qui
+          longitude,                 // mappato qui
+          address:  p.address  || '',
+          photo:    p.photo    || ''
         });
       });
     });
@@ -62,6 +66,8 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
 
   return places;
 }
+
+
 
 
 function generatePlaceId(name: string, day: number, slot: string): string {
