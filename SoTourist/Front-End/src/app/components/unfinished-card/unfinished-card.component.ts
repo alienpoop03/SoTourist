@@ -117,6 +117,7 @@ export class UnfinishedCardComponent implements OnInit {
   @Output() remove = new EventEmitter<string>();
 
   hasConflict = false; // ✅ flag automatico
+  isGuest = false;
   userId!: string;
 
   constructor(
@@ -131,8 +132,12 @@ export class UnfinishedCardComponent implements OnInit {
     const start = this.trip.startDate || this.trip.start;
     const end = this.trip.endDate || this.trip.end;
 
-    if (start && end && this.userId) {
+    this.isGuest = this.userId?.startsWith('guest_') || false;
+
+    if (start && end && this.userId && !this.isGuest) {
       this.checkConflicts(this.userId, start, end, this.trip.itineraryId);
+    }else{
+       this.hasConflict = false;
     }
   }
 
