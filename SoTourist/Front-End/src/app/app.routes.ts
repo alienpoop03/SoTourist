@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { PremiumGuard } from './guards/premium.guard';
 
 export const routes: Routes = [
   {
@@ -36,7 +37,8 @@ export const routes: Routes = [
   {
     path: 'registrazione',
     loadComponent: () => import('./registrazione/registrazione.page').then( m => m.RegistrazionePage)
-  },  {
+  },
+  {
     path: 'upgrade',
     loadComponent: () => import('./upgrade/upgrade.page').then( m => m.UpgradePage)
   },
@@ -47,6 +49,11 @@ export const routes: Routes = [
   {
     path: 'modifica-date',
     loadComponent: () => import('./modifica-date/modifica-date.page').then( m => m.ModificaDatePage)
+  },
+  {
+    path: 'stickers',
+    loadComponent: () => import('./stickers/stickers.page').then( m => m.StickersPage),
+    canActivate: [PremiumGuard]
   },
 
 ];
