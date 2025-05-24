@@ -446,3 +446,56 @@ ion-card-content p {
   color: var(--color-primary);
   font-size: 0.95rem;
 }
+
+.hero-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 0.4rem;
+
+  .hero-left,
+  .hero-right {
+    max-width: 50%;
+    font-size: 0.95rem;
+    color: #f0f0f0;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .dates {
+    margin: 0;
+    padding-left: 0.4rem;
+  }
+
+  .accommodation {
+    margin: 0;
+    padding-right: 0.4rem;
+    text-align: right;
+  }
+}
+
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1rem;
+
+  .chip {
+    background-color: var(--color-highlight);
+    color: var(--color-text);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .chip-remove {
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

@@ -18,6 +18,7 @@ import { GenerationOverlayComponent } from '../components/generation-overlay/gen
 import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
 import { PhotoService } from '../services/photo.service';
+import { GoogleAutocompleteComponent } from '../components/google-autocomplete/google-autocomplete.component';
 
 
 /* ───── Ionic standalone components usati nel template ───── */
@@ -47,18 +48,18 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
       const list = (dayObj as any)[timeSlot] || [];
       list.forEach((p: any) => {
         // fallback su p.lat / p.longitude per preservare entrambe le sorgenti
-        const latitude  = p.lat  ?? p.latitude;
-        const longitude = p.lng  ?? p.longitude;
+        const latitude = p.lat ?? p.latitude;
+        const longitude = p.lng ?? p.longitude;
 
         places.push({
-          placeId:   generatePlaceId(p.name, day, timeSlot),
-          name:      p.name,
+          placeId: generatePlaceId(p.name, day, timeSlot),
+          name: p.name,
           day,
           timeSlot,
           latitude,                  // mappato qui
           longitude,                 // mappato qui
-          address:  p.address  || '',
-          photo:    p.photo    || ''
+          address: p.address || '',
+          photo: p.photo || ''
         });
       });
     });
@@ -108,7 +109,8 @@ type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
     IonIcon,
 
     /* Componenti custom */
-    GenerationOverlayComponent
+    GenerationOverlayComponent,
+    GoogleAutocompleteComponent
   ],
   templateUrl: './itinerario.page.html',
   styleUrls: ['./itinerario.page.scss'],
@@ -153,22 +155,14 @@ export class ItinerarioPage implements AfterViewInit {
   tripPrompt: string = '';
 
   // slide 0
-  tripMustSee: string = '';
-  tripEatPlaces: string = '';
-  tripAlreadyVisited: string = '';
+  tripMustSee: string[] = [];
+  tripEatPlaces: string[] = [];
+  tripAlreadyVisited: string[] = [];
+
 
 
   /* Opzioni predefinite */
-  dayStyles = [
-    'Standard',
-    'Giornata al mare',
-    'Giornata nei musei',
-    'Relax',
-    'Shopping',
-    'Avventura',
-    'Food tour',
-    'Escursione',
-  ];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -542,28 +536,36 @@ export class ItinerarioPage implements AfterViewInit {
     return this.selectedDayIndex !== null ? this.trip?.itinerary?.[this.selectedDayIndex] : null;
   }
 
-
   // tutta la parte delle modali, evvai siamo a 500 righe di codice
   editorVisible = false;
   editorMode: EditorField | null = null;
   editorValue = '';
   selectedDays: number[] = [];
 
-
   openEditorInline(mode: EditorField) {
-    console.log('EDITOR APERTO →', mode);
     this.editorMode = mode;
     this.editorVisible = true;
-    this.editorValue = this.getValueForMode(mode);
+
+    // Solo per i campi testuali
+    if (!['mustSee', 'eat', 'visited'].includes(mode)) {
+      this.editorValue = this.getValueForMode(mode);
+    } else {
+      this.editorValue = '';
+    }
+
     this.selectedDays = this.getSelectedDaysForMode(mode);
   }
 
-
   saveEditorValue() {
     if (!this.editorMode) return;
-    this.setValueForMode(this.editorMode, this.editorValue);
+
+    if (!['mustSee', 'eat', 'visited'].includes(this.editorMode)) {
+      this.setValueForMode(this.editorMode, this.editorValue);
+    }
+
     this.closeEditor();
   }
+
 
   closeEditor() {
     this.editorVisible = false;
@@ -574,26 +576,28 @@ export class ItinerarioPage implements AfterViewInit {
 
   getValueForMode(mode: EditorField): string {
     switch (mode) {
-      case 'mustSee': return this.tripMustSee;
-      case 'eat': return this.tripEatPlaces;
-      case 'visited': return this.tripAlreadyVisited;
       case 'transport': return this.tripTransport;
       case 'ai': return this.tripPrompt;
       case 'style': return this.trip?.style || '';
+      default: return '';
     }
   }
 
   setValueForMode(mode: EditorField, value: string): void {
     switch (mode) {
-      case 'mustSee': this.tripMustSee = value; break;
-      case 'eat': this.tripEatPlaces = value; break;
-      case 'visited': this.tripAlreadyVisited = value; break;
-      case 'transport': this.tripTransport = value; break;
-      case 'ai': this.tripPrompt = value; break;
-      case 'style': if (this.trip) this.trip.style = value; break;
+      case 'transport':
+        this.tripTransport = value;
+        break;
+
+      case 'ai':
+        this.tripPrompt = value;
+        break;
+
+      case 'style':
+        if (this.trip) this.trip.style = value;
+        break;
     }
   }
-
 
   getSelectedDaysForMode(mode: string): number[] {
     if (!this.trip?.itinerary) return [];
@@ -616,5 +620,47 @@ export class ItinerarioPage implements AfterViewInit {
     this.closeEditor();
   }
 
+  addPlace(list: string[], place: any) {
+    const name = place?.description || place;
+    if (name && !list.includes(name)) {
+      list.push(name);
+    }
+  }
+
+  removePlace(list: string[], idx: number) {
+    list.splice(idx, 1);
+  }
+  /* ---------- wrapper specifici ---------- */
+  addMustSeePlace = (p: any) => this.addPlace(this.tripMustSee, p);
+  addEatPlace = (p: any) => this.addPlace(this.tripEatPlaces, p);
+  addVisitedPlace = (p: any) => this.addPlace(this.tripAlreadyVisited, p);
+
+  removeMustSeePlace = (i: number) => this.removePlace(this.tripMustSee, i);
+  removeEatPlace = (i: number) => this.removePlace(this.tripEatPlaces, i);
+  removeVisitedPlace = (i: number) => this.removePlace(this.tripAlreadyVisited, i);
+
+  onPlaceSelected(mode: EditorField, place: any): void {
+    const name = place?.name || place?.description || place?.formatted_address;
+    if (!name) return;
+
+    const list = this.getListForMode(mode);
+    if (!list.includes(name)) {
+      list.push(name);
+    }
+  }
+
+  removePlaceFromMode(mode: EditorField, index: number): void {
+    const list = this.getListForMode(mode);
+    list.splice(index, 1);
+  }
+
+  getListForMode(mode: EditorField): string[] {
+    switch (mode) {
+      case 'mustSee': return this.tripMustSee;
+      case 'eat': return this.tripEatPlaces;
+      case 'visited': return this.tripAlreadyVisited;
+      default: return [];
+    }
+  }
 
 }
