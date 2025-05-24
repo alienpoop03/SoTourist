@@ -1,9 +1,7 @@
 <ion-content>
-
-
 <!--  MAPPA  -->
 <div #map id="map"></div>
-<app-navigation-bar title="Impostazioni"></app-navigation-bar>
+<app-navigation-bar [title]="getCurrentDayDate()"></app-navigation-bar>
 
  <!-- WRAPPER DEI SELETTORI -->
   <div class="selectors-bar">
