@@ -160,6 +160,7 @@ export class ItinerarioPage implements AfterViewInit {
   tripAlreadyVisited: string[] = [];
 
 
+  tripBounds: google.maps.LatLngBounds | null = null;
 
   /* Opzioni predefinite */
 
@@ -209,6 +210,11 @@ export class ItinerarioPage implements AfterViewInit {
 
       this.isLocalTrip = true;
       this.daysCount = this.calculateDays(this.trip.startDate, this.trip.endDate);
+
+      // 🟩 Aggiungi questa riga qui:
+      if (this.trip.city) {
+        this.fetchCityBounds(this.trip.city);
+      }
       // 🚫 Niente richiesta a Google: usa fallback
       this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg';
       console.log('[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.');
@@ -221,6 +227,10 @@ export class ItinerarioPage implements AfterViewInit {
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
       next: (res) => {
         this.trip = res;
+        if (this.trip.city) {
+          this.fetchCityBounds(this.trip.city);
+        }
+
         this.isLocalTrip = false;
         this.daysCount = this.calculateDays(res.startDate, res.endDate);
 
@@ -661,6 +671,30 @@ export class ItinerarioPage implements AfterViewInit {
       case 'visited': return this.tripAlreadyVisited;
       default: return [];
     }
+  }
+
+  private fetchCityBounds(cityName: string) {
+    const autocomplete = new google.maps.places.AutocompleteService();
+    const service = new google.maps.places.PlacesService(document.createElement('div'));
+
+    autocomplete.getPlacePredictions({ input: cityName, types: ['(cities)'] }, (predictions, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && predictions?.length) {
+        const placeId = predictions[0].place_id;
+        service.getDetails({ placeId }, (place, status) => {
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK &&
+            place?.geometry?.viewport
+          ) {
+            this.tripBounds = place.geometry.viewport;
+            console.log('📌 Bounds trovati per la città:', this.tripBounds.toJSON());
+          } else {
+            console.warn('⚠️ Nessun viewport trovato per la città.');
+          }
+        });
+      } else {
+        console.warn('⚠️ Nessun prediction trovata per la città.');
+      }
+    });
   }
 
 }
