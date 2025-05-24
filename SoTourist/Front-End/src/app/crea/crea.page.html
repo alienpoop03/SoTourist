@@ -3,28 +3,28 @@
 
 <ion-content class="crea-content">
 
-<!--RIEPILOGO DINAMICO-->
-<div class="riepilogo-header animated" [class.show]="city">
-  <div class="circle-icon">
-    <ion-icon name="airplane"></ion-icon>
-  </div>
-  <div class="trip-info">
-    <span class="trip-city">{{ city || '' }}</span>
-    <div class="trip-details">
-      <span *ngIf="accommodation">
-        <span class="trip-detail-label">Alloggio:</span>
-        <span class="trip-detail-val">{{ accommodation }}</span>
-      </span>
-      <span *ngIf="dates.start">
-        <span class="trip-detail-label">Date:</span>
-        <span class="trip-detail-val">
-          {{ dates.start | date:'dd/MM/yyyy' }}
-          <ng-container *ngIf="dates.end">- {{ dates.end | date:'dd/MM/yyyy' }}</ng-container>
+  <!--RIEPILOGO DINAMICO-->
+  <div class="riepilogo-header animated" [class.show]="city">
+    <div class="circle-icon">
+      <ion-icon name="airplane"></ion-icon>
+    </div>
+    <div class="trip-info">
+      <span class="trip-city">{{ city || '' }}</span>
+      <div class="trip-details">
+        <span *ngIf="accommodation">
+          <span class="trip-detail-label">Alloggio:</span>
+          <span class="trip-detail-val">{{ accommodation }}</span>
         </span>
-      </span>
+        <span *ngIf="dates.start">
+          <span class="trip-detail-label">Date:</span>
+          <span class="trip-detail-val">
+            {{ dates.start | date:'dd/MM/yyyy' }}
+            <ng-container *ngIf="dates.end">- {{ dates.end | date:'dd/MM/yyyy' }}</ng-container>
+          </span>
+        </span>
+      </div>
     </div>
   </div>
-</div>
 
   <!--(scroll orizzontale) -->
   <div class="steps-wrapper" [style.transform]="'translateX(-' + (step - 1) * 100 + 'vw)'">
@@ -44,10 +44,21 @@
     <!-- STEP 2: ALLOGGIO -->
     <div class="step-card">
       <h2>Dove alloggi?</h2>
-      <app-google-autocomplete placeholder="Nome o indirizzo alloggio" [types]="['lodging']" [bounds]="cityBounds"
+      <ion-segment [(ngModel)]="accommodationMode" value="hotel">
+        <ion-segment-button value="hotel">
+          <ion-label>Hotel</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="address">
+          <ion-label>Indirizzo</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <app-google-autocomplete placeholder="Nome o indirizzo alloggio"
+        [types]="accommodationMode === 'hotel' ? ['lodging'] : ['address']" [bounds]="cityBounds"
         [restrictToBounds]="true" [(value)]="accommodationInput" (placeSelected)="handleAccommodationPlace($event)"
         (valueChange)="isAccommodationValid = false">
       </app-google-autocomplete>
+
 
 
       <button class="prev-btn" (click)="prevStep()">Indietro</button>
