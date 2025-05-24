@@ -13,13 +13,13 @@ import { ActivatedRoute } from '@angular/router';
 import {
   IonContent, IonImg, IonCard, IonCardHeader, IonCardTitle,
   IonCardContent, IonList, IonItem, IonFab, IonFabButton,
-  IonModal, IonButton
+  IonModal, IonButton, IonIcon,
 } from '@ionic/angular/standalone';
 import { GestureController } from '@ionic/angular';
 
 import { ItineraryService } from '../services/itinerary.service';
 import { Place } from '../models/trip.model';
-
+import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 /**
  * Rappresenta la struttura delle tappe raggruppate per giorno
  */
@@ -38,7 +38,7 @@ interface DayGroup {
     CommonModule,
     IonContent, IonImg, IonCard, IonCardHeader, IonCardTitle,
     IonCardContent, IonList, IonItem, IonFab, IonFabButton,
-    IonModal, IonButton
+    IonModal, IonButton, NavigationBarComponent, IonIcon
   ]
 })
 export class MapPage implements AfterViewInit {
@@ -285,6 +285,26 @@ export class MapPage implements AfterViewInit {
   scrollToTimeSlot(slot: 'morning' | 'afternoon' | 'evening') {
     const index = this.todayPlaces.findIndex(p => p.timeSlot === slot);
     if (index !== -1) { this.scrollToPlace(index); }
+  }
+
+  selectedTimeSlot: 'morning' | 'afternoon' | 'evening' = 'morning';
+  timeListOpen = false;
+
+  get timeSlotLabel(): string {
+    switch (this.selectedTimeSlot) {
+      case 'morning': return 'Mattina';
+      case 'afternoon': return 'Pomeriggio';
+      case 'evening': return 'Sera';
+      default: return '';
+    }
+  }
+
+  toggleTimeList() { this.timeListOpen = !this.timeListOpen; }
+
+  selectTimeSlot(slot: 'morning' | 'afternoon' | 'evening') {
+    this.selectedTimeSlot = slot;
+    this.timeListOpen = false;
+    this.scrollToTimeSlot(slot);
   }
 
   private scrollToPlace(i: number) {

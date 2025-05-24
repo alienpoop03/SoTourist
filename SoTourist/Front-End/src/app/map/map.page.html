@@ -3,26 +3,48 @@
 
 <!--  MAPPA  -->
 <div #map id="map"></div>
+<app-navigation-bar title="Impostazioni"></app-navigation-bar>
 
-<div class="time-buttons">
-  <button (click)="scrollToTimeSlot('morning')">☀️ Mattina</button>
-  <button (click)="scrollToTimeSlot('afternoon')">🌤️ Pomeriggio</button>
-  <button (click)="scrollToTimeSlot('evening')">🌙 Sera</button>
-</div>
+ <!-- WRAPPER DEI SELETTORI -->
+  <div class="selectors-bar">
+    <!-- Selettore giorno -->
+    <div class="selector day-selector" (click)="toggleDayList()">
+      <!-- <ion-icon name="calendar-outline" class="selector-icon"></ion-icon> -->
+      Giorno {{ currentDay }}
+      <ion-icon name="chevron-down-outline" [class.open]="dayListOpen" class="selector-arrow"></ion-icon>
+    </div>
 
+    <!-- Selettore parte del giorno -->
+    <div class="selector time-selector" (click)="toggleTimeList()">
+      <!-- <ion-icon name="time-outline" class="selector-icon"></ion-icon> -->
+      {{ timeSlotLabel }}
+      <ion-icon name="chevron-down-outline" [class.open]="timeListOpen" class="selector-arrow"></ion-icon>
+    </div>
+  </div>
 
+  <!-- Dropdown Giorno -->
+  <ion-list class="day-list" *ngIf="dayListOpen">
+    <ion-item
+  *ngFor="let d of days; let last = last"
+  (click)="selectDay(d)"
+  [class.active]="d === currentDay"
+  [attr.lines]="last ? 'none' : null">
+  Giorno {{ d }}
+</ion-item>
+  </ion-list>
 
-<!--  SELECT GIORNO  -->
-<div class="day-box" (click)="toggleDayList()">
-  Giorno {{ currentDay }}
-</div>
-
-
-<ion-list class="day-list" *ngIf="dayListOpen">
-  <ion-item *ngFor="let d of days" (click)="selectDay(d)" [class.active]="d === currentDay">
-    Giorno {{ d }}
-  </ion-item>
-</ion-list>
+  <!-- Dropdown Time Slot -->
+  <ion-list lines="full" class="time-list" *ngIf="timeListOpen">
+    <ion-item (click)="selectTimeSlot('morning')" [class.active]="selectedTimeSlot === 'morning'">
+      Mattina
+    </ion-item>
+    <ion-item (click)="selectTimeSlot('afternoon')" [class.active]="selectedTimeSlot === 'afternoon'">
+      Pomeriggio
+    </ion-item>
+    <ion-item lines="none" (click)="selectTimeSlot('evening')" [class.active]="selectedTimeSlot === 'evening'">
+      Sera
+    </ion-item>
+  </ion-list>
 
 <!--  DRAWER  -->
 <div class="drawer" [class.expanded]="drawerExpanded">

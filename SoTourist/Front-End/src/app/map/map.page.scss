@@ -3,7 +3,7 @@
   --senape: #FFCC00;
 }
 
-/*  -------- Container di base --------  */
+/* -------- Container di base -------- */
 .map-content,
 :host {
   --ion-background-color: transparent;
@@ -15,32 +15,116 @@
   z-index: 0;
 }
 
-/*  -------- FAB Giorno  --------  */
-ion-fab-button {
-  --background: var(--senape);
-  color: var(--bordeaux);
-  font-weight: bold;
+/* -------- SELECTORS BAR -------- */
+.selectors-bar {
+  position: absolute;
+  top: 56px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.2rem 1.2rem 0 1.2rem;
+  pointer-events: none;
+  z-index: 1010;
+  gap: 0.7rem;
 }
 
-/*  -------- Lista giorni (dropdown) --------  */
-.day-list {
-  position: absolute;
-  top: 58px;
-  left: 12px;
-  z-index: 1001;
-  max-height: 60vh;
-  overflow-y: auto;
-  background: rgba(255, 255, 255, .95);
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
 
-  ion-item.active {
-    font-weight: 700;
-    color: var(--bordeaux);
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 145px; /* O min-width se vuoi responsive */
+  height: 48px;
+  background: rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(6px) saturate(125%);
+  border-radius: 16px;
+  box-shadow: 0 2px 18px 0 rgba(123,30,30,0.07);
+  color: var(--bordeaux);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.1px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, border 0.18s;
+
+  &:hover, &:active {
+    background: rgba(255,255,255,0.5);
+    border-color: var(--senape);
+    box-shadow: 0 6px 18px rgba(255, 204, 0, 0.12);
+  }
+}
+.day-selector {
+  /* Se vuoi personalizzare solo il giorno */
+}
+.time-selector {
+  /* Se vuoi personalizzare solo la parte del giorno */
+}
+.selector-icon {
+  font-size: 1.3rem;
+  color: var(--senape);
+}
+.selector-arrow {
+  font-size: 1.1rem;
+  margin-bottom: -2px;
+  color: #4b4b4b;
+  filter: drop-shadow(0 0 1.5px #ffe16485);
+  transition: transform 0.22s cubic-bezier(.49,.2,.49,.89), color 0.17s;
+  &.open {
+    transform: rotate(180deg);
   }
 }
 
-/*  -------- Drawer --------  */
+/* -------- Dropdown Liste -------- */
+.day-list,
+.time-list {
+  position: absolute;
+  top: 130px;
+  max-width: 145px;
+  max-height: 200px;  // o quanto vuoi
+  background: rgba(255,255,255,0.75);
+  border-radius: 16px;
+  box-shadow: 0 12px 24px 0 rgba(123,30,30,0.13);
+  padding: 8px 0;
+  animation: dropdownAppear 0.16s cubic-bezier(.41,.5,.68,.99);
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+.day-list {
+  left: 1.2rem;
+}
+
+.time-list {
+  right: 1.2rem;
+}
+
+
+.day-list ion-item,
+.time-list ion-item {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--bordeaux);
+  background: transparent;
+  border-radius: 12px;
+  margin: 2.5px 12px;
+  transition: background 0.13s, color 0.13s;
+
+  &.active {
+    background: var(--senape);
+    color: var(--color-primary);
+    font-weight: 800;
+  }
+  &:hover, &:active {
+    background: #fffbe7;
+    color: var(--color-primary);
+    cursor: pointer;
+  }
+}
+
+/* -------- Drawer -------- */
 .drawer {
   position: absolute;
   left: 0;
@@ -51,7 +135,7 @@ ion-fab-button {
   border-radius: 16px 16px 0 0;
   box-shadow: 0 -4px 14px rgba(0, 0, 0, .2);
   z-index: 1000;
-  touch-action: none; // ← aggiungilo qui
+  touch-action: none;
 
   .handle {
     width: 40px;
@@ -62,23 +146,21 @@ ion-fab-button {
   }
 }
 
-/*  -------- Cards nel drawer --------  */
+/* -------- Cards nel drawer -------- */
 .cards {
   height: calc(100% - 24px);
   overflow-y: auto;
   padding: 0 1rem 1rem;
-  transition: all 0.25s ease; // 💡 aggiunto per transizione layout
+  transition: all 0.25s ease;
   will-change: transform, height;
-
 
   &.horizontal {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
     overflow-y: hidden !important;
-
     scroll-snap-type: x mandatory;
-    transition: transform 0.2s ease; // solo il necessario
+    transition: transform 0.2s ease;
 
     ion-card {
       flex: 0 0 90%;
@@ -87,7 +169,6 @@ ion-fab-button {
     }
   }
 }
-
 
 ion-card {
   border-radius: 12px;
@@ -125,46 +206,10 @@ ion-card {
   }
 }
 
-/*  -------- Modale dettaglio --------  */
+/* -------- Modale dettaglio -------- */
 .detail {
   ion-img {
     height: 200px;
     object-fit: cover;
-  }
-}
-.day-box {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: var(--senape);
-  color: var(--bordeaux);
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 1002;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.time-buttons {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 1002;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  button {
-    background: var(--senape);
-    color: var(--bordeaux);
-    font-weight: bold;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   }
 }
