@@ -1,8 +1,13 @@
+// routes/itinerary.js
 const express = require('express');
-const router = express.Router();
+const router  = express.Router();
 const { getItinerary } = require('../controllers/itineraryController');
 
-// Nuova route: supporta la query ?city=...&totalDays=...
+/* ───── nuove rotte ───── */
+// POST  → per il nuovo payload JSON (mustSee, mustEat, avoid, …)
+router.post('/', getItinerary);
+
+// GET   → facoltativo: la tieni se ti serve ancora la vecchia query-string
 router.get('/', getItinerary);
 
 module.exports = router;

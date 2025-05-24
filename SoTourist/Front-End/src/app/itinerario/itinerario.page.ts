@@ -11,7 +11,6 @@ import {
 import { TripWithId } from '../models/trip.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { GenerationOverlayComponent } from '../components/generation-overlay/generation-overlay.component';
@@ -19,6 +18,7 @@ import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
 import { PhotoService } from '../services/photo.service';
 import { GoogleAutocompleteComponent } from '../components/google-autocomplete/google-autocomplete.component';
+import { GenerateItineraryRequest } from '../services/api.service';
 
 
 /* ───── Ionic standalone components usati nel template ───── */
@@ -97,7 +97,6 @@ type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
     /* Angular */
     CommonModule,
     FormsModule,
-    HttpClientModule,
 
     /* Ionic */
     IonContent,
@@ -345,8 +344,16 @@ export class ItinerarioPage implements AfterViewInit {
     const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
     this.isLoading = true;
+const payload: GenerateItineraryRequest = {
+     city:         trip.city,
+  totalDays:    days,
+     accommodation:trip.accommodation,
+     mustSee:      this.tripMustSee,        // ⬅️ nuovo
+     mustEat:      this.tripEatPlaces,      // ⬅️ nuovo
+     avoid:        this.tripAlreadyVisited  // ⬅️ nuovo
+  };
 
-    this.api.getItinerary(trip.city, days, trip.accommodation).subscribe({
+   this.api.getItinerary(payload).subscribe({
       next: (res) => {
         console.log('✅ [GENERAZIONE] Risposta da backend:', res);
         console.table(res.itinerary);
