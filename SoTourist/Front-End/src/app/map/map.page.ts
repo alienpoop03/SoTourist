@@ -242,6 +242,13 @@ export class MapPage implements AfterViewInit {
     }
   }
 
+  getCurrentDayDate(): string {
+  if (!this.trip || !this.trip.startDate) return '';
+  const start = new Date(this.trip.startDate);
+  start.setDate(start.getDate() + this.currentDay - 1);
+  return start.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
   /* --------------------- Drawer gesture --------------------- */
   private setupDrawerGesture() {
     const drawer = document.querySelector('.drawer') as HTMLElement;

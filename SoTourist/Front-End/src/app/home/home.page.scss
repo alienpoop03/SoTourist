@@ -21,8 +21,8 @@
   // padding: 1.4rem 0 1.6rem;
 background: linear-gradient(
     to bottom,
-    rgb(255, 255, 255) 20%,
-    rgb(222, 241, 255) 80%
+    var(--color-background-grad1),
+    var(--color-background-grad2)
   );
 }
 
