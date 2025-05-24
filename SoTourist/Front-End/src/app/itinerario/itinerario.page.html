@@ -2,17 +2,21 @@
 
   <!-- ───── HERO ───── -->
   <div #hero class="hero"
-       [ngStyle]="{
-         'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
-         'height.px'       : heroHeight }">
-
+       [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
+                    'height.px': heroHeight }">
     <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
-      <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">
-        Benvenuto a: {{ trip?.city }}
-      </h1>
-      <p [ngStyle]="{ 'font-size': subtitleFontSize + 'rem' }">
-        Dal {{ trip?.startDate | date:'dd/MM' }} al {{ trip?.endDate | date:'dd/MM' }}
-      </p>
+      <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ trip?.city }}</h1>
+
+      <div class="hero-info">
+        <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate">
+          <p class="dates">
+            Dal {{ trip.startDate | date:'dd/MM' }} al {{ trip.endDate | date:'dd/MM' }}
+          </p>
+        </div>
+        <div class="hero-right" *ngIf="trip?.accommodation">
+          <p class="accommodation">{{ trip.accommodation }}</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -20,89 +24,87 @@
   <div class="slide-indicator">
     <span *ngFor="let name of slideNames; let i = index"
           [class.active]="i === currentSlide"
-          (click)="goToSlide(i)">
-      {{ name }}
-    </span>
+          (click)="goToSlide(i)">{{ name }}</span>
   </div>
 
-  <!-- ───── SLIDES WRAPPER ───── -->
+  <!-- spacer -->
   <div class="slide-page"></div>
 
   <div #scrollContainer class="scroll-container" (scroll)="onScroll($event)">
 
-    <!-- ▸ SLIDE 0 – LUOGHI ------------------------------------------------ -->
-<div class="slide-page places no-vert-scroll">
-
+    <!-- ▸ SLIDE 0 – LUOGHI -->
+    <div class="slide-page places no-vert-scroll">
       <h2 class="slide-title">Selezione Luoghi</h2>
 
-      <!-- Luoghi imperdibili -->
+      <!-- mustSee -->
       <ion-item button (click)="openEditorInline('mustSee')">
         <ion-label>Luoghi da non perdere</ion-label>
-        <div slot="end" class="item-preview">{{ tripMustSee || 'Nessun luogo inserito' }}</div>
+        <div slot="end" class="item-preview">
+          <ng-container *ngIf="tripMustSee?.length; else emptyMust">
+            <span class="chip-preview" *ngFor="let p of tripMustSee.slice(0,2)">{{ p }}</span>
+            <span *ngIf="tripMustSee.length > 2">+{{ tripMustSee.length - 2 }}</span>
+          </ng-container>
+          <ng-template #emptyMust>Nessun luogo inserito</ng-template>
+        </div>
       </ion-item>
 
-      <!-- Dove mangiare -->
+      <!-- eat -->
       <ion-item button (click)="openEditorInline('eat')">
         <ion-label>Posti dove vuoi mangiare</ion-label>
-        <div slot="end" class="item-preview">{{ tripEatPlaces || 'Nessuno specificato' }}</div>
+        <div slot="end" class="item-preview">
+          <ng-container *ngIf="tripEatPlaces?.length; else emptyEat">
+            <span class="chip-preview" *ngFor="let p of tripEatPlaces.slice(0,2)">{{ p }}</span>
+            <span *ngIf="tripEatPlaces.length > 2">+{{ tripEatPlaces.length - 2 }}</span>
+          </ng-container>
+          <ng-template #emptyEat>Nessuno specificato</ng-template>
+        </div>
       </ion-item>
 
-      <!-- Già visitati -->
+      <!-- visited -->
       <ion-item button (click)="openEditorInline('visited')">
         <ion-label>Posti già visitati</ion-label>
-        <div slot="end" class="item-preview">{{ tripAlreadyVisited || 'Nessuno' }}</div>
+        <div slot="end" class="item-preview">
+          <ng-container *ngIf="tripAlreadyVisited?.length; else emptyVis">
+            <span class="chip-preview" *ngFor="let p of tripAlreadyVisited.slice(0,2)">{{ p }}</span>
+            <span *ngIf="tripAlreadyVisited.length > 2">+{{ tripAlreadyVisited.length - 2 }}</span>
+          </ng-container>
+          <ng-template #emptyVis>Nessuno</ng-template>
+        </div>
       </ion-item>
     </div>
 
-    <!-- ▸ SLIDE 1 – PREFERENZE ------------------------------------------- -->
-<div class="slide-page prefs  no-vert-scroll">
-
+    <!-- ▸ SLIDE 1 – PREFERENZE -->
+    <div class="slide-page prefs no-vert-scroll">
       <h2 class="slide-title">Personalizza il tuo viaggio</h2>
 
-      <!-- Mezzo preferito -->
       <ion-item button (click)="openEditorInline('transport')">
         <ion-label>Mezzo preferito</ion-label>
-        <div slot="end" class="item-preview">
-          {{ tripTransport || 'Nessun mezzo selezionato' }}
-        </div>
+        <div slot="end" class="item-preview">{{ tripTransport || 'Nessun mezzo selezionato' }}</div>
       </ion-item>
 
-      <!-- Stile vacanza (prende i dayStyles) -->
       <ion-item button (click)="openEditorInline('style')">
         <ion-label>Stile vacanza</ion-label>
-        <div slot="end" class="item-preview">
-          {{ trip?.style || 'Nessuno' }}
-        </div>
+        <div slot="end" class="item-preview">{{ trip?.style || 'Nessuno' }}</div>
       </ion-item>
 
-      <!-- Prompt per l’AI -->
       <ion-item button (click)="openEditorInline('ai')">
         <ion-label>Chiedi un consiglio all'AI</ion-label>
-        <div slot="end" class="item-preview">
-          {{ tripPrompt || 'Nessun consiglio' }}
-        </div>
+        <div slot="end" class="item-preview">{{ tripPrompt || 'Nessun consiglio' }}</div>
       </ion-item>
     </div>
 
-    <!-- ▸ SLIDE 2 – GIORNI ------------------------------------------------ -->
+    <!-- ▸ SLIDE 2 – GIORNI -->
     <div class="slide-page">
-
       <div class="day-list">
         <div class="timeline-container">
-
-          <div *ngFor="let _ of [].constructor(daysCount); let i = index"
-               class="timeline-entry">
-
+          <div *ngFor="let _ of [].constructor(daysCount); let i = index" class="timeline-entry">
             <div class="timeline-dot"></div>
 
             <ion-card (click)="openDay(i)" class="day-card">
               <ion-card-header>
                 <ion-card-title>
-                  <div class="day-label">Giorno {{ i + 1 }}</div>
-
-                  <ion-button fill="clear"
-                              size="small"
-                              class="style-ed-btn top-right-btn"
+                  <div class="day-label">Giorno {{ i+1 }}</div>
+                  <ion-button fill="clear" size="small" class="style-ed-btn top-right-btn"
                               (click)="openDayCustomization(i); $event.stopPropagation()">
                     <ion-icon name="calendar-outline"></ion-icon>
                   </ion-button>
@@ -110,150 +112,133 @@
               </ion-card-header>
 
               <ion-card-content>
-                <p *ngIf="getDayItems(i).length > 0; else placeholder">
+                <p *ngIf="getDayItems(i).length; else placeholder">
                   <ng-container *ngFor="let item of getDayItems(i); let last = last">
                     <strong>•</strong> {{ item }}<span *ngIf="!last">&nbsp;&nbsp;</span>
                   </ng-container>
                 </p>
-                <ng-template #placeholder>
-                  <p>Programma per il giorno {{ i + 1 }}…</p>
-                </ng-template>
+                <ng-template #placeholder><p>Programma per il giorno {{ i+1 }}…</p></ng-template>
               </ion-card-content>
             </ion-card>
-
           </div>
         </div>
 
-        <div *ngIf="daysCount === 0" class="no-days">
-          Nessun giorno da mostrare.
-        </div>
+        <div *ngIf="daysCount===0" class="no-days">Nessun giorno da mostrare.</div>
       </div>
+    </div>
+  </div><!-- /scroll-container -->
 
-      <!-- Bottom-sheet personalizzazione giorno -->
-     <div class="customization-sheet inline-editor" [class.visible]="editorVisible">
-  <div class="sheet-header">
-    <h2>
-      {{
-        {
-          mustSee: 'Luoghi da non perdere',
-          eat: 'Posti dove mangiare',
-          visited: 'Luoghi già visti',
-          transport: 'Mezzo preferito',
-          ai: 'Domanda per l’AI',
-          style: 'Stile vacanza'
-        }[editorMode!] || 'Modifica'
-      }}
-    </h2>
-    <ion-button fill="clear" size="small" (click)="closeEditor()">
-      Chiudi
-    </ion-button>
-  </div>
-
-  <div class="sheet-content">
-
-    <!-- Caso speciale: selettore di stile -->
-    <ng-container *ngIf="editorMode === 'style'; else textEditor">
-      <ion-item lines="none">
-        <ion-select [(ngModel)]="editorValue" interface="popover"
-                    (ionChange)="setValueForMode('style', editorValue)">
-          <ion-select-option *ngFor="let s of dayStyles" [value]="s">{{ s }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
-    </ng-container>
-
-    <!-- Editor testuale -->
-    <ng-template #textEditor>
-      <ion-textarea autoGrow="true"
-                    [(ngModel)]="editorValue"
-                    (ngModelChange)="setValueForMode(editorMode!, $event)"
-                    placeholder="Scrivi qui...">
-      </ion-textarea>
-      <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
-    </ng-template>
-
-  </div>
-</div>
-
-
-    </div><!-- fine slide 2 -->
-  </div><!-- fine scroll-container -->
-
-  <!-- ───── EDITOR INLINE (modalità testuale + select per ‘style’) ───── -->
+  <!-- ───── MODALE (bottom-sheet) ───── -->
   <div class="customization-sheet inline-editor" [class.visible]="editorVisible">
-  <div class="sheet-header">
-    <h2>
-      {{
-        {
-          mustSee: 'Luoghi da non perdere',
-          eat: 'Posti dove mangiare',
-          visited: 'Luoghi già visti',
-          transport: 'Mezzo preferito',
-          ai: 'Domanda per l’AI',
-          style: 'Stile vacanza'
-        }[editorMode!] || 'Modifica'
-      }}
-    </h2>
-    <ion-button fill="clear" size="small" (click)="closeEditor()">Chiudi</ion-button>
+    <div class="sheet-header">
+      <h2>{{ { mustSee:'Luoghi da non perdere', eat:'Posti dove mangiare', visited:'Luoghi già visti',
+               transport:'Mezzo preferito', ai:'Domanda per l\u2019AI', style:'Stile vacanza'}[editorMode!] }}</h2>
+      <ion-button fill="clear" size="small" (click)="closeEditor()">Chiudi</ion-button>
+    </div>
+
+    <div class="sheet-content">
+
+      <!-- mustSee -->
+      <ng-container *ngIf="editorMode === 'mustSee'">
+        <app-google-autocomplete
+            placeholder="Aggiungi un luogo da non perdere…"
+            (placeSelected)="onPlaceSelected('mustSee', $event)">
+        </app-google-autocomplete>
+
+        <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
+
+        <div class="chip-container">
+          <div class="chip" *ngFor="let p of tripMustSee; let i = index">
+            {{ p }}
+            <button class="chip-remove" (click)="removePlaceFromMode('mustSee', i)">✕</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- eat -->
+      <ng-container *ngIf="editorMode === 'eat'">
+        <app-google-autocomplete
+            placeholder="Aggiungi un posto dove mangiare…"
+            (placeSelected)="onPlaceSelected('eat', $event)">
+        </app-google-autocomplete>
+
+        <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
+
+        <div class="chip-container">
+          <div class="chip" *ngFor="let p of tripEatPlaces; let i = index">
+            {{ p }}
+            <button class="chip-remove" (click)="removePlaceFromMode('eat', i)">✕</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- visited -->
+      <ng-container *ngIf="editorMode === 'visited'">
+        <app-google-autocomplete
+            placeholder="Aggiungi un luogo già visitato…"
+            (placeSelected)="onPlaceSelected('visited', $event)">
+        </app-google-autocomplete>
+
+        <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
+
+        <div class="chip-container">
+          <div class="chip" *ngFor="let p of tripAlreadyVisited; let i = index">
+            {{ p }}
+            <button class="chip-remove" (click)="removePlaceFromMode('visited', i)">✕</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- style -->
+      <ng-container *ngIf="editorMode === 'style'">
+        <ion-list>
+          <ion-item button (click)="selectValue('Standard')">🚶‍♂️ Standard</ion-item>
+          <ion-item button (click)="selectValue('Giornata al mare')">🚗 Giornata al mare</ion-item>
+          <ion-item button (click)="selectValue('Giornata nei musei')">🚌 Giornata nei musei</ion-item>
+          <ion-item button (click)="selectValue('Shopping')">🚴‍♀️ Shopping</ion-item>
+                  <ion-item button (click)="selectValue('Avventura')">🚴‍♀️ Avventura</ion-item>
+          <ion-item button (click)="selectValue('Food Tour')">🚴‍♀️ Food Tour</ion-item>
+          <ion-item button (click)="selectValue('Escursione')">🚴‍♀️ Escursione</ion-item>
+          <ion-item button (click)="selectValue('Relax')">🚴‍♀️ Relax</ion-item>
+
+        
+        
+        
+        </ion-list>
+
+      </ng-container>
+
+
+      <!-- transport -->
+      <ng-container *ngIf="editorMode === 'transport'">
+        <ion-list>
+          <ion-item button (click)="selectValue('walk')">🚶‍♂️ A piedi</ion-item>
+          <ion-item button (click)="selectValue('car')">🚗 Auto</ion-item>
+          <ion-item button (click)="selectValue('bus')">🚌 Bus</ion-item>
+          <ion-item button (click)="selectValue('bike')">🚴‍♀️ Bicicletta</ion-item>
+        </ion-list>
+      </ng-container>
+
+      <!-- ai -->
+      <ng-container *ngIf="editorMode === 'ai'">
+        <ion-textarea autoGrow="true" placeholder="Scrivi qui…"
+                      [(ngModel)]="editorValue"
+                      (ngModelChange)="setValueForMode('ai', $event)"></ion-textarea>
+        <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
+      </ng-container>
+    </div>
   </div>
 
-  <div class="sheet-content">
-
-    <!-- Mezzo preferito (scelta diretta) -->
-    <ng-container *ngIf="editorMode === 'transport'">
-      <ion-list>
-        <ion-item button (click)="selectValue('walk')">🚶‍♂️ A piedi</ion-item>
-        <ion-item button (click)="selectValue('car')">🚗 Auto</ion-item>
-        <ion-item button (click)="selectValue('bus')">🚌 Bus</ion-item>
-        <ion-item button (click)="selectValue('bike')">🚴‍♀️ Bicicletta</ion-item>
-      </ion-list>
-    </ng-container>
-
-    <!-- Stile vacanza (scelta diretta) -->
-    <ng-container *ngIf="editorMode === 'style'">
-      <ion-list>
-        <ion-item button *ngFor="let s of dayStyles" (click)="selectValue(s)">
-          {{ s }}
-        </ion-item>
-      </ion-list>
-    </ng-container>
-
-    <!-- Editor testuale per gli altri -->
-    <ng-container *ngIf="editorMode !== 'style' && editorMode !== 'transport'">
-      <ion-textarea
-        autoGrow="true"
-        [(ngModel)]="editorValue"
-        (ngModelChange)="setValueForMode(editorMode!, $event)"
-        placeholder="Scrivi qui...">
-      </ion-textarea>
-
-      <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
-    </ng-container>
-
-  </div>
-</div>
-
-
-  <!-- ───── GENERA ITINERARIO: pulsante flottante ───── -->
+  <!-- ───── FAB Genera Itinerario ───── -->
   <div class="generate-container fixed">
     <ion-button class="generate-btn"
                 (click)="generateItinerary()"
-                *ngIf="!isLoading && isLocalTrip">
-      Genera Itinerario
-    </ion-button>
-
-    <ion-button class="generate-btn" disabled *ngIf="isLoading">
-      Caricamento…
-    </ion-button>
-
-    <ion-button class="generate-btn" disabled *ngIf="!isLoading && !isLocalTrip">
-      Itinerario già generato
-    </ion-button>
+                *ngIf="!isLoading && isLocalTrip">Genera Itinerario</ion-button>
+    <ion-button class="generate-btn" disabled *ngIf="isLoading">Caricamento…</ion-button>
+    <ion-button class="generate-btn" disabled *ngIf="!isLoading && !isLocalTrip">Itinerario già generato</ion-button>
   </div>
 
 </ion-content>
 
-<!-- Overlay di caricamento -->
-<app-generation-overlay *ngIf="isLoading" [message]="'Generazione in corso…'">
-</app-generation-overlay>
+<!-- Overlay -->
+<app-generation-overlay *ngIf="isLoading" [message]="'Generazione in corso…'"></app-generation-overlay>
