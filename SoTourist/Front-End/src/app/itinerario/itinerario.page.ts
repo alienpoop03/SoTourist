@@ -19,7 +19,7 @@ import { AuthService } from '../services/auth.service';
 import { PhotoService } from '../services/photo.service';
 import { GoogleAutocompleteComponent } from '../components/google-autocomplete/google-autocomplete.component';
 import { GenerateItineraryRequest } from '../services/api.service';
-
+import { AlertController, ModalController } from '@ionic/angular/standalone';
 
 /* ───── Ionic standalone components usati nel template ───── */
 import {
@@ -97,7 +97,6 @@ type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
     /* Angular */
     CommonModule,
     FormsModule,
-
     /* Ionic */
     IonContent,
     IonCard, IonCardHeader, IonCardTitle, IonCardContent,
@@ -172,6 +171,8 @@ export class ItinerarioPage implements AfterViewInit {
     private itineraryService: ItineraryService,
     private auth: AuthService,
     private photoService: PhotoService,
+        private alertController: AlertController,
+    private modalController: ModalController
 
   ) { }
 
@@ -704,4 +705,70 @@ const payload: GenerateItineraryRequest = {
     });
   }
 
+   async openDateEdit() {
+    const alert = await this.alertController.create({
+      header: 'Modifica date',
+      inputs: [
+        {
+          name: 'startDate',
+          type: 'date',
+          value: this.trip.startDate?.slice(0, 10) || ''
+        },
+        {
+          name: 'endDate',
+          type: 'date',
+          value: this.trip.endDate?.slice(0, 10) || ''
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Salva',
+          handler: data => {
+            if (data.startDate && data.endDate) {
+              this.trip.startDate = data.startDate;
+              this.trip.endDate = data.endDate;
+              // potresti voler aggiornare anche il backend qui se già salvato
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async openAccommodationEdit() {
+    const alert = await this.alertController.create({
+      header: 'Modifica alloggio',
+      inputs: [
+        {
+          name: 'accommodation',
+          type: 'text',
+          value: this.trip.accommodation || '',
+          placeholder: 'Inserisci nuovo alloggio'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Salva',
+          handler: data => {
+            if (data.accommodation?.trim()) {
+              this.trip.accommodation = data.accommodation.trim();
+              // salva nel backend se necessario
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }
