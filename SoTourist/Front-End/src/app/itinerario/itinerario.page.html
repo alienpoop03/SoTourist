@@ -6,16 +6,17 @@
     <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
       <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ trip?.city }}</h1>
 
-      <div class="hero-info">
-        <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate">
-          <p class="dates">
-            Dal {{ trip.startDate | date:'dd/MM' }} al {{ trip.endDate | date:'dd/MM' }}
-          </p>
-        </div>
-        <div class="hero-right" *ngIf="trip?.accommodation">
-          <p class="accommodation">{{ trip.accommodation }}</p>
-        </div>
-      </div>
+     <div class="hero-info">
+  <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate" (click)="openDateEdit()">
+    <p class="dates">
+      Dal {{ trip.startDate | date:'dd/MM' }} al {{ trip.endDate | date:'dd/MM' }}
+    </p>
+  </div>
+  <div class="hero-right" *ngIf="trip?.accommodation" (click)="openAccommodationEdit()">
+    <p class="accommodation">{{ trip.accommodation }}</p>
+  </div>
+</div>
+
     </div>
   </div>
 
@@ -94,30 +95,30 @@
     <!-- ▸ SLIDE 2 – GIORNI -->
     <div class="slide-page">
       <div class="day-list">
-        <div *ngFor="let _ of [].constructor(daysCount); let i = index" class="timeline-entry">
+          <div *ngFor="let _ of [].constructor(daysCount); let i = index" class="timeline-entry">
 
-          <ion-card (click)="openDay(i)" class="day-card">
-            <ion-card-header>
-              <ion-card-title>
-                <div class="day-label">Giorno {{ i+1 }}</div>
-                <ion-button fill="clear" size="small" class="style-ed-btn top-right-btn"
-                  (click)="openDayCustomization(i); $event.stopPropagation()">
-                  <ion-icon name="calendar-outline"></ion-icon>
-                </ion-button>
-              </ion-card-title>
-            </ion-card-header>
+            <ion-card (click)="openDay(i)" class="day-card">
+              <ion-card-header>
+                <ion-card-title>
+                  <div class="day-label">Giorno {{ i+1 }}</div>
+                  <ion-button fill="clear" size="small" class="style-ed-btn top-right-btn"
+                    (click)="openDayCustomization(i); $event.stopPropagation()">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                  </ion-button>
+                </ion-card-title>
+              </ion-card-header>
 
-            <ion-card-content>
-              <p *ngIf="getDayItems(i).length; else placeholder">
-                <ng-container *ngFor="let item of getDayItems(i); let last = last">
-                  <strong>•</strong> {{ item }}<span *ngIf="!last">&nbsp;&nbsp;</span>
-                </ng-container>
-              </p>
-              <ng-template #placeholder>
-                <p>Programma per il giorno {{ i+1 }}…</p>
-              </ng-template>
-            </ion-card-content>
-          </ion-card>
+              <ion-card-content>
+                <p *ngIf="getDayItems(i).length; else placeholder">
+                  <ng-container *ngFor="let item of getDayItems(i); let last = last">
+                    <strong>•</strong> {{ item }}<span *ngIf="!last">&nbsp;&nbsp;</span>
+                  </ng-container>
+                </p>
+                <ng-template #placeholder>
+                  <p>Programma per il giorno {{ i+1 }}…</p>
+                </ng-template>
+              </ion-card-content>
+            </ion-card>
 
         </div>
         <div *ngIf="daysCount===0" class="no-days">Nessun giorno da mostrare.</div>
