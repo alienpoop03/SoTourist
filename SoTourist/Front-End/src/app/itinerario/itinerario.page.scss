@@ -110,13 +110,6 @@
   color: var(--color-text2);
 }
 
-.timeline-container {
-  position: relative;
-  padding-left: 24px;
-  border-left: 3px solid var(--color-highlight);
-  margin-left: 1rem;
-}
-
 .timeline-entry {
   position: relative;
   margin-bottom: 1.5rem;
@@ -137,11 +130,10 @@
 /* ------------- CARD GIORNO ------------- */
 .day-card {
   margin-left: 1rem;
-  border-left: 5px solid var(--color-primary);
   border-radius: 12px;
   padding-left: 1rem;
-  background: var(--color-background);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+  background: rgb(244, 244, 244);
+  // box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
   transition: transform .2s ease;
 
   &:active {
@@ -157,6 +149,10 @@
   ion-card-content {
     font-size: .95rem;
     color: var(--color-text2);
+  }
+
+  ion-icon{
+    padding-top: -20px;
   }
 }
 
@@ -227,15 +223,39 @@
 
 }
 
-.generate-btn {
-  --background: var(--color-highlight);
-  --color: var(--color-primary);
-  --box-shadow: none;
-  --border-radius: 6px;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0 1rem;
-  height: 44px;
+.genera-itinerario-btn {
+  --background: var(--color-primary);
+  --color: #fff;
+  --border-radius: 16px;
+  --box-shadow: 0 2px 16px rgba(123, 30, 30, 0.13);
+  --padding-top: 0.8rem;
+  --padding-bottom: 0.8rem;
+  --padding-start: 2rem;
+  --padding-end: 2rem;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  transition: background 0.16s;
+
+  ion-icon {
+    font-size: 1.35em;
+    margin-right: 0.8em;
+  }
+
+  &:hover,
+  &:active {
+    --background: var(--color-highlight);
+    --color: var(--color-primary);
+    filter: brightness(1.08);
+
+    ion-icon {
+      color: var(--color-primary); // <-- colore icona in hover
+    }
+  }
 }
 
 ion-card-content p {
