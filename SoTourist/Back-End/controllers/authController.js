@@ -238,12 +238,15 @@ exports.updateProfileImage = (req, res) => {
   const { base64 } = req.body;
 
   if (base64 === "") {
-    // Tratta come DELETE
     db.run(
       `UPDATE users SET profileImage = NULL WHERE userId = ?`,
       [userId],
       function (err) {
-        if (err) return res.status(500).json({ error: 'Errore interno.' });
+        if (err) {
+          console.error('Errore eliminazione foto:', err.message);
+          return res.status(500).json({ error: 'Errore interno del server.' });
+        }
+        console.log('Foto eliminata per', userId, 'Rows:', this.changes);
         res.json({ message: 'Foto profilo eliminata.' });
       }
     );
