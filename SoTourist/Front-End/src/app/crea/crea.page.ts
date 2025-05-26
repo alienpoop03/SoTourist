@@ -135,13 +135,11 @@ export class CreaPage {
           this.isCityValid = !!this.city;
           break;
         case 2:
-          this.accommodation = '';
-          this.accommodationInput = '';
-          this.isAccommodationValid = false;
+          this.accommodationInput = this.accommodation; // ripristina input
+          this.isAccommodationValid = !!this.accommodation; // flag valido se presente
           break;
         case 3:
-          this.dates = { start: '', end: '' };
-          this.datesInput = { start: '', end: '' };
+          this.datesInput = { ...this.dates }; // ripristina nell’input
           break;
       }
     }
