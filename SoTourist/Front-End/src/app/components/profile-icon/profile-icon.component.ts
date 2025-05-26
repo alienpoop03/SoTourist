@@ -17,6 +17,7 @@ export class ProfileIconComponent implements OnInit {
   @Input({ required: true }) userId!: string;
   @Input() size = 100;
   @Input() editable = false;
+  @Input() forcePlaceholder: boolean = false;
   /** opzionale: se il padre vuole settare un’immagine all’avvio */
   @Input() src: string | null = null;
 
