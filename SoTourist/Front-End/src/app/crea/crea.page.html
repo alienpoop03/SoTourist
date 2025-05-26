@@ -30,7 +30,7 @@
   <div class="steps-wrapper" [style.transform]="'translateX(-' + (step - 1) * 100 + 'vw)'">
 
     <!-- STEP 1: CITTÀ -->
-    <div class="step-card">
+    <div class="step-card prima-card">
       <h2>In quale città sei?</h2>
 
       <app-google-autocomplete placeholder="Città" [types]="['(cities)']" [restrictToBounds]="false"
@@ -67,7 +67,7 @@
     </div>
 
     <!-- STEP 3: DATE -->
-    <div class="step-card">
+    <div class="step-card ultima-card">
       <h2>Quando?</h2>
       <app-range-calendar-lite [minDate]="today" (datesSelected)="onDatesSelected($event)">
       </app-range-calendar-lite>

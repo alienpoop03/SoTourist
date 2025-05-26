@@ -126,9 +126,24 @@ ion-content.crea-content {
   border: 1.5px solid var(--color-background2);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
-  min-height: 450px;
+  min-height: auto;   /* oppure rimuovi completamente questa riga */
+  height: auto; 
   position: relative;
   overflow: visible;
+}
+.step-card.prima-card {
+  min-height: 340px; /* ad esempio, invece di 450px */
+}
+.step-card.prima-card h2 {
+  margin-top: -0.4rem;  /* sposta la scritta più in alto */
+  margin-bottom: 0.8rem; /* avvicina l'input */
+}
+.step-card.ultima-card {
+  min-height: 340px; /* ad esempio, invece di 450px */
+}
+.step-card.prima-card h2 {
+  margin-top: -0.4rem;  /* sposta la scritta più in alto */
+  margin-bottom: 0.8rem; /* avvicina l'input */
 }
 
 .step-card h2 {
