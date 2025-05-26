@@ -55,7 +55,6 @@ export class CreaPage {
       this.city = value.trim();
       this.step = 2;
       this.accommodationInput = '';
-      // Non toccare altre variabili qui
 
       const autocomplete = new google.maps.places.AutocompleteService();
       autocomplete.getPlacePredictions({ input: this.city }, (predictions, status) => {
@@ -130,11 +129,9 @@ export class CreaPage {
   prevStep() {
     if (this.step > 1) {
       this.step--;
-      // Se torni indietro, puoi svuotare i valori confermati dello step attuale:
       switch (this.step) {
         case 1:
-          // NON cancellare this.city! Lascia il valore confermato.
-          this.cityInput = this.city; // ripristina input se serve
+          this.cityInput = this.city;
           this.isCityValid = !!this.city;
           break;
         case 2:
@@ -155,8 +152,6 @@ export class CreaPage {
       start: event.from,
       end: event.to
     };
-    // Se vuoi andare avanti automaticamente:
-    // this.setDates(event.from, event.to);
   }
 
   showFinalRecap = false;
@@ -166,17 +161,15 @@ export class CreaPage {
     if (this.datesInput.start && this.datesInput.end) {
       this.dates = { start: this.datesInput.start, end: this.datesInput.end };
       this.showFinalRecap = true;
-      // NON step = 4
     }
   }
 
 
   handleCityPlace(place: google.maps.places.PlaceResult) {
-    // ⚡️ Solo se place valido!
     if (place && (place.place_id || place.geometry)) {
       this.cityInput = place.formatted_address ?? place.name ?? '';
       this.city = this.cityInput;
-      this.isCityValid = true;         // <--- FLAG!
+      this.isCityValid = true;        
       this.step = 2;
 
       if (place.geometry?.viewport) {
@@ -185,7 +178,7 @@ export class CreaPage {
 
       // Reset step successivo
       this.accommodationInput = '';
-      this.isAccommodationValid = false;  // Reset flag!
+      this.isAccommodationValid = false; 
     } else {
       this.isCityValid = false;
     }
@@ -195,15 +188,14 @@ export class CreaPage {
     if (place && (place.place_id || place.geometry)) {
       this.accommodationInput = place.formatted_address ?? place.name ?? '';
       this.accommodation = this.accommodationInput;
-      // 🔥 Filtro città
       if (!this.isPlaceInBounds(place)) {
         alert('Seleziona un alloggio nella città scelta!');
         this.accommodationInput = '';
         this.accommodation = '';
-        this.isAccommodationValid = false; // flag KO
+        this.isAccommodationValid = false; 
         return;
       }
-      this.isAccommodationValid = true; // flag OK
+      this.isAccommodationValid = true; 
       this.step = 3;
     } else {
       this.isAccommodationValid = false;
