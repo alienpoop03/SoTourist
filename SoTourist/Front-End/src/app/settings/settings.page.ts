@@ -53,6 +53,7 @@ export class SettingsPage {
 
 
   /* profilo */
+  userId: string = '';
   username = '';
   email = '';
   password = '';
@@ -191,6 +192,7 @@ export class SettingsPage {
     const profile = localStorage.getItem('userProfile');
     if (profile) {
       const parsed = JSON.parse(profile);
+      this.userId = localStorage.getItem('userId') || '';
       this.username = parsed.username || '';
       this.email = parsed.email || '';
     } 

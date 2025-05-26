@@ -232,3 +232,42 @@ exports.getUserType = (req, res) => {
     });
   });
 };
+
+exports.updateProfileImage = (req, res) => {
+  const { userId } = req.params;
+  const { base64 } = req.body;
+
+  if (!base64) {
+    return res.status(400).json({ error: 'Base64 image is required.' });
+  }
+
+  const query = `UPDATE users SET profileImage = ? WHERE userId = ?`;
+
+  db.run(query, [base64, userId], function (err) {
+    if (err) {
+      console.error('Errore nel salvataggio immagine:', err.message);
+      return res.status(500).json({ error: 'Errore interno del server.' });
+    }
+
+    res.json({ message: 'Immagine del profilo aggiornata con successo.' });
+  });
+};
+
+exports.getProfileImage = (req, res) => {
+  const { userId } = req.params;
+
+  const query = `SELECT profileImage FROM users WHERE userId = ?`;
+
+  db.get(query, [userId], (err, row) => {
+    if (err) {
+      console.error('Errore nel recupero immagine profilo:', err.message);
+      return res.status(500).json({ error: 'Errore interno del server.' });
+    }
+
+    if (!row || !row.profileImage) {
+      return res.json({ base64: null });
+    }
+
+    res.json({ base64: row.profileImage });
+  });
+};

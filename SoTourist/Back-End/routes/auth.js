@@ -9,6 +9,9 @@ router.post('/login', authController.login);
 // Gestione utente
 router.delete('/users/:userId', authController.deleteUser);
 router.put('/users/:userId', authController.updateUser);
+router.put('/users/:userId/profile-image', authController.updateProfileImage);
+router.get('/users/:userId/profile-image', authController.getProfileImage);
+
 
 // Abbonamento premium/gold
 router.post('/users/:userId/upgrade', authController.upgradeToPremium);

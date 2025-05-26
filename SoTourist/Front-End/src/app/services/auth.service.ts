@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_BASE_URL } from './ip.config';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -75,4 +76,21 @@ export class AuthService {
     return this.http.delete(`${this.baseUrl}/users/${userId}`);
   }
 
+  updateProfileImage(userId: string, base64Image: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/users/${userId}/profile-image`, {
+      base64: base64Image
+    });
+  }
+
+  getProfileImageBlob(userId: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/users/${userId}/profile-image`, {
+      responseType: 'blob' // 👈 Ricevi il binario
+    });
+  }
+
+  getProfileImage(userId: string) {
+    return this.http.get<{ base64: string }>(
+      `${this.baseUrl}/users/${userId}/profile-image`
+    );
+  }
 }
