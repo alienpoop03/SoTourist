@@ -15,7 +15,7 @@
 
 ion-content.crea-content {
   --background: none !important;
-    background: linear-gradient(
+  background: linear-gradient(
     180deg,
     var(--color-background) 0%,
     var(--color-background1) 100%
@@ -44,63 +44,63 @@ ion-content.crea-content {
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  &.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
+.riepilogo-header.show {
+  opacity: 1;
+  pointer-events: auto;
+}
 
-  .circle-icon {
-    min-width: 54px;
-    min-height: 54px;
-    background: var(--color-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-background);
-    font-size: 2rem;
-    margin-right: 1rem;
-    flex-shrink: 0;
-  }
+.riepilogo-header .circle-icon {
+  min-width: 54px;
+  min-height: 54px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-background);
+  font-size: 2rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
 
-  .trip-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.13rem;
-  }
+.riepilogo-header .trip-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.13rem;
+}
 
-  .trip-city {
-    font-size: 1.22rem;
-    color: var(--color-primary);
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    line-height: 1.08;
-  }
+.riepilogo-header .trip-city {
+  font-size: 1.22rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.08;
+}
 
-  .trip-details {
-    font-size: 1.01rem;
-    color: var(--color-text2);
-    font-weight: 500;
-    margin-top: 0.10em;
-    opacity: 0.93;
-    display: flex;
-    flex-direction: row;
-    gap: 1.1em;
-    flex-wrap: wrap;
-  }
+.riepilogo-header .trip-details {
+  font-size: 1.01rem;
+  color: var(--color-text2);
+  font-weight: 500;
+  margin-top: 0.10em;
+  opacity: 0.93;
+  display: flex;
+  flex-direction: row;
+  gap: 1.1em;
+  flex-wrap: wrap;
+}
 
-  .trip-detail-label {
-    font-weight: 600;
-    opacity: 0.66;
-    margin-right: 0.17em;
-  }
+.riepilogo-header .trip-detail-label {
+  font-weight: 600;
+  opacity: 0.66;
+  margin-right: 0.17em;
+}
 
-  .trip-detail-val {
-    font-weight: 500;
-    opacity: 0.92;
-    margin-right: 1em;
-  }
+.riepilogo-header .trip-detail-val {
+  font-weight: 500;
+  opacity: 0.92;
+  margin-right: 1em;
 }
 
 /* WRAPPER STEP */
@@ -126,101 +126,118 @@ ion-content.crea-content {
   border: 1.5px solid var(--color-background2);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
-  min-height: 450px; /* Prepara spazio per dropdown autocomplete */
-  position: relative; /* Permette dropdown posizionato assoluto */
+  min-height: auto;   
+  height: auto; 
+  position: relative;
   overflow: visible;
-
-  h2 {
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  input[type="text"],
-  input[type="date"] {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 1rem;
-    font-size: 1.04rem;
-    border: 2px solid var(--color-primary);
-    border-radius: 10px;
-    padding: 0.6rem 1rem;
-    background: var(--color-background2);
-    color: var(--color-text1);
-    outline: none;
-    transition: border 0.2s;
-
-    &:focus {
-      border: 2px solid var(--color-highlight);
-    }
-  }
-
-  .next-btn {
-    background: var(--color-highlight);
-    color: var(--color-primary);
-    font-weight: bold;
-    border: none;
-    border-radius: 14px;
-    font-size: 1.01rem;
-    padding: 0.67rem 2.1rem;
-    margin-top: 1rem;
-    margin-bottom: 0.3rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-
-    &:disabled {
-      background: #eee;
-      color: #ccc;
-      cursor: not-allowed;
-    }
-
-    &.conferma {
-      background: var(--color-primary);
-      color: var(--color-background);
-    }
-  }
-
-  .prev-btn {
-    background: transparent;
-    color: var(--color-primary);
-    font-weight: 500;
-    border: none;
-    margin-top: 0.12rem;
-    font-size: 0.93rem;
-    cursor: pointer;
-    text-decoration: underline;
-    transition: color 0.2s;
-
-    &:hover {
-      color: var(--color-highlight);
-    }
-  }
-
-  app-range-calendar-lite,
-  .calendar-host {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0.4rem;
-    margin-bottom: 0.3rem;
-  }
+}
+.step-card.prima-card {
+  min-height: 340px; 
+}
+.step-card.prima-card h2 {
+  margin-top: -0.4rem;  
+  margin-bottom: 0.8rem; 
+}
+.step-card.ultima-card {
+  min-height: 340px; 
+}
+.step-card.prima-card h2 {
+  margin-top: -0.4rem;  
+  margin-bottom: 0.8rem; 
 }
 
-/* Autocomplete container di Google (iniettato) */
+.step-card h2 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.step-card input[type="text"],
+.step-card input[type="date"] {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  font-size: 1.04rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  background: var(--color-background2);
+  color: var(--color-text1);
+  outline: none;
+  transition: border 0.2s;
+}
+
+.step-card input[type="text"]:focus,
+.step-card input[type="date"]:focus {
+  border: 2px solid var(--color-highlight);
+}
+
+.step-card .next-btn {
+  background: var(--color-highlight);
+  color: var(--color-primary);
+  font-weight: bold;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.01rem;
+  padding: 0.67rem 2.1rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.step-card .next-btn:disabled {
+  background: #eee;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.step-card .next-btn.conferma {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+.step-card .prev-btn {
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: 500;
+  border: none;
+  margin-top: 0rem;
+  font-size: 0.93rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.step-card .prev-btn:hover {
+  color: var(--color-highlight);
+}
+
+.step-card app-range-calendar-lite,
+.step-card .calendar-host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Autocomplete container di Google */
 .pac-container {
   z-index: 9999 !important;
   position: absolute !important;
-  top: 100% !important; /* Posizionato sotto l’input */
+  top: 100% !important;
   left: 0 !important;
-  transform: translateY(10px); /* Spazio verso il basso */
+  transform: translateY(10px);
 }
 
+/* Spazio per header fisso */
 .card-spacer {
-  height: 74px; /* Altezza base del riepilogo-header */
-  margin-bottom: 2rem; /* Stessa distanza del .riepilogo-header */
+  height: 74px;
+  margin-bottom: 2rem;
   width: 100%;
   flex-shrink: 0;
 }

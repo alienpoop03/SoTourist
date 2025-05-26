@@ -14,10 +14,12 @@
   }
 
   .selected-dates {
+    text-align: center;
     background: var(--color-background2);
     padding: 12px;
     border-radius: 8px;
     font-size: 1rem;
+    margin-top: 60px;
     color: var(--color-text2);
   }
 
