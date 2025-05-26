@@ -133,13 +133,18 @@ export class CreaPage {
       // Se torni indietro, puoi svuotare i valori confermati dello step attuale:
       switch (this.step) {
         case 1:
-          this.city = '';
+          // NON cancellare this.city! Lascia il valore confermato.
+          this.cityInput = this.city; // ripristina input se serve
+          this.isCityValid = !!this.city;
           break;
         case 2:
           this.accommodation = '';
+          this.accommodationInput = '';
+          this.isAccommodationValid = false;
           break;
         case 3:
           this.dates = { start: '', end: '' };
+          this.datesInput = { start: '', end: '' };
           break;
       }
     }
