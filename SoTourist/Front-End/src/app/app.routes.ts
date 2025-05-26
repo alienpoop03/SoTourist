@@ -51,14 +51,8 @@ export const routes: Routes = [
     loadComponent: () => import('./modifica-date/modifica-date.page').then( m => m.ModificaDatePage)
   },
   {
-    path: 'stickers',
-    loadComponent: () => import('./stickers/stickers.page').then( m => m.StickersPage),
+    path: 'personalizzazione',
+    loadComponent: () => import('./personalizzazione/personalizzazione.page').then( m => m.PersonalizzazionePage),
     canActivate: [PremiumGuard]
   },
-  {
-    path: 'personalizzazione',
-    loadComponent: () => import('./personalizzazione/personalizzazione.page').then( m => m.PersonalizzazionePage)
-  },
-
-
 ];
