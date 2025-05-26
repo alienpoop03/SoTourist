@@ -19,7 +19,7 @@
 .hero {
   position: relative;
   width: 100%;
-  height: 60vh;
+  height: 50vh;
   border-bottom-left-radius: 28px;
   border-bottom-right-radius: 28px;
   overflow: hidden;
@@ -141,7 +141,7 @@
 
 /* ───── Lista itinerari consigliati ───── */
 .featured {
-  padding: 1.6rem 1rem 0;
+  padding: 0 1rem 0 1rem;
 
   .featured-list {
     display: flex;
@@ -153,6 +153,7 @@
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
       background: var(--color-background1);
+      margin: 0;
 
       img {
         width: 100%;
@@ -181,13 +182,14 @@
 
 /* ───── Prossimo viaggio ───── */
 .next-trip {
-  padding: 1.6rem 1rem 0;
+  padding: 0 1rem 0 1rem;
 
   .next-card {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     background: var(--color-background1);
+    margin:0;
 
     img {
       width: 100%;
