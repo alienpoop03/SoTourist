@@ -25,7 +25,7 @@ export class PremiumGuard implements CanActivate {
         return true;
       }
 
-      this.router.navigate(['/upgrade-needed']);
+      this.router.navigate(['/upgrade']);
       return false;
     } catch (error) {
       console.error('Errore durante la verifica del tipo utente:', error);
