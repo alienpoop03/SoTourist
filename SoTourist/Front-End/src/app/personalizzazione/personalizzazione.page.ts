@@ -92,34 +92,10 @@ return Array.isArray(arr) && arr.length > 0 && 'morning' in arr[0];
   selectDay(i: number) { this.activeDay.set(i); }
 
   addPlace(slot: typeof this.slots[number]) {
-  const tipo = prompt('Che tipo di luogo vuoi aggiungere?\nScrivi "mangiare" o "vedere"');
-
-  if (!tipo || !['mangiare', 'vedere'].includes(tipo.toLowerCase())) return;
-
-  const placeType = tipo === 'mangiare' ? 'restaurant' : 'tourist_attraction';
-
-  // Qui aprirai il componente Autocomplete, oppure simuli con un name
-  const name = prompt('Inserisci il nome del luogo'); // per ora solo test
-  if (!name) return;
-
-  const newPlace: Place = {
-    placeId: 'mock_' + Date.now(),
-    name,
-    day: this.activeDay() + 1,
-    timeSlot: slot,
-    lat: 41.9 + Math.random() * 0.01,
-    lng: 12.49 + Math.random() * 0.01,
-    address: 'Via Esempio 123, Roma',
-    photoUrl: '',
-    type: placeType,
-    note: ''
-  };
-
-  const d = structuredClone(this.days());
-  d[this.activeDay()][slot].push(newPlace);
-  this.days.set(d);
-}
-
+    const d = structuredClone(this.days());
+    d[this.activeDay()][slot].push({} as Place);   // placeholder vuoto
+    this.days.set(d);
+  }
 
   editPlace(i: number, slot: typeof this.slots[number]) {
     const name = prompt('Nome luogo?');
