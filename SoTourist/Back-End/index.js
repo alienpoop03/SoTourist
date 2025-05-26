@@ -7,7 +7,7 @@ const tripRoutes = require('./routes/trip');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const HOST = 'localhost';
+const HOST = '0.0.0.0';
 
 app.use(cors({
     origin: '*'
