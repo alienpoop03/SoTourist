@@ -1,4 +1,4 @@
-<div class="avatar-wrapper" (click)="triggerFileInput()">
+<!--<div class="avatar-wrapper" (click)="triggerFileInput()">
   <img *ngIf="src; else placeholder" [src]="src" alt="Foto profilo" />
   <ng-template #placeholder>
     <ion-icon name="person-outline" id="profile-img-id"></ion-icon>
@@ -10,5 +10,30 @@
     accept="image/*"
     (change)="onImageSelected($event)"
   />
+</div>-->
+
+<div
+  class="avatar-wrapper"
+  [style.width.px]="size"
+  [style.height.px]="size"
+  (click)="triggerFileInput()"
+>
+  <img *ngIf="image; else placeholder" [src]="image" alt="Foto profilo" />
+  <ng-template #placeholder>
+    <ion-icon name="person-circle-outline" [style.fontSize.px]="size * 0.8"></ion-icon>
+  </ng-template>
+
+  <input
+    id="fileInput"
+    type="file"
+    hidden
+    accept="image/*"
+    (change)="onImageSelected($event)"
+  />
 </div>
+
+
+
+
+
 

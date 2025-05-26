@@ -1,258 +1,253 @@
-/*                        */
-/* ----- BASE LAYOUT -----*/
-/*                        */
+/* ───── Layout base ───── */
 .home-content {
-  // --background: rgb(255, 255, 224);
+  --background: var(--color-background);
+  display: flex;
+  flex-direction: column;
 }
 
-//////// PER NASCONDERE SCROLLBAR VERTICALE ////////
+/* nascondo la scrollbar default */
 :host ::ng-deep ion-content {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
 :host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
   display: none !important;
 }
-//////// PER NASCONDERE SCROLLBAR VERTICALE ////////
 
-/* Sezioni con stacco graduale */
-.cards-section {
-  position: relative; //forse si puo togliere
-  // padding: 1.4rem 0 1.6rem;
-background: linear-gradient(
-    to bottom,
-    var(--color-background-grad1),
-    var(--color-background-grad2)
-  );
-}
-
-.section-divider {
+/* ───── Hero ───── */
+.hero {
+  position: relative;
   width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #ffcc00, var(--color-primary) 60%);
-  border-radius: 3px;
-  opacity: 0.3;
+  height: 60vh;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  overflow: hidden;
+
+  .hero-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 1rem 2rem;
+    z-index: 1;
+    background: linear-gradient(to top,
+        rgb(0, 0, 0),
+        rgba(255, 255, 255, 0)50%);
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    color: #fff;
+    opacity: 0.9;
+  }
 }
 
-/* Badge */
-.section-badge {
-  display: inline-block;
-  margin: 1rem 0 0.5rem 1rem;
-  padding: 2px 10px;
-  font-size: 0.62rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .4px;
-  color: var(--color-primary);
-  background: var(--color-highlight);
-  border-radius: 10px;
+/* ───── Heading sezione ───── */
+.section-heading {
+  padding: 1.4rem 1rem 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ion-button {
+    --color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: none;
+  }
 }
 
-/* Titolo sezione */
 .section-title {
-  margin: 0 0 0.5rem 1rem;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--color-text);
 }
 
-/*                        */
-/* ----- CARDS LIST  -----*/
-/*                        */
-.cards-scroll {
-  padding-right: 1rem;
+/* ───── Destinazioni trend (scroll) ───── */
+
+.trending-scroll {
   padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
-  // gap: 2px;               /* quasi attaccate */
+  gap: 14px;
   overflow-x: auto;
   scroll-snap-type: none;
 
-  // Per nascondere scrollbar orizzontale
-  scrollbar-width: none;           /* Firefox */
-  -ms-overflow-style: none;        /* IE e Edge */
-}
+  /* nascondo scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-// Per nascondere scrollbar orizzontale
-.cards-scroll::-webkit-scrollbar {
-  display: none;                   /* Chrome, Safari, Opera */
-}
-
-.cards-scroll ion-card {
-  margin: 0 0.4rem 1rem 0.4rem;
-  // margin-left: 0.4rem;
-  // margin-right: 0.4rem;
-  flex: 0 0 180px;
-  height: 260px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  background: none;
-  box-shadow: none;
-  scroll-snap-align: start;
-
-  
-  img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
+  &::-webkit-scrollbar {
+    display: none;
   }
 
-  &::after {                /* blur solo in fondo */
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%; height: 80px;
-    backdrop-filter: blur(8px);
-    mask-image: linear-gradient(to top, black 0%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
-    z-index: 2;
-  }
-
-  ion-card-content {        /* targhetta testo */
-    position: absolute;
-    bottom: 12px; left: 8px; right: 8px;
-    padding: 4px 8px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(2px);
-    text-align: center;
-    color: var(--color-highlight);
-    font-weight: 700;
-    font-size: 1rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-    z-index: 3;
-  }
-}
-
-/* Azzeramento margine sinistro solo alla prima card */
-.cards-scroll ion-card:first-child {
-  margin-left: 0;
-}
-
-/* Azzeramento margine destro solo all’ultima card */
-.cards-scroll ion-card:last-child {
-  margin-right: 0;
-}
-
-/* Blocco Discover dell'app */
-
-.discover {
-  .discover-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .discover-card {
-    max-width: 320px;
-    border-radius: 16px;
-  }
-
-  .discover-review {
-    margin: 1rem 1rem 1rem 1rem;
-    font-style: italic;
-    font-size: 0.9rem;
-    color: var(--color-text2);
-    text-align: center;
-  }
-}
-
-/*                        */
-/* ----- FINALE -----*/
-/*                        */
-.end-message {
-  text-align: center;
-  padding-bottom: 5rem;
-  padding-top: 1rem;
-
-  .final-subtext {
-    font-size: 0.95rem;
-    color: var(--color-text2);
-    margin: 0.6rem 1.5rem 1.2rem;
-    line-height: 1.4;
-  }
-
-  .final-button-wrapper {
-    padding: 0 1.5rem;
-  }
-}
-
-:host ::ng-deep ion-button.crea-button {
-  margin: 0 1rem 0 1rem;
-  --background: var(--color-primary);
-  --color: var(--ion-color-warning);
-  font-weight: 700;
-  font-size: 1rem;
-}
-
-/* ----- TOP 10 SECTION ----- */
-/* top10.component.scss */
-.top10-section {
-  padding-bottom: 1.6rem;
-
-  .top10-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);  // DUE COLONNE, responsive
-    gap: 1.2rem 1.4rem; // spazio tra righe e colonne
-    padding: 0 1rem;
-  }
-
-  .top10-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;    // spazio tra foto e testo
-    min-width: 0; // per evitare overflow in grid
-    max-width: 100%;
-    // height: 110px;  // opzionale se vuoi altezza fissa
-    cursor: pointer;
-  }
-
-  ion-card {
-    flex: 0 0 100px;
-    width: 100px;
-    height: 100px;
-    border-radius: 12px;
+  .card {
+    flex: 0 0 160px;
+    height: 230px;
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: 18px;
     overflow: hidden;
-    background: none;
-    box-shadow: none;
-    margin: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.45s ease;
     }
-  }
 
-  .city-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    min-width: 70px;
-    gap: 0.3rem;
-  }
+    &:hover img {
+      transform: scale(1.04);
+    }
 
-  .rank {
-    color: rgba(123, 30, 30, 0.85);
-    font-size: 2.2rem;
-    font-weight: 900;
-    line-height: 1;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    user-select: none;
-    pointer-events: none;
-  }
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+          rgb(0, 0, 0) 10%,
+          rgba(255, 255, 255, 0) 30%);
+      display: flex;
+      align-items: flex-end;
+      padding: 0 12px 14px;
+    }
 
-  .city-name {
-    font-size: 1.01rem;
-    color: var(--color-text);
-    white-space: normal;
-    word-break: break-word;
-    font-weight: 700;
-    line-height: 1.18;
-    max-width: 110px;
+    .city {
+      color: var(--color-highlight);
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
   }
 }
 
+/* ───── Lista itinerari consigliati ───── */
+.featured {
+  padding: 1.6rem 1rem 0;
+
+  .featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    ion-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      background: var(--color-background1);
+
+      img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      ion-card-header {
+        padding: 1rem;
+      }
+
+      ion-card-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--color-text);
+      }
+
+      ion-card-subtitle {
+        font-size: 0.8rem;
+        color: var(--color-text2);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/* ───── Prossimo viaggio ───── */
+.next-trip {
+  padding: 1.6rem 1rem 0;
+
+  .next-card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    background: var(--color-background1);
+
+    img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    ion-card-header {
+      padding: 1rem;
+    }
+
+    ion-card-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--color-text);
+    }
+
+    ion-card-subtitle {
+      font-size: 0.9rem;
+      color: var(--color-text2);
+      font-weight: 600;
+    }
+  }
+}
+
+/* ───── Citazione ───── */
+.quote {
+  margin: 2.5rem 1.5rem 0;
+  padding: 1.6rem;
+  border-radius: 20px;
+  background: linear-gradient(145deg,
+      rgba(255, 204, 0, 0.15),
+      rgba(123, 30, 30, 0.15));
+  backdrop-filter: blur(8px);
+  text-align: center;
+
+  .quote-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.6rem;
+  }
+
+  .quote-author {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--color-text2);
+  }
+}
+
+/* ───── CTA ───── */
+.cta {
+  margin-bottom: -16px;
+
+  .cta-button {
+    --background: var(--color-primary);
+    --border-radius: 16px;
+    --color: var(--color-highlight);
+    font-size: 1rem;
+    font-weight: 800;
+    height: 52px;
+  }
+}

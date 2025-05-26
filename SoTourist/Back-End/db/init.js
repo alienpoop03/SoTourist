@@ -13,7 +13,8 @@ db.serialize(() => {
       email TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL,
       type TEXT NOT NULL DEFAULT 'standard',
-      subscriptionEnd TEXT
+      subscriptionEnd TEXT,
+      profileImage TEXT
     )
   `);
 

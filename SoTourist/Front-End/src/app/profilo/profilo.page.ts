@@ -43,6 +43,7 @@ import { ProfileIconComponent } from '../components/profile-icon/profile-icon.co
 })
 export class ProfiloPage {
   // Dati profilo
+  userId: string = '';
   username = '';
   email = '';
   password = '';
@@ -50,6 +51,7 @@ export class ProfiloPage {
   registrationDate: Date = new Date(); // O caricala da backend/localStorage
   accountStatus: string = 'Standard';
   editing = false;
+
 
   // Abbonamento
   subscriptionPlan: string = 'Standard'; // o 'Premium'
@@ -68,6 +70,7 @@ export class ProfiloPage {
     const profile = localStorage.getItem('userProfile');
     if (profile) {
       const parsed = JSON.parse(profile);
+       this.userId = localStorage.getItem('userId') || '';
       this.username = parsed.username || '';
       this.email = parsed.email || '';
     }
@@ -151,5 +154,10 @@ export class ProfiloPage {
     localStorage.removeItem('userId');
     localStorage.removeItem('userProfile');
     window.location.href = '/login';
+  }
+
+  onProfileImageChanged(base64: string) {
+    console.log('Nuova immagine:', base64);
+    this.profileImageUrl = base64;
   }
 }

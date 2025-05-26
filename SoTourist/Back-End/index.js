@@ -7,13 +7,14 @@ const tripRoutes = require('./routes/trip');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const HOST = '0.0.0.0';
+const HOST = 'localhost';
 
 app.use(cors({
     origin: '*'
 }));
   
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 
 // Rotte
