@@ -1,7 +1,7 @@
 <app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false">
 </app-header>
 
-<ion-content class="home-content" fullscreen>
+<ion-content class="home-content">
 
   <!-- Hero --------------------------------------------------------------->
   <section class="hero">
@@ -31,12 +31,12 @@
   <section class="next-trip" *ngIf="nextTrip">
     <h2 class="section-title">Il tuo prossimo viaggio</h2>
 
-    <ion-card class="next-card" (click)="openItinerary(nextTrip.itineraryId)">
-      <img [src]="nextTrip.coverPhoto" alt="Cover" />
+    <ion-card class="next-card" (click)="openItinerary(nextTrip!.itineraryId)">
+      <img [src]="nextTrip!.coverPhoto" alt="Cover" />
       <ion-card-header>
-        <ion-card-title>{{ nextTrip.city }}</ion-card-title>
+        <ion-card-title>{{ nextTrip!.city }}</ion-card-title>
         <ion-card-subtitle>
-          {{ nextTrip.startDate | date:'d MMM' }} – {{ nextTrip.endDate | date:'d MMM y' }}
+          {{ nextTrip!.startDate | date:'d MMM' }} – {{ nextTrip!.endDate | date:'d MMM y' }}
         </ion-card-subtitle>
       </ion-card-header>
     </ion-card>

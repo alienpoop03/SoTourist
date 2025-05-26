@@ -3,6 +3,7 @@
   --background: var(--color-background);
   display: flex;
   flex-direction: column;
+  --padding-bottom: calc(var(--ion-safe-area-bottom, 0px) + 56px + 1rem);
 }
 
 /* nascondo la scrollbar default */
@@ -62,12 +63,13 @@
 
 /* ───── Heading sezione ───── */
 .section-heading {
-  padding: 1.4rem 1rem 0.6rem;
+  padding: 1.4rem 1rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   ion-button {
+    margin-bottom: 10px;
     --color: var(--color-primary);
     font-weight: 600;
     font-size: 0.8rem;
@@ -76,6 +78,7 @@
 }
 
 .section-title {
+  margin-top: 0;
   font-size: 1.4rem;
   font-weight: 800;
   color: var(--color-text);
@@ -141,7 +144,7 @@
 
 /* ───── Lista itinerari consigliati ───── */
 .featured {
-  padding: 0 1rem 0 1rem;
+  padding: 1.4rem 1rem 0;
 
   .featured-list {
     display: flex;
@@ -182,14 +185,14 @@
 
 /* ───── Prossimo viaggio ───── */
 .next-trip {
-  padding: 0 1rem 0 1rem;
-
+  padding: 1.4rem 1rem 0;
+  
   .next-card {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     background: var(--color-background1);
-    margin:0;
+    margin: 0;
 
     img {
       width: 100%;
@@ -217,7 +220,7 @@
 
 /* ───── Citazione ───── */
 .quote {
-  margin: 2.5rem 1.5rem 0;
+  margin: 2.5rem 1rem 0;
   padding: 1.6rem;
   border-radius: 20px;
   background: linear-gradient(145deg,
