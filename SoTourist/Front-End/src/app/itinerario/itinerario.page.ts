@@ -11,7 +11,6 @@ import {
 import { TripWithId } from '../models/trip.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { GenerationOverlayComponent } from '../components/generation-overlay/generation-overlay.component';
@@ -19,7 +18,8 @@ import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
 import { PhotoService } from '../services/photo.service';
 import { GoogleAutocompleteComponent } from '../components/google-autocomplete/google-autocomplete.component';
-
+import { GenerateItineraryRequest } from '../services/api.service';
+import { AlertController, ModalController } from '@ionic/angular/standalone';
 
 /* ───── Ionic standalone components usati nel template ───── */
 import {
@@ -97,8 +97,6 @@ type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
     /* Angular */
     CommonModule,
     FormsModule,
-    HttpClientModule,
-
     /* Ionic */
     IonContent,
     IonCard, IonCardHeader, IonCardTitle, IonCardContent,
@@ -160,6 +158,7 @@ export class ItinerarioPage implements AfterViewInit {
   tripAlreadyVisited: string[] = [];
 
 
+  tripBounds: google.maps.LatLngBounds | null = null;
 
   /* Opzioni predefinite */
 
@@ -172,6 +171,8 @@ export class ItinerarioPage implements AfterViewInit {
     private itineraryService: ItineraryService,
     private auth: AuthService,
     private photoService: PhotoService,
+        private alertController: AlertController,
+    private modalController: ModalController
 
   ) { }
 
@@ -209,6 +210,11 @@ export class ItinerarioPage implements AfterViewInit {
 
       this.isLocalTrip = true;
       this.daysCount = this.calculateDays(this.trip.startDate, this.trip.endDate);
+
+      // 🟩 Aggiungi questa riga qui:
+      if (this.trip.city) {
+        this.fetchCityBounds(this.trip.city);
+      }
       // 🚫 Niente richiesta a Google: usa fallback
       this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg';
       console.log('[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.');
@@ -221,6 +227,10 @@ export class ItinerarioPage implements AfterViewInit {
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
       next: (res) => {
         this.trip = res;
+        if (this.trip.city) {
+          this.fetchCityBounds(this.trip.city);
+        }
+
         this.isLocalTrip = false;
         this.daysCount = this.calculateDays(res.startDate, res.endDate);
 
@@ -335,8 +345,16 @@ export class ItinerarioPage implements AfterViewInit {
     const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
     this.isLoading = true;
+const payload: GenerateItineraryRequest = {
+     city:         trip.city,
+  totalDays:    days,
+     accommodation:trip.accommodation,
+     mustSee:      this.tripMustSee,        // ⬅️ nuovo
+     mustEat:      this.tripEatPlaces,      // ⬅️ nuovo
+     avoid:        this.tripAlreadyVisited  // ⬅️ nuovo
+  };
 
-    this.api.getItinerary(trip.city, days, trip.accommodation).subscribe({
+   this.api.getItinerary(payload).subscribe({
       next: (res) => {
         console.log('✅ [GENERAZIONE] Risposta da backend:', res);
         console.table(res.itinerary);
@@ -663,4 +681,94 @@ export class ItinerarioPage implements AfterViewInit {
     }
   }
 
+  private fetchCityBounds(cityName: string) {
+    const autocomplete = new google.maps.places.AutocompleteService();
+    const service = new google.maps.places.PlacesService(document.createElement('div'));
+
+    autocomplete.getPlacePredictions({ input: cityName, types: ['(cities)'] }, (predictions, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && predictions?.length) {
+        const placeId = predictions[0].place_id;
+        service.getDetails({ placeId }, (place, status) => {
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK &&
+            place?.geometry?.viewport
+          ) {
+            this.tripBounds = place.geometry.viewport;
+            console.log('📌 Bounds trovati per la città:', this.tripBounds.toJSON());
+          } else {
+            console.warn('⚠️ Nessun viewport trovato per la città.');
+          }
+        });
+      } else {
+        console.warn('⚠️ Nessun prediction trovata per la città.');
+      }
+    });
+  }
+
+   async openDateEdit() {
+    const alert = await this.alertController.create({
+      header: 'Modifica date',
+      inputs: [
+        {
+          name: 'startDate',
+          type: 'date',
+          value: this.trip.startDate?.slice(0, 10) || ''
+        },
+        {
+          name: 'endDate',
+          type: 'date',
+          value: this.trip.endDate?.slice(0, 10) || ''
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Salva',
+          handler: data => {
+            if (data.startDate && data.endDate) {
+              this.trip.startDate = data.startDate;
+              this.trip.endDate = data.endDate;
+              // potresti voler aggiornare anche il backend qui se già salvato
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async openAccommodationEdit() {
+    const alert = await this.alertController.create({
+      header: 'Modifica alloggio',
+      inputs: [
+        {
+          name: 'accommodation',
+          type: 'text',
+          value: this.trip.accommodation || '',
+          placeholder: 'Inserisci nuovo alloggio'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Salva',
+          handler: data => {
+            if (data.accommodation?.trim()) {
+              this.trip.accommodation = data.accommodation.trim();
+              // salva nel backend se necessario
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

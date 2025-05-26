@@ -13,13 +13,13 @@ import { ActivatedRoute } from '@angular/router';
 import {
   IonContent, IonImg, IonCard, IonCardHeader, IonCardTitle,
   IonCardContent, IonList, IonItem, IonFab, IonFabButton,
-  IonModal, IonButton
+  IonModal, IonButton, IonIcon,
 } from '@ionic/angular/standalone';
 import { GestureController } from '@ionic/angular';
 
 import { ItineraryService } from '../services/itinerary.service';
 import { Place } from '../models/trip.model';
-
+import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 /**
  * Rappresenta la struttura delle tappe raggruppate per giorno
  */
@@ -38,7 +38,7 @@ interface DayGroup {
     CommonModule,
     IonContent, IonImg, IonCard, IonCardHeader, IonCardTitle,
     IonCardContent, IonList, IonItem, IonFab, IonFabButton,
-    IonModal, IonButton
+    IonModal, IonButton, NavigationBarComponent, IonIcon
   ]
 })
 export class MapPage implements AfterViewInit {
@@ -143,47 +143,125 @@ export class MapPage implements AfterViewInit {
   }
 
   /* ======================= Map ======================= */
-  private initMap() {
-    const first = this.todayPlaces[0];
-    const center = (first?.latitude && first?.longitude)
-      ? new google.maps.LatLng(first.latitude, first.longitude)
-      : new google.maps.LatLng(41.9, 12.49); // Roma fallback
+ private initMap() {
+  const first = this.todayPlaces[0];
+  const center = (first?.latitude && first?.longitude)
+    ? new google.maps.LatLng(first.latitude, first.longitude)
+    : new google.maps.LatLng(41.9, 12.49); // Roma fallback
 
-    this.map = new google.maps.Map(this.mapRef.nativeElement, {
-      center,
-      zoom: 13,
-      disableDefaultUI: true
-    });
-
-    this.renderMarkers();
+  this.map = new google.maps.Map(this.mapRef.nativeElement, {
+    center,
+    zoom: 13,
+    disableDefaultUI: true,
+    styles: [
+  // Rimuove etichette di amministrazioni
+  {
+    featureType: 'administrative',
+    elementType: 'labels',
+    stylers: [{ visibility: 'off' }]
+  },
+  // Mantiene POI turistici visibili
+  {
+    featureType: 'poi.attraction',
+    elementType: 'all',
+    stylers: [{ visibility: 'on' }]
+  },
+  {
+    featureType: 'poi.place_of_worship',
+    elementType: 'all',
+    stylers: [{ visibility: 'on' }]
+  },
+  {
+    featureType: 'poi.museum',
+    elementType: 'all',
+    stylers: [{ visibility: 'on' }]
+  },
+  {
+    featureType: 'poi.school',
+    elementType: 'all',
+    stylers: [{ visibility: 'off' }]
+  },
+  {
+    featureType: 'poi.business',
+    elementType: 'all',
+    stylers: [{ visibility: 'off' }]
+  },
+  // Nasconde etichette strade minori
+  {
+    featureType: 'road.local',
+    elementType: 'labels',
+    stylers: [{ visibility: 'off' }]
+  },
+  // Mantiene visibili le strade principali
+  {
+    featureType: 'road.arterial',
+    elementType: 'geometry',
+    stylers: [{ visibility: 'on' }]
+  },
+  {
+    featureType: 'road.arterial',
+    elementType: 'labels',
+    stylers: [{ visibility: 'on' }]
+  },
+  // Disattiva etichette di transito
+  {
+    featureType: 'transit',
+    elementType: 'labels',
+    stylers: [{ visibility: 'off' }]
+  },
+  // Aspetto più desaturato e pulito
+  {
+    featureType: 'all',
+    elementType: 'geometry',
+    stylers: [
+      { saturation: -20 },
+      { lightness: 10 }
+    ]
   }
+]
 
-  private renderMarkers() {
-    this.markers.forEach(m => m.setMap(null));
-    this.markers = [];
 
-    console.log('🧭 Render markers - todayPlaces:', this.todayPlaces);
+  });
 
-    this.todayPlaces.forEach((p, idx) => {
-      const lat = p.latitude;
-      const lng = p.longitude;
-      if (lat == null || lng == null) {
-        console.warn(`⚠️ Nessuna posizione per ${p.name}`, p);
-        return;
+this.renderMarkers().then(); // va benissimo
+}
+
+
+private async renderMarkers() {
+  this.markers.forEach(m => m.setMap(null));
+  this.markers = [];
+
+  for (let idx = 0; idx < this.todayPlaces.length; idx++) {
+    const p = this.todayPlaces[idx];
+    const lat = p.latitude;
+    const lng = p.longitude;
+    if (lat == null || lng == null) {
+      console.warn(`⚠️ Nessuna posizione per ${p.name}`, p);
+      continue;
+    }
+
+    const imageUrl = p.photoUrl || p.photo || 'assets/images/PaletoBay.jpeg';
+    const iconUrl = await this.generateCircularIcon(imageUrl);
+
+    const marker = new google.maps.Marker({
+      position: { lat, lng },
+      map: this.map,
+      title: p.name,
+      icon: {
+        url: iconUrl,
+        scaledSize: new google.maps.Size(48, 48),
+        anchor: new google.maps.Point(24, 24),
       }
-
-      const marker = new google.maps.Marker({
-        position: { lat, lng },
-        map: this.map,
-        title: p.name
-      });
-
-      marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
-      this.markers.push(marker);
     });
 
-    console.log('📍 Marker creati:', this.markers.length);
+    marker.addListener('click', () => this.zone.run(() => this.openPlace(idx)));
+    this.markers.push(marker);
   }
+
+  console.log('📍 Marker creati:', this.markers.length);
+}
+
+
 
   /* ==================== UI / Itinerary ==================== */
   private refreshPlaces() {
@@ -242,6 +320,13 @@ export class MapPage implements AfterViewInit {
     }
   }
 
+  getCurrentDayDate(): string {
+  if (!this.trip || !this.trip.startDate) return '';
+  const start = new Date(this.trip.startDate);
+  start.setDate(start.getDate() + this.currentDay - 1);
+  return start.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
   /* --------------------- Drawer gesture --------------------- */
   private setupDrawerGesture() {
     const drawer = document.querySelector('.drawer') as HTMLElement;
@@ -287,6 +372,26 @@ export class MapPage implements AfterViewInit {
     if (index !== -1) { this.scrollToPlace(index); }
   }
 
+  selectedTimeSlot: 'morning' | 'afternoon' | 'evening' = 'morning';
+  timeListOpen = false;
+
+  get timeSlotLabel(): string {
+    switch (this.selectedTimeSlot) {
+      case 'morning': return 'Mattina';
+      case 'afternoon': return 'Pomeriggio';
+      case 'evening': return 'Sera';
+      default: return '';
+    }
+  }
+
+  toggleTimeList() { this.timeListOpen = !this.timeListOpen; }
+
+  selectTimeSlot(slot: 'morning' | 'afternoon' | 'evening') {
+    this.selectedTimeSlot = slot;
+    this.timeListOpen = false;
+    this.scrollToTimeSlot(slot);
+  }
+
   private scrollToPlace(i: number) {
     const target = this.todayPlaces[i];
     this.drawerExpanded = true;
@@ -328,5 +433,38 @@ export class MapPage implements AfterViewInit {
   public degToRad(deg: number): number {
     return deg * (Math.PI / 180);
   }
+
+  private async generateCircularIcon(url: string): Promise<string> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous'; // fondamentale per evitare CORS su foto remote
+    img.onload = () => {
+      const size = 64;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return resolve('');
+
+      // Cerchio esterno (bordo Bordeaux)
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+      ctx.fillStyle = '#7B1E1E';
+      ctx.fill();
+
+      // Clip rotondo per immagine
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2 - 4, 0, 2 * Math.PI);
+      ctx.clip();
+
+      // Disegna immagine centrata
+      ctx.drawImage(img, 0, 0, size, size);
+
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = () => resolve('assets/images/PaletoBay.jpeg'); // fallback locale
+    img.src = url;
+  });
+}
 
 }

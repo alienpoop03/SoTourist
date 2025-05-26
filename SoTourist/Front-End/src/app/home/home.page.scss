@@ -2,20 +2,42 @@
 /* ----- BASE LAYOUT -----*/
 /*                        */
 .home-content {
-  --background: var(--color-background1);
-  padding-bottom: 80px;
+  // --background: rgb(255, 255, 224);
 }
+
+//////// PER NASCONDERE SCROLLBAR VERTICALE ////////
+:host ::ng-deep ion-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+:host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
+  display: none !important;
+}
+//////// PER NASCONDERE SCROLLBAR VERTICALE ////////
 
 /* Sezioni con stacco graduale */
 .cards-section {
   position: relative; //forse si puo togliere
   // padding: 1.4rem 0 1.6rem;
+background: linear-gradient(
+    to bottom,
+    var(--color-background-grad1),
+    var(--color-background-grad2)
+  );
+}
+
+.section-divider {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #ffcc00, var(--color-primary) 60%);
+  border-radius: 3px;
+  opacity: 0.3;
 }
 
 /* Badge */
 .section-badge {
   display: inline-block;
-  margin: 0 1rem 0.4rem;
+  margin: 1rem 0 0.5rem 1rem;
   padding: 2px 10px;
   font-size: 0.62rem;
   font-weight: 700;
@@ -28,7 +50,7 @@
 
 /* Titolo sezione */
 .section-title {
-  margin: 0 1rem 0.9rem;
+  margin: 0 0 0.5rem 1rem;
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--color-text);
@@ -45,26 +67,30 @@
   overflow-x: auto;
   scroll-snap-type: none;
 
-  // Per nascondere scrollbar
+  // Per nascondere scrollbar orizzontale
   scrollbar-width: none;           /* Firefox */
   -ms-overflow-style: none;        /* IE e Edge */
 }
 
-// Per nascondere scrollbar
+// Per nascondere scrollbar orizzontale
 .cards-scroll::-webkit-scrollbar {
   display: none;                   /* Chrome, Safari, Opera */
 }
 
 .cards-scroll ion-card {
+  margin: 0 0.4rem 1rem 0.4rem;
+  // margin-left: 0.4rem;
+  // margin-right: 0.4rem;
   flex: 0 0 180px;
   height: 260px;
   position: relative;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: 16px;
   background: none;
   box-shadow: none;
   scroll-snap-align: start;
 
+  
   img {
     position: absolute;
     inset: 0;
@@ -101,22 +127,32 @@
   }
 }
 
-/*                        */
-/* ----- MIAMI BLOCK -----*/
-/*                        */
-.miami-highlight {
-  .miami-wrapper {
+/* Azzeramento margine sinistro solo alla prima card */
+.cards-scroll ion-card:first-child {
+  margin-left: 0;
+}
+
+/* Azzeramento margine destro solo all’ultima card */
+.cards-scroll ion-card:last-child {
+  margin-right: 0;
+}
+
+/* Blocco Discover dell'app */
+
+.discover {
+  .discover-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .miami-card {
+  .discover-card {
     max-width: 320px;
+    border-radius: 16px;
   }
 
-  .miami-review {
-    margin-top: 1rem;
+  .discover-review {
+    margin: 1rem 1rem 1rem 1rem;
     font-style: italic;
     font-size: 0.9rem;
     color: var(--color-text2);
@@ -130,6 +166,7 @@
 .end-message {
   text-align: center;
   padding-bottom: 5rem;
+  padding-top: 1rem;
 
   .final-subtext {
     font-size: 0.95rem;
@@ -144,31 +181,11 @@
 }
 
 :host ::ng-deep ion-button.crea-button {
+  margin: 0 1rem 0 1rem;
   --background: var(--color-primary);
   --color: var(--ion-color-warning);
   font-weight: 700;
   font-size: 1rem;
-}
-
-/* ----- KYOTO highlight ----- */
-.kyoto-highlight {
-  .kyoto-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .kyoto-card {
-    max-width: 320px;
-  }
-
-  .kyoto-review {
-    margin-top: 1rem;
-    font-style: italic;
-    font-size: 0.9rem;
-    color: var(--color-text2);
-    text-align: center;
-  }
 }
 
 /* ----- TOP 10 SECTION ----- */

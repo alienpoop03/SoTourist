@@ -25,3 +25,6 @@ SoTourist/Avvio SoTourist.app/Icon
 
 .
 Avvio server.bat
+/SoTourist/Front-End/ios
+SoTourist/Front-End/package.json
+SoTourist/Front-End/package-lock.json

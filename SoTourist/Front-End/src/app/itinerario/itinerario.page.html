@@ -1,34 +1,33 @@
 <ion-content class="itinerario-content" fullscreen>
 
   <!-- ───── HERO ───── -->
-  <div #hero class="hero"
-       [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
+  <div #hero class="hero" [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
                     'height.px': heroHeight }">
     <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
       <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ trip?.city }}</h1>
 
-      <div class="hero-info">
-        <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate">
-          <p class="dates">
-            Dal {{ trip.startDate | date:'dd/MM' }} al {{ trip.endDate | date:'dd/MM' }}
-          </p>
-        </div>
-        <div class="hero-right" *ngIf="trip?.accommodation">
-          <p class="accommodation">{{ trip.accommodation }}</p>
-        </div>
-      </div>
+     <div class="hero-info">
+  <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate" (click)="openDateEdit()">
+    <p class="dates">
+      Dal {{ trip.startDate | date:'dd/MM' }} al {{ trip.endDate | date:'dd/MM' }}
+    </p>
+  </div>
+  <div class="hero-right" *ngIf="trip?.accommodation" (click)="openAccommodationEdit()">
+    <p class="accommodation">{{ trip.accommodation }}</p>
+  </div>
+</div>
+
     </div>
   </div>
 
   <!-- ───── PAGINATION DOTS ───── -->
   <div class="slide-indicator">
-    <span *ngFor="let name of slideNames; let i = index"
-          [class.active]="i === currentSlide"
-          (click)="goToSlide(i)">{{ name }}</span>
+    <span *ngFor="let name of slideNames; let i = index" [class.active]="i === currentSlide" (click)="goToSlide(i)">{{
+      name }}</span>
   </div>
 
   <!-- spacer -->
-  <div class="slide-page"></div>
+  <!-- <div class="slide-page"></div> -->
 
   <div #scrollContainer class="scroll-container" (scroll)="onScroll($event)">
 
@@ -96,16 +95,14 @@
     <!-- ▸ SLIDE 2 – GIORNI -->
     <div class="slide-page">
       <div class="day-list">
-        <div class="timeline-container">
           <div *ngFor="let _ of [].constructor(daysCount); let i = index" class="timeline-entry">
-            <div class="timeline-dot"></div>
 
             <ion-card (click)="openDay(i)" class="day-card">
               <ion-card-header>
                 <ion-card-title>
                   <div class="day-label">Giorno {{ i+1 }}</div>
                   <ion-button fill="clear" size="small" class="style-ed-btn top-right-btn"
-                              (click)="openDayCustomization(i); $event.stopPropagation()">
+                    (click)="openDayCustomization(i); $event.stopPropagation()">
                     <ion-icon name="calendar-outline"></ion-icon>
                   </ion-button>
                 </ion-card-title>
@@ -117,12 +114,13 @@
                     <strong>•</strong> {{ item }}<span *ngIf="!last">&nbsp;&nbsp;</span>
                   </ng-container>
                 </p>
-                <ng-template #placeholder><p>Programma per il giorno {{ i+1 }}…</p></ng-template>
+                <ng-template #placeholder>
+                  <p>Programma per il giorno {{ i+1 }}…</p>
+                </ng-template>
               </ion-card-content>
             </ion-card>
-          </div>
-        </div>
 
+        </div>
         <div *ngIf="daysCount===0" class="no-days">Nessun giorno da mostrare.</div>
       </div>
     </div>
@@ -132,7 +130,7 @@
   <div class="customization-sheet inline-editor" [class.visible]="editorVisible">
     <div class="sheet-header">
       <h2>{{ { mustSee:'Luoghi da non perdere', eat:'Posti dove mangiare', visited:'Luoghi già visti',
-               transport:'Mezzo preferito', ai:'Domanda per l\u2019AI', style:'Stile vacanza'}[editorMode!] }}</h2>
+        transport:'Mezzo preferito', ai:'Domanda per l\u2019AI', style:'Stile vacanza'}[editorMode!] }}</h2>
       <ion-button fill="clear" size="small" (click)="closeEditor()">Chiudi</ion-button>
     </div>
 
@@ -140,10 +138,10 @@
 
       <!-- mustSee -->
       <ng-container *ngIf="editorMode === 'mustSee'">
-        <app-google-autocomplete
-            placeholder="Aggiungi un luogo da non perdere…"
-            (placeSelected)="onPlaceSelected('mustSee', $event)">
+        <app-google-autocomplete placeholder="Aggiungi un luogo da non perdere…" [types]="['establishment']"
+          [bounds]="tripBounds" [restrictToBounds]="true" (placeSelected)="onPlaceSelected('mustSee', $event)">
         </app-google-autocomplete>
+
 
         <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
 
@@ -157,10 +155,10 @@
 
       <!-- eat -->
       <ng-container *ngIf="editorMode === 'eat'">
-        <app-google-autocomplete
-            placeholder="Aggiungi un posto dove mangiare…"
-            (placeSelected)="onPlaceSelected('eat', $event)">
+        <app-google-autocomplete placeholder="Aggiungi un posto dove mangiare…" [types]="['restaurant']"
+          [bounds]="tripBounds" [restrictToBounds]="true" (placeSelected)="onPlaceSelected('eat', $event)">
         </app-google-autocomplete>
+
 
         <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
 
@@ -174,10 +172,10 @@
 
       <!-- visited -->
       <ng-container *ngIf="editorMode === 'visited'">
-        <app-google-autocomplete
-            placeholder="Aggiungi un luogo già visitato…"
-            (placeSelected)="onPlaceSelected('visited', $event)">
+        <app-google-autocomplete placeholder="Aggiungi un luogo già visitato…" [types]="['establishment']"
+          [bounds]="tripBounds" [restrictToBounds]="true" (placeSelected)="onPlaceSelected('visited', $event)">
         </app-google-autocomplete>
+
 
         <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
 
@@ -196,14 +194,14 @@
           <ion-item button (click)="selectValue('Giornata al mare')">🚗 Giornata al mare</ion-item>
           <ion-item button (click)="selectValue('Giornata nei musei')">🚌 Giornata nei musei</ion-item>
           <ion-item button (click)="selectValue('Shopping')">🚴‍♀️ Shopping</ion-item>
-                  <ion-item button (click)="selectValue('Avventura')">🚴‍♀️ Avventura</ion-item>
+          <ion-item button (click)="selectValue('Avventura')">🚴‍♀️ Avventura</ion-item>
           <ion-item button (click)="selectValue('Food Tour')">🚴‍♀️ Food Tour</ion-item>
           <ion-item button (click)="selectValue('Escursione')">🚴‍♀️ Escursione</ion-item>
           <ion-item button (click)="selectValue('Relax')">🚴‍♀️ Relax</ion-item>
 
-        
-        
-        
+
+
+
         </ion-list>
 
       </ng-container>
@@ -221,9 +219,8 @@
 
       <!-- ai -->
       <ng-container *ngIf="editorMode === 'ai'">
-        <ion-textarea autoGrow="true" placeholder="Scrivi qui…"
-                      [(ngModel)]="editorValue"
-                      (ngModelChange)="setValueForMode('ai', $event)"></ion-textarea>
+        <ion-textarea autoGrow="true" placeholder="Scrivi qui…" [(ngModel)]="editorValue"
+          (ngModelChange)="setValueForMode('ai', $event)"></ion-textarea>
         <ion-button expand="block" (click)="saveEditorValue()">Salva</ion-button>
       </ng-container>
     </div>
@@ -231,14 +228,20 @@
 
   <!-- ───── FAB Genera Itinerario ───── -->
   <div class="generate-container fixed">
-    <ion-button class="generate-btn"
-                (click)="generateItinerary()"
-                *ngIf="!isLoading && isLocalTrip">Genera Itinerario</ion-button>
-    <ion-button class="generate-btn" disabled *ngIf="isLoading">Caricamento…</ion-button>
-    <ion-button class="generate-btn" disabled *ngIf="!isLoading && !isLocalTrip">Itinerario già generato</ion-button>
+    <ion-button class="genera-itinerario-btn" (click)="generateItinerary()" *ngIf="!isLoading && isLocalTrip">
+      <!-- <ion-icon name="analytics-outline" slot="start"></ion-icon> -->
+      Genera Itinerario
+    </ion-button>
+    <ion-button class="genera-itinerario-btn" disabled *ngIf="isLoading">
+      <!-- <ion-icon name="hourglass-outline" slot="start"></ion-icon> -->
+      Caricamento…
+    </ion-button>
+    <ion-button class="genera-itinerario-btn" disabled *ngIf="!isLoading && !isLocalTrip">
+      <!-- <ion-icon name="checkmark-done-outline" slot="start"></ion-icon> -->
+      Itinerario già generato
+    </ion-button>
   </div>
 
 </ion-content>
-
 <!-- Overlay -->
 <app-generation-overlay *ngIf="isLoading" [message]="'Generazione in corso…'"></app-generation-overlay>

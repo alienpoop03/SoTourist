@@ -16,6 +16,8 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- Destinazioni 2025 -->
   <section class="cards-section">
     <span class="section-badge">2025</span>
@@ -29,22 +31,26 @@
     </div>
   </section>
 
-  <!-- Miami highlight -->
-  <section class="cards-section miami-highlight">
+  <div class="section-divider"></div>
+
+  <!-- Discover -->
+  <section class="cards-section discover">
     <span class="section-badge">Spotlight</span>
     <h2 class="section-title">Perché visitare Miami</h2>
 
-    <div class="miami-wrapper">
-      <ion-card class="miami-card" (click)="openCreate('Miami')">
+    <div class="discover-wrapper">
+      <ion-card class="discover-card" (click)="openCreate('Miami')">
         <img [src]="'assets/images/Miami.jpeg'" alt="Miami" />
         <ion-card-content>Miami</ion-card-content>
       </ion-card>
-      <p class="miami-review">
+      <p class="discover-review">
         “Spiagge da sogno, nightlife sfrenata e arte a ogni angolo:
         Miami è l'avventura che non sapevi di desiderare.”
       </p>
     </div>
   </section>
+
+  <div class="section-divider"></div>
 
   <!-- Top viaggi -->
   <section class="cards-section">
@@ -59,38 +65,44 @@
     </div>
   </section>
 
-  <!-- Kyoto highlight -->
-  <section class="cards-section kyoto-highlight">
+  <div class="section-divider"></div>
+
+  <!-- Discover -->
+  <section class="cards-section discover">
     <span class="section-badge">Consiglio</span>
     <h2 class="section-title">Perché visitare Kyoto</h2>
 
-    <div class="kyoto-wrapper">
-      <ion-card class="kyoto-card" (click)="openCreate('Kyoto')">
+    <div class="discover-wrapper">
+      <ion-card class="discover-card" (click)="openCreate('Kyoto')">
         <img [src]="'../assets/images/Kyoto.jpeg'" alt="Kyoto" />
         <ion-card-content>Kyoto</ion-card-content>
       </ion-card>
-      <p class="kyoto-review">
+      <p class="discover-review">
         “Templi secolari, ciliegi in fiore e pace assoluta: Kyoto è magia pura in ogni stagione.”
       </p>
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- Top 10 di oggi -->
   <section class="cards-section top10-section">
-  <span class="section-badge">Top</span>
-  <h2 class="section-title">Top 10 di oggi</h2>
-  <div class="top10-grid">
-    <div class="top10-item" *ngFor="let city of top10Today; let i = index" (click)="openCreate(city)">
-      <ion-card>
-        <img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
-      </ion-card>
-      <div class="city-info">
-        <span class="rank">{{ i + 1 }}</span>
-        <span class="city-name">{{ city }}</span>
+    <span class="section-badge">Top</span>
+    <h2 class="section-title">Top 10 di oggi</h2>
+    <div class="top10-grid">
+      <div class="top10-item" *ngFor="let city of top10Today; let i = index" (click)="openCreate(city)">
+        <ion-card>
+          <img [src]="'../assets/images/' + city + '.jpeg'" [alt]="city" />
+        </ion-card>
+        <div class="city-info">
+          <span class="rank">{{ i + 1 }}</span>
+          <span class="city-name">{{ city }}</span>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <div class="section-divider"></div>
 
   <!-- Sezione finale -->
   <section class="cards-section end-message">
@@ -99,7 +111,7 @@
       Non hai ancora trovato la vacanza che fa per te?<br />
       Prova a crearne una completamente personalizzata.
     </p>
-  
+
     <ion-button class="boxes-style crea-button" expand="block">
       Crea la tua vacanza
     </ion-button>

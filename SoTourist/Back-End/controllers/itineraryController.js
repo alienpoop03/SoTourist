@@ -1,168 +1,178 @@
+// itinerarycontroller.js
 const axios = require('axios');
 
+/**
+ * Genera un itinerario sfruttando Google Places API.
+ * Ora supporta:
+ *   - mustSee[] : luoghi obbligatori da visitare (non prima del blocco)
+ *   - mustEat[] : ristoranti obbligatori (prima tappa del blocco)
+ *   - avoid[]   : luoghi da evitare sempre
+ * Tutti i parametri sono opzionali.
+ */
 const getItinerary = async (req, res) => {
-  const MAX_DISTANCE_KM = 2.0; // distanza max tra i punti in km
-  const city = req.query.city || 'Roma';
-  const totalDays = parseInt(req.query.totalDays) || 1;
-  const accommodationAddress = req.query.accommodation || null;  // <-- Alloggio dalla query
+  /* ---------- parametri base ---------- */
+  const city           = req.body?.city           || req.query.city           || 'Roma';
+  const totalDays      = parseInt(req.body?.totalDays || req.query.totalDays) || 1;
+  const accommodation  = req.body?.accommodation  || req.query.accommodation  || null;
+
+  /* ---------- preferenze opzionali ---------- */
+  const mustSee = Array.isArray(req.body?.mustSee) ? req.body.mustSee : [];
+  const mustEat = Array.isArray(req.body?.mustEat) ? req.body.mustEat : [];
+  const avoid   = Array.isArray(req.body?.avoid)   ? req.body.avoid   : [];
+
+  const avoidSet = new Set(avoid.map(n => n.toLowerCase()));
+
   const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+  const usedPlaceNames = new Set();                       // evitiamo duplicati
+  let   coverPhoto     = null;
 
-  const usedPlaceNames = new Set();
-  let coverPhoto = null;
-
-  try {
-    const cityRes = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
-      params: {
-        query: `attrazione più famosa di ${city}`,
-        key: GOOGLE_API_KEY
-      }
-    });
-
-    const topPlace = cityRes.data.results?.[0];
-    console.log('📍 Primo risultato ricevuto:', topPlace?.name);
-
-    if (topPlace?.photos?.[0]?.photo_reference) {
-      const ref = topPlace.photos[0].photo_reference;
-      coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${GOOGLE_API_KEY}`;
-    } else {
-      //console.warn('❗ Errore fetch coverPhoto:', err.message);
-    }
-  } catch (err) {
-    console.warn('⚠️ Impossibile ottenere coverPhoto iconica:', err.message);
-  }
-
-  // Funzione che chiama Places API e filtra i luoghi
-  const fetchPlaces = async (query, count = 2, from = null) => {
-    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
-    const response = await axios.get(url, {
-      params: {
-        query: `${query} in ${city}`,
-        key: GOOGLE_API_KEY
-      }
-    });
-
-    let filtered = response.data.results.filter(
-      place => place.geometry?.location && !usedPlaceNames.has(place.name)
+  /* ---------- helper per Places API ---------- */
+  const fetchPlaces = async (query, count = 1) => {
+    const resp = await axios.get(
+      'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      { params: { query: `${query} in ${city}`, key: GOOGLE_API_KEY } }
     );
 
-    const selected = filtered.slice(0, count);
+    const filtered = resp.data.results.filter(p =>
+      p.geometry?.location &&
+      !usedPlaceNames.has(p.name.toLowerCase()) &&
+      !avoidSet.has(p.name.toLowerCase())
+    );
 
-    // Se non abbiamo ancora coverPhoto, usiamo la prima foto disponibile
-    if (!coverPhoto && selected[0]?.photos?.[0]?.photo_reference) {
-      const photoRef = selected[0].photos[0].photo_reference;
-      coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${photoRef}&key=${GOOGLE_API_KEY}`;
-    }
+    const selected = filtered.slice(0, count).map(place => {
+      usedPlaceNames.add(place.name.toLowerCase());
 
-    return selected.map(place => {
-      usedPlaceNames.add(place.name);
-
-      const photoRef = place.photos?.[0]?.photo_reference;
-      const photoUrl = photoRef
-        ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${photoRef}&key=${GOOGLE_API_KEY}`
-        : null;
+      /* set coverPhoto se ancora mancante */
+      if (!coverPhoto && place.photos?.[0]?.photo_reference) {
+        coverPhoto =
+          `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=${GOOGLE_API_KEY}`;
+      }
 
       return {
         name: place.name,
         address: place.formatted_address,
         rating: place.rating,
-        photo: photoUrl,
+        photo: place.photos?.[0]
+          ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=${GOOGLE_API_KEY}`
+          : null,
         latitude: place.geometry.location.lat,
         longitude: place.geometry.location.lng
       };
     });
+
+    return selected;
   };
 
-  // Struttura di base (da personalizzare come vuoi)
-  const itineraryStructure = {
-    morning: [
-      { query: "caffè bar colazione", count: 1 },
-      { query: "attrazioni turistiche", count: 1 }
-    ],
-    afternoon: [
-      { query: "ristoranti per pranzo", count: 1 },
-      { query: "parchi o musei", count: 1 }
-    ],
-    evening: [
-      { query: "ristoranti per cena", count: 1 },
-      { query: "pub, cocktail bar o discoteche", count: 1 }
-    ]
-  };
-
+  /* ---------- cover di default (attrazione iconica) ---------- */
   try {
-    // Se c'è un alloggio, cerchiamo di geolocalizzarlo (opzionale)
-    let accommodationPlace = null;
-    if (accommodationAddress) {
-      const accRes = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
-        params: {
-          query: accommodationAddress,
-          key: GOOGLE_API_KEY
-        }
-      });
-      const firstAcc = accRes.data.results?.[0];
-      if (firstAcc?.geometry?.location) {
+    const iconRes = await axios.get(
+      'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      { params: { query: `attrazione più famosa di ${city}`, key: GOOGLE_API_KEY } }
+    );
+    const top = iconRes.data.results?.[0];
+    if (top?.photos?.[0]?.photo_reference) {
+      coverPhoto =
+        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${top.photos[0].photo_reference}&key=${GOOGLE_API_KEY}`;
+    }
+  } catch { /* non blocca il flusso in caso d’errore */ }
+
+  /* ---------- struttura ricerche standard ---------- */
+  const baseStructure = {
+    morning:   [ { query: 'caffè bar colazione',  count: 1 },
+                 { query: 'attrazioni turistiche', count: 1 } ],
+    afternoon: [ { query: 'ristoranti per pranzo', count: 1 },
+                 { query: 'parchi o musei',        count: 1 } ],
+    evening:   [ { query: 'ristoranti per cena',   count: 1 },
+                 { query: 'pub cocktail bar',      count: 1 } ]
+  };
+
+  /* ---------- distribuzione random dei must* ---------- */
+  const randomSlot = (type) => {
+    if (type === 'eat') return Math.random() < 0.5 ? 'afternoon' : 'evening';
+    return ['morning', 'afternoon', 'evening'][Math.floor(Math.random() * 3)];
+  };
+
+  const personalization = {}; // { day: { morning:[], afternoon:[], evening:[] } }
+
+  const assignRandom = (list, type) => {
+    for (const name of list) {
+      const day     = Math.floor(Math.random() * totalDays) + 1;          // 1-based
+      const section = randomSlot(type);
+      personalization[day] ??= { morning: [], afternoon: [], evening: [] };
+      personalization[day][section].push({ name, type });
+    }
+  };
+
+  assignRandom(mustSee, 'see');
+  assignRandom(mustEat, 'eat');
+
+  /* ---------- eventuale geolocalizzazione alloggio ---------- */
+  let accommodationPlace = null;
+  if (accommodation) {
+    try {
+      const acc = await axios.get(
+        'https://maps.googleapis.com/maps/api/place/textsearch/json',
+        { params: { query: accommodation, key: GOOGLE_API_KEY } }
+      );
+      const first = acc.data.results?.[0];
+      if (first?.geometry?.location) {
         accommodationPlace = {
-          name: "Torna all'alloggio",
-          address: firstAcc.formatted_address,
-          photo: null, // o un placeholder
-          latitude: firstAcc.geometry.location.lat,
-          longitude: firstAcc.geometry.location.lng
+          name: 'Torna all\'alloggio',
+          address: first.formatted_address,
+          photo: null,
+          latitude: first.geometry.location.lat,
+          longitude: first.geometry.location.lng
         };
       }
-    }
+    } catch { /* non blocca il flusso */ }
+  }
 
-    const itinerary = [];
+  /* ---------- generazione itinerario ---------- */
+  const itinerary = [];
 
-    for (let day = 1; day <= totalDays; day++) {
-      console.log(`\n🗓️  Giorno ${day}`);
-      const dayPlan = { day, morning: [], afternoon: [], evening: [] };
+  for (let dayIdx = 1; dayIdx <= totalDays; dayIdx++) {
+    const plan = { day: dayIdx, morning: [], afternoon: [], evening: [] };
+    const pers = personalization[dayIdx] || plan; // default vuoto
 
-      let lastPlace = null;
+    for (const [section, queries] of Object.entries(baseStructure)) {
 
-      for (const [section, queries] of Object.entries(itineraryStructure)) {
-        console.log(`  ➤ Fase: ${section}`);
-        for (const { query, count } of queries) {
-          console.log(`     🔍 Query: ${query}`);
-          const places = await fetchPlaces(query, count, lastPlace);
+      /* --- 1) mustEat → prima posizione --- */
+      const eatItems = (pers[section] || []).filter(x => x.type === 'eat');
+      for (const { name } of eatItems) {
+        const [place] = await fetchPlaces(name, 1);
+        if (place) plan[section].push(place);        // sempre all'inizio
+      }
 
-          if (places.length === 0) {
-            console.log('     ⚠️ Nessun luogo trovato');
-            continue;
-          }
+      /* --- 2) ricerche standard --- */
+      for (const { query, count } of queries) {
+        const found = await fetchPlaces(query, count);
+        plan[section].push(...found);
+      }
 
-          console.log(`     ✅ Trovati ${places.length} luoghi:`);
-          places.forEach(p => {
-            console.log(`        - ${p.name} (${p.latitude}, ${p.longitude})`);
-          });
+      /* --- 3) mustSee → posizione random, NON indice 0 se possibile --- */
+      const seeItems = (pers[section] || []).filter(x => x.type === 'see');
+      for (const { name } of seeItems) {
+        const [place] = await fetchPlaces(name, 1);
+        if (!place) continue;
 
-          dayPlan[section].push(...places);
-          lastPlace = places[places.length - 1];
-
-          if (!coverPhoto && places[0]?.photo) {
-            coverPhoto = places[0].photo;
-          }
+        if (plan[section].length === 0) {
+          plan[section].push(place);                 // unico caso in cui finisce primo
+        } else {
+          const idx = 1 + Math.floor(Math.random() * plan[section].length);
+          plan[section].splice(idx, 0, place);       // inserisce da indice 1 in poi
         }
       }
-
-      const orderedPlaces = [...dayPlan.morning, ...dayPlan.afternoon, ...dayPlan.evening];
-
-      if (accommodationPlace) {
-        orderedPlaces.push(accommodationPlace);
-        console.log(`  🏨 Aggiunta tappa finale: ${accommodationPlace.name}`);
-      }
-
-      dayPlan.ordered = orderedPlaces;
-      itinerary.push(dayPlan);
-      console.log('\n📦 Itinerario finale generato:');
-      console.log(JSON.stringify(itinerary, null, 2));
-      console.log('\n🖼️  Cover photo:', coverPhoto);
     }
 
-    // Rispondiamo al frontend
-    res.json({ itinerary, coverPhoto });
-  } catch (error) {
-    console.error("Errore durante la generazione dell'itinerario:", error.message);
-    res.status(500).json({ error: "Errore nella generazione dell'itinerario" });
+    /* ordered -> concatenazione cronologica */
+    plan.ordered = [...plan.morning, ...plan.afternoon, ...plan.evening];
+    if (accommodationPlace) plan.ordered.push(accommodationPlace);
+
+    itinerary.push(plan);
   }
+
+  /* ---------- risposta ---------- */
+  res.json({ itinerary, coverPhoto });
 };
 
 module.exports = { getItinerary };

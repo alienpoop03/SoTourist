@@ -1,41 +1,33 @@
+// api.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from './ip.config';
-@Injectable({
-  providedIn: 'root' // ✅ corretto per standalone
-})
-export class ApiService {
-  //private readonly BASE_URL = 'http://192.168.17.185:3000/api'; // oppure '/api' se usi proxy
-    private readonly BASE_URL = API_BASE_URL+'/api'; // oppure '/api' se usi proxy
 
+export interface GenerateItineraryRequest {
+  city: string;
+  totalDays: number;
+  accommodation?: string;
+  mustSee?: string[];
+  mustEat?: string[];
+  avoid?: string[];
+  transport?: string;
+  aiQuestion?: string;
+}
+
+@Injectable({ providedIn: 'root' })
+export class ApiService {
+  private readonly BASE_URL = `${API_BASE_URL}/api`;
 
   constructor(private http: HttpClient) {}
 
-  getItinerary(
-    city: string,
-    totalDays: number,
-    accommodation?: string,
-    extra?: { mustSee?: string[], transport?: string, aiQuestion?: string }
-  ): Observable<{ itinerary: any[], coverPhoto: string }> {
-    let params = new HttpParams()
-      .set('city', city)
-      .set('totalDays', totalDays.toString())
-      .set('accommodation', accommodation || '');
-  
-    if (extra?.mustSee?.length) {
-      params = params.set('mustSee', extra.mustSee.join(','));
-    }
-    if (extra?.transport) {
-      params = params.set('transport', extra.transport);
-    }
-    if (extra?.aiQuestion) {
-      params = params.set('aiQuestion', extra.aiQuestion);
-    }
-  
-    return this.http.get<{ itinerary: any[], coverPhoto: string }>(
-      `${this.BASE_URL}/itinerary`, { params }
+  /** Genera un itinerario (POST) - mantiene il vecchio nome per compatibilità */
+  getItinerary(body: GenerateItineraryRequest):
+    Observable<{ itinerary: any[]; coverPhoto: string }> {
+
+    return this.http.post<{ itinerary: any[]; coverPhoto: string }>(
+      `${this.BASE_URL}/itinerary`,
+      body
     );
   }
-  
 }
