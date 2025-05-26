@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="text-center">Personalizza Itinerario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="page-wrapper">
+
+    <!-- Sidebar Giorni -->
+    <div class="sidebar">
+      <div *ngFor="let d of days(); let i = index" class="sidebar-day" [class.active]="i === activeDay()"
+        (click)="selectDay(i)">
+        Day {{ i + 1 }}
+      </div>
+    </div>
+
+    <!-- Contenuto Giorno -->
+    <div class="main-content">
+      <div *ngFor="let slot of slots" class="slot-section">
+        <h3 class="slot-title">{{ slotName[slot] }}</h3>
+
+        <div cdkDropList [cdkDropListData]="days()[activeDay()][slot]" class="slot-list"
+          (cdkDropListDropped)="drop($event, slot)">
+
+          <!-- 🔁 Card tappabili -->
+          <div *ngFor="let p of days()[activeDay()][slot]; let idx = index" cdkDrag>
+            <app-luogo-card [place]="p" [index]="idx" [selected]="false" (clicked)="editPlace(idx, slot)">
+            </app-luogo-card>
+            <ion-icon name="trash-outline" class="delete-icon" (click)="removePlace(slot, idx)">
+            </ion-icon>
+          </div>
+
+          <!-- ➕ Aggiunta -->
+          <div class="place-row add-row" (click)="addPlace(slot)">
+            <ion-icon name="add-outline"></ion-icon>
+            <span>Aggiungi luogo</span>
+          </div>
+
+        </div>
+      </div>
+      <!-- Pulsante Salva -->
+      <!-- FAB Salva -->
+      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="saveItinerary()">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+
+    </div>
+
+  </div>
+
+
+
+</ion-content>

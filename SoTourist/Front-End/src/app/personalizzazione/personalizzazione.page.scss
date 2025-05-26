@@ -1,0 +1,178 @@
+/* ========================
+   Variabili tema
+======================== */
+$primary: var(--color-primary);
+$highlight: var(--color-highlight);
+$bg: var(--color-background);
+$bg1: var(--color-background1);
+$bg2: var(--color-background2);
+$text: var(--color-text);
+
+/* ========================
+   Host & Content
+======================== */
+:host {
+  ion-content {
+    --background: $bg;
+  }
+}
+
+/* ========================
+   Layout principale
+======================== */
+.page-wrapper {
+  display: flex;
+  height: 100%;
+  background: $bg;
+}
+
+/* ========================
+   Sidebar Giorni
+======================== */
+.sidebar {
+  /* larghezza minima per Day 1, Day 2... */
+  min-width: 70px;
+  background: $primary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 0.5rem;
+}
+
+.sidebar-day {
+  /* Testo orizzontale */
+  writing-mode: horizontal-tb;
+  transform: none;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  /* Non permettere wrapping */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &.active {
+    background: $highlight;
+    color: $primary;
+    font-weight: 600;
+  }
+}
+
+/* ========================
+   Contenuto Principale
+======================== */
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 6rem; // spazio per il pulsante salva
+}
+
+
+/* ========================
+   Sezione Slot (Mattina/Pomeriggio/Sera)
+======================== */
+.slot-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.slot-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $primary;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 4px solid $primary;
+}
+/* ========================
+   Lista verticale (drag & drop)
+======================== */
+.slot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Riga singola per ogni tappa */
+.place-row {
+  background: $bg1;
+  border: 1.5px solid $primary;
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: $text;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .place-label {
+    font-weight: bold;
+    color: $primary;
+  }
+
+  &.add-row {
+    border-style: dashed;
+    color: $highlight;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 1.6rem;
+      opacity: 0.4;
+      margin-right: 6px;
+    }
+  }
+}
+.luogo-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon {
+  font-size: 1.4rem;
+  color: var(--ion-color-danger, #eb445a);
+  margin-left: 0.7rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+/* ---------- FAB Salva ---------- */
+ion-fab {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 200;
+  pointer-events: auto;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  ion-fab-button {
+    --background: var(--color-primary); // Bordeaux
+    --color: #fff;
+    --border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+}

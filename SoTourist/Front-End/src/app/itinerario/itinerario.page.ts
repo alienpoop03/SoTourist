@@ -171,7 +171,7 @@ export class ItinerarioPage implements AfterViewInit {
     private itineraryService: ItineraryService,
     private auth: AuthService,
     private photoService: PhotoService,
-        private alertController: AlertController,
+    private alertController: AlertController,
     private modalController: ModalController
 
   ) { }
@@ -345,16 +345,16 @@ export class ItinerarioPage implements AfterViewInit {
     const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
     this.isLoading = true;
-const payload: GenerateItineraryRequest = {
-     city:         trip.city,
-  totalDays:    days,
-     accommodation:trip.accommodation,
-     mustSee:      this.tripMustSee,        // ⬅️ nuovo
-     mustEat:      this.tripEatPlaces,      // ⬅️ nuovo
-     avoid:        this.tripAlreadyVisited  // ⬅️ nuovo
-  };
+    const payload: GenerateItineraryRequest = {
+      city: trip.city,
+      totalDays: days,
+      accommodation: trip.accommodation,
+      mustSee: this.tripMustSee,        // ⬅️ nuovo
+      mustEat: this.tripEatPlaces,      // ⬅️ nuovo
+      avoid: this.tripAlreadyVisited  // ⬅️ nuovo
+    };
 
-   this.api.getItinerary(payload).subscribe({
+    this.api.getItinerary(payload).subscribe({
       next: (res) => {
         console.log('✅ [GENERAZIONE] Risposta da backend:', res);
         console.table(res.itinerary);
@@ -705,7 +705,7 @@ const payload: GenerateItineraryRequest = {
     });
   }
 
-   async openDateEdit() {
+  async openDateEdit() {
     const alert = await this.alertController.create({
       header: 'Modifica date',
       inputs: [
@@ -771,4 +771,11 @@ const payload: GenerateItineraryRequest = {
 
     await alert.present();
   }
+  vaiAPersonalizzazione() {
+    this.router.navigate(['/personalizzazione'], {
+      queryParams: { id: this.trip.itineraryId }
+    });
+  }
+
+
 }

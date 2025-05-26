@@ -1,0 +1,18 @@
+<ion-card [class.selected]="selected" (click)="clicked.emit()">
+  <ion-img *ngIf="place.photoUrl; else ph" [src]="place.photoUrl"></ion-img>
+  <ng-template #ph>
+    <div class="placeholder">📍</div>
+  </ng-template>
+
+  <ion-card-header>
+    <ion-card-title>
+      <ng-container *ngIf="index !== undefined">{{ index + 1 }}. </ng-container>{{ place.name }}
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p class="addr">{{ place.address }}</p>
+    <p class="dist" *ngIf="place.distanceToNext">⇢ {{ place.distanceToNext }}</p>
+    <p *ngIf="place.rating">⭐ {{ place.rating }}</p>
+  </ion-card-content>
+</ion-card>

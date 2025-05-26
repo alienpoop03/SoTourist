@@ -352,3 +352,47 @@ exports.checkDateOverlap = (req, res) => {
     }
   );
 };
+
+// 🔁 SOVRASCRIVE TUTTE LE TAPPE
+exports.updateItineraryPlaces = (req, res) => {
+  const { userId, itineraryId } = req.params;
+  const { places } = req.body;
+
+  if (!Array.isArray(places)) {
+    return res.status(400).json({ error: 'Formato tappe non valido' });
+  }
+
+  db.serialize(() => {
+    db.run('DELETE FROM places WHERE itineraryId = ?', [itineraryId], function (err) {
+      if (err) return res.status(500).json({ error: 'Errore durante la cancellazione delle tappe' });
+
+      const stmt = db.prepare(`
+        INSERT INTO places (placeId, itineraryId, name, day, timeSlot, lat, lng, address, photoUrl, type, note)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+
+      for (const p of places) {
+        const placeId = p.placeId || generateId('place_');
+
+        stmt.run([
+          placeId,
+          itineraryId,
+          p.name || '',
+          p.day,
+          p.timeSlot,
+          p.lat ?? null,
+          p.lng ?? null,
+          p.address || '',
+          p.photoUrl || '',
+          p.type || '',
+          p.note || ''
+        ]);
+      }
+
+      stmt.finalize((err2) => {
+        if (err2) return res.status(500).json({ error: 'Errore inserimento tappe' });
+        res.status(200).json({ success: true });
+      });
+    });
+  });
+};

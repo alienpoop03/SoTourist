@@ -170,41 +170,6 @@
   }
 }
 
-ion-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
-
-  &.selected {
-    outline: 3px solid var(--senape);
-  }
-
-  ion-img,
-  .placeholder {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 12px 12px 0 0;
-    background: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-  }
-
-  ion-card-title {
-    color: var(--bordeaux);
-  }
-
-  .addr {
-    font-size: .8rem;
-    color: var(--bordeaux);
-  }
-
-  .dist {
-    font-size: .75rem;
-    color: var(--senape);
-  }
-}
 
 /* -------- Modale dettaglio -------- */
 .detail {

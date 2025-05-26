@@ -51,22 +51,14 @@
   <div class="cards" [ngClass]="{ 'horizontal': isDrawerCompact }" #cardsContainer>
 
 
-    <ion-card *ngFor="let p of todayPlaces; let i = index" [class.selected]="i === selectedIndex"
-      (click)="openPlace(i)">
-      <ion-img *ngIf="p.photoUrl; else ph" [src]="p.photoUrl"></ion-img>
-      <ng-template #ph>
-        <div class="placeholder">📍</div>
-      </ng-template>
+    <app-luogo-card
+  *ngFor="let p of todayPlaces; let i = index"
+  [place]="p"
+  [index]="i"
+  [selected]="i === selectedIndex"
+  (clicked)="openPlace(i)">
+</app-luogo-card>
 
-      <ion-card-header>
-        <ion-card-title>{{ p.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p class="addr">{{ p.address }}</p>
-        <p class="dist" *ngIf="p.distanceToNext">⇢ {{ p.distanceToNext }}</p>
-        <p *ngIf="p.rating">⭐ {{ p.rating }}</p>
-      </ion-card-content>
-    </ion-card>
   </div>
 </div>
 

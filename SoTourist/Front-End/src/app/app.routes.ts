@@ -55,5 +55,10 @@ export const routes: Routes = [
     loadComponent: () => import('./stickers/stickers.page').then( m => m.StickersPage),
     canActivate: [PremiumGuard]
   },
+  {
+    path: 'personalizzazione',
+    loadComponent: () => import('./personalizzazione/personalizzazione.page').then( m => m.PersonalizzazionePage)
+  },
+
 
 ];

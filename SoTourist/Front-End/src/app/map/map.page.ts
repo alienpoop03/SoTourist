@@ -23,6 +23,8 @@ import { NavigationBarComponent } from '../components/navigation-bar/navigation-
 /**
  * Rappresenta la struttura delle tappe raggruppate per giorno
  */
+import { LuogoCardComponent } from '../components/luogo-card/luogo-card.component';
+
 interface DayGroup {
   morning: Place[];
   afternoon: Place[];
@@ -38,7 +40,9 @@ interface DayGroup {
     CommonModule,
     IonContent, IonImg, IonCard, IonCardHeader, IonCardTitle,
     IonCardContent, IonList, IonItem, IonFab, IonFabButton,
-    IonModal, IonButton, NavigationBarComponent, IonIcon
+    IonModal, IonButton, NavigationBarComponent, IonIcon,
+        LuogoCardComponent // <--- AGGIUNGI QUI
+
   ]
 })
 export class MapPage implements AfterViewInit {
