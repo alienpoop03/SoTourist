@@ -19,7 +19,7 @@
   [style.height.px]="size"
   (click)="triggerFileInput()"
 >
-  <img *ngIf="image; else placeholder" [src]="image" alt="Foto profilo" />
+  <img *ngIf="!forcePlaceholder && image; else placeholder" [src]="image" alt="Foto profilo" />
   <ng-template #placeholder>
     <ion-icon name="person-circle-outline" id="profile-img-id" ></ion-icon>
   </ng-template>
