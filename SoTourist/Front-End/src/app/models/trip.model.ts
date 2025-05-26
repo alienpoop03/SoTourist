@@ -10,6 +10,10 @@ export interface Place {
   photoUrl?:      string;
   distanceToNext?: string;
   rating?:        number;    // ← numero, se lo usi così
+    type?: string;
+      note?: string;
+
+
 }
 
 export interface TripWithId {

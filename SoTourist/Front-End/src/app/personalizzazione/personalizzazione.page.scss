@@ -158,14 +158,7 @@ $text: var(--color-text);
 }
 /* ---------- FAB Salva ---------- */
 ion-fab {
-  position: fixed;
-  bottom: 1.25rem;
-  right: 1.25rem;
   z-index: 200;
-  pointer-events: auto;
-
-  background: transparent !important;
-  box-shadow: none !important;
 
   ion-fab-button {
     --background: var(--color-primary); // Bordeaux
@@ -174,5 +167,44 @@ ion-fab {
     width: 56px;
     height: 56px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+}
+.autocomplete-popup {
+  position: fixed;
+  top: 60px; // o usa 50% se vuoi centrarla
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-background);
+  border: 2px solid var(--color-primary);
+  padding: 1rem;
+  z-index: 9999;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  width: calc(100% - 2rem);
+  max-width: 360px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .autocomplete-title {
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+  }
+
+  .autocomplete-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  ion-button {
+    --border-radius: 12px;
+    flex: 1;
   }
 }

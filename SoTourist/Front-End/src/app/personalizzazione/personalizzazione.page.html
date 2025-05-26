@@ -5,33 +5,43 @@
 </ion-header>
 
 <ion-content fullscreen>
+
   <div class="page-wrapper">
 
     <!-- Sidebar Giorni -->
     <div class="sidebar">
-      <div *ngFor="let d of days(); let i = index" class="sidebar-day" [class.active]="i === activeDay()"
-        (click)="selectDay(i)">
+      <div *ngFor="let d of days(); let i = index"
+           class="sidebar-day"
+           [class.active]="i === activeDay()"
+           (click)="selectDay(i)">
         Day {{ i + 1 }}
       </div>
     </div>
 
-    <!-- Contenuto Giorno -->
+    <!-- Contenuto principale -->
     <div class="main-content">
       <div *ngFor="let slot of slots" class="slot-section">
         <h3 class="slot-title">{{ slotName[slot] }}</h3>
 
-        <div cdkDropList [cdkDropListData]="days()[activeDay()][slot]" class="slot-list"
-          (cdkDropListDropped)="drop($event, slot)">
+        <div cdkDropList
+             [cdkDropListData]="days()[activeDay()][slot]"
+             class="slot-list"
+             (cdkDropListDropped)="drop($event, slot)">
 
-          <!-- 🔁 Card tappabili -->
+          <!-- Card luogo -->
           <div *ngFor="let p of days()[activeDay()][slot]; let idx = index" cdkDrag>
-            <app-luogo-card [place]="p" [index]="idx" [selected]="false" (clicked)="editPlace(idx, slot)">
+            <app-luogo-card [place]="p"
+                            [index]="idx"
+                            [selected]="false"
+                            (clicked)="editPlace(idx, slot)">
             </app-luogo-card>
-            <ion-icon name="trash-outline" class="delete-icon" (click)="removePlace(slot, idx)">
+            <ion-icon name="trash-outline"
+                      class="delete-icon"
+                      (click)="removePlace(slot, idx)">
             </ion-icon>
           </div>
 
-          <!-- ➕ Aggiunta -->
+          <!-- Bottone aggiunta -->
           <div class="place-row add-row" (click)="addPlace(slot)">
             <ion-icon name="add-outline"></ion-icon>
             <span>Aggiungi luogo</span>
@@ -39,19 +49,44 @@
 
         </div>
       </div>
-      <!-- Pulsante Salva -->
-      <!-- FAB Salva -->
-      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button (click)="saveItinerary()">
-          <ion-icon name="checkmark-done-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-
-
     </div>
 
   </div>
 
+  <!-- FAB SALVA -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="saveItinerary()">
+      <ion-icon name="checkmark-done-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
+  <!-- 🔍 PANNELLO AGGIUNTA LUOGO -->
+  <div class="autocomplete-popup" *ngIf="autocompleteOpen()">
+    <h4 class="autocomplete-title">Che tipo di luogo vuoi aggiungere?</h4>
+
+    <div class="autocomplete-buttons">
+      <ion-button size="small" color="primary" (click)="startAutocomplete('restaurant')">
+        🍝 Ristorante
+      </ion-button>
+      <ion-button size="small" color="primary" (click)="startAutocomplete('tourist_attraction')">
+        🏛️ Da vedere
+      </ion-button>
+    </div>
+
+    <!-- Autocomplete Google -->
+   <app-google-autocomplete
+  *ngIf="showAutocompleteInput()"
+  [type]="autocompleteType() || ''"
+  [bounds]="tripBounds"
+  [restrictToBounds]="true"
+  (placeSelected)="onPlaceSelected($event)"
+  (closed)="autocompleteOpen.set(false)">
+</app-google-autocomplete>
+
+
+    <ion-button fill="clear" color="danger" (click)="autocompleteOpen.set(false)">
+      Annulla
+    </ion-button>
+  </div>
 
 </ion-content>

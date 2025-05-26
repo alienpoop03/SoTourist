@@ -8,6 +8,7 @@ import { tap } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class ItineraryService {
   private baseUrl = API_BASE_URL + '/api'; // metti il tuo IP reale
+city: string = '';
 
   constructor(private http: HttpClient) { }
 
@@ -72,6 +73,10 @@ updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
   addPlacesToItinerary(userId: string, itineraryId: string, places: any[]) {
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, places);
   }
+
+  getSinglePlace(query: string, city: string) {
+  return this.http.get(`${API_BASE_URL}/api/itinerary/single-place?query=${encodeURIComponent(query)}&city=${encodeURIComponent(city)}`);
+}
 
   //ceck date
   checkDateOverlap(userId: string, startDate: string, endDate: string, excludeId?: string): Observable<{ overlap: boolean }> {
