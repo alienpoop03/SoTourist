@@ -125,25 +125,24 @@ ion-content.crea-content {
   border-radius: 20px;
   border: 1.5px solid var(--color-background2);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
-  min-height: auto;   
-  height: auto; 
+  min-height: auto;
+  height: auto;
   position: relative;
   overflow: visible;
 }
+
 .step-card.prima-card {
-  min-height: 340px; 
+  min-height: 340px;
 }
 .step-card.prima-card h2 {
-  margin-top: -0.4rem;  
-  margin-bottom: 0.8rem; 
+  margin-top: -0.4rem;
+  margin-bottom: 0.8rem;
 }
 .step-card.ultima-card {
-  min-height: 340px; 
+  min-height: 340px;
 }
-.step-card.prima-card h2 {
-  margin-top: -0.4rem;  
-  margin-bottom: 0.8rem; 
+.step-card.ultima-card h2 {
+  margin-bottom: 1rem;
 }
 
 .step-card h2 {
@@ -240,4 +239,31 @@ ion-content.crea-content {
   margin-bottom: 2rem;
   width: 100%;
   flex-shrink: 0;
+}
+
+/* Layout finale riepilogo */
+.riepilogo-final {
+  background: #ffffff;
+  max-width: 500px;
+  margin: 2rem auto 1rem auto;
+  padding: 1.4rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+/* Pulsanti layout: uno sopra, uno sotto */
+.riepilogo-btns {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1.2rem 0;
+}
+
+.riepilogo-btns-top {
+  margin-bottom: 1.5rem;
+}
+
+.riepilogo-btns-bottom {
+  margin-top: 1.5rem;
 }
