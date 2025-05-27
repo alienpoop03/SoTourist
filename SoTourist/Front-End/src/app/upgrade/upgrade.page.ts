@@ -7,6 +7,7 @@ import {
   IonContent,
   IonButton
 } from '@ionic/angular/standalone';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
 
@@ -22,7 +23,8 @@ import { AuthService } from '../services/auth.service';
     IonButton,
     PlanCardComponent,
     NavigationBarComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UpgradePage implements OnInit {
   userId: string = '';

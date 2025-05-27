@@ -137,3 +137,88 @@
 
 
 
+.vertical-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // gap: 2.2rem;
+  // margin: 2rem 0 2.5rem 0;
+}
+
+.vertical-plan-card {
+  width: 320px;
+  max-width: 340px;
+  height: 510px;
+  background: #fff;
+  border-radius: 26px;
+  box-shadow: 0 6px 22px 0 rgba(67,67,67,0.13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.3rem 1.6rem 1.6rem 1.6rem;
+  position: relative;
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+  }
+  .card-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    object-fit: contain;
+    box-shadow: 0 2px 8px 0 rgba(67,67,67,0.12);
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.43rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: 0.2px;
+  }
+  .card-price {
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: var(--color-highlight);
+  }
+  .features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 0.1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    li {
+      font-size: 1.01rem;
+      color: #7B1E1E;
+      font-weight: 500;
+      padding-left: 0.1rem;
+    }
+  }
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Stili personalizzati per ciascun piano */
+.vertical-plan-card.standard {
+  background: linear-gradient(160deg, #f5eaea 85%, #f7f7f7 100%);
+  border: 2.5px solid #7B1E1E;
+}
+.vertical-plan-card.premium {
+  background: linear-gradient(160deg, #fffbe7 85%, #fff9d2 100%);
+  border: 2.5px solid #FFCC00;
+}
+.vertical-plan-card.gold {
+  background: linear-gradient(160deg, #fff4c2 90%, #ffe17a 100%);
+  border: 2.5px solid #f1c232;
+}

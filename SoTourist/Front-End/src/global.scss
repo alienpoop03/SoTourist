@@ -11,7 +11,7 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
+@import 'swiper/swiper-bundle.css';
 
 
 
@@ -135,7 +135,7 @@ ion-icon {
 .boxes-style {
   /* usa ion-list lines="full" in HTML */
   background: var(--color-background);
-  border-radius: 16px;
+  border-radius: 26px;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
@@ -163,10 +163,10 @@ ion-icon {
 ion-button.boxes-style {            /* la regola prende il bottone stesso */
   --padding-top: 1rem;
   --padding-bottom   : 1rem;
-  --border-radius : 16px;           /* variabile interna */
+  --border-radius : 26px;           /* variabile interna */
 
   /* per sicurezza, forza anche la parte nativa */
   &::part(native) {
-    border-radius: 16px;
+    border-radius: 26px;
   }
 }

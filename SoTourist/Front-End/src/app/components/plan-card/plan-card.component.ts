@@ -2,13 +2,15 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service'; // o il path corretto
 import { HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-plan-card',
   standalone: true,
   templateUrl: './plan-card.component.html',
   styleUrls: ['./plan-card.component.scss'],
-  imports: [CommonModule, HttpClientModule]
+  imports: [CommonModule, HttpClientModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PlanCardComponent implements OnInit {
   @Input() plan: 'standard' | 'premium' | 'gold' = 'standard';

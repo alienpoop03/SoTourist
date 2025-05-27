@@ -8,7 +8,9 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
 import { provideHttpClient } from '@angular/common/http'; 
+import { register } from 'swiper/element/bundle';
 
+register();
 
 bootstrapApplication(AppComponent, {
   providers: [

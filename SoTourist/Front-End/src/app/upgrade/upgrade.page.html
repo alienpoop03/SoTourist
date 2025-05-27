@@ -1,24 +1,62 @@
 <app-navigation-bar title="Impostazioni"></app-navigation-bar>
 
-<ion-content >
 
-  <!-- ✅ Le card -->
-  <app-plan-card
-    plan="standard"
-    [active]="selected === 'standard'"
-    (select)="selected = 'standard'">
-  </app-plan-card>
-
-  <app-plan-card
-    plan="premium"
-    [active]="selected === 'premium'"
-    (select)="selected = 'premium'">
-  </app-plan-card>
-
-  <app-plan-card
-    plan="gold"
-    [active]="selected === 'gold'"
-    (select)="selected = 'gold'">
-  </app-plan-card>
-
+<ion-content>
+  <swiper-container
+    slides-per-view="1.25"
+  centered-slides="true"
+  space-between="12"
+  style="width: 100vw; height: 530px;"
+    >
+    <!-- Standard -->
+    <swiper-slide>
+      <div class="vertical-plan-card standard">
+        <div class="card-header">
+          <img src="assets/images/plans/standard.png" class="card-icon" alt="Standard" />
+          <h2>Standard</h2>
+        </div>
+        <div class="card-price">Gratis</div>
+        <ul class="features">
+          <li>✓ Accesso base a tutte le funzionalità</li>
+          <li>✓ 1 itinerario attivo</li>
+          <li>✓ Pubblicità presente</li>
+          <li>✓ Personalizzazione limitata</li>
+        </ul>
+      </div>
+    </swiper-slide>
+    <!-- Premium -->
+    <swiper-slide>
+      <div class="vertical-plan-card premium">
+        <div class="card-header">
+          <img src="assets/images/plans/premium.png" class="card-icon" alt="Premium" />
+          <h2>Premium</h2>
+        </div>
+        <div class="card-price">4,99€ / mese</div>
+        <ul class="features">
+          <li>✓ Itinerari illimitati</li>
+          <li>✓ Nessuna pubblicità</li>
+          <li>✓ Accesso all’AI (limite giornaliero)</li>
+          <li>✓ Personalizzazione avanzata</li>
+          <li>✓ Download itinerari offline</li>
+        </ul>
+      </div>
+    </swiper-slide>
+    <!-- Gold -->
+    <swiper-slide>
+      <div class="vertical-plan-card gold">
+        <div class="card-header">
+          <img src="assets/images/plans/gold.png" class="card-icon" alt="Gold" />
+          <h2>Gold</h2>
+        </div>
+        <div class="card-price">9,99€ / mese</div>
+        <ul class="features">
+          <li>✓ Tutte le funzionalità Premium</li>
+          <li>✓ AI illimitata</li>
+          <li>✓ Assistenza prioritaria</li>
+          <li>✓ Supporto viaggi di gruppo</li>
+          <li>✓ Esclusive Gold e badge profilo</li>
+        </ul>
+      </div>
+    </swiper-slide>
+  </swiper-container>
 </ion-content>

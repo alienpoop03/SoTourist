@@ -3,11 +3,8 @@
   margin-bottom: 1rem;
 }
 
-.trip-card {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  background: var(--color-background);
+// Override
+.boxes-style{
   transition: transform 0.2s ease;
 
   &:hover {

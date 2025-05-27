@@ -7,6 +7,9 @@ import { GenerationOverlayComponent } from './components/generation-overlay/gene
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { catchError, of } from 'rxjs';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 @Component({
   selector: 'app-root',
