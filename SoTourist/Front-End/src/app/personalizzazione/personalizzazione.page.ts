@@ -68,20 +68,19 @@ ngOnInit(): void {
   if (!itineraryId) return;
 
   this.itineraryService.getItineraryById(itineraryId).subscribe({
-    next: (res: any) => {
-      const grouped = this.isGrouped(res.itinerary)
-        ? res.itinerary as DayData[]
-        : this.groupFlatPlaces(res.itinerary as Place[]);
+    next: async (res: any) => {
+  const grouped = this.isGrouped(res.itinerary)
+    ? res.itinerary as DayData[]
+    : this.groupFlatPlaces(res.itinerary as Place[]);
 
-      this.days.set(grouped);
+  
+  this.city = this.extractCityName(res.city);
+this.fetchCityBounds(res.city);
 
-      // 👇 Imposta bounds per la città
-      if (res.city) {
-this.city = this.extractCityName(res.city);
-  this.fetchCityBounds(res.city);
-}
 
-    },
+  this.days.set(grouped);
+},
+
     error: err => console.error('[Personalizzazione] errore caricamento:', err)
   });
 }
@@ -294,6 +293,10 @@ extractCityName(full: string): string {
   const core = parts[0].trim();         // "05100 Terni TR"
   const tokens = core.split(' ');       // ["05100", "Terni", "TR"]
   return tokens.find(word => isNaN(Number(word))) || 'Roma';  // es: "Terni"
+}
+get currentDaySlots() {
+  const day = this.days()?.[this.activeDay()];
+  return day ? day : { morning: [], afternoon: [], evening: [] };
 }
 
   /* ---------- Icons ---------- */
