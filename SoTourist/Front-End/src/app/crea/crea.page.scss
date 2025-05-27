@@ -5,7 +5,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: linear-gradient(180deg, var(--color-background) 0%, var(--color-background1) 100%);
+  background: linear-gradient(180deg, var(--color-background) 0%, var(--color-background2) 100%);
   padding: 0;
   overflow-y: auto;
   margin: 0;
@@ -31,7 +31,7 @@ ion-content.crea-content {
   margin-left: auto;
   margin-right: auto;
   min-height: 74px;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-background2);
   border-radius: 26px;
   border: 2px solid var(--color-primary);
   padding: 1.1rem 1.6rem;
@@ -73,7 +73,7 @@ ion-content.crea-content {
 
 .riepilogo-header .trip-city {
   font-size: 1.22rem;
-  color: var(--color-primary);
+  color: var(--color-title-viaggi);
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.08;
@@ -122,9 +122,9 @@ ion-content.crea-content {
   margin-top: 0;
   padding: 1.5rem 1rem 1.2rem 1rem;
   gap: 1.2rem;
-  background: var(--color-background5);
+  background: var(--color-background2);
   border-radius: 20px;
-  border: 1.5px solid var(--color-background2);
+  border: 1.5px solid var(--color-background4);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   min-height: auto;
   height: auto;
@@ -132,22 +132,22 @@ ion-content.crea-content {
   overflow: visible;
 }
 
-.step-card.prima-card {
+.step-card.prima-card,
+.step-card.ultima-card {
   min-height: 340px;
 }
+
 .step-card.prima-card h2 {
   margin-top: -0.4rem;
   margin-bottom: 0.8rem;
 }
-.step-card.ultima-card {
-  min-height: 340px;
-}
+
 .step-card.ultima-card h2 {
   margin-bottom: 1rem;
 }
 
 .step-card h2 {
-  color: var(--color-primary);
+  color: var(--color-title-viaggi);
   margin-bottom: 1rem;
   font-size: 1.1rem;
   font-weight: 600;
@@ -163,7 +163,7 @@ ion-content.crea-content {
   border: 2px solid var(--color-primary);
   border-radius: 10px;
   padding: 0.6rem 1rem;
-  background: var(--color-background2);
+  background: var(--color-background3);
   color: var(--color-text1);
   outline: none;
   transition: border 0.2s;
@@ -189,8 +189,8 @@ ion-content.crea-content {
 }
 
 .step-card .next-btn:disabled {
-  background: #eee;
-  color: #ccc;
+  background: var(--color-background4);
+  color: var(--color-text2);
   cursor: not-allowed;
 }
 
@@ -246,7 +246,7 @@ ion-content.crea-content {
 .step-card.final-step-pulita {
   width: 100%;
   max-width: none;
-  height: calc(100vh - 100px); /* spazio visibile senza header */
+  height: calc(100vh - 100px);
   padding: 0 1rem;
   margin: 0;
   border: none;
@@ -254,8 +254,8 @@ ion-content.crea-content {
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* centra verticalmente */
-  align-items: center;      /* centra orizzontalmente */
+  justify-content: center;
+  align-items: center;
 }
 
 .riepilogo-header.riepilogo-final {
@@ -263,9 +263,9 @@ ion-content.crea-content {
   max-width: 700px;
   padding: 1.5rem 2rem;
   margin-bottom: 2rem;
-  background: #fff;
-  border: 2px solid var(--color-primary); /* ✅ BORDO */
-  border-radius: 26px;                    /* ✅ ANGOLI ARROTONDATI */
+  background: var(--color-background2);
+  border: 2px solid var(--color-primary);
+  border-radius: 26px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: flex-start;
@@ -273,7 +273,6 @@ ion-content.crea-content {
   gap: 1.5rem;
   box-sizing: border-box;
 }
-
 
 /* Pulsanti centrati verticalmente */
 .riepilogo-btns-col {
