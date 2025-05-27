@@ -107,7 +107,7 @@
     height: 230px;
     scroll-snap-align: start;
     position: relative;
-    border-radius: 18px;
+    border-radius: 26px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
@@ -194,7 +194,7 @@
     gap: 1.2rem;
 
     ion-card {
-      border-radius: 20px;
+      border-radius: 26px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
       background: var(--color-background1);
@@ -242,7 +242,7 @@
   padding: 1.4rem 1rem 0;
   
   .next-card {
-    border-radius: 20px;
+    border-radius: 26px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     background: var(--color-background1);
@@ -276,7 +276,7 @@
 .quote {
   margin: 2.5rem 1rem 0;
   padding: 1.6rem;
-  border-radius: 20px;
+  border-radius: 26px;
   background: linear-gradient(145deg,
       rgba(255, 204, 0, 0.15),
       rgba(123, 30, 30, 0.15));
@@ -303,7 +303,7 @@
 
   .cta-button {
     --background: var(--color-primary);
-    --border-radius: 16px;
+    --border-radius: 26px;
     --color: var(--color-highlight);
     font-size: 1rem;
     font-weight: 800;
