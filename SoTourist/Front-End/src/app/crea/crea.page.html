@@ -67,10 +67,9 @@
     </div>
 
  <!-- STEP 4: RIEPILOGO E CONFERMA -->
-<div class="step-card ultima-card final-step">
-  
-  <!-- RIEPILOGO CENTRALE -->
-  <div class="riepilogo-header show riepilogo-final" *ngIf="city">
+<div class="step-card ultima-card final-step-pulita">
+  <!-- Riepilogo semplice -->
+  <div class="riepilogo-header riepilogo-final show" *ngIf="city">
     <div class="circle-icon">
       <ion-icon name="airplane"></ion-icon>
     </div>
@@ -90,15 +89,14 @@
       </div>
     </div>
   </div>
-  <!-- PULSANTE INDIETRO SOPRA -->
-  <div class="riepilogo-btns riepilogo-btns-top">
+
+  <!-- Pulsanti -->
+  <div class="riepilogo-btns-col">
     <button class="prev-btn" (click)="prevStep()">Indietro</button>
-  </div>
-  <!-- PULSANTE CONFERMA SOTTO -->
-  <div class="riepilogo-btns riepilogo-btns-bottom">
     <button class="next-btn conferma" (click)="confirm()">Conferma</button>
   </div>
 </div>
+
 
 
   </div>
