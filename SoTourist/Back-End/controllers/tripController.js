@@ -303,7 +303,7 @@ exports.addPlacesToItinerary = (req, res) => {
       }
 
       const place = places.shift();
-      const placeId = place.placeId || generateId('place_');
+      const placeId = generateId('place_');
 
       db.run(
         `INSERT INTO places (placeId, itineraryId, name, day, timeSlot, lat, lng, address, photoUrl, type, note)
