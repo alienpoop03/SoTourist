@@ -16,9 +16,6 @@ import {
 } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from '../components/header/app-header.component';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component';
-import { Router } from '@angular/router';
-
-import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-profilo',
@@ -54,7 +51,6 @@ export class ProfiloPage {
   registrationDate: Date = new Date(); // O caricala da backend/localStorage
   accountStatus: string = 'Standard';
   editing = false;
-  router = inject(Router);
 
 
   // Abbonamento
@@ -163,9 +159,5 @@ export class ProfiloPage {
   onProfileImageChanged(base64: string) {
     console.log('Nuova immagine:', base64);
     this.profileImageUrl = base64;
-  }
-
-  goToUpgrade(){
-    this.router.navigate(['/upgrade']);
   }
 }

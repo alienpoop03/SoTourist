@@ -107,7 +107,7 @@
     height: 230px;
     scroll-snap-align: start;
     position: relative;
-    border-radius: 26px;
+    border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
@@ -140,15 +140,10 @@
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
   }
-
-  @media (min-width: 890px) {
-    display: flex;
-    justify-content: center;
-  }
 }
 
 /* ───── Lista itinerari consigliati ───── */
-/*.featured {
+.featured {
   padding: 1.4rem 1rem 0;
 
   .featured-list {
@@ -162,8 +157,6 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
       background: var(--color-background1);
       margin: 0;
-      
-
 
       img {
         width: 100%;
@@ -185,69 +178,17 @@
         font-size: 0.8rem;
         color: var(--color-text2);
         font-weight: 600;
-      }
-    }
-  }
-}*/
-
-.featured {
-  padding: 1.4rem 1rem 0;
-
-  .featured-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-
-    ion-card {
-      border-radius: 26px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-      background: var(--color-background1);
-      margin: 0;
-
-      img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-      }
-
-      ion-card-header {
-        padding: 1rem;
-      }
-
-      ion-card-title {
-        font-size: 1.1rem;
-        font-weight: 800;
-        color: var(--color-text);
-      }
-
-      ion-card-subtitle {
-        font-size: 0.8rem;
-        color: var(--color-text2);
-        font-weight: 600;
-      }
-    }
-
-    // Media query per layout desktop
-    @media (min-width: 550px) {
-      flex-direction: row;
-      //flex-wrap: wrap;
-      justify-content: space-between;
-
-      ion-card {
-        width: calc(50% - 0.6rem); // 2 colonne con gap tra di loro
       }
     }
   }
 }
-
 
 /* ───── Prossimo viaggio ───── */
 .next-trip {
   padding: 1.4rem 1rem 0;
   
   .next-card {
-    border-radius: 26px;
+    border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     background: var(--color-background1);
@@ -322,7 +263,7 @@
 .quote {
   margin: 2.5rem 1rem 0;
   padding: 1.6rem;
-  border-radius: 26px;
+  border-radius: 20px;
   background: linear-gradient(145deg,
       rgba(255, 204, 0, 0.15),
       rgba(123, 30, 30, 0.15));
@@ -349,7 +290,7 @@
 
   .cta-button {
     --background: var(--color-primary);
-    --border-radius: 26px;
+    --border-radius: 16px;
     --color: var(--color-highlight);
     font-size: 1rem;
     font-weight: 800;

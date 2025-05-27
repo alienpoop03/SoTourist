@@ -179,27 +179,27 @@ exports.getItineraryById = (req, res) => {
           const grouped = [];
 
           for (const place of places) {
-  const dayIndex = place.day - 1;
+            const dayIndex = place.day - 1;
 
-  if (!grouped[dayIndex]) {
-    grouped[dayIndex] = {
-      day: place.day,
-      morning: [],
-      afternoon: [],
-      evening: [],
-      ordered: []
-    };
-  }
+            if (!grouped[dayIndex]) {
+              grouped[dayIndex] = {
+                day: place.day,
+                morning: [],
+                afternoon: [],
+                evening: [],
+                ordered: []
+              };
+            }
 
-  const converted = {
-    ...place,
-    latitude: place.lat,
-    longitude: place.lng
-  };
+            const converted = {
+              ...place,
+              latitude: place.lat,
+              longitude: place.lng
+            };
 
-  grouped[dayIndex][place.timeSlot]?.push(converted);
-  grouped[dayIndex].ordered.push(converted);
-}
+            grouped[dayIndex][place.timeSlot]?.push(converted);
+            grouped[dayIndex].ordered.push(converted);
+          }
 
 
           res.json({

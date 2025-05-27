@@ -113,25 +113,33 @@ const getItinerary = async (req, res) => {
   assignRandom(mustEat, 'eat');
 
   /* ---------- alloggio ---------- */
-  let accommodationPlace = null;
-  if (accommodation) {
-    try {
-      const acc = await axios.get(
-        'https://maps.googleapis.com/maps/api/place/textsearch/json',
-        { params: { query: accommodation, key: GOOGLE_API_KEY } }
-      );
-      const first = acc.data.results?.[0];
-      if (first?.geometry?.location) {
-        accommodationPlace = {
-          name: "Torna all'alloggio",
-          address: first.formatted_address,
-          photo: null,
-          latitude: first.geometry.location.lat,
-          longitude: first.geometry.location.lng
-        };
-      }
-    } catch {/* silenzioso */}
+ /* ---------- alloggio (via fetchPlaces) ---------- */
+let accommodationPlace = null;
+if (accommodation) {
+  try {
+    // usa la stessa funzione di tutti gli altri luoghi
+    const [accPlace] = await fetchPlaces(
+      accommodation,      // query
+      city,               // città
+      GOOGLE_API_KEY,
+      usedPlaceNames,     // evita duplicati
+      avoidSet,
+      1                   // conta 1
+    );
+
+    if (accPlace) {
+      accommodationPlace = {
+        ...accPlace,                 // placeId, lat, lng, photo, address…
+        name: 'Torna all’alloggio',  // label personalizzata
+        type: 'accommodation',
+        note: ''
+      };
+    }
+  } catch (err) {
+    console.warn('⚠️  Errore fetch alloggio:', err);
   }
+}
+
 
   /* ---------- generazione itinerario ---------- */
   const itinerary = [];
@@ -169,9 +177,21 @@ const getItinerary = async (req, res) => {
       }
     }
 
-    plan.ordered = [...plan.morning, ...plan.afternoon, ...plan.evening];
-    if (accommodationPlace) plan.ordered.push(accommodationPlace);
-    itinerary.push(plan);
+    // ➕ duplica l’alloggio: inizio mattina + fine sera
+if (accommodationPlace) {
+  const accMorning = { ...accommodationPlace, timeSlot: 'morning' };
+  const accEvening = { ...accommodationPlace, timeSlot: 'evening' };
+
+  // prima tappa della mattina
+  plan.morning.unshift(accMorning);
+  // ultima tappa della sera
+  plan.evening.push(accEvening);
+}
+
+// ricostruisci 'ordered' sempre
+plan.ordered = [...plan.morning, ...plan.afternoon, ...plan.evening];
+itinerary.push(plan);
+
   }
 
   res.json({ itinerary, coverPhoto });
