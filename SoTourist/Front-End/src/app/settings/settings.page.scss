@@ -23,6 +23,10 @@
     flex-direction: column;
     text-align: center;
   }
+
+  @media (min-width: 847px) {
+    align-items: center;
+  }
 }
 
 /* Wrapper icona profilo: rimane com’è */
