@@ -13,21 +13,22 @@
   <!--viaggi su cloud per chi è loggato-->
   <div *ngIf="!isGuest">
     <!--Viaggio in corso -->
-    <div *ngIf="inCorso" class="trip-section current-trip sticky-section">
-      <h2 class="Title_sezion">Viaggio in corso</h2>
-      <app-trip-card [trip]="inCorso" (remove)="deleteTrip($event)" (open)="openItinerary($event)">
-      </app-trip-card>
+    <div class="viaggiInCorsoImminente">
+      <div *ngIf="inCorso" class="trip-section current-trip sticky-section">
+        <h2 class="Title_sezion">Viaggio in corso</h2>
+        <app-trip-card [trip]="inCorso" (remove)="deleteTrip($event)" (open)="openItinerary($event)">
+        </app-trip-card>
 
+      </div>
+
+      <!--Viaggio imminente -->
+      <div *ngIf="imminente" class="trip-section">
+        <h2 class="Title_sezion">Viaggio imminente</h2>
+        <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
+          (remove)="deleteTrip(imminente.itineraryId)">
+        </app-trip-card>
+      </div>
     </div>
-
-    <!--Viaggio imminente -->
-    <div *ngIf="imminente" class="trip-section">
-      <h2 class="Title_sezion">Viaggio imminente</h2>
-      <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
-        (remove)="deleteTrip(imminente.itineraryId)">
-      </app-trip-card>
-    </div>
-
     <!--Prossimi viaggi -->
     <div *ngIf="futuri.length > 0" class="trip-section">
       <h2 class="Title_sezion">Prossimi viaggi</h2>

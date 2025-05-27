@@ -6,9 +6,9 @@
 }
 
 /* Container generale: rimuove padding laterali di ion-content */
-.settings-content {
+//.settings-content {
   //vuoto
-}
+//}
 
 /* Profile-card full-width, margine solo sotto */
 .profile-card {
@@ -22,6 +22,11 @@
   @media (max-width: 600px) {
     flex-direction: column;
     text-align: center;
+  }
+
+  @media (min-width: 847px) {
+    align-items: center;
+    justify-content: center; 
   }
 }
 

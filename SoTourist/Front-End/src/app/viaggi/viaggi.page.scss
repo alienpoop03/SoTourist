@@ -60,7 +60,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 
-  @media (max-width: 600px) {
+  @media (max-width: 847px) {
     grid-template-columns: 1fr; // mobile: 1 colonna
   }
 
@@ -75,14 +75,24 @@
   border-left: 5px solid var(--color-highlight);
   padding: 1rem;
   border-radius: 12px;
+  
+  @media (min-width: 847px) {
+    padding: 0;
+  }
+ 
+}
+
+.trip-section{
   margin-bottom: 2rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .Title_sezion{
   color: var(--color-title-viaggi);
   font-size: 1.25rem;
   font-weight: 800;
-   padding-left: 12px;
+  padding-left: 12px;
 }
 
 .spacer {
@@ -99,3 +109,13 @@
 
   transition: box-shadow 0.3s ease;
 }
+
+.viaggiInCorsoImminente{
+  @media (min-width: 847px) {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+}
+
+

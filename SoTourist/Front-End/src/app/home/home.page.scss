@@ -107,7 +107,7 @@
     height: 230px;
     scroll-snap-align: start;
     position: relative;
-    border-radius: 18px;
+    border-radius: 26px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
@@ -140,6 +140,11 @@
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
   }
+
+  @media (min-width: 890px) {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /* ───── Lista itinerari consigliati ───── */
@@ -152,7 +157,7 @@
     gap: 1.2rem;
 
     ion-card {
-      border-radius: 20px;
+      border-radius: 26px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
       background: var(--color-background1);
@@ -180,15 +185,27 @@
         font-weight: 600;
       }
     }
+
+    // Media query per layout desktop
+    @media (min-width: 550px) {
+      flex-direction: row;
+      //flex-wrap: wrap;
+      justify-content: space-between;
+
+      ion-card {
+        width: calc(50% - 0.6rem); // 2 colonne con gap tra di loro
+      }
+    }
   }
 }
+
 
 /* ───── Prossimo viaggio ───── */
 .next-trip {
   padding: 1.4rem 1rem 0;
   
   .next-card {
-    border-radius: 20px;
+    border-radius: 26px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     background: var(--color-background1);
@@ -215,6 +232,46 @@
       color: var(--color-text2);
       font-weight: 600;
     }
+    
+    @media (min-width: 772px) {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      height: 180px;
+
+      img {
+        width: 40%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      ion-card-header {
+        flex: 1;
+        padding: 1rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      ion-card-title {
+        font-size: 1.7rem;
+      }
+
+      ion-card-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (min-width: 1080px) {
+      ion-card-title {
+        font-size: 2rem;
+      }
+
+      ion-card-subtitle {
+        font-size: 1.6rem;
+      }
+    }
   }
 }
 
@@ -222,7 +279,7 @@
 .quote {
   margin: 2.5rem 1rem 0;
   padding: 1.6rem;
-  border-radius: 20px;
+  border-radius: 26px;
   background: linear-gradient(145deg,
       rgba(255, 204, 0, 0.15),
       rgba(123, 30, 30, 0.15));
@@ -249,7 +306,7 @@
 
   .cta-button {
     --background: var(--color-primary);
-    --border-radius: 16px;
+    --border-radius: 26px;
     --color: var(--color-highlight);
     font-size: 1rem;
     font-weight: 800;
