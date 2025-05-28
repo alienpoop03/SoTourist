@@ -3,7 +3,9 @@
 
 <ion-content>
   <swiper-container
-    slides-per-view="1.25"
+  #swiperEl
+  [attr.slides-per-view]="getSlidesPerView()"
+  [attr.allow-touch-move]="isScrollable ? 'true' : 'false'"
   centered-slides="true"
   space-between="12"
   style="width: 100vw; height: 530px;"
@@ -22,6 +24,14 @@
           <li>✓ Pubblicità presente</li>
           <li>✓ Personalizzazione limitata</li>
         </ul>
+
+        <button
+          class="Plan-btn Standard-btn"
+          [ngClass]="currentType"
+          (click)="onStandard()">
+          Gratis
+        </button>
+
       </div>
     </swiper-slide>
     <!-- Premium -->
@@ -39,6 +49,12 @@
           <li>✓ Personalizzazione avanzata</li>
           <li>✓ Download itinerari offline</li>
         </ul>
+        <button
+          class="Plan-btn Premium-btn"
+          [ngClass]="currentType"
+          (click)="onPremium()">
+          4,99€
+        </button>
       </div>
     </swiper-slide>
     <!-- Gold -->
@@ -56,6 +72,14 @@
           <li>✓ Supporto viaggi di gruppo</li>
           <li>✓ Esclusive Gold e badge profilo</li>
         </ul>
+
+        <button
+          class="Plan-btn Gold-btn"
+          [ngClass]="currentType"
+          (click)="onGold()">
+          9,99€
+        </button>
+
       </div>
     </swiper-slide>
   </swiper-container>

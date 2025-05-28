@@ -86,3 +86,22 @@ swiper-slide {
   background: linear-gradient(160deg, #fff4c2 90%, #ffe17a 100%);
   border: 2.5px solid #f1c232;
 }
+
+.Plan-btn{
+  margin-top: auto;
+  background: var(--color-highlight);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 26px;
+  padding: 0.4rem 7rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  &.standard.Standard-btn,
+  &.premium.Premium-btn,
+  &.gold.Gold-btn {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
