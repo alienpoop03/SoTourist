@@ -14,7 +14,7 @@ import { AppHeaderComponent } from '../components/header/app-header.component';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component'; // 👈 importa il componente
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +39,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private toastService: ToastService) {}
 
   
   //username: string = '';
@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
 
   async saveProfile() {
     if (!this.email || !this.password) {
-      alert('Inserisci email e password');
+      this.toastService.showWarning('Inserisci email e password');
       return;
     }
 
@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
         }
       },
       error: () => {
-        alert('Credenziali non valide');
+        this.toastService.showWarning('Credenziali non valide');
       }
     });
   }

@@ -16,6 +16,8 @@ import {
 } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from '../components/header/app-header.component';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component';
+import { ToastService } from '../services/toast.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profilo',
@@ -64,6 +66,8 @@ export class ProfiloPage {
 
   // Viaggi salvati
   savedTrips: any[] = [];
+
+  constructor(  private authService: AuthService, private toastService: ToastService) {}
 
   ngOnInit() {
     // Carica dati profilo da localStorage (come in settings)
@@ -126,8 +130,20 @@ export class ProfiloPage {
     }
   }
   deleteAccount() {
-    localStorage.clear();
-    window.location.href = '/login';
+    /*localStorage.clear();
+    window.location.href = '/login';*/
+
+    this.authService.deleteUser(this.userId).subscribe({
+      next: () => {
+        localStorage.clear();
+        this.toastService.showSuccess('Account eliminato.');
+        window.location.href = '/login';
+      },
+      error: (err) => {
+        console.error('Errore nella cancellazione:', err);
+        this.toastService.showError('❌ Errore durante la cancellazione dell’account.');
+      }
+    });
   }
 
   // Abbonamento

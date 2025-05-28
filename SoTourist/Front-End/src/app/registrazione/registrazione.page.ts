@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import * as bcrypt from 'bcryptjs';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component'; // <== aggiorna il path
-
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-registrazione',
@@ -27,17 +27,17 @@ export class RegistrazionePage {
   password = '';
   profileImageUrl: string = ''; // ✅ questa riga risolve tutto
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private toastService: ToastService) {}
 
   async onRegister() {
       this.auth.register(this.username, this.email, this.password).subscribe({
       next: () => {
-        alert('Registrazione completata!');
+        this.toastService.showSuccess('Registrazione completata!');
         this.router.navigateByUrl('/login');
       },
       error: (err: any) => {
         console.error(err);
-        alert('Errore nella registrazione');
+        this.toastService.showError('Errore nella registrazione');
       }
     });
   }
