@@ -1,3 +1,6 @@
+ion-content {
+  overflow: hidden !important;
+}
 
 
 .vertical-cards-wrapper {
@@ -9,7 +12,7 @@
 }
 
 .vertical-plan-card::-webkit-scrollbar {
-  width: 6px;
+  display: none;  
 }
 
 .vertical-plan-card::-webkit-scrollbar-thumb {
@@ -22,8 +25,9 @@
   max-width: 340px;
   min-width: 230px;
 
-  height: 510px;
-  max-height: calc(100vh - 100px);
+  //height: 510px;
+  height: min(510px, calc(100vh - 30px));;
+  max-height: calc(100vh - 80px);
   overflow-y: auto;
 
   background: #fff;
@@ -35,8 +39,8 @@
   padding: 2.3rem 1.6rem 1.6rem 1.6rem;
   position: relative;
 
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-highlight) transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
 
   .card-header {
     display: flex;
@@ -88,6 +92,8 @@ swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%; // 👈 SPAZIO SOPRA E SOTTO visivo
+  box-sizing: border-box;
 }
 
 /* Stili personalizzati per ciascun piano */
@@ -126,4 +132,20 @@ swiper-slide {
     opacity: 0.6;
     cursor: default;
   }
+}
+
+ion-content {
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); // evita overlap su notch/tasti
+  --padding-top: env(safe-area-inset-top);
+  --padding-bottom: env(safe-area-inset-bottom);
+}
+
+
+.scrollable-swiper swiper-slide:not(.swiper-slide-active) .vertical-plan-card {
+  transform: scale(0.94);
+  opacity: 0.85;
+}
+.scrollable-swiper swiper-slide.swiper-slide-active .vertical-plan-card {
+  transform: scale(1);
+  opacity: 1;
 }

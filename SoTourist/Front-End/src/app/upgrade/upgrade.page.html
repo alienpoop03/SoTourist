@@ -1,15 +1,16 @@
 <app-navigation-bar title="Impostazioni"></app-navigation-bar>
 
 
-<ion-content>
+<ion-content scroll-y="false" fullscreen>
   <swiper-container
   #swiperEl
   [attr.slides-per-view]="getSlidesPerView()"
   [attr.allow-touch-move]="isScrollable ? 'true' : 'false'"
   [attr.space-between]="getSpaceBetween()"
+  [ngClass]="{ 'scrollable-swiper': isScrollable }"
   centered-slides="true"
   space-between="12"
-  style="width: 100vw; height: 530px;"
+   style="width: 100vw; height: calc(100vh - 40px); margin-top: 20px; margin-bottom: 20px;"
     >
     <!-- Standard -->
     <swiper-slide>
@@ -84,4 +85,5 @@
       </div>
     </swiper-slide>
   </swiper-container>
+  
 </ion-content>
