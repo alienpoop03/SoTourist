@@ -21,8 +21,8 @@
   position: relative;
   width: 100%;
   height: 50vh;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
+  border-bottom-left-radius: var(--box-radius);
+  border-bottom-right-radius: var(--box-radius);
   overflow: hidden;
 
   .hero-bg {
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 1rem 2rem;
+    padding: 0 1rem 1rem;
     z-index: 1;
     background: linear-gradient(to top,
         rgb(0, 0, 0),
@@ -102,14 +102,13 @@
     display: none;
   }
 
-  .card {
+  .boxes-style.card {
     flex: 0 0 160px;
     height: 230px;
     scroll-snap-align: start;
     position: relative;
-    border-radius: 26px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin:0;
 
     img {
       width: 100%;
@@ -156,11 +155,8 @@
     flex-direction: column;
     gap: 1.2rem;
 
-    ion-card {
-      border-radius: 26px;
+    ion-card.boxes-style {
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-      background: var(--color-background1);
       margin: 0;
 
       img {
@@ -203,12 +199,9 @@
 /* ───── Prossimo viaggio ───── */
 .next-trip {
   padding: 1.4rem 1rem 0;
-  
+
   .next-card {
-    border-radius: 26px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    background: var(--color-background1);
     margin: 0;
 
     img {
@@ -232,7 +225,7 @@
       color: var(--color-text2);
       font-weight: 600;
     }
-    
+
     @media (min-width: 772px) {
       display: flex;
       flex-direction: row;
@@ -301,15 +294,12 @@
 }
 
 /* ───── CTA ───── */
-.cta {
-  margin-bottom: -16px;
-
-  .cta-button {
-    --background: var(--color-primary);
-    --border-radius: 26px;
-    --color: var(--color-highlight);
-    font-size: 1rem;
-    font-weight: 800;
-    height: 52px;
-  }
+.cta-button {
+  --background: var(--color-primary);
+  // --border-radius: 26px;
+  --color: var(--color-highlight);
+  font-size: 1rem;
+  font-weight: 800;
+  height: 52px;
+  margin:0;
 }

@@ -19,11 +19,11 @@
       </p>
 
       <!-- Call-to-action ------------------------------------------------------>
-      <section class="cta">
-        <ion-button expand="block" class="cta-button" (click)="openCreate()">
-          Crea il tuo viaggio
-        </ion-button>
-      </section>
+
+      <ion-button class="boxes-style cta-button" expand="block"  (click)="openCreate()">
+        Crea il tuo viaggio
+      </ion-button>
+
     </div>
   </section>
 
@@ -31,7 +31,7 @@
   <section class="next-trip" *ngIf="nextTrip">
     <h2 class="section-title">Il tuo prossimo viaggio</h2>
 
-    <ion-card class="next-card" (click)="openItinerary(nextTrip!.itineraryId)">
+    <ion-card class="boxes-style next-card" (click)="openItinerary(nextTrip!.itineraryId)">
       <img [src]="nextTrip!.coverPhoto" alt="Cover" />
       <ion-card-header>
         <ion-card-title>{{ nextTrip!.city }}</ion-card-title>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="trending-scroll">
-      <div class="card" *ngFor="let city of trending" (click)="openCreate(city)">
+      <div class="boxes-style card" *ngFor="let city of trending" (click)="openCreate(city)">
         <img [src]="'assets/images/' + city + '.jpeg'" [alt]="city" />
         <div class="card-overlay">
           <span class="city">{{ city }}</span>
@@ -64,7 +64,7 @@
     <h2 class="section-title">Itinerari consigliati</h2>
 
     <div class="featured-list">
-      <ion-card *ngFor="let itin of featuredItineraries" (click)="openItinerary(itin.itineraryId)">
+      <ion-card class="boxes-style" *ngFor="let itin of featuredItineraries" (click)="openItinerary(itin.itineraryId)">
         <img [src]="itin.coverPhoto" alt="Cover" />
         <ion-card-header>
           <ion-card-title>{{ itin.city }}</ion-card-title>

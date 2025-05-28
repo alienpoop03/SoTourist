@@ -1,78 +1,80 @@
 <app-navigation-bar title="Profilo"></app-navigation-bar>
 
-<ion-content class="ion-padding profile-content" fullscreen>
+<ion-content class="profile-content" fullscreen>
 
-  <!-- CARD PROFILO UTENTE -->
-  <ion-card class="profile-main-card">
-    <div class="profile-main-flex">
-      <!--<app-profile-icon class="avatar-lg" [src]="profileImageUrl" [editable]="true"
-        (changed)="profileImageUrl = $event"></app-profile-icon>-->
-
-      <app-profile-icon
-        [userId]="userId"
-        [size]="120"
-        [editable]="true"
-        (changed)="profileImageUrl = $event"
-      ></app-profile-icon>
-
-
-      <div class="user-info">
-        <h2 class="user-name">{{ username || 'Nuovo utente' }}</h2>
-        <div class="user-email">{{ email || 'email@example.com' }}</div>
-        <ion-badge [color]="subscriptionPlan === 'Premium' ? 'warning' : 'medium'">{{ subscriptionPlan || 'Standard'
-          }}</ion-badge>
-        <div class="profile-actions">
-          <ion-button size="small" fill="outline" (click)="editing = !editing">
-            <ion-icon name="create-outline"></ion-icon>
-            Modifica
-          </ion-button>
+  <!-- PROFILO UTENTE -->
+  
+    <ion-card class="boxes-style profile-main-card">
+      <div class="profile-main-flex">
+        <app-profile-icon
+          [userId]="userId"
+          [size]="120"
+          [editable]="true"
+          (changed)="profileImageUrl = $event">
+        </app-profile-icon>
+        <div class="user-info">
+          <h2 class="user-name">{{ username || 'Nuovo utente' }}</h2>
+          <div class="user-email">{{ email || 'email@example.com' }}</div>
+          <ion-badge [color]="subscriptionPlan === 'Premium' ? 'warning' : 'medium'">
+            {{ subscriptionPlan || 'Standard' }}
+          </ion-badge>
+          <div class="profile-actions">
+            <ion-button size="small" fill="outline" (click)="editing = !editing">
+              <ion-icon name="create-outline"></ion-icon>
+              Modifica
+            </ion-button>
+          </div>
+        </div>
+        <div class="user-join">
+          Iscritto dal: <b>{{ registrationDate | date:'mediumDate' }}</b>
         </div>
       </div>
-      <div class="user-join">Iscritto dal: <b>{{ registrationDate | date:'mediumDate' }}</b></div>
-    </div>
-    
-    <form *ngIf="editing" class="edit-fields">
-      <ion-input label="Username" [(ngModel)]="username" maxlength="20"></ion-input>
-      <ion-input label="Email" [(ngModel)]="email" type="email" maxlength="50"></ion-input>
-      <ion-input label="Password" [(ngModel)]="password" type="password"></ion-input>
-      <ion-button expand="block" color="success" (click)="saveProfile()">Salva</ion-button>
-    </form>
-  </ion-card>
+      <form *ngIf="editing" class="edit-fields">
+        <ion-input label="Username" [(ngModel)]="username" maxlength="20"></ion-input>
+        <ion-input label="Email" [(ngModel)]="email" type="email" maxlength="50"></ion-input>
+        <ion-input label="Password" [(ngModel)]="password" type="password"></ion-input>
+        <ion-button class="boxes-style save-button" expand="block" color="success" (click)="saveProfile()">Salva</ion-button>
+      </form>
+    </ion-card>
+  
 
   <!-- ABBONAMENTO -->
-  <ion-list lines="inset" class="boxes-style">
-    <ion-list-header>
-      <ion-icon name="ribbon-outline" slot="start"></ion-icon>
-      <ion-label>Abbonamento</ion-label>
-    </ion-list-header>
-    <ion-item>
-      <ion-label>Piano: <b>{{ subscriptionPlan || 'Standard' }}</b></ion-label>
-      <ion-label slot="end">Scadenza: <b>{{ subscriptionExpiry | date:'mediumDate' }}</b></ion-label>
-    </ion-item>
-    <ion-item lines="none" *ngIf="subscriptionPlan !== 'Premium'" button detail (click)="upgradeSubscription()">
-      <ion-icon name="rocket-outline" slot="start"></ion-icon>
-      <ion-label>Upgrade</ion-label>
-    </ion-item>
-    <ion-item *ngIf="subscriptionPlan === 'Premium'" button detail (click)="manageSubscription()">
-      <ion-icon name="settings-outline" slot="start"></ion-icon>
-      <ion-label>Gestisci abbonamento</ion-label>
-    </ion-item>
-  </ion-list>
+  
+    <ion-list class="boxes-style" lines="inset">
+      <ion-list-header>
+        <ion-icon name="ribbon-outline" slot="start"></ion-icon>
+        <ion-label>Abbonamento</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Piano: <b>{{ subscriptionPlan || 'Standard' }}</b></ion-label>
+        <ion-label slot="end">Scadenza: <b>{{ subscriptionExpiry | date:'mediumDate' }}</b></ion-label>
+      </ion-item>
+      <ion-item lines="none" *ngIf="subscriptionPlan !== 'Premium'" button detail (click)="upgradeSubscription()">
+        <ion-icon name="rocket-outline" slot="start"></ion-icon>
+        <ion-label>Upgrade</ion-label>
+      </ion-item>
+      <ion-item *ngIf="subscriptionPlan === 'Premium'" button detail (click)="manageSubscription()">
+        <ion-icon name="settings-outline" slot="start"></ion-icon>
+        <ion-label>Gestisci abbonamento</ion-label>
+      </ion-item>
+    </ion-list>
 
   <!-- SICUREZZA -->
-  <ion-list lines="inset" class="boxes-style">
-    <ion-list-header>
-      <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
-      <ion-label>Sicurezza</ion-label>
-    </ion-list-header>
-    <ion-item button detail (click)="changePassword()">
-      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-      <ion-label>Cambia password</ion-label>
-    </ion-item>
-    <ion-item lines="none" button detail (click)="confirmDeleteAccount()">
-      <ion-icon name="trash-outline" slot="start"></ion-icon>
-      <ion-label class="delete-text">Elimina account</ion-label>
-    </ion-item>
-  </ion-list>
   
+    <ion-list lines="inset" class="boxes-style">
+      <ion-list-header>
+        <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+        <ion-label>Sicurezza</ion-label>
+      </ion-list-header>
+      <ion-item button detail (click)="changePassword()">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-label>Cambia password</ion-label>
+      </ion-item>
+      <ion-item lines="none" button detail (click)="confirmDeleteAccount()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        <ion-label class="delete-text">Elimina account</ion-label>
+      </ion-item>
+    </ion-list>
+
+
 </ion-content>

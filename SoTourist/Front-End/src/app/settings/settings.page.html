@@ -3,23 +3,16 @@
 </app-header>
 
 <!-- CONTENUTO -->
-<ion-content class="ion-padding settings-content" fullscreen>
+<ion-content class="settings-content" fullscreen>
 
-  <ion-button
-  expand="block"
-  routerLink="/upgrade"
-  class="boxes-style premium-button">
-  🔑 Passa a Premium
-</ion-button>
+  <ion-button expand="block" routerLink="/upgrade" class="boxes-style premium-button">
+    🔑 Passa a Premium
+  </ion-button>
 
-  <ion-card class="profile-card">
+  <ion-card class="boxes-style profile-card">
     <ion-item button detail routerLink="/profilo" lines="none">
 
-      <app-profile-icon
-        [userId]="userId"
-        [size]="120"
-        [editable]="false"
-      ></app-profile-icon>
+      <app-profile-icon [userId]="userId" [size]="120" [editable]="false"></app-profile-icon>
 
       <ion-label>
         <h2><strong>{{ username || 'Nuovo utente' }}</strong></h2>
@@ -32,11 +25,11 @@
   </ion-card>
 
   <ion-list lines="none" class="boxes-style">
-  <ion-item button detail routerLink="/impostazioni">
-    <ion-icon name="settings-outline" slot="start"></ion-icon>
-    <ion-label>Impostazioni avanzate</ion-label>
-  </ion-item>
-</ion-list>
+    <ion-item button detail routerLink="/impostazioni">
+      <ion-icon name="settings-outline" slot="start"></ion-icon>
+      <ion-label>Impostazioni avanzate</ion-label>
+    </ion-item>
+  </ion-list>
 
   <!-- <ion-list lines="inset" class="boxes-style">
     

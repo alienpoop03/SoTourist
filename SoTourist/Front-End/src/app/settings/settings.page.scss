@@ -6,18 +6,16 @@
 }
 
 /* Container generale: rimuove padding laterali di ion-content */
-//.settings-content {
-  //vuoto
-//}
+.settings-content {
+  --padding-bottom: calc(var(--ion-safe-area-bottom, 0px) + 56px + 1rem);
+}
 
 /* Profile-card full-width, margine solo sotto */
 .profile-card {
-  margin: 1rem 0 1rem 0;  // spazio esterno alla card, top | right | bottom | left
-  padding: 1rem;
+  padding: 1rem !important;
   display: flex;
   background: var(--color-background2);
-  border-radius: 26px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -26,13 +24,13 @@
 
   @media (min-width: 847px) {
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
   }
 }
 
-  app-profile-icon{
-    margin-right: 3.5rem;
-  }
+app-profile-icon {
+  margin-right: 3.5rem;
+}
 
 
 /* Campi editabili sotto la card */
@@ -49,36 +47,6 @@
     padding: 0.5rem 1rem;
   }
 }
-
-// SI PUO ELIMINARE PERCHE MESSA NEL GLOBAL
-/* Sezioni settings: full-width, nessun padding laterale, spazio tra blocchi */
-.settings-boxes {
-            /* usa ion-list lines="full" in HTML */
-  background: var(--color-background);
-  border-radius: 16px;
-  
-  // padding-bottom: var(--tabbar-height);
-
-  & + .settings-boxes {
-    margin-top: 1rem;
-  }
-}
-
-/* Item edge-to-edge con solo indent interno */
-.settings-boxes ion-item {
-  --inner-padding-start: 1rem;
-  --inner-padding-end:   1rem;
-  --background: transparent;
-  border-radius: 0;
-}
-
-/* Header di lista: padding standard e carattere più marcato */
-.settings-boxes ion-list-header {
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--color-text);
-}
-///////////////////////////////////////////////
 
 /* Stile globale per gli ion-item */
 ion-item {
@@ -114,15 +82,12 @@ ion-button[fill="clear"] {
 /* Alert (se utilizzato) */
 ion-alert {
   --border-radius: 12px;
-  --backdrop-color: rgba(0,0,0,0.4);
+  --backdrop-color: rgba(0, 0, 0, 0.4);
 }
 
-:host ::ng-deep ion-button.logout-button {
-  --background: var(--color-primary);
-  --color: #ffffff;
-}
-
-:host ::ng-deep ion-button.premium-button {
+.premium-button,
+.logout-button {
+  margin-top: 1rem;
   --background: var(--color-primary);
   --color: #ffffff;
 }
