@@ -33,6 +33,7 @@ export class TripCardComponent {
 
   onDelete(event: Event) {
    this.remove.emit(this.trip.itineraryId);
+   event.stopPropagation();
   }
 
   onClick() {
