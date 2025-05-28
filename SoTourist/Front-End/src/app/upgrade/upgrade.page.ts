@@ -10,7 +10,7 @@ import {
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
-import { ToastController } from '@ionic/angular';
+import { ToastService } from '../services/toast.service';
 @Component({
   selector: 'app-upgrade',
   templateUrl: './upgrade.page.html',
@@ -35,7 +35,7 @@ export class UpgradePage implements OnInit {
   isScrollable = true;
 
   constructor(private auth: AuthService,
-  private toastController: ToastController) {}
+  private toastService: ToastService) {}
 
   ngOnInit() {
     const id = this.auth.getUserId();
@@ -160,14 +160,14 @@ export class UpgradePage implements OnInit {
 
   upgrade(plan: 'premium' | 'gold') {
     this.auth.upgradeAccount(this.userId, plan).subscribe(() => {
-      this.showToast(`✅ Upgrade a ${plan} effettuato.`);
+      this.toastService.showSuccess(`✅ Upgrade a ${plan} effettuato.`);
       this.currentType = plan;
     });
   }
 
   cancel() {
     this.auth.cancelSubscription(this.userId).subscribe(() => {
-      this.showToast('Sei passato a Standard');
+      this.toastService.showSuccess('Sei passato a Standard');
       this.currentType = 'standard';
       this.subscriptionEndDate = null;
     });
@@ -201,16 +201,4 @@ export class UpgradePage implements OnInit {
     }
   }
 
-  async showToast(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 3000,
-      position: 'top',
-      color: 'success',
-      animated: true,
-       cssClass: 'custom-toast'
-    });
-
-    await toast.present();
-  }
 }

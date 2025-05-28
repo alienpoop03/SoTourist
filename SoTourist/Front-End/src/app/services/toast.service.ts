@@ -13,7 +13,8 @@ export class ToastService {
       duration,
       position,
       color: 'success',
-      animated: true
+      animated: true,
+      cssClass: 'custom-toast'
     });
     await toast.present();
   }
@@ -24,7 +25,8 @@ export class ToastService {
       duration,
       position,
       color: 'danger',
-      animated: true
+      animated: true,
+      cssClass: 'custom-toast'
     });
     await toast.present();
   }
@@ -35,7 +37,8 @@ export class ToastService {
       duration,
       position,
       color: 'warning',
-      animated: true
+      animated: true,
+      cssClass: 'custom-toast'
     });
     await toast.present();
   }
