@@ -87,13 +87,18 @@ swiper-slide {
   border: 2.5px solid #f1c232;
 }
 
-.Plan-btn{
-  margin-top: auto;
+.Plan-btn {
+  display: inline-block;        // Si comporta da bottone, non blocco
+  width: max-content;           // Larghezza basata sul contenuto (più padding)
+  max-width: none;              // Ignora limiti del padre
+  flex-shrink: 0; 
+  margin-top: auto;              // Non si restringe se in flex container
+
   background: var(--color-highlight);
   color: var(--color-primary);
   border: none;
   border-radius: 26px;
-  padding: 0.4rem 8vw;
+  padding: 0.4rem clamp(2rem, 26vw, 7rem);        // Controlla la "larghezza visiva"
   font-size: 0.95rem;
   font-weight: bold;
   cursor: pointer;

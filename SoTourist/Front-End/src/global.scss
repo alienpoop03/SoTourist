@@ -111,3 +111,12 @@ ion-button.boxes-style {            /* la regola prende il bottone stesso */
     border-radius: 26px;
   }
 }
+
+.custom-toast {
+  --max-width: 280px;     // larghezza massima
+  font-size: 1rem;        // grandezza testo
+  --padding-start: 1.2rem;
+  --padding-end: 1.2rem;
+  --border-radius: 12px;
+  text-align: center;
+}
