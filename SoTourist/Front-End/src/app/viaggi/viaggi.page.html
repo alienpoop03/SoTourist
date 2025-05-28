@@ -28,13 +28,14 @@
           (remove)="deleteTrip(imminente.itineraryId)">
         </app-trip-card>
       </div>
-    </div>
+    
     <!--Prossimi viaggi -->
-    <div *ngIf="futuri.length > 0" class="trip-section">
-      <h2 class="Title_sezion">Prossimi viaggi</h2>
-      <div class="card-grid">
-        <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
-        </app-trip-card>
+      <div *ngIf="futuri.length > 0" class="trip-section">
+        <h2 class="Title_sezion">Prossimi viaggi</h2>
+        <div class="card-grid">
+          <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
+          </app-trip-card>
+        </div>
       </div>
     </div>
   </div>

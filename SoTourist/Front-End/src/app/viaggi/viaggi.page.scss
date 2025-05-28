@@ -113,7 +113,13 @@
 .viaggiInCorsoImminente{
   @media (min-width: 847px) {
     display: flex;
+    flex-wrap: wrap;         // ⬅️ permette di andare a capo
     gap: 0.5rem;
+    justify-content: space-between; // distribuisce meglio
+
+    > * {
+      flex: 0 1 calc(50% - 0.25rem); // ⬅️ massimo due per riga
+    }
   }
   
 }
