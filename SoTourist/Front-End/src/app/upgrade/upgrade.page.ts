@@ -61,7 +61,7 @@ export class UpgradePage implements OnInit {
 
   getSlideIndexForType(type: string): number {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 1200){
+    if (screenWidth >= 1180){
       return 1;
     }else{
       switch (type) {
@@ -75,21 +75,70 @@ export class UpgradePage implements OnInit {
   }
 
   getSlidesPerView(): string {
-    const screenWidth = window.innerWidth;
-    if (screenWidth >= 1200) {return '3.4';} 
-    if (screenWidth >= 1158) {return '1.65';} 
-    if (screenWidth >= 926) {return '1.58';}
-    if (screenWidth >= 768) {return '1.5';}  
-    if (screenWidth >= 759) {return '1.5';} 
-    if (screenWidth >= 529) {return '1.4';} 
+    const width = window.innerWidth;
 
-    return '1.25';
+    /*const breakpoints = [
+      {width: 412, slides: 1.25 },
+      { width: 529, slides: 1.4 },
+      { width: 759, slides: 1.5 },
+      { width: 926, slides: 1.58 },
+      { width: 1158, slides: 1.65 }
+    ];*/
+
+    const breakpoints = [
+      {width: 412, slides: 1.25 },
+      { width: 1200, slides: 3 }
+    ];
+
+    if (width <= breakpoints[0].width) return '1.25';
+    const last = breakpoints[breakpoints.length - 1];
+    const secondLast = breakpoints[breakpoints.length - 2];
+
+    if (width >= last.width) {
+      // Continua la proporzione oltre i 1200
+      const ratio = (width - last.width) / (last.width - secondLast.width);
+      const slideDiff = last.slides - secondLast.slides;
+      const extrapolated = last.slides + slideDiff * ratio;
+      return extrapolated.toFixed(2);
+    }
+
+    for (let i = 0; i < breakpoints.length - 1; i++) {
+      const bp1 = breakpoints[i];
+      const bp2 = breakpoints[i + 1];
+
+      if (width >= bp1.width && width < bp2.width) {
+        const ratio = (width - bp1.width) / (bp2.width - bp1.width);
+        const interpolated = bp1.slides + (bp2.slides - bp1.slides) * ratio;
+        return interpolated.toFixed(2); // es: "1.46"
+      }
+    }
+
+    return '1.25'; // fallback
   }
 
+  getSpaceBetween(): number {
+    const minWidth = 412;      // Cambia qui la soglia minima
+    const maxWidth = 1200;     // Cambia qui la soglia massima
+    const minGap = 10;         // Cambia qui il valore minimo di gap
+    const maxGap = 30;         // Cambia qui il valore massimo di gap
+
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth <= minWidth) return minGap;
+    if (screenWidth >= maxWidth) return maxGap;
+
+    // Calcolo proporzionale tra minGap e maxGap
+    const ratio = (screenWidth - minWidth) / (maxWidth - minWidth);
+    const interpolated = minGap + (maxGap - minGap) * ratio;
+
+    return Math.round(interpolated);
+  }
+
+    
   @HostListener('window:resize', [])
   onWindowResize() {
     const width = window.innerWidth;
-    const newScrollable = width < 1200;
+    const newScrollable = width < 1180;
 
     if (this.isScrollable !== newScrollable) {
       this.isScrollable = newScrollable;
