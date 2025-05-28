@@ -44,10 +44,12 @@ export class ProfileIconComponent implements OnInit {
       this.loadImageFromBackend();
     }
   }
-
+  private isActionSheetOpen = false;
   /* ------------ UI handlers ------------ */
   async triggerFileInput() {
-    if (!this.editable) return;
+    if (!this.editable || this.isActionSheetOpen) return;
+
+    this.isActionSheetOpen = true;
 
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Gestisci foto profilo',
@@ -55,12 +57,7 @@ export class ProfileIconComponent implements OnInit {
         {
           text: 'Modifica foto',
           icon: 'image-outline',
-          handler: () => {
-            // Apri il file picker
-            setTimeout(() => {
-              document.getElementById('fileInput')?.click();
-            }, 100);
-          }
+          role: 'custom-modify'  // <-- ruolo personalizzato
         },
         {
           text: 'Elimina foto',
@@ -79,7 +76,16 @@ export class ProfileIconComponent implements OnInit {
     });
 
     await actionSheet.present();
+
+    const result = await actionSheet.onDidDismiss();
+    this.isActionSheetOpen = false;
+
+    if (result.role === 'custom-modify') {
+      // Ora l'action sheet è realmente chiuso, e possiamo aprire il file picker
+      document.getElementById('fileInput')?.click();
+    }
   }
+
 
 
   async onImageSelected(evt: Event): Promise<void> {
