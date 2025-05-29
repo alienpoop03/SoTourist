@@ -38,5 +38,5 @@ pagian itinerario (post generazione):
 	specialmente tab luoghi (rimpiazzabile da personalizza itinerario)
 	tab preferenze solo pre-generazione
 	senso Chiedi a IA (in caso implementazione:
-	
+		https://api-docs.deepseek.com
 	)
