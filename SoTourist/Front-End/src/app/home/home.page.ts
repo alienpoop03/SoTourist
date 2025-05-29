@@ -121,8 +121,8 @@ featuredItineraries = [
     this.router.navigate(['/crea'], { queryParams: city ? { city } : {} });
   }*/
 
-  openCreate(city: string) {
-    this.navCtrl.navigateForward(`/crea?city=${encodeURIComponent(city)}`);
+  openCreate(city?: string) {
+    this.navCtrl.navigateForward(`/crea?city=${encodeURIComponent(city || '')}`);
   }
 
   openAll() {
