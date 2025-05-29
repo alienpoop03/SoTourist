@@ -19,6 +19,7 @@ import { ItineraryService } from '../services/itinerary.service';
 import { Place } from '../models/trip.model';
 import { LuogoCardComponent } from '../components/luogo-card/luogo-card.component';
 import { GoogleAutocompleteComponent } from '../components/google-autocomplete/google-autocomplete.component';
+import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 
 type DayData = { morning: Place[]; afternoon: Place[]; evening: Place[] };
 
@@ -34,8 +35,8 @@ type DayData = { morning: Place[]; afternoon: Place[]; evening: Place[] };
     IonIcon, IonLabel,
     DragDropModule, LuogoCardComponent,
     IonButton, IonFab, IonFabButton,
-    GoogleAutocompleteComponent // 👈 aggiungi questo!
-
+    GoogleAutocompleteComponent, // 👈 aggiungi questo!
+    NavigationBarComponent
 
   ],
 })
@@ -63,23 +64,23 @@ tripBounds!: google.maps.LatLngBounds;
 
 
   /* ---------- Lifecycle ---------- */
-ngOnInit(): void {
-  const itineraryId = this.route.snapshot.queryParamMap.get('id');
-  if (!itineraryId) return;
+  ngOnInit(): void {
+    const itineraryId = this.route.snapshot.queryParamMap.get('id');
+    if (!itineraryId) return;
 
-  this.itineraryService.getItineraryById(itineraryId).subscribe({
-    next: async (res: any) => {
-  const grouped = this.isGrouped(res.itinerary)
-    ? res.itinerary as DayData[]
-    : this.groupFlatPlaces(res.itinerary as Place[]);
+    this.itineraryService.getItineraryById(itineraryId).subscribe({
+      next: async (res: any) => {
+    const grouped = this.isGrouped(res.itinerary)
+      ? res.itinerary as DayData[]
+      : this.groupFlatPlaces(res.itinerary as Place[]);
 
-  
-  this.city = this.extractCityName(res.city);
-this.fetchCityBounds(res.city);
+    
+    this.city = this.extractCityName(res.city);
+  this.fetchCityBounds(res.city);
 
 
-  this.days.set(grouped);
-},
+    this.days.set(grouped);
+  },
 
     error: err => console.error('[Personalizzazione] errore caricamento:', err)
   });
@@ -126,7 +127,7 @@ async onPlaceSelected(place: any) {
 
   const query = place.name;
   const day = this.activeDay() + 1;
-const city = this.city || 'Roma';
+  const city = this.city || 'Roma';
 
   try {
     const result = await this.fetchSinglePlaceFromBackend(query, city);
@@ -180,10 +181,25 @@ const city = this.city || 'Roma';
   }
 
   drop(event: CdkDragDrop<Place[]>, slot: typeof this.slots[number]) {
+   /* const arr = this.days()[this.activeDay()][slot];
+
+    // Blocca se si prova a mettere qualcosa sopra/sotto l’alloggio
+    if (event.currentIndex === 0 || event.currentIndex === arr.length - 1) {
+      console.warn('⛔️ Non puoi spostare in cima o in fondo (riservato all’alloggio)');
+      return;
+    }
+
+    // Blocca se si cerca di spostare una card non intermedia
+    if (event.previousIndex === 0 || event.previousIndex === arr.length - 1) {
+      console.warn('⛔️ Non puoi spostare l’alloggio');
+      return;
+    }*/
+    
     const d = structuredClone(this.days());
     moveItemInArray(d[this.activeDay()][slot], event.previousIndex, event.currentIndex);
     this.days.set(d);
   }
+
   removePlace(slot: typeof this.slots[number], index: number) {
     const d = structuredClone(this.days());
     d[this.activeDay()][slot].splice(index, 1);
@@ -299,6 +315,18 @@ get currentDaySlots() {
   return day ? day : { morning: [], afternoon: [], evening: [] };
 }
 
+isAccommodation(p: Place): boolean {
+  return p.type === 'accommodation' ||
+         (p.type === '' && p.name.toLowerCase().includes('alloggio')) ||
+         (p.type === undefined && p.name.toLowerCase().includes('alloggio'));
+}
+
+isEdge(index: number, slot: typeof this.slots[number]): boolean {
+  const arr = this.days()[this.activeDay()][slot];
+  return index === 0 || index === arr.length - 1;
+}
+
   /* ---------- Icons ---------- */
   icons = { addOutline, homeOutline, createOutline, settingsOutline };
 }
+

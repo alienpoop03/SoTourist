@@ -214,3 +214,31 @@ ion-fab {
   border-left: 4px solid var(--color-highlight);
 }
 
+.fab-save {
+  position: fixed;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom) + 10px); // spazio dal fondo, compatibile con Android/iOS
+  z-index: 100;
+
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+
+  ion-fab-button {
+    --border-radius: 50%;
+    --box-shadow: none;
+    --background: var(--color-primary); // giallo senape
+    //color: var(--color-primary); // bordeaux
+    padding: 0; // ← previene effetti extra
+    margin: 0;
+    width: 56px;
+    height: 56px;
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+.page-wrapper {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 40px); // oppure 100px se serve più spazio
+}
