@@ -4,7 +4,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonCard,
-  
   IonButton,
   IonIcon
 } from '@ionic/angular/standalone';

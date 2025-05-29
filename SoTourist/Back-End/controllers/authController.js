@@ -16,7 +16,7 @@ function writeDB(data) {
 
 // ✅ REGISTRAZIONE con hash già pronto dal frontend
 exports.register = async (req, res) => {
- const { username, email, password, type } = req.body;
+  const { username, email, password, type } = req.body;
 
   if (!username || !email || !password) {
     return res.status(400).json({ error: 'Dati mancanti' });
@@ -167,8 +167,10 @@ exports.upgradeToPremium = (req, res) => {
     `UPDATE users SET type = ?, subscriptionEnd = ? WHERE userId = ?`,
     [plan, subscriptionEnd, userId],
     function (err) {
-      if (err) return res.status(500).json({ error: 'Errore aggiornamento abbonamento' });
-
+      if (err) {
+        console.error("ERRORE DB:", err);
+        return res.status(500).json({ error: 'Errore aggiornamento abbonamento' });
+      }
       res.json({
         message: `Upgrade a ${plan} completato`,
         type: plan,

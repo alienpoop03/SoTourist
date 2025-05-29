@@ -3,6 +3,40 @@
 
 <ion-content class="viaggi-content">
 
+  <!-- HERO in alto · viaggio in corso o imminente -->
+  <section class="hero-trip" *ngIf="inCorso || imminente" (click)="openItinerary((inCorso || imminente)!.itineraryId)">
+    <img [src]="(inCorso || imminente)!.coverPhoto || 'assets/images/PaletoBay.jpeg'" alt="Cover" class="hero-bg" />
+
+    <div class="hero-overlay">
+      <h1 class="hero-title">{{ (inCorso || imminente)!.city }}</h1>
+
+      <p class="hero-dates">
+        {{ (inCorso || imminente)!.startDate | date:'dd/MM/yyyy' }}
+        – {{ (inCorso || imminente)!.endDate | date:'dd/MM/yyyy' }}
+      </p>
+
+      <p class="hero-accommodation">
+        🏨 {{ (inCorso || imminente)!.accommodation || '—' }}
+      </p>
+
+      <div class="button-row" (click)="$event.stopPropagation()">
+        <ion-button
+          expand="block"
+          class="boxes-style hero-button-main"
+          (click)="openItinerary((inCorso || imminente)!.itineraryId)">
+          Vai all’itinerario
+        </ion-button>
+
+        <ion-button
+          fill="outline"
+          class="hero-button-del"
+          (click)="deleteTrip((inCorso || imminente)!.itineraryId)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </section>
+
   <!-- Se non ci sono viaggi -->
   <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
@@ -10,41 +44,46 @@
     <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
   </div>
 
-  <!--viaggi su cloud per chi è loggato-->
+  <!-- viaggi reali (backend) -->
   <div *ngIf="!isGuest">
-    <!--Viaggio in corso -->
+
+    <!-- Viaggio in corso (già mostrato come hero, ma manteniamo la card sticky) -->
     <div class="viaggiInCorsoImminente">
-      <div *ngIf="inCorso" class="trip-section current-trip sticky-section">
+      <!-- <div *ngIf="inCorso" class="trip-section current-trip sticky-section">
         <h2 class="Title_sezion">Viaggio in corso</h2>
-        <app-trip-card [trip]="inCorso" (remove)="deleteTrip($event)" (open)="openItinerary($event)">
+        <app-trip-card
+          [trip]="inCorso"
+          (remove)="deleteTrip($event)"
+          (open)="openItinerary($event)">
         </app-trip-card>
+      </div> -->
 
-      </div>
-
-      <!--Viaggio imminente -->
-      <div *ngIf="imminente" class="trip-section">
+      <!-- Viaggio imminente (se non già hero) -->
+      <div *ngIf="imminente" class="trip-section" [hidden]="!inCorso">
         <h2 class="Title_sezion">Viaggio imminente</h2>
         <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
           (remove)="deleteTrip(imminente.itineraryId)">
         </app-trip-card>
       </div>
-    
-    <!--Prossimi viaggi -->
+
+      <!-- Prossimi viaggi -->
       <div *ngIf="futuri.length > 0" class="trip-section">
         <h2 class="Title_sezion">Prossimi viaggi</h2>
         <div class="card-grid">
-          <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
+          <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)"
+            (remove)="deleteTrip(trip.itineraryId)">
           </app-trip-card>
         </div>
       </div>
     </div>
   </div>
 
-  <!--Bozze salvate localmente -->
+  <!-- Bozze local -->
   <div *ngIf="drafts.length > 0" class="trip-section">
     <h2 class="Title_sezion">Bozze</h2>
     <div class="card-grid">
-      <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)" (remove)="deleteDraft($event)">
+      <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)"
+        (remove)="deleteDraft($event)">
       </app-unfinished-card>
     </div>
   </div>

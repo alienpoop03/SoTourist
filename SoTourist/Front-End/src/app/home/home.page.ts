@@ -37,14 +37,15 @@ import { TripWithId } from '../models/trip.model';
   ],
 })
 export class HomePage implements OnInit {
-  /* --- dati statici UI --- */
+  /* ---------- dati statici UI ---------- */
   trending = ['Roma', 'Parigi', 'Tokyo', 'New York', 'Barcellona'];
 
-  /* --- prossimo viaggio (se esiste) --- */
-  nextTrip: TripWithId | null = null;
+  /* ---------- viaggi ---------- */
+  currentTrip: TripWithId | null = null;  // viaggio in corso
+  nextTrip: TripWithId | null = null;     // viaggio imminente (solo se non in corso)
 
-  /* --- itinerari consigliati (mock) --- */
-featuredItineraries = [
+  /* ---------- itinerari consigliati (mock) ---------- */
+  featuredItineraries = [
     {
       itineraryId: 'rome_culture',
       city: 'Roma',
@@ -83,32 +84,38 @@ featuredItineraries = [
   constructor(
     private router: Router,
     private itineraryService: ItineraryService,
-    private authService: AuthService
+    private auth: AuthService
   ) {}
 
   /* ---------- lifecycle ---------- */
   ngOnInit(): void {
-    this.loadNextTrip();            // 1ª volta (al mount)
+    this.refreshTrips();
   }
 
-  /* viene richiamato OGNI volta che torni alla tab Home */
   ionViewWillEnter(): void {
-    this.loadNextTrip();            // aggiorna dati senza ricaricare l’app
+    this.refreshTrips();   // aggiorna quando torni alla Home
   }
 
-  /* ---------- fetch ---------- */
-  private loadNextTrip(): void {
-    const userId = this.authService.getUserId();
-    if (!userId) { this.nextTrip = null; return; }
+  /* ---------- fetch viaggi ---------- */
+  private refreshTrips(): void {
+    const userId = this.auth.getUserId();
+    if (!userId) { this.currentTrip = this.nextTrip = null; return; }
 
-    this.itineraryService
-      .getUserItineraries(userId, 'upcoming')        // Observable<TripWithId[]>
-      .subscribe(list => {
-        this.nextTrip = list?.length ? list[0] : null;
+    this.currentTrip = null;
+    this.nextTrip = null;
+
+    this.itineraryService.getUserItineraries(userId, 'current')
+      .subscribe(res => this.currentTrip = res?.[0] ?? null);
+
+    this.itineraryService.getUserItineraries(userId, 'upcoming')
+      .subscribe(res => {
+        if (!this.currentTrip) {
+          this.nextTrip = res?.[0] ?? null;
+        }
       });
   }
 
-  /* ---------- helper ---------- */
+  /* ---------- util ---------- */
   getTripLength(t: TripWithId): number {
     const s = new Date(t.startDate);
     const e = new Date(t.endDate);

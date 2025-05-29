@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonFab, IonFabButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonFab, IonFabButton, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from '../components/header/app-header.component';
 import { TripCardComponent } from '../components/trip-card/trip-card.component';
 import { TripWithId } from 'src/app/models/trip.model';
@@ -17,6 +17,7 @@ import { UnfinishedCardComponent } from '../components/unfinished-card/unfinishe
     IonContent,
     IonFab,
     IonFabButton,
+    IonButton,
     IonIcon,
     AppHeaderComponent,
     TripCardComponent,
