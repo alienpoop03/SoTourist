@@ -122,7 +122,12 @@ featuredItineraries = [
   }*/
 
   openCreate(city?: string) {
-    this.navCtrl.navigateForward(`/crea?city=${encodeURIComponent(city || '')}`);
+    if(city){
+      this.navCtrl.navigateForward(`/crea?city=${encodeURIComponent(city)}`);
+    }else{
+      this.router.navigate(['/crea']);
+    }
+    
   }
 
   openAll() {
