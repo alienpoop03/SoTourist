@@ -17,11 +17,12 @@
       <div *ngFor="let slot of slots" class="slot-section">
         <h3 class="slot-title">{{ slotName[slot] }}</h3>
 
-        <div cdkDropList [cdkDropListData]="days()[activeDay()][slot]" class="slot-list"
+        <div cdkDropList [cdkDropListData]="days()[activeDay()]?.[slot] || []"
           (cdkDropListDropped)="drop($event, slot)">
 
           <!-- Card luogo -->
-          <div *ngFor="let p of days()[activeDay()][slot]; let idx = index" cdkDrag
+          <div *ngFor="let p of (days()[activeDay()]?.[slot] || []); let idx = index" cdkDrag
+            [cdkDragDisabled]="isAccommodation(p)">
             [cdkDragDisabled]="isAccommodation(p)">
             <app-luogo-card [place]="p" [index]="idx" [selected]="false" (clicked)="editPlace(idx, slot)">
             </app-luogo-card>

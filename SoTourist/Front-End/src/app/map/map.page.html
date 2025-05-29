@@ -1,9 +1,9 @@
 <ion-content>
-<!--  MAPPA  -->
-<div #map id="map"></div>
-<app-navigation-bar [title]="getCurrentDayDate()"></app-navigation-bar>
+  <!--  MAPPA  -->
+  <div #map id="map"></div>
+  <app-navigation-bar [title]="getCurrentDayDate()"></app-navigation-bar>
 
- <!-- WRAPPER DEI SELETTORI -->
+  <!-- WRAPPER DEI SELETTORI -->
   <div class="selectors-bar">
     <!-- Selettore giorno -->
     <div class="selector day-selector" (click)="toggleDayList()">
@@ -22,13 +22,10 @@
 
   <!-- Dropdown Giorno -->
   <ion-list class="day-list" *ngIf="dayListOpen">
-    <ion-item
-  *ngFor="let d of days; let last = last"
-  (click)="selectDay(d)"
-  [class.active]="d === currentDay"
-  [attr.lines]="last ? 'none' : null">
-  Giorno {{ d }}
-</ion-item>
+    <ion-item *ngFor="let d of days; let last = last" (click)="selectDay(d)" [class.active]="d === currentDay"
+      [attr.lines]="last ? 'none' : null">
+      Giorno {{ d }}
+    </ion-item>
   </ion-list>
 
   <!-- Dropdown Time Slot -->
@@ -44,39 +41,35 @@
     </ion-item>
   </ion-list>
 
-<!--  DRAWER  -->
-<div class="drawer" [class.expanded]="drawerExpanded">
+  <!--  DRAWER  -->
+  <div class="drawer" [class.expanded]="drawerExpanded">
 
-  <div class="handle"></div>
-  <div class="cards" [ngClass]="{ 'horizontal': isDrawerCompact }" #cardsContainer>
+    <div class="handle"></div>
+    <div class="cards" [ngClass]="{ 'horizontal': isDrawerCompact }" #cardsContainer>
 
 
-    <app-luogo-card
-  *ngFor="let p of todayPlaces; let i = index"
-  [place]="p"
-  [index]="i"
-  [selected]="i === selectedIndex"
-  (clicked)="openPlace(i)">
-</app-luogo-card>
+      <app-luogo-card *ngFor="let p of todayPlaces; let i = index" [place]="p" [index]="i"
+        [selected]="i === selectedIndex" (clicked)="openPlace(i)">
+      </app-luogo-card>
 
+    </div>
   </div>
-</div>
 
-<!--  MODALE DETTAGLIO  -->
-<ion-modal [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
-  <ng-template>
-    <ion-card class="detail">
-      <ion-img *ngIf="detail?.photoUrl" [src]="detail?.photoUrl"></ion-img>
-      <ion-card-header>
-        <ion-card-title>{{ detail?.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p><strong>Indirizzo:</strong><br>{{ detail?.address }}</p>
-        <p *ngIf="detail?.rating"><strong>Rating:</strong> ⭐ {{ detail?.rating }}</p>
-      </ion-card-content>
-      <ion-button expand="block" (click)="detailOpen=false">Chiudi</ion-button>
-    </ion-card>
-  </ng-template>
-</ion-modal>
+  <!--  MODALE DETTAGLIO  -->
+  <ion-modal [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
+    <ng-template>
+      <ion-card class="detail">
+        <ion-img *ngIf="detail?.photoUrl" [src]="detail?.photoUrl"></ion-img>
+        <ion-card-header>
+          <ion-card-title>{{ detail?.name }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p><strong>Indirizzo:</strong><br>{{ detail?.address }}</p>
+          <p *ngIf="detail?.rating"><strong>Rating:</strong> ⭐ {{ detail?.rating }}</p>
+        </ion-card-content>
+        <ion-button expand="block" (click)="detailOpen=false">Chiudi</ion-button>
+      </ion-card>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>
