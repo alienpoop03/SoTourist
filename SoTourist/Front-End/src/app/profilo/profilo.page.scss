@@ -68,3 +68,18 @@ ion-badge {
   --background: var(--color-primary);
   --color: #ffffff;
 }
+
+.badge-premium {
+  --background: #7B1E1E; // Giallo senape
+  --color: #FFD700;       // Bordeaux
+}
+
+.badge-gold {
+  --background: #FFD700; // Oro
+  --color: #7B1E1E;
+}
+
+.badge-standard {
+  --background: #cccccc;
+  --color: #333;
+}

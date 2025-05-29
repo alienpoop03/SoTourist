@@ -82,7 +82,38 @@ export class ProfiloPage {
     // Carica viaggi
     const trips = localStorage.getItem('trips');
     this.savedTrips = trips ? JSON.parse(trips) : [];
+  
+    if (this.userId) {
+      this.authService.getUserType(this.userId).subscribe({
+        next: (res) => {
+          const type = res.type || 'standard';
+          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1); // Capitalizza
+          if (res.subscriptionEndDate) {
+            this.subscriptionExpiry = new Date(res.subscriptionEndDate);
+          }
+        },
+        error: (err) => {
+          console.error('Errore nel recupero tipo abbonamento:', err);
+          this.subscriptionPlan = 'Standard';
+        }
+      });
+    }
   }
+
+  getBadgeClass(plan: string): string {
+    switch (plan?.toLowerCase()) {
+      case 'premium':
+        return 'badge-premium';
+      case 'gold':
+        return 'badge-gold';
+      case 'standard':
+        return 'badge-standard';
+      default:
+        return 'medium'; 
+    }
+  }
+
+
 
   // Modifica profilo (solo frontend)
   saveProfile() {

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 import { Navigation } from '@angular/core/navigation_types.d-fAxd92YV';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-crea',
   standalone: true,
@@ -24,6 +26,7 @@ import { Navigation } from '@angular/core/navigation_types.d-fAxd92YV';
   styleUrls: ['./crea.page.scss']
 })
 export class CreaPage {
+  constructor(private route: ActivatedRoute) {}
 
   router = inject(Router); // se non usi il costruttore, usa Angular 16+ inject
   cityBounds: google.maps.LatLngBounds | null = null;
@@ -47,6 +50,60 @@ export class CreaPage {
   isConfirmed: boolean = false;
   isCityValid: boolean = false;
   isAccommodationValid: boolean = false;
+
+
+  ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      const cityName = params.get('city');
+      if (cityName) {
+        this.cityInput = cityName;
+        this.searchPlaceAndSet(cityName);
+      }
+    });
+  }
+
+  searchPlaceAndSet(cityName: string) {
+    const autocompleteService = new google.maps.places.AutocompleteService();
+    const placesService = new google.maps.places.PlacesService(document.createElement('div'));
+
+    autocompleteService.getPlacePredictions({ input: cityName, types: ['(cities)'] }, (predictions, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && predictions && predictions.length > 0) {
+        const prediction = predictions[0];
+        const placeId = prediction.place_id;
+
+        if (!placeId) return;
+
+        placesService.getDetails({ placeId, fields: ['place_id', 'name', 'geometry', 'formatted_address'] }, (place, detailsStatus) => {
+          if (detailsStatus === google.maps.places.PlacesServiceStatus.OK && place && place.geometry) {
+            // Se manca il viewport, creane uno finto centrato sulla location
+            if (!place.geometry.viewport && place.geometry.location) {
+              const lat = place.geometry.location.lat();
+              const lng = place.geometry.location.lng();
+              const span = 0.05; // ~5km
+              const bounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(lat - span, lng - span),
+                new google.maps.LatLng(lat + span, lng + span)
+              );
+              place.geometry.viewport = bounds;
+            }
+
+            this.handleCityPlace({
+              name: place.name,
+              place_id: place.place_id,
+              formatted_address: place.formatted_address,
+              geometry: place.geometry
+            } as google.maps.places.PlaceResult);
+          } else {
+            console.warn('Errore getDetails per:', cityName, detailsStatus);
+          }
+        });
+      } else {
+        console.warn('Nessuna predizione per:', cityName, status);
+      }
+    });
+  }
+
+
 
 
   // --- STEP 1: conferma città ---

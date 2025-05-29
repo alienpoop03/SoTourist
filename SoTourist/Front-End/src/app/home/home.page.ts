@@ -12,7 +12,7 @@ import {
   IonIcon,
   IonButton,
 } from '@ionic/angular/standalone';
-
+import { NavController } from '@ionic/angular';
 import { AppHeaderComponent } from '../components/header/app-header.component';
 import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
@@ -84,7 +84,8 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private itineraryService: ItineraryService,
-    private auth: AuthService
+    private authService: AuthService,
+    private navCtrl: NavController
   ) {}
 
   /* ---------- lifecycle ---------- */
@@ -98,7 +99,7 @@ export class HomePage implements OnInit {
 
   /* ---------- fetch viaggi ---------- */
   private refreshTrips(): void {
-    const userId = this.auth.getUserId();
+    const userId = this.authService.getUserId();
     if (!userId) { this.currentTrip = this.nextTrip = null; return; }
 
     this.currentTrip = null;
@@ -123,8 +124,17 @@ export class HomePage implements OnInit {
   }
 
   /* ---------- navigazione ---------- */
-  openCreate(city?: string) {
+  /*openCreate(city?: string) {
     this.router.navigate(['/crea'], { queryParams: city ? { city } : {} });
+  }*/
+
+  openCreate(city?: string) {
+    if(city){
+      this.navCtrl.navigateForward(`/crea?city=${encodeURIComponent(city)}`);
+    }else{
+      this.router.navigate(['/crea']);
+    }
+    
   }
 
   openAll() {
