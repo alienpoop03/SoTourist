@@ -20,6 +20,7 @@ sistemare grafica personalizza itinerario anche da pc
 back end
 
 inserire campo data di iscrizione negli utenti
+generazione itinerario anche all'estero
 
 
 
