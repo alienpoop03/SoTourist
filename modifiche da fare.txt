@@ -1,0 +1,42 @@
+front end:
+
+Sistemare Bordino sotto tab-bar
+
+sistemare box abbonamento page profilo
+
+storico viaggi dalla schermata viaggi + statistiche storico (piano gold)
+
+
+pagina itinerario da rivedere tutta
+
+sistemare grafica personalizza itinerario anche da pc
+
+
+
+
+
+
+
+back end
+
+inserire campo data di iscrizione negli utenti
+
+
+
+
+
+
+
+
+
+
+cose di dubbio senso:
+
+utilità card alloggio in personalizza-itinerario
+
+pagian itinerario (post generazione):
+	specialmente tab luoghi (rimpiazzabile da personalizza itinerario)
+	tab preferenze solo pre-generazione
+	senso Chiedi a IA (in caso implementazione:
+	
+	)
