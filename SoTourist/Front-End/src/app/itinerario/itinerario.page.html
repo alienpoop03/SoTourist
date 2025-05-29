@@ -39,37 +39,48 @@
       <ion-item button (click)="openEditorInline('mustSee')">
         <ion-label>Luoghi da non perdere</ion-label>
         <div slot="end" class="item-preview">
-          <ng-container *ngIf="tripMustSee?.length; else emptyMust">
-            <span class="chip-preview" *ngFor="let p of tripMustSee.slice(0,2)">{{ p }}</span>
-            <span *ngIf="tripMustSee.length > 2">+{{ tripMustSee.length - 2 }}</span>
+          <ng-container *ngIf="tripMustSee.length > 0; else emptyMust">
+            <div class="chip" *ngFor="let p of tripMustSee; let i = index">
+              {{ p.name }}
+              <button class="chip-remove" (click)="removePlaceFromMode('mustSee', i)">✕</button>
+            </div>
           </ng-container>
           <ng-template #emptyMust>Nessun luogo inserito</ng-template>
         </div>
       </ion-item>
 
+
+
       <!-- eat -->
       <ion-item button (click)="openEditorInline('eat')">
         <ion-label>Posti dove vuoi mangiare</ion-label>
         <div slot="end" class="item-preview">
-          <ng-container *ngIf="tripEatPlaces?.length; else emptyEat">
-            <span class="chip-preview" *ngFor="let p of tripEatPlaces.slice(0,2)">{{ p }}</span>
-            <span *ngIf="tripEatPlaces.length > 2">+{{ tripEatPlaces.length - 2 }}</span>
+          <ng-container *ngIf="tripEatPlaces.length > 0; else emptyEat">
+            <div class="chip" *ngFor="let p of tripEatPlaces; let i = index">
+              {{ p.name }}
+              <button class="chip-remove" (click)="removePlaceFromMode('eat', i)">✕</button>
+            </div>
           </ng-container>
           <ng-template #emptyEat>Nessuno specificato</ng-template>
         </div>
       </ion-item>
 
+
+
       <!-- visited -->
       <ion-item button (click)="openEditorInline('visited')">
         <ion-label>Posti già visitati</ion-label>
         <div slot="end" class="item-preview">
-          <ng-container *ngIf="tripAlreadyVisited?.length; else emptyVis">
-            <span class="chip-preview" *ngFor="let p of tripAlreadyVisited.slice(0,2)">{{ p }}</span>
-            <span *ngIf="tripAlreadyVisited.length > 2">+{{ tripAlreadyVisited.length - 2 }}</span>
+          <ng-container *ngIf="tripAlreadyVisited.length > 0; else emptyVis">
+            <div class="chip" *ngFor="let p of tripAlreadyVisited; let i = index">
+              {{ p.name }}
+              <button class="chip-remove" (click)="removePlaceFromMode('visited', i)">✕</button>
+            </div>
           </ng-container>
           <ng-template #emptyVis>Nessuno</ng-template>
         </div>
       </ion-item>
+
     </div>
 
     <!-- ▸ SLIDE 1 – PREFERENZE -->
@@ -148,10 +159,11 @@
 
         <div class="chip-container">
           <div class="chip" *ngFor="let p of tripMustSee; let i = index">
-            {{ p }}
+            {{ p.name }}
             <button class="chip-remove" (click)="removePlaceFromMode('mustSee', i)">✕</button>
           </div>
         </div>
+
       </ng-container>
 
       <!-- eat -->
@@ -165,10 +177,11 @@
 
         <div class="chip-container">
           <div class="chip" *ngFor="let p of tripEatPlaces; let i = index">
-            {{ p }}
+            {{ p.name }}
             <button class="chip-remove" (click)="removePlaceFromMode('eat', i)">✕</button>
           </div>
         </div>
+
       </ng-container>
 
       <!-- visited -->
@@ -182,10 +195,11 @@
 
         <div class="chip-container">
           <div class="chip" *ngFor="let p of tripAlreadyVisited; let i = index">
-            {{ p }}
+            {{ p.name }}
             <button class="chip-remove" (click)="removePlaceFromMode('visited', i)">✕</button>
           </div>
         </div>
+
       </ng-container>
 
       <!-- style -->

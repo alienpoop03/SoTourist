@@ -153,9 +153,10 @@ export class ItinerarioPage implements AfterViewInit {
   tripPrompt: string = '';
 
   // slide 0
-  tripMustSee: string[] = [];
-  tripEatPlaces: string[] = [];
-  tripAlreadyVisited: string[] = [];
+  tripMustSee: Place[] = [];
+  tripEatPlaces: Place[] = [];
+  tripAlreadyVisited: Place[] = [];
+
 
 
   tripBounds: google.maps.LatLngBounds | null = null;
@@ -184,8 +185,17 @@ export class ItinerarioPage implements AfterViewInit {
   }
 
   ionViewWillEnter() {
-    this.itineraryId = this.route.snapshot.queryParamMap.get('id')!;
 
+    // se non funziona togliere questi
+    this.tripMustSee = [];
+    this.tripEatPlaces = [];
+    this.tripAlreadyVisited = [];
+    this.tripTransport = '';
+    this.tripPrompt = '';
+    this.itineraryId = this.route.snapshot.queryParamMap.get('id')!;
+    // fino a qui
+
+    
     // 1. Prova a caricare dal localStorage (bozza)
     const localTrips = JSON.parse(localStorage.getItem('trips') || '[]');
 
@@ -349,9 +359,9 @@ export class ItinerarioPage implements AfterViewInit {
       city: trip.city,
       totalDays: days,
       accommodation: trip.accommodation,
-      mustSee: this.tripMustSee,        // ⬅️ nuovo
-      mustEat: this.tripEatPlaces,      // ⬅️ nuovo
-      avoid: this.tripAlreadyVisited  // ⬅️ nuovo
+      mustSee: this.tripMustSee.map(p => p.placeId),
+      mustEat: this.tripEatPlaces.map(p => p.placeId),
+      avoid: this.tripAlreadyVisited.map(p => p.placeId),
     };
 
     this.api.getItinerary(payload).subscribe({
@@ -638,41 +648,63 @@ export class ItinerarioPage implements AfterViewInit {
     this.closeEditor();
   }
 
-  addPlace(list: string[], place: any) {
-    const name = place?.description || place;
-    if (name && !list.includes(name)) {
-      list.push(name);
-    }
+  addPlace(list: Place[], place: Place) {
+    const exists = list.some(p => p.placeId === place.placeId);
+    if (!exists) list.push(place);
   }
 
-  removePlace(list: string[], idx: number) {
+  removePlace(list: Place[], idx: number) {
     list.splice(idx, 1);
   }
+
   /* ---------- wrapper specifici ---------- */
-  addMustSeePlace = (p: any) => this.addPlace(this.tripMustSee, p);
-  addEatPlace = (p: any) => this.addPlace(this.tripEatPlaces, p);
-  addVisitedPlace = (p: any) => this.addPlace(this.tripAlreadyVisited, p);
+  addMustSeePlace = (p: Place) => this.addPlace(this.tripMustSee, p);
+  addEatPlace = (p: Place) => this.addPlace(this.tripEatPlaces, p);
+  addVisitedPlace = (p: Place) => this.addPlace(this.tripAlreadyVisited, p);
 
   removeMustSeePlace = (i: number) => this.removePlace(this.tripMustSee, i);
   removeEatPlace = (i: number) => this.removePlace(this.tripEatPlaces, i);
   removeVisitedPlace = (i: number) => this.removePlace(this.tripAlreadyVisited, i);
+  onPlaceSelected(mode: EditorField, result: google.maps.places.PlaceResult) {
+    if (!result.place_id || !result.name || !result.geometry) {
+      console.warn('Luogo non valido:', result);
+      return;
+    }
 
-  onPlaceSelected(mode: EditorField, place: any): void {
-    const name = place?.name || place?.description || place?.formatted_address;
-    if (!name) return;
+    const place: Place = {
+      placeId: result.place_id,
+      name: result.name,
+      day: -1, // ❗️Non assegnato ancora a un giorno
+      timeSlot: 'morning', // default temporaneo
+      latitude: result.geometry.location?.lat() ?? 0,
+      longitude: result.geometry.location?.lng() ?? 0,
+      address: result.formatted_address ?? '',
+      photoUrl: result.photos?.[0]?.getUrl({ maxWidth: 400 }) ?? '',
+      rating: result.rating ?? 0,
+      type: '', // da assegnare se vuoi filtrare
+      note: ''
+    };
 
-    const list = this.getListForMode(mode);
-    if (!list.includes(name)) {
-      list.push(name);
+    switch (mode) {
+      case 'mustSee':
+        this.tripMustSee.push(place);
+        break;
+      case 'eat':
+        this.tripEatPlaces.push(place);
+        break;
+      case 'visited':
+        this.tripAlreadyVisited.push(place);
+        break;
     }
   }
+
 
   removePlaceFromMode(mode: EditorField, index: number): void {
     const list = this.getListForMode(mode);
     list.splice(index, 1);
   }
 
-  getListForMode(mode: EditorField): string[] {
+  getListForMode(mode: EditorField): Place[] {
     switch (mode) {
       case 'mustSee': return this.tripMustSee;
       case 'eat': return this.tripEatPlaces;
