@@ -77,7 +77,7 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     const request: google.maps.places.AutocompletionRequest = {
   input,
   types: this.types.length ? this.types : undefined,
-  componentRestrictions: { country: 'it' },
+  //componentRestrictions: { country: 'it' },
   // locationRestriction accetta un oggetto LatLngBoundsLiteral o LatLngBounds
   locationRestriction: this.bounds ? this.bounds.toJSON() : undefined
 };
