@@ -15,7 +15,7 @@
         <div class="user-info">
           <h2 class="user-name">{{ username || 'Nuovo utente' }}</h2>
           <div class="user-email">{{ email || 'email@example.com' }}</div>
-          <ion-badge [color]="subscriptionPlan === 'Premium' ? 'warning' : 'medium'">
+          <ion-badge [class]="getBadgeClass(subscriptionPlan)">
             {{ subscriptionPlan || 'Standard' }}
           </ion-badge>
           <div class="profile-actions">
