@@ -1,15 +1,41 @@
 .settings-boxes {
-            /* usa ion-list lines="full" in HTML */
-  background: var(--color-background);
+  background: var(--color-background2);
   border-radius: 16px;
-  
-  // padding-bottom: var(--tabbar-height);
 
   & + .settings-boxes {
     margin-top: 1rem;
   }
+
+  ion-item {
+    --background: var(--color-background2);
+    --color: var(--color-text2);
+  }
+
+  ion-label {
+    color: var(--color-text2);
+  }
+
+  ion-icon {
+    color: var(--color-highlight); // per icone dorate
+  }
+
+  ion-toggle {
+    --handle-background: var(--color-highlight);
+    --track-background: var(--color-background4);
+  }
+
+  ion-select {
+    --color: var(--color-text2);
+    --placeholder-color: var(--color-text2);
+  }
+
+  ion-button {
+    --background: var(--color-background4);
+    --color: var(--color-highlight);
+  }
 }
 
 .settings-content {
-  //vuoto
+  background: var(--color-background2);
+  color: var(--color-text2);
 }
