@@ -2,15 +2,22 @@
 
 
 <ion-content scroll-y="false" fullscreen>
+  <div class="upgrade-header">
+    <h2>SCEGLI IL TUO PIANO</h2>
+    <p>
+      Inizia con <span class="highlight">14 giorni di prova gratuita</span>. Potrai cambiare piano in qualsiasi momento!
+    </p>
+  </div>
   <swiper-container
   #swiperEl
+  class="swiper-container"
   [attr.slides-per-view]="getSlidesPerView()"
   [attr.allow-touch-move]="isScrollable ? 'true' : 'false'"
   [attr.space-between]="getSpaceBetween()"
   [ngClass]="{ 'scrollable-swiper': isScrollable }"
   centered-slides="true"
   space-between="12"
-   style="width: 100vw; height: calc(100vh - 40px); margin-top: 20px; margin-bottom: 20px;"
+  style="width: 100vw;"
     >
     <!-- Standard -->
     <swiper-slide>
