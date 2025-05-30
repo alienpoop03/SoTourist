@@ -47,7 +47,9 @@
 
   <!-- CONTENUTO -->
   <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
-    <!-- Testo benvenuto -->
+    <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
+    <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
+    <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
   </div>
 
   <div *ngIf="!isGuest">
