@@ -323,6 +323,32 @@ const getItinerary = async (req, res) => {
     for (const slot of slots) {
       for (const def of base[slot]) {
         let minR = null, maxR = null;
+        // LOGICA DEI MEZZI - sempre appena dopo minR/maxR = null
+
+        if (slot === "morning" && def.q.includes("colazione")) {
+          maxR = WITHIN_SLOT;
+        } else if (
+          slot === "morning" &&
+          transport === "bus" &&
+          def.q.includes("attrazioni")
+        ) {
+          maxR = 5000;
+        } else if (
+          slot === "evening" &&
+          transport === "bus" &&
+          def.q.includes("ristoranti per cena") &&
+          accPlace
+        ) {
+          anchor = { lat: accPlace.latitude, lng: accPlace.longitude };
+          minR = 0;
+          maxR = 2000;
+        } else if (plan[slot].length === 0) {
+          minR = R.min;
+          maxR = R.max;
+        } else {
+          maxR = WITHIN_SLOT;
+        }
+
         const customPlaces = [];
 
         if (def.type === "see") {
