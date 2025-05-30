@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationBarComponent } from '../components/navigation-bar/navigation-bar.component';
 import {
@@ -18,6 +18,8 @@ import { AppHeaderComponent } from '../components/header/app-header.component';
 import { ProfileIconComponent } from '../components/profile-icon/profile-icon.component';
 import { ToastService } from '../services/toast.service';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profilo',
@@ -57,17 +59,16 @@ export class ProfiloPage {
 
   // Abbonamento
   subscriptionPlan: string = 'Standard'; // o 'Premium'
-  subscriptionExpiry: Date = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // esempio: +30gg
+  subscriptionExpiry: Date | null = null;
 
   // Preferenze
-  darkMode = false;
   notificationsEnabled = true;
   language: 'it' | 'en' = 'it';
 
   // Viaggi salvati
   savedTrips: any[] = [];
 
-  constructor(  private authService: AuthService, private toastService: ToastService) {}
+  constructor(  private authService: AuthService, private toastService: ToastService, private router: Router) {}
 
   ngOnInit() {
     // Carica dati profilo da localStorage (come in settings)
@@ -87,14 +88,13 @@ export class ProfiloPage {
       this.authService.getUserType(this.userId).subscribe({
         next: (res) => {
           const type = res.type || 'standard';
-          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1); // Capitalizza
-          if (res.subscriptionEndDate) {
-            this.subscriptionExpiry = new Date(res.subscriptionEndDate);
-          }
+          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1); // Capitalizza la prima lettera
+          this.subscriptionExpiry = res.subscriptionEndDate ? new Date(res.subscriptionEndDate) : null;
         },
         error: (err) => {
           console.error('Errore nel recupero tipo abbonamento:', err);
           this.subscriptionPlan = 'Standard';
+          this.subscriptionExpiry = null;
         }
       });
     }
@@ -137,12 +137,6 @@ export class ProfiloPage {
     }
   }
 
-  // Preferenze
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-    document.body.classList.toggle('dark', this.darkMode);
-    localStorage.setItem('darkMode', String(this.darkMode));
-  }
   toggleNotifications() {
     // Metti logica se serve
   }
@@ -207,4 +201,9 @@ export class ProfiloPage {
     console.log('Nuova immagine:', base64);
     this.profileImageUrl = base64;
   }
+
+    goToUpgrade() {
+    this.router.navigate(['/upgrade']);
+  }
+
 }
