@@ -148,7 +148,7 @@ export class ViaggiPage implements AfterViewInit {
       this.RealeScrollHeight = el.scrollHeight;
     });
     
-    // Calcolo dello scroll percepito in pixel (normalizzato)
+    
     const perceivedScrollPx = (scrollTop * this.maxScrollHeight)/this.RealeScrollHeight;
   
     
@@ -164,63 +164,15 @@ export class ViaggiPage implements AfterViewInit {
     this.heroHeightPx = `${this.heroHeight}px`;
   }
   
-  
-  
-  /*if (scrollPosition >= this.scrollThreshold) {
-      if (!this.isScrolledPastThreshold) {
-        this.isScrolledPastThreshold = true; // Segna che abbiamo superato la soglia
-      }
-      this.heroHeightPx = '150px'; // Altezza fissa minima della hero
-      this.overlayOpacity = 0.5; // Opacità ridotta
-    } else {
-      if (this.isScrolledPastThreshold) {
-        this.isScrolledPastThreshold = false; // Reset quando risali sopra la soglia
-      }
-      this.heroHeightPx = `${400 - scrollPosition}px`; // Altezza dinamica
-      this.overlayOpacity = 1 - scrollPosition / this.scrollThreshold; // Opacità dinamica
-    }*/
-
-    /*this.heroHeight = this.heroMaxHeight - scrollPosition;
-    if(this.heroHeight<=this.heroMinHeight){
-      this.heroHeight=this.heroMinHeight
-
-      if (!this.isScrolledPastThreshold) {
-        this.isScrolledPastThreshold = true; // Segna che abbiamo superato la soglia
-      }
-    }else if(scrollPosition < this.heroMaxHeight - this.heroMinHeight-130 ){
-       this.isScrolledPastThreshold = false;
-    }
-
-
-
-    this.heroHeightPx = `${this.heroHeight}px`; // Altezza dinamica*/
-    
-   /* console.log(scrollPosition);
-
-    var typeScole = scrollPosition >= (this.heroHeight - this.heroMinHeight);
-
-    if(this.isScrolledPastThreshold){
-      typeScole = scrollPosition >= this.heroMinHeight;
-    }
-
-    if(typeScole){
-      this.isScrolledPastThreshold = true;
-      this.heroHeight=this.heroMinHeight;
-    }else{
-      this.isScrolledPastThreshold = false;
-      this.heroHeight = this.heroMaxHeight - scrollPosition;
-    }
-    this.heroHeightPx = `${this.heroHeight}px`;
-  }*/
-
   // Funzione di esempio per aprire l'itinerario
-  openItinerary(itineraryId: string) {
-    console.log('Navigating to itinerary: ', itineraryId);
+  openItinerary(id: string): void {
+    this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
   }
 
   // Funzione di esempio per eliminare il viaggio
-  deleteTrip(itineraryId: string) {
-    console.log('Deleting trip: ', itineraryId);
+  deleteTrip(id: string): void {
+    const uid = this.auth.getUserId(); if (!uid) return;
+    this.api.deleteItinerary(uid, id).subscribe(() => this.loadTrips());
   }
 
   // Funzione di click sull'area hero
