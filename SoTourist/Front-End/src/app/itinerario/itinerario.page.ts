@@ -359,6 +359,7 @@ export class ItinerarioPage implements AfterViewInit {
       city: trip.city,
       totalDays: days,
       accommodation: trip.accommodation,
+      transport: this.tripTransport || 'walk',  // <-- AGGIUNTA QUESTA RIGA
       mustSee: this.tripMustSee.map(p => p.placeId),
       mustEat: this.tripEatPlaces.map(p => p.placeId),
       avoid: this.tripAlreadyVisited.map(p => p.placeId),
