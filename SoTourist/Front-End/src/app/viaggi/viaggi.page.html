@@ -1,11 +1,8 @@
-<ion-header class="dynamic-header">
-  <ion-toolbar>
-    <div class="header-container">
-      <h1 class="header-title">{{ headerTitle }}</h1>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
+<app-header
+  [title]="'SoTourist'"
+  [iconName]="'list-outline'"
+  [showBackButton]="false">
+</app-header>
 <ion-content class="viaggi-content" scrollEvents="true" (ionScroll)="onScroll($event)"
   (ionScrollEnd)="onScrollEnd($event)" #pageContent>
 

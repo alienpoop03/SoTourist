@@ -4,24 +4,6 @@
 }
 
 /* HEADER STATICO */
-.dynamic-header {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  background: var(--color-background);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.header-container {
-  padding: 16px;
-  text-align: center;
-}
-
-.header-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--color-primary);
-}
 
 /* HERO ESPANSA */
 .hero-wrapper {
