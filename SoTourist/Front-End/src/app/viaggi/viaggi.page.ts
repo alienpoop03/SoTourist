@@ -1,4 +1,4 @@
-import { Component, AfterViewInit,ViewChild, HostListener, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
@@ -30,8 +30,8 @@ import { AuthService } from '../services/auth.service';
     IonFabButton,
     IonButton,
     IonHeader,
-  IonToolbar,
-  IonTitle,
+    IonToolbar,
+    IonTitle,
     IonIcon,
     AppHeaderComponent,
     TripCardComponent,
@@ -40,8 +40,6 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './viaggi.page.html',
   styleUrls: ['./viaggi.page.scss'],
 })
-
-
 export class ViaggiPage implements AfterViewInit {
   constructor(
     private router: Router,
@@ -50,15 +48,66 @@ export class ViaggiPage implements AfterViewInit {
   ) { }
 
   isGuest = false;
+  inCorso: TripWithId | null = null;
   imminente: TripWithId | null = null;
   futuri: TripWithId[] = [];
-  loaded  = false;
   drafts: TripWithId[] = [];
+  loaded = false;
   private apiCalls = 0;
+
+  @ViewChild(IonContent) content!: IonContent;
+
+  // Stato shrink animazione
+  isShrunk: boolean = false;
+
+  // Soglia tarata per passaggio a hero compatta
+  readonly shrinkThreshold = 100;  // puoi regolarla leggermente a piacere
+
+  // Header Title fix
+  headerTitle: string = 'SoTourist';
+
+  ngAfterViewInit() { }
 
   ionViewDidEnter(): void {
     this.isGuest = !!this.auth.getUserId()?.startsWith('guest_');
     this.isGuest ? this.loadDraftsOnly() : this.loadTrips();
+  }
+
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    this.isShrunk = scrollTop > this.shrinkThreshold;
+  }
+
+
+  private loadTrips(): void {
+    const uid = this.auth.getUserId();
+    if (!uid) return;
+
+    this.loaded = false;
+    this.resetLists();
+
+    this.api.getUserItineraries(uid, 'current')
+      .subscribe({
+        next: r => {
+          this.inCorso = r[0] || null;
+          this.headerTitle = this.inCorso?.city || 'SoTourist';
+        },
+        complete: () => this.done()
+      });
+
+    this.api.getUserItineraries(uid, 'upcoming')
+      .subscribe({ next: r => this.imminente = r[0] || null, complete: () => this.done() });
+
+    this.api.getUserItineraries(uid, 'future')
+      .subscribe({ next: r => this.futuri = r || [], complete: () => this.done() });
+
+    this.loadDrafts();
+  }
+
+  private loadDraftsOnly(): void {
+    this.resetLists();
+    this.loaded = true;
+    this.loadDrafts();
   }
 
   private resetLists(): void {
@@ -68,16 +117,13 @@ export class ViaggiPage implements AfterViewInit {
   }
 
   private done(): void {
-    if (++this.apiCalls >= 3) { this.loaded = true; this.apiCalls = 0; }
+    if (++this.apiCalls >= 3) {
+      this.loaded = true;
+      this.apiCalls = 0;
+    }
   }
 
-  private loadDraftsOnly(): void {
-    this.resetLists();
-    this.loaded = true;
-    this.loadDrafts();
-  }
-
-    private loadDrafts(): void {
+  private loadDrafts(): void {
     this.drafts = JSON.parse(localStorage.getItem('trips') || '[]');
   }
 
@@ -86,98 +132,31 @@ export class ViaggiPage implements AfterViewInit {
     localStorage.setItem('trips', JSON.stringify(this.drafts));
   }
 
-  private loadTrips(): void {
-    const uid = this.auth.getUserId(); if (!uid) return;
-    this.loaded = false; this.resetLists();
-
-    this.api.getUserItineraries(uid, 'current')
-      .subscribe({ next: r => this.inCorso   = r[0] || null, complete: () => this.done() });
-
-    this.api.getUserItineraries(uid, 'upcoming')
-      .subscribe({ next: r => this.imminente = r[0] || null, complete: () => this.done() });
-
-    this.api.getUserItineraries(uid, 'future')
-      .subscribe({ next: r => this.futuri    = r       || [],  complete: () => this.done() });
-
-    this.loadDrafts();
+  deleteTrip(id: string): void {
+    const uid = this.auth.getUserId();
+    if (!uid) return;
+    this.api.deleteItinerary(uid, id).subscribe(() => this.loadTrips());
   }
 
-
-
-
-
-  
+  openItinerary(id: string): void {
+    this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
+  }
 
   goToCreate(): void {
     this.router.navigate(['/crea']);
   }
 
-  ngOnInit() {}
-
-
-
-  //HERO tutto il funzionamento
-  @ViewChild(IonContent) content!: IonContent;
-  maxScrollHeight: number = 0;
-  RealeScrollHeight: number = 0;
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.content.getScrollElement().then(el => {
-        this.maxScrollHeight = el.scrollHeight;
-      });
-      this.RealeScrollHeight = this.maxScrollHeight;
-    }, 50);
-    
-  }
-
-  heroMaxHeight = 400;
-  heroMinHeight= 100;
-  heroHeight= this.heroMaxHeight;
-  heroHeightPx: string = '${this.heroMaxHeight}px'; // Altezza iniziale della hero
-  overlayOpacity: number = 1;
-  inCorso: TripWithId | null = null;
-  isFixed: boolean = false; // Flag per controllare quando la hero è "fissa"
-  isScrolledPastThreshold: boolean = false; // Flag per sapere se la hero è oltre la soglia
-
-  // Gestiamo l'evento di scroll dentro ion-content
-  onScroll(event: any) {
+  onScrollEnd(event: any) {
     const scrollTop = event.detail.scrollTop;
-      
-    // Altezza attuale dello scroll (che può variare se la pagina cambia mentre scrolli)
-    this.content.getScrollElement().then(el => {
-      this.RealeScrollHeight = el.scrollHeight;
-    });
-    
-    
-    const perceivedScrollPx = (scrollTop * this.maxScrollHeight)/this.RealeScrollHeight;
-  
-    
-    
-    
-    if(perceivedScrollPx >= this.heroMinHeight){
-      this.isScrolledPastThreshold = true;
-      this.heroHeight=this.heroMinHeight;
-    }else{
-      this.isScrolledPastThreshold = false;
-      this.heroHeight = this.heroMaxHeight - perceivedScrollPx;
+    const snapThreshold = this.shrinkThreshold / 2;
+
+    // Snap forzato, senza esitazioni
+    if (scrollTop > this.shrinkThreshold) {
+      this.isShrunk = true;
+    } else if (scrollTop < snapThreshold) {
+      this.isShrunk = false;
     }
-    this.heroHeightPx = `${this.heroHeight}px`;
-  }
-  
-  // Funzione di esempio per aprire l'itinerario
-  openItinerary(id: string): void {
-    this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
   }
 
-  // Funzione di esempio per eliminare il viaggio
-  deleteTrip(id: string): void {
-    const uid = this.auth.getUserId(); if (!uid) return;
-    this.api.deleteItinerary(uid, id).subscribe(() => this.loadTrips());
-  }
-
-  // Funzione di click sull'area hero
-  onHeroClick() {
-    console.log('Hero clicked!');
-  }
 
 }

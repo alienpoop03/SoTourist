@@ -1,6 +1,182 @@
 .viaggi-content {
   --background: var(--color-background1);
-  padding: 1rem 1rem 6rem; // padding inferiore per il FAB
+  padding: 1rem 1rem 6rem;
+}
+
+/* HEADER STATICO */
+.dynamic-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: var(--color-background);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  padding: 16px;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* HERO ESPANSA */
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.trip-type {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.hero-dates,
+.hero-accommodation {
+  font-size: 1.2rem;
+  margin-top: 8px;
+}
+
+.button-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.hero-button-main {
+  --background: var(--color-highlight);
+  color: black;
+}
+
+.hero-button-del {
+  --color: red;
+}
+
+/* HERO ESPANSA */
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-wrapper.hidden {
+  opacity: 0;
+  transform: translateY(-50px);
+  pointer-events: none;
+}
+
+/* HERO COMPATTA migliorata */
+.hero-compact {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 998;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.hero-compact.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+
+.compact-bg {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.compact-overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+.compact-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.compact-dates {
+  font-size: 0.95rem;
+  color: var(--color-text2);
+  margin-top: 2px;
+}
+
+/* CONTENUTO SOTTO */
+.trip-section {
+  margin-bottom: 2rem;
+}
+
+.Title_sezion {
+  color: var(--color-title-viaggi);
+  font-size: 1.3rem;
+  font-weight: 800;
+  padding-left: 12px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 847px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.viaggi-content app-trip-card,
+.viaggi-content app-unfinished-card {
+  width: 100%;
+  display: block;
 }
 
 .welcome-section {
@@ -9,17 +185,8 @@
   padding: 2rem 1.5rem;
   background: var(--color-background2);
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-  animation: fadeIn 0.4s ease-in-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   border-left: 5px solid var(--color-highlight);
-}
-
-:host ::ng-deep ion-content {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-:host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
-  display: none !important;
 }
 
 .welcome-section h1 {
@@ -34,145 +201,14 @@
   line-height: 1.4;
 }
 
-.logo {
-  width: 72px;
-  margin-bottom: 1rem;
-  opacity: 0.95;
-}
-
-@keyframes fadeIn {
-  0%   { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.custom-fab {
-  right: 24px;
-  bottom: 24px;
-}
-
-.viaggi-content app-trip-card {
-  width: 100%;
-  display: block;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-
-  @media (max-width: 847px) {
-    grid-template-columns: 1fr; // mobile: 1 colonna
-  }
-
-  app-trip-card,
-  app-unfinished-card {
-    width: 100%;
-  }
-}
-
-.trip-section.current-trip {
-  background-color: var(--color-current-trip-bg);
-  border-left: 5px solid var(--color-highlight);
-  padding: 1rem;
-  border-radius: 12px;
-  
-  @media (min-width: 847px) {
-    padding: 0;
-  }
- 
-}
-
-.trip-section{
-  margin-bottom: 2rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.Title_sezion{
-  color: var(--color-title-viaggi);
-  font-size: 1.25rem;
-  font-weight: 800;
-  padding-left: 12px;
-}
-
 .spacer {
-  height: 135px; // o 100px se il FAB è più grande
+  height: 135px;
 }
 
-.sticky-section {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--color-background1);
-  padding-bottom: 1rem;
-  //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // sottile separazione
-
-  transition: box-shadow 0.3s ease;
-}
-
-//HERO tua la parte grafica
-
-.hero-trip {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  transition: height 0.3s ease, opacity 0.3s ease;
-  z-index: 10; /* Mantiene la hero sopra il contenuto */
-}
-
-.hero-bg {
-  width: 100%;
-  object-fit: cover;
-  height: 100%;
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease;
-}
-
-.hero-title {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-.hero-dates,
-.hero-accommodation {
-  font-size: 1.25rem;
-  margin-top: 10px;
-}
-
-.button-row {
-  margin-top: 20px;
-}
-
-.hero-button-main {
-  margin-right: 10px;
-}
-
-.hero-button-del {
-  margin-left: 10px;
-  color: red;
-}
-
+/* FAB */
 .custom-fab {
   --background: var(--color-highlight);
   --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.hero-space-top{
-  height: 100px;
-}
-
-
-.hero-container {
-  width: 100%;
-  /* Impostiamo un margine inferiore per evitare che la hero venga coperta da contenuti sotto */
-  //margin-bottom: 20px; /* Imposta un margine inferiore se necessario */
+  right: 24px;
+  bottom: 24px;
 }
