@@ -1,8 +1,6 @@
 front end:
 
-Sistemare Bordino sotto tab-bar
-
-sistemare box abbonamento page profilo
+Sistemare Bordino sotto tab-bar  // problema del simulatore (non da risolvere)
 
 storico viaggi dalla schermata viaggi + statistiche storico (piano gold)
 
