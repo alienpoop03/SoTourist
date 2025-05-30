@@ -105,7 +105,7 @@ export class ProfiloPage {
   }
 
   ionViewWillEnter(): void {
-    this.refreshTrips();   // aggiorna quando torni alla Home
+    this.refreshTrips();  
   }
 
   getBadgeClass(plan: string): string {

@@ -178,7 +178,7 @@ export class SettingsPage {
     console.log('Apri privacy');
   }
 
-  ngOnInit() {
+  private refreshTrips(): void { 
     const saved = localStorage.getItem('darkMode');
     this.darkMode = saved === 'true'; 
 
@@ -196,6 +196,14 @@ export class SettingsPage {
       this.username = parsed.username || '';
       this.email = parsed.email || '';
     } 
+  }
+
+  ngOnInit() {
+    this.refreshTrips();
+  }
+
+  ionViewWillEnter(): void {
+    this.refreshTrips();  
   }
 
   deleteAccount() {
