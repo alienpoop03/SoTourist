@@ -53,6 +53,22 @@ export class ImpostazioniPage {
     }
   }
 
+  ngOnInit() {
+    this.loadDarkMode();
+  }
+
+  loadDarkMode() {
+    const saved = localStorage.getItem('darkMode');
+    this.darkMode = saved ? JSON.parse(saved) : false;
+
+    // Applica il tema attuale al caricamento
+    if (this.darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
+
   toggleNotifications() {
     // Qui puoi mettere logica reale
     console.log('Notifiche:', this.notificationsEnabled);
