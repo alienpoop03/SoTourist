@@ -1,8 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, AfterViewInit,ViewChild, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
@@ -44,67 +40,52 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './viaggi.page.html',
   styleUrls: ['./viaggi.page.scss'],
 })
+
+
 export class ViaggiPage implements AfterViewInit {
-  /* ──────────── stato viaggi ──────────── */
-  inCorso: TripWithId | null = null;
-  imminente: TripWithId | null = null;
-  futuri: TripWithId[] = [];
-  drafts: TripWithId[] = [];
-  loaded  = false;
-  isGuest = false;
-  private apiCalls = 0;
-
-  /* ──────────── hero dinamica ──────────── */
-  heroMax = 0;            // 50 vh in px
-  heroMin = 0;            // 20 % di heroMax
-  heroHeightPx = '0px';   // binding [ngStyle]
-  overlayOpacity = 1;     // 1 → 0
-
-  @ViewChild('pageContent', { read: IonContent })
-  content!: IonContent;
-
   constructor(
     private router: Router,
     private api: ItineraryService,
     private auth: AuthService
-  ) {}
+  ) { }
 
-  /* ─────────── Lifecycle ─────────── */
-  ngAfterViewInit(): void {
-    this.heroMax = window.innerHeight * 0.5;   // 50 vh
-    this.heroMin = this.heroMax * 0.2;         // 20 %
-    this.heroHeightPx = `${this.heroMax}px`;
-  }
+  isGuest = false;
+  imminente: TripWithId | null = null;
+  futuri: TripWithId[] = [];
+  loaded  = false;
+  drafts: TripWithId[] = [];
+  private apiCalls = 0;
 
   ionViewDidEnter(): void {
     this.isGuest = !!this.auth.getUserId()?.startsWith('guest_');
     this.isGuest ? this.loadDraftsOnly() : this.loadTrips();
   }
 
-  /* ─────────── Scroll handler ─────────── */
-  onScroll(ev: any): void {
-    const scrollTop = ev.detail.scrollTop;
-
-    /* 1 : 1 – l’hero si riduce finché scrollTop ≤ range */
-    const range = this.heroMax - this.heroMin;
-
-    if (scrollTop < range) {
-      /* fase di riduzione / espansione */
-      const newH = this.heroMax - scrollTop;
-      this.heroHeightPx = `${newH}px`;
-      this.overlayOpacity = (newH - this.heroMin) / range; // 1 → 0
-    } else {
-      /* hero rimane alla misura minima */
-      this.heroHeightPx   = `${this.heroMin}px`;
-      this.overlayOpacity = 0;
-    }
+  private resetLists(): void {
+    this.inCorso = this.imminente = null;
+    this.futuri = [];
+    this.apiCalls = 0;
   }
 
-  onHeroClick(): void {
-    this.content.scrollToTop(400);
+  private done(): void {
+    if (++this.apiCalls >= 3) { this.loaded = true; this.apiCalls = 0; }
   }
 
-  /* ─────────── API trips ─────────── */
+  private loadDraftsOnly(): void {
+    this.resetLists();
+    this.loaded = true;
+    this.loadDrafts();
+  }
+
+    private loadDrafts(): void {
+    this.drafts = JSON.parse(localStorage.getItem('trips') || '[]');
+  }
+
+  deleteDraft(id: string): void {
+    this.drafts = this.drafts.filter(t => t.itineraryId !== id);
+    localStorage.setItem('trips', JSON.stringify(this.drafts));
+  }
+
   private loadTrips(): void {
     const uid = this.auth.getUserId(); if (!uid) return;
     this.loaded = false; this.resetLists();
@@ -121,42 +102,101 @@ export class ViaggiPage implements AfterViewInit {
     this.loadDrafts();
   }
 
-  private loadDraftsOnly(): void {
-    this.resetLists();
-    this.loaded = true;
-    this.loadDrafts();
+
+
+
+
+
+  ngAfterViewInit(): void {
+    // codice se necessario
   }
 
-  private loadDrafts(): void {
-    this.drafts = JSON.parse(localStorage.getItem('trips') || '[]');
-  }
-
-  private resetLists(): void {
-    this.inCorso = this.imminente = null;
-    this.futuri = [];
-    this.apiCalls = 0;
-  }
-
-  private done(): void {
-    if (++this.apiCalls >= 3) { this.loaded = true; this.apiCalls = 0; }
-  }
-
-  /* ─────────── Azioni ─────────── */
-  openItinerary(id: string): void {
-    this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
-  }
-
-  deleteTrip(id: string): void {
-    const uid = this.auth.getUserId(); if (!uid) return;
-    this.api.deleteItinerary(uid, id).subscribe(() => this.loadTrips());
-  }
-
-  deleteDraft(id: string): void {
-    this.drafts = this.drafts.filter(t => t.itineraryId !== id);
-    localStorage.setItem('trips', JSON.stringify(this.drafts));
-  }
 
   goToCreate(): void {
     this.router.navigate(['/crea']);
   }
+
+  ngOnInit() {}
+
+
+
+  //HERO tutto il funzionamento
+  
+  heroMaxHeight = 400;
+  heroMinHeight= 100;
+  heroHeight= this.heroMaxHeight;
+  heroHeightPx: string = '${this.heroMaxHeight}px'; // Altezza iniziale della hero
+  overlayOpacity: number = 1;
+  inCorso: TripWithId | null = null;
+  //scrollThreshold: number = 200; // Soglia per la dimensione minima della hero
+  isFixed: boolean = false; // Flag per controllare quando la hero è "fissa"
+  isScrolledPastThreshold: boolean = false; // Flag per sapere se la hero è oltre la soglia
+
+  // Gestiamo l'evento di scroll dentro ion-content
+  onScroll(event: any) {
+     // Otteniamo la posizione di scroll dentro ion-content
+      const scrollPosition = event.detail.scrollTop;
+    // Se siamo oltre la soglia, blocca la hero alla dimensione minima e fissala in alto
+    /*if (scrollPosition >= this.scrollThreshold) {
+      if (!this.isScrolledPastThreshold) {
+        this.isScrolledPastThreshold = true; // Segna che abbiamo superato la soglia
+      }
+      this.heroHeightPx = '150px'; // Altezza fissa minima della hero
+      this.overlayOpacity = 0.5; // Opacità ridotta
+    } else {
+      if (this.isScrolledPastThreshold) {
+        this.isScrolledPastThreshold = false; // Reset quando risali sopra la soglia
+      }
+      this.heroHeightPx = `${400 - scrollPosition}px`; // Altezza dinamica
+      this.overlayOpacity = 1 - scrollPosition / this.scrollThreshold; // Opacità dinamica
+    }*/
+
+    /*this.heroHeight = this.heroMaxHeight - scrollPosition;
+    if(this.heroHeight<=this.heroMinHeight){
+      this.heroHeight=this.heroMinHeight
+
+      if (!this.isScrolledPastThreshold) {
+        this.isScrolledPastThreshold = true; // Segna che abbiamo superato la soglia
+      }
+    }else if(scrollPosition < this.heroMaxHeight - this.heroMinHeight-130 ){
+       this.isScrolledPastThreshold = false;
+    }
+
+
+
+    this.heroHeightPx = `${this.heroHeight}px`; // Altezza dinamica*/
+    
+    console.log(scrollPosition);
+
+    var typeScole = scrollPosition >= (this.heroHeight - this.heroMinHeight);
+
+    if(this.isScrolledPastThreshold){
+      typeScole = scrollPosition >= this.heroMinHeight;
+    }
+
+    if(typeScole){
+      this.isScrolledPastThreshold = true;
+      this.heroHeight=this.heroMinHeight;
+    }else{
+      this.isScrolledPastThreshold = false;
+      this.heroHeight = this.heroMaxHeight - scrollPosition;
+    }
+    this.heroHeightPx = `${this.heroHeight}px`;
+  }
+
+  // Funzione di esempio per aprire l'itinerario
+  openItinerary(itineraryId: string) {
+    console.log('Navigating to itinerary: ', itineraryId);
+  }
+
+  // Funzione di esempio per eliminare il viaggio
+  deleteTrip(itineraryId: string) {
+    console.log('Deleting trip: ', itineraryId);
+  }
+
+  // Funzione di click sull'area hero
+  onHeroClick() {
+    console.log('Hero clicked!');
+  }
+
 }

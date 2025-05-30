@@ -3,140 +3,6 @@
   padding: 1rem 1rem 6rem; // padding inferiore per il FAB
 }
 
-.hero-trip {
-  // position: relative;
-  // width: 100%;
-  // height: 50vh;
-  // overflow: hidden;
-  // border-bottom-left-radius: var(--box-radius);
-  // border-bottom-right-radius: var(--box-radius);
-  // margin-bottom: 1rem;
-
-  // position: sticky;
-  // top: 0;
-  // z-index: 50;                        /* sempre sopra alle card */
-  // width: 100%;
-  // overflow: hidden;
-  // border-bottom-left-radius: var(--box-radius);
-  // border-bottom-right-radius: var(--box-radius);
-  // transition: height 0.25s ease;
-  
-  position: sticky;     /* resta “incollata” in alto */
-  // top: 0;               /* subito sotto l’header ionic (56 px) */
-  z-index: 50;
-  width: 100%;
-  overflow: hidden;
-  border-bottom-left-radius: var(--box-radius);
-  border-bottom-right-radius: var(--box-radius);
-  transition: height 0.15s linear;
-
-
-  .hero-bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.85);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 1rem 1rem;
-    background: linear-gradient(to top, rgb(0, 0, 0), rgba(255, 255, 255, 0) 50%), 
-                linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0.592) 7.5%, rgba(255, 255, 255, 0) 15%);
-
-    transition: opacity 0.25s ease;
-  }
-
-  .trip-type {
-    position: absolute;
-    top: calc(var(--ion-safe-area-top, 0px) + 20.35px); /* evita la notch */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-
-    margin: 0;
-    // font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--color-highlight);
-    text-align: center;
-    white-space: nowrap;  // impedisce andata a capo
-    pointer-events: none;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 0.25rem;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  }
-
-  .hero-mini {
-    position: absolute;
-    top: calc(var(--ion-safe-area-top,0px) + 12px); left: 12px;
-    display: flex; flex-direction: column; gap: 2px;
-    font-weight: 700; color: #fff;
-    transition: opacity 0.25s ease;
-    pointer-events: none;
-
-    .mini-status { font-size: 0.8rem; color: var(--color-highlight); }
-    .mini-city   { font-size: 1rem; }
-  }
-
-  &.collapsed {
-    .hero-overlay { opacity: 0; pointer-events: none; }
-    .hero-mini    { opacity: 1; }
-  }
-
-  .hero-dates,
-  .hero-accommodation {
-    font-size: 0.9rem;
-    color: var(--color-highlight);
-    margin: 0 0 0.25rem;
-  }
-
-  .hero-button {
-    --background: var(--color-primary);
-    --color: var(--color-highlight);
-    font-weight: 700;
-    margin-top: 0.5rem;
-  }
-
-  .button-row {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 0.6rem;
-  }
-
-  /* bottone principale */
-  .hero-button-main {
-    flex: 1;                       /* prende tutto lo spazio rimanente */
-    --background: var(--color-primary);
-    --color: var(--color-highlight);
-    font-weight: 700;
-  }
-
-  /* bottone elimina, piccolo */
-  .hero-button-del {
-    flex: 0 0 48px;                /* larghezza fissa */
-    --border-radius: 12px;
-    --padding-start: 0;
-    --padding-end: 0;
-    --padding-top: 0;
-    --padding-bottom: 0;
-    --min-height: 48px;
-    --border-width: 2px;
-    --ion-color-base: var(--ion-color-danger); /* bordo rosso */
-    --color: var(--ion-color-danger);
-  }
-}
-
-.hero-mini { opacity: 0; }
-
 .welcome-section {
   text-align: center;
   margin: 3rem 1rem 2rem;
@@ -244,18 +110,62 @@
   transition: box-shadow 0.3s ease;
 }
 
-.viaggiInCorsoImminente{
-  // @media (min-width: 847px) {
-  //   display: flex;
-  //   flex-wrap: wrap;         // ⬅️ permette di andare a capo
-  //   gap: 0.5rem;
-  //   justify-content: space-between; // distribuisce meglio
+//HERO tua la parte grafica
 
-  //   > * {
-  //     flex: 0 1 calc(50% - 0.25rem); // ⬅️ massimo due per riga
-  //   }
-  // }
-  
+.hero-trip {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition: height 0.3s ease, opacity 0.3s ease;
+  z-index: 10; /* Mantiene la hero sopra il contenuto */
 }
 
+.hero-bg {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
 
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.hero-dates,
+.hero-accommodation {
+  font-size: 1.25rem;
+  margin-top: 10px;
+}
+
+.button-row {
+  margin-top: 20px;
+}
+
+.hero-button-main {
+  margin-right: 10px;
+}
+
+.hero-button-del {
+  margin-left: 10px;
+  color: red;
+}
+
+.custom-fab {
+  --background: var(--color-highlight);
+  --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.hero-space-top{
+  height: 100px;
+}
