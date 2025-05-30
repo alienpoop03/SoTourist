@@ -195,7 +195,7 @@ export class ItinerarioPage implements AfterViewInit {
     this.itineraryId = this.route.snapshot.queryParamMap.get('id')!;
     // fino a qui
 
-    
+
     // 1. Prova a caricare dal localStorage (bozza)
     const localTrips = JSON.parse(localStorage.getItem('trips') || '[]');
 
@@ -360,6 +360,8 @@ export class ItinerarioPage implements AfterViewInit {
       totalDays: days,
       accommodation: trip.accommodation,
       transport: this.tripTransport || 'walk',  // <-- AGGIUNTA QUESTA RIGA
+      style: this.trip?.style || 'Standard',  // 👈 AGGIUNTA QUI
+
       mustSee: this.tripMustSee.map(p => p.placeId),
       mustEat: this.tripEatPlaces.map(p => p.placeId),
       avoid: this.tripAlreadyVisited.map(p => p.placeId),

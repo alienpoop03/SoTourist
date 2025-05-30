@@ -12,6 +12,8 @@ export interface GenerateItineraryRequest {
   mustEat?: string[];
   avoid?: string[];
   transport?: string;
+  style?: string;  // 👈 AGGIUNTO QUI
+
   aiQuestion?: string;
 }
 

@@ -165,6 +165,8 @@ const getItinerary = async (req, res) => {
   const accommodation = req.body?.accommodation || req.query.accommodation || null;
   const transport = (req.body?.transport || req.query.transport || "walk").toLowerCase();
   console.log("🚗 Mezzo ricevuto:", transport);
+  const style = req.body?.style || req.query.style || "Standard";
+  console.log("🎯 Stile scelto:", style);
 
   /* --- preferenze opzionali --------------------------------------- */
   const mustSee = Array.isArray(req.body?.mustSee) ? req.body.mustSee : [];
@@ -197,6 +199,97 @@ const getItinerary = async (req, res) => {
     bus: { min: 2000, max: 10000 }  // bus mattina + pomeriggio; sera custom
   };
   const R = INTER_RULES[transport] || INTER_RULES.walk;
+  const stylePresets = {
+    "Standard": {
+      morning: [
+        { q: "caffè bar colazione", c: 1 },
+        { q: "attrazioni turistiche", c: 1, type: "see" }
+      ],
+      afternoon: [
+        { q: "ristoranti per pranzo", c: 1, type: "eat" },
+        { q: "parchi o musei", c: 1, type: "see" }
+      ],
+      evening: [
+        { q: "ristoranti per cena", c: 1, type: "eat" },
+        { q: "pub cocktail bar", c: 1, type: "eat" }
+      ]
+    },
+
+    "Giornata nei musei": {
+      morning: [
+        { q: "caffè bar colazione", c: 1 },
+        { q: "musei famosi", c: 2, type: "see" }
+      ],
+      afternoon: [
+        { q: "ristoranti per pranzo", c: 1, type: "eat" },
+        { q: "mostre d'arte", c: 2, type: "see" }
+      ],
+      evening: [
+        { q: "ristoranti per cena", c: 1, type: "eat" },
+        { q: "teatri o spettacoli", c: 1 }
+      ]
+    },
+
+    "Shopping": {
+      morning: [
+        { q: "caffè bar colazione", c: 1 },
+        { q: "zone commerciali e boutique", c: 2, type: "see" }
+      ],
+      afternoon: [
+        { q: "ristoranti per pranzo", c: 1, type: "eat" },
+        { q: "centri commerciali", c: 2, type: "see" }
+      ],
+      evening: [
+        { q: "ristoranti per cena", c: 1, type: "eat" },
+        { q: "locali di tendenza", c: 1, type: "eat" }
+      ]
+    },
+
+    "Avventura": {
+      morning: [
+        { q: "caffè bar colazione", c: 1 },
+        { q: "escursioni e percorsi naturalistici", c: 2, type: "see" }
+      ],
+      afternoon: [
+        { q: "ristoranti per pranzo", c: 1, type: "eat" },
+        { q: "sport outdoor", c: 2, type: "see" }
+      ],
+      evening: [
+        { q: "ristoranti per cena", c: 1, type: "eat" },
+        { q: "pub locali", c: 1, type: "eat" }
+      ]
+    },
+
+    "Food Tour": {
+      morning: [
+        { q: "pasticcerie famose", c: 1, type: "eat" },
+        { q: "mercati alimentari", c: 1, type: "eat" }
+      ],
+      afternoon: [
+        { q: "ristoranti tipici", c: 2, type: "eat" }
+      ],
+      evening: [
+        { q: "degustazioni vino e formaggi", c: 1, type: "eat" },
+        { q: "ristoranti gourmet", c: 1, type: "eat" }
+      ]
+    },
+
+    "Relax": {
+      morning: [
+        { q: "spa e centri benessere", c: 1, type: "see" },
+        { q: "parchi tranquilli", c: 1, type: "see" }
+      ],
+      afternoon: [
+        { q: "ristoranti per pranzo", c: 1, type: "eat" },
+        { q: "passeggiate panoramiche", c: 1, type: "see" }
+      ],
+      evening: [
+        { q: "ristoranti per cena", c: 1, type: "eat" },
+        { q: "bar panoramici", c: 1, type: "eat" }
+      ]
+    }
+  };
+
 
 
 
@@ -210,114 +303,73 @@ const getItinerary = async (req, res) => {
     if (acc) accPlace = { ...acc, name: "Torna all’alloggio", type: "accommodation" };
   }
 
-/* ---------------------------------------------------------------- */
-/* 🧠 loop giorni – slot chaining dinamico con gestione must/avoid   */
-/* ---------------------------------------------------------------- */
-const itinerary = [];
+  /* ---------------------------------------------------------------- */
+  /* 🧠 loop giorni – slot chaining dinamico con gestione must/avoid   */
+  /* ---------------------------------------------------------------- */
+  const itinerary = [];
 
-const slots = ["morning", "afternoon", "evening"];
-const base = {
-  morning: [{ q: "caffè bar colazione", c: 1 },
-            { q: "attrazioni turistiche", c: 2 }],
-  afternoon: [{ q: "ristoranti per pranzo", c: 1 },
-              { q: "parchi o musei", c: 2 }],
-  evening: [{ q: "ristoranti per cena", c: 1 },
-            { q: "pub cocktail bar", c: 2 }]
-};
+  const slots = ["morning", "afternoon", "evening"];
+  const base = stylePresets[style] || stylePresets["Standard"];
 
-for (let d = 1; d <= totalDays; d++) {
-  const plan = { day: d, morning: [], afternoon: [], evening: [] };
 
-  // anchor iniziale: alloggio o centro città
-  let anchor = accPlace
-    ? { lat: accPlace.latitude, lng: accPlace.longitude }
-    : cityCenter;
+  for (let d = 1; d <= totalDays; d++) {
+    const plan = { day: d, morning: [], afternoon: [], evening: [] };
 
-  for (const slot of slots) {
-    for (const def of base[slot]) {
-      let minR = null, maxR = null;
+    // anchor iniziale: alloggio o centro città
+    let anchor = accPlace
+      ? { lat: accPlace.latitude, lng: accPlace.longitude }
+      : cityCenter;
 
-      if (slot === "morning" && def.q.includes("colazione")) {
-        maxR = WITHIN_SLOT;
-      } else if (
-        slot === "morning" &&
-        def.q.includes("attrazioni") &&
-        transport === "bus"
-      ) {
-        maxR = 5000;
-      } else if (
-        slot === "evening" &&
-        def.q.includes("ristoranti per cena") &&
-        transport === "bus" &&
-        accPlace
-      ) {
-        anchor = { lat: accPlace.latitude, lng: accPlace.longitude };
-        minR = 0;
-        maxR = 2000;
-      } else if (plan[slot].length === 0) {
-        minR = R.min;
-        maxR = R.max;
-      } else {
-        maxR = WITHIN_SLOT;
-      }
+    for (const slot of slots) {
+      for (const def of base[slot]) {
+        let minR = null, maxR = null;
+        const customPlaces = [];
 
-      // Sostituito con gestione mustSee/mustEat/avoid
-      const customPlaces = [];
-
-      if (mustSee.length && def.q.includes("attrazioni") && slot === "morning") {
-        while (mustSee.length && customPlaces.length < def.c) {
-          const placeId = mustSee.shift();
-          const place = await fetchPlaceById(placeId, KEY, used, avoidSet, setCover);
-          if (place) customPlaces.push(place);
+        if (def.type === "see") {
+          while (mustSee.length && customPlaces.length < def.c) {
+            const placeId = mustSee.shift();
+            const place = await fetchPlaceById(placeId, KEY, used, avoidSet, setCover);
+            if (place) customPlaces.push(place);
+          }
+        } else if (def.type === "eat") {
+          while (mustEat.length && customPlaces.length < def.c) {
+            const placeId = mustEat.shift();
+            const place = await fetchPlaceById(placeId, KEY, used, avoidSet, setCover);
+            if (place) customPlaces.push(place);
+          }
         }
-      } else if (mustEat.length && def.q.includes("ristoranti")) {
-        while (mustEat.length && customPlaces.length < def.c) {
-          const placeId = mustEat.shift();
-          const place = await fetchPlaceById(placeId, KEY, used, avoidSet, setCover);
-          if (place) customPlaces.push(place);
+
+        if (customPlaces.length < def.c) {
+          const remaining = def.c - customPlaces.length;
+          const places = await fetchPlaces(
+            def.q, city, KEY, used, avoidSet, remaining, setCover,
+            anchor, maxR, minR
+          );
+          customPlaces.push(...places);
+        }
+
+        for (const p of customPlaces) {
+          plan[slot].push(p);
+          anchor = { lat: p.latitude, lng: p.longitude };
         }
       }
 
-      // Se non abbastanza risultati custom, riempi con normali
-      if (customPlaces.length < def.c) {
-        const remaining = def.c - customPlaces.length;
-        const places = await fetchPlaces(
-          def.q,
-          city,
-          KEY,
-          used,
-          avoidSet,
-          remaining,
-          setCover,
-          anchor,
-          maxR,
-          minR
-        );
-        customPlaces.push(...places);
-      }
-
-      // “spalma” tutti i risultati e aggiorna l’anchor
-      for (const p of customPlaces) {
-        plan[slot].push(p);
-        anchor = { lat: p.latitude, lng: p.longitude };
-      }
     }
+
+    // rientro serale all’alloggio
+    if (accPlace) {
+      plan.evening.push({ ...accPlace, timeSlot: "evening" });
+    }
+
+    // array ordinato (opzionale)
+    plan.ordered = [
+      ...plan.morning,
+      ...plan.afternoon,
+      ...plan.evening
+    ];
+
+    itinerary.push(plan);
   }
-
-  // rientro serale all’alloggio
-  if (accPlace) {
-    plan.evening.push({ ...accPlace, timeSlot: "evening" });
-  }
-
-  // array ordinato (opzionale)
-  plan.ordered = [
-    ...plan.morning,
-    ...plan.afternoon,
-    ...plan.evening
-  ];
-
-  itinerary.push(plan);
-}
 
 
 
