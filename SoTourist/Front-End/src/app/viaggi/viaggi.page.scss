@@ -169,3 +169,10 @@
 .hero-space-top{
   height: 100px;
 }
+
+
+.hero-container {
+  width: 100%;
+  /* Impostiamo un margine inferiore per evitare che la hero venga coperta da contenuti sotto */
+  //margin-bottom: 20px; /* Imposta un margine inferiore se necessario */
+}

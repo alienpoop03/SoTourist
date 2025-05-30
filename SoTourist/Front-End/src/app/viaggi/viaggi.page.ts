@@ -106,11 +106,7 @@ export class ViaggiPage implements AfterViewInit {
 
 
 
-
-  ngAfterViewInit(): void {
-    // codice se necessario
-  }
-
+  
 
   goToCreate(): void {
     this.router.navigate(['/crea']);
@@ -121,23 +117,56 @@ export class ViaggiPage implements AfterViewInit {
 
 
   //HERO tutto il funzionamento
-  
+  @ViewChild(IonContent) content!: IonContent;
+  maxScrollHeight: number = 0;
+  RealeScrollHeight: number = 0;
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.content.getScrollElement().then(el => {
+        this.maxScrollHeight = el.scrollHeight;
+      });
+      this.RealeScrollHeight = this.maxScrollHeight;
+    }, 50);
+    
+  }
+
   heroMaxHeight = 400;
   heroMinHeight= 100;
   heroHeight= this.heroMaxHeight;
   heroHeightPx: string = '${this.heroMaxHeight}px'; // Altezza iniziale della hero
   overlayOpacity: number = 1;
   inCorso: TripWithId | null = null;
-  //scrollThreshold: number = 200; // Soglia per la dimensione minima della hero
   isFixed: boolean = false; // Flag per controllare quando la hero è "fissa"
   isScrolledPastThreshold: boolean = false; // Flag per sapere se la hero è oltre la soglia
 
   // Gestiamo l'evento di scroll dentro ion-content
   onScroll(event: any) {
-     // Otteniamo la posizione di scroll dentro ion-content
-      const scrollPosition = event.detail.scrollTop;
-    // Se siamo oltre la soglia, blocca la hero alla dimensione minima e fissala in alto
-    /*if (scrollPosition >= this.scrollThreshold) {
+    const scrollTop = event.detail.scrollTop;
+      
+    // Altezza attuale dello scroll (che può variare se la pagina cambia mentre scrolli)
+    this.content.getScrollElement().then(el => {
+      this.RealeScrollHeight = el.scrollHeight;
+    });
+    
+    // Calcolo dello scroll percepito in pixel (normalizzato)
+    const perceivedScrollPx = (scrollTop * this.maxScrollHeight)/this.RealeScrollHeight;
+  
+    
+    
+    
+    if(perceivedScrollPx >= this.heroMinHeight){
+      this.isScrolledPastThreshold = true;
+      this.heroHeight=this.heroMinHeight;
+    }else{
+      this.isScrolledPastThreshold = false;
+      this.heroHeight = this.heroMaxHeight - perceivedScrollPx;
+    }
+    this.heroHeightPx = `${this.heroHeight}px`;
+  }
+  
+  
+  
+  /*if (scrollPosition >= this.scrollThreshold) {
       if (!this.isScrolledPastThreshold) {
         this.isScrolledPastThreshold = true; // Segna che abbiamo superato la soglia
       }
@@ -166,7 +195,7 @@ export class ViaggiPage implements AfterViewInit {
 
     this.heroHeightPx = `${this.heroHeight}px`; // Altezza dinamica*/
     
-    console.log(scrollPosition);
+   /* console.log(scrollPosition);
 
     var typeScole = scrollPosition >= (this.heroHeight - this.heroMinHeight);
 
@@ -182,7 +211,7 @@ export class ViaggiPage implements AfterViewInit {
       this.heroHeight = this.heroMaxHeight - scrollPosition;
     }
     this.heroHeightPx = `${this.heroHeight}px`;
-  }
+  }*/
 
   // Funzione di esempio per aprire l'itinerario
   openItinerary(itineraryId: string) {
