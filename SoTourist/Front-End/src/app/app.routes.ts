@@ -55,4 +55,9 @@ export const routes: Routes = [
     loadComponent: () => import('./personalizzazione/personalizzazione.page').then( m => m.PersonalizzazionePage),
     canActivate: [PremiumGuard]
   },
+  {
+    path: 'panoramica',
+    loadComponent: () => import('./panoramica/panoramica.page').then( m => m.PanoramicaPage)
+  },
+
 ];

@@ -47,6 +47,11 @@ export const routes: Routes = [
           import('../upgrade/upgrade.page').then(m => m.UpgradePage),
       },
       {
+        path: 'panoramica',
+        loadComponent: () =>
+          import('../panoramica/panoramica.page').then(m => m.PanoramicaPage),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',

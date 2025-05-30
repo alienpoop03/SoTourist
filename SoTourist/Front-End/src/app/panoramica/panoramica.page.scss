@@ -1,0 +1,146 @@
+/* ------------- IMPOSTAZIONI GENERALI ------------- */
+.itinerario-content {
+  --overflow: hidden;
+  overflow: hidden;
+  background: var(--color-background);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------- HERO DINAMICO ------------- */
+.hero {
+  flex: 0 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 40vh;
+  min-height: 180px;
+  background: var(--color-background);
+  background-size: cover;
+  background-position: center;
+  transition: height 0.2s ease-out;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+}
+
+.overlay {
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
+  color: #fff;
+  transition: opacity 0.2s ease-out;
+
+  h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 3px #FFCC00, 0 0 6px rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+
+  p {
+    margin-top: 0.3rem;
+    font-size: 1.1rem;
+    color: #f0f0f0;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.hero-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 0.4rem;
+
+  .hero-left,
+  .hero-right {
+    max-width: 50%;
+    font-size: 0.95rem;
+    color: #f0f0f0;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .dates {
+    margin: 0;
+    padding-left: 0.4rem;
+  }
+
+  .accommodation {
+    margin: 0;
+    padding-right: 0.4rem;
+    text-align: right;
+  }
+}
+
+/* ------------- LISTA GIORNI & TIMELINE ------------- */
+.day-list {
+  padding: 1rem;
+  background: transparent;
+  padding-bottom: 300px;
+}
+
+.no-days {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-text2);
+}
+
+.timeline-entry {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* ------------- CARD GIORNO ------------- */
+.day-card {
+  margin-left: 1rem;
+  border-radius: 12px;
+  padding-left: 1rem;
+  background: rgb(244, 244, 244);
+  transition: transform .2s ease;
+
+  &:active {
+    transform: scale(.97);
+  }
+
+  .day-label {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-text);
+  }
+
+  ion-card-content {
+    font-size: .95rem;
+    color: var(--color-text2);
+  }
+
+  ion-icon {
+    padding-top: -20px;
+  }
+}
+
+.style-ed-btn.top-right-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  font-size: 1.2rem;
+  --color: var(--color-highlight);
+}
+
+ion-card-content p {
+  margin: 0;
+  line-height: 1.4;
+
+  strong {
+    margin-right: .25rem;
+  }
+
+  span {
+    display: inline-block;
+  }
+}
