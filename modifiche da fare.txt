@@ -11,7 +11,7 @@ sistemare grafica personalizza itinerario anche da pc
 
 Bug riscontrato: sono le 00:51 del 30 maggio, se creo un viaggio intanto il calendario mi fa selezionare ancora il 29, se creo un viaggio che parte dal 30 me lo dà ancora come "prossimo viaggio", se metto che parte dal 29 allora mi dà "viaggio in corso".
 
-
+Finire box hero pagina viaggi
 
 
 

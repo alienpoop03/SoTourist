@@ -117,9 +117,8 @@ type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
 export class ItinerarioPage implements AfterViewInit {
   /* Riferimenti al DOM Ionic */
   @ViewChild(IonContent, { static: true }) content!: IonContent;
-  @ViewChild('hero', { static: true }) heroEl!: ElementRef;
   // ─── Pager: nomi delle slide e indice corrente ───
-  slideNames: string[] = ['Luoghi', 'Preferenze', 'Giorni'];
+  slideNames: string[] = ['Luoghi', 'Preferenze'];
   currentSlide = 0;
 
   // Reference al container orizzontale
@@ -127,28 +126,16 @@ export class ItinerarioPage implements AfterViewInit {
   scrollContainer!: ElementRef<HTMLElement>;
   // ────────────────────────────────────────────────
 
-  /* Stato UI dinamico */
-  heroHeight = 200;
-  titleFontSize = 1.8;
-  subtitleFontSize = 1.1;
-  overlayOpacity = 1;
-
   /* Dati del viaggio */
   trip: any = { itinerary: [] };
   itineraryId!: string;
-  daysCount = 0;
-  heroPhotoUrl = '';
   isLocalTrip = false;
 
   /* Flag UI */
-  customizationVisible = false;
-  selectedDayIndex: number | null = null;
-  isTripCustomization = false;
   isLoading = false;
 
 
   //altre cose
-  currentDay: number | null = null;
   tripTransport: string = '';
   tripPrompt: string = '';
 
@@ -171,10 +158,6 @@ export class ItinerarioPage implements AfterViewInit {
     private api: ApiService,
     private itineraryService: ItineraryService,
     private auth: AuthService,
-    private photoService: PhotoService,
-    private alertController: AlertController,
-    private modalController: ModalController
-
   ) { }
 
   /* ───── Lifecycle ───── */
@@ -186,17 +169,13 @@ export class ItinerarioPage implements AfterViewInit {
 
   ionViewWillEnter() {
 
-    // se non funziona togliere questi
     this.tripMustSee = [];
     this.tripEatPlaces = [];
     this.tripAlreadyVisited = [];
     this.tripTransport = '';
     this.tripPrompt = '';
     this.itineraryId = this.route.snapshot.queryParamMap.get('id')!;
-    // fino a qui
 
-
-    // 1. Prova a caricare dal localStorage (bozza)
     const localTrips = JSON.parse(localStorage.getItem('trips') || '[]');
 
     const localTrip = localTrips.find((t: any) => {
@@ -207,7 +186,6 @@ export class ItinerarioPage implements AfterViewInit {
     });
 
     if (localTrip) {
-      // Normalizza come TripWithId
       this.trip = {
         itineraryId: localTrip.itineraryId ?? localTrip.id?.toString() ?? 'undefined',
         city: localTrip.city,
@@ -219,44 +197,25 @@ export class ItinerarioPage implements AfterViewInit {
       };
 
       this.isLocalTrip = true;
-      this.daysCount = this.calculateDays(this.trip.startDate, this.trip.endDate);
 
-      // 🟩 Aggiungi questa riga qui:
       if (this.trip.city) {
         this.fetchCityBounds(this.trip.city);
       }
-      // 🚫 Niente richiesta a Google: usa fallback
-      this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg';
+
       console.log('[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.');
-
-
       return;
     }
 
-    // 2. Altrimenti carica dal backend
+    // Altrimenti carica dal backend: se già generato → reindirizza subito a panoramica
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
       next: (res) => {
         this.trip = res;
-        if (this.trip.city) {
-          this.fetchCityBounds(this.trip.city);
-        }
-
         this.isLocalTrip = false;
-        this.daysCount = this.calculateDays(res.startDate, res.endDate);
 
-        if (res.coverPhoto && res.coverPhoto.length > 0) {
-          // ✅ Usa la coverPhoto già salvata dal backend!
-          this.heroPhotoUrl = res.coverPhoto;
-          console.log('[📷 COVERPHOTO] ✅ Usata quella SALVATA dal backend:', res.coverPhoto);
-
-        } else {
-          // 🔄 Solo se non esiste, genera la foto!
-          this.photoService.loadHeroPhoto(this.trip.city, this.itineraryId).then(url => {
-            this.heroPhotoUrl = url;
-            console.log('[📷 COVERPHOTO] 🔄 Generata ex-novo da Google:', url);
-
-          });
-        }
+        // 🔥 Reindirizza direttamente a panoramica
+        this.router.navigate(['/tabs/panoramica'], {
+          queryParams: { id: this.itineraryId }
+        });
       },
       error: (err) => {
         console.error('Errore caricamento itinerario:', err);
@@ -264,9 +223,6 @@ export class ItinerarioPage implements AfterViewInit {
       }
     });
   }
-
-
-
 
   /* ───── Scroll hero dinamico ───── */
   onScroll(ev: Event): void {
@@ -285,51 +241,6 @@ export class ItinerarioPage implements AfterViewInit {
     });
   }
 
-
-  /* ───── Navigazione giorno / mappa ───── */
-  openDay(index: number) {
-    if (!this.trip?.itinerary?.length && this.isLocalTrip) {
-      alert('Devi prima generare l’itinerario per poter accedere ai dettagli!');
-      return;
-    }
-    this.router.navigate(['/map'], {
-      queryParams: {
-        itineraryId: this.itineraryId,
-        day: index + 1,
-        startDate: this.trip!.startDate,
-        endDate: this.trip!.endDate
-      }
-    });
-  }
-
-  /* ───── Bottom-sheet personalizzazione ───── */
-  toggleCustomizationSheet() { this.customizationVisible = !this.customizationVisible; }
-
-  openDayCustomization(index: number) {
-    if (!this.trip) return;  // 👈 blocca subito se è null
-
-    if (!this.trip.itinerary) this.trip.itinerary = [];
-    if (!this.trip.itinerary[index]) {
-      this.trip.itinerary[index] = { style: '', atmosphere: '', mustSee: '' };
-    }
-
-    this.selectedDayIndex = index;
-    this.isTripCustomization = false;
-    this.customizationVisible = true;
-  }
-
-  openTripCustomization() {
-    this.selectedDayIndex = null;
-    this.isTripCustomization = true;
-    this.customizationVisible = true;
-  }
-
-  saveDayStyle() {
-    if (this.selectedDayIndex === null) return;
-    const trips = JSON.parse(localStorage.getItem('trips') || '[]');
-    trips[this.itineraryId] = this.trip;
-    localStorage.setItem('trips', JSON.stringify(trips));
-  }
 
   generateItinerary() {
     const userId = this.auth.getUserId();
@@ -447,20 +358,24 @@ export class ItinerarioPage implements AfterViewInit {
               console.log('🛠️ [PAYLOAD] placesPayload:', placesPayload);
 
               // 4) Salva le tappe sul backend
-              setTimeout(() => {
-                this.itineraryService
-                  .addPlacesToItinerary(userId, createdTrip.itineraryId, placesPayload)
-                  .subscribe({
-                    next: () => {
-                      console.log('✅ Tappe salvate nel backend');
-                      this.isLoading = false;
-                    },
-                    error: (err) => {
-                      console.error('❌ Errore salvataggio tappe:', err);
-                      this.isLoading = false;
-                    }
-                  });
-              }, 200);
+              this.itineraryService
+                .addPlacesToItinerary(userId, createdTrip.itineraryId, placesPayload)
+                .subscribe({
+                  next: () => {
+                    console.log('✅ Tappe salvate nel backend');
+                    this.isLoading = false;
+
+                    // → Redirect automatico alla panoramica
+                    this.router.navigate(['/panoramica'], {
+                      queryParams: { id: createdTrip.itineraryId }
+                    });
+                  },
+                  error: (err) => {
+                    console.error('❌ Errore salvataggio tappe:', err);
+                    this.isLoading = false;
+                  }
+                });
+
             },
             error: (err) => {
               console.error('❌ Errore salvataggio itinerario:', err);
@@ -529,33 +444,6 @@ export class ItinerarioPage implements AfterViewInit {
       });
   }
 
-
-
-  /* ───── Dati da mostrare nella card giorno ───── */
-  getDayItems(index: number): string[] {
-    const day = this.trip?.itinerary?.[index];
-    if (!day) return [];
-
-    /* split dei "mustSee" su virgola */
-    const splitMustSee = day.mustSee
-      ? day.mustSee.split(',').map((s: string) => s.trim()).filter(Boolean)
-      : [];
-
-    return [
-      day.style,
-      day.atmosphere,
-      ...splitMustSee
-    ].filter(Boolean);    // scarta undefined / ''
-  }
-
-  //calcolo giorni
-  private calculateDayCount(start: string, end: string): number {
-    const s = new Date(start);
-    const e = new Date(end);
-    const diff = e.getTime() - s.getTime();
-    return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
-  }
-
   private calculateDays(start: string, end: string): number {
     const startDate = new Date(start);
     const endDate = new Date(end);
@@ -563,9 +451,6 @@ export class ItinerarioPage implements AfterViewInit {
     return diff + 1;
   }
 
-  get selectedDay() {
-    return this.selectedDayIndex !== null ? this.trip?.itinerary?.[this.selectedDayIndex] : null;
-  }
 
   // tutta la parte delle modali, evvai siamo a 500 righe di codice
   editorVisible = false;
@@ -740,77 +625,16 @@ export class ItinerarioPage implements AfterViewInit {
     });
   }
 
-  async openDateEdit() {
-    const alert = await this.alertController.create({
-      header: 'Modifica date',
-      inputs: [
-        {
-          name: 'startDate',
-          type: 'date',
-          value: this.trip.startDate?.slice(0, 10) || ''
-        },
-        {
-          name: 'endDate',
-          type: 'date',
-          value: this.trip.endDate?.slice(0, 10) || ''
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annulla',
-          role: 'cancel'
-        },
-        {
-          text: 'Salva',
-          handler: data => {
-            if (data.startDate && data.endDate) {
-              this.trip.startDate = data.startDate;
-              this.trip.endDate = data.endDate;
-              // potresti voler aggiornare anche il backend qui se già salvato
-            }
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async openAccommodationEdit() {
-    const alert = await this.alertController.create({
-      header: 'Modifica alloggio',
-      inputs: [
-        {
-          name: 'accommodation',
-          type: 'text',
-          value: this.trip.accommodation || '',
-          placeholder: 'Inserisci nuovo alloggio'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annulla',
-          role: 'cancel'
-        },
-        {
-          text: 'Salva',
-          handler: data => {
-            if (data.accommodation?.trim()) {
-              this.trip.accommodation = data.accommodation.trim();
-              // salva nel backend se necessario
-            }
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
   vaiAPersonalizzazione() {
     this.router.navigate(['/personalizzazione'], {
       queryParams: { id: this.trip.itineraryId }
     });
   }
-
+  // metodo per la navigazione
+  vaiAllaPanoramica() {
+    this.router.navigate(['/panoramica'], {
+      queryParams: { id: this.trip.itineraryId }
+    });
+  }
 
 }

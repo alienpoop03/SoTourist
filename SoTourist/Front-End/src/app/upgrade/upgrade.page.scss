@@ -2,6 +2,36 @@ ion-content {
   overflow: hidden !important;
 }
 
+.upgrade-header {
+  text-align: center;
+  margin-top: 40px;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0px;
+    letter-spacing: 0.7px;
+  }
+  p {
+    font-size: 1rem;
+    color: #565656;
+    padding: 0 1rem;
+    margin-bottom: 0;
+    .highlight {
+      color: #ed2764;
+      font-weight: bold;
+    }
+  }
+}
+
+.swiper-container{
+  position: absolute;
+  margin:0;
+  padding:0;
+  top: 50vh;
+  transform: translateY(-50%);
+}
 
 .vertical-cards-wrapper {
   display: flex;
@@ -41,6 +71,7 @@ ion-content {
 
   scrollbar-width: none;
   -ms-overflow-style: none; 
+  transition: box-shadow 0.23s, border-color 0.23s, transform 0.26s cubic-bezier(.45,.05,.56,1.15), opacity 0.19s;
 
   .card-header {
     display: flex;
@@ -67,7 +98,7 @@ ion-content {
     font-size: 1.08rem;
     font-weight: 700;
     margin-bottom: 1.2rem;
-    color: var(--color-highlight);
+    color: var(--color-primary);
   }
   .features {
     list-style: none;
@@ -98,16 +129,13 @@ swiper-slide {
 
 /* Stili personalizzati per ciascun piano */
 .vertical-plan-card.standard {
-  background: linear-gradient(160deg, #f5eaea 85%, #f7f7f7 100%);
-  border: 2.5px solid #7B1E1E;
+  background: linear-gradient(to top, var(--color-primary), #fc9595 100%);
 }
 .vertical-plan-card.premium {
-  background: linear-gradient(160deg, #fffbe7 85%, #fff9d2 100%);
-  border: 2.5px solid #FFCC00;
+  background: linear-gradient(to top, #be6c00, #ffc354 100%);
 }
 .vertical-plan-card.gold {
-  background: linear-gradient(160deg, #fff4c2 90%, #ffe17a 100%);
-  border: 2.5px solid #f1c232;
+  background: linear-gradient(to top, #f0c70f, #ffd95b 100%);
 }
 
 .Plan-btn {
