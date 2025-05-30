@@ -1,5 +1,5 @@
 .settings-boxes {
-  background: var(--color-background2);
+  background: var(--color-background);
   border-radius: 16px;
 
   & + .settings-boxes {
@@ -7,7 +7,7 @@
   }
 
   ion-item {
-    --background: var(--color-background2);
+    --background: var(--color-background);
     --color: var(--color-text2);
   }
 
@@ -16,7 +16,7 @@
   }
 
   ion-icon {
-    color: var(--color-highlight); // per icone dorate
+    color: var(--color-highlight);
   }
 
   ion-toggle {
@@ -32,6 +32,11 @@
   ion-button {
     --background: var(--color-background4);
     --color: var(--color-highlight);
+  }
+  ion-list-header {
+    --color: var(--color-text);
+     font-weight: bold;
+     font-size: 1.1rem;
   }
 }
 
