@@ -70,8 +70,8 @@ export class ProfiloPage {
 
   constructor(  private authService: AuthService, private toastService: ToastService, private router: Router) {}
 
-  ngOnInit() {
-    // Carica dati profilo da localStorage (come in settings)
+  private refreshTrips(): void {
+     // Carica dati profilo da localStorage (come in settings)
     const profile = localStorage.getItem('userProfile');
     if (profile) {
       const parsed = JSON.parse(profile);
@@ -98,6 +98,14 @@ export class ProfiloPage {
         }
       });
     }
+  }
+
+  ngOnInit() {
+    this.refreshTrips();
+  }
+
+  ionViewWillEnter(): void {
+    this.refreshTrips();   // aggiorna quando torni alla Home
   }
 
   getBadgeClass(plan: string): string {
