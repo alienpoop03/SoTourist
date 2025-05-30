@@ -9,60 +9,50 @@
   scrollEvents="true"
   (ionScroll)="onScroll($event)"
   #pageContent>
+  <div class="hero-container" [ngStyle]="{ height: heroHeightPx }">
+    <section
+      *ngIf="inCorso"
+      class="hero-trip"
+      [ngStyle]="{ height: heroHeightPx, position: isScrolledPastThreshold ? 'fixed' : 'relative', top: isScrolledPastThreshold ? '56px' : 'initial', zIndex: 10 }"
+      (click)="onHeroClick()">
 
-  <section
-    *ngIf="inCorso"
-    class="hero-trip"
-    [ngStyle]="{ height: heroHeightPx, position: isScrolledPastThreshold ? 'fixed' : 'relative', top: isScrolledPastThreshold ? '56px' : 'initial', zIndex: 10 }"
-    (click)="onHeroClick()">
+      <img
+        [src]="inCorso.coverPhoto"
+        class="hero-bg"
+        alt="cover">
 
-    <img
-      [src]="inCorso.coverPhoto"
-      class="hero-bg"
-      alt="cover">
+      <!-- overlay grande -->
+      <div class="hero-overlay" [style.opacity]="overlayOpacity">
+        <h1 class="trip-type">
+          Viaggio in corso
+        </h1>
 
-    <!-- overlay grande -->
-    <div class="hero-overlay" [style.opacity]="overlayOpacity">
-      <h1 class="trip-type">
-        Viaggio in corso
-      </h1>
+        <h1 class="hero-title">{{ inCorso.city }}</h1>
+        <p class="hero-dates">
+          {{ inCorso.startDate | date:'dd/MM/yyyy' }} – 
+          {{ inCorso.endDate | date:'dd/MM/yyyy' }}
+        </p>
+        <p class="hero-accommodation">
+          🏨 {{ inCorso.accommodation || '—' }}
+        </p>
 
-      <h1 class="hero-title">{{ inCorso.city }}</h1>
-      <p class="hero-dates">
-        {{ inCorso.startDate | date:'dd/MM/yyyy' }} – 
-        {{ inCorso.endDate | date:'dd/MM/yyyy' }}
-      </p>
-      <p class="hero-accommodation">
-        🏨 {{ inCorso.accommodation || '—' }}
-      </p>
-
-      <div class="button-row" (click)="$event.stopPropagation()">
-        <ion-button
-          expand="block"
-          class="boxes-style hero-button-main"
-          (click)="openItinerary(inCorso.itineraryId)">
-          Vai all’itinerario
-        </ion-button>
-        <ion-button
-          fill="outline"
-          class="hero-button-del"
-          (click)="deleteTrip(inCorso.itineraryId)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
+        <div class="button-row" (click)="$event.stopPropagation()">
+          <ion-button
+            expand="block"
+            class="boxes-style hero-button-main"
+            (click)="openItinerary(inCorso.itineraryId)">
+            Vai all’itinerario
+          </ion-button>
+          <ion-button
+            fill="outline"
+            class="hero-button-del"
+            (click)="deleteTrip(inCorso.itineraryId)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
       </div>
-    </div>
-  </section>
-
-
-<section
-    *ngIf="inCorso && isScrolledPastThreshold === true"
-    class="below-hero"
-    [ngStyle]="{ height: heroHeightPx, position: 'relative', top: 'initial', zIndex: 5 }"
-    (click)="onHeroClick()">
-
-  </section>
-
-
+    </section>
+  </div>
 
   <div [ngStyle]="{ height: isScrolledPastThreshold ?  '100px' :'0px'}"></div>
   <div
