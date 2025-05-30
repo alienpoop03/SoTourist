@@ -1,13 +1,28 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonFab, IonFabButton, IonIcon, IonButton } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonIcon,
+  IonButton,
+} from '@ionic/angular/standalone';
+
 import { AppHeaderComponent } from '../components/header/app-header.component';
 import { TripCardComponent } from '../components/trip-card/trip-card.component';
+import { UnfinishedCardComponent } from '../components/unfinished-card/unfinished-card.component';
+
 import { TripWithId } from 'src/app/models/trip.model';
 import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
-import { UnfinishedCardComponent } from '../components/unfinished-card/unfinished-card.component';
 
 @Component({
   selector: 'app-viaggi',
@@ -18,137 +33,130 @@ import { UnfinishedCardComponent } from '../components/unfinished-card/unfinishe
     IonFab,
     IonFabButton,
     IonButton,
+    IonHeader,
+  IonToolbar,
+  IonTitle,
     IonIcon,
     AppHeaderComponent,
     TripCardComponent,
-    UnfinishedCardComponent
+    UnfinishedCardComponent,
   ],
   templateUrl: './viaggi.page.html',
-  styleUrls: ['./viaggi.page.scss']
+  styleUrls: ['./viaggi.page.scss'],
 })
-export class ViaggiPage {
-  allTrips: TripWithId[] = [];
-  inCorso: any = null;
-  imminente: any = null;
-  futuri: any[] = [];
-  loaded = false;
-  private callsCompleted = 0;
+export class ViaggiPage implements AfterViewInit {
+  /* ──────────── stato viaggi ──────────── */
+  inCorso: TripWithId | null = null;
+  imminente: TripWithId | null = null;
+  futuri: TripWithId[] = [];
   drafts: TripWithId[] = [];
+  loaded  = false;
   isGuest = false;
+  private apiCalls = 0;
 
+  /* ──────────── hero dinamica ──────────── */
+  heroMax = 0;            // 50 vh in px
+  heroMin = 0;            // 20 % di heroMax
+  heroHeightPx = '0px';   // binding [ngStyle]
+  overlayOpacity = 1;     // 1 → 0
 
-  constructor(private router: Router, private itineraryService: ItineraryService, private auth: AuthService) { }
+  @ViewChild('pageContent', { read: IonContent })
+  content!: IonContent;
 
-  /*ionViewWillEnter() {
-    const data = JSON.parse(localStorage.getItem('trips') || '[]') as TripWithId[];
-    const today = new Date();
+  constructor(
+    private router: Router,
+    private api: ItineraryService,
+    private auth: AuthService
+  ) {}
 
-    // calcola correntTrip/futures e popola allTrips
-    const ongoing = data.find(t =>
-      new Date(t.start) <= today && new Date(t.end) >= today
-    );
+  /* ─────────── Lifecycle ─────────── */
+  ngAfterViewInit(): void {
+    this.heroMax = window.innerHeight * 0.5;   // 50 vh
+    this.heroMin = this.heroMax * 0.2;         // 20 %
+    this.heroHeightPx = `${this.heroMax}px`;
+  }
 
-    const future = data
-      .filter(t => !ongoing || t.id !== ongoing.id)
-      .filter(t => new Date(t.start) > today)
-      .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
+  ionViewDidEnter(): void {
+    this.isGuest = !!this.auth.getUserId()?.startsWith('guest_');
+    this.isGuest ? this.loadDraftsOnly() : this.loadTrips();
+  }
 
-    this.allTrips = [];
-    if (ongoing) {
-      this.allTrips.push({ ...ongoing, status: 'in_corso' });
-    }
-    this.allTrips.push(...future);
-  }*/
+  /* ─────────── Scroll handler ─────────── */
+  onScroll(ev: any): void {
+    const scrollTop = ev.detail.scrollTop;
 
-  ionViewDidEnter() {
-    const userId = this.auth.getUserId();
-    this.isGuest = userId?.startsWith('guest_') || false;
-    //console.log('✅ ID ricevuto:', userId);
+    /* 1 : 1 – l’hero si riduce finché scrollTop ≤ range */
+    const range = this.heroMax - this.heroMin;
 
-    if (userId?.startsWith('guest_')) {
-      this.loadOfflineTrips(); // solo bozze
+    if (scrollTop < range) {
+      /* fase di riduzione / espansione */
+      const newH = this.heroMax - scrollTop;
+      this.heroHeightPx = `${newH}px`;
+      this.overlayOpacity = (newH - this.heroMin) / range; // 1 → 0
     } else {
-      this.loadTrips(); // backend + bozze
+      /* hero rimane alla misura minima */
+      this.heroHeightPx   = `${this.heroMin}px`;
+      this.overlayOpacity = 0;
     }
   }
 
-  loadTrips() {
-    //console.log('🔄 Ricarico i viaggi...');
-    const userId = this.auth.getUserId();
-    if (!userId) return;
-
-    this.loaded = false;
-    this.inCorso = null;
-    this.imminente = null;
-    this.futuri = [];
-
-    // Carica viaggi reali da backend
-    this.itineraryService.getUserItineraries(userId, 'current').subscribe({
-      next: (res) => this.inCorso = res[0] || null,
-      error: () => this.inCorso = null,
-      complete: () => this.checkAllLoaded()
-    });
-
-    this.itineraryService.getUserItineraries(userId, 'upcoming').subscribe({
-      next: (res) => this.imminente = res[0] || null,
-      error: () => this.imminente = null,
-      complete: () => this.checkAllLoaded()
-    });
-
-    this.itineraryService.getUserItineraries(userId, 'future').subscribe({
-      next: (res) => this.futuri = res || [],
-      error: () => this.futuri = [],
-      complete: () => this.checkAllLoaded()
-    });
-
-    //Carica le bozze dal localStorage
-    const raw = localStorage.getItem('trips');
-    this.drafts = raw ? JSON.parse(raw) : [];
+  onHeroClick(): void {
+    this.content.scrollToTop(400);
   }
 
-  //load per i guest
-  loadOfflineTrips() {
-    //console.log(' Modalità ospite: caricamento solo bozze');
-    this.inCorso = null;
-    this.imminente = null;
-    this.futuri = [];
+  /* ─────────── API trips ─────────── */
+  private loadTrips(): void {
+    const uid = this.auth.getUserId(); if (!uid) return;
+    this.loaded = false; this.resetLists();
+
+    this.api.getUserItineraries(uid, 'current')
+      .subscribe({ next: r => this.inCorso   = r[0] || null, complete: () => this.done() });
+
+    this.api.getUserItineraries(uid, 'upcoming')
+      .subscribe({ next: r => this.imminente = r[0] || null, complete: () => this.done() });
+
+    this.api.getUserItineraries(uid, 'future')
+      .subscribe({ next: r => this.futuri    = r       || [],  complete: () => this.done() });
+
+    this.loadDrafts();
+  }
+
+  private loadDraftsOnly(): void {
+    this.resetLists();
     this.loaded = true;
+    this.loadDrafts();
+  }
 
-    const raw = localStorage.getItem('trips');
-    this.drafts = raw ? JSON.parse(raw) : [];
-}
+  private loadDrafts(): void {
+    this.drafts = JSON.parse(localStorage.getItem('trips') || '[]');
+  }
 
+  private resetLists(): void {
+    this.inCorso = this.imminente = null;
+    this.futuri = [];
+    this.apiCalls = 0;
+  }
 
+  private done(): void {
+    if (++this.apiCalls >= 3) { this.loaded = true; this.apiCalls = 0; }
+  }
 
-  /** riceve SOLO l’id e naviga */
-  openItinerary(id: string) {
+  /* ─────────── Azioni ─────────── */
+  openItinerary(id: string): void {
     this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
   }
 
-  /** riceve SOLO l’id, filtra via id e ricarica */
-  deleteTrip(id: string) {
-    const userId = this.auth.getUserId();
-    if (!userId) return;
-
-    this.itineraryService.deleteItinerary(userId, id).subscribe({
-      next: () => this.loadTrips(), // Ricarica la lista
-      error: () => alert('Errore durante la cancellazione')
-    });
+  deleteTrip(id: string): void {
+    const uid = this.auth.getUserId(); if (!uid) return;
+    this.api.deleteItinerary(uid, id).subscribe(() => this.loadTrips());
   }
 
-  private checkAllLoaded() {
-    this.callsCompleted++;
-    if (this.callsCompleted >= 3) {
-      this.loaded = true;
-      this.callsCompleted = 0;
-    }
-  }
-  deleteDraft(id: string) {
+  deleteDraft(id: string): void {
     this.drafts = this.drafts.filter(t => t.itineraryId !== id);
     localStorage.setItem('trips', JSON.stringify(this.drafts));
   }
 
-  goToCreate() {
+  goToCreate(): void {
     this.router.navigate(['/crea']);
   }
 }

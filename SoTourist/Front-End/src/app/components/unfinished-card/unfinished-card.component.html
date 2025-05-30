@@ -1,25 +1,4 @@
-<!--<ion-card class="trip-card" [class.conflict]="hasConflict" (click)="openTrip()">
-  <ion-card-header>
-    <h3 class="trip-city">{{ getCityName() }}</h3>
-  </ion-card-header>
-
-  <ion-card-content>
-    <p class="trip-accommodation">🏨 {{ getAccommodationName() }}</p>
-    <p class="trip-days">⏳ {{ calculateTripLength(trip.startDate, trip.endDate) }} giorni</p>
-    <p *ngIf="hasConflict">⚠️ Questo viaggio si sovrappone ad altri!</p>
-
-    <ion-button
-      fill="clear"
-      color="danger"
-      size="small"
-      class="delete-btn"
-      (click)="onDelete($event)">
-      ❌ Elimina
-    </ion-button>
-  </ion-card-content>
-</ion-card>-->
-
-<ion-card class="trip-card" [class.conflict]="hasConflict" (click)="onClick()">
+<ion-card class="boxes-style" [class.conflict]="hasConflict" (click)="onClick()">
 
   <div class="trip-layout">
     <!-- CONTENUTO CENTRALE: dettagli + pulsanti -->

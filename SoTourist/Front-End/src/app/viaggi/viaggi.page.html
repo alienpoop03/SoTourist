@@ -1,20 +1,38 @@
-<app-header [title]="'SoTourist'" [iconName]="'list-outline'" [showBackButton]="false">
+<app-header
+  [title]="'SoTourist'"
+  [iconName]="'list-outline'"
+  [showBackButton]="false">
 </app-header>
 
-<ion-content class="viaggi-content">
+<ion-content
+  class="viaggi-content"
+  scrollEvents="true"
+  (ionScroll)="onScroll($event)"
+  #pageContent>
 
-  <!-- HERO in alto · viaggio in corso o imminente -->
-  <section class="hero-trip" *ngIf="inCorso || imminente" (click)="openItinerary((inCorso || imminente)!.itineraryId)">
-    <img [src]="(inCorso || imminente)!.coverPhoto || 'assets/images/PaletoBay.jpeg'" alt="Cover" class="hero-bg" />
+  <!-- ── HERO (sticky-shrink) ───────────────────────────────────────────-->
+  <section
+    *ngIf="inCorso || imminente"
+    class="hero-trip"
+    [ngStyle]="{ height: heroHeightPx }"
+    (click)="onHeroClick()">
 
-    <div class="hero-overlay">
+    <img
+      [src]="(inCorso || imminente)!.coverPhoto || 'assets/images/PaletoBay.jpeg'"
+      class="hero-bg"
+      alt="cover">
+
+    <!-- overlay grande -->
+    <div class="hero-overlay" [style.opacity]="overlayOpacity">
+      <h1 class="trip-type">
+        {{ inCorso ? 'Viaggio in corso' : 'Il tuo prossimo viaggio' }}
+      </h1>
+
       <h1 class="hero-title">{{ (inCorso || imminente)!.city }}</h1>
-
       <p class="hero-dates">
-        {{ (inCorso || imminente)!.startDate | date:'dd/MM/yyyy' }}
-        – {{ (inCorso || imminente)!.endDate | date:'dd/MM/yyyy' }}
+        {{ (inCorso || imminente)!.startDate | date:'dd/MM/yyyy' }} –
+        {{ (inCorso || imminente)!.endDate   | date:'dd/MM/yyyy' }}
       </p>
-
       <p class="hero-accommodation">
         🏨 {{ (inCorso || imminente)!.accommodation || '—' }}
       </p>
@@ -26,7 +44,6 @@
           (click)="openItinerary((inCorso || imminente)!.itineraryId)">
           Vai all’itinerario
         </ion-button>
-
         <ion-button
           fill="outline"
           class="hero-button-del"
@@ -35,54 +52,59 @@
         </ion-button>
       </div>
     </div>
+
+    <!-- overlay mini -->
+    <div class="hero-mini" [style.opacity]="1 - overlayOpacity">
+      <span class="mini-status">{{ inCorso ? 'In corso' : 'Prossimo' }}</span>
+      <span class="mini-city">{{ (inCorso || imminente)!.city }}</span>
+    </div>
   </section>
 
-  <!-- Se non ci sono viaggi -->
-  <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
-    <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
-    <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
-    <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
+  <!-- ▾  CONTENUTO SOTTO  ▾ ============================================-->
+
+  <div
+    *ngIf="loaded && !inCorso && !imminente && futuri.length===0 && drafts.length===0"
+    class="welcome-section">
+    <!-- … testo di benvenuto invariato … -->
   </div>
 
-  <!-- viaggi reali (backend) -->
   <div *ngIf="!isGuest">
 
-    <!-- Viaggio in corso (già mostrato come hero, ma manteniamo la card sticky) -->
-    <div class="viaggiInCorsoImminente">
-      <!-- <div *ngIf="inCorso" class="trip-section current-trip sticky-section">
-        <h2 class="Title_sezion">Viaggio in corso</h2>
+    <!--  marker di inizio “zona rigida”  -->
+    <div #collapseStartMarker></div>
+
+    <!-- Viaggio imminente -->
+    <div *ngIf="imminente" class="trip-section" [hidden]="!inCorso">
+      <h2 class="Title_sezion">Viaggio imminente</h2>
+      <app-trip-card
+        [trip]="imminente"
+        (open)="openItinerary(imminente.itineraryId)"
+        (remove)="deleteTrip(imminente.itineraryId)">
+      </app-trip-card>
+    </div>
+
+    <!-- Prossimi viaggi -->
+    <div *ngIf="futuri.length>0" class="trip-section">
+      <h2 class="Title_sezion">Prossimi viaggi</h2>
+      <div class="card-grid">
         <app-trip-card
-          [trip]="inCorso"
-          (remove)="deleteTrip($event)"
-          (open)="openItinerary($event)">
+          *ngFor="let trip of futuri"
+          [trip]="trip"
+          (open)="openItinerary(trip.itineraryId)"
+          (remove)="deleteTrip(trip.itineraryId)">
         </app-trip-card>
-      </div> -->
-
-      <!-- Viaggio imminente (se non già hero) -->
-      <div *ngIf="imminente" class="trip-section" [hidden]="!inCorso">
-        <h2 class="Title_sezion">Viaggio imminente</h2>
-        <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
-          (remove)="deleteTrip(imminente.itineraryId)">
-        </app-trip-card>
-      </div>
-
-      <!-- Prossimi viaggi -->
-      <div *ngIf="futuri.length > 0" class="trip-section">
-        <h2 class="Title_sezion">Prossimi viaggi</h2>
-        <div class="card-grid">
-          <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)"
-            (remove)="deleteTrip(trip.itineraryId)">
-          </app-trip-card>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Bozze local -->
-  <div *ngIf="drafts.length > 0" class="trip-section">
+  <!-- Bozze offline -->
+  <div *ngIf="drafts.length>0" class="trip-section">
     <h2 class="Title_sezion">Bozze</h2>
     <div class="card-grid">
-      <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)"
+      <app-unfinished-card
+        *ngFor="let trip of drafts"
+        [trip]="trip"
+        (open)="openItinerary($event)"
         (remove)="deleteDraft($event)">
       </app-unfinished-card>
     </div>

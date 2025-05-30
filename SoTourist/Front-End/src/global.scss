@@ -182,9 +182,9 @@ ion-button.boxes-style {
   /* variabile interna */
 
   /* per sicurezza, forza anche la parte nativa */
-  &::part(native) {
-    border-radius: 26px;
-  }
+  // &::part(native) {
+  //   border-radius: 26px;
+  // }
 }
 
 .custom-toast {
