@@ -47,6 +47,7 @@ export class ViaggiPage implements AfterViewInit {
     private auth: AuthService
   ) { }
 
+  //variabili per caricare i viaggi nella pagina
   isGuest = false;
   inCorso: TripWithId | null = null;
   imminente: TripWithId | null = null;
@@ -60,12 +61,16 @@ export class ViaggiPage implements AfterViewInit {
   // Stato shrink animazione
   isShrunk: boolean = false;
 
-  // Soglia tarata per passaggio a hero compatta
-  readonly shrinkThreshold = 100;  // puoi regolarla leggermente a piacere
+  readonly shrinkThreshold = 100; // Soglia tarata per passaggio a hero compatta (modificabile)
 
   // Header Title fix
   headerTitle: string = 'SoTourist';
 
+  private scrollTimer: any; // variaile funzionale per lo snapping 
+
+  // Le variabili per gestire lo snapping
+  snapActive: string | null = 'attivo';  // se non null attivo altrimenti no
+  millisecondSnap = 200;                 // millisecondi da attendere dall'ultimo imput di scrol prima modificare
   ngAfterViewInit() { }
 
   ionViewDidEnter(): void {
@@ -78,7 +83,7 @@ export class ViaggiPage implements AfterViewInit {
     this.startMidnightWatcher();
   }
 
-  startMidnightWatcher() {
+  startMidnightWatcher() { //calcola tra quanto tempo sarà mezzanotte e casomai fare refresh 
     const now = new Date();
     const midnight = new Date();
     midnight.setHours(24, 0, 0, 0);
@@ -90,18 +95,14 @@ export class ViaggiPage implements AfterViewInit {
     }, msToMidnight);
   }
 
-  private scrollTimer: any;
-
-  // La variabile che controlla lo snapping
-  snapActive: string | null = 'attivo';  // se non null attivo altrimenti no
-  millisecondSnap = 200;                 // millisecondi da attendere dall'ultimo imput di scrol per modificare
+  
 
   onScroll(event: any) {
     const scrollTop = event.detail.scrollTop;
     this.isShrunk = scrollTop > this.shrinkThreshold;
     //console.log(scrollTop);
     
-    if (this.inCorso == null || this.snapActive == null) {
+    if (this.inCorso == null || this.snapActive == null) { //in caso manchi il viaggio in corso (la hero) o se non lo vogliamo
       return;  // esci dal debounce se non serve lo snap
     }
 
@@ -110,8 +111,6 @@ export class ViaggiPage implements AfterViewInit {
     this.scrollTimer = setTimeout(() => {
       this.handleScrollEnd(event);
     }, this.millisecondSnap);
-    
-
   }
 
   handleScrollEnd(event: any) {
@@ -128,9 +127,6 @@ export class ViaggiPage implements AfterViewInit {
       }
     }
   }
-
-
-
 
   private loadTrips(): void {
     const uid = this.auth.getUserId();
@@ -210,6 +206,4 @@ export class ViaggiPage implements AfterViewInit {
       this.isShrunk = false;
     }
   }
-
-
 }
