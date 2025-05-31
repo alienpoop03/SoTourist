@@ -69,8 +69,25 @@ export class ViaggiPage implements AfterViewInit {
   ngAfterViewInit() { }
 
   ionViewDidEnter(): void {
+    this.refreshTrips();
+  }
+
+  private refreshTrips(): void {
     this.isGuest = !!this.auth.getUserId()?.startsWith('guest_');
     this.isGuest ? this.loadDraftsOnly() : this.loadTrips();
+    this.startMidnightWatcher();
+  }
+
+  startMidnightWatcher() {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+
+    const msToMidnight = midnight.getTime() - now.getTime();
+
+    setTimeout(() => {
+      this.refreshTrips();  // Al passaggio di giorno, rifaccio tutto
+    }, msToMidnight);
   }
 
   onScroll(event: any) {
