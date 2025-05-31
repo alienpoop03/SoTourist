@@ -71,7 +71,30 @@ export class ViaggiPage implements AfterViewInit {
   // Le variabili per gestire lo snapping
   snapActive: string | null = 'attivo';  // se non null attivo altrimenti no
   millisecondSnap = 200;                 // millisecondi da attendere dall'ultimo imput di scrol prima modificare
-  ngAfterViewInit() { }
+  
+  
+  
+  totalHeight: number = 0;
+  visibleHeight: number = 0;
+  altezzaOverScroll: number = 150;
+  private overScrollTimer: any;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      
+      this.content.getScrollElement().then((scrollEl) => {
+        this.totalHeight = scrollEl.scrollHeight;
+        //console.log('Altezza totale:', this.totalHeight);
+        this.visibleHeight = scrollEl.clientHeight;
+        //console.log('Altezza visibile (clientHeight):', this.visibleHeight);
+        this.totalHeight = this.totalHeight - this.altezzaOverScroll - this.visibleHeight;
+        if(this.totalHeight<0){
+          this.totalHeight= 0;
+        }
+        //console.log('Altezza totale:', this.totalHeight);
+      });
+    }, 0);
+  }
 
   ionViewDidEnter(): void {
     this.refreshTrips();
@@ -102,6 +125,27 @@ export class ViaggiPage implements AfterViewInit {
     this.isShrunk = scrollTop > this.shrinkThreshold;
     //console.log(scrollTop);
     
+    clearTimeout(this.overScrollTimer);
+    this.overScrollTimer = setTimeout(() => {
+      if(scrollTop > this.totalHeight){
+        //console.log("over", (this.totalHeight + this.altezzaOverScroll));
+        if(scrollTop > (this.totalHeight + this.altezzaOverScroll)){
+          this.content.scrollToPoint(0, this.totalHeight, 300);
+          this.router.navigate(['/tabs/storico-viaggi']);
+        }else{
+          this.content.scrollToPoint(0, this.totalHeight, 300);
+        }
+      } 
+    }, this.millisecondSnap);
+    
+
+
+
+
+
+
+
+
     if (this.inCorso == null || this.snapActive == null) { //in caso manchi il viaggio in corso (la hero) o se non lo vogliamo
       return;  // esci dal debounce se non serve lo snap
     }
