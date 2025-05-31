@@ -20,7 +20,7 @@ Finire box hero pagina viaggi
 back end
 
 inserire campo data di iscrizione negli utenti
-generazione itinerario anche all'estero
+generazione itinerario anche all'estero  //fatto
 
 
 
