@@ -24,6 +24,7 @@ import { NavigationBarComponent } from '../components/navigation-bar/navigation-
  * Rappresenta la struttura delle tappe raggruppate per giorno
  */
 import { LuogoCardComponent } from '../components/luogo-card/luogo-card.component';
+import { getPlacePhotoUrl } from 'src/app/utils/image-utils';
 
 interface DayGroup {
   morning: Place[];

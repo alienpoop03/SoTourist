@@ -12,6 +12,7 @@ export interface Place {
   rating?:        number;    // ← numero, se lo usi così
     type?: string;
       note?: string;
+photoReference?: string;
 
 
 }

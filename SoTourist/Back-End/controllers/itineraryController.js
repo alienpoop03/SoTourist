@@ -31,9 +31,11 @@ const buildPlaceObj = (place, key) => ({
   photo: place.photos?.[0]
     ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=${key}`
     : null,
+  photoReference: place.photos?.[0]?.photo_reference || null,   // <-- QUESTA È LA CHIAVE 🔥
   latitude: place.geometry?.location?.lat,
   longitude: place.geometry?.location?.lng,
 });
+
 
 /* --- text-search helper (supporta min & max radius) ---------------- */
 const fetchPlaces = async (

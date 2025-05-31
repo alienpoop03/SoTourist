@@ -3,6 +3,8 @@
 const generateId = require('../utils/idGenerator');
 const db = require('../db/connection');
 const { checkOverlap } = require('../utils/dateUtils');
+const { getOrDownloadPhoto } = require('../services/photoManager');  // <-- qui importi il modulo che abbiamo creato
+
 //const DB_PATH = path.join(__dirname, '../db.json');
 
 /*function readDB() {
@@ -277,11 +279,15 @@ exports.updateItinerary = (req, res) => {
 };
 
 // aggiunta tappe
+
 exports.addPlacesToItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   let places = req.body;
+  
+  // QUI VUOI IL PRIMO LOG:
+  console.log("🔥 PAYLOAD CHE RICEVO DAL FRONTEND:");
+  console.log(JSON.stringify(places, null, 2));
   console.log('🔥 RICEVUTE TAPPE:', places);
-
 
   if (!Array.isArray(places)) {
     if (typeof places === 'object' && places !== null) {
@@ -297,7 +303,7 @@ exports.addPlacesToItinerary = (req, res) => {
 
     const inserted = [];
 
-    const insertNext = () => {
+    const insertNext = async () => {
       if (places.length === 0) {
         return res.status(201).json(inserted);
       }
@@ -305,8 +311,27 @@ exports.addPlacesToItinerary = (req, res) => {
       const place = places.shift();
       const placeId = generateId('place_');
 
+      let photoFilename = '';
+
+      try {
+        console.log("🔬 STO PROCESSANDO PLACE:");
+console.log(place);
+
+        // ⬇⬇⬇ QUI facciamo il download automatico solo se c'è il photoReference
+        if (place.photoReference) {
+          photoFilename = await getOrDownloadPhoto(place.placeId, place.photoReference);
+          if (place.photoReference) {
+    console.log("📸 HO IL PHOTOREFERENCE:", place.photoReference);
+}
+
+        }
+      } catch (errPhoto) {
+        console.error('Errore scaricamento immagine:', errPhoto);
+        // anche se fallisce il download, continuiamo a salvare il place senza foto
+      }
+
       db.run(
-        `INSERT INTO places (placeId, itineraryId, name, day, timeSlot, lat, lng, address, photoUrl, type, note)
+        `INSERT INTO places (placeId, itineraryId, name, day, timeSlot, lat, lng, address, photoFilename, type, note)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           placeId,
@@ -317,12 +342,12 @@ exports.addPlacesToItinerary = (req, res) => {
           place.lat,
           place.lng,
           place.address || '',
-          place.photoUrl || '',
+          photoFilename,  // <-- qui salvi il filename locale, non più il vecchio photoUrl
           place.type || '',
           place.note || ''
         ],
         (err2) => {
-          if (!err2) inserted.push({ placeId, ...place });
+          if (!err2) inserted.push({ placeId, ...place, photoFilename });
           insertNext(); // ricorsivo
         }
       );
@@ -331,6 +356,7 @@ exports.addPlacesToItinerary = (req, res) => {
     insertNext();
   });
 };
+
 
 exports.checkDateOverlap = (req, res) => {
   const { userId } = req.params;
