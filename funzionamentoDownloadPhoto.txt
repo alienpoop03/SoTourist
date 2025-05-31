@@ -1,0 +1,46 @@
+Ho introdotto la possibilità di scaricare e gestire localmente le immagini dei luoghi degli itinerari, riducendo la dipendenza dai link esterni temporanei di Google.
+
+Modifiche al database
+Aggiunto campo photoFilename nella tabella places: contiene il nome file dell'immagine locale.
+
+Il vecchio campo photoUrl non viene più usato per il salvataggio.
+
+File e funzioni creati / modificati
+Backend
+
+controllers/getOrDownloadPhoto.js:
+
+Funzione getOrDownloadPhoto(placeId, photoReference)
+
+Scarica l'immagine corrispondente al photoReference di Google e la salva in uploads/.
+
+Se già presente localmente, evita il download.
+
+trip.controller.js:
+
+Modificato addPlacesToItinerary()
+
+Per ogni tappa ricevuta, se esiste il photoReference, richiama getOrDownloadPhoto() e salva photoFilename nel DB.
+
+Frontend
+
+itinerario.page.ts:
+
+Quando viene creato il payload da inviare al backend, ora include il campo photoReference per ogni place.
+
+ItineraryService:
+
+Nel metodo getItineraryById(), mappa il photoFilename ricevuto dal backend nel campo photo usato dal frontend.
+
+In questo modo il resto del frontend non subisce modifiche.
+
+Flusso operativo
+Generazione itinerario tramite Google API (come prima).
+
+Invio dei dati al backend (ora includono anche photoReference).
+
+Il backend scarica le immagini mancanti e salva i file.
+
+In fase di lettura itinerari, il backend restituisce i filename locali.
+
+Il frontend visualizza le immagini usando i file locali.
