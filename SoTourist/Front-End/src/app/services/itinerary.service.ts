@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { TripWithId, Place } from 'src/app/models/trip.model';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from './ip.config';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ItineraryService {
@@ -44,9 +44,24 @@ getItineraryById(itineraryId: string): Observable<any> {
     .pipe(
       tap(raw => {
         console.log('[📦 RAW-API itinerary]', raw.itinerary);
+      }),
+      // Aggiungiamo la mappatura qui
+      // Così trasformiamo photoFilename -> photo
+      // ed evitiamo modifiche al resto del frontend
+      // (questo è il vero "adapter layer" pulito)
+      map(raw => {
+        for (const day of raw.itinerary) {
+          for (const slot of ['morning', 'afternoon', 'evening']) {
+            for (const place of day[slot]) {
+              place.photo = place.photoFilename;
+            }
+          }
+        }
+        return raw;
       })
     );
 }
+
 
 
   // 📄 Recupera tutti gli itinerari dell’utente filtrati
@@ -75,8 +90,9 @@ updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
   }
 
   getSinglePlace(query: string, city: string) {
-  return this.http.get(`${API_BASE_URL}/api/itinerary/single-place?query=${encodeURIComponent(query)}&city=${encodeURIComponent(city)}`);
+  return this.http.get(`${this.baseUrl}/itinerary/single-place?query=${encodeURIComponent(query)}&city=${encodeURIComponent(city)}`);
 }
+
 
   //ceck date
   checkDateOverlap(userId: string, startDate: string, endDate: string, excludeId?: string): Observable<{ overlap: boolean }> {

@@ -3,11 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const tripRoutes = require('./routes/trip');
+const path = require('path');
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = 'localhost';
+const uploadsPath = path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadsPath));
 
 app.use(cors({
     origin: '*'
