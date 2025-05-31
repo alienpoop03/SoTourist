@@ -90,10 +90,46 @@ export class ViaggiPage implements AfterViewInit {
     }, msToMidnight);
   }
 
+  private scrollTimer: any;
+
+  // La variabile che controlla lo snapping
+  snapActive: string | null = 'attivo';  // se non null attivo altrimenti no
+  millisecondSnap = 200;                 // millisecondi da attendere dall'ultimo imput di scrol per modificare
+
   onScroll(event: any) {
     const scrollTop = event.detail.scrollTop;
     this.isShrunk = scrollTop > this.shrinkThreshold;
+    //console.log(scrollTop);
+    
+    if (this.inCorso == null || this.snapActive == null) {
+      return;  // esci dal debounce se non serve lo snap
+    }
+
+    clearTimeout(this.scrollTimer);
+
+    this.scrollTimer = setTimeout(() => {
+      this.handleScrollEnd(event);
+    }, this.millisecondSnap);
+    
+
   }
+
+  handleScrollEnd(event: any) {
+    const scrollTop = event.detail.scrollTop;
+
+    const snapZoneStart = 0.1;
+    const snapZoneEnd = 204.9;
+
+    if (scrollTop >= snapZoneStart && scrollTop <= snapZoneEnd) {
+      if (scrollTop < 107) {
+        this.content.scrollToPoint(0, 0, 300);
+      } else {
+        this.content.scrollToPoint(0, 205, 300);
+      }
+    }
+  }
+
+
 
 
   private loadTrips(): void {
