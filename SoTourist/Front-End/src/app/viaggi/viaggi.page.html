@@ -15,7 +15,7 @@
   (ionScrollEnd)="onScrollEnd($event)" #pageContent *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
 
   <!-- HERO ESPANSA -->
-  <div class="hero-wrapper" [class.hidden]="isShrunk">
+  <div *ngIf="inCorso" class="hero-wrapper" [class.hidden]="isShrunk">
     <ng-container *ngIf="inCorso">
       <img [src]="inCorso.coverPhoto" class="hero-bg" alt="cover">
       <div class="hero-overlay">
@@ -40,7 +40,7 @@
   </div>
 
   <!-- HERO COMPATTA -->
-  <div class="hero-compact" [class.visible]="isShrunk">
+  <div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk">
     <ng-container *ngIf="inCorso">
       <img [src]="inCorso.coverPhoto" class="compact-bg" alt="cover">
       <div class="compact-overlay">
