@@ -24,8 +24,9 @@ export class ModificaDatePage implements OnInit {
   trip: any;
   newStartDate: string = '';
   newEndDate: string = '';
-  today: string = new Date().toISOString().split('T')[0]; // formato YYYY-MM-DD
-
+  get today(): string {
+    return new Date().toISOString().split('T')[0];
+  }
   constructor(
     private route: ActivatedRoute,
     private router: Router
