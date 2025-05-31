@@ -52,16 +52,16 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
         const longitude = p.lng ?? p.longitude;
 
         places.push({
-  placeId: generatePlaceId(p.name, day, timeSlot),
-  name: p.name,
-  day,
-  timeSlot,
-  latitude,
-  longitude,
-  address: p.address || '',
-  photo: p.photo || '',
-  photoReference: p.photoReference || ''   // <-- AGGIUNTA QUI
-});
+          placeId: p.placeId,  // <-- Google Place ID usato come nostro ID interno
+          name: p.name,
+          day,
+          timeSlot,
+          latitude,
+          longitude,
+          address: p.address || '',
+          photo: p.photo || '',
+          photoReference: p.photoReference || ''   // <-- AGGIUNTA QUI
+        });
 
       });
     });
@@ -345,18 +345,18 @@ export class ItinerarioPage implements AfterViewInit {
 
               // 3) Prepara il payload corretto per le tappe
               const placesPayload = allPlaces.map(p => ({
-  placeId: p.placeId,
-  name: p.name,
-  day: p.day,
-  timeSlot: p.timeSlot,
-  lat: p.latitude,
-  lng: p.longitude,
-  address: (p as any).address || '',
-  photoUrl: (p as any).photo || '',
-  photoReference: p.photoReference || '',  // <-- AGGIUNTO QUI 🔥
-  type: '',
-  note: ''
-}));
+                placeId: p.placeId,
+                name: p.name,
+                day: p.day,
+                timeSlot: p.timeSlot,
+                lat: p.latitude,
+                lng: p.longitude,
+                address: (p as any).address || '',
+                photoUrl: (p as any).photo || '',
+                photoReference: p.photoReference || '',  // <-- AGGIUNTO QUI 🔥
+                type: '',
+                note: ''
+              }));
 
 
               console.log('🛠️ [PAYLOAD] placesPayload:', placesPayload);
