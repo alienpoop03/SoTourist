@@ -52,11 +52,15 @@ export const routes: Routes = [
           import('../panoramica/panoramica.page').then(m => m.PanoramicaPage),
       },
       {
+        path: 'storico-viaggi',
+        loadComponent: () => import('../storico-viaggi/storico-viaggi.page').then( m => m.StoricoViaggiPage)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',
       },
-      
+           
     ]
   },
   {

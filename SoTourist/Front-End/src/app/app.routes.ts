@@ -58,6 +58,10 @@ export const routes: Routes = [
   {
     path: 'panoramica',
     loadComponent: () => import('./panoramica/panoramica.page').then( m => m.PanoramicaPage)
+  },  {
+    path: 'storico-viaggi',
+    loadComponent: () => import('./storico-viaggi/storico-viaggi.page').then( m => m.StoricoViaggiPage)
   },
+
 
 ];
