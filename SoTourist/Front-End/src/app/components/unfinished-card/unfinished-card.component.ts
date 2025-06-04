@@ -83,8 +83,8 @@ export class UnfinishedCardComponent {
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonCard, IonButton, IonIcon } from '@ionic/angular/standalone';
-import { AuthService } from 'src/app/services/auth.service';
-import { ItineraryService } from 'src/app/services/itinerary.service';
+import { AuthService } from '../../services/auth.service';
+import { ItineraryService } from '../../services/itinerary.service';
 import { Router } from '@angular/router';
 
 export interface TripWithId {

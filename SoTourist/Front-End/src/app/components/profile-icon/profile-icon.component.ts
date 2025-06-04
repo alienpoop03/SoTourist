@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { IonIcon } from '@ionic/angular/standalone';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { convertFileToBase64 } from 'src/app/utils/image-utils';
 import { ActionSheetController } from '@ionic/angular';
 @Component({

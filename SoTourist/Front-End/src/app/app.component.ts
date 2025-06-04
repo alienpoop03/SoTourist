@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Router } from '@angular/router';
-import { BackendService } from './services/backend.service';
+import { BackendService } from '../services/backend.service';
 import { GenerationOverlayComponent } from './components/generation-overlay/generation-overlay.component';
 import { CommonModule } from '@angular/common';
-import { AuthService } from './services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { catchError, of } from 'rxjs';
 import { register } from 'swiper/element/bundle';
 
