@@ -4,63 +4,65 @@ import { PremiumGuard } from './guards/premium.guard';
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
+    loadChildren: () => import('./pages/tabs/tabs.routes').then((m) => m.routes),
   },
   {
     path: 'itinerario',
-    loadComponent: () => import('./itinerario/itinerario.page').then( m => m.ItinerarioPage)
+    loadComponent: () => import('./pages/itinerario/itinerario.page').then( m => m.ItinerarioPage)
   },
   {
     path: 'profilo',
-    loadComponent: () => import('./profilo/profilo.page').then( m => m.ProfiloPage)
+    loadComponent: () => import('./pages/profilo/profilo.page').then( m => m.ProfiloPage)
   },
   {
     path: 'onboarding',
-    loadComponent: () => import('./onboarding/onboarding.page').then( m => m.OnboardingPage)
+    loadComponent: () => import('./pages/onboarding/onboarding.page').then( m => m.OnboardingPage)
   },
   {
     path: 'settings',
-    loadComponent: () => import('./settings/settings.page').then( m => m.SettingsPage)
+    loadComponent: () => import('./pages/settings/settings.page').then( m => m.SettingsPage)
   },
   {
     path: 'map',
-    loadComponent: () => import('./map/map.page').then( m => m.MapPage)
+    loadComponent: () => import('./pages/map/map.page').then( m => m.MapPage)
   },
   {
     path: 'viaggi',
-    loadComponent: () => import('./viaggi/viaggi.page').then( m => m.ViaggiPage)
+    loadComponent: () => import('./pages/viaggi/viaggi.page').then( m => m.ViaggiPage)
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
   {
     path: 'registrazione',
-    loadComponent: () => import('./registrazione/registrazione.page').then( m => m.RegistrazionePage)
+    loadComponent: () => import('./pages/registrazione/registrazione.page').then( m => m.RegistrazionePage)
   },
   {
     path: 'upgrade',
-    loadComponent: () => import('./upgrade/upgrade.page').then( m => m.UpgradePage)
+    loadComponent: () => import('./pages/upgrade/upgrade.page').then( m => m.UpgradePage)
   },
   {
     path: 'impostazioni',
-    loadComponent: () => import('./impostazioni/impostazioni.page').then( m => m.ImpostazioniPage)
+    loadComponent: () => import('./pages/impostazioni/impostazioni.page').then( m => m.ImpostazioniPage)
   },
   {
     path: 'modifica-date',
-    loadComponent: () => import('./modifica-date/modifica-date.page').then( m => m.ModificaDatePage)
+    loadComponent: () => import('./pages/modifica-date/modifica-date.page').then( m => m.ModificaDatePage)
   },
   {
     path: 'personalizzazione',
-    loadComponent: () => import('./personalizzazione/personalizzazione.page').then( m => m.PersonalizzazionePage),
+    loadComponent: () => import('./pages/personalizzazione/personalizzazione.page').then( m => m.PersonalizzazionePage),
     canActivate: [PremiumGuard]
   },
   {
     path: 'panoramica',
-    loadComponent: () => import('./panoramica/panoramica.page').then( m => m.PanoramicaPage)
-  },  {
-    path: 'storico-viaggi',
-    loadComponent: () => import('./storico-viaggi/storico-viaggi.page').then( m => m.StoricoViaggiPage)
+    loadComponent: () => import('./pages/panoramica/panoramica.page').then( m => m.PanoramicaPage)
+  },
+  {
+    loadComponent: () => import('./pages/storico-viaggi/storico-viaggi.page').then( m => m.StoricoViaggiPage)
+
+];
   },
 
 
