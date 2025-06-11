@@ -102,7 +102,10 @@ export class MapPage implements AfterViewInit {
 
         // --- 3. Aggiorna UI --------------------------------------------------
         this.refreshPlaces();
-        this.whenGoogleReady().then(() => this.initMap());
+        this.whenGoogleReady().then(() => {
+          this.initMap();
+          this.preloadAllDetails();
+        });
         console.log('Distanze tra i luoghi:', this.todayPlaces.map(place => place.distanceToNext));
       },
       error: err => console.error('[MapPage] errore caricamento itinerary:', err)
@@ -334,14 +337,16 @@ console.log('[MARKER] imageUrl:', imageUrl);
 
     if (target?.placeId) {
       this.detailInfo = this.detailsCache[target.placeId] ?? null;
-      this.loadPlaceDetails(target.placeId).then(info => {
-        if (info) {
-          this.zone.run(() => {
-            this.detailsCache[target.placeId] = info;
-            this.detailInfo = info;
-          });
-        }
-      });
+      if (!this.detailInfo) {
+        this.loadPlaceDetails(target.placeId).then(info => {
+          if (info) {
+            this.zone.run(() => {
+              this.detailsCache[target.placeId] = info;
+              this.detailInfo = info;
+            });
+          }
+        });
+      }
     } else {
       this.detailInfo = null;
     }
@@ -480,6 +485,27 @@ console.log('[MARKER] imageUrl:', imageUrl);
         }
       });
     });
+  }
+
+  private preloadAllDetails() {
+    const service = new google.maps.places.PlacesService(document.createElement('div'));
+    const promises = [] as Promise<void>[];
+    for (const day of this.trip?.itinerary || []) {
+      for (const slot of ['morning', 'afternoon', 'evening'] as const) {
+        for (const p of day[slot] as Place[]) {
+          if (!p.placeId || this.detailsCache[p.placeId]) continue;
+          promises.push(new Promise<void>(resolve => {
+            service.getDetails({ placeId: p.placeId, fields: ['rating', 'opening_hours', 'reviews'] }, (place, status) => {
+              if (status === google.maps.places.PlacesServiceStatus.OK && place) {
+                this.detailsCache[p.placeId] = place;
+              }
+              resolve();
+            });
+          }));
+        }
+      }
+    }
+    return Promise.all(promises);
   }
 
 private async generateCircularIcon(url: string): Promise<string> {
