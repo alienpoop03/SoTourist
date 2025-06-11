@@ -1,13 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>storicoViaggi</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-navigation-bar title="Storico"></app-navigation-bar>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">storicoViaggi</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ng-container *ngIf="pastTrips.length > 0; else noTrips">
+    <div class="trip-list">
+      <app-trip-card
+        *ngFor="let trip of pastTrips"
+        [trip]="trip"
+        (open)="goToTrip($event)"
+        (remove)="deleteTrip($event)"
+      ></app-trip-card>
+    </div>
+  </ng-container>
+
+  <ng-template #noTrips>
+    <ion-text color="medium">
+      <p class="text-center">Non hai ancora viaggi passati.</p>
+    </ion-text>
+  </ng-template>
+
