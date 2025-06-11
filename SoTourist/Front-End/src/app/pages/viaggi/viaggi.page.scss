@@ -191,7 +191,6 @@
 .custom-fab {
   width: 100%; // fab espanso
   padding: 0 16px;
-
   .fab-wrapper {
     display: flex;
     align-items: center;
@@ -199,6 +198,7 @@
     width: 100%;
     max-width: 100%;
     gap: 12px;
+    margin-left: 10px;
   }
 
   .pill-button {
