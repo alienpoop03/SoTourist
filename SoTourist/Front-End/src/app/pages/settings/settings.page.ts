@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component'; // 👈 importa il componente
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -49,7 +50,7 @@ import { RouterModule } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SettingsPage {
-  constructor(private alertCtrl: AlertController, private router: Router) {}
+  constructor(private authService: AuthService, private alertCtrl: AlertController, private router: Router) {}
 
 
   /* profilo */
@@ -66,6 +67,9 @@ export class SettingsPage {
   autoSync = false;
   language: 'it' | 'en' = 'it';
   lastSync: Date | null = null;
+
+  subscriptionPlan: string = 'Standard'; // o 'Premium'
+  subscriptionExpiry: Date | null = null;
 
   /* Metodi Profilo*/
   saveProfile() {
@@ -196,6 +200,21 @@ export class SettingsPage {
       this.username = parsed.username || '';
       this.email = parsed.email || '';
     } 
+
+    if (this.userId) {
+      this.authService.getUserType(this.userId).subscribe({
+        next: (res) => {
+          const type = res.type || 'standard';
+          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1); // Capitalizza la prima lettera
+          this.subscriptionExpiry = res.subscriptionEndDate ? new Date(res.subscriptionEndDate) : null;
+        },
+        error: (err) => {
+          console.error('Errore nel recupero tipo abbonamento:', err);
+          this.subscriptionPlan = 'Standard';
+          this.subscriptionExpiry = null;
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -231,6 +250,19 @@ export class SettingsPage {
         console.error('❌ Errore durante l\'eliminazione dell\'account:', err);
         alert('Errore durante l\'eliminazione dell\'account.');
       });
+  }
+
+  getBadgeClass(plan: string): string {
+    switch (plan?.toLowerCase()) {
+      case 'premium':
+        return 'badge-premium';
+      case 'gold':
+        return 'badge-gold';
+      case 'standard':
+        return 'badge-standard';
+      default:
+        return 'medium'; 
+    }
   }
 
 }

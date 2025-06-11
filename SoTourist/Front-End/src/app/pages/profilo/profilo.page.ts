@@ -180,11 +180,12 @@ export class ProfiloPage {
   }
 
   // Abbonamento
-  upgradeSubscription() {
+ /* upgradeSubscription() {
     // Implementa upgrade reale
     this.subscriptionPlan = 'Premium';
     this.subscriptionExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-  }
+  }*/
+ 
   manageSubscription() {
     // Implementa gestione reale
   }
