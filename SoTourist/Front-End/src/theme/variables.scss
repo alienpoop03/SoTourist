@@ -11,15 +11,17 @@
 
   --ion-color-light: #dbdbdb;
 
-  --color-primary: #7B1E1E;
+  --color-primary: #7B1E1E; /* colore dello sfondo dei bottoni confermati */
+  --color-indietro: #7B1E1E; /*colore dle tatso indietro */
   --color-primary2: #4F1212;
-  --color-highlight: #FFCC00;
+  --color-highlight: #FFCC00; /* colore del testo dei bottoni confermati */
 
   --color-background: #ffffff;
   --color-background1: #f9f9f9;
   --color-background2: #f9f9f9;
   --color-background3: #f9f9f9;
-  --color-background4: #cdcdcd;
+  --color-background4: #ffffff;
+  --color-button-neutral: #cdcdcd; /* bottone avanti disabilitato */
   --color-background-evid: #7B1E1E;
   --color-background-grad1: rgb(254, 252, 240) 20%;
   --color-background-grad2: rgb(255, 231, 175) 80%;
@@ -31,6 +33,7 @@
   --color-text2: #000000;
   --color-text-evid: #f9f9f9;
   --color-title-viaggi: #4F1212;
+  --color-title-viaggi-generale: #4F1212;    /* titolo della pagina viaggi */
 
   --color-current-trip-bg: #FFF5E5; 
 
@@ -54,6 +57,7 @@
   --ion-color-light: #434343;
 
   --color-primary: #4F1212;
+  --color-indietro: #CC9900; /*colore dle tatso indietro */
   --color-primary2: #7B1E1E;      
   --color-highlight: #CC9900; 
   
@@ -64,7 +68,8 @@
   --color-background1: #1a1a1a;
   --color-background2: #0a0a0a;      /* Card, riepilogo, box: più scuri */
   --color-background3: #0a0a0a;
-  --color-background4: #2a2a2a;
+  --color-background4: #434343;    /* sfondo delle pagine */
+  --color-button-neutral: #434343; /* bottone avanti disabilitato */
  
   --color-background-evid:  #4F1212 ;
   --color-background-grad1: #2f2f2f 10%;
@@ -74,7 +79,8 @@
   --color-text1: #FFCC00;
   --color-text2: #FFCC00;
   --color-text-evid: #FFCC00;
-  --color-title-viaggi: #FFCC00;      /* header e domande */
+  --color-title-viaggi: #CC9900;    /* titolo delle card */
+  --color-title-viaggi-generale: #4F1212;    /*titolo della pagina viaggi*/
 
   --color-current-trip-bg: #2A1E00;
    
