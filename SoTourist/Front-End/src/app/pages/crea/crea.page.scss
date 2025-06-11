@@ -282,3 +282,7 @@ ion-content.crea-content {
 .riepilogo-btns-col button {
   width: 100%;
 }
+
+ion-segment-button ion-label {
+  color: var(--color-ion-labels-crea);
+}
