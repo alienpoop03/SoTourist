@@ -5,7 +5,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: var(--color-background-crea);
+  background: var(--color-background4);
   padding: 0;
   overflow-y: auto;
   margin: 0;
@@ -14,7 +14,7 @@
 }
 ion-content.crea-content {
   --background: none !important;
-  background: var(--color-background-crea) !important;
+  background: var(--color-background4) !important;
 }
 
 /* HEADER ADATTATO */
@@ -170,8 +170,8 @@ ion-content.crea-content {
 }
 
 .step-card .next-btn {
-  background: var(--color-highlight);
-  color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-highlight);
   font-weight: bold;
   border: none;
   border-radius: 14px;
@@ -184,19 +184,19 @@ ion-content.crea-content {
 }
 
 .step-card .next-btn:disabled {
-  background: var(--color-background4);
-  color: var(--color-text2);
+  background: var(--color-button-neutral);
+  color: var(--color-text1);
   cursor: not-allowed;
 }
 
 .step-card .next-btn.conferma {
   background: var(--color-primary);
-  color: var(--color-background);
+  color: var(--color-highlight);
 }
 
 .step-card .prev-btn {
   background: transparent;
-  color: var(--color-primary);
+  color: var(--color-indietro);
   font-weight: 500;
   border: none;
   margin-top: 0rem;
