@@ -71,12 +71,12 @@
           </p>
           <p *ngIf="detailInfo?.opening_hours">
             <strong>Stato:</strong>
-            {{ detailInfo.opening_hours.isOpen && detailInfo.opening_hours.isOpen() ? 'Aperto ora' : 'Chiuso' }}
+            {{ detailInfo?.opening_hours?.isOpen?.() ? 'Aperto ora' : 'Chiuso' }}
           </p>
 
           <div *ngIf="detailInfo?.reviews?.length" class="reviews">
             <ion-list lines="none">
-              <ion-item *ngFor="let r of detailInfo.reviews.slice(0,3)">
+              <ion-item *ngFor="let r of detailInfo?.reviews?.slice(0,3) || []">
                 <div>
                   <p><strong>{{ r.author_name }}</strong> - ⭐ {{ r.rating }}</p>
                   <p>{{ r.text }}</p>
