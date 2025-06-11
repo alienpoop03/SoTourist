@@ -98,7 +98,7 @@ export class LoginPage implements OnInit {
     const guestId = 'guest_' + Date.now();
     this.auth.saveSession(guestId, {
       username: 'Ospite',
-      email: 'ospite@sotourist.app'
+      email: ' '
     });
     const redirect = localStorage.getItem('redirectAfterLogin');
     if (redirect) {

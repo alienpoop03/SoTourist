@@ -5,9 +5,7 @@
 <!-- CONTENUTO -->
 <ion-content class="settings-content" fullscreen>
 
-  <ion-button expand="block" routerLink="/upgrade" class="boxes-style premium-button">
-    🔑 Passa a Premium
-  </ion-button>
+ 
 
   <ion-card class="boxes-style profile-card">
     <ion-item button detail routerLink="/profilo" lines="none">
@@ -17,12 +15,18 @@
       <ion-label>
         <h2><strong>{{ username || 'Nuovo utente' }}</strong></h2>
         <p>{{ email || 'email@example.com' }}</p>
-        <ion-badge color="warning">Explorer ✨</ion-badge>
+        <ion-badge [class]="getBadgeClass(subscriptionPlan)">
+            {{ subscriptionPlan || 'Standard' }}
+          </ion-badge>
       </ion-label>
 
     </ion-item>
 
   </ion-card>
+
+ <ion-button expand="block" routerLink="/upgrade" class="boxes-style premium-button">
+    🔑 Passa a Premium
+  </ion-button>
 
   <ion-list lines="none" class="boxes-style">
     <ion-item button detail routerLink="/impostazioni">

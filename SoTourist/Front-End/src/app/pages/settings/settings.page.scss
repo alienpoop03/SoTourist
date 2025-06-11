@@ -65,8 +65,9 @@ ion-item ion-icon[slot=start] {
 /* Badge e bottoni */
 ion-badge {
   margin-left: auto;
-  background: var(--color-highlight);
-  color: var(--color-primary);
+  //background: var(--color-highlight);
+  //color: var(--color-primary);
+  border-radius: 12px;
   font-weight: bold;
 }
 
@@ -90,4 +91,20 @@ ion-alert {
   margin-top: 1rem;
   --background: var(--color-primary);
   --color: #ffffff;
+}
+
+
+.badge-premium {
+  --background: #7B1E1E; // Giallo senape
+  --color: #FFD700;       // Bordeaux
+}
+
+.badge-gold {
+  --background: #FFD700; // Oro
+  --color: #7B1E1E;
+}
+
+.badge-standard {
+  --background: #cccccc;
+  --color: #333;
 }
