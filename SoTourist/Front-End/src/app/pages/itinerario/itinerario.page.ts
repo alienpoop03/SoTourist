@@ -59,8 +59,8 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
           latitude,
           longitude,
           address: p.address || '',
-          photo: p.photo || '',
-          photoReference: p.photoReference || ''   // <-- AGGIUNTA QUI
+          photoUrl: p.photo || '',
+          photoReference: p.photoReference || ''
         });
 
       });
@@ -352,7 +352,7 @@ export class ItinerarioPage implements AfterViewInit {
                 lat: p.latitude,
                 lng: p.longitude,
                 address: (p as any).address || '',
-                photoUrl: (p as any).photo || '',
+                photoUrl: p.photoUrl || '',
                 photoReference: p.photoReference || '',  // <-- AGGIUNTO QUI 🔥
                 type: '',
                 note: ''
@@ -429,7 +429,7 @@ export class ItinerarioPage implements AfterViewInit {
       lat: p.latitude,
       lng: p.longitude,
       address: p.address || '',
-      photoUrl: p.photo || '',
+      photoUrl: p.photoUrl || '',
       type: '', // per adesso vuoti
       note: ''  // per adesso vuoti
     }));

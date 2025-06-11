@@ -46,14 +46,16 @@ getItineraryById(itineraryId: string): Observable<any> {
         console.log('[📦 RAW-API itinerary]', raw.itinerary);
       }),
       // Aggiungiamo la mappatura qui
-      // Così trasformiamo photoFilename -> photo
+      // Converte photoFilename nel relativo URL
       // ed evitiamo modifiche al resto del frontend
       // (questo è il vero "adapter layer" pulito)
       map(raw => {
         for (const day of raw.itinerary) {
           for (const slot of ['morning', 'afternoon', 'evening']) {
             for (const place of day[slot]) {
-              place.photo = place.photoFilename;
+              place.photoUrl = place.photoFilename
+                ? `${API_BASE_URL}/uploads/${place.photoFilename}`
+                : '';
             }
           }
         }

@@ -16,12 +16,3 @@ export function convertFileToBase64(file: File): Promise<string> {
 
 // Aggiungiamo la nuova funzione qui sotto:
 
-import { Place } from '../models/trip.model';
-import { API_BASE_URL } from '../services/ip.config';
-
-export function getPlacePhotoUrl(place: Place): string {
-  if (!place.photo) {
-    return 'assets/images/placeholder.jpg';
-  }
-  return `${API_BASE_URL}/uploads/${place.photo}`;
-}

@@ -24,7 +24,7 @@ import { NavigationBarComponent } from '../../components/navigation-bar/navigati
  * Rappresenta la struttura delle tappe raggruppate per giorno
  */
 import { LuogoCardComponent } from '../../components/luogo-card/luogo-card.component';
-import { getPlacePhotoUrl } from 'src/app/utils/image-utils';
+import { API_BASE_URL } from '../../services/ip.config';
 
 interface DayGroup {
   morning: Place[];
@@ -246,8 +246,8 @@ private async renderMarkers() {
     }
 
 const imageUrl = p.photoFilename
-  ? `http://localhost:3000/uploads/${p.photoFilename}`
-  : (p.photo || 'assets/images/PaletoBay.jpeg');
+  ? `${API_BASE_URL}/uploads/${p.photoFilename}`
+  : (p.photoUrl || 'assets/images/PaletoBay.jpeg');
     console.log('[MARKER] place:', p.name);
 console.log('[MARKER] photoFilename:', p.photoFilename);
 console.log('[MARKER] imageUrl:', imageUrl);

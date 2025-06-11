@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg } from '@ionic/angular/standalone';
 import { Place } from '../../models/trip.model';
+import { API_BASE_URL } from '../../services/ip.config';
 
 @Component({
   selector: 'app-luogo-card',
@@ -21,7 +22,7 @@ export class LuogoCardComponent implements OnInit {
   console.log('[LUOGO-CARD] DEBUG place:', this.place);
 
   if (!this.place.photoUrl && this.place.photoFilename) {
-    const url = `http://localhost:3000/uploads/${this.place.photoFilename}`;
+    const url = `${API_BASE_URL}/uploads/${this.place.photoFilename}`;
     console.log('[LUOGO-CARD] Provo foto da:', url);
 
     this.checkImageExists(url).then(exists => {
