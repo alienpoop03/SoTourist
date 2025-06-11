@@ -125,7 +125,7 @@ export class ViaggiPage implements AfterViewInit {
     this.isShrunk = scrollTop > this.shrinkThreshold;
     //console.log(scrollTop);
     
-    clearTimeout(this.overScrollTimer);
+    /*clearTimeout(this.overScrollTimer);
     this.overScrollTimer = setTimeout(() => {
       if(scrollTop > this.totalHeight){
         //console.log("over", (this.totalHeight + this.altezzaOverScroll));
@@ -136,16 +136,8 @@ export class ViaggiPage implements AfterViewInit {
           this.content.scrollToPoint(0, this.totalHeight, 300);
         }
       } 
-    }, this.millisecondSnap);
+    }, this.millisecondSnap);*/
     
-
-
-
-
-
-
-
-
     if (this.inCorso == null || this.snapActive == null) { //in caso manchi il viaggio in corso (la hero) o se non lo vogliamo
       return;  // esci dal debounce se non serve lo snap
     }
@@ -250,4 +242,9 @@ export class ViaggiPage implements AfterViewInit {
       this.isShrunk = false;
     }
   }
+  
+  openStorico(){
+    this.router.navigate(['/tabs/storico-viaggi']);
+  }
+   
 }
