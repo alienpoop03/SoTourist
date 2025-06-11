@@ -189,8 +189,33 @@
 
 /* FAB */
 .custom-fab {
-  --background: var(--color-highlight);
-  --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  right: 24px;
-  bottom: 24px;
+  width: 100%; // fab espanso
+  padding: 0 16px;
+
+  .fab-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    gap: 12px;
+  }
+
+  .pill-button {
+    flex-grow: 1;
+    height: 56px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    padding: 0 20px;
+  }
 }
