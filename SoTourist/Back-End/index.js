@@ -10,7 +10,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = 'localhost';
 const uploadsPath = path.join(__dirname, 'uploads');
-app.use('/uploads', express.static(uploadsPath));
+app.use('/uploads', express.static(uploadsPath, {
+  setHeaders: (res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+  }
+}));
 
 app.use(cors({
     origin: '*'

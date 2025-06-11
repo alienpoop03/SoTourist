@@ -1,46 +1,80 @@
-Ho introdotto la possibilità di scaricare e gestire localmente le immagini dei luoghi degli itinerari, riducendo la dipendenza dai link esterni temporanei di Google.
 
-Modifiche al database
-Aggiunto campo photoFilename nella tabella places: contiene il nome file dell'immagine locale.
+LOGICA DI GESTIONE FOTO E LUOGHI
+Obiettivo:
+Evitare di scaricare più volte la stessa foto se un luogo è già stato utilizzato in altri itinerari.
 
-Il vecchio campo photoUrl non viene più usato per il salvataggio.
+FRONTEND
+File: itinerario.page.ts
 
-File e funzioni creati / modificati
-Backend
+Quando genero un itinerario, uso il placeId di Google come placeId del mio oggetto Place.
 
-controllers/getOrDownloadPhoto.js:
+Questo viene fatto nella funzione convertGeneratedToPlaces.
+
+Quando salvo le tappe, invio il placeId, photoReference, lat, lng, name, ecc.
+
+La foto viene scaricata solo se non esiste già nel backend.
+
+BACKEND
+File: photoManager.js (o simile)
 
 Funzione getOrDownloadPhoto(placeId, photoReference)
 
-Scarica l'immagine corrispondente al photoReference di Google e la salva in uploads/.
+Se esiste già la foto uploads/placeId.jpg, non la riscarica.
 
-Se già presente localmente, evita il download.
+Se non esiste, la scarica da Google usando la photoReference.
 
-trip.controller.js:
+File: trip.controller.js
 
-Modificato addPlacesToItinerary()
+Quando riceve i luoghi da salvare:
 
-Per ogni tappa ricevuta, se esiste il photoReference, richiama getOrDownloadPhoto() e salva photoFilename nel DB.
+Chiama getOrDownloadPhoto(...)
 
-Frontend
+Salva il placeId (che ora è quello di Google)
 
-itinerario.page.ts:
+Salva il nome della foto (placeId.jpg) in photoFilename
 
-Quando viene creato il payload da inviare al backend, ora include il campo photoReference per ogni place.
+DATABASE
+Tabella places
 
-ItineraryService:
+Campo placeId: contiene direttamente l'ID di Google
 
-Nel metodo getItineraryById(), mappa il photoFilename ricevuto dal backend nel campo photo usato dal frontend.
+Campo photoFilename: contiene il nome file dell’immagine (placeId.jpg)
 
-In questo modo il resto del frontend non subisce modifiche.
+CARTELLA FOTO
+Percorso: /uploads
 
-Flusso operativo
-Generazione itinerario tramite Google API (come prima).
+Contiene le immagini salvate.
 
-Invio dei dati al backend (ora includono anche photoReference).
+Ogni foto ha nome: placeId.jpg
 
-Il backend scarica le immagini mancanti e salva i file.
+EFFETTO
+Se un luogo è già stato salvato in un altro viaggio, non riscarico la foto.
 
-In fase di lettura itinerari, il backend restituisce i filename locali.
+Si risparmia banda e si evita di superare i limiti delle API.
 
-Il frontend visualizza le immagini usando i file locali.
+=============================
+
+map.page.ts
+Abbiamo modificato la funzione renderMarkers() per usare p.photoFilename e costruire l’URL dell’immagine:
+http://localhost:3000/uploads/${p.photoFilename}
+Se non è presente, viene usata p.photo o una immagine di default.
+Aggiunti log di debug per verificare immagine e nome file.
+Fa riferimento a: generateCircularIcon(...) e al campo photoFilename in Place.
+
+generateCircularIcon (in map.page.ts)
+Funzione che riceve un URL immagine, disegna un’icona circolare su canvas e restituisce l’immagine come dataURL.
+Gestisce errori con fallback su immagine di default.
+È stata adattata per funzionare con immagini da server locale.
+Fa riferimento a: l’URL generato in renderMarkers().
+
+index.js (backend)
+Modificato il middleware statico per la cartella /uploads per aggiungere l’header:
+Access-Control-Allow-Origin: *
+Questo consente al frontend di caricare le immagini nei canvas anche se il dominio è diverso.
+Fa riferimento a: qualsiasi immagine servita dal backend e usata nel frontend nei marker o nei componenti.
+
+trip.model.ts
+Nell’interfaccia Place è stato aggiunto il campo:
+photoFilename?: string;
+Questo campo rappresenta il nome del file dell’immagine salvata nel backend.
+Fa riferimento a: map.page.ts, LuogoCardComponent, backend (photoManager.js e salvataggio dati).

@@ -245,8 +245,14 @@ private async renderMarkers() {
       continue;
     }
 
-    const imageUrl = p.photoUrl || p.photo || 'assets/images/PaletoBay.jpeg';
-    const iconUrl = await this.generateCircularIcon(imageUrl);
+const imageUrl = p.photoFilename
+  ? `http://localhost:3000/uploads/${p.photoFilename}`
+  : (p.photo || 'assets/images/PaletoBay.jpeg');
+    console.log('[MARKER] place:', p.name);
+console.log('[MARKER] photoFilename:', p.photoFilename);
+console.log('[MARKER] imageUrl:', imageUrl);
+
+  const iconUrl = await this.generateCircularIcon(imageUrl);
 
     const marker = new google.maps.Marker({
       position: { lat, lng },
@@ -439,37 +445,52 @@ private async renderMarkers() {
     return deg * (Math.PI / 180);
   }
 
-  private async generateCircularIcon(url: string): Promise<string> {
+private async generateCircularIcon(url: string): Promise<string> {
+  console.log('[ICON] Provo a caricare immagine da:', url);
+
   return new Promise((resolve) => {
     const img = new Image();
-    img.crossOrigin = 'anonymous'; // fondamentale per evitare CORS su foto remote
+    img.crossOrigin = ''; // oppure prova anche rimuovendo completamente questa riga
+
     img.onload = () => {
+      console.log('[ICON] Caricata con successo:', url);
+
       const size = 64;
       const canvas = document.createElement('canvas');
       canvas.width = size;
       canvas.height = size;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return resolve('');
 
-      // Cerchio esterno (bordo Bordeaux)
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        console.warn('[ICON] Nessun contesto canvas');
+        return resolve('assets/images/PaletoBay.jpeg');
+      }
+
+      // Cerchio esterno
       ctx.beginPath();
       ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
       ctx.fillStyle = '#7B1E1E';
       ctx.fill();
 
-      // Clip rotondo per immagine
+      // Clip rotonda
       ctx.beginPath();
       ctx.arc(size / 2, size / 2, size / 2 - 4, 0, 2 * Math.PI);
       ctx.clip();
 
-      // Disegna immagine centrata
       ctx.drawImage(img, 0, 0, size, size);
 
-      resolve(canvas.toDataURL('image/png'));
+      const result = canvas.toDataURL('image/png');
+      resolve(result);
     };
-    img.onerror = () => resolve('assets/images/PaletoBay.jpeg'); // fallback locale
+
+    img.onerror = (err) => {
+      console.warn('[ICON] Errore nel caricamento:', url, err);
+      resolve('assets/images/PaletoBay.jpeg');
+    };
+
     img.src = url;
   });
 }
+
 
 }

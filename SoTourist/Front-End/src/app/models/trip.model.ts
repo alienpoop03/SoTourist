@@ -13,6 +13,8 @@ export interface Place {
     type?: string;
       note?: string;
 photoReference?: string;
+  photoFilename?: string;  // ✅ AGGIUNGI QUESTA
+
 
 
 }
