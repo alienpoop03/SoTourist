@@ -71,6 +71,8 @@ export class MapPage implements AfterViewInit {
   dayListOpen = false;
   detailOpen = false;
   detail?: Place;
+  detailInfo: google.maps.places.PlaceResult | null = null;
+  private detailsCache: Record<string, google.maps.places.PlaceResult> = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -322,12 +324,26 @@ console.log('[MARKER] imageUrl:', imageUrl);
 
   openPlace(i: number) {
     this.selectedIndex = i;
-    this.detail = this.todayPlaces[i];
+    const target = this.todayPlaces[i];
+    this.detail = target;
     this.detailOpen = true;
 
-    const target = this.todayPlaces[i];
     if (target?.latitude && target?.longitude) {
       this.map.panTo({ lat: target.latitude, lng: target.longitude });
+    }
+
+    if (target?.placeId) {
+      this.detailInfo = this.detailsCache[target.placeId] ?? null;
+      this.loadPlaceDetails(target.placeId).then(info => {
+        if (info) {
+          this.zone.run(() => {
+            this.detailsCache[target.placeId] = info;
+            this.detailInfo = info;
+          });
+        }
+      });
+    } else {
+      this.detailInfo = null;
     }
   }
 
@@ -443,6 +459,27 @@ console.log('[MARKER] imageUrl:', imageUrl);
   // Funzione di supporto per convertire i gradi in radianti
   public degToRad(deg: number): number {
     return deg * (Math.PI / 180);
+  }
+
+  private loadPlaceDetails(placeId: string): Promise<google.maps.places.PlaceResult | null> {
+    if (this.detailsCache[placeId]) {
+      return Promise.resolve(this.detailsCache[placeId]);
+    }
+
+    return new Promise(resolve => {
+      const service = new google.maps.places.PlacesService(this.map);
+      service.getDetails({
+        placeId,
+        fields: ['rating', 'opening_hours', 'reviews']
+      }, (place, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && place) {
+          resolve(place);
+        } else {
+          console.warn('Dettagli non disponibili per', placeId, status);
+          resolve(null);
+        }
+      });
+    });
   }
 
 private async generateCircularIcon(url: string): Promise<string> {

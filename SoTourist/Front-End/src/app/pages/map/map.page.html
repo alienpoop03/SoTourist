@@ -65,7 +65,25 @@
         </ion-card-header>
         <ion-card-content>
           <p><strong>Indirizzo:</strong><br>{{ detail?.address }}</p>
-          <p *ngIf="detail?.rating"><strong>Rating:</strong> ⭐ {{ detail?.rating }}</p>
+          <p *ngIf="detailInfo?.rating || detail?.rating">
+            <strong>Rating:</strong>
+            ⭐ {{ detailInfo?.rating || detail?.rating }}
+          </p>
+          <p *ngIf="detailInfo?.opening_hours">
+            <strong>Stato:</strong>
+            {{ detailInfo.opening_hours.isOpen && detailInfo.opening_hours.isOpen() ? 'Aperto ora' : 'Chiuso' }}
+          </p>
+
+          <div *ngIf="detailInfo?.reviews?.length" class="reviews">
+            <ion-list lines="none">
+              <ion-item *ngFor="let r of detailInfo.reviews.slice(0,3)">
+                <div>
+                  <p><strong>{{ r.author_name }}</strong> - ⭐ {{ r.rating }}</p>
+                  <p>{{ r.text }}</p>
+                </div>
+              </ion-item>
+            </ion-list>
+          </div>
         </ion-card-content>
         <ion-button expand="block" (click)="detailOpen=false">Chiudi</ion-button>
       </ion-card>
