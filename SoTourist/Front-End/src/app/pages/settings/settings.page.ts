@@ -60,6 +60,7 @@ export class SettingsPage {
   password = '';
   profileImageUrl: string | null = null;
   editing = false;
+  isGuest = false;
 
   /* preferenze */
   darkMode = false;
@@ -183,6 +184,8 @@ export class SettingsPage {
   }
 
   private refreshTrips(): void { 
+    this.isGuest = !!this.authService.getUserId()?.startsWith('guest_');
+
     const saved = localStorage.getItem('darkMode');
     this.darkMode = saved === 'true'; 
 
@@ -219,10 +222,22 @@ export class SettingsPage {
 
   ngOnInit() {
     this.refreshTrips();
+
+    window.addEventListener('popstate', () => {  //refeesh sempre
+      this.refreshTrips();
+    });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('popstate', this.refreshTrips);
   }
 
   ionViewWillEnter(): void {
-    this.refreshTrips();  
+    this.refreshTrips(); 
+  }
+
+  ionViewDidEnter(): void {
+    this.refreshTrips();
   }
 
   deleteAccount() {
