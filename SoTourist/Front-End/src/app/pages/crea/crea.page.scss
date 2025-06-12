@@ -117,7 +117,7 @@ ion-content.crea-content {
   margin-top: 0;
   padding: 1.5rem 1rem 1.2rem 1rem;
   gap: 1.2rem;
-  background: var(--color-background); /* uniforme a settings */
+  background: var(--color-background);
   border-radius: 20px;
   border: 1.5px solid var(--color-background4);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -177,7 +177,7 @@ ion-content.crea-content {
   border-radius: 14px;
   font-size: 1.01rem;
   padding: 0.67rem 2.1rem;
-  margin-top: 0.4rem;
+  margin-top: 0rem;
   margin-bottom: 0.3rem;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -192,6 +192,7 @@ ion-content.crea-content {
 .step-card .next-btn.conferma {
   background: var(--color-primary);
   color: var(--color-highlight);
+  margin-top: 0.6rem; 
 }
 
 .step-card .prev-btn {
@@ -199,7 +200,7 @@ ion-content.crea-content {
   color: var(--color-indietro);
   font-weight: 500;
   border: none;
-  margin-top: 0rem;
+  margin-top: 0.3rem;
   font-size: 0.93rem;
   cursor: pointer;
   text-decoration: underline;
@@ -253,34 +254,77 @@ ion-content.crea-content {
   align-items: center;
 }
 
+/* BLOCCO RIEPILOGO COMPATTATO IN LARGHEZZA */
 .riepilogo-header.riepilogo-final {
   width: 100%;
-  max-width: 700px;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
+  max-width: 420px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
   background: var(--color-background2);
   border: 2px solid var(--color-primary);
-  border-radius: 26px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
-  gap: 1.5rem;
+  gap: 0.8rem;
   box-sizing: border-box;
 }
 
-/* Pulsanti centrati verticalmente */
+.riepilogo-header.riepilogo-final .circle-icon {
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 1.4rem;
+  margin-right: 0.5rem;
+  background: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-background);
+  flex-shrink: 0;
+}
+
+.riepilogo-header.riepilogo-final .trip-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.riepilogo-header.riepilogo-final .trip-city {
+  font-size: 1.1rem;
+  color: var(--color-title-viaggi);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+.riepilogo-header.riepilogo-final .trip-details {
+  font-size: 0.95rem;
+  color: var(--color-text2);
+  font-weight: 500;
+  margin-top: 0.05em;
+  opacity: 0.93;
+  display: flex;
+  flex-direction: row;
+  gap: 0.7em;
+  flex-wrap: wrap;
+}
+
+/* Pulsanti centrati verticalmente + modifiche */
 .riepilogo-btns-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.4rem;
   width: 100%;
   max-width: 300px;
+  margin-top: -1rem;
 }
 
 .riepilogo-btns-col button {
-  width: 100%;
+  width: 60%;
+  max-width: 180px;
 }
 
 ion-segment-button ion-label {
