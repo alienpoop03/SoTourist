@@ -102,9 +102,14 @@
   </ion-list>
 
   <!-- LOGOUT -->
-  <ion-button class="boxes-style logout-button" expand="block" (click)="confirmLogout()">
+  <ion-button *ngIf="!isGuest" class="boxes-style logout-button" expand="block" (click)="confirmLogout()">
     <ion-icon name="log-out-outline" slot="start"></ion-icon>
     Logout
+  </ion-button>
+
+  <ion-button *ngIf="isGuest" class="boxes-style logout-button" expand="block" (click)="logout()">
+    <ion-icon name="log-in-outline" slot="start"></ion-icon>
+    Login
   </ion-button>
 
 </ion-content>
