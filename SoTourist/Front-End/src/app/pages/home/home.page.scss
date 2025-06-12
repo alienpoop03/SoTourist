@@ -1,6 +1,6 @@
 /* ───── Layout base ───── */
 .home-content {
-  --background: var(--color-background);
+  --background: var(--color-background4);
   display: flex;
   flex-direction: column;
   --padding-bottom: calc(var(--ion-safe-area-bottom, 0px) + 56px + 1rem);
@@ -81,7 +81,7 @@
   margin-top: 0;
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-text-home);
 }
 
 /* ───── Destinazioni trend (scroll) ───── */
