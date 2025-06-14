@@ -27,14 +27,18 @@ const buildPlaceObj = (place, key) => ({
   placeId: place.place_id,
   name: place.name,
   address: place.formatted_address,
-  rating: place.rating,
+  rating: place.rating ?? null,
+  priceLevel: place.price_level ?? null,
+  website: place.website ?? null,
+  openingHours: place.opening_hours?.weekday_text ?? null,
   photo: place.photos?.[0]
     ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=${key}`
     : null,
-  photoReference: place.photos?.[0]?.photo_reference || null,   // <-- QUESTA È LA CHIAVE 🔥
+  photoReference: place.photos?.[0]?.photo_reference || null,
   latitude: place.geometry?.location?.lat,
   longitude: place.geometry?.location?.lng,
 });
+
 
 
 /* --- text-search helper (supporta min & max radius) ---------------- */
@@ -142,7 +146,8 @@ const fetchPlaceById = async (
 
   const { data } = await axios.get(
     "https://maps.googleapis.com/maps/api/place/details/json",
-    { params: { place_id: id, key, fields: "place_id,name,formatted_address,geometry,photos,rating" } }
+    { params: { place_id: id, key, fields: "place_id,name,formatted_address,geometry,photos,rating,price_level,website,opening_hours"
+ } }
   );
 
   const p = data?.result;

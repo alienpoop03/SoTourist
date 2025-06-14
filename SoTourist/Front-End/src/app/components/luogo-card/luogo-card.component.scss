@@ -43,3 +43,10 @@ ion-card {
     color: var(--color-highlight);
   }
 }
+.hours {
+  margin: 0;
+  padding-left: 1rem;
+  list-style: disc;
+  font-size: 0.85rem;
+  color: var(--color-text2);
+}
