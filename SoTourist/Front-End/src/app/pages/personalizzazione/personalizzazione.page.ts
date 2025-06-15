@@ -41,12 +41,12 @@ type DayData = { morning: Place[]; afternoon: Place[]; evening: Place[] };
   ],
 })
 export class PersonalizzazionePage implements OnInit {
-city: string = '';
+  city: string = '';
 
   /* ---------- DI ---------- */
   private readonly route = inject(ActivatedRoute);
   private readonly itineraryService = inject(ItineraryService);
-tripBounds!: google.maps.LatLngBounds;
+  tripBounds!: google.maps.LatLngBounds;
 
   /* ---------- State ---------- */
   days = signal<DayData[]>([]);
@@ -70,21 +70,37 @@ tripBounds!: google.maps.LatLngBounds;
 
     this.itineraryService.getItineraryById(itineraryId).subscribe({
       next: async (res: any) => {
-    const grouped = this.isGrouped(res.itinerary)
-      ? res.itinerary as DayData[]
-      : this.groupFlatPlaces(res.itinerary as Place[]);
-
-    
-    this.city = this.extractCityName(res.city);
-  this.fetchCityBounds(res.city);
+        const grouped = this.isGrouped(res.itinerary)
+          ? res.itinerary as DayData[]
+          : this.groupFlatPlaces(res.itinerary as Place[]);
 
 
-    this.days.set(grouped);
-  },
+        this.city = this.extractCityName(res.city);
+        const q = this.route.snapshot.queryParamMap;
 
-    error: err => console.error('[Personalizzazione] errore caricamento:', err)
-  });
-}
+        const north = q.get('north');
+        const east = q.get('east');
+        const south = q.get('south');
+        const west = q.get('west');
+
+        if (north && east && south && west) {
+          const sw = new google.maps.LatLng(+south, +west);
+          const ne = new google.maps.LatLng(+north, +east);
+          this.tripBounds = new google.maps.LatLngBounds(sw, ne);
+          console.log('📦 [Personalizzazione] Bounds ricevuti da queryParams:', this.tripBounds.toJSON());
+        } else {
+          console.warn('⚠️ Bounds non presenti nei queryParams. Autocomplete disabilitato o mal funzionante.');
+        }
+
+
+
+
+        this.days.set(grouped);
+      },
+
+      error: err => console.error('[Personalizzazione] errore caricamento:', err)
+    });
+  }
 
 
   /* ---------- Utils ---------- */
@@ -120,54 +136,54 @@ tripBounds!: google.maps.LatLngBounds;
     return this.autocompleteOpen() && !!this.autocompleteType();
   }
 
-async onPlaceSelected(place: any) {
-  const slot = this.autocompleteSlot();
-  const type = this.autocompleteType();
-  if (!slot || !type) return;
+  async onPlaceSelected(place: any) {
+    const slot = this.autocompleteSlot();
+    const type = this.autocompleteType();
+    if (!slot || !type) return;
 
-  const query = place.name;
-  const day = this.activeDay() + 1;
-  const city = this.city || 'Roma';
+    const query = place.name;
+    const day = this.activeDay() + 1;
+    const city = this.city || 'Roma';
 
-  try {
-    const result = await this.fetchSinglePlaceFromBackend(query, city);
-    if (!result) return;
+    try {
+      const result = await this.fetchSinglePlaceFromBackend(query, city);
+      if (!result) return;
 
-    const frontendPlace: Place = {
-      placeId: result.placeId || ('place_' + Date.now()),
-      name: result.name,
-      day,
-      timeSlot: slot,
-      latitude: result.latitude ?? null,
-      longitude: result.longitude ?? null,
-      address: result.address ?? '',
-      photoUrl: result.photo ?? '',
-      type: type,
-      note: ''
-    };
+      const frontendPlace: Place = {
+        placeId: result.placeId || ('place_' + Date.now()),
+        name: result.name,
+        day,
+        timeSlot: slot,
+        latitude: result.latitude ?? null,
+        longitude: result.longitude ?? null,
+        address: result.address ?? '',
+        photoUrl: result.photo ?? '',
+        type: type,
+        note: ''
+      };
 
-    // Aggiungi alla UI
-    const d = structuredClone(this.days());
-    d[this.activeDay()][slot].push(frontendPlace);
-    this.days.set(d);
+      // Aggiungi alla UI
+      const d = structuredClone(this.days());
+      d[this.activeDay()][slot].push(frontendPlace);
+      this.days.set(d);
 
-    // Salva nel backend
-    const backendPlace = this.convertToBackendPlace(frontendPlace);
-    const userId = localStorage.getItem('userId')!;
-    const itineraryId = this.route.snapshot.queryParamMap.get('id')!;
-    this.itineraryService.addPlacesToItinerary(userId, itineraryId, [backendPlace]).subscribe({
-      next: () => console.log('✅ Tappa salvata dal backend'),
-      error: err => console.error('❌ Errore salvataggio:', err)
-    });
+      // Salva nel backend
+      const backendPlace = this.convertToBackendPlace(frontendPlace);
+      const userId = localStorage.getItem('userId')!;
+      const itineraryId = this.route.snapshot.queryParamMap.get('id')!;
+      this.itineraryService.addPlacesToItinerary(userId, itineraryId, [backendPlace]).subscribe({
+        next: () => console.log('✅ Tappa salvata dal backend'),
+        error: err => console.error('❌ Errore salvataggio:', err)
+      });
 
-  } catch (err) {
-    console.error('❌ Errore fetch dal backend:', err);
+    } catch (err) {
+      console.error('❌ Errore fetch dal backend:', err);
+    }
+
+    this.autocompleteOpen.set(false);
+    this.autocompleteType.set(null);
+    this.autocompleteSlot.set(null);
   }
-
-  this.autocompleteOpen.set(false);
-  this.autocompleteType.set(null);
-  this.autocompleteSlot.set(null);
-}
 
 
 
@@ -181,20 +197,20 @@ async onPlaceSelected(place: any) {
   }
 
   drop(event: CdkDragDrop<Place[]>, slot: typeof this.slots[number]) {
-   /* const arr = this.days()[this.activeDay()][slot];
+    /* const arr = this.days()[this.activeDay()][slot];
+ 
+     // Blocca se si prova a mettere qualcosa sopra/sotto l’alloggio
+     if (event.currentIndex === 0 || event.currentIndex === arr.length - 1) {
+       console.warn('⛔️ Non puoi spostare in cima o in fondo (riservato all’alloggio)');
+       return;
+     }
+ 
+     // Blocca se si cerca di spostare una card non intermedia
+     if (event.previousIndex === 0 || event.previousIndex === arr.length - 1) {
+       console.warn('⛔️ Non puoi spostare l’alloggio');
+       return;
+     }*/
 
-    // Blocca se si prova a mettere qualcosa sopra/sotto l’alloggio
-    if (event.currentIndex === 0 || event.currentIndex === arr.length - 1) {
-      console.warn('⛔️ Non puoi spostare in cima o in fondo (riservato all’alloggio)');
-      return;
-    }
-
-    // Blocca se si cerca di spostare una card non intermedia
-    if (event.previousIndex === 0 || event.previousIndex === arr.length - 1) {
-      console.warn('⛔️ Non puoi spostare l’alloggio');
-      return;
-    }*/
-    
     const d = structuredClone(this.days());
     moveItemInArray(d[this.activeDay()][slot], event.previousIndex, event.currentIndex);
     this.days.set(d);
@@ -245,86 +261,65 @@ async onPlaceSelected(place: any) {
     });
     return flat;
   }
-  private fetchCityBounds(cityName: string) {
-    const autocomplete = new google.maps.places.AutocompleteService();
-    const service = new google.maps.places.PlacesService(document.createElement('div'));
 
-    autocomplete.getPlacePredictions({ input: cityName, types: ['(cities)'] }, (predictions, status) => {
-      if (status === google.maps.places.PlacesServiceStatus.OK && predictions?.length) {
-        const placeId = predictions[0].place_id;
-        service.getDetails({ placeId }, (place, status) => {
-          if (
-            status === google.maps.places.PlacesServiceStatus.OK &&
-            place?.geometry?.viewport
-          ) {
-            this.tripBounds = place.geometry.viewport;
-            console.log('📌 Bounds trovati per la città:', this.tripBounds.toJSON());
-          } else {
-            console.warn('⚠️ Nessun viewport trovato per la città.');
-          }
-        });
-      } else {
-        console.warn('⚠️ Nessun prediction trovata per la città.');
-      }
-    });
-  }
+
 
   createFrontendPlaceFromGoogle(place: any, slot: 'morning' | 'afternoon' | 'evening', day: number, type: string): Place {
-  return {
-    placeId: place.place_id || ('place_' + Date.now()),
-    name: place.name,
-    day: day,
-    timeSlot: slot,
-    latitude: place.geometry?.location?.lat() ?? null,
-    longitude: place.geometry?.location?.lng() ?? null,
-    address: place.formatted_address ?? '',
-    photoUrl: place.photos?.[0]
-      ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=YOUR_API_KEY`
-      : '',
-    type: type,
-    note: ''
-  };
-}
-convertToBackendPlace(p: Place) {
-  return {
-    placeId: p.placeId,
-    name: p.name,
-    day: p.day,
-    timeSlot: p.timeSlot,
-    lat: p.latitude,
-    lng: p.longitude,
-    address: p.address,
-    photoUrl: p.photoUrl,
-    type: p.type,
-    note: p.note
-  };
-}
+    return {
+      placeId: place.place_id || ('place_' + Date.now()),
+      name: place.name,
+      day: day,
+      timeSlot: slot,
+      latitude: place.geometry?.location?.lat() ?? null,
+      longitude: place.geometry?.location?.lng() ?? null,
+      address: place.formatted_address ?? '',
+      photoUrl: place.photos?.[0]
+        ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=YOUR_API_KEY`
+        : '',
+      type: type,
+      note: ''
+    };
+  }
+  convertToBackendPlace(p: Place) {
+    return {
+      placeId: p.placeId,
+      name: p.name,
+      day: p.day,
+      timeSlot: p.timeSlot,
+      lat: p.latitude,
+      lng: p.longitude,
+      address: p.address,
+      photoUrl: p.photoUrl,
+      type: p.type,
+      note: p.note
+    };
+  }
 
-fetchSinglePlaceFromBackend(query: string, city: string): Promise<any> {
-  return this.itineraryService.getSinglePlace(query, city).toPromise();
-}
-extractCityName(full: string): string {
-  // Prende solo il primo token con la prima parola valida
-  const parts = full.split(',');
-  const core = parts[0].trim();         // "05100 Terni TR"
-  const tokens = core.split(' ');       // ["05100", "Terni", "TR"]
-  return tokens.find(word => isNaN(Number(word))) || 'Roma';  // es: "Terni"
-}
-get currentDaySlots() {
-  const day = this.days()?.[this.activeDay()];
-  return day ? day : { morning: [], afternoon: [], evening: [] };
-}
+  fetchSinglePlaceFromBackend(query: string, city: string): Promise<any> {
+    return this.itineraryService.getSinglePlace(query, city).toPromise();
+  }
+  extractCityName(full: string): string {
+    // Prende solo il primo token con la prima parola valida
+    const parts = full.split(',');
+    const core = parts[0].trim();         // "05100 Terni TR"
+    const tokens = core.split(' ');       // ["05100", "Terni", "TR"]
+    return tokens.find(word => isNaN(Number(word))) || 'Roma';  // es: "Terni"
+  }
+  get currentDaySlots() {
+    const day = this.days()?.[this.activeDay()];
+    return day ? day : { morning: [], afternoon: [], evening: [] };
+  }
 
-isAccommodation(p: Place): boolean {
-  return p.type === 'accommodation' ||
-         (p.type === '' && p.name.toLowerCase().includes('alloggio')) ||
-         (p.type === undefined && p.name.toLowerCase().includes('alloggio'));
-}
+  isAccommodation(p: Place): boolean {
+    return p.type === 'accommodation' ||
+      (p.type === '' && p.name.toLowerCase().includes('alloggio')) ||
+      (p.type === undefined && p.name.toLowerCase().includes('alloggio'));
+  }
 
-isEdge(index: number, slot: typeof this.slots[number]): boolean {
-  const arr = this.days()[this.activeDay()][slot];
-  return index === 0 || index === arr.length - 1;
-}
+  isEdge(index: number, slot: typeof this.slots[number]): boolean {
+    const arr = this.days()[this.activeDay()][slot];
+    return index === 0 || index === arr.length - 1;
+  }
 
   /* ---------- Icons ---------- */
   icons = { addOutline, homeOutline, createOutline, settingsOutline };

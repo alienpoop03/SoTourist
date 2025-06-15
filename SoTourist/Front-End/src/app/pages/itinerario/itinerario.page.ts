@@ -20,6 +20,7 @@ import { PhotoService } from '../../services/photo.service';
 import { GoogleAutocompleteComponent } from '../../components/google-autocomplete/google-autocomplete.component';
 import { GenerateItineraryRequest } from '../../services/api.service';
 import { AlertController, ModalController } from '@ionic/angular/standalone';
+import { BoundsService } from '../../services/bounds.service';
 
 /* ───── Ionic standalone components usati nel template ───── */
 import {
@@ -166,7 +167,6 @@ export class ItinerarioPage implements AfterViewInit {
 
   /* Opzioni predefinite */
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -174,6 +174,8 @@ export class ItinerarioPage implements AfterViewInit {
     private api: ApiService,
     private itineraryService: ItineraryService,
     private auth: AuthService,
+    private boundsService: BoundsService,   // ✅ aggiunto qui!
+
   ) { }
 
   /* ───── Lifecycle ───── */
@@ -215,7 +217,16 @@ export class ItinerarioPage implements AfterViewInit {
       this.isLocalTrip = true;
 
       if (this.trip.city) {
-        this.fetchCityBounds(this.trip.city);
+        this.boundsService.getCityBounds(this.trip.city).then(bounds => {
+          if (bounds) {
+            this.tripBounds = bounds;
+            const { north, east, south, west } = bounds.toJSON();
+            this.trip.bounds = { north, east, south, west }; // 🔒 salvo nel trip
+            console.log('[itinerario] Bounds caricati:', this.trip.bounds);
+          } else {
+            console.warn('[itinerario] Nessun bounds trovato per', this.trip.city);
+          }
+        });
       }
 
       console.log('[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.');
@@ -627,35 +638,19 @@ export class ItinerarioPage implements AfterViewInit {
     }
   }
 
-  private fetchCityBounds(cityName: string) {
-    const autocomplete = new google.maps.places.AutocompleteService();
-    const service = new google.maps.places.PlacesService(document.createElement('div'));
-
-    autocomplete.getPlacePredictions({ input: cityName, types: ['(cities)'] }, (predictions, status) => {
-      if (status === google.maps.places.PlacesServiceStatus.OK && predictions?.length) {
-        const placeId = predictions[0].place_id;
-        service.getDetails({ placeId }, (place, status) => {
-          if (
-            status === google.maps.places.PlacesServiceStatus.OK &&
-            place?.geometry?.viewport
-          ) {
-            this.tripBounds = place.geometry.viewport;
-            console.log('📌 Bounds trovati per la città:', this.tripBounds.toJSON());
-          } else {
-            console.warn('⚠️ Nessun viewport trovato per la città.');
-          }
-        });
-      } else {
-        console.warn('⚠️ Nessun prediction trovata per la città.');
-      }
-    });
-  }
-
   vaiAPersonalizzazione() {
-    this.router.navigate(['/personalizzazione'], {
-      queryParams: { id: this.trip.itineraryId }
-    });
-  }
+  const bounds = this.trip.bounds;
+  this.router.navigate(['/personalizzazione'], {
+    queryParams: {
+      id: this.trip.itineraryId,
+      north: bounds?.north,
+      east: bounds?.east,
+      south: bounds?.south,
+      west: bounds?.west
+    }
+  });
+}
+
   // metodo per la navigazione
   vaiAllaPanoramica() {
     this.router.navigate(['/panoramica'], {
