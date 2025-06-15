@@ -11,8 +11,30 @@
   </ion-card-header>
 
   <ion-card-content>
-    <p class="addr">{{ place.address }}</p>
-    <p class="dist" *ngIf="place.distanceToNext">⇢ {{ place.distanceToNext }}</p>
-    <p *ngIf="place.rating">⭐ {{ place.rating }}</p>
-  </ion-card-content>
+  <p class="addr">{{ place.address }}</p>
+  <p class="dist" *ngIf="place.distanceToNext">⇢ {{ place.distanceToNext }}</p>
+  <p *ngIf="place.rating">⭐ {{ place.rating }}/5</p>
+
+  <p *ngIf="place.priceLevel !== undefined">
+    💰 Prezzo: {{
+      place.priceLevel === 0 ? 'Gratis' :
+      place.priceLevel === 1 ? 'Economico' :
+      place.priceLevel === 2 ? 'Medio' :
+      place.priceLevel === 3 ? 'Costoso' :
+      place.priceLevel === 4 ? 'Molto costoso' : ''
+    }}
+  </p>
+
+  <p *ngIf="place.website">
+    🔗 <a [href]="place.website" target="_blank" rel="noopener noreferrer">Sito web</a>
+  </p>
+
+  <div *ngIf="place.openingHours?.length">
+    🕐 <strong>Orari:</strong>
+    <ul class="hours">
+      <li *ngFor="let h of place.openingHours">{{ h }}</li>
+    </ul>
+  </div>
+</ion-card-content>
+
 </ion-card>

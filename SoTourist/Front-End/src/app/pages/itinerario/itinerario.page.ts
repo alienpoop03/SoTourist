@@ -38,37 +38,51 @@ import { GeneratedDay } from '../../models/generated-day.model';
 import { Place } from '../../models/trip.model';
 
 function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
-  const slotOrder: ('morning' | 'afternoon' | 'evening')[] = ['morning', 'afternoon', 'evening'];
+  const slotOrder: ('morning' | 'afternoon' | 'evening')[] = [
+    'morning',
+    'afternoon',
+    'evening'
+  ];
   const places: Place[] = [];
 
-  generatedDays.forEach((dayObj, dayIndex) => {
-    const day = dayIndex + 1;
+  generatedDays.forEach((dayObj, dayIdx) => {
+    const day = dayIdx + 1;
 
-    slotOrder.forEach(timeSlot => {
-      const list = (dayObj as any)[timeSlot] || [];
+    slotOrder.forEach(slot => {
+      const list = (dayObj as any)[slot] || [];
       list.forEach((p: any) => {
-        // fallback su p.lat / p.longitude per preservare entrambe le sorgenti
         const latitude = p.lat ?? p.latitude;
         const longitude = p.lng ?? p.longitude;
 
         places.push({
-          placeId: p.placeId,  // <-- Google Place ID usato come nostro ID interno
+          /* fondamentali -------------------------------------------------- */
+          placeId: p.placeId,
           name: p.name,
           day,
-          timeSlot,
+          timeSlot: slot,
           latitude,
           longitude,
-          address: p.address || '',
-          photoUrl: p.photo || '',
-          photoReference: p.photoReference || ''
-        });
+          address: p.address ?? '',
+          photoUrl: p.photo ?? '',
+          photoReference: p.photoReference ?? '',
 
+          /* nuovi campi --------------------------------------------------- */
+          rating: p.rating ?? null,
+          priceLevel: p.priceLevel ?? null,
+          website: p.website ?? null,
+          openingHours: p.openingHours ?? null,
+
+          /* segnaposto per eventuali tag utente --------------------------- */
+          type: p.type ?? '',
+          note: p.note ?? ''
+        });
       });
     });
   });
 
   return places;
 }
+
 
 
 
@@ -351,12 +365,20 @@ export class ItinerarioPage implements AfterViewInit {
                 timeSlot: p.timeSlot,
                 lat: p.latitude,
                 lng: p.longitude,
-                address: (p as any).address || '',
-                photoUrl: p.photoUrl || '',
-                photoReference: p.photoReference || '',  // <-- AGGIUNTO QUI 🔥
-                type: '',
-                note: ''
+                address: p.address ?? '',
+                photoUrl: p.photoUrl ?? '',
+                photoReference: p.photoReference ?? '',   // già presente ✅
+
+                /*  ➡️  NUOVI  */
+                rating: p.rating,
+                priceLevel: p.priceLevel,
+                website: p.website,
+                openingHours: p.openingHours,
+
+                type: p.type ?? '',
+                note: p.note ?? ''
               }));
+
 
 
               console.log('🛠️ [PAYLOAD] placesPayload:', placesPayload);
@@ -428,25 +450,25 @@ export class ItinerarioPage implements AfterViewInit {
       timeSlot: p.timeSlot,
       lat: p.latitude,
       lng: p.longitude,
-      address: p.address || '',
-      photoUrl: p.photoUrl || '',
-      type: '', // per adesso vuoti
-      note: ''  // per adesso vuoti
-    }));
-    console.log('🛠️ [PAYLOAD-SAVE] payload:', payload);
+      address: p.address ?? '',
+      photoUrl: p.photoUrl ?? '',
+      photoReference: p.photoReference ?? '',  // ➕ (mancava)
 
-    this.itineraryService.addPlacesToItinerary(userId, itineraryId, payload)
-      .subscribe({
-        next: () => {
-          console.log('✅ Tappe salvate nel backend');
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('❌ Errore salvataggio tappe:', err);
-          this.isLoading = false;
-        }
-      });
+      /*  ➡️  NUOVI  */
+      rating: p.rating,
+      priceLevel: p.priceLevel,
+      website: p.website,
+      openingHours: p.openingHours,
+
+      type: p.type ?? '',
+      note: p.note ?? ''
+    }));
+
+    this.itineraryService
+      .addPlacesToItinerary(userId, itineraryId, payload)
+      .subscribe(/* … */);
   }
+
 
   private calculateDays(start: string, end: string): number {
     const startDate = new Date(start);

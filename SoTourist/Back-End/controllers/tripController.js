@@ -194,10 +194,24 @@ exports.getItineraryById = (req, res) => {
             }
 
             const converted = {
-              ...place,
+              placeId: place.placeId,
+              name: place.name,
+              address: place.address,
+              day: place.day,
+              timeSlot: place.timeSlot,
               latitude: place.lat,
-              longitude: place.lng
+              longitude: place.lng,
+              photoFilename: place.photoFilename,
+              type: place.type,
+              note: place.note,
+
+              // ⬇️ Nuovi campi
+              rating: place.rating ?? undefined,
+              priceLevel: place.priceLevel ?? undefined,
+              website: place.website ?? undefined,
+              openingHours: place.openingHours ? JSON.parse(place.openingHours) : undefined
             };
+
 
             grouped[dayIndex][place.timeSlot]?.push(converted);
             grouped[dayIndex].ordered.push(converted);
@@ -283,7 +297,7 @@ exports.updateItinerary = (req, res) => {
 exports.addPlacesToItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   let places = req.body;
-  
+
   // QUI VUOI IL PRIMO LOG:
   console.log("🔥 PAYLOAD CHE RICEVO DAL FRONTEND:");
   console.log(JSON.stringify(places, null, 2));
@@ -315,14 +329,14 @@ exports.addPlacesToItinerary = (req, res) => {
 
       try {
         console.log("🔬 STO PROCESSANDO PLACE:");
-console.log(place);
+        console.log(place);
 
         // ⬇⬇⬇ QUI facciamo il download automatico solo se c'è il photoReference
         if (place.photoReference) {
           photoFilename = await getOrDownloadPhoto(place.placeId, place.photoReference);
           if (place.photoReference) {
-    console.log("📸 HO IL PHOTOREFERENCE:", place.photoReference);
-}
+            console.log("📸 HO IL PHOTOREFERENCE:", place.photoReference);
+          }
 
         }
       } catch (errPhoto) {
@@ -330,27 +344,47 @@ console.log(place);
         // anche se fallisce il download, continuiamo a salvare il place senza foto
       }
 
+      const lat = place.latitude ?? place.lat;
+      const lng = place.longitude ?? place.lng;
+
       db.run(
-        `INSERT INTO places (placeId, itineraryId, name, day, timeSlot, lat, lng, address, photoFilename, type, note)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO places (
+  placeId, itineraryId, name, day, timeSlot,
+  lat, lng, address, photoFilename,
+  type, note, rating, priceLevel, website, openingHours, photoUrl   -- 16 colonne
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+`,
         [
           placeId,
           itineraryId,
           place.name,
           place.day,
           place.timeSlot,
-          place.lat,
-          place.lng,
+          lat,
+          lng,
           place.address || '',
-          photoFilename,  // <-- qui salvi il filename locale, non più il vecchio photoUrl
+          photoFilename,
           place.type || '',
-          place.note || ''
+          place.note || '',
+          place.rating ?? null,
+          place.priceLevel ?? null,
+          place.website ?? null,
+          place.openingHours ? JSON.stringify(place.openingHours) : null
         ],
+
         (err2) => {
-          if (!err2) inserted.push({ placeId, ...place, photoFilename });
-          insertNext(); // ricorsivo
+  if (err2) {
+    console.error('❌ Errore INSERT:', err2.message);
+    console.error('🔎 Place che ha fallito:', place);
+  } else {
+    inserted.push({ placeId, ...place, photoFilename });
+  }
+  insertNext();
+
+
         }
       );
+
     };
 
     insertNext();
