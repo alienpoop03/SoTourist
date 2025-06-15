@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./panoramica.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PanoramicaPage implements AfterViewInit {
+export class PanoramicaPage {
   @ViewChild(IonContent, { static: true }) content!: IonContent;
   @ViewChild('hero', { static: true }) heroEl!: ElementRef;
 
@@ -41,10 +41,16 @@ export class PanoramicaPage implements AfterViewInit {
     private photoService: PhotoService
   ) { }
 
-  async ngAfterViewInit() {
-    this.itineraryId = this.route.snapshot.queryParamMap.get('id')!;
-    this.loadItinerary();
-  }
+ ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    const id = params['id'];
+    if (!id) return;
+
+    this.itineraryId = id;
+    this.loadItinerary(); // 🔁 ricarica ogni volta che l'id cambia
+  });
+}
+
 
   loadItinerary() {
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
@@ -99,8 +105,16 @@ export class PanoramicaPage implements AfterViewInit {
   }
 
   vaiAPersonalizzazione() {
-    this.router.navigate(['/personalizzazione'], {
-      queryParams: { id: this.trip.itineraryId }
-    });
-  }
+  this.router.navigate(['/personalizzazione'], {
+    queryParams: {
+      id: this.trip.itineraryId,
+      north: this.route.snapshot.queryParamMap.get('north'),
+      south: this.route.snapshot.queryParamMap.get('south'),
+      east: this.route.snapshot.queryParamMap.get('east'),
+      west: this.route.snapshot.queryParamMap.get('west')
+    }
+  });
+}
+
+
 }

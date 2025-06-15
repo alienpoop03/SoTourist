@@ -5,7 +5,9 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
-  NgZone
+  NgZone,
+  OnInit, // ⬅️ aggiungi questo
+
 } from '@angular/core';
 
 import { TripWithId } from '../../models/trip.model';
@@ -198,12 +200,13 @@ export class ItinerarioPage implements AfterViewInit {
 
     const localTrip = localTrips.find((t: any) => {
       return (
-        t?.itineraryId === this.itineraryId ||
+        (t?.itineraryId && t.itineraryId === this.itineraryId) ||
         (t?.id != null && t.id.toString?.() === this.itineraryId)
       );
     });
 
     if (localTrip) {
+      // se combacia esattamente l'ID, la usiamo
       this.trip = {
         itineraryId: localTrip.itineraryId ?? localTrip.id?.toString() ?? 'undefined',
         city: localTrip.city,
@@ -221,7 +224,7 @@ export class ItinerarioPage implements AfterViewInit {
           if (bounds) {
             this.tripBounds = bounds;
             const { north, east, south, west } = bounds.toJSON();
-            this.trip.bounds = { north, east, south, west }; // 🔒 salvo nel trip
+            this.trip.bounds = { north, east, south, west };
             console.log('[itinerario] Bounds caricati:', this.trip.bounds);
           } else {
             console.warn('[itinerario] Nessun bounds trovato per', this.trip.city);
@@ -232,6 +235,7 @@ export class ItinerarioPage implements AfterViewInit {
       console.log('[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.');
       return;
     }
+
 
     // Altrimenti carica dal backend: se già generato → reindirizza subito a panoramica
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
@@ -638,24 +642,20 @@ export class ItinerarioPage implements AfterViewInit {
     }
   }
 
-  vaiAPersonalizzazione() {
-  const bounds = this.trip.bounds;
-  this.router.navigate(['/personalizzazione'], {
+
+  // metodo per la navigazione
+  vaiAllaPanoramica() {
+  const bounds = this.trip?.bounds;
+  this.router.navigate(['/panoramica'], {
     queryParams: {
       id: this.trip.itineraryId,
       north: bounds?.north,
-      east: bounds?.east,
       south: bounds?.south,
+      east: bounds?.east,
       west: bounds?.west
     }
   });
 }
 
-  // metodo per la navigazione
-  vaiAllaPanoramica() {
-    this.router.navigate(['/panoramica'], {
-      queryParams: { id: this.trip.itineraryId }
-    });
-  }
 
 }
