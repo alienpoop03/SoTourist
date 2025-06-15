@@ -50,3 +50,16 @@
   color: var(--color-primary);
   text-align: center;
 }
+
+//logo
+.logo-img {
+  text-align: center;
+  //margin-top: 2rem;
+  margin-bottom: 1.5rem;
+
+  img {
+    border-radius: 26px;
+    //max-width: 00px;
+    height: auto;
+  }
+}

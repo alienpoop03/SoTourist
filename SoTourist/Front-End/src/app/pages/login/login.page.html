@@ -6,9 +6,12 @@
       <app-profile-icon [src]="profileImageUrl" [editable]="true" (changed)="profileImageUrl = $event">
       </app-profile-icon>
     </div>-->
-
+    
     <!-- Form con sfondo e campi ben visibili -->
     <div class="form-block">
+      <div class="logo-img">
+        <img src="assets/icon/Sotourist_comp.png" alt="SoTourist Logo" />
+      </div>
       <ion-input label="Email" label-placement="floating" fill="outline" [(ngModel)]="email" type="email"
         maxlength="30"></ion-input>
       <ion-input label="Password" label-placement="floating" fill="outline" [(ngModel)]="password" type="password"
