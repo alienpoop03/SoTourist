@@ -96,7 +96,7 @@ export class AuthService {
 
   getRegistrationDate(userId: string) {
     return this.http.get<{ userId: string; registrationDate: string }>(
-      `${this.baseUrl}/auth/users/${userId}/registration-date`
+      `${this.baseUrl}/users/${userId}/registration-date`
     );
   }
 }
