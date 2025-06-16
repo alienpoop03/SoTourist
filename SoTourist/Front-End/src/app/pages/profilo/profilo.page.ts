@@ -52,7 +52,7 @@ export class ProfiloPage {
   email = '';
   password = '';
   profileImageUrl: string | null = null;
-  registrationDate: Date = new Date(); // O caricala da backend/localStorage
+  registrationDate: Date | null = null; // O caricala da backend/localStorage
   accountStatus: string = 'Standard';
   editing = false;
 
@@ -96,6 +96,14 @@ export class ProfiloPage {
           this.subscriptionPlan = 'Standard';
           this.subscriptionExpiry = null;
         }
+      });
+      this.authService.getRegistrationDate(this.userId).subscribe({
+        next: (res) => {
+          this.registrationDate = new Date(res.registrationDate);
+        },
+        error: (err) => {
+          console.error('Errore nel recupero della data di registrazione', err);
+        },
       });
     }
   }
