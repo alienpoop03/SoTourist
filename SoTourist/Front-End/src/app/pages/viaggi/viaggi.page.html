@@ -1,95 +1,92 @@
-<app-header
-  [title]="'SoTourist'"
-  [iconName]="'list-outline'"
-  [showBackButton]="false">
+<app-header [title]="'SoTourist'" [iconName]="'list-outline'" [showBackButton]="false">
 </app-header>
 
 <!-- CONTENUTO -->
-<div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
-  <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
-  <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
-  <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
-</div>
+<ion-content class="viaggi-content">
+  <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
+    <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
+    <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
+    <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
+  </div>
 
-<ion-content class="viaggi-content" scrollEvents="true" (ionScroll)="onScroll($event)"
-  (ionScrollEnd)="onScrollEnd($event)" #pageContent *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
+  <ion-content scrollEvents="true" (ionScroll)="onScroll($event)" (ionScrollEnd)="onScrollEnd($event)" #pageContent
+    *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
 
-  <!-- HERO ESPANSA -->
-  <div *ngIf="inCorso" class="hero-wrapper" [class.hidden]="isShrunk">
-    <ng-container *ngIf="inCorso">
-      <img [src]="inCorso.coverPhoto" class="hero-bg" alt="cover">
-      <div class="hero-overlay">
-        <div class="hero-info">
-          <h2 class="trip-type">Viaggio in corso</h2>
-          <h1 class="hero-title">{{ inCorso.city }}</h1>
-          <p class="hero-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy' }}
-          </p>
-          <p class="hero-accommodation">🏨 {{ inCorso.accommodation || '—' }}</p>
-          <div class="button-row">
-            <ion-button expand="block" class="boxes-style hero-button-main"
-              (click)="openItinerary(inCorso.itineraryId)">
-              Vai all’itinerario
-            </ion-button>
-            <ion-button fill="outline" class="hero-button-del" (click)="deleteTrip(inCorso.itineraryId)">
-              <ion-icon name="trash-outline"></ion-icon>
-            </ion-button>
+    <!-- HERO ESPANSA -->
+    <div *ngIf="inCorso" class="hero-wrapper" [class.hidden]="isShrunk">
+      <ng-container *ngIf="inCorso">
+        <img [src]="inCorso.coverPhoto" class="hero-bg" alt="cover">
+        <div class="hero-overlay">
+          <div class="hero-info">
+            <h2 class="trip-type">Viaggio in corso</h2>
+            <h1 class="hero-title">{{ inCorso.city }}</h1>
+            <p class="hero-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy'
+              }}
+            </p>
+            <p class="hero-accommodation">🏨 {{ inCorso.accommodation || '—' }}</p>
+            <div class="button-row">
+              <ion-button expand="block" class="boxes-style hero-button-main"
+                (click)="openItinerary(inCorso.itineraryId)">
+                Vai all’itinerario
+              </ion-button>
+              <ion-button fill="outline" class="hero-button-del" (click)="deleteTrip(inCorso.itineraryId)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
           </div>
         </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <!-- HERO COMPATTA -->
-  <div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk">
-    <ng-container *ngIf="inCorso">
-      <img [src]="inCorso.coverPhoto" class="compact-bg" alt="cover">
-      <div class="compact-overlay">
-        <h2 class="compact-title">{{ inCorso.city }}</h2>
-        <p class="compact-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy' }}
-        </p>
-      </div>
-    </ng-container>
-  </div>
-
-
-
-  
-
-  <div *ngIf="!isGuest">
-    <div *ngIf="imminente" class="trip-section">
-      <h2 class="Title_sezion">Viaggio imminente</h2>
-      <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
-        (remove)="deleteTrip(imminente.itineraryId)"></app-trip-card>
+      </ng-container>
     </div>
 
-    <div *ngIf="futuri.length > 0" class="trip-section">
-      <h2 class="Title_sezion">Prossimi viaggi</h2>
+    <!-- HERO COMPATTA -->
+    <div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk">
+      <ng-container *ngIf="inCorso">
+        <img [src]="inCorso.coverPhoto" class="compact-bg" alt="cover">
+        <div class="compact-overlay">
+          <h2 class="compact-title">{{ inCorso.city }}</h2>
+          <p class="compact-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy'
+            }}
+          </p>
+        </div>
+      </ng-container>
+    </div>
+
+    <div *ngIf="!isGuest">
+      <div *ngIf="imminente" class="trip-section">
+        <h2 class="Title_sezion">Viaggio imminente</h2>
+        <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
+          (remove)="deleteTrip(imminente.itineraryId)"></app-trip-card>
+      </div>
+
+      <div *ngIf="futuri.length > 0" class="trip-section">
+        <h2 class="Title_sezion">Prossimi viaggi</h2>
+        <div class="card-grid">
+          <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)"
+            (remove)="deleteTrip(trip.itineraryId)">
+          </app-trip-card>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="drafts.length > 0" class="trip-section">
+      <h2 class="Title_sezion">Bozze</h2>
       <div class="card-grid">
-        <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)"
-          (remove)="deleteTrip(trip.itineraryId)">
-        </app-trip-card>
+        <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)"
+          (remove)="deleteDraft($event)">
+        </app-unfinished-card>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="drafts.length > 0" class="trip-section">
-    <h2 class="Title_sezion">Bozze</h2>
-    <div class="card-grid">
-      <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)"
-        (remove)="deleteDraft($event)">
-      </app-unfinished-card>
-    </div>
-  </div>
+    <div class="spacer"><!-- Spazio per andare sopra al pulsante crea --></div>
 
-  <div class="spacer"><!-- Spazio per andare sopra al pulsante crea --></div>
-  
-  <!--<div [ngStyle]="{ height: altezzaOverScroll  + 'px' }" > Spazio per l'over Scroll </div>-->
+    <!--<div [ngStyle]="{ height: altezzaOverScroll  + 'px' }" > Spazio per l'over Scroll </div>-->
 
+  </ion-content>
 </ion-content>
 
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
   <div class="fab-wrapper">
-    
+
     <!-- Pulsante lungo (da sinistra verso il FAB) -->
     <button ion-button class="pill-button" (click)="openStorico()">
       <ion-icon name="time-outline" slot="start"></ion-icon>
@@ -103,9 +100,3 @@
 
   </div>
 </ion-fab>
-
-<!--<ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
-  <ion-fab-button (click)="goToCreate()">
-    <ion-icon name="add-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>-->

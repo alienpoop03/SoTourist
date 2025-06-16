@@ -3,16 +3,17 @@
   padding: 1rem 1rem 6rem;
 }
 
-/* HEADER STATICO */
+/* nascondo la scrollbar default */
+:host ::ng-deep ion-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
+  display: none !important;
+}
 
 /* HERO ESPANSA */
-.hero-wrapper {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  transition: height 0.5s ease;
-}
 
 .hero-bg {
   width: 100%;
@@ -71,7 +72,9 @@
 .hero-wrapper {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 50vh;
+  border-bottom-left-radius: var(--box-radius);
+  border-bottom-right-radius: var(--box-radius);
   overflow: hidden;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -164,24 +167,33 @@
 
 .welcome-section {
   text-align: center;
-  margin: 3rem 1rem 2rem;
-  padding: 2rem 1.5rem;
-  background: var(--color-background2);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  border-left: 5px solid var(--color-highlight);
+  margin: 0 3rem 0;
+  padding: 0 1.5rem;
+  border-radius: 26px;
+  // border: 1px solid var(--color-highlight);  // Per testare centratura
+  
+  // CENTRATURA BOX
+  position: absolute;
+  top: calc(50%);
+  transform: translateY(-50%);
 }
 
 .welcome-section h1 {
   color: var(--color-primary);
   font-size: 1.3rem;
-  margin-bottom: 0.5rem;
+  font-weight: bold;
+  margin: 0 0 1rem;
 }
 
 .welcome-section p {
   color: var(--color-text2);
   font-size: 1rem;
   line-height: 1.4;
+  margin: 0 0 1rem;
+}
+
+.welcome-section img {
+  margin: 0;
 }
 
 .spacer {

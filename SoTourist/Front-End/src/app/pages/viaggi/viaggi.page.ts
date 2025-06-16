@@ -1,3 +1,5 @@
+/* src/app/pages/viaggi/viaggi.page.ts */
+
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -23,6 +25,8 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-viaggi',
   standalone: true,
+  templateUrl: './viaggi.page.html',
+  styleUrls: ['./viaggi.page.scss'],
   imports: [
     CommonModule,
     IonContent,
@@ -37,17 +41,15 @@ import { AuthService } from '../../services/auth.service';
     TripCardComponent,
     UnfinishedCardComponent,
   ],
-  templateUrl: './viaggi.page.html',
-  styleUrls: ['./viaggi.page.scss'],
 })
 export class ViaggiPage implements AfterViewInit {
   constructor(
     private router: Router,
     private api: ItineraryService,
     private auth: AuthService
-  ) { }
+  ) {}
 
-  //variabili per caricare i viaggi nella pagina
+  /* ========== STATO VIAGGI ========== */
   isGuest = false;
   inCorso: TripWithId | null = null;
   imminente: TripWithId | null = null;
@@ -56,112 +58,105 @@ export class ViaggiPage implements AfterViewInit {
   loaded = false;
   private apiCalls = 0;
 
-  @ViewChild(IonContent) content!: IonContent;
+  /* ========== HERO SHRINK =========== */
+  isShrunk = false;
+  shrinkThreshold = 0;          // calcolato da heroMax – heroMin
+  heroMax = 0;                  // 50 vh in px
+  heroMin = 0;                  // 20 % di heroMax
+  headerTitle = 'SoTourist';
 
-  // Stato shrink animazione
-  isShrunk: boolean = false;
+  /* snapping */
+  private scrollTimer: any;
+  snapActive: string | null = 'attivo';
+  millisecondSnap = 200;
 
-  readonly shrinkThreshold = 100; // Soglia tarata per passaggio a hero compatta (modificabile)
-
-  // Header Title fix
-  headerTitle: string = 'SoTourist';
-
-  private scrollTimer: any; // variaile funzionale per lo snapping 
-
-  // Le variabili per gestire lo snapping
-  snapActive: string | null = 'attivo';  // se non null attivo altrimenti no
-  millisecondSnap = 200;                 // millisecondi da attendere dall'ultimo imput di scrol prima modificare
-  
-  
-  
-  totalHeight: number = 0;
-  visibleHeight: number = 0;
-  altezzaOverScroll: number = 150;
+  /* over-scroll verso storico viaggi */
+  totalHeight = 0;
+  visibleHeight = 0;
+  altezzaOverScroll = 150;
   private overScrollTimer: any;
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      
-      this.content.getScrollElement().then((scrollEl) => {
-        this.totalHeight = scrollEl.scrollHeight;
-        //console.log('Altezza totale:', this.totalHeight);
-        this.visibleHeight = scrollEl.clientHeight;
-        //console.log('Altezza visibile (clientHeight):', this.visibleHeight);
-        this.totalHeight = this.totalHeight - this.altezzaOverScroll - this.visibleHeight;
-        if(this.totalHeight<0){
-          this.totalHeight= 0;
-        }
-        //console.log('Altezza totale:', this.totalHeight);
-      });
-    }, 0);
-  }
+  @ViewChild(IonContent) content!: IonContent;
 
-  ionViewDidEnter(): void {
+  /* ========== LIFECYCLE ============ */
+  ngAfterViewInit(): void {
+    /* dimensioni hero */
+    this.heroMax = window.innerHeight * 0.5;          // 50 vh
+    this.heroMin = this.heroMax * 0.2;                // 20 %
+    this.shrinkThreshold = this.heroMax - this.heroMin; // ← soglia dinamica
+
+    /* misura altezza contenuto per over-scroll */
+    setTimeout(() => {
+      this.content.getScrollElement().then((el) => {
+        this.totalHeight = el.scrollHeight;
+        this.visibleHeight = el.clientHeight;
+        this.totalHeight =
+          this.totalHeight - this.altezzaOverScroll - this.visibleHeight;
+        if (this.totalHeight < 0) this.totalHeight = 0;
+      });
+    });
+
     this.refreshTrips();
   }
 
+  ionViewDidEnter(): void {
+    /* già fatto in ngAfterViewInit, ma se torni alla page ricarico */
+    if (!this.loaded) this.refreshTrips();
+  }
+
+  /* ========== SCROLL ================ */
+  onScroll(event: any) {
+    const y = event.detail.scrollTop;
+    this.isShrunk = y > this.shrinkThreshold;
+
+    if (!this.inCorso || !this.snapActive) return;
+
+    clearTimeout(this.scrollTimer);
+    this.scrollTimer = setTimeout(
+      () => this.handleScrollEnd(event),
+      this.millisecondSnap
+    );
+  }
+
+  handleScrollEnd(event: any) {
+    const y = event.detail.scrollTop;
+    const snapZoneStart = 0.1;
+    const snapZoneEnd = this.shrinkThreshold - 0.1;
+
+    if (y >= snapZoneStart && y <= snapZoneEnd) {
+      if (y < this.shrinkThreshold / 2) {
+        this.content.scrollToPoint(0, 0, 300);
+      } else {
+        this.content.scrollToPoint(0, this.shrinkThreshold, 300);
+      }
+    }
+  }
+
+  onScrollEnd(event: any) {
+    const y = event.detail.scrollTop;
+    if (y > this.shrinkThreshold) {
+      this.isShrunk = true;
+    } else if (y < this.shrinkThreshold / 2) {
+      this.isShrunk = false;
+    }
+  }
+
+  onHeroClick() {
+    this.content.scrollToTop(400);
+  }
+
+  /* ========== DATI VIAGGI =========== */
   private refreshTrips(): void {
     this.isGuest = !!this.auth.getUserId()?.startsWith('guest_');
     this.isGuest ? this.loadDraftsOnly() : this.loadTrips();
     this.startMidnightWatcher();
   }
 
-  startMidnightWatcher() { //calcola tra quanto tempo sarà mezzanotte e casomai fare refresh 
+  private startMidnightWatcher() {
     const now = new Date();
     const midnight = new Date();
     midnight.setHours(24, 0, 0, 0);
-
-    const msToMidnight = midnight.getTime() - now.getTime();
-
-    setTimeout(() => {
-      this.refreshTrips();  // Al passaggio di giorno, rifaccio tutto
-    }, msToMidnight);
-  }
-
-  
-
-  onScroll(event: any) {
-    const scrollTop = event.detail.scrollTop;
-    this.isShrunk = scrollTop > this.shrinkThreshold;
-    //console.log(scrollTop);
-    
-    /*clearTimeout(this.overScrollTimer);
-    this.overScrollTimer = setTimeout(() => {
-      if(scrollTop > this.totalHeight){
-        //console.log("over", (this.totalHeight + this.altezzaOverScroll));
-        if(scrollTop > (this.totalHeight + this.altezzaOverScroll)){
-          this.content.scrollToPoint(0, this.totalHeight, 300);
-          this.router.navigate(['/tabs/storico-viaggi']);
-        }else{
-          this.content.scrollToPoint(0, this.totalHeight, 300);
-        }
-      } 
-    }, this.millisecondSnap);*/
-    
-    if (this.inCorso == null || this.snapActive == null) { //in caso manchi il viaggio in corso (la hero) o se non lo vogliamo
-      return;  // esci dal debounce se non serve lo snap
-    }
-
-    clearTimeout(this.scrollTimer);
-
-    this.scrollTimer = setTimeout(() => {
-      this.handleScrollEnd(event);
-    }, this.millisecondSnap);
-  }
-
-  handleScrollEnd(event: any) {
-    const scrollTop = event.detail.scrollTop;
-
-    const snapZoneStart = 0.1;
-    const snapZoneEnd = 204.9;
-
-    if (scrollTop >= snapZoneStart && scrollTop <= snapZoneEnd) {
-      if (scrollTop < 107) {
-        this.content.scrollToPoint(0, 0, 300);
-      } else {
-        this.content.scrollToPoint(0, 205, 300);
-      }
-    }
+    setTimeout(() => this.refreshTrips(), midnight.getTime() - now.getTime());
   }
 
   private loadTrips(): void {
@@ -171,20 +166,21 @@ export class ViaggiPage implements AfterViewInit {
     this.loaded = false;
     this.resetLists();
 
-    this.api.getUserItineraries(uid, 'current')
-      .subscribe({
-        next: r => {
-          this.inCorso = r[0] || null;
-          this.headerTitle = this.inCorso?.city || 'SoTourist';
-        },
-        complete: () => this.done()
-      });
+    this.api.getUserItineraries(uid, 'current').subscribe({
+      next: (r) => {
+        this.inCorso = r[0] || null;
+        this.headerTitle = this.inCorso?.city || 'SoTourist';
+      },
+      complete: () => this.done(),
+    });
 
-    this.api.getUserItineraries(uid, 'upcoming')
-      .subscribe({ next: r => this.imminente = r[0] || null, complete: () => this.done() });
+    this.api
+      .getUserItineraries(uid, 'upcoming')
+      .subscribe({ next: (r) => (this.imminente = r[0] || null), complete: () => this.done() });
 
-    this.api.getUserItineraries(uid, 'future')
-      .subscribe({ next: r => this.futuri = r || [], complete: () => this.done() });
+    this.api
+      .getUserItineraries(uid, 'future')
+      .subscribe({ next: (r) => (this.futuri = r || []), complete: () => this.done() });
 
     this.loadDrafts();
   }
@@ -193,6 +189,10 @@ export class ViaggiPage implements AfterViewInit {
     this.resetLists();
     this.loaded = true;
     this.loadDrafts();
+  }
+
+  private loadDrafts(): void {
+    this.drafts = JSON.parse(localStorage.getItem('trips') || '[]');
   }
 
   private resetLists(): void {
@@ -208,43 +208,27 @@ export class ViaggiPage implements AfterViewInit {
     }
   }
 
-  private loadDrafts(): void {
-    this.drafts = JSON.parse(localStorage.getItem('trips') || '[]');
-  }
-
-  deleteDraft(id: string): void {
-    this.drafts = this.drafts.filter(t => t.itineraryId !== id);
-    localStorage.setItem('trips', JSON.stringify(this.drafts));
-  }
-
-  deleteTrip(id: string): void {
+  /* ========== AZIONI ================ */
+  deleteTrip(id: string) {
     const uid = this.auth.getUserId();
     if (!uid) return;
     this.api.deleteItinerary(uid, id).subscribe(() => this.loadTrips());
   }
 
-  openItinerary(id: string): void {
+  deleteDraft(id: string) {
+    this.drafts = this.drafts.filter((t) => t.itineraryId !== id);
+    localStorage.setItem('trips', JSON.stringify(this.drafts));
+  }
+
+  openItinerary(id: string) {
     this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
   }
 
-  goToCreate(): void {
+  goToCreate() {
     this.router.navigate(['/crea']);
   }
 
-  onScrollEnd(event: any) {
-    const scrollTop = event.detail.scrollTop;
-    const snapThreshold = this.shrinkThreshold / 2;
-
-    // Snap forzato, senza esitazioni
-    if (scrollTop > this.shrinkThreshold) {
-      this.isShrunk = true;
-    } else if (scrollTop < snapThreshold) {
-      this.isShrunk = false;
-    }
-  }
-  
-  openStorico(){
+  openStorico() {
     this.router.navigate(['/tabs/storico-viaggi']);
   }
-   
 }
