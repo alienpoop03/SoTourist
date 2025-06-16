@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {  IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
@@ -37,7 +37,7 @@ import { ToastService } from '../../services/toast.service';
     ProfileIconComponent,
   ]
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   constructor(private auth: AuthService, private router: Router, private toastService: ToastService) {}
 
@@ -110,7 +110,5 @@ export class LoginPage implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
 
 }

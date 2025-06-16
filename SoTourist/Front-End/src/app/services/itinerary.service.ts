@@ -82,9 +82,14 @@ getItineraryById(itineraryId: string): Observable<any> {
   }
 
   // 🔁 Sovrascrive tutte le tappe di un itinerario
-updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
-  return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
-}
+  updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
+    return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
+  }
+
+  // Itinerari pubblici dell'account ufficiale
+  getPublicItineraries(userId: string) {
+    return this.http.get<TripWithId[]>(`${this.baseUrl}/official-itineraries?userId=${userId}`);
+  }
 
 
   addPlacesToItinerary(userId: string, itineraryId: string, places: any[]) {

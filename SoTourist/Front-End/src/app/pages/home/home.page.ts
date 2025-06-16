@@ -44,42 +44,9 @@ export class HomePage implements OnInit {
   currentTrip: TripWithId | null = null;  // viaggio in corso
   nextTrip: TripWithId | null = null;     // viaggio imminente (solo se non in corso)
 
-  /* ---------- itinerari consigliati (mock) ---------- */
-  featuredItineraries = [
-    {
-      itineraryId: 'rome_culture',
-      city: 'Roma',
-      startDate: '2025-05-10',
-      endDate: '2025-05-12',
-      days: 4,
-      style: 'culturale',
-      coverPhoto: 'assets/images/Roma.jpeg',
-      accommodation: '',
-      places: [],
-    },
-    {
-      itineraryId: 'paris_art',
-      city: 'Parigi',
-      startDate: '2025-06-01',
-      endDate: '2025-06-04',
-      days: 2,
-      style: 'artistico',
-      coverPhoto: 'assets/images/Parigi.jpeg',
-      accommodation: '',
-      places: [],
-    },
-    {
-      itineraryId: 'tokyo_modern',
-      city: 'Tokyo',
-      startDate: '2025-09-15',
-      endDate: '2025-09-19',
-      days: 3,
-      style: 'urban',
-      coverPhoto: 'assets/images/Tokyo.jpeg',
-      accommodation: '',
-      places: [],
-    },
-  ];
+  /* ---------- itinerari consigliati dal profilo ufficiale ---------- */
+  readonly OFFICIAL_USER_ID = 'user_175010564583839763';
+  featuredItineraries: TripWithId[] = [];
 
   constructor(
     private router: Router,
@@ -91,10 +58,12 @@ export class HomePage implements OnInit {
   /* ---------- lifecycle ---------- */
   ngOnInit(): void {
     this.refreshTrips();
+    this.loadFeaturedItineraries();
   }
 
   ionViewWillEnter(): void {
     this.refreshTrips();   // aggiorna quando torni alla Home
+    this.loadFeaturedItineraries();
   }
 
   /* ---------- fetch viaggi ---------- */
@@ -113,6 +82,15 @@ export class HomePage implements OnInit {
         if (!this.currentTrip) {
           this.nextTrip = res?.[0] ?? null;
         }
+      });
+  }
+
+  private loadFeaturedItineraries(): void {
+    this.itineraryService
+      .getPublicItineraries(this.OFFICIAL_USER_ID)
+      .subscribe({
+        next: trips => this.featuredItineraries = trips,
+        error: err => console.error('Errore fetch public itineraries:', err)
       });
   }
 

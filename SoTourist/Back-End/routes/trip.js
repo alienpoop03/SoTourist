@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const tripController = require('../controllers/tripController');
 
+// Itinerari pubblici dell'account ufficiale o filtrati per città
+router.get('/official-itineraries', tripController.getItinerariesPublic);
+
 // 📄 GET tutti gli itinerari per un utente
 router.get('/users/:userId/itineraries', tripController.getItineraries);
 

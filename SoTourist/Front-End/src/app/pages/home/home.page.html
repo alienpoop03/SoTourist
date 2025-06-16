@@ -77,7 +77,7 @@
         <ion-card-header>
           <ion-card-title>{{ itin.city }}</ion-card-title>
           <ion-card-subtitle>
-            {{ itin.days }} giorni · {{ itin.style }}
+            {{ getTripLength(itin) }} giorni · {{ itin.style }}
           </ion-card-subtitle>
         </ion-card-header>
       </ion-card>

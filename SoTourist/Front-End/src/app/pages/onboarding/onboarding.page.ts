@@ -2,7 +2,6 @@ import {
   Component,
   ViewChild,
   ElementRef,
-  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,7 +19,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./onboarding.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OnboardingPage implements AfterViewInit {
+export class OnboardingPage {
   @ViewChild('slides', { read: ElementRef }) slidesEl!: ElementRef;
   currentIndex = 0;
 
@@ -39,9 +38,7 @@ export class OnboardingPage implements AfterViewInit {
 
   constructor(private router: Router) {}
 
-  ngAfterViewInit() {
-    // non serve alcuna inizializzazione extra
-  }
+
 
   async slideChanged() {
     // usa nativeElement per chiamare l'API di ion-slides

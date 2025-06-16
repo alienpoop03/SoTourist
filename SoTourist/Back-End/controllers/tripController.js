@@ -456,3 +456,28 @@ exports.updateItineraryPlaces = (req, res) => {
     });
   });
 };
+
+// Itinerari pubblici filtrati per userId e città
+exports.getItinerariesPublic = (req, res) => {
+  const { userId, city } = req.query;
+
+  let query = 'SELECT * FROM itineraries WHERE deleted = 0';
+  const params = [];
+
+  if (userId) {
+    query += ' AND userId = ?';
+    params.push(userId);
+  }
+
+  if (city) {
+    query += ' AND LOWER(city) = ?';
+    params.push(String(city).toLowerCase());
+  }
+
+  db.all(query, params, (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Errore database' });
+    }
+    res.json(rows);
+  });
+};
