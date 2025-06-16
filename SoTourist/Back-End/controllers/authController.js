@@ -15,7 +15,8 @@ function writeDB(data) {
 }*/
 
 // ✅ REGISTRAZIONE con hash già pronto dal frontend
-exports.register = async (req, res) => {
+
+/*exports.register = async (req, res) => {
   const { username, email, password, type } = req.body;
 
   if (!username || !email || !password) {
@@ -52,7 +53,47 @@ exports.register = async (req, res) => {
       }
     );
   });
+};*/
+
+exports.register = async (req, res) => {
+  const { username, email, password, type } = req.body;
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: 'Dati mancanti' });
+  }
+
+  db.get(`SELECT * FROM users WHERE email = ?`, [email], async (err, existingUser) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (existingUser) return res.status(400).json({ error: 'Email già registrata' });
+
+    const bcrypt = require('bcryptjs');
+    const generateId = require('../utils/idGenerator');
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const userId = generateId('user_');
+
+    let subscriptionEndDate = null;
+    if (type === 'premium' || type === 'gold') {
+      const now = new Date();
+      const end = new Date();
+      end.setDate(now.getDate() + 30);
+      subscriptionEndDate = end.toISOString().split('T')[0];
+    }
+
+    const registrationDate = new Date().toISOString().split('T')[0]; // <── data di oggi
+
+    db.run(
+      `INSERT INTO users (userId, username, email, password, type, subscriptionEnd, registrationDate)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [userId, username, email, hashedPassword, type || 'standard', subscriptionEndDate, registrationDate],
+      function (err) {
+        if (err) return res.status(500).json({ error: 'Errore nella creazione utente' });
+
+        res.status(201).json({ message: 'Utente registrato con successo' });
+      }
+    );
+  });
 };
+
 
 // 🔐 LOGIN: riceve email e hash già calcolato
 exports.login = (req, res) => {
@@ -287,5 +328,19 @@ exports.getProfileImage = (req, res) => {
     }
 
     res.json({ base64: row.profileImage });
+  });
+};
+
+//data registrazione
+exports.getRegistrationDate = (req, res) => {
+  const { userId } = req.params;
+
+  if (!userId) return res.status(400).json({ error: 'userId mancante' });
+
+  db.get(`SELECT userId, registrationDate FROM users WHERE userId = ?`, [userId], (err, row) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!row) return res.status(404).json({ error: 'Utente non trovato' });
+
+    res.json(row); // restituisce { userId, registrationDate }
   });
 };

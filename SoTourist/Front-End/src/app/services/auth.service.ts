@@ -93,4 +93,10 @@ export class AuthService {
       `${this.baseUrl}/users/${userId}/profile-image`
     );
   }
+
+  getRegistrationDate(userId: string) {
+    return this.http.get<{ userId: string; registrationDate: string }>(
+      `${this.baseUrl}/auth/users/${userId}/registration-date`
+    );
+  }
 }
