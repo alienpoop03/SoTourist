@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Location } from '@angular/common';
 import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonButton, IonIcon } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -34,16 +33,13 @@ export class NavigationBarComponent {
   /** Titolo visualizzato */
   @Input() title = '';
 
-  /** Dove andare al click sulla freccia */
+  /** Dove andare al click sulla freccia (fallback) */
   @Input() backUrl: string | null = null;
 
-  constructor(private location: Location, private router: Router) {}
+  constructor(private navigation: NavigationService) {}
 
-goBack() {
-  if (this.backUrl) {
-    this.router.navigate([this.backUrl]);
-  } else {
-    this.location.back();
+  goBack() {
+    const fallback = this.backUrl ?? '/';
+    this.navigation.back(fallback);
   }
-}
 }
