@@ -119,6 +119,46 @@
     </ion-item>
   </ion-list>
 
+  <ion-modal
+      [isOpen]="showAboutModalPrivacy"
+      (didDismiss)="showAboutModalPrivacy = false"
+      [breakpoints]="[0, 0.2, 0.35 , 0.6,1]"
+      [initialBreakpoint]="0.35"
+      handleBehavior="cycle"
+      class="about-modal"
+    >
+      <ion-content class="ion-padding">
+        <div class="modal-content">
+          <b><h2>Privacy e Licenze</h2></b>
+          <p class= "Tex-versione" ><b>Privacy e Licenze</b><br>Tutti i diritti riservati.
+            L'applicazione SoTourist, inclusi il design, l’interfaccia utente, le funzionalità, i contenuti generati e le API di interazione con servizi esterni come Google Maps™, è di proprietà esclusiva degli sviluppatori del progetto.
+            Tutto è protetto da leggi vigenti in materia di copyright, proprietà intellettuale e marchi.
+            L’utilizzo è consentito solo per scopi personali e non commerciali, salvo autorizzazione scritta. Qualsiasi copia, reverse engineering, distribuzione o modifica non autorizzata sarà perseguita legalmente.</p>
+                  
+          <p class= "Tex-versione" ><b>Trattamento dei dati</b><br>
+            Tutti i dati personali inseriti dall’utente, come email, itinerari, preferenze di viaggio e posizione, sono trattati nel rispetto del Regolamento GDPR (UE 2016/679).
+            I dati vengono salvati in sistemi sicuri, non ceduti a terzi e accessibili solo da personale autorizzato.
+            L’utente può richiedere in ogni momento la modifica, l’esportazione o la cancellazione dei propri dati scrivendo all’assistenza ufficiale SoTourist.</p>
+
+          <p class= "Tex-versione" ><b>Utilizzo dei servizi Google</b><br>
+            SoTourist integra API di Google Maps™, Google Places™ e altri servizi Google.
+            L’utilizzo di queste funzionalità (es. autocomplete, mappa, info su luoghi) implica l’accettazione delle Google Maps Platform Terms of Service e della Google Privacy Policy.
+            Tutti i dati ottenuti tramite tali API sono soggetti anche alle norme di utilizzo e limitazioni imposte da Google LLC.</p>
+
+          <p class= "Tex-versione" ><b>Immagini, icone e contenuti visivi</b><br>
+            Le immagini di luoghi, icone, badge e altri asset grafici mostrati nell'app sono usati a scopo informativo o funzionale.
+            Possono essere soggetti a copyright di terze parti. In caso di errori o violazioni involontarie, puoi contattarci: il materiale sarà rimosso o sostituito tempestivamente.</p>
+
+          <p class= "Tex-versione" ><b>Accettazione e modifiche</b><br>
+            Installando e usando SoTourist, l’utente accetta i termini descritti in questa sezione.
+            I termini possono subire modifiche nel tempo, senza obbligo di preavviso.
+            È responsabilità dell’utente consultare periodicamente questa pagina per restare aggiornato.</p>
+
+          <p class= "Tex-versione" ><b>Ultimo aggiornamento:</b> Giugno 2025</p>
+        </div>
+      </ion-content>
+    </ion-modal>
+
   <!-- LOGOUT -->
   <ion-button *ngIf="!isGuest" class="boxes-style logout-button" expand="block" (click)="confirmLogout()">
     <ion-icon name="log-out-outline" slot="start"></ion-icon>

@@ -181,8 +181,10 @@ export class SettingsPage {
     this.showAboutModal = true;
   }
 
+  showAboutModalPrivacy = false;
+
   openPrivacy() {
-    console.log('Apri privacy');
+    this.showAboutModalPrivacy = true;
   }
 
   private refreshTrips(): void { 
