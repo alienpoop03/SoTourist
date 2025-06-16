@@ -88,14 +88,14 @@
   <div class="fab-wrapper">
 
     <!-- Pulsante lungo (da sinistra verso il FAB) -->
-    <button ion-button class="pill-button" (click)="openStorico()">
-      <ion-icon name="time-outline" slot="start"></ion-icon>
-      Storico viaggi
+    <button ion-button class="pill-button" (click)="goToCreate()">
+      <ion-icon name="add-outline" slot="start"></ion-icon>
+      Crea nuovo viaggio
     </button>
 
     <!-- FAB rotondo -->
-    <ion-fab-button (click)="goToCreate()">
-      <ion-icon name="add-outline"></ion-icon>
+    <ion-fab-button (click)="openStorico()">
+      <ion-icon name="time-outline"></ion-icon>
     </ion-fab-button>
 
   </div>
