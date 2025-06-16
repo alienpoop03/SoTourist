@@ -175,8 +175,10 @@ export class SettingsPage {
     console.log('Cambia password');
   }
 
+  showAboutModal = false;
+
   openAbout() {
-    console.log('Apri about');
+    this.showAboutModal = true;
   }
 
   openPrivacy() {

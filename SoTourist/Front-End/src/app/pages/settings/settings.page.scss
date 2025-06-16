@@ -108,3 +108,15 @@ ion-alert {
   --background: #cccccc;
   --color: #333;
 }
+
+//modale versione
+
+ion-modal.about-modal::part(content) {
+  border-top-left-radius: 26px;
+  border-top-right-radius: 26px;
+  --background: var(--color-background);
+}
+
+.Tex-versione{
+  color: var(--color-text);
+}

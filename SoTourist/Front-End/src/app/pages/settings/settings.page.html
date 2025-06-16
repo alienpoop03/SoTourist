@@ -95,6 +95,24 @@
       <ion-label>Info &amp; versione</ion-label>
     </ion-item>
 
+    <ion-modal
+      [isOpen]="showAboutModal"
+      (didDismiss)="showAboutModal = false"
+      [breakpoints]="[0, 0.2, 0.6]"
+      [initialBreakpoint]="0.2"
+      handleBehavior="cycle"
+      class="about-modal"
+    >
+      <ion-content class="ion-padding">
+        <div class="modal-content">
+          <h2>Info</h2>
+          <p class= "Tex-versione" >Versione: 0.8.2</p>
+          <!--<ion-button expand="block" (click)="showAboutModal = false">Chiudi</ion-button>-->
+        </div>
+      </ion-content>
+    </ion-modal>
+
+    
     <ion-item lines="none" button detail (click)="openPrivacy()">
       <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
       <ion-label>Privacy e licenze</ion-label>
