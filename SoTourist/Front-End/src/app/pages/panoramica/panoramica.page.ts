@@ -6,6 +6,7 @@ import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 import { PhotoService } from '../../services/photo.service';
 import { FormsModule } from '@angular/forms';
+import { NavigationBarComponent } from 'src/app/components/navigation-bar/navigation-bar.component';
 
 @Component({
   selector: 'app-panoramica',
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-    IonButton, IonIcon
+    IonButton, IonIcon,
+    NavigationBarComponent
   ],
   templateUrl: './panoramica.page.html',
   styleUrls: ['./panoramica.page.scss'],

@@ -23,7 +23,7 @@ import { GoogleAutocompleteComponent } from '../../components/google-autocomplet
 import { GenerateItineraryRequest } from '../../services/api.service';
 import { AlertController, ModalController } from '@ionic/angular/standalone';
 import { BoundsService } from '../../services/bounds.service';
-
+import { NavigationBarComponent } from 'src/app/components/navigation-bar/navigation-bar.component';
 /* ───── Ionic standalone components usati nel template ───── */
 import {
   IonContent,
@@ -32,7 +32,7 @@ import {
   IonSelect, IonSelectOption,
   IonTextarea,
   IonButton,
-  IonIcon
+  IonIcon,
 } from '@ionic/angular/standalone';
 
 
@@ -124,6 +124,7 @@ type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
     IonTextarea,
     IonButton,
     IonIcon,
+    NavigationBarComponent,
 
     /* Componenti custom */
     GenerationOverlayComponent,
