@@ -83,7 +83,8 @@ ion-content {
   min-width: 230px;
 
   //height: 510px;
-  height: min(510px, calc(100vh - 30px));;
+  //height: min(510px, calc(100vh - 30px));;
+  height: clamp(360px, 70vh, 510px);
   max-height: calc(100vh - 80px);
   overflow-y: auto;
 
@@ -151,6 +152,7 @@ swiper-slide {
   justify-content: center;
   align-items: center;
   height: 100%; // 👈 SPAZIO SOPRA E SOTTO visivo
+  padding-bottom: 2rem;
   box-sizing: border-box;
 }
 
