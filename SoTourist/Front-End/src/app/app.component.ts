@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Router } from '@angular/router';
-import { BackendService } from './services/backend.service';
 import { GenerationOverlayComponent } from './components/generation-overlay/generation-overlay.component';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private backend: BackendService,
     private auth: AuthService
   ) {
     this.configureStatusBar();
