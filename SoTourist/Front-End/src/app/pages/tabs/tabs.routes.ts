@@ -42,11 +42,6 @@ export const routes: Routes = [
           import('../viaggi/viaggi.page').then((m) => m.ViaggiPage),
       },
       {
-        path: 'upgrade',
-        loadComponent: () =>
-          import('../upgrade/upgrade.page').then(m => m.UpgradePage),
-      },
-      {
         path: 'panoramica',
         loadComponent: () =>
           import('../panoramica/panoramica.page').then(m => m.PanoramicaPage),

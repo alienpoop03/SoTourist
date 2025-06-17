@@ -1,32 +1,71 @@
 
 ion-tab-bar {
-    --background: var(--color-primary) !important;       /* Bordeaux */
-    --color: var(--color-highlight) !important;            /* Giallo per le icone non selezionate */
-    --color-selected: var(--color-highlight) !important;   /* Giallo per le icone selezionate */
-    
-  }
+  --background: var(--tabs-background) !important;       /* Bordeaux */
+  --color: var(--tabs-icon) !important;            /* Giallo per le icone non selezionate */
+  --color-selected: var(--tabs-icon) !important;   /* Giallo per le icone selezionate */
   
-  ion-tab-button {
-    color: var(--color-highlight) !important;
-  }
-  
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px); // margine laterale
+  max-width: 500px; // opzionale per limitarla su schermi larghi
+  border-radius: 26px;
+  height: 40px;
+  box-shadow: 0 0px 16px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  z-index: 100;
+}
+
+ion-tab-button {
+  color: var(--tabs-icon) !important;
+  flex-direction: column;
+  --ripple-color: transparent;
+}
+
+
+
+ion-tab-button ion-icon {
+  color: var(---tabs-icon) !important;
+}
+
+/*ion-tab-button.ion-selected ion-icon {
+  color: var(--color-highlight) !important;
+}
   ion-tab-button.ion-selected {
-    color: var(--color-highlight) !important;
-  }
+  color: var(--color-highlight) !important;
+}
+*/
+
+ion-tab-button ion-label {
+  color: var(--tabs-icon) !important;
+}
+
+ion-tab-button.ion-selected {
+  position: relative;
+  z-index: 1;
+}
+
+/*ion-tab-button.ion-selected ion-label {
+  color: var(--color-highlight) !important;
+}*/
+
+ion-tab-button.ion-selected::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 6px;
+  right: 6px;
+  background-color: var(--tabs-select); 
+  border-radius: 20px;
+  z-index: -1;
+  transition: 0.3s ease;
+}
+
+/*ion-tab-button.ion-selected ion-icon,
+ion-tab-button.ion-selected ion-label {
+  color: var(--color-highlight) !important; 
+}*/
   
-  ion-tab-button ion-icon {
-    color: var(--color-highlight) !important;
-  }
-  
-  ion-tab-button.ion-selected ion-icon {
-    color: var(--color-highlight) !important;
-  }
-  
-  ion-tab-button ion-label {
-    color: var(--color-highlight) !important;
-  }
-  
-  ion-tab-button.ion-selected ion-label {
-    color: var(--color-highlight) !important;
-  }
   

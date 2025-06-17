@@ -185,13 +185,21 @@
     // Media query per layout desktop
     @media (min-width: 550px) {
       flex-direction: row;
-      //flex-wrap: wrap;
       justify-content: space-between;
-
-      ion-card {
-        width: calc(50% - 0.6rem); // 2 colonne con gap tra di loro
-      }
+      gap: 0.6rem;
     }
+    @media (min-width: 550px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 900px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr); /* solo su schermi grandi */
+  }
   }
 }
 
