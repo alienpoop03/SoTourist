@@ -162,7 +162,8 @@ export class ProfiloPage {
 
   // Sicurezza
   changePassword() {
-    // Implementa la logica reale o apri una modale
+    this.router.navigate(['/change-password']);
+
   }
   confirmDeleteAccount() {
     // Mostra alert di conferma, poi chiama deleteAccount()
@@ -219,7 +220,7 @@ export class ProfiloPage {
     this.profileImageUrl = base64;
   }
 
-    goToUpgrade() {
+  goToUpgrade() {
     this.router.navigate(['/upgrade']);
   }
 

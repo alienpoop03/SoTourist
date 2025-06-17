@@ -62,5 +62,9 @@ export const routes: Routes = [
   {
     path: 'storico-viaggi',
     loadComponent: () => import('./pages/storico-viaggi/storico-viaggi.page').then(m => m.StoricoViaggiPage)
+  },  {
+    path: 'change-password',
+    loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
   }
+
 ];

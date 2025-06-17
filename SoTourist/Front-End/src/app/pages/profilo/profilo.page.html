@@ -18,23 +18,11 @@
           <ion-badge [class]="getBadgeClass(subscriptionPlan)">
             {{ subscriptionPlan || 'Standard' }}
           </ion-badge>
-          <div class="profile-actions">
-            <ion-button size="small" fill="outline" (click)="editing = !editing">
-              <ion-icon name="create-outline"></ion-icon>
-              Modifica
-            </ion-button>
-          </div>
         </div>
         <div class="user-join" >
           Iscritto dal: <b>{{ registrationDate | date:'mediumDate' }}</b>
         </div>
       </div>
-      <form *ngIf="editing" class="edit-fields">
-        <ion-input label="Username" [(ngModel)]="username" maxlength="20"></ion-input>
-        <ion-input label="Email" [(ngModel)]="email" type="email" maxlength="50"></ion-input>
-        <ion-input label="Password" [(ngModel)]="password" type="password"></ion-input>
-        <ion-button class="boxes-style save-button" expand="block" color="success" (click)="saveProfile()">Salva</ion-button>
-      </form>
     </ion-card>
   
 

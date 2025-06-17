@@ -13,9 +13,9 @@
         <img src="assets/icon/Sotourist_comp2.png" alt="SoTourist Logo" />
       </div>
       <ion-input label="Email" label-placement="floating" fill="outline" [(ngModel)]="email" type="email"
-        maxlength="30"></ion-input>
+        maxlength="30" autocomplete="email"></ion-input>
       <ion-input label="Password" label-placement="floating" fill="outline" [(ngModel)]="password" type="password"
-        autocomplete="new-password"></ion-input>
+        autocomplete="current-password"></ion-input>
 
       <ion-button expand="block" color="success" (click)="saveProfile()"
         [disabled]="!email || !password">Login</ion-button>
