@@ -9,7 +9,7 @@
     <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
   </div>
 
-  <ion-content scrollEvents="true" (ionScroll)="onScroll($event)" (ionScrollEnd)="onScrollEnd($event)" #pageContent
+  <ion-content class="viaggi-content" scrollEvents="true" (ionScroll)="onScroll($event)" (ionScrollEnd)="onScrollEnd($event)" #pageContent
     *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
 
     <!-- HERO ESPANSA -->
@@ -24,16 +24,13 @@
               }}
             </p>
             <p class="hero-accommodation">🏨 {{ getFormattedAccommodation(inCorso) }}</p>
-            <div class="button-row">
-              <ion-button expand="block" class="boxes-style hero-button-main"
-                (click)="openItinerary(inCorso.itineraryId)">
-                Vai all’itinerario
-              </ion-button>
-              <ion-button fill="outline" class="hero-button-del" (click)="deleteTrip(inCorso.itineraryId)">
-                <ion-icon name="trash-outline"></ion-icon>
-              </ion-button>
-            </div>
+          
           </div>
+
+          <ion-button ion-button class="boxes-style hero-buttons" expand="block" (click)="openItinerary(inCorso.itineraryId)">
+            Vai all'itinerario
+          </ion-button>
+
         </div>
       </ng-container>
     </div>

@@ -1,6 +1,5 @@
 .viaggi-content {
   --background: var(--color-background4);
-  padding: 1rem 1rem 6rem;
 }
 
 /* nascondo la scrollbar default */
@@ -30,9 +29,6 @@
   height: 100%;
   padding: 20px;
   color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   text-align: center;
 }
 
@@ -197,13 +193,15 @@
 }
 
 .spacer {
-  height: 135px;
+  height: 56px;
 }
 
 /* FAB */
 .custom-fab {
   width: 100%; // fab espanso
   padding: 0 16px;
+  margin-bottom: 1rem;
+  bottom: 0 !important;
   .fab-wrapper {
     display: flex;
     align-items: center;
@@ -231,4 +229,35 @@
     cursor: pointer;
     padding: 0 20px;
   }
+}
+
+.hero-buttons{
+  --background: var(--color-primary);
+  --color: var(--color-highlight);
+  font-size: 1rem;
+  font-weight: 800;
+  height: 52px;
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  right: 16px;
+  
+
+  // .delete{
+  //   flex-grow: 1;
+  //   height: 56px;
+  //   background-color: var(--color-primary);
+  //   color: white;
+  //   border: none;
+  //   border-radius: 999px;
+  //   font-size: 16px;
+  //   font-weight: 500;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   gap: 8px;
+  //   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  //   cursor: pointer;
+  //   padding: 0 20px;
+  // }
 }
