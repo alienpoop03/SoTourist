@@ -179,12 +179,14 @@ export class SettingsPage {
 
   openAbout() {
     this.showAboutModal = true;
+    this.showAboutModalPrivacy = false;
   }
 
   showAboutModalPrivacy = false;
 
   openPrivacy() {
     this.showAboutModalPrivacy = true;
+    this.showAboutModal = false;
   }
 
   private refreshTrips(): void { 
