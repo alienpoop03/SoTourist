@@ -22,6 +22,8 @@ import { TripWithId } from 'src/app/models/trip.model';
 import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 
+import { getCityName, getAccommodationName } from '../../utils/trip-utils';
+
 @Component({
   selector: 'app-viaggi',
   standalone: true,
@@ -47,7 +49,7 @@ export class ViaggiPage implements AfterViewInit {
     private router: Router,
     private api: ItineraryService,
     private auth: AuthService
-  ) {}
+  ) { }
 
   /* ========== STATO VIAGGI ========== */
   isGuest = false;
@@ -232,4 +234,13 @@ export class ViaggiPage implements AfterViewInit {
   openStorico() {
     this.router.navigate(['/tabs/storico-viaggi']);
   }
+
+  getFormattedCity(trip: TripWithId): string {
+    return getCityName(trip.city);
+  }
+
+  getFormattedAccommodation(trip: TripWithId): string {
+    return getAccommodationName(trip.accommodation);
+  }
+
 }

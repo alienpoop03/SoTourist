@@ -18,6 +18,8 @@ import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 import { TripWithId } from '../../models/trip.model';
 
+import { getCityName } from '../../utils/trip-utils';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -132,4 +134,9 @@ export class HomePage implements OnInit {
   openItinerary(itineraryId: string) {
     this.router.navigate(['/panoramica'], { queryParams: { id: itineraryId } });
   }
+
+  getFormattedCity(trip: TripWithId | null): string {
+    return trip ? getCityName(trip.city) : '';
+  }
+
 }
