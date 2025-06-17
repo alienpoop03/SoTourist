@@ -86,6 +86,12 @@ ion-alert {
   --backdrop-color: rgba(0, 0, 0, 0.4);
 }
 
+
+.modal-title{
+  color: var(--color-text);
+  font-weight: bold;
+}
+
 .premium-button,
 .logout-button {
   margin-top: 1rem;
@@ -118,5 +124,5 @@ ion-modal.about-modal::part(content) {
 }
 
 .Tex-versione{
-  color: var(--color-text);
+  color: var(--color-text2);
 }

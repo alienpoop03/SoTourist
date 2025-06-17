@@ -27,7 +27,7 @@
   font-size: 1.35rem;
   font-weight: bold;
   margin: 0 0 2px 0;
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 .user-email {
@@ -69,13 +69,19 @@ ion-badge {
   --color: #ffffff;
 }
 
+
+.testo{
+   color: var(--color-text2);
+}
+
+//colori fissi anche nella dark mode
 .badge-premium {
-  --background: #7B1E1E; // Giallo senape
-  --color: #FFD700;       // Bordeaux
+  --background: #7B1E1E; 
+  --color: #FFD700;       
 }
 
 .badge-gold {
-  --background: #FFD700; // Oro
+  --background: #FFD700; 
   --color: #7B1E1E;
 }
 
