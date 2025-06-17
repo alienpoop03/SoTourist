@@ -9,6 +9,7 @@ router.post('/login', authController.login);
 // Gestione utente
 router.delete('/users/:userId', authController.deleteUser);
 router.put('/users/:userId', authController.updateUser);
+router.put('/auth/users/:userId/password', authController.updatePassword);
 router.put('/users/:userId/profile-image', authController.updateProfileImage);
 router.get('/users/:userId/profile-image', authController.getProfileImage);
 router.get('/users/:userId/registration-date', authController.getRegistrationDate);

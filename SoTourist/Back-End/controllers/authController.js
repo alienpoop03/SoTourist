@@ -5,55 +5,7 @@ const bcrypt = require('bcryptjs');
 //const DB_PATH = path.join(__dirname, '../db.json');
 const { downgradeIfExpired } = require('../utils/subscriptionChecker');
 const db = require('../db/connection');
-
-/*function readDB() {
-  return JSON.parse(fs.readFileSync(DB_PATH));
-}
-
-function writeDB(data) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}*/
-
-// ✅ REGISTRAZIONE con hash già pronto dal frontend
-
-/*exports.register = async (req, res) => {
-  const { username, email, password, type } = req.body;
-
-  if (!username || !email || !password) {
-    return res.status(400).json({ error: 'Dati mancanti' });
-  }
-
-  // Verifica se l'email è già registrata
-  db.get(`SELECT * FROM users WHERE email = ?`, [email], async (err, existingUser) => {
-    if (err) return res.status(500).json({ error: 'Errore database' });
-    if (existingUser) return res.status(400).json({ error: 'Email già registrata' });
-
-    const bcrypt = require('bcryptjs');
-    const generateId = require('../utils/idGenerator');
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const userId = generateId('user_');
-
-    let subscriptionEndDate = null;
-
-    if (type === 'premium' || type === 'gold') {
-      const now = new Date();
-      const end = new Date();
-      end.setDate(now.getDate() + 30); // esempio: abbonamento di 30 giorni
-      subscriptionEndDate = end.toISOString().split('T')[0];
-    }
-
-    // Inserimento nel database
-    db.run(
-      `INSERT INTO users (userId, username, email, password, type, subscriptionEnd) VALUES (?, ?, ?, ?, ?, ?)`,
-      [userId, username, email, hashedPassword, type || 'standard', subscriptionEndDate],
-      function (err) {
-        if (err) return res.status(500).json({ error: 'Errore nella creazione utente' });
-
-        res.status(201).json({ message: 'Utente registrato con successo' });
-      }
-    );
-  });
-};*/
+const bcrypt = require('bcryptjs');
 
 exports.register = async (req, res) => {
   const { username, email, password, type } = req.body;
@@ -66,7 +18,7 @@ exports.register = async (req, res) => {
     if (err) return res.status(500).json({ error: 'Errore database' });
     if (existingUser) return res.status(400).json({ error: 'Email già registrata' });
 
-    const bcrypt = require('bcryptjs');
+    
     const generateId = require('../utils/idGenerator');
     const hashedPassword = await bcrypt.hash(password, 10);
     const userId = generateId('user_');
@@ -89,6 +41,38 @@ exports.register = async (req, res) => {
         if (err) return res.status(500).json({ error: 'Errore nella creazione utente' });
 
         res.status(201).json({ message: 'Utente registrato con successo' });
+      }
+    );
+  });
+};
+
+//modifica password
+exports.updatePassword = (req, res) => {
+  const { userId } = req.params;
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ error: 'Password attuale e nuova obbligatorie' });
+  }
+
+  db.get(`SELECT password FROM users WHERE userId = ?`, [userId], async (err, user) => {
+    if (err) return res.status(500).json({ error: 'Errore database' });
+    if (!user) return res.status(404).json({ error: 'Utente non trovato' });
+
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) {
+      return res.status(401).json({ error: 'Password attuale errata' });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    db.run(
+      `UPDATE users SET password = ? WHERE userId = ?`,
+      [hashedNewPassword, userId],
+      (err) => {
+        if (err) return res.status(500).json({ error: 'Errore aggiornamento password' });
+
+        res.status(200).json({ message: 'Password aggiornata con successo' });
       }
     );
   });
@@ -156,22 +140,18 @@ exports.deleteUser = (req, res) => {
 // ✏️ Modifica un utente (username, email, password, tipo)
 exports.updateUser = async (req, res) => {
   const { userId } = req.params;
-  const { username, email, password } = req.body;
+  const { username, email } = req.body;
 
-  db.get(`SELECT * FROM users WHERE userId = ?`, [userId], async (err, user) => {
+  db.get(`SELECT * FROM users WHERE userId = ?`, [userId], (err, user) => {
     if (err) return res.status(500).json({ error: 'Errore database' });
     if (!user) return res.status(404).json({ error: 'Utente non trovato' });
 
-    // Prepara i campi da aggiornare
     const updatedUsername = username || user.username;
     const updatedEmail = email || user.email;
-    const updatedPassword = password
-      ? await bcrypt.hash(password, 10)
-      : user.password;
 
     db.run(
-      `UPDATE users SET username = ?, email = ?, password = ? WHERE userId = ?`,
-      [updatedUsername, updatedEmail, updatedPassword, userId],
+      `UPDATE users SET username = ?, email = ? WHERE userId = ?`,
+      [updatedUsername, updatedEmail, userId],
       (err) => {
         if (err) return res.status(500).json({ error: 'Errore aggiornamento utente' });
 
@@ -184,6 +164,7 @@ exports.updateUser = async (req, res) => {
     );
   });
 };
+
 
 // ➕Modifica il tipo di abbonamento
 exports.upgradeToPremium = (req, res) => {

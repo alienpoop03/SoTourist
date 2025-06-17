@@ -68,10 +68,21 @@ export class AuthService {
     );
   }
 
-  updateUser(userId: string, data: { username?: string; email?: string; password?: string }) {
+  //odifica dati
+  updateUser(userId: string, data: { username?: string; email?: string;}) {
     return this.http.put(`${this.baseUrl}/users/${userId}`, data);
   }
 
+  updatePassword(userId: string, currentPassword: string, newPassword: string) {
+    const body = { currentPassword, newPassword };
+    return this.http.put<{ message: string }>(
+      `${this.baseUrl}/users/${userId}/password`,
+      body
+    );
+}
+
+
+  //cancella utente
   deleteUser(userId: string) {
     return this.http.delete(`${this.baseUrl}/users/${userId}`);
   }
