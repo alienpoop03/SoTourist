@@ -46,7 +46,21 @@ export class ChangePasswordPage implements OnInit {
 
 
   saveMail(){
-    // salve mail 
+    this.authService.updateUser(this.userId, {
+      username: this.username,
+      email: this.email
+    }).subscribe({
+      next: (res) => {
+        this.toastService.showSuccess('Dati aggiornati con successo!');
+        this.authService.saveSession(this.userId, {
+          username: this.username,
+          email: this.email
+        });
+      },
+      error: (err) => {
+        this.toastService.showError('Errore durante l\'aggiornamento.');
+      }
+    });
   }
 
   savePassword(){
@@ -63,9 +77,4 @@ export class ChangePasswordPage implements OnInit {
       this.toastService.showWarning('Nuova password e conferma password non coincidono');
     }
   }
-
-
-
-
-
 }
