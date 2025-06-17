@@ -75,7 +75,7 @@ const fetchPlaces = async (
         } */
         return results.slice(0, count).map(p => {
           used.add(p.place_id);
-          
+
           return buildPlaceObj(p, key);
         });
       }
@@ -131,8 +131,11 @@ const fetchPlaceById = async (id, key, used, avoid) => {
 
   const { data } = await axios.get(
     "https://maps.googleapis.com/maps/api/place/details/json",
-    { params: { place_id: id, key, fields: "place_id,name,formatted_address,geometry,photos,rating,price_level,website,opening_hours"
- } }
+    {
+      params: {
+        place_id: id, key, fields: "place_id,name,formatted_address,geometry,photos,rating,price_level,website,opening_hours"
+      }
+    }
   );
 
   const p = data?.result;
@@ -166,29 +169,30 @@ const getItinerary = async (req, res) => {
   const KEY = process.env.GOOGLE_API_KEY;
   let coverPhoto = null;
 
-// 🔍 Cerca una cover smart per la città
-try {
-  const coverResp = await axios.get(
-    'https://maps.googleapis.com/maps/api/place/textsearch/json',
-    {
-      params: {
-        query: `monumenti famosi a ${city}`,
-        key: KEY
+  // 🔍 Cerca una cover smart per la città
+  try {
+    const coverResp = await axios.get(
+      'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      {
+        params: {
+          //   query da cambiare se vogliamo mettere un altro criterio
+          query: `monumenti famosi a ${city}`,
+          key: KEY
+        }
       }
-    }
-  );
+    );
 
-  const first = coverResp.data.results.find(p => p.photos?.[0]);
-  if (first) {
-    const ref = first.photos[0].photo_reference;
-    coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${KEY}`;
-    console.log('✅ Cover generata da monumenti:', coverPhoto);
-  } else {
-    console.warn('⚠️ Nessuna cover trovata con monumenti.');
+    const first = coverResp.data.results.find(p => p.photos?.[0]);
+    if (first) {
+      const ref = first.photos[0].photo_reference;
+      coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${KEY}`;
+      console.log('✅ Cover generata da monumenti:', coverPhoto);
+    } else {
+      console.warn('⚠️ Nessuna cover trovata con monumenti.');
+    }
+  } catch (err) {
+    console.error('❌ Errore richiesta cover smart:', err.message);
   }
-} catch (err) {
-  console.error('❌ Errore richiesta cover smart:', err.message);
-}
 
   /* --- coordinate centro città ------------------------------------ */
   let cityCenter = null;

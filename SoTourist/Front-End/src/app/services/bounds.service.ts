@@ -17,11 +17,15 @@ export class BoundsService {
         const boundsData = JSON.parse(cached);
         const sw = new google.maps.LatLng(boundsData.south, boundsData.west);
         const ne = new google.maps.LatLng(boundsData.north, boundsData.east);
+        console.log(`✅ [BoundsService] Cache trovata per "${cityName}"`, boundsData);
         return new google.maps.LatLngBounds(sw, ne);
       } catch (e) {
+        console.warn(`⚠️ [BoundsService] Cache corrotta per "${cityName}", la rimuovo`);
         localStorage.removeItem(cacheKey);
       }
     }
+
+    console.log(`🔄 [BoundsService] Nessuna cache per "${cityName}", faccio richiesta a Google`);
 
     return new Promise((resolve) => {
       this.autocomplete.getPlacePredictions(
@@ -42,16 +46,20 @@ export class BoundsService {
                   west: bounds.getSouthWest().lng()
                 };
                 localStorage.setItem(cacheKey, JSON.stringify(boundsJson));
+                console.log(`✅ [BoundsService] Bounds salvati in cache per "${cityName}"`, boundsJson);
                 resolve(bounds);
               } else {
+                console.warn(`❌ [BoundsService] Errore nei dettagli di "${cityName}"`, status);
                 resolve(null);
               }
             });
           } else {
+            console.warn(`❌ [BoundsService] Nessuna predizione per "${cityName}"`, status);
             resolve(null);
           }
         }
       );
     });
   }
+
 }
