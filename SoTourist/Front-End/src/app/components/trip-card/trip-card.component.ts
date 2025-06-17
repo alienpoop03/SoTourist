@@ -8,6 +8,7 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 import { TripWithId } from 'src/app/models/trip.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,6 @@ import { TripWithId } from 'src/app/models/trip.model';
   imports: [
     CommonModule,
     IonCard,
-    
     IonButton,
     IonIcon
   ],
@@ -35,8 +35,16 @@ export class TripCardComponent {
    event.stopPropagation();
   }
 
+  constructor(
+    private router: Router
+  ) {}
+
   onClick() {
-    this.open.emit(this.trip.itineraryId);
+
+        this.router.navigate(['/tabs/panoramica'], {
+          queryParams: { id: this.trip.itineraryId }
+        });
+      
   }
 
   getCityName(): string {

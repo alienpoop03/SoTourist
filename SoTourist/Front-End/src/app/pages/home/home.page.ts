@@ -142,6 +142,6 @@ export class HomePage implements OnInit {
   }
 
   openItinerary(itineraryId: string) {
-    this.router.navigate(['/itinerario'], { queryParams: { id: itineraryId } });
+    this.router.navigate(['/panoramica'], { queryParams: { id: itineraryId } });
   }
 }

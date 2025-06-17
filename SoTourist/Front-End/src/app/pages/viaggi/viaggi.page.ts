@@ -221,7 +221,7 @@ export class ViaggiPage implements AfterViewInit {
   }
 
   openItinerary(id: string) {
-    this.router.navigate(['/tabs/itinerario'], { queryParams: { id } });
+    this.router.navigate(['/tabs/panoramica'], { queryParams: { id } });
   }
 
   goToCreate() {

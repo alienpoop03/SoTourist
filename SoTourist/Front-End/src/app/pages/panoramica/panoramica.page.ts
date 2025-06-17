@@ -6,7 +6,7 @@ import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 import { PhotoService } from '../../services/photo.service';
 import { FormsModule } from '@angular/forms';
-import { NavigationBarComponent } from 'src/app/components/navigation-bar/navigation-bar.component';
+import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 
 @Component({
   selector: 'app-panoramica',
@@ -43,15 +43,15 @@ export class PanoramicaPage {
     private photoService: PhotoService
   ) { }
 
- ngOnInit(): void {
-  this.route.queryParams.subscribe(params => {
-    const id = params['id'];
-    if (!id) return;
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const id = params['id'];
+      if (!id) return;
 
-    this.itineraryId = id;
-    this.loadItinerary(); // 🔁 ricarica ogni volta che l'id cambia
-  });
-}
+      this.itineraryId = id;
+      this.loadItinerary(); // 🔁 ricarica ogni volta che l'id cambia
+    });
+  }
 
 
   loadItinerary() {
@@ -107,16 +107,14 @@ export class PanoramicaPage {
   }
 
   vaiAPersonalizzazione() {
-  this.router.navigate(['/personalizzazione'], {
-    queryParams: {
-      id: this.trip.itineraryId,
-      north: this.route.snapshot.queryParamMap.get('north'),
-      south: this.route.snapshot.queryParamMap.get('south'),
-      east: this.route.snapshot.queryParamMap.get('east'),
-      west: this.route.snapshot.queryParamMap.get('west')
-    }
-  });
-}
-
-
+    this.router.navigate(['/personalizzazione'], {
+      queryParams: {
+        id: this.trip.itineraryId,
+        north: this.route.snapshot.queryParamMap.get('north'),
+        south: this.route.snapshot.queryParamMap.get('south'),
+        east: this.route.snapshot.queryParamMap.get('east'),
+        west: this.route.snapshot.queryParamMap.get('west')
+      }
+    });
+  }
 }
