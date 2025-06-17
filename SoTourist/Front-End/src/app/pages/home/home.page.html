@@ -16,10 +16,7 @@
         Scopri, pianifica e vivi esperienze uniche con SoTourist
       </p>
 
-      <ion-button
-        class="boxes-style cta-button"
-        expand="block"
-        (click)="openCreate()">
+      <ion-button class="boxes-style cta-button" expand="block" (click)="openCreate()">
         Crea il tuo viaggio
       </ion-button>
     </div>
@@ -31,14 +28,13 @@
       {{ currentTrip ? 'Viaggio in corso' : 'Il tuo prossimo viaggio' }}
     </h2>
 
-    <ion-card
-      class="boxes-style next-card"
-      (click)="openItinerary((currentTrip || nextTrip)!.itineraryId)">
+    <ion-card class="boxes-style next-card" (click)="openItinerary((currentTrip || nextTrip)!.itineraryId)">
       <img [src]="(currentTrip || nextTrip)!.coverPhoto" alt="Cover" />
       <ion-card-header>
         <ion-card-title>{{ (currentTrip || nextTrip)!.city }}</ion-card-title>
         <ion-card-subtitle>
-          {{ (currentTrip || nextTrip)!.startDate | date:'d MMM' }} – {{ (currentTrip || nextTrip)!.endDate | date:'d MMM y' }}
+          {{ (currentTrip || nextTrip)!.startDate | date:'d MMM' }} – {{ (currentTrip || nextTrip)!.endDate | date:'d
+          MMM y' }}
         </ion-card-subtitle>
       </ion-card-header>
     </ion-card>
@@ -52,10 +48,7 @@
     </div>
 
     <div class="trending-scroll">
-      <div
-        class="boxes-style card"
-        *ngFor="let city of trending"
-        (click)="openCreate(city)">
+      <div class="boxes-style card" *ngFor="let city of trending" (click)="openCreate(city)">
         <img [src]="'assets/images/' + city + '.jpeg'" [alt]="city" />
         <div class="card-overlay">
           <span class="city">{{ city }}</span>
@@ -69,15 +62,12 @@
     <h2 class="section-title">Itinerari consigliati</h2>
 
     <div class="featured-list">
-      <ion-card
-        class="boxes-style"
-        *ngFor="let itin of featuredItineraries"
-        (click)="openItinerary(itin.itineraryId)">
+      <ion-card class="boxes-style" *ngFor="let itin of featuredItineraries" (click)="openItinerary(itin.itineraryId)">
         <img [src]="itin.coverPhoto" alt="Cover" />
         <ion-card-header>
           <ion-card-title>{{ itin.city }}</ion-card-title>
           <ion-card-subtitle>
-            {{ itin.days }} giorni · {{ itin.style }}
+            {{ getTripDays(itin) }} giorni · {{ itin.style }}
           </ion-card-subtitle>
         </ion-card-header>
       </ion-card>
@@ -85,7 +75,7 @@
   </section>
 
   <!-- Citazione ----------------------------------------------------------->
- <!-- <section class="quote">
+  <!-- <section class="quote">
     <p class="quote-text">
       "The world is a book, and those who do not travel read only one page."
     </p>
