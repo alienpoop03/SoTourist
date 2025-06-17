@@ -19,11 +19,11 @@
         <div class="hero-overlay">
           <div class="hero-info">
             <h2 class="trip-type">Viaggio in corso</h2>
-            <h1 class="hero-title">{{ inCorso.city }}</h1>
+            <h1 class="hero-title">{{ getFormattedCity(inCorso) }}</h1>
             <p class="hero-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy'
               }}
             </p>
-            <p class="hero-accommodation">🏨 {{ inCorso.accommodation || '—' }}</p>
+            <p class="hero-accommodation">🏨 {{ getFormattedAccommodation(inCorso) }}</p>
             <div class="button-row">
               <ion-button expand="block" class="boxes-style hero-button-main"
                 (click)="openItinerary(inCorso.itineraryId)">
@@ -43,7 +43,7 @@
       <ng-container *ngIf="inCorso">
         <img [src]="inCorso.coverPhoto" class="compact-bg" alt="cover">
         <div class="compact-overlay">
-          <h2 class="compact-title">{{ inCorso.city }}</h2>
+          <h2 class="compact-title">{{ getFormattedCity(inCorso) }}</h2>
           <p class="compact-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy'
             }}
           </p>

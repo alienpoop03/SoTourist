@@ -43,16 +43,10 @@ const buildPlaceObj = (place, key) => ({
 
 /* --- text-search helper (supporta min & max radius) ---------------- */
 const fetchPlaces = async (
-  query,
-  city,
-  key,
-  used = new Set(),
-  avoid = new Set(),
-  count = 1,
-  setCover = () => { },
-  anchor = null,
-  initialRadius = null
+  query, city, key, used = new Set(), avoid = new Set(), count = 1,
+  anchor = null, initialRadius = null
 ) => {
+
   const baseParams = { query: `${query} in ${city}`, key };
   const doTextSearch = params =>
     axios.get("https://maps.googleapis.com/maps/api/place/textsearch/json", { params });
@@ -81,11 +75,7 @@ const fetchPlaces = async (
         } */
         return results.slice(0, count).map(p => {
           used.add(p.place_id);
-          if (p.photos?.[0]?.photo_reference) {
-            setCover(
-              `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${p.photos[0].photo_reference}&key=${key}`
-            );
-          }
+
           return buildPlaceObj(p, key);
         });
       }
@@ -135,30 +125,23 @@ const fetchPlaces = async (
 };
 
 
-const fetchPlaceById = async (
-  id,
-  key,
-  used,
-  avoid,
-  setCover = () => { }
-) => {
+const fetchPlaceById = async (id, key, used, avoid) => {
+
   if (avoid.has(id) || used.has(id)) return null;
 
   const { data } = await axios.get(
     "https://maps.googleapis.com/maps/api/place/details/json",
-    { params: { place_id: id, key, fields: "place_id,name,formatted_address,geometry,photos,rating,price_level,website,opening_hours"
- } }
+    {
+      params: {
+        place_id: id, key, fields: "place_id,name,formatted_address,geometry,photos,rating,price_level,website,opening_hours"
+      }
+    }
   );
 
   const p = data?.result;
   if (!p?.geometry?.location) return null;
 
   used.add(id);
-
-  if (p.photos?.[0]?.photo_reference)
-    setCover(
-      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${p.photos[0].photo_reference}&key=${key}`
-    );
 
   return buildPlaceObj(p, key);
 };
@@ -185,7 +168,31 @@ const getItinerary = async (req, res) => {
 
   const KEY = process.env.GOOGLE_API_KEY;
   let coverPhoto = null;
-  const setCover = (u) => { if (!coverPhoto) coverPhoto = u; };
+
+  // 🔍 Cerca una cover smart per la città
+  try {
+    const coverResp = await axios.get(
+      'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      {
+        params: {
+          //   query da cambiare se vogliamo mettere un altro criterio
+          query: `monumenti famosi a ${city}`,
+          key: KEY
+        }
+      }
+    );
+
+    const first = coverResp.data.results.find(p => p.photos?.[0]);
+    if (first) {
+      const ref = first.photos[0].photo_reference;
+      coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${KEY}`;
+      console.log('✅ Cover generata da monumenti:', coverPhoto);
+    } else {
+      console.warn('⚠️ Nessuna cover trovata con monumenti.');
+    }
+  } catch (err) {
+    console.error('❌ Errore richiesta cover smart:', err.message);
+  }
 
   /* --- coordinate centro città ------------------------------------ */
   let cityCenter = null;
@@ -304,7 +311,7 @@ const getItinerary = async (req, res) => {
   let accPlace = null;
   if (accommodation) {
     const [acc] = await fetchPlaces(
-      accommodation, city, KEY, used, avoidSet, 1, setCover,
+      accommodation, city, KEY, used, avoidSet, 1,
       cityCenter, WITHIN_SLOT
     );
     if (acc) accPlace = { ...acc, name: "Torna all’alloggio", type: "accommodation" };
@@ -361,13 +368,13 @@ const getItinerary = async (req, res) => {
         if (def.type === "see") {
           while (mustSee.length && customPlaces.length < def.c) {
             const placeId = mustSee.shift();
-            const place = await fetchPlaceById(placeId, KEY, used, avoidSet, setCover);
+            const place = await fetchPlaceById(placeId, KEY, used, avoidSet);
             if (place) customPlaces.push(place);
           }
         } else if (def.type === "eat") {
           while (mustEat.length && customPlaces.length < def.c) {
             const placeId = mustEat.shift();
-            const place = await fetchPlaceById(placeId, KEY, used, avoidSet, setCover);
+            const place = await fetchPlaceById(placeId, KEY, used, avoidSet);
             if (place) customPlaces.push(place);
           }
         }
@@ -375,7 +382,7 @@ const getItinerary = async (req, res) => {
         if (customPlaces.length < def.c) {
           const remaining = def.c - customPlaces.length;
           const places = await fetchPlaces(
-            def.q, city, KEY, used, avoidSet, remaining, setCover,
+            def.q, city, KEY, used, avoidSet, remaining,
             anchor, maxR, minR
           );
           customPlaces.push(...places);

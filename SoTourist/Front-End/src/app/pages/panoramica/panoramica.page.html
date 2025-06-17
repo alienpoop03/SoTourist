@@ -6,7 +6,7 @@
   <div #hero class="hero" [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
                     'height.px': heroHeight }">
     <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
-      <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ trip?.city }}</h1>
+      <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ getFormattedCity() }}</h1>
 
       <div class="hero-info">
         <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate">
@@ -15,7 +15,7 @@
           </p>
         </div>
         <div class="hero-right" *ngIf="trip?.accommodation">
-          <p class="accommodation">{{ trip.accommodation }}</p>
+          <p class="accommodation">🏨 {{ getFormattedAccommodation() }}</p>
         </div>
       </div>
 
