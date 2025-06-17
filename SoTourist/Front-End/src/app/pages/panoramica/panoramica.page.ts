@@ -8,6 +8,8 @@ import { PhotoService } from '../../services/photo.service';
 import { FormsModule } from '@angular/forms';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 
+import { getCityName, getAccommodationName } from '../../utils/trip-utils';
+
 @Component({
   selector: 'app-panoramica',
   standalone: true,
@@ -117,4 +119,13 @@ export class PanoramicaPage {
       }
     });
   }
+
+  getFormattedCity(): string {
+    return getCityName(this.trip?.city || '');
+  }
+
+  getFormattedAccommodation(): string {
+    return getAccommodationName(this.trip?.accommodation || '');
+  }
+
 }
