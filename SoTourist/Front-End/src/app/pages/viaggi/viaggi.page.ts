@@ -101,7 +101,8 @@ export class ViaggiPage implements AfterViewInit {
 
   ionViewDidEnter(): void {
     /* già fatto in ngAfterViewInit, ma se torni alla page ricarico */
-    if (!this.loaded) this.refreshTrips();
+    //if (!this.loaded) 
+    this.refreshTrips();
   }
 
   /* ========== SCROLL ================ */
