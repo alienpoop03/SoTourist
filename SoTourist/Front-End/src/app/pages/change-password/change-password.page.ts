@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonInput, IonButton, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
-
+import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-change-password',
@@ -14,12 +15,12 @@ import { NavigationBarComponent } from '../../components/navigation-bar/navigati
 })
 export class ChangePasswordPage implements OnInit {
 
-  constructor() { }
+  constructor( private authService: AuthService, private toastService: ToastService) { }
 
-  email: string = '';
-  password: string = '';
   userId: string = '';
+  email: string = '';
   username: string = '';
+  password: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
 
@@ -49,7 +50,18 @@ export class ChangePasswordPage implements OnInit {
   }
 
   savePassword(){
-    //salva
+    if(this.newPassword != '' && this.newPassword == this.confirmPassword){
+      this.authService.updatePassword(this.userId, this.password, this.newPassword).subscribe({
+        next: (res) => {
+          this.toastService.showSuccess("Password cambiata con successo");
+        },
+        error: (err) => {
+          this.toastService.showError("Password errata");
+        }
+      });
+    }else{
+      this.toastService.showWarning('Nuova password e conferma password non coincidono');
+    }
   }
 
 
