@@ -5,11 +5,11 @@ const bcrypt = require('bcryptjs');
 //const DB_PATH = path.join(__dirname, '../db.json');
 const { downgradeIfExpired } = require('../utils/subscriptionChecker');
 const db = require('../db/connection');
-const bcrypt = require('bcryptjs');
+
 
 exports.register = async (req, res) => {
   const { username, email, password, type } = req.body;
-
+  const bcrypt = require('bcryptjs');
   if (!username || !email || !password) {
     return res.status(400).json({ error: 'Dati mancanti' });
   }
@@ -47,7 +47,7 @@ exports.register = async (req, res) => {
 };
 
 //modifica password
-exports.updatePassword = (req, res) => {
+exports.updatePassword = async (req, res) => {
   const { userId } = req.params;
   const { currentPassword, newPassword } = req.body;
 
