@@ -44,58 +44,42 @@ export class HomePage implements OnInit {
   currentTrip: TripWithId | null = null;  // viaggio in corso
   nextTrip: TripWithId | null = null;     // viaggio imminente (solo se non in corso)
 
+
+
   /* ---------- itinerari consigliati (mock) ---------- */
-  featuredItineraries = [
-    {
-      itineraryId: 'rome_culture',
-      city: 'Roma',
-      startDate: '2025-05-10',
-      endDate: '2025-05-12',
-      days: 4,
-      style: 'culturale',
-      coverPhoto: 'assets/images/Roma.jpeg',
-      accommodation: '',
-      places: [],
-    },
-    {
-      itineraryId: 'paris_art',
-      city: 'Parigi',
-      startDate: '2025-06-01',
-      endDate: '2025-06-04',
-      days: 2,
-      style: 'artistico',
-      coverPhoto: 'assets/images/Parigi.jpeg',
-      accommodation: '',
-      places: [],
-    },
-    {
-      itineraryId: 'tokyo_modern',
-      city: 'Tokyo',
-      startDate: '2025-09-15',
-      endDate: '2025-09-19',
-      days: 3,
-      style: 'urban',
-      coverPhoto: 'assets/images/Tokyo.jpeg',
-      accommodation: '',
-      places: [],
-    },
-  ];
+  featuredItineraries: TripWithId[] = [];
+  readonly OFFICIAL_USER_ID = 'user_17501521583088137'; // <- usa l'ID corretto
+
 
   constructor(
     private router: Router,
     private itineraryService: ItineraryService,
     private authService: AuthService,
     private navCtrl: NavController
-  ) {}
+  ) { }
+
+
 
   /* ---------- lifecycle ---------- */
   ngOnInit(): void {
     this.refreshTrips();
+
+    this.itineraryService.getUserItineraries(this.OFFICIAL_USER_ID, 'all')
+      .subscribe(itinerari => {
+        this.featuredItineraries = itinerari;
+      });
   }
 
   ionViewWillEnter(): void {
     this.refreshTrips();   // aggiorna quando torni alla Home
   }
+
+  getTripDays(trip: TripWithId): number {
+    const start = new Date(trip.startDate);
+    const end = new Date(trip.endDate);
+    return Math.ceil((end.getTime() - start.getTime()) / 86_400_000) + 1;
+  }
+
 
   /* ---------- fetch viaggi ---------- */
   private refreshTrips(): void {
@@ -129,12 +113,12 @@ export class HomePage implements OnInit {
   }*/
 
   openCreate(city?: string) {
-    if(city){
+    if (city) {
       this.navCtrl.navigateForward(`/crea?city=${encodeURIComponent(city)}`);
-    }else{
+    } else {
       this.router.navigate(['/crea']);
     }
-    
+
   }
 
   openAll() {
