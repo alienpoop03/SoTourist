@@ -74,6 +74,10 @@ export class HomePage implements OnInit {
     this.refreshTrips();   // aggiorna quando torni alla Home
   }
 
+  ionViewDidEnter(): void {
+    this.refreshTrips();
+  }
+
   getTripDays(trip: TripWithId): number {
     const start = new Date(trip.startDate);
     const end = new Date(trip.endDate);
