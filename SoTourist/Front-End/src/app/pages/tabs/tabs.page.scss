@@ -68,4 +68,7 @@ ion-tab-button.ion-selected ion-label {
   color: var(--color-highlight) !important; 
 }*/
   
-  
+
+ion-tab-button .airplane-icon {
+  transform: rotate(-30deg);
+}
