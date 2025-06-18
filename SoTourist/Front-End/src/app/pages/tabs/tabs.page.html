@@ -4,19 +4,19 @@
 
     
 
-    <ion-tab-button tab="home" href="/tabs/home" [class.ion-selected]="selectedTab === 'home'">
-      <div class="tab-pill" *ngIf="selectedTab === 'home'"></div>
+    <ion-tab-button tab="home" href="/tabs/home" [class.ion-selected]="selectedTab === 'home'" class="tab-with-tooltip" data-label="Home">
+      <div class="tab-pill" *ngIf="selectedTab === 'home'" ></div>
       <ion-icon [name]="selectedTab === 'home' ? 'home' : 'home-outline'"></ion-icon>
       <!--<ion-label>Home</ion-label>-->
     </ion-tab-button>
 
-    <ion-tab-button tab="viaggi" href="/tabs/viaggi" [class.ion-selected]="selectedTab === 'viaggi'">
+    <ion-tab-button tab="viaggi" href="/tabs/viaggi" [class.ion-selected]="selectedTab === 'viaggi'" class="tab-with-tooltip" data-label="Viaggi">
       <div class="tab-pill" *ngIf="selectedTab === 'viaggi'"></div>
       <ion-icon [name]="selectedTab === 'viaggi' ? 'airplane' : 'airplane-outline'" class="airplane-icon"></ion-icon>
       <!--<ion-label>Viaggi</ion-label>-->
     </ion-tab-button>
 
-    <ion-tab-button tab="settings" href="/tabs/settings" [class.ion-selected]="selectedTab === 'settings'">
+    <ion-tab-button tab="settings" href="/tabs/settings" class="tab-with-tooltip" [class.ion-selected]="selectedTab === 'settings'" data-label="Settings">
       <div class="tab-pill" *ngIf="selectedTab === 'settings'"></div>
       <ion-icon [name]="selectedTab === 'settings' ? 'settings' : 'settings-outline'"></ion-icon>
       <!--<ion-label>Settings</ion-label>-->

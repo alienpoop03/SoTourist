@@ -72,3 +72,47 @@ ion-tab-button.ion-selected ion-label {
 ion-tab-button .airplane-icon {
   transform: rotate(-30deg);
 }
+
+
+
+//sritte
+.tab-with-tooltip {
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab-with-tooltip::after {
+    content: attr(data-label);
+    position: absolute;
+    top: 50%;
+    margin-top: 6px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    color:  var(--tabs-icon);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+}
+
+.tab-with-tooltip:hover::after {
+  opacity: 1;
+  animation: tooltip-delay 1.2s ease forwards;
+}
+
+@keyframes tooltip-delay {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
