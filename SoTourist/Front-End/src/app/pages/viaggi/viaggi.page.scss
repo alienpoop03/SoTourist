@@ -165,34 +165,42 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
 }
 
 .welcome-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+  height: 85vh; 
+
+  padding: 2rem;
   text-align: center;
-  margin: 0 3rem 0;
-  padding: 0 1.5rem;
-  border-radius: 26px;
-  // border: 1px solid var(--color-highlight);  // Per testare centratura
-  
-  // CENTRATURA BOX
-  position: absolute;
-  top: calc(50%);
-  transform: translateY(-50%);
+
+  img.logo {
+    width: 250px;
+    max-width: 50vw; 
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--color-text2);
+    font-size: 1rem;
+    max-width: 90%;
+  }
 }
 
-.welcome-section h1 {
-  color: var(--color-primary);
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin: 0 0 1rem;
-}
-
-.welcome-section p {
-  color: var(--color-text2);
-  font-size: 1rem;
-  line-height: 1.4;
-  margin: 0 0 1rem;
-}
-
-.welcome-section img {
-  margin: 0;
+.button-crea-indicazione{
+  vertical-align: middle;
+  margin: 0 0.1rem;
+  font-size: 1.2em;
+  background: var(--color-primary);
+  border-radius: 999px;
+  padding: 2px;
 }
 
 .spacer{

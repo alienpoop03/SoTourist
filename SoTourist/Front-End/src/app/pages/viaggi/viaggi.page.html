@@ -6,7 +6,7 @@
   <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
-    <p>Premi il tasto <strong>Crea</strong> in basso per iniziare un nuovo viaggio!</p>
+    <p>Premi il tasto <ion-icon class= "button-crea-indicazione" name="add-outline"></ion-icon> in basso per iniziare un nuovo viaggio!</p>
   </div>
 
   <ion-content class="viaggi-content" scrollEvents="true" (ionScroll)="onScroll($event)" (ionScrollEnd)="onScrollEnd($event)" #pageContent
