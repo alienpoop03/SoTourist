@@ -36,7 +36,7 @@
 
       <ion-item>
         <ion-label class="testo">Piano: <b>{{ subscriptionPlan || 'Standard' }}</b></ion-label>
-        <ion-label class="testo" slot="end">Scadenza: <b>{{ subscriptionExpiry | date:'mediumDate' }}</b></ion-label>
+        <ion-label *ngIf="subscriptionPlan != 'Standard'" class="testo" slot="end">Scadenza: <b>{{ subscriptionExpiry | date:'mediumDate' }}</b></ion-label>
       </ion-item>
 
       <ion-item button detail (click)="goToUpgrade()">
