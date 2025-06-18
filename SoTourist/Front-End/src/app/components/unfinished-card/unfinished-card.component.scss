@@ -91,8 +91,8 @@
   }
 }
 
-.trip-card {
-  border-radius: 12px;
+.boxes-style{
+  border-radius: 26px;
   overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); // opzionale per eleganza
   background: var(--color-background);
@@ -101,6 +101,7 @@
   &:hover {
     transform: translateY(-2px);
   }
+  
   //se in conflitto
   &.conflict {
     background: #ff0000; // rosso chiaro (puoi usare #ffcccc o simile)
