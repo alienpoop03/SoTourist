@@ -80,10 +80,8 @@ const fetchPlaces = async (
       });
 
       if (results.length) {
-        return results.slice(0, count).map(p => {
-          used.add(p.place_id);
-          return buildPlaceObj(p, key);
-        });
+        return results.slice(0, count); // restituisce i luoghi originali di Google
+
       }
     }
   } catch (e) {
@@ -149,13 +147,17 @@ const generateNextPlace = async ({
 
   // 2️⃣ Altrimenti, cerca normalmente
   if (!nextPlace) {
-    const [generated] = await fetchPlaces(
-      def.q, city, key, used, avoidSet, 1, anchor, null, minR, maxR
-    );
+  const [generated] = await fetchPlaces(
+    def.q, city, key, used, avoidSet, 1, anchor, null, minR, maxR
+  );
 
-
+  if (generated?.place_id) {
+  nextPlace = await fetchPlaceById(generated.place_id, key, used, avoidSet);
+} else {
     nextPlace = generated || null;
   }
+}
+
 
   return nextPlace;
 };
@@ -358,6 +360,8 @@ const getItinerary = async (req, res) => {
 
           if (slot === "morning" && def.q.includes("colazione")) {
             maxR = WITHIN_SLOT;
+            def.type = "see"; // forza a non usarli, evita `generateNextPlace` di pescarli
+
           } else if (
             slot === "morning" &&
             transport === "bus" &&
@@ -389,7 +393,7 @@ const getItinerary = async (req, res) => {
             anchor,
             minR,
             maxR,
-            mustSee,
+            mustSee: [],
             mustEat
           });
 
@@ -421,7 +425,63 @@ const getItinerary = async (req, res) => {
 
     itinerary.push(plan);
   }
+// 🚨 Inserisci i mustSee ciclicamente nei giorni, negli slot con minore distanza
+let mustSeeIndex = 0;
+const totalMustSee = mustSee.length;
 
+while (mustSeeIndex < totalMustSee) {
+  for (let i = 0; i < itinerary.length && mustSeeIndex < totalMustSee; i++) {
+    const plan = itinerary[i];
+
+    // Calcola la distanza media tra le tappe di ciascuno slot
+    const distances = {};
+    for (const slot of ["morning", "afternoon", "evening"]) {
+      const places = plan[slot];
+      let totalDist = 0;
+      for (let j = 1; j < places.length; j++) {
+        const dist = haversine(
+          { lat: places[j - 1].latitude, lng: places[j - 1].longitude },
+          { lat: places[j].latitude, lng: places[j].longitude }
+        );
+        totalDist += dist;
+      }
+      distances[slot] = totalDist / Math.max(places.length - 1, 1); // media
+    }
+
+    // Ordina gli slot per distanza crescente e cerca un punto dove inserirlo
+    const sortedSlots = Object.entries(distances)
+  .filter(([slot]) => {
+    // esclude gli slot dove tutti i luoghi sono di tipo "eat"
+    const allEat = plan[slot].length > 0 && plan[slot].every(p => p.type === "eat");
+    return !allEat;
+  })
+  .sort((a, b) => a[1] - b[1])
+  .map(([slot]) => slot);
+
+
+    let inserted = false;
+    const id = mustSee[mustSeeIndex];
+
+    for (const slot of sortedSlots) {
+      const p = await fetchPlaceById(id, KEY, used, avoidSet);
+      if (!p) continue;
+
+      // Inserisci a metà dello slot (non all’inizio)
+      const pos = Math.floor(plan[slot].length / 2);
+      plan[slot].splice(pos, 0, p);
+      plan.ordered = [...plan.morning, ...plan.afternoon, ...plan.evening];
+      mustSeeIndex++;
+      inserted = true;
+      break;
+    }
+
+if (!inserted) {
+  console.warn(`⚠️ mustSee "${id}" non inserito in alcuno slot valido. Skippato.`);
+  mustSeeIndex++; // forza l'avanzamento
+  break;
+}
+  }
+}
 
 
 
