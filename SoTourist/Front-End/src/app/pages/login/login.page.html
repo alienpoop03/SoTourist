@@ -14,7 +14,7 @@
       </div>
       <ion-input label="Email" label-placement="floating" fill="outline" [(ngModel)]="email" type="email"
         maxlength="30" autocomplete="email"></ion-input>
-      <ion-input label="Password" label-placement="floating" fill="outline" [(ngModel)]="password" type="password"
+      <ion-input [disabled]="!email" label="Password" label-placement="floating" fill="outline" [(ngModel)]="password" type="password"
         autocomplete="current-password"></ion-input>
 
       <ion-button expand="block" color="success" (click)="saveProfile()"
