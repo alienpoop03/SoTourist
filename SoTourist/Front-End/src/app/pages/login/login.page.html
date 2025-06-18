@@ -12,10 +12,10 @@
       <div class="logo-img">
         <img src="assets/icon/Sotourist_comp2.png" alt="SoTourist Logo" />
       </div>
-      <ion-input label="Email" label-placement="floating" fill="outline" [(ngModel)]="email" type="email"
-        maxlength="30" autocomplete="email"></ion-input>
-      <ion-input [disabled]="!email" label="Password" label-placement="floating" fill="outline" [(ngModel)]="password" type="password"
-        autocomplete="current-password"></ion-input>
+      <ion-input #emailInput label="Email" label-placement="floating" fill="outline" [(ngModel)]="email" type="email"
+        maxlength="30" autocomplete="email" (keydown.enter)="focusPassword()"></ion-input>
+      <ion-input #passwordInput [disabled]="!email" label="Password" label-placement="floating" fill="outline" [(ngModel)]="password" type="password"
+        autocomplete="current-password" (keydown.enter)="triggerLogin()"></ion-input>
 
       <ion-button expand="block" color="success" (click)="saveProfile()"
         [disabled]="!email || !password">Login</ion-button>
