@@ -159,77 +159,52 @@ export class MapPage implements AfterViewInit {
     zoom: 13,
     disableDefaultUI: true,
     styles: [
-  // Rimuove etichette di amministrazioni
+  // Nasconde tutti i POI (come ristoranti, hotel, musei, ecc.)
   {
-    featureType: 'administrative',
-    elementType: 'labels',
-    stylers: [{ visibility: 'off' }]
-  },
-  // Mantiene POI turistici visibili
-  {
-    featureType: 'poi.attraction',
-    elementType: 'all',
-    stylers: [{ visibility: 'on' }]
-  },
-  {
-    featureType: 'poi.place_of_worship',
-    elementType: 'all',
-    stylers: [{ visibility: 'on' }]
-  },
-  {
-    featureType: 'poi.museum',
-    elementType: 'all',
-    stylers: [{ visibility: 'on' }]
-  },
-  {
-    featureType: 'poi.school',
+    featureType: 'poi',
     elementType: 'all',
     stylers: [{ visibility: 'off' }]
   },
-  {
-    featureType: 'poi.business',
-    elementType: 'all',
-    stylers: [{ visibility: 'off' }]
-  },
-  // Nasconde etichette strade minori
+  // Nasconde le etichette delle strade locali
   {
     featureType: 'road.local',
     elementType: 'labels',
     stylers: [{ visibility: 'off' }]
   },
-  // Mantiene visibili le strade principali
+  // Nasconde le etichette delle strade principali
   {
     featureType: 'road.arterial',
-    elementType: 'geometry',
-    stylers: [{ visibility: 'on' }]
-  },
-  {
-    featureType: 'road.arterial',
-    elementType: 'labels',
-    stylers: [{ visibility: 'on' }]
-  },
-  // Disattiva etichette di transito
-  {
-    featureType: 'transit',
     elementType: 'labels',
     stylers: [{ visibility: 'off' }]
   },
-  // Aspetto più desaturato e pulito
+  // Nasconde le etichette delle autostrade
   {
-    featureType: 'all',
-    elementType: 'geometry',
-    stylers: [
-      { saturation: -20 },
-      { lightness: 10 }
-    ]
+    featureType: 'road.highway',
+    elementType: 'labels',
+    stylers: [{ visibility: 'off' }]
   }
 ]
+
+
 
 
   });
 
 this.renderMarkers().then(); // va benissimo
 }
+openInGoogleMaps() {
+  const place = this.detail;
+  if (!place?.latitude || !place?.longitude) return;
+
+  const lat = place.latitude;
+  const lng = place.longitude;
+
+  const query = encodeURIComponent(`${place.name} @${lat},${lng}`);
+  const url = `https://www.google.com/maps/search/?api=1&query=${query}`;
+
+  window.open(url, '_blank');
+}
+
 
 
 private async renderMarkers() {

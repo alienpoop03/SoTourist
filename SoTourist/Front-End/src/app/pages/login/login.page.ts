@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {  IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
@@ -111,22 +111,6 @@ export class LoginPage implements OnInit {
 
 
   ngOnInit() {
-  }
-
-  @ViewChild('passwordInput', { static: false }) passwordInputRef!: IonInput;
-
-  focusPassword() {
-    if (this.passwordInputRef) {
-      this.passwordInputRef.getInputElement().then(input => input?.focus());
-    } else {
-      console.warn('passwordInputRef non trovato!');
-    }
-  }
-
-  triggerLogin() {
-    if (this.email && this.password) {
-      this.saveProfile();
-    }
   }
 
 }
