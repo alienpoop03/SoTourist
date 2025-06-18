@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 
 import { getCityName, getAccommodationName } from '../../utils/trip-utils';
+import { getPhotoUrl } from 'src/app/utils/photo-utils';
 
 @Component({
   selector: 'app-panoramica',
@@ -62,11 +63,8 @@ export class PanoramicaPage {
         this.trip = res;
         this.daysCount = this.calculateDays(res.startDate, res.endDate);
 
-        if (res.coverPhoto && res.coverPhoto.length > 0) {
-          this.heroPhotoUrl = res.coverPhoto;
-        } else {
-          this.heroPhotoUrl = 'assets/images/PaletoBay.jpeg';
-        }
+        this.heroPhotoUrl = getPhotoUrl(res.coverPhoto);
+
       },
       error: (err) => {
         console.error('Errore caricamento itinerario:', err);

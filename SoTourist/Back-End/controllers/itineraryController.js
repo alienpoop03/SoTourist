@@ -6,6 +6,7 @@
 /* ------------------------------------------------------------------ */
 require("dotenv").config();
 const axios = require("axios");
+const { getOrDownloadPhoto } = require('../services/photoManager'); // o path corretto
 
 /* ------------------------------------------------------------------ */
 /* ⚙️  Helpers                                                         */
@@ -186,30 +187,19 @@ const getItinerary = async (req, res) => {
   const KEY = process.env.GOOGLE_API_KEY;
   let coverPhoto = null;
 
-  // 🔍 Cerca una cover smart per la città
-  try {
-    const coverResp = await axios.get(
-      'https://maps.googleapis.com/maps/api/place/textsearch/json',
-      {
-        params: {
-          //   query da cambiare se vogliamo mettere un altro criterio
-          query: `monumenti famosi a ${city}`,
-          key: KEY
-        }
-      }
-    );
+  const { getCityCoverPhoto } = require('../services/photoManager'); // o path corretto
 
-    const first = coverResp.data.results.find(p => p.photos?.[0]);
-    if (first) {
-      const ref = first.photos[0].photo_reference;
-      coverPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${ref}&key=${KEY}`;
-      console.log('✅ Cover generata da monumenti:', coverPhoto);
-    } else {
-      console.warn('⚠️ Nessuna cover trovata con monumenti.');
-    }
-  } catch (err) {
-    console.error('❌ Errore richiesta cover smart:', err.message);
+// 🔍 Cover dinamica
+try {
+  const filename = await getCityCoverPhoto(city);
+  if (filename) {
+    coverPhoto = `/uploads/${filename}`;
+    console.log('✅ Cover salvata come:', coverPhoto);
   }
+} catch (err) {
+  console.warn('⚠️ Errore nella cover dinamica:', err.message);
+}
+
 
   /* --- coordinate centro città ------------------------------------ */
   let cityCenter = null;

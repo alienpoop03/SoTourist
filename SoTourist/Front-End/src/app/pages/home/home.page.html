@@ -29,7 +29,7 @@
     </h2>
 
     <ion-card class="boxes-style next-card" (click)="openItinerary((currentTrip || nextTrip)!.itineraryId)">
-      <img [src]="(currentTrip || nextTrip)!.coverPhoto" alt="Cover" />
+<img [src]="currentTrip ? currentTripCoverUrl : nextTripCoverUrl" alt="Cover" />
       <ion-card-header>
         <ion-card-title>{{ getFormattedCity(currentTrip || nextTrip) }}</ion-card-title>
         <ion-card-subtitle>
