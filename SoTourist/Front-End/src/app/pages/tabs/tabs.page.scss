@@ -9,7 +9,7 @@ ion-tab-bar {
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 40px); // margine laterale
-  max-width: 500px; // opzionale per limitarla su schermi larghi
+  max-width: 400px; // opzionale per limitarla su schermi larghi
   border-radius: 26px;
   height: 40px;
   box-shadow: 0 0px 16px rgba(0, 0, 0, 0.15);
