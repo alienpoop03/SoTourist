@@ -110,7 +110,7 @@ ion-icon {
   --tabbar-height: 50px; //padding-bottom footer
 
   --overlay-blur-bg: rgba(255, 255, 255, 0.35);
-  --box-radius: 26px;
+  
 }
 
 /* Tema scuro */
@@ -194,7 +194,7 @@ ion-button.boxes-style {
   font-size: 1rem;        // grandezza testo
   --padding-start: 1.2rem;
   --padding-end: 1.2rem;
-  --border-radius: 12px;
+  --border-radius: var(--box-radius);
   text-align: center;
 }
 
