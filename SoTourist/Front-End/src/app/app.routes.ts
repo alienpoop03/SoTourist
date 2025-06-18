@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { PremiumGuard } from './guards/premium.guard';
+import { NoGuestGuard } from './guards/no-guest.guard';
 
 export const routes: Routes = [
   {
@@ -12,7 +13,8 @@ export const routes: Routes = [
   },
   {
     path: 'profilo',
-    loadComponent: () => import('./pages/profilo/profilo.page').then(m => m.ProfiloPage)
+    loadComponent: () => import('./pages/profilo/profilo.page').then(m => m.ProfiloPage),
+    canActivate: [NoGuestGuard]
   },
   {
     path: 'onboarding',
@@ -40,7 +42,8 @@ export const routes: Routes = [
   },
   {
     path: 'upgrade',
-    loadComponent: () => import('./pages/upgrade/upgrade.page').then(m => m.UpgradePage)
+    loadComponent: () => import('./pages/upgrade/upgrade.page').then(m => m.UpgradePage),
+    canActivate: [NoGuestGuard]
   },
   {
     path: 'impostazioni',
@@ -61,10 +64,13 @@ export const routes: Routes = [
   },
   {
     path: 'storico-viaggi',
-    loadComponent: () => import('./pages/storico-viaggi/storico-viaggi.page').then(m => m.StoricoViaggiPage)
-  },  {
+    loadComponent: () => import('./pages/storico-viaggi/storico-viaggi.page').then(m => m.StoricoViaggiPage),
+    canActivate: [NoGuestGuard]
+  },
+  {
     path: 'change-password',
-    loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
+    loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage),
+    canActivate: [NoGuestGuard]
   }
 
 ];

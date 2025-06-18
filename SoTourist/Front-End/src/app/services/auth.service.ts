@@ -28,9 +28,17 @@ export class AuthService {
 
 
   // 💾 Salva info utente localmente
-  saveSession(userId: string, profile: { username: string; email: string }) {
+  saveSession(userId: string, profile: { username: string; email: string}) {
     localStorage.setItem('userId', userId);
     localStorage.setItem('userProfile', JSON.stringify(profile));
+  }
+
+  getCurrentUserType(): 'guest' | 'user' {
+    const userId = this.getUserId();
+    if (userId && userId.startsWith('guest_')) {
+      return 'guest';
+    }
+    return 'user';
   }
 
   // 🔐 Logout

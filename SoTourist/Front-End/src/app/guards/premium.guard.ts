@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class PremiumGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
