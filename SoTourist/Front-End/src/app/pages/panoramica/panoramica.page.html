@@ -1,26 +1,27 @@
 <app-navigation-bar title="Panoramica" [backUrl]="'/tabs/viaggi'"></app-navigation-bar>
 
-<ion-content class="itinerario-content" fullscreen>
 
-  <!-- ───── HERO ───── -->
-  <div #hero class="hero" [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
-                    'height.px': heroHeight }">
-    <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
-      <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ getFormattedCity() }}</h1>
+<!-- ───── HERO ───── -->
+<div #hero class="hero" [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
+                  'height.px': heroHeight }">
+  <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
+    <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ getFormattedCity() }}</h1>
 
-      <div class="hero-info">
-        <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate">
-          <p class="dates">
-            Dal {{ trip.startDate | date:'dd/MM' }} al {{ trip.endDate | date:'dd/MM' }}
-          </p>
-        </div>
-        <div class="hero-right" *ngIf="trip?.accommodation">
-          <p class="accommodation">🏨 {{ getFormattedAccommodation() }}</p>
-        </div>
+    <div class="hero-info">
+      <div class="hero-left" *ngIf="trip?.startDate && trip?.endDate">
+        <p class="dates">
+          Dal {{ trip.startDate | date:'dd/MM' }} al {{ trip.endDate | date:'dd/MM' }}
+        </p>
       </div>
-
+      <div class="hero-right" *ngIf="trip?.accommodation">
+        <p class="accommodation">🏨 {{ getFormattedAccommodation() }}</p>
+      </div>
     </div>
+
   </div>
+</div>
+
+<ion-content class="itinerario-content" fullscreen>
 
   <!-- ▸ GIORNI -->
   <div class="day-list">

@@ -81,6 +81,12 @@
 /* -------- Dropdown Liste -------- */
 .day-list,
 .time-list {
+  overflow-y: auto;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+
+
   position: absolute;
   top: 130px;
   max-width: 145px;
