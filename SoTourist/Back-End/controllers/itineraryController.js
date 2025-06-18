@@ -44,74 +44,53 @@ const buildPlaceObj = (place, key) => ({
 /* --- text-search helper (supporta min & max radius) ---------------- */
 const fetchPlaces = async (
   query, city, key, used = new Set(), avoid = new Set(), count = 1,
-  anchor = null, initialRadius = null
+  anchor = null, fixedRadius = null, minR = null, maxR = null
 ) => {
-
   const baseParams = { query: `${query} in ${city}`, key };
   const doTextSearch = params =>
     axios.get("https://maps.googleapis.com/maps/api/place/textsearch/json", { params });
-  let radius = initialRadius;
 
-  // 1) PROVA RIPETUTA: raggio crescente (se ne hai uno passato)
-  for (let attempt = 0; attempt < 4; attempt++) {
-    const params = { ...baseParams };
-    if (anchor && radius) {
-      params.location = `${anchor.lat},${anchor.lng}`;
-      params.radius = radius;
-    }
+  const params = { ...baseParams };
+  if (anchor && fixedRadius) {
+    params.location = `${anchor.lat},${anchor.lng}`;
+    params.radius = fixedRadius;
+  }
+
+  try {
     const resp = await doTextSearch(params);
     if (resp.data.status === "OK" && resp.data.results.length) {
       const results = resp.data.results.filter(p => {
         if (!p.geometry?.location) return false;
         if (used.has(p.place_id) || avoid.has(p.place_id)) return false;
+
+        const placeCoords = {
+          lat: p.geometry.location.lat,
+          lng: p.geometry.location.lng
+        };
+
+        if (anchor) {
+          const dist = haversine(anchor, placeCoords);
+          if (minR !== null && dist < minR) return false;
+          if (maxR !== null && dist > maxR) return false;
+          // DEBUG DISTANZA
+          console.log(`📍 [${query}] distanza = ${Math.round(dist)}m`);
+        }
+
         return true;
       });
+
       if (results.length) {
-        // shuffle per variare la scelta, ma la commentiamo per ora perchè non vogliamo cose random
-        /*
-        for (let i = results.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [results[i], results[j]] = [results[j], results[i]];
-        } */
         return results.slice(0, count).map(p => {
           used.add(p.place_id);
-
           return buildPlaceObj(p, key);
         });
       }
     }
-    // aumenta il raggio per il prossimo tentativo
-    radius = radius ? radius * 2 : 5000;
-  }
-
-  // 2) FALLBACK su Find Place From Text  
-  try {
-    const fp = await axios.get(
-      "https://maps.googleapis.com/maps/api/place/findplacefromtext/json",
-      {
-        params: {
-          input: `${query} in ${city}`,
-          inputtype: "textquery",
-          fields: "place_id,name,formatted_address,geometry,photos,rating",
-          key,
-        },
-      }
-    );
-    const cand = fp.data.candidates?.[0];
-    if (cand && cand.geometry?.location) {
-      used.add(cand.place_id);
-      if (cand.photos?.[0]?.photo_reference) {
-        setCover(
-          `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${cand.photos[0].photo_reference}&key=${key}`
-        );
-      }
-      return [buildPlaceObj(cand, key)];
-    }
   } catch (e) {
-    console.warn("⚠️ findplacefromtext fallback failed:", e.message);
+    console.warn("⚠️ textsearch failed:", e.message);
   }
 
-  // 3) FALLBACK ASSOLUTO placeholder
+  // ❌ Fallback: placeholder
   console.error(`❌ Nessun risultato reale per "${query}", uso placeholder.`);
   const fake = {
     place_id: `placeholder_${query.replace(/\s+/g, "_")}_${Date.now()}`,
@@ -119,10 +98,12 @@ const fetchPlaces = async (
     formatted_address: city,
     rating: 0,
     photos: [],
-    geometry: { location: anchor || { lat: 0, lng: 0 } }
+    geometry: { location: anchor || { lat: 0, lng: 0 } },
   };
   return [buildPlaceObj(fake, key)];
 };
+
+
 
 
 const fetchPlaceById = async (id, key, used, avoid) => {
@@ -146,9 +127,43 @@ const fetchPlaceById = async (id, key, used, avoid) => {
   return buildPlaceObj(p, key);
 };
 
+
+// ===============
+// === FUNZIONE MIA PER FARE STO CHAINING DINAMICO CORRETTAMENTE
+// ===============
+
+const generateNextPlace = async ({
+  def, city, key, used, avoidSet, anchor,
+  minR = null, maxR = null, mustSee = [], mustEat = []
+}) => {
+  let nextPlace = null;
+
+  // 1️⃣ Se possibile, usa MUST user
+  if (def.type === "see" && mustSee.length) {
+    const id = mustSee.shift();
+    nextPlace = await fetchPlaceById(id, key, used, avoidSet);
+  } else if (def.type === "eat" && mustEat.length) {
+    const id = mustEat.shift();
+    nextPlace = await fetchPlaceById(id, key, used, avoidSet);
+  }
+
+  // 2️⃣ Altrimenti, cerca normalmente
+  if (!nextPlace) {
+    const [generated] = await fetchPlaces(
+      def.q, city, key, used, avoidSet, 1, anchor, null, minR, maxR
+    );
+
+
+    nextPlace = generated || null;
+  }
+
+  return nextPlace;
+};
+
 /* ------------------------------------------------------------------ */
 /* 🚀  GET|POST /api/itinerary                                         */
 /* ------------------------------------------------------------------ */
+
 const getItinerary = async (req, res) => {
   const city = req.body?.city || req.query.city || "Roma";
   const totalDays = parseInt(req.body?.totalDays || req.query.totalDays) || 1;
@@ -205,12 +220,12 @@ const getItinerary = async (req, res) => {
   } catch {/* ignore */ }
 
   /* --- radius rule-set -------------------------------------------- */
-  const WITHIN_SLOT = 700;
+  const WITHIN_SLOT = 1000;
   const INTER_RULES = {
-    walk: { min: 0, max: 700 },
-    car: { min: 2000, max: 10000 },
-    bike: { min: 1000, max: 5000 },
-    bus: { min: 2000, max: 10000 }  // bus mattina + pomeriggio; sera custom
+    walk: { min: 0, max: 1000 },
+    car: { min: 500, max: 10000 },
+    bike: { min: 200, max: 5000 },
+    bus: { min: 1000, max: 10000 }  // bus mattina + pomeriggio; sera custom
   };
   const R = INTER_RULES[transport] || INTER_RULES.walk;
   const stylePresets = {
@@ -336,62 +351,58 @@ const getItinerary = async (req, res) => {
 
     for (const slot of slots) {
       for (const def of base[slot]) {
-        let minR = null, maxR = null;
-        // LOGICA DEI MEZZI - sempre appena dopo minR/maxR = null
+        let remaining = def.c;
 
-        if (slot === "morning" && def.q.includes("colazione")) {
-          maxR = WITHIN_SLOT;
-        } else if (
-          slot === "morning" &&
-          transport === "bus" &&
-          def.q.includes("attrazioni")
-        ) {
-          maxR = 5000;
-        } else if (
-          slot === "evening" &&
-          transport === "bus" &&
-          def.q.includes("ristoranti per cena") &&
-          accPlace
-        ) {
-          anchor = { lat: accPlace.latitude, lng: accPlace.longitude };
-          minR = 0;
-          maxR = 2000;
-        } else if (plan[slot].length === 0) {
-          minR = R.min;
-          maxR = R.max;
-        } else {
-          maxR = WITHIN_SLOT;
-        }
+        while (remaining > 0) {
+          let minR = null, maxR = null;
 
-        const customPlaces = [];
-
-        if (def.type === "see") {
-          while (mustSee.length && customPlaces.length < def.c) {
-            const placeId = mustSee.shift();
-            const place = await fetchPlaceById(placeId, KEY, used, avoidSet);
-            if (place) customPlaces.push(place);
+          if (slot === "morning" && def.q.includes("colazione")) {
+            maxR = WITHIN_SLOT;
+          } else if (
+            slot === "morning" &&
+            transport === "bus" &&
+            def.q.includes("attrazioni")
+          ) {
+            maxR = 5000;
+          } else if (
+            slot === "evening" &&
+            transport === "bus" &&
+            def.q.includes("ristoranti per cena") &&
+            accPlace
+          ) {
+            anchor = { lat: accPlace.latitude, lng: accPlace.longitude };
+            minR = 0;
+            maxR = 2000;
+          } else if (plan[slot].length === 0) {
+            minR = R.min;
+            maxR = R.max;
+          } else {
+            maxR = WITHIN_SLOT;
           }
-        } else if (def.type === "eat") {
-          while (mustEat.length && customPlaces.length < def.c) {
-            const placeId = mustEat.shift();
-            const place = await fetchPlaceById(placeId, KEY, used, avoidSet);
-            if (place) customPlaces.push(place);
+
+          const nextPlace = await generateNextPlace({
+            def,
+            city,
+            key: KEY,
+            used,
+            avoidSet,
+            anchor,
+            minR,
+            maxR,
+            mustSee,
+            mustEat
+          });
+
+          if (nextPlace) {
+            plan[slot].push(nextPlace);
+            anchor = { lat: nextPlace.latitude, lng: nextPlace.longitude };
+            remaining--;
+          } else {
+            break;
           }
         }
 
-        if (customPlaces.length < def.c) {
-          const remaining = def.c - customPlaces.length;
-          const places = await fetchPlaces(
-            def.q, city, KEY, used, avoidSet, remaining,
-            anchor, maxR, minR
-          );
-          customPlaces.push(...places);
-        }
 
-        for (const p of customPlaces) {
-          plan[slot].push(p);
-          anchor = { lat: p.latitude, lng: p.longitude };
-        }
       }
 
     }
