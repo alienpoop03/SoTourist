@@ -1,3 +1,6 @@
+$pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la tabs
+
+
 .viaggi-content {
   --background: var(--color-background4);
 }
@@ -195,7 +198,7 @@
 .spacer{
   height: var(--space-tabs);
 
-  @media screen and (max-width: 690px) {
+  @media screen and (max-width: $pill-phone) {
     height: calc(var(--space-tabs) + 50px);
   }
   
@@ -220,7 +223,7 @@
   margin-top: 24px;
 
   // MOBILE: fisso in basso a destra
-  @media screen and (max-width: 690px) {
+  @media screen and (max-width: $pill-phone ) {
     position: fixed;
     bottom: 16px;
     right: 16px;
