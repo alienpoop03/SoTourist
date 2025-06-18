@@ -9,6 +9,7 @@ import {
 } from '@ionic/angular/standalone';
 import { TripWithId } from 'src/app/models/trip.model';
 import { Router } from '@angular/router';
+import { getPhotoUrl } from 'src/app/utils/photo-utils';
 
 import { getCityName, getAccommodationName } from '../../utils/trip-utils';
 
@@ -30,6 +31,11 @@ export class TripCardComponent {
   @Output() open = new EventEmitter<string>();
   @Output() remove = new EventEmitter<string>();
 
+coverUrl: string = '';
+ngOnInit() {
+  this.coverUrl = getPhotoUrl(this.trip.coverPhoto);
+  console.log('✅ URL cover generata una volta:', this.coverUrl);
+}
 
   onDelete(event: Event) {
     this.remove.emit(this.trip.itineraryId);
@@ -55,6 +61,10 @@ export class TripCardComponent {
   getFormattedAccommodation(): string {
     return getAccommodationName(this.trip.accommodation);
   }
+
+
+
+
 
   calculateTripLength(start: string, end: string): number {
     const s = new Date(start);

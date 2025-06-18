@@ -13,6 +13,3 @@ export function convertFileToBase64(file: File): Promise<string> {
     reader.readAsDataURL(file);
   });
 }
-
-// Aggiungiamo la nuova funzione qui sotto:
-
