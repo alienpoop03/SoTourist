@@ -20,6 +20,8 @@ export class ChangePasswordPage implements OnInit {
   userId: string = '';
   email: string = '';
   username: string = '';
+  emailP: string = '';
+  usernameP: string = '';
   password: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
@@ -41,6 +43,8 @@ export class ChangePasswordPage implements OnInit {
       this.username = parsed.username || '';
       this.email = parsed.email || '';
     }
+    this.usernameP = this.username;
+    this.emailP = this.email;
   }
 
 
