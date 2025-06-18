@@ -1,8 +1,6 @@
 /* ------------- IMPOSTAZIONI GENERALI ------------- */
 .itinerario-content {
-  //--overflow: hidden;
-  //overflow: hidden;
-  background: var(--color-background);
+  background: var(--color-background4);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,7 +15,7 @@
   width: 100%;
   height: 40vh;
   min-height: 180px;
-  background: var(--color-background);
+  background: var(--color-background4);
   background-size: cover;
   background-position: center;
   transition: height 0.2s ease-out;
@@ -38,10 +36,10 @@
     font-size: 1.7rem;
     font-weight: 800;
     color: #ffffff;
-    text-shadow: 0 0 3px #FFCC00, 0 0 6px rgba(0, 0, 0, 0.5);
+    //text-shadow: 0 0 3px #ffffff, 0 0 6px rgba(0, 0, 0, 0.5);
     margin: 0;
   }
-
+ 
   p {
     margin-top: 0.3rem;
     font-size: 1.1rem;
@@ -109,7 +107,7 @@
   margin-left: 1rem;
   border-radius: 12px;
   padding-left: 1rem;
-  background: rgb(244, 244, 244);
+  background:var(--color-background1);
   transition: transform .2s ease;
 
   &:active {
@@ -130,6 +128,9 @@
   ion-icon {
     padding-top: -20px;
   }
+}
+.day-placeholder {
+  color: var(--color-text2);
 }
 
 .style-ed-btn.top-right-btn {
