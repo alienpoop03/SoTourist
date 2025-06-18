@@ -75,27 +75,26 @@
     </div>
 
     <div class="spacer"><!-- Spazio per andare sopra al pulsante crea --></div>
-
-    <!--<div [ngStyle]="{ height: altezzaOverScroll  + 'px' }" > Spazio per l'over Scroll </div>-->
-
+    <div class="with-floating-tabs"></div>
   </ion-content>
-  <div class="with-floating-tabs"></div>
 </ion-content>
 
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
-  <div class="fab-wrapper">
+  <div class="pill-dual-wrapper">
+    
+    <!-- Parte sinistra: Crea -->
+    <div class="pill-side left" (click)="goToCreate()">
+      <ion-icon name="add-outline"></ion-icon>
+    </div>
 
-    <!-- Pulsante lungo (da sinistra verso il FAB) -->
-    <button ion-button class="pill-button" (click)="goToCreate()">
-      <ion-icon name="add-outline" slot="start"></ion-icon>
-      Crea nuovo viaggio
-    </button>
+    <!-- Separatore -->
+    <div class="divider"></div>
 
-    <!-- FAB rotondo -->
-    <ion-fab-button (click)="openStorico()">
+    <!-- Parte destra: Storico -->
+    <div class="pill-side right" (click)="openStorico()">
       <ion-icon name="time-outline"></ion-icon>
-    </ion-fab-button>
+    </div>
 
   </div>
-  <div class="with-floating-tabs"></div>
+  
 </ion-fab>

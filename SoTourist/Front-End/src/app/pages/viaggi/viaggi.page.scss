@@ -192,43 +192,13 @@
   margin: 0;
 }
 
-.spacer {
-  height: 165px;
-}
+.spacer{
+  height: var(--space-tabs);
 
-/* FAB */
-.custom-fab {
-  width: 100%; // fab espanso
-  padding: 0 16px;
-  margin-bottom: 1rem;
-  bottom: 0 !important;
-  .fab-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 100%;
-    gap: 12px;
-    margin-left: 10px;
+  @media screen and (max-width: 690px) {
+    height: calc(var(--space-tabs) + 50px);
   }
-
-  .pill-button {
-    flex-grow: 1;
-    height: 56px;
-    background-color: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: 999px;
-    font-size: 16px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    padding: 0 20px;
-  }
+  
 }
 
 .hero-buttons{
@@ -241,23 +211,58 @@
   bottom: 20px;
   left: 16px;
   right: 16px;
-  
+}
 
-  // .delete{
-  //   flex-grow: 1;
-  //   height: 56px;
-  //   background-color: var(--color-primary);
-  //   color: white;
-  //   border: none;
-  //   border-radius: 999px;
-  //   font-size: 16px;
-  //   font-weight: 500;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   gap: 8px;
-  //   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  //   cursor: pointer;
-  //   padding: 0 20px;
-  // }
+/* FAB */
+.custom-fab {
+   display: flex;
+  justify-content: center;
+  margin-top: 24px;
+
+  // MOBILE: fisso in basso a destra
+  @media screen and (max-width: 690px) {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    margin-top: 0;
+    margin-bottom: var(--space-tabs);
+    justify-content: flex-end;
+    width: 100%;
+    z-index: 1000;
+  }
+}
+
+.pill-dual-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-primary);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  height: 55px;
+  max-width: 115px;
+  font-weight: bold;
+  user-select: none;
+  width: fit-content;
+}
+
+.pill-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pill-side ion-icon {
+  font-size: 20px;
+  margin: 0 2px;
+}
+
+.divider {
+  width: 1px;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 60%;
 }
