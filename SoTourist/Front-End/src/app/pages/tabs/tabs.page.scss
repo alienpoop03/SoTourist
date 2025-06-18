@@ -5,7 +5,7 @@ ion-tab-bar {
   --color-selected: var(--tabs-icon) !important;   /* Giallo per le icone selezionate */
   
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 40px); // margine laterale
@@ -29,13 +29,6 @@ ion-tab-button ion-icon {
   color: var(---tabs-icon) !important;
 }
 
-/*ion-tab-button.ion-selected ion-icon {
-  color: var(--color-highlight) !important;
-}
-  ion-tab-button.ion-selected {
-  color: var(--color-highlight) !important;
-}
-*/
 
 ion-tab-button ion-label {
   color: var(--tabs-icon) !important;
@@ -46,10 +39,6 @@ ion-tab-button.ion-selected {
   z-index: 1;
 }
 
-/*ion-tab-button.ion-selected ion-label {
-  color: var(--color-highlight) !important;
-}*/
-
 ion-tab-button.ion-selected::before {
   content: '';
   position: absolute;
@@ -58,17 +47,12 @@ ion-tab-button.ion-selected::before {
   left: 6px;
   right: 6px;
   background-color: var(--tabs-select); 
-  border-radius: 20px;
+  border-radius: 26px;
   z-index: -1;
   transition: 0.3s ease;
 }
-
-/*ion-tab-button.ion-selected ion-icon,
-ion-tab-button.ion-selected ion-label {
-  color: var(--color-highlight) !important; 
-}*/
   
-
+//inclinazione aereo
 ion-tab-button .airplane-icon {
   transform: rotate(-30deg);
 }
