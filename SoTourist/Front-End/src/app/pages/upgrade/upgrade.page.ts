@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-//import { PlanCardComponent } from '../../components/plan-card/plan-card.component';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 import {
   IonContent,
@@ -21,7 +20,6 @@ import { ToastService } from '../../services/toast.service';
     FormsModule,
     IonContent,
     IonButton,
-    //PlanCardComponent,
     NavigationBarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
