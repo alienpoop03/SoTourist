@@ -70,6 +70,7 @@
     &:hover {
       background-color: var(--color-highlight) ;
       color: var(--color-primary2)!important;
+      box-shadow: rgba(var(--color-primary), 1)!important;
     }
   }
 }
