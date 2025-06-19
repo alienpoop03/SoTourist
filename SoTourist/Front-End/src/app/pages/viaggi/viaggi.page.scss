@@ -21,9 +21,79 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   display: none !important;
 }
 
-/* HERO ESPANSA */
 
-.hero-bg {
+
+
+.user-box {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  height: 114px;
+  padding: 1rem;
+  background: var(--color-background);
+  border-bottom-left-radius: var(--box-radius);
+  border-bottom-right-radius: var(--box-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  gap: 1rem;
+  z-index: 9999;
+  //margin: 1rem;
+  width: 100%;
+
+  .profile-img {
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    flex-grow: 1;
+
+    .username {
+      margin: 0 0 0.4rem;
+      font-size: 1.5rem;
+      color: var(--color-text1);
+    }
+
+    .user-stats {
+      display: flex;
+      gap: 1rem;
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+
+        ion-icon {
+          font-size: 1.7rem;
+          color: var(--color-primary);
+        }
+
+        span {
+          font-weight: bold;
+          font-size: 1rem;
+          color: var(--color-text1);
+        }
+
+        small {
+          font-size: 0.75rem;
+          color: var(--color-text1);
+        }
+      }
+    }
+  }
+}
+
+.space-ander-hero{
+  height: 114px;
+}
+
+
+
+
+/* HERO ESPANSA *///copia incolla tutto il commento
+
+/*.hero-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -73,7 +143,7 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   --color: red;
 }
 
-/* HERO ESPANSA */ //copia incolla tutto il commento
+/* HERO ESPANSA */ 
 /*.hero-wrapper {
   position: relative;
   width: 100%;

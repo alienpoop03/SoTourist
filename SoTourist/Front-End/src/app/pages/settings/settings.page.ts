@@ -20,7 +20,7 @@ import {
 import { AppHeaderComponent } from '../../components/header/app-header.component';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component'; // 👈 importa il componente
+import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 

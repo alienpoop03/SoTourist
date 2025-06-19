@@ -12,18 +12,20 @@ import {
   IonTitle,
   IonIcon,
   IonButton,
+  IonLabel,
 } from '@ionic/angular/standalone';
 
 import { AppHeaderComponent } from '../../components/header/app-header.component';
 import { TripCardComponent } from '../../components/trip-card/trip-card.component';
 import { UnfinishedCardComponent } from '../../components/unfinished-card/unfinished-card.component';
 
-import { TripWithId } from 'src/app/models/trip.model';
+import { TripWithId, Place } from 'src/app/models/trip.model';
 import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 
 import { getCityName, getAccommodationName } from '../../utils/trip-utils';
 import { getPhotoUrl } from 'src/app/utils/photo-utils';
+import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
 
 @Component({
   selector: 'app-viaggi',
@@ -43,6 +45,8 @@ import { getPhotoUrl } from 'src/app/utils/photo-utils';
     AppHeaderComponent,
     TripCardComponent,
     UnfinishedCardComponent,
+    ProfileIconComponent,
+    IonLabel,
   ],
 })
 export class ViaggiPage implements AfterViewInit {
@@ -53,6 +57,15 @@ export class ViaggiPage implements AfterViewInit {
   ) { }
 
   /* ========== STATO VIAGGI ========== */
+  userId: string = '';
+  username = '';
+
+  upcomingCount: number = 2;
+  pastCount: number = 5;            
+  visitedPlacesCount: number = 23;
+
+
+
   isGuest = false;
   inCorso: TripWithId | null = null;
   imminente: TripWithId | null = null;
@@ -158,6 +171,13 @@ export class ViaggiPage implements AfterViewInit {
     this.isGuest = !!this.auth.getUserId()?.startsWith('guest_');
     this.isGuest ? this.loadDraftsOnly() : this.loadTrips();
     this.startMidnightWatcher();
+
+    const profile = localStorage.getItem('userProfile');
+    if (profile) {
+      const parsed = JSON.parse(profile);
+      this.userId = localStorage.getItem('userId') || '';
+      this.username = parsed.username || '';
+    } 
   }
 
   private startMidnightWatcher() {
@@ -167,7 +187,7 @@ export class ViaggiPage implements AfterViewInit {
     setTimeout(() => this.refreshTrips(), midnight.getTime() - now.getTime());
   }
 
-  private loadTrips(): void {
+  /*private loadTrips(): void {
     const uid = this.auth.getUserId();
     if (!uid) return;
 
@@ -191,6 +211,72 @@ export class ViaggiPage implements AfterViewInit {
       .subscribe({ next: (r) => (this.futuri = r || []), complete: () => this.done() });
 
     this.loadDrafts();
+  }*/
+
+  private loadTrips(): void {
+    const uid = this.auth.getUserId();
+    if (!uid) return;
+
+    this.loaded = false;
+    this.resetLists();
+
+    this.api.getUserItineraries(uid, 'current').subscribe({
+      next: (r) => {
+        this.inCorso = r[0] || null;
+        this.headerTitle = this.inCorso?.city || 'SoTourist';
+      },
+      complete: () => this.done(),
+    });
+
+    // 🚀 Viaggi imminenti + futuri
+    this.api.getUserItineraries(uid, 'upcoming').subscribe({
+      next: (r) => {
+        this.imminente = r[0] || null;
+
+        // Chiamata separata per "future"
+        this.api.getUserItineraries(uid, 'future').subscribe({
+          next: (futureTrips) => {
+            this.futuri = futureTrips || [];
+
+            // somma totali
+            this.upcomingCount = (r?.length || 0) + (futureTrips?.length || 0);
+          },
+          complete: () => this.done(),
+        });
+      },
+      complete: () => this.done(),
+    });
+
+    // ✅ Viaggi completati + tappe
+    this.api.getUserItineraries(uid, 'past').subscribe({
+      next: (pastTrips) => {
+        this.pastCount = pastTrips.length;
+
+        // 🔽 Estrai tutte le tappe da questi viaggi passati
+        const visited = this.extractAllPlaces(pastTrips);
+
+        // ✅ Conta i luoghi unici usando il placeId (Google)
+        const uniqueKeys = new Set(
+          visited.map(p => p.placeId)
+        );
+        this.visitedPlacesCount = uniqueKeys.size;
+      },
+      complete: () => this.done(),
+    });
+
+    this.loadDrafts();
+  }
+
+  private extractAllPlaces(trips: TripWithId[]): Place[] {
+    const all: Place[] = [];
+
+    for (const trip of trips) {
+      if (trip.places && trip.places.length > 0) {
+        all.push(...trip.places);
+      }
+    }
+
+    return all;
   }
 
   private loadDraftsOnly(): void {
