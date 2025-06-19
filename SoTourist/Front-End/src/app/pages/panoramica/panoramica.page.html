@@ -3,8 +3,8 @@
 <ion-content class="itinerario-content" fullscreen>
 
   <!-- ───── HERO ───── -->
-  <div #hero class="hero" [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none',
-                    'height.px': heroHeight }">
+  <div #hero class="hero"
+    [ngStyle]="{ 'background-image': heroPhotoUrl ? 'url(' + heroPhotoUrl + ')' : 'none', 'height.px': heroHeight }">
     <div class="overlay" [ngStyle]="{ 'opacity': overlayOpacity }">
       <h1 [ngStyle]="{ 'font-size': titleFontSize + 'rem' }">Benvenuto a: {{ getFormattedCity() }}</h1>
 
@@ -32,7 +32,7 @@
             <div class="day-label">Giorno {{ i+1 }}</div>
             <ion-button fill="clear" size="small" class="style-ed-btn top-right-btn"
               (click)="vaiAPersonalizzazione(); $event.stopPropagation()">
-              <ion-icon name="calendar-outline"></ion-icon>
+              <ion-icon name="create-outline"></ion-icon>
             </ion-button>
           </ion-card-title>
         </ion-card-header>
@@ -47,10 +47,29 @@
             <p>Programma per il giorno {{ i+1 }}…</p>
           </ng-template>
         </ion-card-content>
+
+        <!-- Meta informazioni giorno -->
+        <div class="day-meta">
+          <span class="day-date">{{ getDayDate(i) | date:'dd MMM' }}</span>
+          <span class="activities">{{ getDayItems(i).length }} attività</span>
+        </div>
+
+        <div class="day-progress">
+          <div class="segment" title="Mattina">
+            <div class="fill" [style.width.%]="getStepProgress(i, 'morning')"></div>
+          </div>
+          <div class="segment" title="Pomeriggio">
+            <div class="fill" [style.width.%]="getStepProgress(i, 'afternoon')"></div>
+          </div>
+          <div class="segment" title="Sera">
+            <div class="fill" [style.width.%]="getStepProgress(i, 'evening')"></div>
+          </div>
+        </div>
+
       </ion-card>
 
     </div>
-    <div *ngIf="daysCount===0" class="no-days">Nessun giorno da mostrare.</div>
+    <div *ngIf="daysCount === 0" class="no-days">Nessun giorno da mostrare.</div>
   </div>
 
   <div class="with-floating-tabs"></div>

@@ -1,23 +1,18 @@
-/* ------------- IMPOSTAZIONI GENERALI ------------- */
 .itinerario-content {
   --overflow: hidden;
-  overflow: hidden;
   background: var(--color-background);
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* ------------- HERO DINAMICO ------------- */
 .hero {
-  flex: 0 0 auto;
   position: sticky;
   top: 0;
   z-index: 10;
   width: 100%;
   height: 40vh;
   min-height: 180px;
-  background: var(--color-background);
   background-size: cover;
   background-position: center;
   transition: height 0.2s ease-out;
@@ -35,7 +30,7 @@
   transition: opacity 0.2s ease-out;
 
   h1 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     font-weight: 800;
     color: #ffffff;
     text-shadow: 0 0 3px #FFCC00, 0 0 6px rgba(0, 0, 0, 0.5);
@@ -51,36 +46,19 @@
 }
 
 .hero-info {
-  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
   margin-top: 0.4rem;
 
-  .hero-left,
-  .hero-right {
-    max-width: 50%;
+  .hero-left, .hero-right {
     font-size: 0.95rem;
     color: #f0f0f0;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   }
-
-  .dates {
-    margin: 0;
-    padding-left: 0.4rem;
-  }
-
-  .accommodation {
-    margin: 0;
-    padding-right: 0.4rem;
-    text-align: right;
-  }
 }
 
-/* ------------- LISTA GIORNI & TIMELINE ------------- */
 .day-list {
   padding: 1rem;
-  background: transparent;
   padding-bottom: 300px;
 }
 
@@ -93,54 +71,93 @@
 .timeline-entry {
   position: relative;
   margin-bottom: 1.5rem;
+
+  /* Linea verticale timeline */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 1.25rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #FFCC00;
+  }
+
+  /* Punto della timeline */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 1.125rem;
+    top: 1rem;
+    width: 12px;
+    height: 12px;
+    background: #7B1E1E;
+    border-radius: 50%;
+  }
 }
 
-/* ------------- CARD GIORNO ------------- */
 .day-card {
-  margin-left: 1rem;
-  border-radius: 12px;
-  padding-left: 1rem;
-  background: rgb(244, 244, 244);
-  transition: transform .2s ease;
+  margin-left: 2.5rem;
+  margin-right: 1rem;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
 
   &:active {
-    transform: scale(.97);
+    transform: scale(0.97);
   }
 
   .day-label {
     font-weight: 700;
-    font-size: 1.05rem;
-    color: var(--color-text);
+    font-size: 1.1rem;
+    color: #7B1E1E;
   }
 
   ion-card-content {
-    font-size: .95rem;
+    font-size: 0.95rem;
     color: var(--color-text2);
+    margin-bottom: 0.75rem;
   }
 
-  ion-icon {
-    padding-top: -20px;
+  .day-meta {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text2);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .activities {
+    font-style: italic;
   }
 }
 
-.style-ed-btn.top-right-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 10;
-  font-size: 1.2rem;
-  --color: var(--color-highlight);
-}
+.day-progress {
+  display: flex;
+  margin: 0 1rem 1rem;
+  height: 6px;
+  background: rgba(255, 204, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
 
-ion-card-content p {
-  margin: 0;
-  line-height: 1.4;
+  .segment {
+    position: relative;
+    flex: 1;
+    background: rgba(123, 30, 30, 0.2);
+    overflow: hidden;
 
-  strong {
-    margin-right: .25rem;
-  }
+    & + .segment {
+      margin-left: 2px;
+    }
 
-  span {
-    display: inline-block;
+    .fill {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      background: #7B1E1E;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
   }
 }
