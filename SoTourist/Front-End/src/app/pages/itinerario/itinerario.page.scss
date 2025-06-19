@@ -6,7 +6,8 @@
   /* (Ionic 7) */
   overflow: hidden;
   /* fallback */
-  background: var(--color-background4);
+  background: var(--color-background);
+  /* ✅ aggiunto */
 
   height: 100vh;
   /* riempi viewport */
@@ -24,8 +25,9 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  background: var(--color-background4);
+  background: var(--color-background);
   // padding-bottom: 300px;
+  /* ✅ uniformato al bianco */
 
 }
 
@@ -38,6 +40,7 @@
   box-sizing: border-box;
   padding: 1rem;
   background: var(--color-background);
+  /* ✅ uniformato al bianco */
 
 
   /* fa sì che la slide possa scrollare se SERVE */
@@ -200,7 +203,7 @@ ion-card-content p {
 .slide-page.places {
 
   ion-item {
-    --background: var(--color-background1);
+    --background: var(--color-background);
     --inner-padding-start: 16px;
     --inner-padding-end: 16px;
     --padding-bottom: 12px;

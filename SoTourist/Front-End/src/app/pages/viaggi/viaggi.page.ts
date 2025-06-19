@@ -23,6 +23,7 @@ import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 
 import { getCityName, getAccommodationName } from '../../utils/trip-utils';
+import { getPhotoUrl } from 'src/app/utils/photo-utils';
 
 @Component({
   selector: 'app-viaggi',
@@ -88,7 +89,7 @@ export class ViaggiPage implements AfterViewInit {
     this.shrinkThreshold = this.heroMax - this.heroMin; // ← soglia dinamica
 
     /* misura altezza contenuto per over-scroll */
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.content.getScrollElement().then((el) => {
         this.totalHeight = el.scrollHeight;
         this.visibleHeight = el.clientHeight;
@@ -96,7 +97,7 @@ export class ViaggiPage implements AfterViewInit {
           this.totalHeight - this.altezzaOverScroll - this.visibleHeight;
         if (this.totalHeight < 0) this.totalHeight = 0;
       });
-    });
+    });*/
 
     this.refreshTrips();
   }
@@ -130,7 +131,9 @@ export class ViaggiPage implements AfterViewInit {
       if (y < this.shrinkThreshold / 2) {
         this.content.scrollToPoint(0, 0, 300);
       } else {
+        this.isShrunk = true;
         this.content.scrollToPoint(0, this.shrinkThreshold, 300);
+        
       }
     }
   }
@@ -145,7 +148,9 @@ export class ViaggiPage implements AfterViewInit {
   }
 
   onHeroClick() {
-    this.content.scrollToTop(400);
+    if (!this.content) return;
+    this.content.scrollToPoint(0, 0, 500 );
+    this.isShrunk = false;
   }
 
   /* ========== DATI VIAGGI =========== */
@@ -242,5 +247,10 @@ export class ViaggiPage implements AfterViewInit {
   getFormattedAccommodation(trip: TripWithId): string {
     return getAccommodationName(trip.accommodation);
   }
+
+  getCoverUrl(photoPath?: string | null): string {
+    return getPhotoUrl(photoPath);
+  }
+
 
 }

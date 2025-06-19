@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { NoGuestGuard } from '../../guards/no-guest.guard';
 
 export const routes: Routes = [
   {
@@ -48,7 +49,8 @@ export const routes: Routes = [
       },
       {
         path: 'storico-viaggi',
-        loadComponent: () => import('../storico-viaggi/storico-viaggi.page').then( m => m.StoricoViaggiPage)
+        loadComponent: () => import('../storico-viaggi/storico-viaggi.page').then( m => m.StoricoViaggiPage),
+            canActivate: [NoGuestGuard]
       },
       {
         path: '',

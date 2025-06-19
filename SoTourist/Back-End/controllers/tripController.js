@@ -3,7 +3,7 @@
 const generateId = require('../utils/idGenerator');
 const db = require('../db/connection');
 const { checkOverlap } = require('../utils/dateUtils');
-const { getOrDownloadPhoto } = require('../services/photoManager');  // <-- qui importi il modulo che abbiamo creato
+const { getOrDownloadPhoto, getCityCoverPhoto } = require('../services/photoManager');
 
 //const DB_PATH = path.join(__dirname, '../db.json');
 
@@ -70,7 +70,7 @@ exports.getItineraries = (req, res) => {
 };
 
 // ➕ POST: aggiunge un itinerario
-exports.addItinerary = (req, res) => {
+exports.addItinerary = async (req, res) => {
   const { userId } = req.params;
   const newItinerary = req.body;
 
@@ -78,7 +78,7 @@ exports.addItinerary = (req, res) => {
     return res.status(400).json({ error: 'Dati insufficienti per creare un itinerario' });
   }
 
-  db.all(`SELECT * FROM itineraries WHERE userId = ? AND deleted = 0`, [userId], (err, existingItineraries) => {
+  db.all(`SELECT * FROM itineraries WHERE userId = ? AND deleted = 0`, [userId], async (err, existingItineraries) => {
     if (err) return res.status(500).json({ error: 'Errore database' });
 
     const overlap = existingItineraries.some(it =>
@@ -90,11 +90,35 @@ exports.addItinerary = (req, res) => {
       return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
     }
 
+    // 📸 Cover dinamica (con funzione pulita)
+    let coverPhoto = '';
+    try {
+      const coverPath = await getCityCoverPhoto(newItinerary.city);
+      if (coverPath) {
+        coverPhoto = coverPath?.split('/').pop(); // salva solo "palermo.jpg"
+      }
+    } catch (errCover) {
+      console.warn('⚠️ Errore download cover:', errCover.message);
+    }
+
+
     const itineraryId = generateId('trip_');
+    console.log('🧾 CAMPI che sto salvando nel DB:');
+    console.log({
+      itineraryId,
+      userId,
+      city: newItinerary.city,
+      accommodation: newItinerary.accommodation || '',
+      startDate: newItinerary.startDate,
+      endDate: newItinerary.endDate,
+      style: newItinerary.style || '',
+      coverPhoto  // ⬅️ VERIFICA COSA CONTIENE QUI
+    });
+
     db.run(
       `INSERT INTO itineraries 
-    (itineraryId, userId, city, accommodation, startDate, endDate, style, coverPhoto, deleted)
-   VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`,
+       (itineraryId, userId, city, accommodation, startDate, endDate, style, coverPhoto, deleted)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`,
       [
         itineraryId,
         userId,
@@ -103,12 +127,11 @@ exports.addItinerary = (req, res) => {
         newItinerary.startDate,
         newItinerary.endDate,
         newItinerary.style || '',
-        newItinerary.coverPhoto || ''
+        coverPhoto
       ],
       function (err2) {
         if (err2) return res.status(500).json({ error: 'Errore salvataggio itinerario' });
 
-        // ✅ qui correggi
         res.status(201).json({
           itineraryId,
           city: newItinerary.city,
@@ -116,13 +139,13 @@ exports.addItinerary = (req, res) => {
           startDate: newItinerary.startDate,
           endDate: newItinerary.endDate,
           style: newItinerary.style || '',
-          coverPhoto: newItinerary.coverPhoto || ''
+          coverPhoto
         });
       }
     );
-
   });
 };
+
 
 
 // 🗑 DELETE: elimina un itinerario
@@ -299,9 +322,9 @@ exports.addPlacesToItinerary = (req, res) => {
   let places = req.body;
 
   // QUI VUOI IL PRIMO LOG:
-  console.log("🔥 PAYLOAD CHE RICEVO DAL FRONTEND:");
-  console.log(JSON.stringify(places, null, 2));
-  console.log('🔥 RICEVUTE TAPPE:', places);
+  //console.log("🔥 PAYLOAD CHE RICEVO DAL FRONTEND:");
+  //console.log(JSON.stringify(places, null, 2));
+  //console.log('🔥 RICEVUTE TAPPE:', places);
 
   if (!Array.isArray(places)) {
     if (typeof places === 'object' && places !== null) {
@@ -328,8 +351,8 @@ exports.addPlacesToItinerary = (req, res) => {
       let photoFilename = '';
 
       try {
-        console.log("🔬 STO PROCESSANDO PLACE:");
-        console.log(place);
+        //console.log("🔬 STO PROCESSANDO PLACE:");
+        //console.log(place);
 
         // ⬇⬇⬇ QUI facciamo il download automatico solo se c'è il photoReference
         if (place.photoReference) {
@@ -373,13 +396,13 @@ exports.addPlacesToItinerary = (req, res) => {
         ],
 
         (err2) => {
-  if (err2) {
-    console.error('❌ Errore INSERT:', err2.message);
-    console.error('🔎 Place che ha fallito:', place);
-  } else {
-    inserted.push({ placeId, ...place, photoFilename });
-  }
-  insertNext();
+          if (err2) {
+            console.error('❌ Errore INSERT:', err2.message);
+            console.error('🔎 Place che ha fallito:', place);
+          } else {
+            inserted.push({ placeId, ...place, photoFilename });
+          }
+          insertNext();
 
 
         }

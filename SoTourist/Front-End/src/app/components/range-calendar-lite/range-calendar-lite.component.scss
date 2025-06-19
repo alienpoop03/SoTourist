@@ -28,5 +28,62 @@
   display: block !important;
   margin-left: auto !important;
   margin-right: auto !important;
-  // Rimuovi ogni width/max-width se avevi messo da prove precedenti
+
+
+  font-family: 'Arial', sans-serif;
+  border: none;
+  //background-color: red; // sfondo principale
+
+  .container__months {
+    background-color: var(--color-background1);
+  }
+
+  .month-item-header {
+    background-color: var(--color-primary); // bordeaux header
+    color: var(--color-highlight) !important;
+    font-weight: bold;
+  }
+
+  .day-item {
+    color: var(--date-unlock) !important;
+
+    &.is-locked {
+      color: var(--date-lock) !important;
+    }
+
+    &.is-today {
+      border: 1px solid var(--color-primary);
+      color: var(--color-primary) !important;
+    }
+
+    &.is-in-range {
+      background-color: var(--color-highlight) !important; // giallo senape selezione
+      color: var(--color-primary2) !important;
+    }
+
+    &.is-start-date,
+    &.is-end-date {
+      background-color: var(--color-primary) !important; // bordeaux inizio/fine
+      color: var(--color-highlight) !important;
+    }
+
+    &:hover {
+      background-color: var(--color-highlight) ;
+      color: var(--color-primary2)!important;
+      box-shadow: rgba(var(--color-primary), 1)!important;
+    }
+  }
+}
+::ng-deep .litepicker .button-previous-month svg path,
+::ng-deep .litepicker .button-next-month svg path {
+  fill: var(--color-highlight) !important; /* bordeaux */
+  font-size: 1.4rem;         /* opzionale: ingrandisce l’icona */
+  background: transparent;   /* se vuoi rimuovere sfondo */
+  border: none;
+  cursor: pointer;
+}
+
+::ng-deep .litepicker .button-previous-month:hover svg path,
+::ng-deep .litepicker .button-next-month:hover svg path {
+  fill: var(--giallo-selezione) !important; /* giallo senape */
 }

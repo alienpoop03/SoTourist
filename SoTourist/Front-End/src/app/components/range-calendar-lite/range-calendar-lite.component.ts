@@ -23,7 +23,7 @@ export class RangeCalendarLiteComponent implements AfterViewInit {
       allowRepick: true,
       selectForward: true,
       lang: 'it-IT',
-      minDate: this.minDate, // ✅ ECCOLO QUI!
+      minDate: this.minDate,
       setup: (picker) => {
         picker.on('selected', (start, end) => {
           this.datesSelected.emit({

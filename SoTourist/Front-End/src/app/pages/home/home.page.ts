@@ -19,6 +19,7 @@ import { AuthService } from '../../services/auth.service';
 import { TripWithId } from '../../models/trip.model';
 
 import { getCityName } from '../../utils/trip-utils';
+import { getPhotoUrl } from 'src/app/utils/photo-utils';
 
 @Component({
   selector: 'app-home',
@@ -46,6 +47,8 @@ export class HomePage implements OnInit {
   currentTrip: TripWithId | null = null;  // viaggio in corso
   nextTrip: TripWithId | null = null;     // viaggio imminente (solo se non in corso)
 
+currentTripCoverUrl: string = '';
+nextTripCoverUrl: string = '';
 
 
   /* ---------- itinerari consigliati (mock) ---------- */
@@ -89,22 +92,31 @@ export class HomePage implements OnInit {
 
   /* ---------- fetch viaggi ---------- */
   private refreshTrips(): void {
-    const userId = this.authService.getUserId();
-    if (!userId) { this.currentTrip = this.nextTrip = null; return; }
-
-    this.currentTrip = null;
-    this.nextTrip = null;
-
-    this.itineraryService.getUserItineraries(userId, 'current')
-      .subscribe(res => this.currentTrip = res?.[0] ?? null);
-
-    this.itineraryService.getUserItineraries(userId, 'upcoming')
-      .subscribe(res => {
-        if (!this.currentTrip) {
-          this.nextTrip = res?.[0] ?? null;
-        }
-      });
+  const userId = this.authService.getUserId();
+  if (!userId) {
+    this.currentTrip = this.nextTrip = null;
+    this.currentTripCoverUrl = this.nextTripCoverUrl = '';
+    return;
   }
+
+  this.currentTrip = null;
+  this.nextTrip = null;
+
+  this.itineraryService.getUserItineraries(userId, 'current')
+    .subscribe(res => {
+      this.currentTrip = res?.[0] ?? null;
+      this.currentTripCoverUrl = getPhotoUrl(this.currentTrip?.coverPhoto);
+    });
+
+  this.itineraryService.getUserItineraries(userId, 'upcoming')
+    .subscribe(res => {
+      if (!this.currentTrip) {
+        this.nextTrip = res?.[0] ?? null;
+        this.nextTripCoverUrl = getPhotoUrl(this.nextTrip?.coverPhoto);
+      }
+    });
+}
+
 
   /* ---------- util ---------- */
   getTripLength(t: TripWithId): number {

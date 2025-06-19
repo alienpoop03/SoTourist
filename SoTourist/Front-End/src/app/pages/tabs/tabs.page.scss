@@ -11,10 +11,11 @@ ion-tab-bar {
   width: calc(100% - 40px); // margine laterale
   max-width: 400px; // opzionale per limitarla su schermi larghi
   border-radius: var(--box-radius);
-  height: 40px;
+  height: 56px;
   box-shadow: 0 0px 16px rgba(0, 0, 0, 0.15);
-  padding: 8px 0;
+  padding: 0px 0;
   z-index: 100;
+  gap: 12px;
 }
 
 ion-tab-button {
@@ -42,10 +43,11 @@ ion-tab-button.ion-selected {
 ion-tab-button.ion-selected::before {
   content: '';
   position: absolute;
-  top: 2px;
-  bottom: 2px;
-  left: 6px;
-  right: 6px;
+  padding: 8px 0 !important;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
   background-color: var(--tabs-select); 
   border-radius: var(--box-radius);
   z-index: -1;
@@ -69,13 +71,13 @@ ion-tab-button .airplane-icon {
     content: attr(data-label);
     position: absolute;
     top: 50%;
-    margin-top: 6px; 
+    margin-top: 9px; 
     left: 50%;
     transform: translateX(-50%);
     background-color: transparent;
     color:  var(--tabs-icon);
     padding: 4px 8px;
-    font-size: 12px;
+    font-size: 10px;
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
