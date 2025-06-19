@@ -2,7 +2,7 @@
   --background: var(--color-background4);
 
   .container {
-    padding: 60px 20px; // aumentato il padding-top per spingere verso il basso
+    padding: 60px 20px; 
     max-width: 720px;
     margin: 0 auto;
     display: flex;
@@ -12,7 +12,7 @@
   }
 
   .trip-info {
-    font-size: 1.2rem; // ingrandita la scritta "Città"
+    font-size: 1.2rem; 
     font-weight: 500;
     color: var(--color-text1);
     text-align: center;
@@ -28,7 +28,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 16px; // ridotto per compattezza
+    padding: 16px; 
   }
 
   .selected-dates {
@@ -43,13 +43,13 @@
   }
 
   ion-button {
-    --background: var(--color-primary);          // bordeaux
-    --border-radius: 999px;                       // arrotondato pill
+    --background: var(--color-primary);          
+    --border-radius: 999px;                       
     --padding-start: 28px;
     --padding-end: 28px;
     --padding-top: 10px;
     --padding-bottom: 10px;
-    color: var(--color-highlight);               // giallo
+    color: var(--color-highlight);               
     font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
