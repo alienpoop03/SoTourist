@@ -131,15 +131,6 @@ export class ProfiloPage {
 
 
 
-  // Modifica profilo (solo frontend)
-  saveProfile() {
-    this.editing = false;
-    localStorage.setItem(
-      'userProfile',
-      JSON.stringify({ username: this.username, email: this.email })
-    );
-  }
-
   // Cambia avatar
   triggerFileInput() {
     document.querySelector<HTMLInputElement>('input[type=file]')?.click();
