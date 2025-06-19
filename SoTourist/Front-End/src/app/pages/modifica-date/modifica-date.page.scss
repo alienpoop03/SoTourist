@@ -1,47 +1,67 @@
 .modifica-date-content {
-  --background: var(--color-background);
+  --background: var(--color-background4);
 
   .container {
-    padding: 20px;
+    padding: 60px 20px; // aumentato il padding-top per spingere verso il basso
+    max-width: 720px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
   }
 
   .trip-info {
-    font-size: 1.1rem;
+    font-size: 1.2rem; // ingrandita la scritta "Città"
+    font-weight: 500;
     color: var(--color-text1);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
 
     strong {
-      //color: var(--color-primary);
+      font-weight: 600;
     }
   }
 
   .calendar-wrapper {
     display: flex;
     justify-content: center;
-    padding: 12px;
+    width: 100%;
+    padding: 16px; // ridotto per compattezza
   }
 
   .selected-dates {
+    width: 100%;
     text-align: center;
-    background: var(--color-background2);
-    padding: 12px;
-    border-radius: 8px;
+    background: var(--color-background1);
+    padding: 12px 20px;
+    border-radius: 10px;
     font-size: 1rem;
-    margin-top: 60px;
+    margin-top: 24px;
     color: var(--color-text2);
   }
 
   ion-button {
-    --background: var(--color-primary);
-    color: white;
-    margin-top: 16px;
+    --background: var(--color-primary);          // bordeaux
+    --border-radius: 999px;                       // arrotondato pill
+    --padding-start: 28px;
+    --padding-end: 28px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    color: var(--color-highlight);               // giallo
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 20px;
+    align-self: center;
   }
 }
 
-#title{
+#title {
   color: var(--color-text2);
   font-weight: bold;
+  font-size: 1.6rem;
   text-align: center;
+  margin-bottom: 6px;
 }
