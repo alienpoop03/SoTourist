@@ -21,7 +21,7 @@ import { GestureController } from '@ionic/angular';
 import { ItineraryService } from '../../services/itinerary.service';
 import { Place } from '../../models/trip.model';
 import { VisitService } from '../../services/visit.service';
-import { DayItinerary } from '../../models/itinerary.model';
+import { DayItinerary, Poi } from '../../models/itinerary.model';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 /**
@@ -104,7 +104,7 @@ export class MapPage implements AfterViewInit, OnDestroy {
         // --- 2. Aggiorna stato ----------------------------------------------
         this.trip = { ...res, itinerary: grouped };
         this.days = grouped.map((_, i) => i + 1);
-        this.itineraryData = grouped;
+        this.itineraryData = this.convertToItinerary(grouped);
         this.visitService.init(this.itineraryData);
 
         // --- 3. Aggiorna UI --------------------------------------------------
@@ -148,6 +148,18 @@ export class MapPage implements AfterViewInit, OnDestroy {
     });
 
     return grouped;
+  }
+
+  private toPoi(p: Place): Poi {
+    return { id: p.placeId, lat: p.latitude, lng: p.longitude, name: p.name };
+  }
+
+  private convertToItinerary(groups: DayGroup[]): DayItinerary[] {
+    return groups.map(g => ({
+      morning: g.morning.map(p => this.toPoi(p)),
+      afternoon: g.afternoon.map(p => this.toPoi(p)),
+      evening: g.evening.map(p => this.toPoi(p)),
+    }));
   }
 
   private whenGoogleReady(): Promise<void> {
@@ -481,7 +493,7 @@ private async generateCircularIcon(url: string): Promise<string> {
     try {
       await Geolocation.requestPermissions();
       this.watchId = await Geolocation.watchPosition(
-        { enableHighAccuracy: true, distanceFilter: 10 },
+        { enableHighAccuracy: true },
         (pos: Position | null, err) => {
           if (err || !pos) {
             console.error('WatchPosition error:', err);
