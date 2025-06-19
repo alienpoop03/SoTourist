@@ -23,6 +23,7 @@ import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 
 import { getCityName, getAccommodationName } from '../../utils/trip-utils';
+import { getPhotoUrl } from 'src/app/utils/photo-utils';
 
 @Component({
   selector: 'app-viaggi',
@@ -242,5 +243,10 @@ export class ViaggiPage implements AfterViewInit {
   getFormattedAccommodation(trip: TripWithId): string {
     return getAccommodationName(trip.accommodation);
   }
+
+  getCoverUrl(photoPath?: string | null): string {
+    return getPhotoUrl(photoPath);
+  }
+
 
 }
