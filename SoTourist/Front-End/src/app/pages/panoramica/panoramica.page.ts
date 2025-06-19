@@ -1,10 +1,12 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
 import { PhotoService } from '../../services/photo.service';
+import { VisitService, VisitedMap } from '../../services/visit.service';
+import { Phase } from '../../models/itinerary.model';
 import { FormsModule } from '@angular/forms';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 
@@ -25,7 +27,7 @@ import { getPhotoUrl } from 'src/app/utils/photo-utils';
   styleUrls: ['./panoramica.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PanoramicaPage {
+export class PanoramicaPage implements OnDestroy {
   @ViewChild(IonContent, { static: true }) content!: IonContent;
   @ViewChild('hero', { static: true }) heroEl!: ElementRef;
 
@@ -37,13 +39,16 @@ export class PanoramicaPage {
   itineraryId!: string;
   daysCount = 0;
   heroPhotoUrl = '';
+  visitedMap: VisitedMap = {};
+  private visitSub?: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private itineraryService: ItineraryService,
     private auth: AuthService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private visitService: VisitService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +59,7 @@ export class PanoramicaPage {
       this.itineraryId = id;
       this.loadItinerary(); // 🔁 ricarica ogni volta che l'id cambia
     });
+    this.visitSub = this.visitService.visited$.subscribe(map => this.visitedMap = map);
   }
 
 
@@ -105,21 +111,10 @@ export class PanoramicaPage {
     ].filter(Boolean);
   }
 
-  isStepCompleted(dayIndex: number, step: 'morning' | 'afternoon' | 'evening'): boolean {
-    const today = new Date();
-    const dayDate = this.getDayDate(dayIndex);  // metodo già aggiunto
-    const hour = today.getHours();
-    console.log(`Day ${dayIndex}, step ${step}, ora attuale ${hour}`);
-
-    // giorno passato → tutto completo
-    if (dayDate < this.clearTime(today)) return true;
-    // giorno futuro → niente completo
-    if (dayDate > this.clearTime(today)) return false;
-
-    // siamo sul giorno corrente
-
-    const thresholds = { morning: 12, afternoon: 18, evening: 23 };
-    return hour >= thresholds[step];
+  isStepCompleted(dayIndex: number, step: Phase): boolean {
+    const total = this.trip?.itinerary?.[dayIndex]?.[step]?.length || 0;
+    const done = this.visitedMap?.[dayIndex]?.[step]?.size || 0;
+    return total > 0 && done >= total;
   }
 
   /** Azzeri ore/minuti/secondi per comparazioni “solo data” */
@@ -155,39 +150,15 @@ export class PanoramicaPage {
   }
 
   /** Restituisce la % di completamento del segmento */
-  getStepProgress(dayIndex: number, step: 'morning' | 'afternoon' | 'evening'): number {
-    const now = new Date();
-    const dayDate = this.clearTime(this.getDayDate(dayIndex));
-    const today = this.clearTime(now).getTime();
+  getStepProgress(dayIndex: number, step: Phase): number {
+    const total = this.trip?.itinerary?.[dayIndex]?.[step]?.length || 0;
+    if (total === 0) return 0;
+    const done = this.visitedMap?.[dayIndex]?.[step]?.size || 0;
+    return Math.round((done / total) * 100);
+  }
 
-    // passato → 100%, futuro → 0%
-    if (dayDate.getTime() < today) return 100;
-    if (dayDate.getTime() > today) return 0;
-
-    // ora corrente (ms)
-    const current = now.getTime();
-
-    // definisci in ms inizio/fine di ogni segmento
-    const startMorning = new Date(dayDate).setHours(0, 0, 0, 0);
-    const endMorning = new Date(dayDate).setHours(12, 0, 0, 0);
-    const startAfter = endMorning;
-    const endAfter = new Date(dayDate).setHours(18, 0, 0, 0);
-    const startEvening = endAfter;
-    const endEvening = new Date(dayDate).setHours(23, 59, 59, 999);
-
-    let segStart: number, segEnd: number;
-    if (step === 'morning') {
-      segStart = startMorning; segEnd = endMorning;
-    } else if (step === 'afternoon') {
-      segStart = startAfter; segEnd = endAfter;
-    } else {
-      segStart = startEvening; segEnd = endEvening;
-    }
-
-    if (current <= segStart) return 0;
-    if (current >= segEnd) return 100;
-    // percentuale:
-    return Math.round((current - segStart) / (segEnd - segStart) * 100);
+  ngOnDestroy(): void {
+    this.visitSub?.unsubscribe();
   }
 
 

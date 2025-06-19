@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  OnDestroy,
   NgZone,
   ChangeDetectorRef
 } from '@angular/core';
@@ -19,6 +20,9 @@ import { GestureController } from '@ionic/angular';
 
 import { ItineraryService } from '../../services/itinerary.service';
 import { Place } from '../../models/trip.model';
+import { VisitService } from '../../services/visit.service';
+import { DayItinerary } from '../../models/itinerary.model';
+import { Geolocation, Position } from '@capacitor/geolocation';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 /**
  * Rappresenta la struttura delle tappe raggruppate per giorno
@@ -46,7 +50,7 @@ interface DayGroup {
 
   ]
 })
-export class MapPage implements AfterViewInit {
+export class MapPage implements AfterViewInit, OnDestroy {
 
   /* ------------------------- References ------------------------- */
   @ViewChild('map', { static: false, read: ElementRef }) mapRef!: ElementRef<HTMLDivElement>;
@@ -66,6 +70,8 @@ export class MapPage implements AfterViewInit {
   currentDay = 1;
   todayPlaces: Place[] = [];
   selectedIndex: number | null = null;
+  private watchId?: string;
+  private itineraryData: DayItinerary[] = [];
 
   /* ----------------------------- UI ----------------------------- */
   dayListOpen = false;
@@ -77,7 +83,8 @@ export class MapPage implements AfterViewInit {
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
     private itineraryService: ItineraryService,
-    private gestureCtrl: GestureController
+    private gestureCtrl: GestureController,
+    private visitService: VisitService
   ) { }
 
   /* ======================= Lifecycle ======================= */
@@ -97,10 +104,13 @@ export class MapPage implements AfterViewInit {
         // --- 2. Aggiorna stato ----------------------------------------------
         this.trip = { ...res, itinerary: grouped };
         this.days = grouped.map((_, i) => i + 1);
+        this.itineraryData = grouped;
+        this.visitService.init(this.itineraryData);
 
         // --- 3. Aggiorna UI --------------------------------------------------
         this.refreshPlaces();
         this.whenGoogleReady().then(() => this.initMap());
+        this.startTracking();
         console.log('Distanze tra i luoghi:', this.todayPlaces.map(place => place.distanceToNext));
       },
       error: err => console.error('[MapPage] errore caricamento itinerary:', err)
@@ -466,6 +476,32 @@ private async generateCircularIcon(url: string): Promise<string> {
     img.src = url;
   });
 }
+
+  private async startTracking() {
+    try {
+      await Geolocation.requestPermissions();
+      this.watchId = await Geolocation.watchPosition(
+        { enableHighAccuracy: true, distanceFilter: 10 },
+        (pos: Position | null, err) => {
+          if (err || !pos) {
+            console.error('WatchPosition error:', err);
+            return;
+          }
+          if (this.itineraryData.length) {
+            this.visitService.checkAndMark(pos.coords, this.itineraryData);
+          }
+        }
+      );
+    } catch (e) {
+      console.error('startTracking error', e);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.watchId) {
+      Geolocation.clearWatch({ id: this.watchId });
+    }
+  }
 
 
 }
