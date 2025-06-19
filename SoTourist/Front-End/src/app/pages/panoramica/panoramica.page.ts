@@ -84,6 +84,12 @@ export class PanoramicaPage {
     });
   }
 
+  getDayDate(index: number): Date {
+    const start = new Date(this.trip.startDate);
+    start.setDate(start.getDate() + index);
+    return start;
+  }
+
   getDayItems(index: number): string[] {
     const day = this.trip?.itinerary?.[index];
     if (!day) return [];
@@ -97,6 +103,28 @@ export class PanoramicaPage {
       day.atmosphere,
       ...splitMustSee
     ].filter(Boolean);
+  }
+
+  isStepCompleted(dayIndex: number, step: 'morning' | 'afternoon' | 'evening'): boolean {
+    const today = new Date();
+    const dayDate = this.getDayDate(dayIndex);  // metodo già aggiunto
+    const hour = today.getHours();
+    console.log(`Day ${dayIndex}, step ${step}, ora attuale ${hour}`);
+
+    // giorno passato → tutto completo
+    if (dayDate < this.clearTime(today)) return true;
+    // giorno futuro → niente completo
+    if (dayDate > this.clearTime(today)) return false;
+
+    // siamo sul giorno corrente
+
+    const thresholds = { morning: 12, afternoon: 18, evening: 23 };
+    return hour >= thresholds[step];
+  }
+
+  /** Azzeri ore/minuti/secondi per comparazioni “solo data” */
+  private clearTime(d: Date): Date {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   }
 
   private calculateDays(start: string, end: string): number {
@@ -125,5 +153,43 @@ export class PanoramicaPage {
   getFormattedAccommodation(): string {
     return getAccommodationName(this.trip?.accommodation || '');
   }
+
+  /** Restituisce la % di completamento del segmento */
+  getStepProgress(dayIndex: number, step: 'morning' | 'afternoon' | 'evening'): number {
+    const now = new Date();
+    const dayDate = this.clearTime(this.getDayDate(dayIndex));
+    const today = this.clearTime(now).getTime();
+
+    // passato → 100%, futuro → 0%
+    if (dayDate.getTime() < today) return 100;
+    if (dayDate.getTime() > today) return 0;
+
+    // ora corrente (ms)
+    const current = now.getTime();
+
+    // definisci in ms inizio/fine di ogni segmento
+    const startMorning = new Date(dayDate).setHours(0, 0, 0, 0);
+    const endMorning = new Date(dayDate).setHours(12, 0, 0, 0);
+    const startAfter = endMorning;
+    const endAfter = new Date(dayDate).setHours(18, 0, 0, 0);
+    const startEvening = endAfter;
+    const endEvening = new Date(dayDate).setHours(23, 59, 59, 999);
+
+    let segStart: number, segEnd: number;
+    if (step === 'morning') {
+      segStart = startMorning; segEnd = endMorning;
+    } else if (step === 'afternoon') {
+      segStart = startAfter; segEnd = endAfter;
+    } else {
+      segStart = startEvening; segEnd = endEvening;
+    }
+
+    if (current <= segStart) return 0;
+    if (current >= segEnd) return 100;
+    // percentuale:
+    return Math.round((current - segStart) / (segEnd - segStart) * 100);
+  }
+
+
 
 }
