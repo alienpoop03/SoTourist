@@ -84,7 +84,7 @@ export class ViaggiPage implements AfterViewInit {
   /* ========== LIFECYCLE ============ */
   ngAfterViewInit(): void {
     /* dimensioni hero */
-    this.heroMax = window.innerHeight * 0.5;          // 50 vh
+    this.heroMax = window.innerHeight * 0.3;          // 50 vh
     this.heroMin = this.heroMax * 0.2;                // 20 %
     this.shrinkThreshold = this.heroMax - this.heroMin; // ← soglia dinamica
 
@@ -124,10 +124,10 @@ export class ViaggiPage implements AfterViewInit {
 
   handleScrollEnd(event: any) {
     const y = event.detail.scrollTop;
-    const snapZoneStart = 0.1;
+    const snapZoneStart = 0.2;
     const snapZoneEnd = this.shrinkThreshold - 0.1;
 
-    if (y >= snapZoneStart && y <= snapZoneEnd) {
+    /*if (y >= snapZoneStart && y <= snapZoneEnd) {
       if (y < this.shrinkThreshold / 2) {
         this.content.scrollToPoint(0, 0, 300);
       } else {
@@ -135,7 +135,7 @@ export class ViaggiPage implements AfterViewInit {
         this.content.scrollToPoint(0, this.shrinkThreshold, 300);
         
       }
-    }
+    }*/
   }
 
   onScrollEnd(event: any) {

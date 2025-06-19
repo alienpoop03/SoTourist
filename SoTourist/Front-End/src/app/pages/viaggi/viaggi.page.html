@@ -15,7 +15,7 @@
     *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
 
     <!-- HERO ESPANSA -->
-    <div *ngIf="inCorso" class="hero-wrapper" [class.hidden]="isShrunk">
+    <!--<div *ngIf="inCorso" class="hero-wrapper" [class.hidden]="isShrunk">
       <ng-container *ngIf="inCorso">
         <img [src]="getCoverUrl(inCorso.coverPhoto)" class="hero-bg" alt="cover" />
         <div class="hero-overlay">
@@ -34,7 +34,7 @@
             Vai all'itinerario
           </ion-button>
 
-          <!-- Parte destra: Storico -->
+          <!-- Parte destra: Storico --
           <div class="pill-side right" (click)="deleteTrip(inCorso.itineraryId)">
             <ion-icon name="trash-outline"></ion-icon>
           </div>
@@ -42,10 +42,10 @@
 
         </div>
       </ng-container>
-    </div>
+    </div>-->
 
     <!-- HERO COMPATTA -->
-    <div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk" (click)="onHeroClick()">
+    <!--<div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk" (click)="onHeroClick()">
       <ng-container *ngIf="inCorso">
         <img [src]="getCoverUrl(inCorso.coverPhoto)" class="compact-bg" alt="cover" />
         <div class="compact-overlay">
@@ -55,9 +55,19 @@
           </p>
         </div>
       </ng-container>
+    </div>-->
+
+    <div *ngIf="!isGuest">
+      
     </div>
 
-    <div *ngIf="!isGuest" class="fist-list">
+    <div *ngIf="!isGuest" [class.fist-list]="inCorso && isShrunk">
+      <div *ngIf="inCorso" class="trip-section">
+        <h2 class="Title_sezion">Viaggio in corso</h2>
+        <app-trip-card [trip]="inCorso" (open)="openItinerary(inCorso.itineraryId)"
+          (remove)="deleteTrip(inCorso.itineraryId)"></app-trip-card>
+      </div>
+
       <div *ngIf="imminente" class="trip-section">
         <h2 class="Title_sezion">Viaggio imminente</h2>
         <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
@@ -75,14 +85,13 @@
     </div>
 
     <div *ngIf="drafts.length > 0" class="trip-section">
-      <h2 class="Title_sezion fist-list">Bozze</h2>
+      <h2 class="Title_sezion" [class.fist-list]="inCorso">Bozze</h2>
       <div class="card-grid">
         <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)"
           (remove)="deleteDraft($event)">
         </app-unfinished-card>
       </div>
     </div>
-
     <div class="spacer"><!-- Spazio per andare sopra al pulsante crea --></div>
     <div class="with-floating-tabs"></div>
   </ion-content>

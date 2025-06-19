@@ -89,6 +89,8 @@ export class ProfileIconComponent implements OnInit {
 
 
   async onImageSelected(evt: Event): Promise<void> {
+    if (!this.editable) return;
+
     const file = (evt.target as HTMLInputElement)?.files?.[0];
     if (!file) return;
 
