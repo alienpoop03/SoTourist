@@ -2,14 +2,14 @@
 </app-header>
 
 <!-- CONTENUTO -->
-<ion-content class="viaggi-content">
+<div class="viaggi-content-div">
   <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
     <p>Premi il tasto <ion-icon class="button-crea-indicazione" name="add-outline"></ion-icon> in basso per iniziare un
       nuovo viaggio!</p>
   </div>
-
+</div>
   <ion-content class="viaggi-content" scrollEvents="true" (ionScroll)="onScroll($event)"
     (ionScrollEnd)="onScrollEnd($event)" #pageContent
     *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
@@ -45,7 +45,7 @@
     </div>
 
     <!-- HERO COMPATTA -->
-    <div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk">
+    <div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk" (click)="onHeroClick()">
       <ng-container *ngIf="inCorso">
         <img [src]="getCoverUrl(inCorso.coverPhoto)" class="compact-bg" alt="cover" />
         <div class="compact-overlay">
@@ -57,7 +57,7 @@
       </ng-container>
     </div>
 
-    <div *ngIf="!isGuest">
+    <div *ngIf="!isGuest" class="fist-list">
       <div *ngIf="imminente" class="trip-section">
         <h2 class="Title_sezion">Viaggio imminente</h2>
         <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
@@ -75,7 +75,7 @@
     </div>
 
     <div *ngIf="drafts.length > 0" class="trip-section">
-      <h2 class="Title_sezion">Bozze</h2>
+      <h2 class="Title_sezion fist-list">Bozze</h2>
       <div class="card-grid">
         <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)"
           (remove)="deleteDraft($event)">
@@ -86,7 +86,7 @@
     <div class="spacer"><!-- Spazio per andare sopra al pulsante crea --></div>
     <div class="with-floating-tabs"></div>
   </ion-content>
-</ion-content>
+
 
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
   <div class="pill-dual-wrapper">

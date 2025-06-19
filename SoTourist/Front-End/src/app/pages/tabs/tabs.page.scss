@@ -71,13 +71,13 @@ ion-tab-button .airplane-icon {
     content: attr(data-label);
     position: absolute;
     top: 50%;
-    margin-top: 6px; 
+    margin-top: 9px; 
     left: 50%;
     transform: translateX(-50%);
     background-color: transparent;
     color:  var(--tabs-icon);
     padding: 4px 8px;
-    font-size: 12px;
+    font-size: 10px;
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
