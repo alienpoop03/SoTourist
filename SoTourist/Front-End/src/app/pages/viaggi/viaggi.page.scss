@@ -5,6 +5,12 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   --background: var(--color-background4);
 }
 
+.viaggi-content-div {
+  background: var(--color-background4);
+  height: 100vh;
+}
+
+
 /* nascondo la scrollbar default */
 :host ::ng-deep ion-content {
   scrollbar-width: none;
@@ -276,4 +282,8 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   width: 1px;
   background-color: rgba(0, 0, 0, 0.2);
   height: 60%;
+}
+
+.fist-list{
+  margin-top: 50px;
 }
