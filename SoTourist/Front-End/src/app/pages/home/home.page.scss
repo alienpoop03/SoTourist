@@ -24,42 +24,110 @@
   border-bottom-left-radius: var(--box-radius);
   border-bottom-right-radius: var(--box-radius);
   overflow: hidden;
+  .Hero-crea{
+    .hero-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.85);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 1rem 1rem;
+      z-index: 1;
+      background: linear-gradient(to top,
+          rgb(0, 0, 0),
+          rgba(255, 255, 255, 0)50%);
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: #fff;
+      opacity: 0.9;
+    }
+  }
+}
+
+.Hero-Viaggi {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  border-bottom-left-radius: var(--box-radius);
+  border-bottom-right-radius: var(--box-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 1rem 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
 
   .hero-bg {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 0;
     filter: brightness(0.85);
   }
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 1rem 1rem;
+  .hero-title,
+  .hero-subtitle{
+    position: relative;
     z-index: 1;
-    background: linear-gradient(to top,
-        rgb(0, 0, 0),
-        rgba(255, 255, 255, 0)50%);
+    color: white;
+    text-align: left;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    width: fit-content;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 0 10px;
+    border-radius: var(--box-radius);
+  }
+  .cta-button {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
   }
 
   .hero-title {
     font-size: 2rem;
     font-weight: 800;
-    color: #fff;
-    line-height: 1.1;
     margin-bottom: 0.4rem;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   }
 
   .hero-subtitle {
     font-size: 0.95rem;
-    color: #fff;
     opacity: 0.9;
+    margin-bottom: 1rem;
+  }
+
+  .cta-button {
+    --background: var(--color-primary);
+    --color: var(--color-highlight);
+    font-weight: bold;
+    font-size: 1rem;
   }
 }
+
+
 
 /* ───── Heading sezione ───── */
 .section-heading {

@@ -47,8 +47,8 @@ export class HomePage implements OnInit {
   currentTrip: TripWithId | null = null;  // viaggio in corso
   nextTrip: TripWithId | null = null;     // viaggio imminente (solo se non in corso)
 
-currentTripCoverUrl: string = '';
-nextTripCoverUrl: string = '';
+  currentTripCoverUrl: string = '';
+  nextTripCoverUrl: string = '';
 
 
   /* ---------- itinerari consigliati (mock) ---------- */
@@ -117,6 +117,9 @@ nextTripCoverUrl: string = '';
     });
 }
 
+getPhotoUrll(photoPath?: string | null): string {
+  return getPhotoUrl(photoPath);
+}
 
   /* ---------- util ---------- */
   getTripLength(t: TripWithId): number {
