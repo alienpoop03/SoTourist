@@ -16,7 +16,7 @@ export class NoGuestGuard implements CanActivate{
     const userType = this.authService.getCurrentUserType();  // es: 'guest', 'standard', 'premium'
 
     if (userType === 'guest') {
-      this.toastService.showWarning("Loggin richiesto");
+      this.toastService.showWarning("Login richiesto");
       return this.router.parseUrl('/login');
     }
 
