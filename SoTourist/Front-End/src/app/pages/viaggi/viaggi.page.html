@@ -60,15 +60,18 @@
 
   <div class="user-box" *ngIf="!isGuest">
     <ng-container *ngIf="!isGuest">
-      <app-profile-icon
-        class="profile-img"
-        [userId]="userId"
-        [size]="80"
-        [editable]="false"
-      ></app-profile-icon>
-
-      <div class="user-info">
+      <div class="hero-user">
+        <app-profile-icon
+          class="profile-img"
+          [userId]="userId"
+          [size]="70"
+          [editable]="false"
+        ></app-profile-icon>
         <h2 class="username"><strong>{{ username || 'Nuovo utente' }}</strong></h2>
+      </div>
+      
+      <div class="user-info">
+        
         
         <div class="user-stats">
           <div class="stat">

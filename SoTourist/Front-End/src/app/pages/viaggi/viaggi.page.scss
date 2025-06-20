@@ -43,18 +43,25 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   //margin: 1rem;
   width: 100%;
 
-  .profile-img {
-    flex-shrink: 0;
+  .hero-user{
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    margin: auto;
+
+    .profile-img {
+      flex-shrink: 0;
+    }
+    .username {
+      margin: 0 0 0.4rem;
+      font-size: 1.2rem;
+      color: var(--color-text1);
+    }
   }
 
   .user-info {
     flex-grow: 1;
 
-    .username {
-      margin: 0 0 0.4rem;
-      font-size: 1.5rem;
-      color: var(--color-text1);
-    }
 
     .user-stats {
       display: flex;
@@ -67,10 +74,11 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
         text-align: center;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: auto;
 
         ion-icon {
           font-size: 1.7rem;
-          color: var(--color-primary);
+          color: var(--color-text1);
         }
 
         span {
