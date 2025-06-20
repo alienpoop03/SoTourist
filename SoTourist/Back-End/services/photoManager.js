@@ -13,16 +13,6 @@ function ensureDir(dir) {
   }
 }
 
-function normalizeFileId(input) {
-  return input
-    .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // rimuove accenti
-    .replace(/[^a-z0-9]+/g, '-')                     // non alfanumerici → trattino
-    .replace(/-+/g, '-')                             // trattini doppi
-    .replace(/^-|-$/g, '');                          // trattini ai bordi
-}
-
-
 /**
  * Scarica (se necessario) una foto da Google e la salva nella cartella uploads/[subfolder]/.
  * @param {string} fileId - Nome del file senza estensione (placeId o cityName normalizzato)
@@ -73,36 +63,44 @@ async function getOrDownloadPhoto(fileId, photoReference, subfolder = 'places') 
 /**
  * Cerca su Google una foto famosa della città e la salva come copertina.
  * @param {string} rawCity - Nome città originale (es. "Palermo PA, Italia")
- * @returns {Promise<string|null>} - Es: "covers/palermo-pa-italia.jpg" o null se fallisce
+ * @returns {Promise<string|null>} - Es: "covers/ChIJy8PHYzRb1RIRp8MUc74bOwM.jpg" o null se fallisce
  */
 async function getCityCoverPhoto(rawCity) {
-  const normalizedCity = normalizeFileId(rawCity);
   console.log('🌆 CITTÀ da cercare:', rawCity);
-  console.log('📛 Normalizzata:', normalizedCity);
 
   try {
-    const resp = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
-      params: {
-        query: `monumenti famosi a ${rawCity}`,
-        key: GOOGLE_API_KEY
+    const resp = await axios.get(
+      'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      {
+        params: {
+          query: `monumenti famosi a ${rawCity}`,
+          key: GOOGLE_API_KEY
+        }
       }
-    });
+    );
 
     console.log('📦 RISULTATI ricevuti da Google:', resp.data.results.length);
 
+    // Prendiamo il primo risultato che ha almeno una foto
     const first = resp.data.results.find(p => p.photos?.[0]);
     if (!first) return null;
 
+    // 1️⃣  Usa direttamente il place_id di Google come nome file
+    const placeId = first.place_id;                     // es. "ChIJy8PHYzRb1RIRp8MUc74bOwM"
     const ref = first.photos[0].photo_reference;
-    console.log('🖼️ PHOTO REF trovata:', ref);
 
-    const savedPath = await getOrDownloadPhoto(normalizedCity, ref, 'covers');
+    console.log('🏷️ PLACE_ID:', placeId);
+    console.log('🖼️ PHOTO REF:', ref);
+
+    // 2️⃣  Passa il placeId a getOrDownloadPhoto
+    const savedPath = await getOrDownloadPhoto(placeId, ref, 'covers');
     return savedPath;
   } catch (err) {
     console.warn('⚠️ Errore download cover:', err.message);
     return null;
   }
 }
+
 
 
 module.exports = {
