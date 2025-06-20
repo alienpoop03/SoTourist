@@ -60,72 +60,112 @@
       opacity: 0.9;
     }
   }
-}
 
-.Hero-Viaggi {
-  position: relative;
-  width: 100%;
-  height: 50vh;
-  border-bottom-left-radius: var(--box-radius);
-  border-bottom-right-radius: var(--box-radius);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 1rem 1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
 
-  .hero-bg {
-    position: absolute;
-    inset: 0;
+  .Hero-Viaggi {
+    position: relative;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    filter: brightness(0.85);
-  }
+    height: 50vh;
+    border-bottom-left-radius: var(--box-radius);
+    border-bottom-right-radius: var(--box-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 1rem 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
 
-  .hero-title,
-  .hero-subtitle{
-    position: relative;
-    z-index: 1;
-    color: white;
-    text-align: left;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-    width: fit-content;
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    padding: 0 10px;
-    border-radius: var(--box-radius);
-  }
-  .cta-button {
-    position: relative;
-    z-index: 1;
-    color: white;
-    text-align: center;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-  }
+    .hero-type-title {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 100%;
+      padding: 0.6rem 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color:white; //var(--color-highlight);
+      z-index: 10;
+      overflow: hidden;
 
-  .hero-title {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 0.4rem;
-  }
+      //sfondo blurato ma con "gradiente"
+      .hero-type-blur-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background-color: rgba(0, 0, 0, 0.3);
 
-  .hero-subtitle {
-    font-size: 0.95rem;
-    opacity: 0.9;
-    margin-bottom: 1rem;
-  }
+        // Gradiente blur
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+        mask-size: 100% 100%;
+        mask-repeat: no-repeat;
+        pointer-events: none;
+      }
 
-  .cta-button {
-    --background: var(--color-primary);
-    --color: var(--color-highlight);
-    font-weight: bold;
-    font-size: 1rem;
+      //Testo che deve stare sopra lo sfondo
+      .hero-type-text {
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      }      
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      filter: brightness(0.85);
+    }
+
+    .hero-title,
+    .hero-subtitle{
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: left;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      width: fit-content;
+      background-color: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      padding: 0 10px;
+      border-radius: var(--box-radius);
+    }
+    .cta-button {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      --background: var(--color-primary);
+      --color: var(--color-highlight);
+      font-weight: bold;
+      font-size: 1rem;
+    }
   }
 }
+
 
 
 

@@ -63,16 +63,29 @@ export class HomePage implements OnInit {
     private navCtrl: NavController
   ) { }
 
+  box_shadow = false;
 
+  onScroll(event: CustomEvent) {
+    const scrollTop = event.detail.scrollTop || 0;
+    if(this.currentTrip || this.nextTrip){
+      this.box_shadow = scrollTop < 1;
+    }else{
+      this.box_shadow = false;
+    }
+    
+  }
 
   /* ---------- lifecycle ---------- */
   ngOnInit(): void {
     this.refreshTrips();
-
     this.itineraryService.getUserItineraries(this.OFFICIAL_USER_ID, 'all')
       .subscribe(itinerari => {
         this.featuredItineraries = itinerari;
       });
+  }
+
+  private updateBoxShadow() {
+    this.box_shadow = !!(this.currentTrip || this.nextTrip);
   }
 
   ionViewWillEnter(): void {
@@ -106,6 +119,7 @@ export class HomePage implements OnInit {
     .subscribe(res => {
       this.currentTrip = res?.[0] ?? null;
       this.currentTripCoverUrl = getPhotoUrl(this.currentTrip?.coverPhoto);
+      this.updateBoxShadow();
     });
 
   this.itineraryService.getUserItineraries(userId, 'upcoming')
@@ -113,6 +127,7 @@ export class HomePage implements OnInit {
       if (!this.currentTrip) {
         this.nextTrip = res?.[0] ?? null;
         this.nextTripCoverUrl = getPhotoUrl(this.nextTrip?.coverPhoto);
+        this.updateBoxShadow();
       }
     });
 }

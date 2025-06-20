@@ -1,8 +1,8 @@
 <!-- src/app/home/home.page.html -->
-<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false">
+<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false" [box_shadow]="box_shadow">
 </app-header>
 
-<ion-content class="home-content">
+<ion-content class="home-content" (ionScroll)="onScroll($event)" scrollEvents="true">
 
   <!-- Hero --------------------------------------------------------------->
   <section class="hero">
@@ -26,8 +26,16 @@
 
     <!--Hero Viaggi-->
     <div class="Hero-Viaggi" *ngIf="currentTrip || nextTrip">
+      <h2 class="hero-type-title">
+          <span class="hero-type-blur-bg"></span>
+          <span class="hero-type-text">
+            {{ currentTrip ? 'Viaggio in corso' : 'Il tuo prossimo viaggio' }}
+          </span>
+      </h2>
+
       <img [src]="currentTrip ? currentTripCoverUrl : nextTripCoverUrl" alt="Hero" class="hero-bg"/>
 
+      
       <h1 class="hero-title">
         {{ getFormattedCity(currentTrip || nextTrip) }}
       </h1>
