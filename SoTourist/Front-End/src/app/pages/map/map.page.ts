@@ -441,8 +441,7 @@ console.log('[MARKER] imageUrl:', imageUrl);
   private async startTracking() {
     await Geolocation.requestPermissions();
     this.watchId = await Geolocation.watchPosition({
-      enableHighAccuracy: true,
-      distanceFilter: 10
+      enableHighAccuracy: true
     }, (pos: Position | null, err) => {
       if (err) {
         console.error('WatchPosition error:', err);
