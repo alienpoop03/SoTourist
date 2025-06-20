@@ -2,7 +2,7 @@
 </app-header>
 
 <!-- CONTENUTO -->
-<!--<div class="viaggi-content-div">
+<div class="viaggi-content-div">
   <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
@@ -10,39 +10,6 @@
       nuovo viaggio!</p>
   </div>
 </div>
-
-<div class="background-user-box">
-  <div class="user-box" *ngIf="!isGuest">
-    <app-profile-icon
-      class="profile-img"
-      [userId]="userId"
-      [size]="64"
-      [editable]="false"
-    ></app-profile-icon>
-
-    <div class="user-info">
-      <h2 class="username"><strong>{{ username || 'Nuovo utente' }}</strong></h2>
-      
-      <div class="user-stats">
-        <div class="stat">
-          <ion-icon name="walk-outline"></ion-icon>
-          <span>{{ upcomingCount }}</span>
-          <small>Futuri</small>
-        </div>
-        <div class="stat">
-          <ion-icon name="checkmark-done-outline"></ion-icon>
-          <span>{{ pastCount }}</span>
-          <small>Completati</small>
-        </div>
-        <div class="stat">
-          <ion-icon name="location-outline"></ion-icon>
-          <span>{{ visitedPlacesCount }}</span>
-          <small>Tappe</small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
 
 <ion-content class="viaggi-content" scrollEvents="true" (ionScroll)="onScroll($event)"
   (ionScrollEnd)="onScrollEnd($event)" #pageContent

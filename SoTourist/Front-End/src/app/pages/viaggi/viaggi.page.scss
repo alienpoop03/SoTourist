@@ -30,7 +30,11 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   align-items: center;
   height: 114px;
   padding: 1rem;
-  background: var(--color-background);
+  background-color: rgba(var(--color-background-rgb), 0.5); //var(--color-background);
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
   border-bottom-left-radius: var(--box-radius);
   border-bottom-right-radius: var(--box-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -86,6 +90,9 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
 
 .space-ander-hero{
   height: 114px;
+  border-bottom-left-radius: var(--box-radius);
+  border-bottom-right-radius: var(--box-radius);
+  background-color: var(--color-background);
 }
 
 
