@@ -2,10 +2,10 @@
 <app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false" [box_shadow]="box_shadow">
 </app-header>
 
-<ion-content class="home-content" (ionScroll)="onScroll($event)" scrollEvents="true">
+<ion-content class="home-content" (ionScroll)="onScroll($event)" (ionScrollEnd)="onScrollEnd($event)" scrollEvents="true">
 
-  <!-- Hero --------------------------------------------------------------->
-  <section class="hero">
+  <!-- Hero Espansa-------------------------------------------------------->
+  <section #expandedHero class="hero" [class.invisibile]="(currentTrip || nextTrip) && isShrunk">
     <!--Hero con crea-->
     <div class="Hero-crea" *ngIf="!currentTrip && !nextTrip">
       <img src="assets/images/Amsterdam.jpeg" alt="Hero" class="hero-bg" />
@@ -52,6 +52,21 @@
     </div>
 
   </section>
+
+  <!-- HERO COMPATTA Solo viaggi -->
+  <div #compactHero *ngIf="currentTrip || nextTrip" class="hero-compact" [class.visible]="isShrunk" (click)="onHeroClick()">
+    <ng-container *ngIf="currentTrip || nextTrip">
+      <div class="hero-itinerio">
+        <img [src]="currentTrip ? currentTripCoverUrl : nextTripCoverUrl" class="compact-bg" alt="cover" />
+        <div class="compact-overlay">
+          <h2 class="compact-title">{{ getFormattedCity(currentTrip || nextTrip) }}</h2>
+          <p class="compact-dates">{{ (currentTrip || nextTrip)!.startDate | date:'d MMM' }} – {{ (currentTrip || nextTrip)!.endDate | date:'d MMM y' }}
+          </p>
+        </div>
+      </div>
+      <div class="compact-tag">{{ currentTrip ? 'Viaggio in corso' : 'prossimo viaggio' }}</div>
+    </ng-container>
+  </div>
 
   <!-- Destinazioni trend -------------------------------------------------->
   <section class="trending">

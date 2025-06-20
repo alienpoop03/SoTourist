@@ -1,5 +1,5 @@
 /* src/app/home/home.page.ts */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild , HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
@@ -64,15 +64,54 @@ export class HomePage implements OnInit {
   ) { }
 
   box_shadow = false;
+  isShrunk = false;
+  readonly compactHeroHeight = 104.55; //dimensione hero compatta
+  shrinkThreshold = 0;
+
+  @ViewChild(IonContent) content!: IonContent;
+  @ViewChild('expandedHero', { static: false }) expandedHeroRef!: ElementRef;
+  @ViewChild('compactHero', { static: false }) compactHeroRef!: ElementRef;
+  @HostListener('window:resize', ['$event'])
+  
+  onWindowResize() {
+    this.recalculateShrinkThreshold();
+  }
+
+  recalculateShrinkThreshold() {
+    setTimeout(() => {
+      if (!this.expandedHeroRef) return;
+
+      const heroHeight = this.expandedHeroRef.nativeElement.offsetHeight || 0;
+      this.shrinkThreshold = heroHeight - this.compactHeroHeight;
+
+      // console.log('Recalculated threshold:', this.shrinkThreshold);
+    });
+  }
+
+  ngAfterViewInit() {
+    this.refreshTrips(); 
+  }
 
   onScroll(event: CustomEvent) {
     const scrollTop = event.detail.scrollTop || 0;
+    console.log("scroll: ", scrollTop);
+    this.isShrunk = scrollTop > this.shrinkThreshold;
     if(this.currentTrip || this.nextTrip){
       this.box_shadow = scrollTop < 1;
     }else{
       this.box_shadow = false;
     }
     
+  }
+
+  onScrollEnd(event: any) {
+    const y = event.detail.scrollTop;
+    
+    if (y > this.shrinkThreshold) {
+      this.isShrunk = true;
+    } else if (y < this.shrinkThreshold / 2) {
+      this.isShrunk = false;
+    }
   }
 
   /* ---------- lifecycle ---------- */
@@ -105,32 +144,35 @@ export class HomePage implements OnInit {
 
   /* ---------- fetch viaggi ---------- */
   private refreshTrips(): void {
-  const userId = this.authService.getUserId();
-  if (!userId) {
-    this.currentTrip = this.nextTrip = null;
-    this.currentTripCoverUrl = this.nextTripCoverUrl = '';
-    return;
-  }
-
-  this.currentTrip = null;
-  this.nextTrip = null;
-
-  this.itineraryService.getUserItineraries(userId, 'current')
-    .subscribe(res => {
-      this.currentTrip = res?.[0] ?? null;
-      this.currentTripCoverUrl = getPhotoUrl(this.currentTrip?.coverPhoto);
-      this.updateBoxShadow();
+    setTimeout(() => {
+      this.recalculateShrinkThreshold();
     });
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      this.currentTrip = this.nextTrip = null;
+      this.currentTripCoverUrl = this.nextTripCoverUrl = '';
+      return;
+    }
 
-  this.itineraryService.getUserItineraries(userId, 'upcoming')
-    .subscribe(res => {
-      if (!this.currentTrip) {
-        this.nextTrip = res?.[0] ?? null;
-        this.nextTripCoverUrl = getPhotoUrl(this.nextTrip?.coverPhoto);
+    this.currentTrip = null;
+    this.nextTrip = null;
+
+    this.itineraryService.getUserItineraries(userId, 'current')
+      .subscribe(res => {
+        this.currentTrip = res?.[0] ?? null;
+        this.currentTripCoverUrl = getPhotoUrl(this.currentTrip?.coverPhoto);
         this.updateBoxShadow();
-      }
-    });
-}
+      });
+
+    this.itineraryService.getUserItineraries(userId, 'upcoming')
+      .subscribe(res => {
+        if (!this.currentTrip) {
+          this.nextTrip = res?.[0] ?? null;
+          this.nextTripCoverUrl = getPhotoUrl(this.nextTrip?.coverPhoto);
+          this.updateBoxShadow();
+        }
+      });
+  }
 
   getPhotoUrl(photoPath?: string | null): string {
     return getPhotoUrl(photoPath);
@@ -167,6 +209,12 @@ export class HomePage implements OnInit {
 
   getFormattedCity(trip: TripWithId | null): string {
     return trip ? getCityName(trip.city) : '';
+  }
+
+  onHeroClick() {
+    if (!this.content) return;
+    this.content.scrollToPoint(0, 0, 500 );
+    this.isShrunk = false;
   }
 
 }

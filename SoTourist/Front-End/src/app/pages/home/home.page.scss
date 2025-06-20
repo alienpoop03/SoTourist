@@ -166,6 +166,88 @@
   }
 }
 
+.hero.invisibile {
+  visibility: hidden;
+}
+
+// hero compatta viaggi
+.hero-compact {
+  justify-content: space-between;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  
+  background-color: rgba(var(--color-background-rgb), 0.8); 
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 998;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+
+  border-bottom-left-radius: var(--box-radius);
+  border-bottom-right-radius: var(--box-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+}
+
+.hero-compact.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.hero-itinerio {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+}
+
+.compact-tag {
+  //background-color: var(--color-primary); 
+  color: var(--color-primary);              
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 10px;
+  border-radius: var(--box-radius);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.compact-bg {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 0;
+}
+
+.compact-overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+.compact-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.compact-dates {
+  font-size: 0.95rem;
+  color: var(--color-text2);
+  margin-top: 2px;
+}
+
 
 
 
