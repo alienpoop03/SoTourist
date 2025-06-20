@@ -11,6 +11,8 @@ ion-toolbar {
     text-align: center;
   }
 
+  
+
   /* Icona "hamburger" */
   ion-menu-button {
     color: var(--color-highlight);
@@ -27,3 +29,6 @@ ion-toolbar {
     color: var(--color-primary); // Bordeaux
   }
 }
+.no-box-shadow{
+    box-shadow: none !important;
+  }

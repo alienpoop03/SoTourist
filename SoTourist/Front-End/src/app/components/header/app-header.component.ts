@@ -9,6 +9,7 @@ import {
   IonButton,
   IonTitle
 } from '@ionic/angular/standalone';
+import { BlobOptions } from 'buffer';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,7 @@ import {
   styleUrls: ['./app-header.component.scss'],
 })
 export class AppHeaderComponent {
+  @Input() box_shadow: boolean = false;
   @Input() title: string = '';
   @Input() showBackButton: boolean = false;
   @Input() iconName: string = 'earth-outline';
