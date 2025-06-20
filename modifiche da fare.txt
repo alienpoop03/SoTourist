@@ -1,18 +1,10 @@
 front end:
 
-Sistemare Bordino sotto tab-bar  // problema del simulatore (non da risolvere)
-
-storico viaggi dalla schermata viaggi + statistiche storico (piano gold)
-
-
-pagina itinerario da rivedere tutta
-
 sistemare grafica personalizza itinerario anche da pc
 
 Bug riscontrato: sono le 00:51 del 30 maggio, se creo un viaggio intanto il calendario mi fa selezionare ancora il 29, se creo un viaggio che parte dal 30 me lo dà ancora come "prossimo viaggio", se metto che parte dal 29 allora mi dà "viaggio in corso".
 
-Finire box hero pagina viaggi
-
+Se creo un itinerario, dopo averlo generato tornando indietro con la freccia va di nuovo nella pagina itinerario.
 
 
 

@@ -188,6 +188,34 @@ export class ItinerarioPage implements AfterViewInit {
 
   }
 
+  /* -------- modal -------- */
+  modalVisible = false;
+  modalMode: EditorField | null = null;
+
+  readonly modalTitles: Record<EditorField,string> = {
+    mustSee:'Luoghi imperdibili', eat:'Posti dove mangiare', visited:'Luoghi già visitati',
+    transport:'Mezzo preferito',  style:'Stile vacanza',     ai:'Domanda all’AI'
+  };
+
+  readonly modalPlaceholders: Record<'mustSee'|'eat'|'visited',string> = {
+    mustSee:'Aggiungi luogo…',
+    eat:'Aggiungi ristorante…',
+    visited:'Aggiungi luogo…'
+  };
+
+  readonly modalTypes: Record<'mustSee'|'eat'|'visited', string[]> = {
+    mustSee:['establishment'],
+    eat:['restaurant'],
+    visited:['establishment']
+  };
+
+  openModal(m:EditorField){ this.modalMode=m; this.modalVisible=true; }
+  closeModal(){ this.modalVisible=false; this.modalMode=null; }
+
+  getPlaceholder(m:EditorField|null){ return m && this.isPlaceMode(m) ? this.modalPlaceholders[m] : ''; }
+  getTypes(m:EditorField|null):string[]{ return m && this.isPlaceMode(m) ? [...this.modalTypes[m]] : []; }
+  isPlaceMode(m:EditorField|null){ return m==='mustSee'||m==='eat'||m==='visited'; }
+
   ionViewWillEnter() {
 
     this.tripMustSee = [];
@@ -493,16 +521,12 @@ export class ItinerarioPage implements AfterViewInit {
     return diff + 1;
   }
 
-
-  // tutta la parte delle modali, evvai siamo a 500 righe di codice
-  editorVisible = false;
-  editorMode: EditorField | null = null;
   editorValue = '';
   selectedDays: number[] = [];
 
   openEditorInline(mode: EditorField) {
-    this.editorMode = mode;
-    this.editorVisible = true;
+    this.modalMode = mode;
+    this.modalVisible = true;
 
     // Solo per i campi testuali
     if (!['mustSee', 'eat', 'visited'].includes(mode)) {
@@ -515,10 +539,10 @@ export class ItinerarioPage implements AfterViewInit {
   }
 
   saveEditorValue() {
-    if (!this.editorMode) return;
+    if (!this.modalMode) return;
 
-    if (!['mustSee', 'eat', 'visited'].includes(this.editorMode)) {
-      this.setValueForMode(this.editorMode, this.editorValue);
+    if (!['mustSee', 'eat', 'visited'].includes(this.modalMode)) {
+      this.setValueForMode(this.modalMode, this.editorValue);
     }
 
     this.closeEditor();
@@ -526,8 +550,8 @@ export class ItinerarioPage implements AfterViewInit {
 
 
   closeEditor() {
-    this.editorVisible = false;
-    this.editorMode = null;
+    this.modalVisible = false;
+    this.modalMode = null;
     this.editorValue = '';
     this.selectedDays = [];
   }
@@ -573,10 +597,11 @@ export class ItinerarioPage implements AfterViewInit {
   }
 
   selectValue(value: string) {
-    if (!this.editorMode) return;
-    this.setValueForMode(this.editorMode, value);
+    if (!this.modalMode) return;
+    this.setValueForMode(this.modalMode, value);
     this.closeEditor();
   }
+  
 
   addPlace(list: Place[], place: Place) {
     const exists = list.some(p => p.placeId === place.placeId);
