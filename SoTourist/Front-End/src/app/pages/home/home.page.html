@@ -37,8 +37,8 @@
         MMM y' }}
       </p>
 
-      <ion-button class="boxes-style cta-button" expand="block" (click)="openCreate()">
-        Crea il tuo viaggio
+      <ion-button class="boxes-style cta-button" expand="block" (click)="openItinerary((currentTrip || nextTrip)!.itineraryId)">
+        Vai all'itinerario
       </ion-button>
 
     </div>
@@ -68,7 +68,7 @@
 
     <div class="featured-list">
       <ion-card class="boxes-style" *ngFor="let itin of featuredItineraries" (click)="openItinerary(itin.itineraryId)">
-        <img [src]="getPhotoUrll(itin.coverPhoto)" alt="Cover" />
+        <img [src]="getPhotoUrl(itin.coverPhoto)" alt="Cover" />
         <ion-card-header>
           <ion-card-title>{{ getFormattedCity(itin) }}</ion-card-title>
           <ion-card-subtitle>

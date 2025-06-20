@@ -117,9 +117,9 @@ export class HomePage implements OnInit {
     });
 }
 
-getPhotoUrll(photoPath?: string | null): string {
-  return getPhotoUrl(photoPath);
-}
+  getPhotoUrl(photoPath?: string | null): string {
+    return getPhotoUrl(photoPath);
+  }
 
   /* ---------- util ---------- */
   getTripLength(t: TripWithId): number {
