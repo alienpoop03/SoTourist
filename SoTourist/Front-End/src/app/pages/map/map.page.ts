@@ -6,7 +6,8 @@ import {
   ElementRef,
   AfterViewInit,
   NgZone,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +20,9 @@ import { GestureController } from '@ionic/angular';
 
 import { ItineraryService } from '../../services/itinerary.service';
 import { Place } from '../../models/trip.model';
+import { Geolocation, Position } from '@capacitor/geolocation';
+import { VisitService } from '../../services/visit.service';
+import { DayItinerary } from '../../models/itinerary.model';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 /**
  * Rappresenta la struttura delle tappe raggruppate per giorno
@@ -46,7 +50,7 @@ interface DayGroup {
 
   ]
 })
-export class MapPage implements AfterViewInit {
+export class MapPage implements AfterViewInit, OnDestroy {
 
   /* ------------------------- References ------------------------- */
   @ViewChild('map', { static: false, read: ElementRef }) mapRef!: ElementRef<HTMLDivElement>;
@@ -65,6 +69,8 @@ export class MapPage implements AfterViewInit {
   days: number[] = [];
   currentDay = 1;
   todayPlaces: Place[] = [];
+  private poiItinerary: DayItinerary[] = [];
+  private watchId?: string;
   selectedIndex: number | null = null;
 
   /* ----------------------------- UI ----------------------------- */
@@ -77,7 +83,8 @@ export class MapPage implements AfterViewInit {
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
     private itineraryService: ItineraryService,
-    private gestureCtrl: GestureController
+    private gestureCtrl: GestureController,
+    private visitService: VisitService
   ) { }
 
   /* ======================= Lifecycle ======================= */
@@ -98,10 +105,21 @@ export class MapPage implements AfterViewInit {
         this.trip = { ...res, itinerary: grouped };
         this.days = grouped.map((_, i) => i + 1);
 
+        // --- 2b. Prepara i dati per VisitService -----------------------------
+        this.poiItinerary = grouped.map(day => ({
+          morning: day.morning.map(p => ({ id: p.placeId, lat: p.latitude, lng: p.longitude, name: p.name })),
+          afternoon: day.afternoon.map(p => ({ id: p.placeId, lat: p.latitude, lng: p.longitude, name: p.name })),
+          evening: day.evening.map(p => ({ id: p.placeId, lat: p.latitude, lng: p.longitude, name: p.name }))
+        }));
+        this.visitService.init(this.poiItinerary);
+
         // --- 3. Aggiorna UI --------------------------------------------------
         this.refreshPlaces();
         this.whenGoogleReady().then(() => this.initMap());
         console.log('Distanze tra i luoghi:', this.todayPlaces.map(place => place.distanceToNext));
+
+        // --- 4. Avvia il tracking GPS ---------------------------------------
+        this.startTracking();
       },
       error: err => console.error('[MapPage] errore caricamento itinerary:', err)
     });
@@ -418,6 +436,28 @@ console.log('[MARKER] imageUrl:', imageUrl);
   // Funzione di supporto per convertire i gradi in radianti
   public degToRad(deg: number): number {
     return deg * (Math.PI / 180);
+  }
+
+  private async startTracking() {
+    await Geolocation.requestPermissions();
+    this.watchId = await Geolocation.watchPosition({
+      enableHighAccuracy: true,
+      distanceFilter: 10
+    }, (pos: Position | null, err) => {
+      if (err) {
+        console.error('WatchPosition error:', err);
+        return;
+      }
+      if (pos && this.poiItinerary.length) {
+        this.visitService.checkAndMark(pos.coords, this.poiItinerary);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.watchId) {
+      Geolocation.clearWatch({ id: this.watchId });
+    }
   }
 
 private async generateCircularIcon(url: string): Promise<string> {
