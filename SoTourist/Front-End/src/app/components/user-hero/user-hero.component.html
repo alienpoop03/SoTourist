@@ -1,0 +1,32 @@
+<div class="user-box">
+  <div class="hero-user">
+    <app-profile-icon
+      class="profile-img"
+      [userId]="userId"
+      [size]="70"
+      [editable]="false"
+    ></app-profile-icon>
+    <h2 class="username"><strong>{{ username }}</strong></h2>
+  </div>
+
+  <div class="user-info">
+    <div class="user-stats">
+      <div class="stat">
+        <ion-icon name="walk-outline"></ion-icon>
+        <span>{{ upcomingCount }}</span>
+        <small>Futuri</small>
+      </div>
+      <div class="stat">
+        <ion-icon name="checkmark-done-outline"></ion-icon>
+        <span>{{ pastCount }}</span>
+        <small>Completati</small>
+      </div>
+      <div class="stat">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>{{ visitedPlacesCount }}</span>
+        <small>Tappe</small>
+      </div>
+    </div>
+  </div>
+</div>
+
