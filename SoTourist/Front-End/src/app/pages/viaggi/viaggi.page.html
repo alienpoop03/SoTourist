@@ -2,8 +2,20 @@
 </app-header>
 
 <!-- CONTENUTO -->
-<div class="viaggi-content-div">
-  <div *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0" class="welcome-section">
+<div class="viaggi-content-div" *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0">
+
+  <app-user-hero
+    *ngIf="!isGuest"
+    [userId]="userId"
+    [username]="username"
+    [upcomingCount]="upcomingCount"
+    [pastCount]="pastCount"
+    [visitedPlacesCount]="visitedPlacesCount"
+  ></app-user-hero>
+  <div class="space-ander-hero" *ngIf="!isGuest"></div>
+
+
+  <div class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
     <p>Premi il tasto <ion-icon class="button-crea-indicazione" name="add-outline"></ion-icon> in basso per iniziare un
@@ -15,83 +27,14 @@
   (ionScrollEnd)="onScrollEnd($event)" #pageContent
   *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
 
-  <!-- HERO ESPANSA -->
-  <!--<div *ngIf="inCorso" class="hero-wrapper" [class.hidden]="isShrunk">
-    <ng-container *ngIf="inCorso">
-      <img [src]="getCoverUrl(inCorso.coverPhoto)" class="hero-bg" alt="cover" />
-      <div class="hero-overlay">
-        <div class="hero-info">
-          <h2 class="trip-type">Viaggio in corso</h2>
-          <h1 class="hero-title">{{ getFormattedCity(inCorso) }}</h1>
-          <p class="hero-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy'
-            }}
-          </p>
-          <p class="hero-accommodation">🏨 {{ getFormattedAccommodation(inCorso) }}</p>
-
-        </div>
-
-        <ion-button ion-button class="boxes-style hero-buttons" expand="block"
-          (click)="openItinerary(inCorso.itineraryId)">
-          Vai all'itinerario
-        </ion-button>
-
-        <!-- Parte destra: Storico --
-        <div class="pill-side right" (click)="deleteTrip(inCorso.itineraryId)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </div>
-
-
-      </div>
-    </ng-container>
-  </div>-->
-
-  <!-- HERO COMPATTA -->
-  <!--<div *ngIf="inCorso" class="hero-compact" [class.visible]="isShrunk" (click)="onHeroClick()">
-    <ng-container *ngIf="inCorso">
-      <img [src]="getCoverUrl(inCorso.coverPhoto)" class="compact-bg" alt="cover" />
-      <div class="compact-overlay">
-        <h2 class="compact-title">{{ getFormattedCity(inCorso) }}</h2>
-        <p class="compact-dates">{{ inCorso.startDate | date:'dd/MM/yyyy' }} – {{ inCorso.endDate | date:'dd/MM/yyyy'
-          }}
-        </p>
-      </div>
-    </ng-container>
-  </div>-->
-
-  <div class="user-box" *ngIf="!isGuest">
-    <ng-container *ngIf="!isGuest">
-      <div class="hero-user">
-        <app-profile-icon
-          class="profile-img"
-          [userId]="userId"
-          [size]="70"
-          [editable]="false"
-        ></app-profile-icon>
-        <h2 class="username"><strong>{{ username || 'Nuovo utente' }}</strong></h2>
-      </div>
-      
-      <div class="user-info">
-        
-        <div class="user-stats">
-          <div class="stat">
-            <ion-icon name="walk-outline"></ion-icon>
-            <span>{{ upcomingCount }}</span>
-            <small>Futuri</small>
-          </div>
-          <div class="stat">
-            <ion-icon name="checkmark-done-outline"></ion-icon>
-            <span>{{ pastCount }}</span>
-            <small>Completati</small>
-          </div>
-          <div class="stat">
-            <ion-icon name="location-outline"></ion-icon>
-            <span>{{ visitedPlacesCount }}</span>
-            <small>Tappe</small>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-  </div>
+  <app-user-hero
+    *ngIf="!isGuest"
+    [userId]="userId"
+    [username]="username"
+    [upcomingCount]="upcomingCount"
+    [pastCount]="pastCount"
+    [visitedPlacesCount]="visitedPlacesCount"
+  ></app-user-hero>
   <div class="space-ander-hero" *ngIf="!isGuest"></div>
 
   <div *ngIf="!isGuest">

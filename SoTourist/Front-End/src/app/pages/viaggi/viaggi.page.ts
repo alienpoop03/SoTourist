@@ -26,6 +26,7 @@ import { AuthService } from '../../services/auth.service';
 import { getCityName, getAccommodationName } from '../../utils/trip-utils';
 import { getPhotoUrl } from 'src/app/utils/photo-utils';
 import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
+import { UserHeroComponent } from '../../components/user-hero/user-hero.component';
 
 @Component({
   selector: 'app-viaggi',
@@ -46,6 +47,7 @@ import { ProfileIconComponent } from '../../components/profile-icon/profile-icon
     TripCardComponent,
     UnfinishedCardComponent,
     ProfileIconComponent,
+    UserHeroComponent,
     IonLabel,
   ],
 })
