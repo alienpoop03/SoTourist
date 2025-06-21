@@ -1,12 +1,14 @@
-<div class="custom-alert-wrapper">
-  <div class="alert-header">
-    <h2>{{ alertTitle }}</h2> 
-  </div>
-  <div class="alert-message">
-    {{ alertMessage }} 
-  </div>
-  <div class="alert-buttons">
-    <button class="cancel-button" (click)="cancelAlert()">{{ cancelText }}</button> <!-- Usa cancelText -->
-    <button class="destructive-button" (click)="confirm()">{{ confirmText }}</button> <!-- Usa confirmText -->
+<div class="overlay" *ngIf="isVisible">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>{{ alertTitle }}</h2>
+    </div>
+    <div class="modal-body">
+      <p>{{ alertMessage }}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="cancel-btn" (click)="closeAlert()">{{ cancelText }}</button>
+      <button class="confirm-btn" (click)="confirmAlert()">{{ confirmText }}</button>
+    </div>
   </div>
 </div>

@@ -39,3 +39,65 @@ button {
   background-color: #7B1E1E;
   color: white;
 }
+
+
+
+
+/* Il background trasparente che copre la pagina */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Semitrasparente per sfondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Porta sopra al resto */
+}
+
+/* Il contenitore centrale dell'alert */
+.modal {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px; /* Puoi cambiare le dimensioni */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-header {
+  font-weight: bold;
+  color: #7b1e1e; /* Colore personalizzato */
+  margin-bottom: 10px;
+}
+
+.modal-body {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #666;
+}
+
+.confirm-btn {
+  background-color: #7b1e1e;
+  color: white;
+}
