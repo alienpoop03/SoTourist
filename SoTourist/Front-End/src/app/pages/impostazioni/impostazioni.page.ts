@@ -15,6 +15,7 @@ import {
   IonSelectOption,
 } from '@ionic/angular/standalone';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
+import { ToggleComponent } from 'src/app/components/toggle/toggle.component';
 
 @Component({
   selector: 'app-impostazioni',
@@ -31,6 +32,7 @@ import { NavigationBarComponent } from '../../components/navigation-bar/navigati
     IonSelect,
     IonSelectOption,
     NavigationBarComponent,
+    ToggleComponent,
   ],
   templateUrl: './impostazioni.page.html',
   styleUrls: ['./impostazioni.page.scss'],
