@@ -44,3 +44,34 @@
   background: var(--color-background2);
   color: var(--color-text2);
 }
+
+
+.dark-toggle-item {
+
+  .dark-icon {
+    transition: transform 0.4s ease;
+  }
+
+  &.dark-mode-active .dark-icon {
+    transform: rotate(-25deg);
+  }
+
+  .dark-toggle {
+    --handle-background-checked: var(--color-highlight);  
+    --track-background-checked: var(--color-primary);   
+    --handle-background: var(--color-text1);
+    --track-background: rgba(0, 0, 0, 0.15);    
+  }
+}
+
+ion-toggle.dark-toggle::part(track) {
+  border-radius: 12px !important; // oppure 4px o 0 per rettangolare
+  height: 22px;
+  width: 50px;
+}
+
+ion-toggle.dark-toggle::part(handle) {
+  border-radius: 50% !important;
+  height: 20px;
+  width: 25px;
+}

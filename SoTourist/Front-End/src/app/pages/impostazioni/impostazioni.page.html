@@ -11,10 +11,10 @@
       <ion-toggle slot="end" [(ngModel)]="notificationsEnabled" (ionChange)="toggleNotifications()"></ion-toggle>
     </ion-item>-->
 
-    <ion-item>
-      <ion-icon name="moon-outline" slot="start"></ion-icon>
-      <ion-label>Tema scuro</ion-label>
-      <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
+    <ion-item lines="none" class="dark-toggle-item"  [class.dark-mode-active]="!darkMode">
+      <ion-icon [name]="darkMode ? 'moon' : 'sunny'" slot="start" class="dark-icon"></ion-icon>
+      <ion-label>{{ darkMode ? 'Tema scuro' : 'Tema chiaro' }}</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()" class="dark-toggle"></ion-toggle>
     </ion-item>
 
     <ion-item>
