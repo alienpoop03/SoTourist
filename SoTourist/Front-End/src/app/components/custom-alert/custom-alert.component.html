@@ -1,0 +1,12 @@
+<div class="custom-alert-wrapper">
+  <div class="alert-header">
+    <h2>{{ alertTitle }}</h2> 
+  </div>
+  <div class="alert-message">
+    {{ alertMessage }} 
+  </div>
+  <div class="alert-buttons">
+    <button class="cancel-button" (click)="cancelAlert()">{{ cancelText }}</button> <!-- Usa cancelText -->
+    <button class="destructive-button" (click)="confirm()">{{ confirmText }}</button> <!-- Usa confirmText -->
+  </div>
+</div>
