@@ -1,4 +1,3 @@
-// itinerario.page.ts
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -6,8 +5,7 @@ import {
   ViewChild,
   ElementRef,
   NgZone,
-  OnInit, // ⬅️ aggiungi questo
-
+  OnInit
 } from '@angular/core';
 
 import { TripWithId } from '../../models/trip.model';
@@ -24,19 +22,24 @@ import { GenerateItineraryRequest } from '../../services/api.service';
 import { AlertController, ModalController } from '@ionic/angular/standalone';
 import { BoundsService } from '../../services/bounds.service';
 import { NavigationBarComponent } from 'src/app/components/navigation-bar/navigation-bar.component';
+
 /* ───── Ionic standalone components usati nel template ───── */
 import {
   IonContent,
-  IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-  IonItem, IonLabel, IonInput,
-  IonSelect, IonSelectOption,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonSelect,
+  IonSelectOption,
   IonTextarea,
   IonButton,
-  IonIcon,
+  IonIcon
 } from '@ionic/angular/standalone';
 
-
-// IMPORT DEI NUOVI MODELLI, VEDIAMO CHE SUCCEDE
 import { GeneratedDay } from '../../models/generated-day.model';
 import { Place } from '../../models/trip.model';
 
@@ -58,7 +61,6 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
         const longitude = p.lng ?? p.longitude;
 
         places.push({
-          /* fondamentali -------------------------------------------------- */
           placeId: p.placeId,
           name: p.name,
           day,
@@ -68,14 +70,10 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
           address: p.address ?? '',
           photoUrl: p.photo ?? '',
           photoReference: p.photoReference ?? '',
-
-          /* nuovi campi --------------------------------------------------- */
           rating: p.rating ?? null,
           priceLevel: p.priceLevel ?? null,
           website: p.website ?? null,
           openingHours: p.openingHours ?? null,
-
-          /* segnaposto per eventuali tag utente --------------------------- */
           type: p.type ?? '',
           note: p.note ?? ''
         });
@@ -86,16 +84,13 @@ function convertGeneratedToPlaces(generatedDays: GeneratedDay[]): Place[] {
   return places;
 }
 
-
-
-
-
 function generatePlaceId(name: string, day: number, slot: string): string {
-  const clean = name.toLowerCase().replace(/\s+/g, '_').replace(/[^\w]/g, '');
+  const clean = name
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^\w]/g, '');
   return `place_${clean}_${day}_${slot}`;
 }
-
-///////////////////////////////////////////////////////////////////////////
 
 /* Helper per attendere Google Maps/Places */
 function whenGoogleMapsReady(): Promise<void> {
@@ -107,26 +102,35 @@ function whenGoogleMapsReady(): Promise<void> {
     }
   });
 }
-type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
+
+type EditorField =
+  | 'mustSee'
+  | 'eat'
+  | 'visited'
+  | 'transport'
+  | 'ai'
+  | 'style';
 
 @Component({
   selector: 'app-itinerario',
   standalone: true,
   imports: [
-    /* Angular */
     CommonModule,
     FormsModule,
-    /* Ionic */
     IonContent,
-    IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-    IonItem, IonLabel, IonInput,
-    IonSelect, IonSelectOption,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonSelect,
+    IonSelectOption,
     IonTextarea,
     IonButton,
     IonIcon,
     NavigationBarComponent,
-
-    /* Componenti custom */
     GenerationOverlayComponent,
     GoogleAutocompleteComponent
   ],
@@ -135,40 +139,28 @@ type EditorField = 'mustSee' | 'eat' | 'visited' | 'transport' | 'ai' | 'style';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ItinerarioPage implements AfterViewInit {
-  /* Riferimenti al DOM Ionic */
   @ViewChild(IonContent, { static: true }) content!: IonContent;
-  // ─── Pager: nomi delle slide e indice corrente ───
+
   slideNames: string[] = ['Luoghi', 'Preferenze'];
   currentSlide = 0;
 
-  // Reference al container orizzontale
   @ViewChild('scrollContainer', { static: true })
   scrollContainer!: ElementRef<HTMLElement>;
-  // ────────────────────────────────────────────────
 
-  /* Dati del viaggio */
   trip: any = { itinerary: [] };
   itineraryId!: string;
   isLocalTrip = false;
 
-  /* Flag UI */
   isLoading = false;
 
-
-  //altre cose
   tripTransport: string = '';
   tripPrompt: string = '';
 
-  // slide 0
   tripMustSee: Place[] = [];
   tripEatPlaces: Place[] = [];
   tripAlreadyVisited: Place[] = [];
 
-
-
   tripBounds: google.maps.LatLngBounds | null = null;
-
-  /* Opzioni predefinite */
 
   constructor(
     private route: ActivatedRoute,
@@ -177,47 +169,118 @@ export class ItinerarioPage implements AfterViewInit {
     private api: ApiService,
     private itineraryService: ItineraryService,
     private auth: AuthService,
-    private boundsService: BoundsService,   // ✅ aggiunto qui!
+    private boundsService: BoundsService
+  ) {}
 
-  ) { }
-
-  /* ───── Lifecycle ───── */
   async ngAfterViewInit() {
     await whenGoogleMapsReady();
-    this.goToSlide(0); // 👈 forza scroll a "Luoghi"
-
+    this.goToSlide(0);
   }
 
   /* -------- modal -------- */
   modalVisible = false;
   modalMode: EditorField | null = null;
 
-  readonly modalTitles: Record<EditorField,string> = {
-    mustSee:'Luoghi imperdibili', eat:'Posti dove mangiare', visited:'Luoghi già visitati',
-    transport:'Mezzo preferito',  style:'Stile vacanza',     ai:'Domanda all’AI'
+  readonly modalTitles: Record<EditorField, string> = {
+    mustSee: 'Luoghi imperdibili',
+    eat: 'Posti dove mangiare',
+    visited: 'Luoghi già visitati',
+    transport: 'Mezzo preferito',
+    style: 'Stile vacanza',
+    ai: 'Domanda all’AI'
   };
 
-  readonly modalPlaceholders: Record<'mustSee'|'eat'|'visited',string> = {
-    mustSee:'Aggiungi luogo…',
-    eat:'Aggiungi ristorante…',
-    visited:'Aggiungi luogo…'
+  readonly modalPlaceholders: Record<
+    'mustSee' | 'eat' | 'visited',
+    string
+  > = {
+    mustSee: 'Aggiungi luogo…',
+    eat: 'Aggiungi ristorante…',
+    visited: 'Aggiungi luogo…'
   };
 
-  readonly modalTypes: Record<'mustSee'|'eat'|'visited', string[]> = {
-    mustSee:['establishment'],
-    eat:['restaurant'],
-    visited:['establishment']
+  readonly modalTypes: Record<'mustSee' | 'eat' | 'visited', string[]> = {
+    mustSee: ['establishment'],
+    eat: ['restaurant'],
+    visited: ['establishment']
   };
 
-  openModal(m:EditorField){ this.modalMode=m; this.modalVisible=true; }
-  closeModal(){ this.modalVisible=false; this.modalMode=null; }
+  /* ----- nuova variabile per la copia temporanea ----- */
+  modalTempPlaces: Place[] = [];
 
-  getPlaceholder(m:EditorField|null){ return m && this.isPlaceMode(m) ? this.modalPlaceholders[m] : ''; }
-  getTypes(m:EditorField|null):string[]{ return m && this.isPlaceMode(m) ? [...this.modalTypes[m]] : []; }
-  isPlaceMode(m:EditorField|null){ return m==='mustSee'||m==='eat'||m==='visited'; }
+  /* --------- apertura modale --------- */
+  openModal(m: EditorField) {
+    this.modalMode = m;
+    this.modalVisible = true;
+
+    if (this.isPlaceMode(m)) {
+      // copia “snapshot” dei luoghi correnti
+      this.modalTempPlaces = [...this.getListForMode(m)];
+    }
+  }
+
+  /* ------------- chiusura modale ------------- */
+  closeModal(commit: boolean) {
+    if (!commit && this.isPlaceMode(this.modalMode)) {
+      // se annulli, scarta le modifiche
+      this.modalTempPlaces = [];
+    }
+    this.modalVisible = false;
+    this.modalMode = null;
+  }
+
+  /* ------------- salva (commit) ------------- */
+  saveModal() {
+    if (this.isPlaceMode(this.modalMode)) {
+      const target = this.getListForMode(this.modalMode!);
+      target.splice(0, target.length, ...this.modalTempPlaces);
+      this.modalTempPlaces = [];
+    }
+    this.closeModal(true);
+  }
+
+  /* -------- gestione luoghi dentro la modale -------- */
+  onPlaceSelectedInModal(result: google.maps.places.PlaceResult) {
+    if (!result.place_id || !result.name || !result.geometry) return;
+    const newPlace: Place = {
+      placeId: result.place_id,
+      name: result.name,
+      day: -1,
+      timeSlot: 'morning',
+      latitude: result.geometry.location?.lat() ?? 0,
+      longitude: result.geometry.location?.lng() ?? 0,
+      address: result.formatted_address ?? '',
+      photoUrl: result.photos?.[0]?.getUrl({ maxWidth: 400 }) ?? '',
+      rating: result.rating ?? undefined,
+      priceLevel: undefined,
+      website: undefined,
+      openingHours: undefined,
+      type: '',
+      note: ''
+    };
+    // niente duplicati
+    if (!this.modalTempPlaces.some(p => p.placeId === newPlace.placeId)) {
+      this.modalTempPlaces.push(newPlace);
+    }
+  }
+
+  removeTempPlace(i: number) {
+    this.modalTempPlaces.splice(i, 1);
+  }
+
+  getPlaceholder(m: EditorField | null) {
+    return m && this.isPlaceMode(m) ? this.modalPlaceholders[m] : '';
+  }
+  getTypes(m: EditorField | null): string[] {
+    return m && this.isPlaceMode(m) ? [...this.modalTypes[m]] : [];
+  }
+  isPlaceMode(m: EditorField | null) {
+    return m === 'mustSee' || m === 'eat' || m === 'visited';
+  }
+
+  
 
   ionViewWillEnter() {
-
     this.tripMustSee = [];
     this.tripEatPlaces = [];
     this.tripAlreadyVisited = [];
@@ -235,9 +298,11 @@ export class ItinerarioPage implements AfterViewInit {
     });
 
     if (localTrip) {
-      // se combacia esattamente l'ID, la usiamo
       this.trip = {
-        itineraryId: localTrip.itineraryId ?? localTrip.id?.toString() ?? 'undefined',
+        itineraryId:
+          localTrip.itineraryId ??
+          localTrip.id?.toString() ??
+          'undefined',
         city: localTrip.city,
         startDate: localTrip.startDate ?? localTrip.start,
         endDate: localTrip.endDate ?? localTrip.end,
@@ -256,43 +321,45 @@ export class ItinerarioPage implements AfterViewInit {
             this.trip.bounds = { north, east, south, west };
             console.log('[itinerario] Bounds caricati:', this.trip.bounds);
           } else {
-            console.warn('[itinerario] Nessun bounds trovato per', this.trip.city);
+            console.warn(
+              '[itinerario] Nessun bounds trovato per',
+              this.trip.city
+            );
           }
         });
       }
 
-      console.log('[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.');
+      console.log(
+        '[📷 COVERPHOTO] 🛑 Bozza: usata immagine di fallback.'
+      );
       return;
     }
 
-
-    // Altrimenti carica dal backend: se già generato → reindirizza subito a panoramica
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
-      next: (res) => {
+      next: res => {
         this.trip = res;
         this.isLocalTrip = false;
 
-        // 🔥 Reindirizza direttamente a panoramica
         this.router.navigate(['/tabs/panoramica'], {
           queryParams: { id: this.itineraryId }
         });
       },
-      error: (err) => {
+      error: err => {
         console.error('Errore caricamento itinerario:', err);
         this.router.navigate(['/tabs/viaggi']);
       }
     });
   }
 
-  /* ───── Scroll hero dinamico ───── */
   onScroll(ev: Event): void {
     const c = this.scrollContainer.nativeElement;
     const idx = Math.round(c.scrollLeft / c.clientWidth);
-    this.currentSlide = Math.min(Math.max(idx, 0), this.slideNames.length - 1);
+    this.currentSlide = Math.min(
+      Math.max(idx, 0),
+      this.slideNames.length - 1
+    );
   }
-  /**
-   * Scrolla dolcemente alla slide i-esima
-   */
+
   goToSlide(i: number): void {
     const c = this.scrollContainer.nativeElement;
     c.scrollTo({
@@ -301,19 +368,19 @@ export class ItinerarioPage implements AfterViewInit {
     });
   }
 
-
   generateItinerary() {
     const userId = this.auth.getUserId();
 
-    // ⚠️ Blocco per ospiti
     if (userId?.startsWith('guest_')) {
-      //this.showLoginAlert();
-      localStorage.setItem('redirectAfterLogin', '/tabs/itinerario?id=' + this.trip?.itineraryId);
+      localStorage.setItem(
+        'redirectAfterLogin',
+        '/tabs/itinerario?id=' + this.trip?.itineraryId
+      );
       this.router.navigate(['/login']);
       return;
     }
 
-    if (!this.isLocalTrip) return; // Non generare se non è una bozza
+    if (!this.isLocalTrip) return;
 
     const trip = this.trip;
     if (!trip) {
@@ -323,35 +390,36 @@ export class ItinerarioPage implements AfterViewInit {
 
     const start = new Date(trip.startDate);
     const end = new Date(trip.endDate);
-    const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    const days =
+      Math.ceil(
+        (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+      ) + 1;
 
     this.isLoading = true;
     const payload: GenerateItineraryRequest = {
       city: trip.city,
       totalDays: days,
       accommodation: trip.accommodation,
-      transport: this.tripTransport || 'walk',  // <-- AGGIUNTA QUESTA RIGA
-      style: this.trip?.style || 'Standard',  // 👈 AGGIUNTA QUI
-
+      transport: this.tripTransport || 'walk',
+      style: this.trip?.style || 'Standard',
       mustSee: this.tripMustSee.map(p => p.placeId),
       mustEat: this.tripEatPlaces.map(p => p.placeId),
-      avoid: this.tripAlreadyVisited.map(p => p.placeId),
+      avoid: this.tripAlreadyVisited.map(p => p.placeId)
     };
 
     this.api.getItinerary(payload).subscribe({
-      next: (res) => {
+      next: res => {
         console.log('✅ [GENERAZIONE] Risposta da backend:', res);
         console.table(res.itinerary);
 
-        //console.log('📥 Risposta completa da /api/itinerary:', res);
-        // console.table(res.itinerary);
-        /*console.log('👉 Tutti i luoghi flattenati:',
-          ([] as any[]).concat(...res.itinerary.map((day: any) => day.ordered || []))
-        );*/
         trip.itinerary = res.itinerary;
 
-        const allPlaces: Place[] = convertGeneratedToPlaces(res.itinerary);
-        console.log('🔥 [CONVERSIONE] Risultato convertGeneratedToPlaces:', allPlaces);
+        const allPlaces: Place[] =
+          convertGeneratedToPlaces(res.itinerary);
+        console.log(
+          '🔥 [CONVERSIONE] Risultato convertGeneratedToPlaces:',
+          allPlaces
+        );
         console.table(allPlaces);
 
         const userId = this.auth.getUserId();
@@ -361,106 +429,109 @@ export class ItinerarioPage implements AfterViewInit {
           return;
         }
 
-        // ✅ Se è una bozza → salvala nel backend prima
         if (this.isLocalTrip) {
-
-          // 🧠 DEBUG: origine della coverPhoto
           if (res.coverPhoto) {
-            console.log('[📷 COVERPHOTO] ✅ Usata quella GENERATA dal backend:', res.coverPhoto);
+            console.log(
+              '[📷 COVERPHOTO] ✅ Usata quella GENERATA dal backend:',
+              res.coverPhoto
+            );
           } else if (trip.coverPhoto) {
-            console.log('[📷 COVERPHOTO] 🔁 Usata quella SALVATA nella bozza:', trip.coverPhoto);
+            console.log(
+              '[📷 COVERPHOTO] 🔁 Usata quella SALVATA nella bozza:',
+              trip.coverPhoto
+            );
           } else {
-            console.warn('[📷 COVERPHOTO] ⚠️ Nessuna foto di copertina disponibile!');
+            console.warn(
+              '[📷 COVERPHOTO] ⚠️ Nessuna foto di copertina disponibile!'
+            );
           }
-          /*console.log('🟡 Dati inviati al backend:', {
-            city: trip.city,
-            accommodation: trip.accommodation,
-            startDate: trip.startDate,
-            endDate: trip.endDate,
-            coverPhoto: res.coverPhoto ?? '', // 👈 NOME GIUSTO!
-            style: trip.style
-          }); */
 
-          this.itineraryService.createItinerary(userId, {
-            city: trip.city,
-            accommodation: trip.accommodation,
-            startDate: trip.startDate,
-            endDate: trip.endDate,
-            coverPhoto: res.coverPhoto ?? '',
-            style: trip.style
-          }).subscribe({
-            next: (createdTrip: any) => {
-              // 1) Aggiorna gli ID
-              const oldId = trip.itineraryId;
-              trip.itineraryId = createdTrip.itineraryId;
-              this.itineraryId = createdTrip.itineraryId;
-              this.isLocalTrip = false;
+          this.itineraryService
+            .createItinerary(userId, {
+              city: trip.city,
+              accommodation: trip.accommodation,
+              startDate: trip.startDate,
+              endDate: trip.endDate,
+              coverPhoto: res.coverPhoto ?? '',
+              style: trip.style
+            })
+            .subscribe({
+              next: (createdTrip: any) => {
+                const oldId = trip.itineraryId;
+                trip.itineraryId = createdTrip.itineraryId;
+                this.itineraryId = createdTrip.itineraryId;
+                this.isLocalTrip = false;
 
-              // 2) Pulisci la bozza salvata in localStorage
-              const localTrips = JSON.parse(localStorage.getItem('trips') || '[]');
-              const updated = localTrips.filter((t: any) => t.itineraryId !== oldId);
-              localStorage.setItem('trips', JSON.stringify(updated));
+                const localTrips = JSON.parse(
+                  localStorage.getItem('trips') || '[]'
+                );
+                const updated = localTrips.filter(
+                  (t: any) => t.itineraryId !== oldId
+                );
+                localStorage.setItem('trips', JSON.stringify(updated));
 
-              // 3) Prepara il payload corretto per le tappe
-              const placesPayload = allPlaces.map(p => ({
-                placeId: p.placeId,
-                name: p.name,
-                day: p.day,
-                timeSlot: p.timeSlot,
-                lat: p.latitude,
-                lng: p.longitude,
-                address: p.address ?? '',
-                photoUrl: p.photoUrl ?? '',
-                photoReference: p.photoReference ?? '',   // già presente ✅
+                const placesPayload = allPlaces.map(p => ({
+                  placeId: p.placeId,
+                  name: p.name,
+                  day: p.day,
+                  timeSlot: p.timeSlot,
+                  lat: p.latitude,
+                  lng: p.longitude,
+                  address: p.address ?? '',
+                  photoUrl: p.photoUrl ?? '',
+                  photoReference: p.photoReference ?? '',
+                  rating: p.rating,
+                  priceLevel: p.priceLevel,
+                  website: p.website,
+                  openingHours: p.openingHours,
+                  type: p.type ?? '',
+                  note: p.note ?? ''
+                }));
 
-                /*  ➡️  NUOVI  */
-                rating: p.rating,
-                priceLevel: p.priceLevel,
-                website: p.website,
-                openingHours: p.openingHours,
+                console.log(
+                  '🛠️ [PAYLOAD] placesPayload:',
+                  placesPayload
+                );
 
-                type: p.type ?? '',
-                note: p.note ?? ''
-              }));
+                this.itineraryService
+                  .addPlacesToItinerary(
+                    userId,
+                    createdTrip.itineraryId,
+                    placesPayload
+                  )
+                  .subscribe({
+                    next: () => {
+                      console.log('✅ Tappe salvate nel backend');
+                      this.isLoading = false;
 
-
-
-              console.log('🛠️ [PAYLOAD] placesPayload:', placesPayload);
-
-              // 4) Salva le tappe sul backend
-              this.itineraryService
-                .addPlacesToItinerary(userId, createdTrip.itineraryId, placesPayload)
-                .subscribe({
-                  next: () => {
-                    console.log('✅ Tappe salvate nel backend');
-                    this.isLoading = false;
-
-                    // → Redirect automatico alla panoramica
-                    this.router.navigate(['/panoramica'], {
-                      queryParams: { id: createdTrip.itineraryId }
-                    });
-                  },
-                  error: (err) => {
-                    console.error('❌ Errore salvataggio tappe:', err);
-                    this.isLoading = false;
-                  }
-                });
-
-            },
-            error: (err) => {
-              console.error('❌ Errore salvataggio itinerario:', err);
-              this.isLoading = false;
-            }
-          });
-
-
+                      this.router.navigate(['/panoramica'], {
+                        queryParams: {
+                          id: createdTrip.itineraryId
+                        }
+                      });
+                    },
+                    error: err => {
+                      console.error(
+                        '❌ Errore salvataggio tappe:',
+                        err
+                      );
+                      this.isLoading = false;
+                    }
+                  });
+              },
+              error: err => {
+                console.error(
+                  '❌ Errore salvataggio itinerario:',
+                  err
+                );
+                this.isLoading = false;
+              }
+            });
         } else {
-          // 🟢 Già esiste → salva direttamente le tappe
-          // dopo
           this.savePlaces(userId, this.itineraryId, allPlaces);
         }
       },
-      error: (err) => {
+      error: err => {
         console.error('Errore nella generazione:', err);
         this.isLoading = false;
       }
@@ -476,7 +547,10 @@ export class ItinerarioPage implements AfterViewInit {
       {
         text: 'Accedi',
         handler: () => {
-          localStorage.setItem('redirectAfterLogin', '/tabs/itinerario?id=' + this.trip?.itineraryId);
+          localStorage.setItem(
+            'redirectAfterLogin',
+            '/tabs/itinerario?id=' + this.trip?.itineraryId
+          );
           this.router.navigate(['/login']);
         }
       }
@@ -485,8 +559,11 @@ export class ItinerarioPage implements AfterViewInit {
     await alert.present();
   }
 
-  // ➕ Funzione separata per salvare le tappe NEL BACK EDN SQLITE
-  private savePlaces(userId: string, itineraryId: string, places: Place[]) {
+  private savePlaces(
+    userId: string,
+    itineraryId: string,
+    places: Place[]
+  ) {
     const payload = places.map(p => ({
       placeId: p.placeId,
       name: p.name,
@@ -496,28 +573,29 @@ export class ItinerarioPage implements AfterViewInit {
       lng: p.longitude,
       address: p.address ?? '',
       photoUrl: p.photoUrl ?? '',
-      photoReference: p.photoReference ?? '',  // ➕ (mancava)
-
-      /*  ➡️  NUOVI  */
+      photoReference: p.photoReference ?? '',
       rating: p.rating,
       priceLevel: p.priceLevel,
       website: p.website,
       openingHours: p.openingHours,
-
       type: p.type ?? '',
       note: p.note ?? ''
     }));
 
-    this.itineraryService
-      .addPlacesToItinerary(userId, itineraryId, payload)
-      .subscribe(/* … */);
+    this.itineraryService.addPlacesToItinerary(
+      userId,
+      itineraryId,
+      payload
+    ).subscribe();
   }
-
 
   private calculateDays(start: string, end: string): number {
     const startDate = new Date(start);
     const endDate = new Date(end);
-    const diff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    const diff = Math.ceil(
+      (endDate.getTime() - startDate.getTime()) /
+        (1000 * 60 * 60 * 24)
+    );
     return diff + 1;
   }
 
@@ -528,7 +606,6 @@ export class ItinerarioPage implements AfterViewInit {
     this.modalMode = mode;
     this.modalVisible = true;
 
-    // Solo per i campi testuali
     if (!['mustSee', 'eat', 'visited'].includes(mode)) {
       this.editorValue = this.getValueForMode(mode);
     } else {
@@ -548,7 +625,6 @@ export class ItinerarioPage implements AfterViewInit {
     this.closeEditor();
   }
 
-
   closeEditor() {
     this.modalVisible = false;
     this.modalMode = null;
@@ -558,10 +634,14 @@ export class ItinerarioPage implements AfterViewInit {
 
   getValueForMode(mode: EditorField): string {
     switch (mode) {
-      case 'transport': return this.tripTransport;
-      case 'ai': return this.tripPrompt;
-      case 'style': return this.trip?.style || '';
-      default: return '';
+      case 'transport':
+        return this.tripTransport;
+      case 'ai':
+        return this.tripPrompt;
+      case 'style':
+        return this.trip?.style || '';
+      default:
+        return '';
     }
   }
 
@@ -570,11 +650,9 @@ export class ItinerarioPage implements AfterViewInit {
       case 'transport':
         this.tripTransport = value;
         break;
-
       case 'ai':
         this.tripPrompt = value;
         break;
-
       case 'style':
         if (this.trip) this.trip.style = value;
         break;
@@ -589,7 +667,10 @@ export class ItinerarioPage implements AfterViewInit {
       case 'eat':
       case 'visited':
         return this.trip.itinerary
-          .map((day: any, i: number) => day.mustSee?.length > 0 ? i : null)
+          .map(
+            (day: any, i: number) =>
+              (day.mustSee?.length > 0 ? i : null) as number | null
+          )
           .filter((i: number | null) => i !== null) as number[];
       default:
         return [];
@@ -601,7 +682,6 @@ export class ItinerarioPage implements AfterViewInit {
     this.setValueForMode(this.modalMode, value);
     this.closeEditor();
   }
-  
 
   addPlace(list: Place[], place: Place) {
     const exists = list.some(p => p.placeId === place.placeId);
@@ -613,15 +693,29 @@ export class ItinerarioPage implements AfterViewInit {
   }
 
   /* ---------- wrapper specifici ---------- */
-  addMustSeePlace = (p: Place) => this.addPlace(this.tripMustSee, p);
-  addEatPlace = (p: Place) => this.addPlace(this.tripEatPlaces, p);
-  addVisitedPlace = (p: Place) => this.addPlace(this.tripAlreadyVisited, p);
+  addMustSeePlace = (p: Place) =>
+    this.addPlace(this.tripMustSee, p);
+  addEatPlace = (p: Place) =>
+    this.addPlace(this.tripEatPlaces, p);
+  addVisitedPlace = (p: Place) =>
+    this.addPlace(this.tripAlreadyVisited, p);
 
-  removeMustSeePlace = (i: number) => this.removePlace(this.tripMustSee, i);
-  removeEatPlace = (i: number) => this.removePlace(this.tripEatPlaces, i);
-  removeVisitedPlace = (i: number) => this.removePlace(this.tripAlreadyVisited, i);
-  onPlaceSelected(mode: EditorField, result: google.maps.places.PlaceResult) {
-    if (!result.place_id || !result.name || !result.geometry) {
+  removeMustSeePlace = (i: number) =>
+    this.removePlace(this.tripMustSee, i);
+  removeEatPlace = (i: number) =>
+    this.removePlace(this.tripEatPlaces, i);
+  removeVisitedPlace = (i: number) =>
+    this.removePlace(this.tripAlreadyVisited, i);
+
+  onPlaceSelected(
+    mode: EditorField,
+    result: google.maps.places.PlaceResult
+  ) {
+    if (
+      !result.place_id ||
+      !result.name ||
+      !result.geometry
+    ) {
       console.warn('Luogo non valido:', result);
       return;
     }
@@ -629,14 +723,15 @@ export class ItinerarioPage implements AfterViewInit {
     const place: Place = {
       placeId: result.place_id,
       name: result.name,
-      day: -1, // ❗️Non assegnato ancora a un giorno
-      timeSlot: 'morning', // default temporaneo
+      day: -1,
+      timeSlot: 'morning',
       latitude: result.geometry.location?.lat() ?? 0,
       longitude: result.geometry.location?.lng() ?? 0,
       address: result.formatted_address ?? '',
-      photoUrl: result.photos?.[0]?.getUrl({ maxWidth: 400 }) ?? '',
+      photoUrl:
+        result.photos?.[0]?.getUrl({ maxWidth: 400 }) ?? '',
       rating: result.rating ?? 0,
-      type: '', // da assegnare se vuoi filtrare
+      type: '',
       note: ''
     };
 
@@ -653,7 +748,6 @@ export class ItinerarioPage implements AfterViewInit {
     }
   }
 
-
   removePlaceFromMode(mode: EditorField, index: number): void {
     const list = this.getListForMode(mode);
     list.splice(index, 1);
@@ -661,27 +755,32 @@ export class ItinerarioPage implements AfterViewInit {
 
   getListForMode(mode: EditorField): Place[] {
     switch (mode) {
-      case 'mustSee': return this.tripMustSee;
-      case 'eat': return this.tripEatPlaces;
-      case 'visited': return this.tripAlreadyVisited;
-      default: return [];
+      case 'mustSee':
+        return this.tripMustSee;
+      case 'eat':
+        return this.tripEatPlaces;
+      case 'visited':
+        return this.tripAlreadyVisited;
+      default:
+        return [];
     }
   }
 
-
-  // metodo per la navigazione
   vaiAllaPanoramica() {
-  const bounds = this.trip?.bounds;
-  this.router.navigate(['/panoramica'], {
-    queryParams: {
-      id: this.trip.itineraryId,
-      north: bounds?.north,
-      south: bounds?.south,
-      east: bounds?.east,
-      west: bounds?.west
-    }
-  });
-}
+    const bounds = this.trip?.bounds;
+    this.router.navigate(['/panoramica'], {
+      queryParams: {
+        id: this.trip.itineraryId,
+        north: bounds?.north,
+        south: bounds?.south,
+        east: bounds?.east,
+        west: bounds?.west
+      }
+    });
+  }
 
-
+  /* ---------- trackBy per le chip ---------- */
+  trackByPlace(index: number, place: Place) {
+    return place.placeId || index;
+  }
 }

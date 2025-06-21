@@ -6,47 +6,50 @@
   <section>
     <div class="section-header">
       <ion-icon name="location-outline"></ion-icon>
-      <div class="suca">
+      <div class="header-text">
         <span>Luoghi</span>
-        <p>Tappe e gusti gastronomici</p>
+        <p>Tappe e luoghi gastronomici</p>
       </div>
     </div>
 
-
     <ion-list lines="inset" class="boxes-style">
+
       <!-- mustSee -->
-      <ion-item button detail="false" (click)="openModal('mustSee')">
+      <ion-item class="item-chip-preview" button detail="false" (click)="openModal('mustSee')">
         <ion-icon name="star-outline" slot="start"></ion-icon>
-        <ion-label>Luoghi imperdibili</ion-label>
-        <div slot="end" class="preview-chip-line">
-          <ng-container *ngIf="tripMustSee.length > 0; else emptyMs">
-            <span class="chip-mini" *ngFor="let p of tripMustSee">{{ p.name }}</span>
-          </ng-container>
-          <ng-template #emptyMs><ion-icon name="add-circle"></ion-icon></ng-template>
-        </div>
+        <ion-label class="item-label">
+          <span class="title">Luoghi imperdibili</span>
+          <div class="chip-list-inline" *ngIf="tripMustSee.length">
+            <div class="chip" *ngFor="let p of tripMustSee; trackBy: trackByPlace">{{ p.name }}</div>
+          </div>
+        </ion-label>
+        <ion-icon name="add-circle" slot="end" *ngIf="!tripMustSee.length"></ion-icon>
       </ion-item>
+
       <!-- eat -->
-      <ion-item button detail="false" (click)="openModal('eat')">
+      <ion-item class="item-chip-preview" button detail="false" (click)="openModal('eat')">
         <ion-icon name="restaurant-outline" slot="start"></ion-icon>
-        <ion-label>Dove mangiare</ion-label>
-        <div slot="end" class="preview-chip-line">
-          <ng-container *ngIf="tripEatPlaces.length > 0; else emptyEat">
-            <span class="chip-mini" *ngFor="let p of tripEatPlaces">{{ p.name }}</span>
-          </ng-container>
-          <ng-template #emptyEat><ion-icon name="add-circle"></ion-icon></ng-template>
-        </div>
+        <ion-label class="item-label">
+          <span class="title">Dove mangiare</span>
+          <div class="chip-list-inline" *ngIf="tripEatPlaces.length">
+            <div class="chip" *ngFor="let p of tripEatPlaces; trackBy: trackByPlace">{{ p.name }}</div>
+          </div>
+        </ion-label>
+        <ion-icon name="add-circle" slot="end" *ngIf="!tripEatPlaces.length"></ion-icon>
       </ion-item>
+
       <!-- visited -->
-      <ion-item lines="none" button detail="false" (click)="openModal('visited')">
+      <ion-item class="item-chip-preview" lines="none" button detail="false" (click)="openModal('visited')">
         <ion-icon name="checkmark-done-outline" slot="start"></ion-icon>
-        <ion-label>Già visitati</ion-label>
-        <div slot="end" class="preview-chip-line">
-          <ng-container *ngIf="tripAlreadyVisited.length > 0; else emptyVis">
-            <span class="chip-mini" *ngFor="let p of tripAlreadyVisited">{{ p.name }}</span>
-          </ng-container>
-          <ng-template #emptyVis><ion-icon name="add-circle"></ion-icon></ng-template>
-        </div>
+        <ion-label class="item-label">
+          <span class="title">Già visitati</span>
+          <div class="chip-list-inline" *ngIf="tripAlreadyVisited.length">
+            <div class="chip" *ngFor="let p of tripAlreadyVisited; trackBy: trackByPlace">{{ p.name }}</div>
+          </div>
+        </ion-label>
+        <ion-icon name="add-circle" slot="end" *ngIf="!tripAlreadyVisited.length"></ion-icon>
       </ion-item>
+
     </ion-list>
   </section>
 
@@ -54,7 +57,7 @@
   <section>
     <div class="section-header">
       <ion-icon name="options-outline"></ion-icon>
-      <div class="suca">
+      <div class="header-text">
         <span>Preferenze</span>
         <p>Impostazioni di viaggio e AI</p>
       </div>
@@ -64,13 +67,10 @@
 
       <ion-item button (click)="openModal('transport')">
         <ion-icon name="car-outline" slot="start"></ion-icon>
-
-        <ion-label>Mezzo preferito</ion-label>
+        <ion-label class="title">Mezzo preferito</ion-label>
         <div slot="end" class="simple-preview">
-          <ng-container *ngIf="tripPrompt; else addIcon">
-            {{ tripPrompt }}
-          </ng-container>
-          <ng-template #addIcon>
+          <ng-container *ngIf="tripTransport; else addIconTr">{{ tripTransport }}</ng-container>
+          <ng-template #addIconTr>
             <ion-icon name="chevron-up-outline"></ion-icon>
             <ion-icon name="chevron-down-outline"></ion-icon>
           </ng-template>
@@ -79,18 +79,16 @@
 
       <ion-item button (click)="openModal('style')">
         <ion-icon name="balloon-outline" slot="start"></ion-icon>
-        <ion-label>Stile vacanza</ion-label>
+        <ion-label class="title">Stile vacanza</ion-label>
         <div slot="end" class="simple-preview">{{ trip?.style || '—' }}</div>
       </ion-item>
 
       <ion-item lines="none" button (click)="openModal('ai')">
         <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
-        <ion-label>Domanda all’AI</ion-label>
+        <ion-label class="title">Domanda all’AI</ion-label>
         <div slot="end" class="simple-preview">
-          <ng-container *ngIf="tripPrompt; else addIcon">
-            {{ tripPrompt }}
-          </ng-container>
-          <ng-template #addIcon>
+          <ng-container *ngIf="tripPrompt; else addIconAi">{{ tripPrompt }}</ng-container>
+          <ng-template #addIconAi>
             <ion-icon name="chevron-up-outline"></ion-icon>
             <ion-icon name="chevron-down-outline"></ion-icon>
           </ng-template>
@@ -100,49 +98,50 @@
     </ion-list>
   </section>
 
-
   <!-- GENERA ITINERARIO -->
   <div class="generate-container fixed">
     <ion-button class="genera-itinerario-btn" (click)="generateItinerary()" *ngIf="!isLoading && isLocalTrip">
       Genera Itinerario
     </ion-button>
-    <ion-button class="genera-itinerario-btn" disabled *ngIf="isLoading">
-      Caricamento…
-    </ion-button>
+    <ion-button class="genera-itinerario-btn" disabled *ngIf="isLoading">Caricamento…</ion-button>
     <ion-button class="genera-itinerario-btn" disabled *ngIf="!isLoading && !isLocalTrip">
       Itinerario già generato
     </ion-button>
     <div class="with-floating-tabs"></div>
   </div>
 
-
   <!--────────── FLOATING MODAL ──────────-->
-  <div class="modal-backdrop" *ngIf="modalVisible" (click)="closeModal()"></div>
+  <div class="modal-backdrop" *ngIf="modalVisible" (click)="closeModal(false)"></div>
 
   <div class="floating-modal" *ngIf="modalVisible">
     <h3 class="modal-title">{{ modalTitles[modalMode!] }}</h3>
 
     <!-- sezione luoghi -->
     <ng-container *ngIf="isPlaceMode(modalMode)">
-      <app-google-autocomplete [placeholder]="getPlaceholder(modalMode!)" [types]="getTypes(modalMode!)"
-        [bounds]="tripBounds" [restrictToBounds]="true" (placeSelected)="onPlaceSelected(modalMode!,$event)">
+      <app-google-autocomplete
+        [placeholder]="getPlaceholder(modalMode!)"
+        [types]="getTypes(modalMode!)"
+        [bounds]="tripBounds"
+        [restrictToBounds]="true"
+        (placeSelected)="onPlaceSelectedInModal($event)">
       </app-google-autocomplete>
 
-      <div class="chip-list-modal" *ngIf="getListForMode(modalMode!).length > 0; else emptyList">
-        <div class="chip" *ngFor="let p of getListForMode(modalMode!); let i = index">
+      <div class="chip-list-modal" *ngIf="modalTempPlaces.length; else emptyList">
+        <div class="chip" *ngFor="let p of modalTempPlaces; let i = index">
           {{ p.name }}
-          <button class="chip-remove" (click)="removePlaceFromMode(modalMode!,i)">✕</button>
+          <button class="chip-remove" (click)="removeTempPlace(i)">✕</button>
         </div>
       </div>
+
       <ng-template #emptyList>
-        <p class="empty-msg">Aggiungi luogo…</p>
+        <p class="empty-msg">Aggiungi un luogo...</p>
       </ng-template>
 
-      <ion-button expand="block" (click)="closeModal()">Salva</ion-button>
+      <ion-button class="boxes-style" expand="block" (click)="saveModal()">Salva</ion-button>
     </ng-container>
 
     <!-- transport -->
-    <ng-container *ngIf="modalMode==='transport'">
+    <ng-container *ngIf="modalMode === 'transport'">
       <ion-list inset>
         <ion-item button (click)="selectValue('walk')">🚶‍♂️ A piedi</ion-item>
         <ion-item button (click)="selectValue('car')">🚗 Auto</ion-item>
@@ -152,7 +151,7 @@
     </ng-container>
 
     <!-- style -->
-    <ng-container *ngIf="modalMode==='style'">
+    <ng-container *ngIf="modalMode === 'style'">
       <ion-list inset>
         <ion-item button (click)="selectValue('Standard')">Standard</ion-item>
         <ion-item button (click)="selectValue('Shopping')">Shopping</ion-item>
@@ -162,9 +161,9 @@
     </ng-container>
 
     <!-- AI prompt -->
-    <ng-container *ngIf="modalMode==='ai'">
+    <ng-container *ngIf="modalMode === 'ai'">
       <ion-textarea autoGrow [(ngModel)]="tripPrompt" placeholder="Scrivi qui…"></ion-textarea>
-      <ion-button expand="block" (click)="closeModal()">Salva</ion-button>
+      <ion-button expand="block" (click)="closeModal(true)">Salva</ion-button>
     </ng-container>
   </div>
 

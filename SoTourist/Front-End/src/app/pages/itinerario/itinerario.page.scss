@@ -1,10 +1,7 @@
-/* itinerario.page.scss */
-
 /* --------------------------------------------------
  *  STILE PAGINA ITINERARIO  (layout a card + modal)
  * -------------------------------------------------- */
 
-/* ---------- CONTENT BASE ---------- */
 .itinerario-content {
   --overflow: auto;
   overflow-y: auto;
@@ -13,10 +10,9 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 7rem;
-  /* spazio FAB */
 }
 
-/* ---------- SEZIONI (titoli sopra le card) ---------- */
+/* ---------- SEZIONI ---------- */
 section {
   margin: 1rem 0 0;
 }
@@ -26,14 +22,12 @@ section {
   align-items: center;
   gap: 0.4rem;
   margin: 0 1rem 1rem;
-
   color: var(--color-text2);
 
-  .suca {
+  .header-text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* allinea a sinistra */
     gap: 0.25rem;
     font-size: 1.5rem;
     font-weight: 700;
@@ -46,7 +40,10 @@ section {
       color: var(--color-text2);
     }
   }
+}
 
+ion-list ion-icon {
+  font-size: 20px;
 }
 
 .section-header ion-icon {
@@ -54,15 +51,12 @@ section {
   color: var(--color-primary);
 }
 
-
 /* ---------- CARD BLOCCO ---------- */
 .block-card {
   margin: 0 1rem 1rem;
   border-radius: 18px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   background: var(--color-background);
-
-  /* Rimuoviamo la regola per ion-card-header, ora che non lo usiamo più */
 
   ion-card-content {
     padding: 0.4rem 0;
@@ -77,26 +71,6 @@ section {
 
       ion-label {
         font-weight: 600;
-        color: var(--color-text2);
-      }
-
-      .preview-chip-line {
-        display: flex;
-        gap: 6px;
-        max-width: 55vw;
-        overflow-x: auto;
-      }
-
-      .chip-mini {
-        background: var(--color-background2);
-        padding: 2px 8px;
-        border-radius: 14px;
-        font-size: 0.72rem;
-        white-space: nowrap;
-      }
-
-      .simple-preview {
-        font-size: 0.9rem;
         color: var(--color-text2);
       }
 
@@ -165,9 +139,9 @@ section {
   width: 90%;
   max-width: 420px;
   background: var(--color-background);
-  border-radius: 18px;
-  padding: 1.2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border-radius: var(--box-radius);
+  padding: 1rem;
+  box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -199,6 +173,8 @@ section {
       display: flex;
       align-items: center;
       gap: 4px;
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
 
     .chip-remove {
@@ -215,17 +191,57 @@ section {
     color: var(--color-text2);
     font-size: 0.85rem;
   }
+
+  ion-button {
+    font-weight: 900;
+  }
 }
 
-/* ---------- CHIP STILI GENERICI ---------- */
-.chip-mini,
+/* ---------- CHIP PREVIEW ---------- */
+.chip-list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.25rem;
+}
+
 .chip {
+  background: var(--color-highlight);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
   user-select: none;
 }
 
-/* ---------- NASCONDI VECCHIO LAYOUT ---------- */
-.slide-indicator,
-.scroll-container,
-.slide-page {
-  display: none !important;
+/* ---------- ITEM PREVIEW LAYOUT ---------- */
+.item-chip-preview {
+  --inner-padding-start: 12px;
+  --inner-padding-end: 12px;
+
+  ion-icon[slot='start'] {
+    font-size: 20px;
+  }
+
+  .item-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+  }
 }
+
+  .title {
+      font-weight: 600;
+      color: var(--color-text2);
+      font-size: 1rem;
+    }
+
+/* ---------- ICONA “+” A DESTRA ---------- */
+ion-item.item-chip-preview ion-icon[slot='end'] {
+  font-size: 20px;
+  color: var(--color-highlight);
+}
+
