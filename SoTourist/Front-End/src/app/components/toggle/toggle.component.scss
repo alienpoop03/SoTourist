@@ -1,0 +1,45 @@
+.custom-toggle {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 30px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider { //binario
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    transition: background-color 0.4s ease;
+    border-radius: 34px;
+
+    &::before { //pallina
+      content: "";
+      position: absolute;
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: var(--color-background);
+      transition: transform 0.4s ease;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider { // quando attivo
+    background-color: #7B1E1E;
+
+    &::before {
+      transform: translateX(24px);
+      background-color: #FFCC00;
+    }
+  }
+}
