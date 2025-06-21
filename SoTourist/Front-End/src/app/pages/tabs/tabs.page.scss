@@ -9,14 +9,14 @@ ion-tab-bar {
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 32px); // margine laterale
-  max-width: 400px; // opzionale per limitarla su schermi larghi
+  max-width: 400px; 
   border-radius: var(--box-radius);
   height: 56px;
   box-shadow: 0 0px 16px rgba(0, 0, 0, 0.15);
   padding: 0px 0;
   z-index: 100;
   gap: 12px;
- // margin: 0 0.2rem ;
+  box-shadow: 0 0px 13px rgba(0, 0, 0, 0.6);
 }
 
 ion-tab-button {
