@@ -94,7 +94,7 @@ export class HomePage implements OnInit {
 
   onScroll(event: CustomEvent) {
     const scrollTop = event.detail.scrollTop || 0;
-    console.log("scroll: ", scrollTop);
+    //console.log("scroll: ", scrollTop);
     this.isShrunk = scrollTop > this.shrinkThreshold;
     if(this.currentTrip || this.nextTrip){
       this.box_shadow = scrollTop < 1;
