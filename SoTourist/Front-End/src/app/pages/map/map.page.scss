@@ -41,7 +41,7 @@
   height: 48px;
   background: rgba(255, 255, 255, 0.30);
   backdrop-filter: blur(6px) saturate(125%);
-  border-radius: 16px;
+  border-radius: var(--box-radius);
   box-shadow: 0 2px 18px 0 rgba(123,30,30,0.07);
   color: var(--bordeaux);
   font-weight: 600;
@@ -85,8 +85,8 @@
   top: 130px;
   max-width: 145px;
   max-height: 200px;  // o quanto vuoi
-  background: rgba(255,255,255,0.75);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(6px) saturate(125%);  border-radius: var(--box-radius);
   box-shadow: 0 12px 24px 0 rgba(123,30,30,0.13);
   padding: 8px 0;
   animation: dropdownAppear 0.16s cubic-bezier(.41,.5,.68,.99);
@@ -136,6 +136,7 @@
   box-shadow: 0 -4px 14px rgba(0, 0, 0, .2);
   z-index: 1000;
   touch-action: none;
+  overflow: hidden;
 
   .handle {
     width: 40px;
@@ -146,13 +147,17 @@
   }
 }
 
+
 /* -------- Cards nel drawer -------- */
 .cards {
-  height: calc(100% - 24px);
+  height: 100%;
   overflow-y: auto;
   padding: 0 1rem 1rem;
   transition: all 0.25s ease;
   will-change: transform, height;
+
+  overflow: scroll; /* Permette lo scorrimento senza mostrare le barre */
+  scrollbar-width: none; /* Per Firefox */
 
   &.horizontal {
     display: flex;
@@ -170,6 +175,10 @@
   }
 }
 
+
+.cards::-webkit-scrollbar {
+  display: none; /* Per Chrome, Safari, Edge */
+}
 
 /* -------- Modale dettaglio -------- */
 .detail {
