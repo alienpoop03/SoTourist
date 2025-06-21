@@ -1,28 +1,31 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-custom-alert',
   templateUrl: './custom-alert.component.html',
   styleUrls: ['./custom-alert.component.scss'],
 })
+
+
 export class CustomAlertComponent {
-  // Input per i testi dinamici
-  @Input() alertTitle: string = 'Elimina account';
-  @Input() alertMessage: string = 'Sei davvero sicuro?';
+  @Input() alertTitle: string = 'Attenzione';
+  @Input() alertMessage: string = 'Sei sicuro di voler procedere?';
   @Input() cancelText: string = 'Annulla';
-  @Input() confirmText: string = 'Elimina';
+  @Input() confirmText: string = 'Conferma';
 
-  // Output per notificare la selezione del pulsante
-  @Output() confirmDelete = new EventEmitter<void>();
-  @Output() cancel = new EventEmitter<void>();
+  @Input() isVisible: boolean = false; // Controlla la visibilità dell'alert
+  @Output() confirm = new EventEmitter<void>(); // Quando si conferma
+  @Output() cancel = new EventEmitter<void>(); // Quando si annulla
 
-  constructor() {}
-
-  confirm() {
-    this.confirmDelete.emit();
+  // Funzione per chiudere l'alert
+  closeAlert() {
+    this.isVisible = false;
+    this.cancel.emit();
   }
 
-  cancelAlert() {
-    this.cancel.emit();
+  // Funzione per confermare l'alert
+  confirmAlert() {
+    this.isVisible = false;
+    this.confirm.emit();
   }
 }

@@ -97,6 +97,12 @@ ion-alert {
   margin-top: 1rem;
   --background: var(--color-primary);
   --color: #ffffff;
+
+}
+
+.premium-button:hover,
+.logout-button:hover {
+  --background: var(--tabs-select); /* colore più chiaro o più scuro, a tua scelta */
 }
 
 
