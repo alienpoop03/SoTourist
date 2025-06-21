@@ -6,6 +6,10 @@ Bug riscontrato: sono le 00:51 del 30 maggio, se creo un viaggio intanto il cale
 
 Se creo un itinerario, dopo averlo generato tornando indietro con la freccia va di nuovo nella pagina itinerario.
 
+Pagina mappa
+
+
+
 
 
 
