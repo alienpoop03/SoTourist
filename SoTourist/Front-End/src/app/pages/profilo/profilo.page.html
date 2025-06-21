@@ -64,5 +64,14 @@
       </ion-item>
     </ion-list>
 
+
+    <app-custom-alert
+      [alertTitle]="'Elimina account'"
+      [alertMessage]="'Sei sicuro di voler eliminare il tuo account?'"
+      [cancelText]="'Annulla'"
+      [confirmText]="'Elimina'"
+      [(isVisible)]="isAlertVisible"
+      (confirm)="deleteAccount()">
+    </app-custom-alert>
 <div class="with-floating-tabs"></div>
 </ion-content>

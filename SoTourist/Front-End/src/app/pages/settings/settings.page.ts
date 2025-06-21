@@ -138,7 +138,8 @@ export class SettingsPage {
           role: 'destructive',
           handler: () => this.logout()
         }
-      ]
+      ],
+      cssClass: 'custom-logout-alert',
     });
 
     await alert.present();

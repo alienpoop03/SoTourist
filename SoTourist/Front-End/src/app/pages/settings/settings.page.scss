@@ -82,7 +82,7 @@ ion-button[fill="clear"] {
 
 /* Alert (se utilizzato) */
 ion-alert {
-  --border-radius: 12px;
+  --border-radius: var(--box-radius) !important;
   --backdrop-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -131,4 +131,44 @@ ion-modal.about-modal::part(content) {
 
 .Tex-versione{
   color: var(--color-text2);
+}
+
+
+
+.custom-logout-alert {
+  // Stile del contenitore principale
+   &::part(alert-wrapper) {
+    --background: #fff;               /* Bianco */
+    --border-radius: 16px;            /* Arrotonda gli angoli */
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    padding: 16px;
+  }
+
+  // Stile dell’intestazione
+  &::part(header) {
+    color: #7B1E1E;                      // Bordeaux per l'intestazione
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  // Stile del messaggio
+  &::part(message) {
+    color: #333;                         // Colore del testo (nero chiaro)
+    font-size: 16px;
+  }
+
+  // Pulsante 'Annulla'
+  &::part(button):first-child {
+    background: #f2f2f2;                 // Colore di sfondo grigio per il pulsante annulla
+    color: #7B1E1E;                      // Bordeaux per il testo
+    border-radius: 10px;                 // Angoli arrotondati
+  }
+
+  // Pulsante 'Logout'
+  &::part(button):last-child {
+    background: #FFCC00;                 // Giallo senape per il pulsante logout
+    color: #fff;                          // Colore del testo bianco
+    border-radius: 10px;                 // Angoli arrotondati
+    font-weight: bold;
+  }
 }

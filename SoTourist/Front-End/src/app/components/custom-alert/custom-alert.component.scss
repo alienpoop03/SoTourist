@@ -1,103 +1,36 @@
-.custom-alert-wrapper {
-  background-color: green;
-  padding: 20px;
-  border-radius: 16px;
-  max-width: 90vw;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  position: relative;
-}
-
-.alert-header {
-  color: #7B1E1E; /* Bordeaux */
-  font-weight: bold;
-}
-
-.alert-message {
-  color: #333;
-  margin: 10px 0;
-}
-
-.alert-buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-button {
-  font-size: 16px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 500;
-}
-
-.cancel-button {
-  background-color: #ccc;
-  color: #666;
-}
-
-.destructive-button {
-  background-color: #7B1E1E;
-  color: white;
-}
-
-
-
-
-/* Il background trasparente che copre la pagina */
-.overlay {
+.modal-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Semitrasparente per sfondo */
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 1; 
+  visibility: visible;
+}
+
+.floating-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 420px;
+  background: var(--color-background);
+  border-radius: var(--box-radius);
+  padding: 1rem;
+  box-shadow: var(--box-shadow);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Porta sopra al resto */
-}
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 2001;
+  opacity: 1;  
+  visibility: visible;
 
-/* Il contenitore centrale dell'alert */
-.modal {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 80%;
-  max-width: 400px; /* Puoi cambiare le dimensioni */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.modal-header {
-  font-weight: bold;
-  color: #7b1e1e; /* Colore personalizzato */
-  margin-bottom: 10px;
-}
-
-.modal-body {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: space-around;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-}
-
-.cancel-btn {
-  background-color: #ccc;
-  color: #666;
-}
-
-.confirm-btn {
-  background-color: #7b1e1e;
-  color: white;
+  .modal-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+  }
+  
 }

@@ -16,16 +16,19 @@ export class CustomAlertComponent {
   @Input() isVisible: boolean = false; // Controlla la visibilità dell'alert
   @Output() confirm = new EventEmitter<void>(); // Quando si conferma
   @Output() cancel = new EventEmitter<void>(); // Quando si annulla
+  @Output() isVisibleChange = new EventEmitter<boolean>();
 
   // Funzione per chiudere l'alert
   closeAlert() {
     this.isVisible = false;
+    this.isVisibleChange.emit(this.isVisible);
     this.cancel.emit();
   }
 
   // Funzione per confermare l'alert
   confirmAlert() {
     this.isVisible = false;
+    this.isVisibleChange.emit(this.isVisible);
     this.confirm.emit();
   }
 }

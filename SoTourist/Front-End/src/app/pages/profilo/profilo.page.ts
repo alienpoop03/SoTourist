@@ -18,6 +18,7 @@ import { AppHeaderComponent } from '../../components/header/app-header.component
 import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
 import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth.service';
+import {CustomAlertComponent} from '../../components/custom-alert/custom-alert.component';
 import { Router } from '@angular/router';
 
 
@@ -39,7 +40,8 @@ import { Router } from '@angular/router';
     IonCard,
     AppHeaderComponent,
     NavigationBarComponent,
-    ProfileIconComponent
+    ProfileIconComponent,
+    CustomAlertComponent
   ],
   templateUrl: './profilo.page.html',
   styleUrls: ['./profilo.page.scss'],
@@ -156,12 +158,18 @@ export class ProfiloPage {
     this.router.navigate(['/change-password']);
 
   }
+
+  isAlertVisible = false;
   confirmDeleteAccount() {
     // Mostra alert di conferma, poi chiama deleteAccount()
-    if (confirm('Sei sicuro di voler eliminare il tuo account?')) {
-      this.deleteAccount();
-    }
+    this.isAlertVisible = true;
+    console.log("isAllertVisible: ", this.isAlertVisible);
   }
+
+  onCancel(){
+    this.isAlertVisible = false;
+  }
+
   deleteAccount() {
     /*localStorage.clear();
     window.location.href = '/login';*/
@@ -177,6 +185,7 @@ export class ProfiloPage {
         this.toastService.showError('❌ Errore durante la cancellazione dell’account.');
       }
     });
+    this.isAlertVisible = false; 
   }
 
   // Abbonamento

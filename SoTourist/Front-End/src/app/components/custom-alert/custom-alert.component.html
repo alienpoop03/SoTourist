@@ -1,8 +1,9 @@
-<div class="overlay" *ngIf="isVisible">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>{{ alertTitle }}</h2>
-    </div>
+
+<div class="modal-backdrop" *ngIf="isVisible" (click)="closeAlert()"></div>
+
+  <div class="floating-modal" *ngIf="isVisible">
+    <h3 class="modal-title">{{ alertTitle }}</h3>
+
     <div class="modal-body">
       <p>{{ alertMessage }}</p>
     </div>
@@ -11,4 +12,3 @@
       <button class="confirm-btn" (click)="confirmAlert()">{{ confirmText }}</button>
     </div>
   </div>
-</div>
