@@ -46,3 +46,15 @@
 }
 
 
+.dark-toggle-item {
+
+  .dark-icon {
+    transition: transform 0.3s ease;
+  }
+
+  &.dark-mode-active .dark-icon {
+    transform: rotate(-25deg);
+  }
+
+}
+
