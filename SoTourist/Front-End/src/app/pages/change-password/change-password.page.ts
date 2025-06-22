@@ -60,6 +60,8 @@ export class ChangePasswordPage implements OnInit {
           username: this.username,
           email: this.email
         });
+        this.usernameP = this.username;
+        this.emailP = this.email;
       },
       error: (err) => {
         this.toastService.showError('Errore durante l\'aggiornamento.');
