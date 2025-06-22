@@ -18,9 +18,8 @@ import { AppHeaderComponent } from '../../components/header/app-header.component
 import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
 import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth.service';
-import {CustomAlertComponent} from '../../components/custom-alert/custom-alert.component';
 import { Router } from '@angular/router';
-
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profilo',
@@ -41,7 +40,6 @@ import { Router } from '@angular/router';
     AppHeaderComponent,
     NavigationBarComponent,
     ProfileIconComponent,
-    CustomAlertComponent
   ],
   templateUrl: './profilo.page.html',
   styleUrls: ['./profilo.page.scss'],
@@ -70,7 +68,7 @@ export class ProfiloPage {
   // Viaggi salvati
   savedTrips: any[] = [];
 
-  constructor(  private authService: AuthService, private toastService: ToastService, private router: Router) {}
+  constructor(  private authService: AuthService, private toastService: ToastService, private router: Router, private alertCtrl: AlertController) {}
 
   private refreshTrips(): void {
      // Carica dati profilo da localStorage (come in settings)
@@ -159,17 +157,28 @@ export class ProfiloPage {
 
   }
 
-  isAlertVisible = false;
-  confirmDeleteAccount() {
+  async confirmDeleteAccount() {
     // Mostra alert di conferma, poi chiama deleteAccount()
-    this.isAlertVisible = true;
-    console.log("isAllertVisible: ", this.isAlertVisible);
+    const alert = await this.alertCtrl.create({
+      header: 'Elimina account',
+      message: 'Questa azione è irreversibile. Sei sicuro di voler procedere?',
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Elimina',
+          role: 'destructive',
+          handler: () => this.deleteAccount()
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
-  onCancel(){
-    this.isAlertVisible = false;
-  }
-
+ 
   deleteAccount() {
     /*localStorage.clear();
     window.location.href = '/login';*/
@@ -185,7 +194,6 @@ export class ProfiloPage {
         this.toastService.showError('❌ Errore durante la cancellazione dell’account.');
       }
     });
-    this.isAlertVisible = false; 
   }
 
   // Abbonamento
@@ -204,17 +212,6 @@ export class ProfiloPage {
     // Vai alla pagina del viaggio
   }
   // Logout
-  confirmLogout() {
-    if (confirm('Vuoi uscire dall\'account?')) {
-      this.logout();
-    }
-  }
-  logout() {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userProfile');
-    window.location.href = '/login';
-  }
-
   onProfileImageChanged(base64: string) {
     console.log('Nuova immagine:', base64);
     this.profileImageUrl = base64;
