@@ -358,7 +358,7 @@ exports.addPlacesToItinerary = (req, res) => {
         if (place.photoReference) {
           photoFilename = await getOrDownloadPhoto(place.placeId, place.photoReference);
           if (place.photoReference) {
-            console.log("📸 HO IL PHOTOREFERENCE:", place.photoReference);
+            console.log("📸 HO IL PHOTOREFERENCE:"/*, place.photoReference*/);
           }
 
         }

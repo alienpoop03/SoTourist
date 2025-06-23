@@ -59,6 +59,13 @@ const fetchPlaces = async (
 
   try {
     const resp = await doTextSearch(params);
+
+    console.log(`\n==============================`);
+    console.log(`🔎 Ricerca: "${query}"`);
+    console.log(`📍 Città: ${city}`);
+    console.log(`📦 Risultati ricevuti da Google: ${resp.data.results.length}`);
+    console.log(`==============================\n`);
+
     if (resp.data.status === "OK" && resp.data.results.length) {
       const results = resp.data.results.filter(p => {
         if (!p.geometry?.location) return false;
@@ -148,16 +155,16 @@ const generateNextPlace = async ({
 
   // 2️⃣ Altrimenti, cerca normalmente
   if (!nextPlace) {
-  const [generated] = await fetchPlaces(
-    def.q, city, key, used, avoidSet, 1, anchor, null, minR, maxR
-  );
+    const [generated] = await fetchPlaces(
+      def.q, city, key, used, avoidSet, 1, anchor, null, minR, maxR
+    );
 
-  if (generated?.place_id) {
-  nextPlace = await fetchPlaceById(generated.place_id, key, used, avoidSet);
-} else {
-    nextPlace = generated || null;
+    if (generated?.place_id) {
+      nextPlace = await fetchPlaceById(generated.place_id, key, used, avoidSet);
+    } else {
+      nextPlace = generated || null;
+    }
   }
-}
 
 
   return nextPlace;
@@ -317,11 +324,20 @@ const getItinerary = async (req, res) => {
   /* --- eventuale alloggio ----------------------------------------- */
   let accPlace = null;
   if (accommodation) {
-    const [acc] = await fetchPlaces(
+    const [accRaw] = await fetchPlaces(
       accommodation, city, KEY, used, avoidSet, 1,
       cityCenter, WITHIN_SLOT
     );
-    if (acc) accPlace = { ...acc, name: "Torna all’alloggio", type: "accommodation" };
+
+    if (accRaw && accRaw.geometry?.location) {
+      const acc = buildPlaceObj(accRaw, KEY);
+      accPlace = { ...acc, name: "Torna all’alloggio", type: "accommodation" };
+      console.log(`🏨 Alloggio generato: lat=${accPlace.latitude}, lng=${accPlace.longitude}`);
+    } else {
+      console.warn("⚠️ Alloggio non valido o coordinate mancanti");
+    }
+
+
   }
 
   /* ---------------------------------------------------------------- */
@@ -340,6 +356,12 @@ const getItinerary = async (req, res) => {
     let anchor = accPlace
       ? { lat: accPlace.latitude, lng: accPlace.longitude }
       : cityCenter;
+    if (!anchor || anchor.lat == null || anchor.lng == null) {
+      console.warn(`⚠️ Giorno ${d} - Anchor NON valido, attenzione!`);
+    } else {
+      console.log(`📍 Giorno ${d} - Anchor iniziale: lat=${anchor.lat}, lng=${anchor.lng}`);
+    }
+
 
     for (const slot of slots) {
       for (const def of base[slot]) {
@@ -440,13 +462,13 @@ const getItinerary = async (req, res) => {
 
       // Ordina gli slot per distanza crescente e cerca un punto dove inserirlo
       const sortedSlots = Object.entries(distances)
-      .filter(([slot]) => {
-        // esclude gli slot dove tutti i luoghi sono di tipo "eat"
-        const allEat = plan[slot].length > 0 && plan[slot].every(p => p.type === "eat");
-        return !allEat;
-      })
-      .sort((a, b) => a[1] - b[1])
-      .map(([slot]) => slot);
+        .filter(([slot]) => {
+          // esclude gli slot dove tutti i luoghi sono di tipo "eat"
+          const allEat = plan[slot].length > 0 && plan[slot].every(p => p.type === "eat");
+          return !allEat;
+        })
+        .sort((a, b) => a[1] - b[1])
+        .map(([slot]) => slot);
 
 
       let inserted = false;

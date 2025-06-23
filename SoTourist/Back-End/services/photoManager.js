@@ -38,7 +38,7 @@ async function getOrDownloadPhoto(fileId, photoReference, subfolder = 'places') 
 
   try {
     const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${photoReference}&key=${GOOGLE_API_KEY}`;
-    console.log('🌐 [PHOTO] Scarico da Google:', photoUrl);
+    console.log('🌐 [PHOTO] Scarico da Google:'/*, photoUrl*/);
 
     const response = await axios.get(photoUrl, {
       responseType: 'stream',
@@ -90,7 +90,7 @@ async function getCityCoverPhoto(rawCity) {
     const ref = first.photos[0].photo_reference;
 
     console.log('🏷️ PLACE_ID:', placeId);
-    console.log('🖼️ PHOTO REF:', ref);
+    console.log('🖼️ PHOTO REF:'/*, ref*/);
 
     // 2️⃣  Passa il placeId a getOrDownloadPhoto
     const savedPath = await getOrDownloadPhoto(placeId, ref, 'covers');
