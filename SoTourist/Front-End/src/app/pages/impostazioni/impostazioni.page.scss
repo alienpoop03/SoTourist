@@ -1,6 +1,6 @@
 .settings-boxes {
   background: var(--color-background);
-  border-radius: 16px;
+  border-radius: var(--box-radius);
 
   & + .settings-boxes {
     margin-top: 1rem;

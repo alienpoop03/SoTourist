@@ -470,7 +470,7 @@
 .quote {
   margin: 2.5rem 1rem 0;
   padding: 1.6rem;
-  border-radius: 26px;
+  border-radius: var(--box-radius);
   background: linear-gradient(145deg,
       rgba(255, 204, 0, 0.15),
       rgba(123, 30, 30, 0.15));

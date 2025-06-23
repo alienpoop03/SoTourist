@@ -31,7 +31,7 @@
   overflow-y: auto;
   background-color: var(--color-background3);
   border: 0px;
-  border-radius: 26px;
+  border-radius: var(--box-radius);
   box-shadow: var(--box-shadow);
 
   animation: fadeInDown 0.18s;
