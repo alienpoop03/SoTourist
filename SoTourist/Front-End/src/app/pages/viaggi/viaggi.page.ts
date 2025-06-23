@@ -141,16 +141,6 @@ export class ViaggiPage implements AfterViewInit {
     const y = event.detail.scrollTop;
     const snapZoneStart = 0.2;
     const snapZoneEnd = this.shrinkThreshold - 0.1;
-
-    /*if (y >= snapZoneStart && y <= snapZoneEnd) {
-      if (y < this.shrinkThreshold / 2) {
-        this.content.scrollToPoint(0, 0, 300);
-      } else {
-        this.isShrunk = true;
-        this.content.scrollToPoint(0, this.shrinkThreshold, 300);
-        
-      }
-    }*/
   }
 
   onScrollEnd(event: any) {
@@ -186,7 +176,10 @@ export class ViaggiPage implements AfterViewInit {
     const now = new Date();
     const midnight = new Date();
     midnight.setHours(24, 0, 0, 0);
-    setTimeout(() => this.refreshTrips(), midnight.getTime() - now.getTime());
+    setTimeout(() => {
+      this.refreshTrips();
+      this.startMidnightWatcher();
+    }, midnight.getTime() - now.getTime());
   }
 
   /*private loadTrips(): void {
