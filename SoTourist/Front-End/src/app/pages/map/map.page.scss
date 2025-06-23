@@ -58,10 +58,10 @@
   }
 }
 .day-selector {
-  /* Se vuoi personalizzare solo il giorno */
+  // Se vuoi personalizzare solo il giorno 
 }
 .time-selector {
-  /* Se vuoi personalizzare solo la parte del giorno */
+  // Se vuoi personalizzare solo la parte del giorno
 }
 .selector-icon {
   font-size: 1.3rem;
@@ -111,6 +111,7 @@
   border-radius: 12px;
   margin: 2.5px 12px;
   transition: background 0.13s, color 0.13s;
+  border-radius: var(--box-radius);
 
   &.active {
     background: var(--senape);
@@ -132,7 +133,7 @@
   bottom: 0;
   height: 220px;
   background: #fff;
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--box-radius) var(--box-radius) 0 0;
   box-shadow: 0 -4px 14px rgba(0, 0, 0, .2);
   z-index: 1000;
   touch-action: none;
@@ -167,10 +168,15 @@
     scroll-snap-type: x mandatory;
     transition: transform 0.2s ease;
 
+    
+    
+
     ion-card {
       flex: 0 0 90%;
       margin-right: 1rem;
       scroll-snap-align: center;
+
+      
     }
   }
 }

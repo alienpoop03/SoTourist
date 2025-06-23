@@ -15,6 +15,7 @@ export class LuogoCardComponent implements OnInit {
   @Input() place!: Place;
   @Input() selected: boolean = false;
   @Input() index?: number;
+  @Input() extends: boolean = true;
 
   @Output() clicked = new EventEmitter<void>();
 

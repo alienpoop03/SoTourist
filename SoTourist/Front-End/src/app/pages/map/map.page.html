@@ -49,7 +49,7 @@
 
 
       <app-luogo-card *ngFor="let p of todayPlaces; let i = index" [place]="p" [index]="i"
-        [selected]="i === selectedIndex" (clicked)="openPlace(i)">
+        [selected]="i === selectedIndex" [extends]="!isDrawerCompact" (clicked)="openPlace(i)">
       </app-luogo-card>
 
     </div>

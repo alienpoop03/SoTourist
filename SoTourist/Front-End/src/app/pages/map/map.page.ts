@@ -192,6 +192,7 @@ export class MapPage implements AfterViewInit {
 
 this.renderMarkers().then(); // va benissimo
 }
+
 openInGoogleMaps() {
   const place = this.detail;
   if (!place?.latitude || !place?.longitude) return;
@@ -380,7 +381,7 @@ console.log('[MARKER] imageUrl:', imageUrl);
 
   private scrollToPlace(i: number) {
     const target = this.todayPlaces[i];
-    this.drawerExpanded = true;
+    //this.drawerExpanded = true;
     this.selectedIndex = i;
 
     if (target?.latitude && target?.longitude) {

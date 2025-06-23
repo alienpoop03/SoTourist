@@ -1,40 +1,41 @@
-<ion-card [class.selected]="selected" (click)="clicked.emit()">
-  <ion-img *ngIf="place.photoUrl; else ph" [src]="place.photoUrl"></ion-img>
+<ion-card [class.selected]="selected" [class.comact]="!extends" (click)="clicked.emit()">
+  <ion-img *ngIf="place.photoUrl; else ph" [class.comact]="!extends" [src]="place.photoUrl"></ion-img>
   <ng-template #ph>
-    <div class="placeholder">📍</div>
+    <div class="placeholder" [class.comact]="!extends">📍</div>
   </ng-template>
 
-  <ion-card-header>
-    <ion-card-title>
-      <ng-container *ngIf="index !== undefined">{{ index + 1 }}. </ng-container>{{ place.name }}
-    </ion-card-title>
-  </ion-card-header>
+  <div class="text-card">
+    <ion-card-header>
+      <ion-card-title [class.comact]="!extends">
+        <ng-container *ngIf="index !== undefined">{{ index + 1 }}. </ng-container>{{ place.name }}
+      </ion-card-title>
+    </ion-card-header>
 
-  <ion-card-content>
-  <p class="addr">{{ place.address }}</p>
-  <p class="dist" *ngIf="place.distanceToNext">⇢ {{ place.distanceToNext }}</p>
-  <p *ngIf="place.rating">⭐ {{ place.rating }}/5</p>
+    <ion-card-content *ngIf="extends">
+      <p class="addr">{{ place.address }}</p>
+      <p class="dist" *ngIf="place.distanceToNext">⇢ {{ place.distanceToNext }}</p>
+      <p *ngIf="place.rating">⭐ {{ place.rating }}/5</p>
 
-  <p *ngIf="place.priceLevel !== undefined">
-    💰 Prezzo: {{
-      place.priceLevel === 0 ? 'Gratis' :
-      place.priceLevel === 1 ? 'Economico' :
-      place.priceLevel === 2 ? 'Medio' :
-      place.priceLevel === 3 ? 'Costoso' :
-      place.priceLevel === 4 ? 'Molto costoso' : ''
-    }}
-  </p>
+      <p *ngIf="place.priceLevel !== undefined">
+        💰 Prezzo: {{
+          place.priceLevel === 0 ? 'Gratis' :
+          place.priceLevel === 1 ? 'Economico' :
+          place.priceLevel === 2 ? 'Medio' :
+          place.priceLevel === 3 ? 'Costoso' :
+          place.priceLevel === 4 ? 'Molto costoso' : ''
+        }}
+      </p>
 
-  <p *ngIf="place.website">
-    🔗 <a [href]="place.website" target="_blank" rel="noopener noreferrer">Sito web</a>
-  </p>
+      <p *ngIf="place.website">
+        🔗 <a [href]="place.website" target="_blank" rel="noopener noreferrer">Sito web</a>
+      </p>
 
-  <div *ngIf="place.openingHours?.length">
-    🕐 <strong>Orari:</strong>
-    <ul class="hours">
-      <li *ngFor="let h of place.openingHours">{{ h }}</li>
-    </ul>
+      <div *ngIf="place.openingHours?.length">
+        🕐 <strong>Orari:</strong>
+        <ul class="hours">
+          <li *ngFor="let h of place.openingHours">{{ h }}</li>
+        </ul>
+      </div>
+    </ion-card-content>
   </div>
-</ion-card-content>
-
 </ion-card>
