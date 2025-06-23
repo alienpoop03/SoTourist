@@ -35,13 +35,12 @@ export class NavigationBarComponent {
   @Input() title = '';
 
   /** Dove andare al click sulla freccia (fallback) */
-  @Input() backUrl: string = '';
+  @Input() backUrl: string | null = null;
 
   constructor(private router: Router, private navigation: NavigationService) {}
 
   goBack() {
-    console.log("this.backUrl= ",this.backUrl );
-    if (this.backUrl != '') {
+    if (this.backUrl) {
       this.router.navigate([this.backUrl]);
     } else {
       this.navigation.back('/');
