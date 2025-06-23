@@ -1,5 +1,17 @@
+:host ::ng-deep ion-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
+  display: none !important;
+}
+
+
+
+
 .itinerario-content {
-  --overflow: hidden;
+  //--overflow: hidden;
   background: var(--color-background);
   height: 100vh;
   display: flex;
