@@ -1,12 +1,16 @@
 /* ------------------------------------------------------------------ */
-/*  SoTourist – Itinerary Controller (v. “slot chaining 2.0”)          */
-/*  ▸ Inter-slot dinamico con raggio MIN–MAX per mezzo                 */
-/*  ▸ Intra-slot sempre raggio compatto                                */
-/*  ▸ Logica speciale BUS (mattina lunga, sera rientro)                */
+/*  SoTourist – Itinerary Controller  (v. “nearby search 1.0”)         */
+/*  ▸ Tutte le ricerche ora via Nearby Search                          */
+/*  ▸ Inter-slot dinamico con raggio MIN–MAX per mezzo                */
+/*  ▸ Intra-slot sempre raggio compatto                               */
+/*  ▸ Logica speciale BUS (mattina lunga, sera rientro)               */
 /* ------------------------------------------------------------------ */
+const fs = require("fs");
+const path = require("path");
+
 require("dotenv").config();
 const axios = require("axios");
-const { getOrDownloadPhoto } = require('../services/photoManager'); // o path corretto
+const { getOrDownloadPhoto } = require("../services/photoManager"); // path corretto
 
 /* ------------------------------------------------------------------ */
 /* ⚙️  Helpers                                                         */
@@ -24,104 +28,159 @@ const haversine = (a, b) => {
   return 2 * R * Math.asin(Math.sqrt(h));
 };
 
-const buildPlaceObj = (place, key) => ({
-  placeId: place.place_id,
-  name: place.name,
-  address: place.formatted_address,
-  rating: place.rating ?? null,
-  priceLevel: place.price_level ?? null,
-  website: place.website ?? null,
-  openingHours: place.opening_hours?.weekday_text ?? null,
-  photo: place.photos?.[0]
-    ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=${key}`
-    : null,
-  photoReference: place.photos?.[0]?.photo_reference || null,
-  latitude: place.geometry?.location?.lat,
-  longitude: place.geometry?.location?.lng,
-});
+const buildPlaceObj = (place, key) => {
+  const localPath = `/uploads/places/${place.place_id}.jpg`;
+const absolutePath = path.join(__dirname, '../uploads/places', `${place.place_id}.jpg`);
 
+  let finalPhoto = null;
+  if (fs.existsSync(absolutePath)) {
+    finalPhoto = localPath;
+        console.log(`✅ Foto locale trovata per "${place.name}" (${place.place_id}), uso ${localPath}`);
 
+  } else if (place.photos?.[0]) {
+        console.log(`🌐 Foto NON presente per "${place.name}" (${place.place_id}), uso link Google`);
 
-/* --- text-search helper (supporta min & max radius) ---------------- */
-const fetchPlaces = async (
-  query, city, key, used = new Set(), avoid = new Set(), count = 1,
-  anchor = null, fixedRadius = null, minR = null, maxR = null
-) => {
-  const baseParams = { query: `${query} in ${city}`, key };
-  const doTextSearch = params =>
-    axios.get("https://maps.googleapis.com/maps/api/place/textsearch/json", { params });
-
-  const params = { ...baseParams };
-  if (anchor && fixedRadius) {
-    params.location = `${anchor.lat},${anchor.lng}`;
-    params.radius = fixedRadius;
+    finalPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=${key}`;
   }
 
+  return {
+    placeId: place.place_id,
+    name: place.name,
+    address: place.vicinity || place.formatted_address,
+    rating: place.rating ?? null,
+    priceLevel: place.price_level ?? null,
+    website: place.website ?? null,
+    openingHours: place.opening_hours?.weekday_text ?? null,
+    photo: finalPhoto,
+    photoReference: place.photos?.[0]?.photo_reference || null,
+    latitude: place.geometry?.location?.lat,
+    longitude: place.geometry?.location?.lng,
+    type: place.types?.[0] || null,
+  };
+};
+
+
+/* ------------------------------------------------------------------ */
+/*  🔍 Nearby-Search helper                                            */
+/*     - keyword & type obbligatori                                   */
+/*     - anchor = {lat,lng}, radius (m)                               */
+/* ------------------------------------------------------------------ */
+const fetchNearbyPlaces = async (
+  { keyword, type },
+  anchor,
+  radius,
+  key,
+  used = new Set(),
+  avoid = new Set(),
+  count = 1,
+  minR = null,
+  maxR = null
+) => {
+  if (!anchor) return [];
+
+  const params = {
+    key,
+    location: `${anchor.lat},${anchor.lng}`,
+    radius: Math.min(radius, 50000), // limite API
+  };
+  if (keyword) params.keyword = keyword;
+  if (type) params.type = type;
+
+  const doNearby = () =>
+    axios.get(
+      "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+      { params }
+    );
+
   try {
-    const resp = await doTextSearch(params);
+    const resp = await doNearby();
 
     console.log(`\n==============================`);
-    console.log(`🔎 Ricerca: "${query}"`);
-    console.log(`📍 Città: ${city}`);
-    console.log(`📦 Risultati ricevuti da Google: ${resp.data.results.length}`);
+    console.log(`🔎 Nearby: keyword="${keyword}" type=${type}`);
+    console.log(`📍 Anchor: ${anchor.lat},${anchor.lng}, r=${params.radius}`);
+    console.log(`📦 Risultati: ${resp.data.results.length}`);
     console.log(`==============================\n`);
 
     if (resp.data.status === "OK" && resp.data.results.length) {
-      const results = resp.data.results.filter(p => {
+      const results = resp.data.results.filter((p) => {
         if (!p.geometry?.location) return false;
         if (used.has(p.place_id) || avoid.has(p.place_id)) return false;
 
         const placeCoords = {
           lat: p.geometry.location.lat,
-          lng: p.geometry.location.lng
+          lng: p.geometry.location.lng,
         };
 
-        if (anchor) {
-          const dist = haversine(anchor, placeCoords);
-          if (minR !== null && dist < minR) return false;
-          if (maxR !== null && dist > maxR) return false;
-          // DEBUG DISTANZA
-          console.log(`📍 [${query}] distanza = ${Math.round(dist)}m`);
-        }
+        const dist = haversine(anchor, placeCoords);
+        if (minR !== null && dist < minR) return false;
+        if (maxR !== null && dist > maxR) return false;
 
         return true;
       });
 
       if (results.length) {
-        return results.slice(0, count); // restituisce i luoghi originali di Google
-
+        return results.slice(0, count); // risultati grezzi Google
       }
     }
   } catch (e) {
-    console.warn("⚠️ textsearch failed:", e.message);
+    console.warn("⚠️ nearbySearch failed:", e.message);
   }
 
-  // ❌ Fallback: placeholder
-  console.error(`❌ Nessun risultato reale per "${query}", uso placeholder.`);
+  // ❌ Fallback placeholder
+  console.error(
+    `❌ Nessun risultato per "${keyword || type}", uso placeholder.`
+  );
   const fake = {
-    place_id: `placeholder_${query.replace(/\s+/g, "_")}_${Date.now()}`,
-    name: `Luogo generico per "${query}"`,
-    formatted_address: city,
+    place_id: `placeholder_${(keyword || type).replace(/\s+/g, "_")}_${Date.now()}`,
+    name: `Luogo generico (${keyword || type})`,
+    formatted_address: "",
     rating: 0,
+    geometry: { location: anchor },
     photos: [],
-    geometry: { location: anchor || { lat: 0, lng: 0 } },
+    types: [type],
   };
-  return [buildPlaceObj(fake, key)];
+  return [fake];
 };
 
+const fetchAccommodation = async (address, key) => {
+  try {
+    const { data } = await axios.get(
+      "https://maps.googleapis.com/maps/api/place/findplacefromtext/json",
+      {
+        params: {
+          input: address,
+          inputtype: "textquery",
+          fields: "place_id",
+          key,
+        },
+      }
+    );
 
+    if (data.status === "OK" && data.candidates.length) {
+      const placeId = data.candidates[0].place_id;
 
+      const place = await fetchPlaceById(placeId, key, new Set(), new Set());
+      return place;
+    }
+  } catch (e) {
+    console.warn("⚠️ fetchAccommodation fallita:", e.message);
+  }
+  return null;
+};
 
+/* Dettaglio singolo place tramite Places Details */
 const fetchPlaceById = async (id, key, used, avoid) => {
-
   if (avoid.has(id) || used.has(id)) return null;
 
   const { data } = await axios.get(
     "https://maps.googleapis.com/maps/api/place/details/json",
     {
       params: {
-        place_id: id, key, fields: "place_id,name,formatted_address,geometry,photos,rating,price_level,website,opening_hours"
-      }
+        place_id: id,
+        key,
+        fields:
+          "place_id,name,formatted_address,vicinity,geometry,photos,rating,price_level,website,opening_hours,types",
+      },
     }
   );
 
@@ -129,43 +188,119 @@ const fetchPlaceById = async (id, key, used, avoid) => {
   if (!p?.geometry?.location) return null;
 
   used.add(id);
-
   return buildPlaceObj(p, key);
 };
 
+/* ------------------------------------------------------------------ */
+/* 🌐  Style Presets 2.0  (keyword + type)                             */
+/* ------------------------------------------------------------------ */
+const STYLE_PRESETS = {
+  Standard: {
+    morning: [
+      { keyword: "café", type: "cafe", c: 1, slotType: "eat" },
+      { keyword: "", type: "tourist_attraction", c: 1, slotType: "see" },
+    ],
+    afternoon: [
+      { keyword: "lunch", type: "restaurant", c: 1, slotType: "eat" },
+      { keyword: "", type: "park", c: 1, slotType: "see" },
+    ],
+    evening: [
+      { keyword: "dinner", type: "restaurant", c: 1, slotType: "eat" },
+      { keyword: "cocktail", type: "bar", c: 1, slotType: "eat" },
+    ],
+  },
 
-// ===============
-// === FUNZIONE MIA PER FARE STO CHAINING DINAMICO CORRETTAMENTE
-// ===============
+  Museums: {
+    morning: [
+      { keyword: "breakfast", type: "cafe", c: 1, slotType: "eat" },
+      { keyword: "", type: "museum", c: 2, slotType: "see" },
+    ],
+    afternoon: [
+      { keyword: "lunch", type: "restaurant", c: 1, slotType: "eat" },
+      { keyword: "art exhibitions", type: "art_gallery", c: 1, slotType: "see" },
+    ],
+    evening: [
+      { keyword: "dinner", type: "restaurant", c: 1, slotType: "eat" },
+      { keyword: "theatre", type: "movie_theater", c: 1 },
+    ],
+  },
 
+  Shopping: {
+    morning: [
+      { keyword: "coffee", type: "cafe", c: 1, slotType: "eat" },
+      { keyword: "", type: "shopping_mall", c: 2, slotType: "see" },
+    ],
+    afternoon: [
+      { keyword: "lunch", type: "restaurant", c: 1, slotType: "eat" },
+      { keyword: "", type: "department_store", c: 1, slotType: "see" },
+    ],
+    evening: [
+      { keyword: "dinner", type: "restaurant", c: 1, slotType: "eat" },
+      { keyword: "trendy bar", type: "bar", c: 1, slotType: "eat" },
+    ],
+  },
+
+  FoodTour: {
+    morning: [
+      { keyword: "pasticceria", type: "bakery", c: 1, slotType: "eat" },
+      { keyword: "food market", type: "market", c: 1, slotType: "eat" },
+    ],
+    afternoon: [
+      { keyword: "typical restaurant", type: "restaurant", c: 2, slotType: "eat" },
+    ],
+    evening: [
+      { keyword: "wine tasting", type: "bar", c: 1, slotType: "eat" },
+      { keyword: "gourmet", type: "restaurant", c: 1, slotType: "eat" },
+    ],
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* 🔗  Place Generator (slot chaining)                                 */
+/* ------------------------------------------------------------------ */
 const generateNextPlace = async ({
-  def, city, key, used, avoidSet, anchor,
-  minR = null, maxR = null, mustSee = [], mustEat = []
+  def,
+  city,
+  key,
+  used,
+  avoidSet,
+  anchor,
+  withinSlot,
+  interRules,
+  mustSee = [],
+  mustEat = [],
 }) => {
   let nextPlace = null;
-
-  // 1️⃣ Se possibile, usa MUST user
-  if (def.type === "see" && mustSee.length) {
-    const id = mustSee.shift();
-    nextPlace = await fetchPlaceById(id, key, used, avoidSet);
-  } else if (def.type === "eat" && mustEat.length) {
-    const id = mustEat.shift();
+  /* 👉 must-eat: usa i ristoranti obbligatori
+       – funziona solo se lo slot è di tipo "eat"
+       – lo usiamo negli slot pranzo e cena (non mattina)          */
+  if (def.slotType === "eat" && mustEat.length) {
+    const id = mustEat.shift();                       // preleva il primo
     nextPlace = await fetchPlaceById(id, key, used, avoidSet);
   }
 
-  // 2️⃣ Altrimenti, cerca normalmente
+
+  // 2️⃣ Nearby search normale
   if (!nextPlace) {
-    const [generated] = await fetchPlaces(
-      def.q, city, key, used, avoidSet, 1, anchor, null, minR, maxR
+    const radius = def.forceRadius ?? interRules.max;
+    const [raw] = await fetchNearbyPlaces(
+      { keyword: def.keyword, type: def.type },
+      anchor,
+      radius,
+      key,
+      used,
+      avoidSet,
+      1,
+      interRules.min,
+      interRules.max
     );
 
-    if (generated?.place_id) {
-      nextPlace = await fetchPlaceById(generated.place_id, key, used, avoidSet);
+    if (raw?.place_id) {
+      nextPlace = await fetchPlaceById(raw.place_id, key, used, avoidSet);
     } else {
-      nextPlace = generated || null;
+      nextPlace = buildPlaceObj(raw, key);
     }
   }
-
 
   return nextPlace;
 };
@@ -173,42 +308,31 @@ const generateNextPlace = async ({
 /* ------------------------------------------------------------------ */
 /* 🚀  GET|POST /api/itinerary                                         */
 /* ------------------------------------------------------------------ */
-
 const getItinerary = async (req, res) => {
   const city = req.body?.city || req.query.city || "Roma";
   const totalDays = parseInt(req.body?.totalDays || req.query.totalDays) || 1;
   const accommodation = req.body?.accommodation || req.query.accommodation || null;
   const transport = (req.body?.transport || req.query.transport || "walk").toLowerCase();
-  console.log("🚗 Mezzo ricevuto:", transport);
-  const style = req.body?.style || req.query.style || "Standard";
-  console.log("🎯 Stile scelto:", style);
+  const styleName = req.body?.style || req.query.style || "Standard";
 
-  /* --- preferenze opzionali --------------------------------------- */
+  /* preferenze utente */
   const mustSee = Array.isArray(req.body?.mustSee) ? req.body.mustSee : [];
   const mustEat = Array.isArray(req.body?.mustEat) ? req.body.mustEat : [];
   const avoid = Array.isArray(req.body?.avoid) ? req.body.avoid : [];
-
   const used = new Set();
   const avoidSet = new Set(avoid);
 
   const KEY = process.env.GOOGLE_API_KEY;
+  const { getCityCoverPhoto } = require("../services/photoManager");
+
+  /* cover dinamica */
   let coverPhoto = null;
-
-  const { getCityCoverPhoto } = require('../services/photoManager'); // o path corretto
-
-  // 🔍 Cover dinamica
   try {
     const filename = await getCityCoverPhoto(city);
-    if (filename) {
-      coverPhoto = `/uploads/${filename}`;
-      console.log('✅ Cover salvata come:', coverPhoto);
-    }
-  } catch (err) {
-    console.warn('⚠️ Errore nella cover dinamica:', err.message);
-  }
+    if (filename) coverPhoto = `/uploads/${filename}`;
+  } catch (_) { }
 
-
-  /* --- coordinate centro città ------------------------------------ */
+  /* centro città (geocode) */
   let cityCenter = null;
   try {
     const geo = await axios.get(
@@ -216,197 +340,89 @@ const getItinerary = async (req, res) => {
       { params: { address: city, key: KEY } }
     );
     cityCenter = geo.data.results[0]?.geometry?.location || null;
-  } catch {/* ignore */ }
+  } catch (_) { }
 
-  /* --- radius rule-set -------------------------------------------- */
+  /* regole raggio */
   const WITHIN_SLOT = 1000;
   const INTER_RULES = {
     walk: { min: 0, max: 1000 },
     car: { min: 500, max: 10000 },
     bike: { min: 200, max: 5000 },
-    bus: { min: 1000, max: 10000 }  // bus mattina + pomeriggio; sera custom
+    bus: { min: 1000, max: 10000 },
   };
   const R = INTER_RULES[transport] || INTER_RULES.walk;
-  const stylePresets = {
-    "Standard": {
-      morning: [
-        { q: "caffè bar colazione", c: 1 },
-        { q: "attrazioni turistiche", c: 1, type: "see" }
-      ],
-      afternoon: [
-        { q: "ristoranti per pranzo", c: 1, type: "eat" },
-        { q: "parchi o musei", c: 1, type: "see" }
-      ],
-      evening: [
-        { q: "ristoranti per cena", c: 1, type: "eat" },
-        { q: "pub cocktail bar", c: 1, type: "eat" }
-      ]
-    },
 
-    "Giornata nei musei": {
-      morning: [
-        { q: "caffè bar colazione", c: 1 },
-        { q: "musei famosi", c: 2, type: "see" }
-      ],
-      afternoon: [
-        { q: "ristoranti per pranzo", c: 1, type: "eat" },
-        { q: "mostre d'arte", c: 2, type: "see" }
-      ],
-      evening: [
-        { q: "ristoranti per cena", c: 1, type: "eat" },
-        { q: "teatri o spettacoli", c: 1 }
-      ]
-    },
-
-    "Shopping": {
-      morning: [
-        { q: "caffè bar colazione", c: 1 },
-        { q: "zone commerciali e boutique", c: 2, type: "see" }
-      ],
-      afternoon: [
-        { q: "ristoranti per pranzo", c: 1, type: "eat" },
-        { q: "centri commerciali", c: 2, type: "see" }
-      ],
-      evening: [
-        { q: "ristoranti per cena", c: 1, type: "eat" },
-        { q: "locali di tendenza", c: 1, type: "eat" }
-      ]
-    },
-
-    "Avventura": {
-      morning: [
-        { q: "caffè bar colazione", c: 1 },
-        { q: "escursioni e percorsi naturalistici", c: 2, type: "see" }
-      ],
-      afternoon: [
-        { q: "ristoranti per pranzo", c: 1, type: "eat" },
-        { q: "sport outdoor", c: 2, type: "see" }
-      ],
-      evening: [
-        { q: "ristoranti per cena", c: 1, type: "eat" },
-        { q: "pub locali", c: 1, type: "eat" }
-      ]
-    },
-
-    "Food Tour": {
-      morning: [
-        { q: "pasticcerie famose", c: 1, type: "eat" },
-        { q: "mercati alimentari", c: 1, type: "eat" }
-      ],
-      afternoon: [
-        { q: "ristoranti tipici", c: 2, type: "eat" }
-      ],
-      evening: [
-        { q: "degustazioni vino e formaggi", c: 1, type: "eat" },
-        { q: "ristoranti gourmet", c: 1, type: "eat" }
-      ]
-    },
-
-    "Relax": {
-      morning: [
-        { q: "spa e centri benessere", c: 1, type: "see" },
-        { q: "parchi tranquilli", c: 1, type: "see" }
-      ],
-      afternoon: [
-        { q: "ristoranti per pranzo", c: 1, type: "eat" },
-        { q: "passeggiate panoramiche", c: 1, type: "see" }
-      ],
-      evening: [
-        { q: "ristoranti per cena", c: 1, type: "eat" },
-        { q: "bar panoramici", c: 1, type: "eat" }
-      ]
-    }
-  };
-
-
-
-
-  /* --- eventuale alloggio ----------------------------------------- */
+  /* alloggio */
+  /* alloggio */
   let accPlace = null;
   if (accommodation) {
-    const [accRaw] = await fetchPlaces(
-      accommodation, city, KEY, used, avoidSet, 1,
-      cityCenter, WITHIN_SLOT
-    );
+    accPlace = await fetchAccommodation(accommodation, KEY);
 
-    if (accRaw && accRaw.geometry?.location) {
-      const acc = buildPlaceObj(accRaw, KEY);
-      accPlace = { ...acc, name: "Torna all’alloggio", type: "accommodation" };
-      console.log(`🏨 Alloggio generato: lat=${accPlace.latitude}, lng=${accPlace.longitude}`);
+    if (accPlace) {
+      accPlace = {
+        ...accPlace,
+        name: "Torna all’alloggio",
+        slotType: "accommodation",
+      };
+      used.add(accPlace.placeId);
+      console.log(`🏨 Alloggio trovato: ${accPlace.name} (${accPlace.latitude}, ${accPlace.longitude})`);
     } else {
-      console.warn("⚠️ Alloggio non valido o coordinate mancanti");
+      console.warn("⚠️ Alloggio non trovato, proseguo senza.");
     }
-
-
   }
 
-  /* ---------------------------------------------------------------- */
-  /* 🧠 loop giorni – slot chaining dinamico con gestione must/avoid   */
-  /* ---------------------------------------------------------------- */
+
+
+  /* ---------------- itinerario per giorni ---------------- */
   const itinerary = [];
-
   const slots = ["morning", "afternoon", "evening"];
-  const base = stylePresets[style] || stylePresets["Standard"];
-
+  const baseStyle = STYLE_PRESETS[styleName] || STYLE_PRESETS.Standard;
 
   for (let d = 1; d <= totalDays; d++) {
     const plan = { day: d, morning: [], afternoon: [], evening: [] };
 
-    // anchor iniziale: alloggio o centro città
+    /* anchor iniziale */
     let anchor = accPlace
       ? { lat: accPlace.latitude, lng: accPlace.longitude }
       : cityCenter;
-    if (!anchor || anchor.lat == null || anchor.lng == null) {
-      console.warn(`⚠️ Giorno ${d} - Anchor NON valido, attenzione!`);
-    } else {
-      console.log(`📍 Giorno ${d} - Anchor iniziale: lat=${anchor.lat}, lng=${anchor.lng}`);
-    }
-
 
     for (const slot of slots) {
-      for (const def of base[slot]) {
-        let remaining = def.c;
+      for (const defTemplate of baseStyle[slot]) {
+        let remaining = defTemplate.c;
 
         while (remaining > 0) {
-          let minR = null, maxR = null;
-
-          if (slot === "morning" && def.q.includes("colazione")) {
-            maxR = WITHIN_SLOT;
-            def.type = "see"; // forza a non usarli, evita `generateNextPlace` di pescarli
-
-          } else if (
-            slot === "morning" &&
-            transport === "bus" &&
-            def.q.includes("attrazioni")
-          ) {
-            maxR = 5000;
-          } else if (
+          /* regole raggio dinamiche */
+          let inter = { ...R };
+          if (slot === "morning" && defTemplate.keyword.includes("coffee"))
+            inter.max = WITHIN_SLOT;
+          if (
             slot === "evening" &&
             transport === "bus" &&
-            def.q.includes("ristoranti per cena") &&
+            defTemplate.slotType === "eat" &&
             accPlace
           ) {
-            anchor = { lat: accPlace.latitude, lng: accPlace.longitude };
-            minR = 0;
-            maxR = 2000;
+            anchor = {
+              lat: accPlace.latitude,
+              lng: accPlace.longitude,
+            };
+            inter = { min: 0, max: 2000 };
           } else if (plan[slot].length === 0) {
-            minR = R.min;
-            maxR = R.max;
+            inter = { ...R };
           } else {
-            maxR = WITHIN_SLOT;
+            inter.max = WITHIN_SLOT;
           }
 
           const nextPlace = await generateNextPlace({
-            def,
+            def: defTemplate,
             city,
             key: KEY,
             used,
             avoidSet,
             anchor,
-            minR,
-            maxR,
-            mustSee: [],
-            mustEat
+            withinSlot: WITHIN_SLOT,
+            interRules: inter,
+            mustSee: [],                                 //  ← non consumiamo nulla qui
+            mustEat: slot === "morning" ? [] : mustEat,
           });
 
           if (nextPlace) {
@@ -417,101 +433,96 @@ const getItinerary = async (req, res) => {
             break;
           }
         }
-
-
       }
-
     }
 
-    // rientro serale all’alloggio
-    if (accPlace) {
-      plan.evening.push({ ...accPlace, timeSlot: "evening" });
-    }
+    /* rientro serale */
+    if (accPlace) plan.evening.push({ ...accPlace, timeSlot: "evening" });
 
-    // array ordinato (opzionale)
-    plan.ordered = [
-      ...plan.morning,
-      ...plan.afternoon,
-      ...plan.evening
-    ];
-
+    plan.ordered = [...plan.morning, ...plan.afternoon, ...plan.evening];
     itinerary.push(plan);
   }
-  // 🚨 Inserisci i mustSee ciclicamente nei giorni, negli slot con minore distanza
-  let mustSeeIndex = 0;
-  const totalMustSee = mustSee.length;
 
-  while (mustSeeIndex < totalMustSee) {
-    for (let i = 0; i < itinerary.length && mustSeeIndex < totalMustSee; i++) {
-      const plan = itinerary[i];
+  /* inserimento ciclico mustSee */
+  /* ------------------------------------------------- */
+  /* 🔗 Inserimento ottimo dei must-see                 */
+  /*     criterio: minimizza delta-distanza            */
+  /* ------------------------------------------------- */
+  while (mustSee.length) {
+    const id = mustSee.shift();
+    const p = await fetchPlaceById(id, KEY, used, avoidSet);
+    if (!p) continue;
 
-      // Calcola la distanza media tra le tappe di ciascuno slot
-      const distances = {};
-      for (const slot of ["morning", "afternoon", "evening"]) {
-        const places = plan[slot];
-        let totalDist = 0;
-        for (let j = 1; j < places.length; j++) {
-          const dist = haversine(
-            { lat: places[j - 1].latitude, lng: places[j - 1].longitude },
-            { lat: places[j].latitude, lng: places[j].longitude }
-          );
-          totalDist += dist;
+    let bestScore = Infinity;
+    let bestSlot = null;
+    let bestPos = 0;
+
+    itinerary.forEach(plan => {
+      ["morning", "afternoon", "evening"].forEach(slot => {
+        const arr = plan[slot];
+        if (!arr.length) return;                  // slot vuoto? salta
+
+        for (let i = 0; i <= arr.length; i++) {
+          const prev = i === 0 ? null : arr[i - 1];
+          const next = i === arr.length ? null : arr[i];
+
+          const dPrev = prev ? haversine(
+            { lat: prev.latitude, lng: prev.longitude },
+            { lat: p.latitude, lng: p.longitude }) : 0;
+
+          const dNext = next ? haversine(
+            { lat: p.latitude, lng: p.longitude },
+            { lat: next.latitude, lng: next.longitude }) : 0;
+
+          const dOrig = prev && next ? haversine(
+            { lat: prev.latitude, lng: prev.longitude },
+            { lat: next.latitude, lng: next.longitude }) : 0;
+
+          const delta = dPrev + dNext - dOrig;
+
+          if (delta < bestScore) {
+            bestScore = delta;
+            bestSlot = { plan, slot };
+            bestPos = i;
+          }
         }
-        distances[slot] = totalDist / Math.max(places.length - 1, 1); // media
-      }
+      });
+    });
 
-      // Ordina gli slot per distanza crescente e cerca un punto dove inserirlo
-      const sortedSlots = Object.entries(distances)
-        .filter(([slot]) => {
-          // esclude gli slot dove tutti i luoghi sono di tipo "eat"
-          const allEat = plan[slot].length > 0 && plan[slot].every(p => p.type === "eat");
-          return !allEat;
-        })
-        .sort((a, b) => a[1] - b[1])
-        .map(([slot]) => slot);
-
-
-      let inserted = false;
-      const id = mustSee[mustSeeIndex];
-
-      for (const slot of sortedSlots) {
-        const p = await fetchPlaceById(id, KEY, used, avoidSet);
-        if (!p) continue;
-
-        // Inserisci a metà dello slot (non all’inizio)
-        const pos = Math.floor(plan[slot].length / 2);
-        plan[slot].splice(pos, 0, p);
-        plan.ordered = [...plan.morning, ...plan.afternoon, ...plan.evening];
-        mustSeeIndex++;
-        inserted = true;
-        break;
-      }
-
-      if (!inserted) {
-        console.warn(`⚠️ mustSee "${id}" non inserito in alcuno slot valido. Skippato.`);
-        mustSeeIndex++; // forza l'avanzamento
-        break;
-      }
+    if (bestSlot) {
+      bestSlot.plan[bestSlot.slot].splice(bestPos, 0, p);
+      bestSlot.plan.ordered = [
+        ...bestSlot.plan.morning,
+        ...bestSlot.plan.afternoon,
+        ...bestSlot.plan.evening,
+      ];
+    } else {
+      console.warn(`⚠️ mustSee ${id} non inserito: nessun punto idoneo`);
     }
   }
-
 
 
   res.json({ itinerary, coverPhoto });
 };
 
 /* ------------------------------------------------------------------ */
-/* 🚀  GET /api/itinerary/single-place (invariato)                     */
+/* 🚀  GET /api/itinerary/single-place                                 */
 /* ------------------------------------------------------------------ */
 const getSinglePlace = async (req, res) => {
   const { query, city } = req.query;
-  if (!query || !city) return res.status(400).json({ error: "query & city obbligatori" });
+  if (!query || !city)
+    return res.status(400).json({ error: "query & city obbligatori" });
 
   try {
     const KEY = process.env.GOOGLE_API_KEY;
-    const [p] = await fetchPlaces(query, city, KEY);
+    const [p] = await fetchNearbyPlaces(
+      { keyword: query, type: "" },
+      null,
+      0,
+      KEY
+    );
     if (!p) return res.status(404).json({ error: "Luogo non trovato" });
-    res.json(p);
+    res.json(buildPlaceObj(p, KEY));
   } catch (err) {
     console.error("❌ getSinglePlace:", err);
     res.status(500).json({ error: "Errore interno" });
