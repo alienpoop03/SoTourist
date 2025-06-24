@@ -230,7 +230,7 @@ export class SettingsPage {
   ngOnInit() {
     this.refreshTrips();
 
-    window.addEventListener('popstate', () => {  //refeesh sempre
+    window.addEventListener('popstate', () => {
       this.refreshTrips();
     });
   }
