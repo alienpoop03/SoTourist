@@ -83,7 +83,12 @@
         <div slot="end" class="simple-preview">{{ trip?.style || '—' }}</div>
       </ion-item>
 
-      <ion-item lines="none" button (click)="openModal('ai')" [disabled]="true">
+      <ion-item lines="none" button (click)="openModal('ai')" [disabled]="true" class="item-with-overlay">
+        
+        <ion-note color="medium" slot="end" class="future-note">
+          Nel Prossimo Aggiornamento...
+        </ion-note>
+        
         <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
         <ion-label class="title">Domanda all’AI</ion-label>
         <div slot="end" class="simple-preview">
@@ -93,6 +98,7 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
           </ng-template>
         </div>
+
       </ion-item>
 
     </ion-list>

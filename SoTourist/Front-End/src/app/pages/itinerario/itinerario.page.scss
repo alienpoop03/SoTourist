@@ -245,3 +245,23 @@ ion-item.item-chip-preview ion-icon[slot='end'] {
   color: var(--color-highlight);
 }
 
+.item-with-overlay {
+  position: relative;
+}
+
+.future-note {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ion-color-medium);
+  position: absolute;
+  top: 8px;
+  left: auto;
+  right: auto;
+  background-color: rgba(0, 0, 0, 0.7); ; /* Sfondo trasparente per l'overlay */
+  color: white; /* Testo bianco per contrasto */
+  padding: 8px;
+  text-align: center;
+  width: 300px;
+  z-index: 10; /* Assicurati che si sovrapponga sopra l'item */
+  border-radius: var(--box-radius); /* Arrotonda gli angoli superiori */
+}
