@@ -1,6 +1,6 @@
 <app-navigation-bar title="Panoramica" [backUrl]="'/tabs/viaggi'"></app-navigation-bar>
 
-<ion-content class="itinerario-content" fullscreen  scrollEvents="true">
+<ion-content class="itinerario-content" fullscreen scrollEvents="true">
 
   <!-- ───── HERO ───── -->
   <div #hero class="hero"
@@ -18,7 +18,6 @@
           <p class="accommodation">🏨 {{ getFormattedAccommodation() }}</p>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -29,11 +28,13 @@
       <ion-card (click)="openDay(i)" class="day-card">
         <ion-card-header>
           <ion-card-title>
-            <div class="day-label">Giorno {{ i+1 }}</div>
-            <ion-button fill="clear" size="small" class="style-ed-btn top-right-btn"
-              (click)="vaiAPersonalizzazione(); $event.stopPropagation()">
-              <ion-icon name="create-outline"></ion-icon>
-            </ion-button>
+            <div class="day-title-with-button">
+              <span class="day-label">Giorno {{ i + 1 }}</span>
+              <ion-button fill="clear" size="small" class="style-ed-btn"
+                (click)="vaiAPersonalizzazione(); $event.stopPropagation()">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+            </div>
           </ion-card-title>
         </ion-card-header>
 
@@ -44,7 +45,7 @@
             </ng-container>
           </p>
           <ng-template #placeholder>
-            <p>Programma per il giorno {{ i+1 }}…</p>
+            <p>Programma per il giorno {{ i + 1 }}…</p>
           </ng-template>
         </ion-card-content>
 
@@ -65,7 +66,6 @@
             <div class="fill" [style.width.%]="getStepProgress(i, 'evening')"></div>
           </div>
         </div>
-
       </ion-card>
 
     </div>

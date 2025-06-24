@@ -7,9 +7,6 @@
   display: none !important;
 }
 
-
-
-
 .itinerario-content {
   //--overflow: hidden;
   background: var(--color-background);
@@ -62,7 +59,8 @@
   justify-content: space-between;
   margin-top: 0.4rem;
 
-  .hero-left, .hero-right {
+  .hero-left,
+  .hero-right {
     font-size: 0.95rem;
     color: #f0f0f0;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
@@ -84,7 +82,6 @@
   position: relative;
   margin-bottom: 1.5rem;
 
-  /* Linea verticale timeline */
   &::before {
     content: '';
     position: absolute;
@@ -95,7 +92,6 @@
     background: #FFCC00;
   }
 
-  /* Punto della timeline */
   &::after {
     content: '';
     position: absolute;
@@ -112,12 +108,19 @@
   margin-left: 2.5rem;
   margin-right: 1rem;
   border-radius: var(--box-radius);
-  background: var(--color-background2);
+  background: var(--color-background1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
 
   &:active {
     transform: scale(0.97);
+  }
+
+  .day-title-with-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 
   .day-label {
@@ -166,7 +169,9 @@
 
     .fill {
       position: absolute;
-      top: 0; left: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
       background: #7B1E1E;
       width: 0%;
       transition: width 0.3s ease;

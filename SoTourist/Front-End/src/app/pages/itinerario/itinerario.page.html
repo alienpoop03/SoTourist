@@ -25,7 +25,7 @@
         </ion-label>
         <ion-icon name="add-circle" slot="end" *ngIf="!tripMustSee.length"></ion-icon>
       </ion-item>
-
+ 
       <!-- eat -->
       <ion-item class="item-chip-preview" button detail="false" (click)="openModal('eat')">
         <ion-icon name="restaurant-outline" slot="start"></ion-icon>
@@ -119,7 +119,7 @@
   <!--────────── FLOATING MODAL ──────────-->
   <div class="modal-backdrop" *ngIf="modalVisible" (click)="closeModal(false)"></div>
 
-  <div class="floating-modal" *ngIf="modalVisible">
+  <div class="floating-modal modal-options modal-input" *ngIf="modalVisible">
     <h3 class="modal-title">{{ modalTitles[modalMode!] }}</h3>
 
     <!-- sezione luoghi -->
@@ -140,7 +140,7 @@
       </div>
 
       <ng-template #emptyList>
-        <p class="empty-msg">Aggiungi un luogo...</p>
+       <!-- <p class="empty-msg">Aggiungi un luogo...</p> -->
       </ng-template>
 
       <ion-button class="boxes-style" expand="block" (click)="saveModal()">Salva</ion-button>
@@ -148,7 +148,7 @@
 
     <!-- transport -->
     <ng-container *ngIf="modalMode === 'transport'">
-      <ion-list inset>
+      <ion-list inset class="options">
         <ion-item button (click)="selectValue('walk')">🚶‍♂️ A piedi</ion-item>
         <ion-item button (click)="selectValue('car')">🚗 Auto</ion-item>
         <ion-item button (click)="selectValue('bus')">🚌 Bus</ion-item>
@@ -158,7 +158,7 @@
 
     <!-- style -->
     <ng-container *ngIf="modalMode === 'style'">
-      <ion-list inset>
+      <ion-list inset class="options">
         <ion-item button (click)="selectValue('Standard')">Standard</ion-item>
         <ion-item button (click)="selectValue('Shopping')">Shopping</ion-item>
         <ion-item button (click)="selectValue('Avventura')">Avventura</ion-item>
