@@ -3,9 +3,15 @@
   width: 100%;
 }
 
+/* CARD BASE */
 ion-card {
+  background: var(--color-background);
+  color: var(--color-text1);
   border-radius: var(--box-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   transition: transform 0.2s ease;
 
   &:hover {
@@ -16,56 +22,73 @@ ion-card {
     outline: 3px solid var(--color-highlight);
   }
 
-  &.comact{
-    display: flex; 
+  &.comact {
+    display: flex;
     flex-direction: column !important;
   }
+
   @media (min-width: 600px) {
-    display: flex; 
     flex-direction: row;
     max-height: 50vh;
-    
   }
+
   @media (max-height: 700px) {
     min-height: 330px;
   }
 
+  /* IMMAGINE */
   ion-img,
   .placeholder {
     width: 100%;
-    // max-height: 160px;
-    min-width: 150px ;
+    height: auto;
+    min-width: 150px;
     object-fit: cover;
+    background: var(--color-background);
     border-radius: 26px 12px 0 0;
-    background: var(--color-background2);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    &.comact{
+    flex: 1;
+
+    &.comact {
       height: 96px !important;
       max-width: 100% !important;
     }
+
+    @media (min-width: 600px) {
+      max-width: 50%;
+      height: 100%;
+      border-radius: 26px 0 0 26px;
+    }
+  }
+
+  .placeholder {
+    min-height: 202px;
+
+    &.comact {
+      min-height: 0;
+    }
+  }
+
+  /* CONTENUTO TESTO */
+  .text-card {
+    background: var(--color-background);
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     @media (min-width: 600px) {
       max-width: 50%;
     }
   }
 
-  .placeholder{
-    min-height: 202px;
-    &.comact{
-      min-height: 0px;
-    }
-  }
-
-.text-card{
-  background: var(--color-background2);
-}
-
   ion-card-title {
-    
     color: var(--color-text1);
-    &.comact{
+
+    &.comact {
       height: 48px;
       width: 150px;
       font-size: 1rem;
@@ -82,6 +105,8 @@ ion-card {
     color: var(--color-highlight);
   }
 }
+
+/* ORARI */
 .hours {
   margin: 0;
   padding-left: 1rem;
@@ -89,4 +114,3 @@ ion-card {
   font-size: 0.85rem;
   color: var(--color-text2);
 }
-
