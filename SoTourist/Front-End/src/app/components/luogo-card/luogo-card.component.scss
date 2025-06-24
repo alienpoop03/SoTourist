@@ -37,7 +37,7 @@ ion-card {
     min-width: 150px ;
     object-fit: cover;
     border-radius: 26px 12px 0 0;
-    background: var(--color-background2);
+    background: var(--color-background1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,7 +59,7 @@ ion-card {
   }
 
 .text-card{
-  background: var(--color-background2);
+  background: var(--color-background1);
 }
 
   ion-card-title {
