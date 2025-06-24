@@ -154,40 +154,88 @@ export class MapPage implements AfterViewInit {
     ? new google.maps.LatLng(first.latitude, first.longitude)
     : new google.maps.LatLng(41.9, 12.49); // Roma fallback
 
+  const darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
+
+  const commonStyle: google.maps.MapTypeStyle[] = [
+      // Nasconde tutti i POI (come ristoranti, hotel, musei, ecc.)
+      {
+        featureType: 'poi',
+        elementType: 'all',
+        stylers: [{ visibility: 'off' }]
+      },
+      // Nasconde le etichette delle strade locali
+      {
+        featureType: 'road.local',
+        elementType: 'labels',
+        stylers: [{ visibility: 'off' }]
+      },
+      // Nasconde le etichette delle strade principali
+      {
+        featureType: 'road.arterial',
+        elementType: 'labels',
+        stylers: [{ visibility: 'off' }]
+      },
+      // Nasconde le etichette delle autostrade
+      {
+        featureType: 'road.highway',
+        elementType: 'labels',
+        stylers: [{ visibility: 'off' }]
+      },
+
+      // Nascondi stazioni di trasporto pubblico
+      {
+        featureType: 'transit.station',
+        elementType: 'all',
+        stylers: [{ visibility: 'off' }]
+      },
+      // Nascondi negozi e attività commerciali
+      {
+        featureType: 'poi.business',
+        elementType: 'all',
+        stylers: [{ visibility: 'off' }]
+      },
+      // Nascondi scuole, università, ecc.
+      {
+        featureType: 'poi.school',
+        elementType: 'all',
+        stylers: [{ visibility: 'off' }]
+      },
+      // Nascondi ospedali, cliniche
+      {
+        featureType: 'poi.medical',
+        elementType: 'all',
+        stylers: [{ visibility: 'off' }]
+      },
+      // Nascondi parchi
+      {
+        featureType: 'poi.park',
+        elementType: 'all',
+        stylers: [{ visibility: 'off' }]
+      }
+    ];
+
+  const lightStyle: google.maps.MapTypeStyle[] = [
+    ...commonStyle
+  ];
+
+  const darkStyle: google.maps.MapTypeStyle[] = [
+    { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+    { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+    { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
+    { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#38414e' }] },
+    { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#212a37' }] },
+    { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#9ca5b3' }] },
+    { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#17263c' }] },
+    { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#515c6d' }] },
+    { featureType: 'water', elementType: 'labels.text.stroke', stylers: [{ color: '#17263c' }] },
+    ...commonStyle
+  ];
+
   this.map = new google.maps.Map(this.mapRef.nativeElement, {
     center,
     zoom: 13,
     disableDefaultUI: true,
-    styles: [
-  // Nasconde tutti i POI (come ristoranti, hotel, musei, ecc.)
-  {
-    featureType: 'poi',
-    elementType: 'all',
-    stylers: [{ visibility: 'off' }]
-  },
-  // Nasconde le etichette delle strade locali
-  {
-    featureType: 'road.local',
-    elementType: 'labels',
-    stylers: [{ visibility: 'off' }]
-  },
-  // Nasconde le etichette delle strade principali
-  {
-    featureType: 'road.arterial',
-    elementType: 'labels',
-    stylers: [{ visibility: 'off' }]
-  },
-  // Nasconde le etichette delle autostrade
-  {
-    featureType: 'road.highway',
-    elementType: 'labels',
-    stylers: [{ visibility: 'off' }]
-  }
-]
-
-
-
-
+    styles: darkMode ? darkStyle : lightStyle
   });
 
 this.renderMarkers().then(); // va benissimo
@@ -221,14 +269,22 @@ private async renderMarkers() {
       continue;
     }
 
+const isDefault = !(p.photoFilename || p.photoUrl);
+
 const imageUrl = p.photoFilename
   ? `${API_BASE_URL}/uploads/${p.photoFilename}`
-  : (p.photoUrl || 'assets/images/PaletoBay.jpeg');
+  : (p.photoUrl || 'assets/images/pin2.png');
     console.log('[MARKER] place:', p.name);
 console.log('[MARKER] photoFilename:', p.photoFilename);
 console.log('[MARKER] imageUrl:', imageUrl);
-
-  const iconUrl = await this.generateCircularIcon(imageUrl);
+    let iconUrl: string;
+    
+  if(isDefault){
+    iconUrl = 'assets/images/pin2.png';
+  }else{
+    iconUrl = await this.generateCircularIcon(imageUrl);
+  }
+  
 
     const marker = new google.maps.Marker({
       position: { lat, lng },

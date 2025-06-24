@@ -26,6 +26,7 @@
   --color-background2: #f9f9f9;
   --color-background3: #e6e6e6;
   --color-background4: #dbdbdb;
+  --color-background-ativeMap:#fffbe7;
   --color-button-neutral: #cdcdcd; /* bottone avanti disabilitato */
   --color-background-evid: #7B1E1E;
   --color-background-grad1: rgb(254, 252, 240) 20%;
@@ -36,6 +37,7 @@
   --color-text: #7B1E1E;
   --color-text1: #7B1E1E;
   --color-text2: #000000;
+  --color-text3:#7B1E1E; 
   --color-text-evid: #f9f9f9;
   --color-title-viaggi: #4F1212;
   --color-title-viaggi-generale: #7B1E1E ;    /* titolo della pagina viaggi */
@@ -56,6 +58,7 @@
   --giallo-selezione: #CC9900;
 
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --handle-color:#ccc;
 
 }
 
@@ -88,6 +91,7 @@
   --color-background2: #0a0a0a;      /* Card, riepilogo, box: più scuri */
   --color-background3: #2f2f2f;     /* colore del campo testo */
   --color-background4: #434343;    /* sfondo delle pagine e della lista autocomplete */
+  --color-background-ativeMap:#4A3A16;
   --color-button-neutral: #434343; /* bottone avanti disabilitato */
  
   --color-background-evid:  #4F1212 ;
@@ -98,10 +102,11 @@
   --color-text1: #FFCC00;
   //--color-text2: #FFCC00; //colore vecchio
   --color-text2: #ffffff; //colore testo nuovo (ha più senso)
+  --color-text3:#ffffff; 
   --color-text-evid: #FFCC00;
   --color-title-viaggi: #CC9900;    /* titolo delle card */
   --color-title-viaggi-generale: #ffffff;    /*titolo della pagina viaggi*/
-  --color-text-home: #4F1212; /*colore del titolo della pagina home*/
+  --color-text-home: #FFCC00; /*colore del titolo della pagina home*/
 
   --color-current-trip-bg: #2A1E00;
    
@@ -116,4 +121,6 @@
   --date-lock: #333333;
   --date-unlock: #9E9E9E;
   --giallo-selezione: #e9af01;
+
+  --handle-color:#555;
 }
