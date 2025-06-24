@@ -22,7 +22,7 @@ section {
   align-items: center;
   gap: 0.4rem;
   margin: 0 1rem 1rem;
-  color: var(--color-highlight);
+  color: var(--color-text); /* cambia con il tema */
 
   .header-text {
     display: flex;
@@ -33,7 +33,7 @@ section {
     font-weight: 700;
 
     span {
-      color: var(--color-highlight);
+      color: var(--color-text); /* bordeaux in chiaro, giallo in scuro */
     }
 
     p {
@@ -52,7 +52,7 @@ ion-list ion-icon {
 
 .section-header ion-icon {
   font-size: 2rem;
-  color: var(--color-primary);
+  color: var(--color-text); /* anche l’icona segue il tema */
 }
 
 /* ---------- CARD BLOCCO ---------- */
@@ -160,7 +160,7 @@ ion-list ion-icon {
     font-weight: 700;
     margin-top: -0.3rem;
     margin-bottom: 0.7rem;
-    color: var(--color-primary);
+    color: var(--color-text);
   }
 
   app-google-autocomplete {
@@ -179,6 +179,27 @@ ion-list ion-icon {
 
   .empty-msg {
     display: none;
+  }
+}
+
+/* ---------- SPACING SOLO PER MODALI CON INPUT ---------- */
+.modal-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  .modal-title {
+    margin-bottom: 0.4rem;
+  }
+
+  app-google-autocomplete {
+    margin-bottom: 0.4rem;
+  }
+
+  ion-button {
+    margin-top: 0.3rem;
   }
 }
 
@@ -260,14 +281,14 @@ ion-item.item-chip-preview ion-icon[slot='end'] {
 
   ion-item {
     --background: var(--color-background3);
-    --color: #ffffff;
+    --color: var(--color-text2);
     width: 100%;
     border-radius: var(--box-radius);
     margin-bottom: 0.4rem;
   }
 
   ion-label {
-    color: #ffffff !important;
+    color: var(--color-text2) !important;
     font-weight: 600;
   }
 
@@ -284,7 +305,7 @@ ion-item.item-chip-preview ion-icon[slot='end'] {
 }
 
 /* ---------- TEXTAREA MODALE AI ---------- */
-ion-textarea {
+/*ion-textarea {
   --background: var(--color-background);
   --color: var(--color-text2);
   --placeholder-color: var(--color-text2);
@@ -294,4 +315,4 @@ ion-textarea {
   max-width: 320px;
   font-weight: 500;
   font-size: 0.95rem;
-}
+}*/
