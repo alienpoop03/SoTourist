@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { PremiumGuard } from './guards/premium.guard';
 import { NoGuestGuard } from './guards/no-guest.guard';
+import { GoldGuard } from './guards/gold.guard'; 
 
 export const routes: Routes = [
   {
@@ -56,7 +56,7 @@ export const routes: Routes = [
   {
     path: 'personalizzazione',
     loadComponent: () => import('./pages/personalizzazione/personalizzazione.page').then(m => m.PersonalizzazionePage),
-    canActivate: [PremiumGuard]
+    canActivate: [GoldGuard]
   },
   {
     path: 'panoramica',

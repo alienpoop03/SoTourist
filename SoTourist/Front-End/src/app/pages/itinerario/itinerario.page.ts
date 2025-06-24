@@ -210,14 +210,37 @@ export class ItinerarioPage implements AfterViewInit {
 
   /* --------- apertura modale --------- */
   openModal(m: EditorField) {
-    this.modalMode = m;
-    this.modalVisible = true;
-
     if (this.isPlaceMode(m)) {
-      // copia “snapshot” dei luoghi correnti
-      this.modalTempPlaces = [...this.getListForMode(m)];
+      const userId = this.auth.getUserId();
+      if (!userId) {
+        this.router.navigate(['/login']);
+      } else {
+        this.auth.getUserType(userId).subscribe((userData: { userId: string; type: string; subscriptionEndDate: string | null }) => {
+          const userType = userData.type;
+          
+          if (userType !== 'premium' && userType !== 'gold') {
+            this.router.navigate(['/upgrade']); 
+          }else{
+            this.modalMode = m;
+            this.modalVisible = true;
+
+            
+              // copia “snapshot” dei luoghi correnti
+              this.modalTempPlaces = [...this.getListForMode(m)];
+            
+          }
+        }, (error) => {
+          console.error('Errore nel recupero del tipo di utente:', error);
+          this.router.navigate(['/login']);
+        });
+      }
+    }else{
+      this.modalMode = m;
+      this.modalVisible = true;
     }
   }
+
+   
 
   /* ------------- chiusura modale ------------- */
   closeModal(commit: boolean) {
@@ -307,7 +330,7 @@ export class ItinerarioPage implements AfterViewInit {
         startDate: localTrip.startDate ?? localTrip.start,
         endDate: localTrip.endDate ?? localTrip.end,
         accommodation: localTrip.accommodation,
-        style: 'generico',
+        style: 'Standard',
         itinerary: localTrip.itinerary || []
       };
 
@@ -339,6 +362,7 @@ export class ItinerarioPage implements AfterViewInit {
       next: res => {
         this.trip = res;
         this.isLocalTrip = false;
+        
 
         this.router.navigate(['/tabs/panoramica'], {
           queryParams: { id: this.itineraryId }
@@ -350,6 +374,10 @@ export class ItinerarioPage implements AfterViewInit {
       }
     });
   }
+
+ 
+
+
 
   onScroll(ev: Event): void {
     const c = this.scrollContainer.nativeElement;
