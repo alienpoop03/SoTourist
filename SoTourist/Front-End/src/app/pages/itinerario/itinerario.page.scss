@@ -22,7 +22,7 @@ section {
   align-items: center;
   gap: 0.4rem;
   margin: 0 1rem 1rem;
-  color: var(--color-text); /* cambia con il tema */
+  color: var(--color-text); 
 
   .header-text {
     display: flex;
@@ -33,7 +33,7 @@ section {
     font-weight: 700;
 
     span {
-      color: var(--color-text); /* bordeaux in chiaro, giallo in scuro */
+      color: var(--color-text); 
     }
 
     p {
@@ -52,7 +52,7 @@ ion-list ion-icon {
 
 .section-header ion-icon {
   font-size: 2rem;
-  color: var(--color-text); /* anche l’icona segue il tema */
+  color: var(--color-text); 
 }
 
 /* ---------- CARD BLOCCO ---------- */
