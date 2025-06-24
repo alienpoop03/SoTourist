@@ -20,7 +20,7 @@
 .form-block {
   background: var(--color-background2);
   padding: 2rem;
-  border-radius: 16px;
+  border-radius: var(--box-radius);
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
@@ -31,15 +31,18 @@
   ion-input {
     --background: var(--color-background);
     --color: var(--color-text1);
-    --border-radius: 12px;
+    --border-radius: var(--box-radius);
+    --padding-start: 2rem !important; 
     --highlight-color-focused: var(--color-primary);
     --border-color: var(--color-text2);
     --padding-start: 1rem;
     --padding-end: 1rem;
+    
   }
 
   ion-button {
     margin-top: 1rem;
+    --border-radius: var(--box-radius);
   }
   
 }
