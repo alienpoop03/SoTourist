@@ -37,7 +37,7 @@
   gap: 9px;
   padding-left: 10px;
   padding-right: 10px;
-  width: 145px; /* O min-width se vuoi responsive */
+  width: 145px; 
   height: 48px;
   background: rgba(var(--color-background-rgb), 0.30);
   backdrop-filter: blur(6px) saturate(125%);
@@ -175,6 +175,7 @@
       flex: 0 0 90%;
       margin-right: 1rem;
       scroll-snap-align: center;
+      background: var(--color-background1);
 
       
     }

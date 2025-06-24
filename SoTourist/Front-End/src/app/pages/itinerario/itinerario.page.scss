@@ -22,7 +22,7 @@ section {
   align-items: center;
   gap: 0.4rem;
   margin: 0 1rem 1rem;
-  color: var(--color-text2);
+  color: var(--color-highlight);
 
   .header-text {
     display: flex;
@@ -31,6 +31,10 @@ section {
     gap: 0.25rem;
     font-size: 1.5rem;
     font-weight: 700;
+
+    span {
+      color: var(--color-highlight);
+    }
 
     p {
       margin: 0;
@@ -136,73 +140,55 @@ ion-list ion-icon {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 420px;
+  width: 85%;
+  max-width: 340px;
+  min-height: 240px;
   background: var(--color-background);
   border-radius: var(--box-radius);
   padding: 1rem;
   box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
   z-index: 2001;
 
   .modal-title {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    text-align: center;
-    margin: 0;
+    margin-top: -0.3rem;
+    margin-bottom: 0.7rem;
+    color: var(--color-primary);
   }
 
   app-google-autocomplete {
     width: 100%;
-  }
-
-  .chip-list-modal {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 0.6rem 0;
-
-    .chip {
-      background: var(--color-highlight);
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 16px;
-      font-size: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex: 0 0 auto;
-      white-space: nowrap;
-    }
-
-    .chip-remove {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
-    }
-  }
-
-  .empty-msg {
-    text-align: center;
-    color: var(--color-text2);
-    font-size: 0.85rem;
+    max-width: 280px;
   }
 
   ion-button {
     font-weight: 900;
+    width: auto;
+    min-width: 120px;
+    max-width: 160px;
+    align-self: center;
+    margin-top: 0.8rem;
+  }
+
+  .empty-msg {
+    display: none;
   }
 }
 
-/* ---------- CHIP PREVIEW ---------- */
-.chip-list-inline {
+/* ---------- CHIPS ---------- */
+.chip-list-modal {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 0.25rem;
+  justify-content: center;
+  margin: 0.5rem 0;
 }
 
 .chip {
@@ -211,12 +197,29 @@ ion-list ion-icon {
   padding: 4px 10px;
   border-radius: 16px;
   font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   flex: 0 0 auto;
   white-space: nowrap;
-  user-select: none;
 }
 
-/* ---------- ITEM PREVIEW LAYOUT ---------- */
+.chip-remove {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chip-list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.25rem;
+}
+
+/* ---------- ITEM PREVIEW ---------- */
 .item-chip-preview {
   --inner-padding-start: 12px;
   --inner-padding-end: 12px;
@@ -233,15 +236,62 @@ ion-list ion-icon {
   }
 }
 
-  .title {
-      font-weight: 600;
-      color: var(--color-text2);
-      font-size: 1rem;
-    }
+.title {
+  font-weight: 600;
+  color: var(--color-text2);
+  font-size: 1rem;
+}
 
-/* ---------- ICONA “+” A DESTRA ---------- */
 ion-item.item-chip-preview ion-icon[slot='end'] {
   font-size: 20px;
   color: var(--color-highlight);
 }
 
+.simple-preview {
+  color: var(--color-text2);
+  font-weight: 600;
+}
+
+/* ---------- OPZIONI PERSONALIZZATE ---------- */
+.options {
+  background: transparent !important;
+  width: 100%;
+  max-width: 320px;
+
+  ion-item {
+    --background: var(--color-background3);
+    --color: #ffffff;
+    width: 100%;
+    border-radius: var(--box-radius);
+    margin-bottom: 0.4rem;
+  }
+
+  ion-label {
+    color: #ffffff !important;
+    font-weight: 600;
+  }
+
+  ion-item::part(native) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ---------- TITOLO ABBASSATO SOLO PER OPZIONI ---------- */
+.modal-options .modal-title {
+  margin-top: 0.8rem;
+  margin-bottom: 0rem;
+}
+
+/* ---------- TEXTAREA MODALE AI ---------- */
+ion-textarea {
+  --background: var(--color-background);
+  --color: var(--color-text2);
+  --placeholder-color: var(--color-text2);
+  border-radius: var(--box-radius);
+  padding: 0.75rem;
+  width: 100%;
+  max-width: 320px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
