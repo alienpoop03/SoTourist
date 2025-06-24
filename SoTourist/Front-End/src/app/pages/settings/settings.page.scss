@@ -121,7 +121,7 @@ ion-alert {
   --color: #333;
 }
 
-//modale versione
+
 
 ion-modal.about-modal::part(content) {
   border-top-left-radius: 26px;
@@ -133,8 +133,19 @@ ion-modal.about-modal::part(content) {
   color: var(--color-text2);
 }
 
+/* nascondo la scrollbar default */
+:host ::ng-deep ion-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
+  display: none !important;
+}
 
 
+
+//modale versione
 .custom-logout-alert {
   // Stile del contenitore principale
    &::part(alert-wrapper) {

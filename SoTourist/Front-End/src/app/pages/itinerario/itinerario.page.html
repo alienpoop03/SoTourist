@@ -83,7 +83,7 @@
         <div slot="end" class="simple-preview">{{ trip?.style || '—' }}</div>
       </ion-item>
 
-      <ion-item lines="none" button (click)="openModal('ai')">
+      <ion-item lines="none" button (click)="openModal('ai')" [disabled]="true">
         <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
         <ion-label class="title">Domanda all’AI</ion-label>
         <div slot="end" class="simple-preview">
