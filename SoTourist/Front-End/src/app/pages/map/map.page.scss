@@ -132,7 +132,7 @@
   right: 0;
   bottom: 0;
   height: 220px;
-  background: #fff;
+  background: var(--color-background);
   border-radius: var(--box-radius) var(--box-radius) 0 0;
   box-shadow: 0 -4px 14px rgba(0, 0, 0, .2);
   z-index: 1000;

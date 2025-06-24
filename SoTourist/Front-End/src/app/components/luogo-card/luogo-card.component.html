@@ -1,7 +1,8 @@
 <ion-card [class.selected]="selected" [class.comact]="!extends" (click)="clicked.emit()">
   <ion-img *ngIf="place.photoUrl; else ph" [class.comact]="!extends" [src]="place.photoUrl"></ion-img>
   <ng-template #ph>
-    <div class="placeholder" [class.comact]="!extends">📍</div>
+    <!--<div class="placeholder" [class.comact]="!extends">📍</div>-->
+    <img class="placeholder" [class.comact]="!extends" [src]="'assets/icons/pin.png'"/>
   </ng-template>
 
   <div class="text-card">

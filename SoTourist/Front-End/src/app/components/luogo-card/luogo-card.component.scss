@@ -36,8 +36,8 @@ ion-card {
     // max-height: 160px;
     min-width: 150px ;
     object-fit: cover;
-    border-radius: 12px 12px 0 0;
-    background: #ddd;
+    border-radius: 26px 12px 0 0;
+    background: var(--color-background2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,8 +58,13 @@ ion-card {
     }
   }
 
+.text-card{
+  background: var(--color-background2);
+}
+
   ion-card-title {
-    color: var(--color-primary);
+    
+    color: var(--color-text1);
     &.comact{
       height: 48px;
       width: 150px;
