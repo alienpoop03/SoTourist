@@ -1,6 +1,5 @@
 $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la tabs
 
-
 .viaggi-content {
   --background: var(--color-background4);
 }
@@ -9,7 +8,6 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   background: var(--color-background4);
   height: 100vh;
 }
-
 
 /* nascondo la scrollbar default */
 :host ::ng-deep ion-content {
@@ -20,9 +18,6 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
 :host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
   display: none !important;
 }
-
-
-
 
 .user-box {
   position: fixed;
@@ -40,7 +35,6 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   gap: 1rem;
   z-index: 9999;
-  //margin: 1rem;
   width: 100%;
 
   .hero-user{
@@ -103,136 +97,13 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   background-color: var(--color-background);
 }
 
-
-
-
-/* HERO ESPANSA *///copia incolla tutto il commento
-
-/*.hero-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.7);
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  color: white;
-  text-align: center;
-}
-
-.trip-type {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.hero-title {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-.hero-dates,
-.hero-accommodation {
-  font-size: 1.2rem;
-  margin-top: 8px;
-}
-
-.button-row {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.hero-button-main {
-  --background: var(--color-highlight);
-  color: black;
-}
-
-.hero-button-del {
-  --color: red;
-}
-
-/* HERO ESPANSA */ 
-/*.hero-wrapper {
-  position: relative;
-  width: 100%;
-  height: 30vh;
-  border-bottom-left-radius: var(--box-radius);
-  border-bottom-right-radius: var(--box-radius);
-  overflow: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.hero-wrapper.hidden {
-  opacity: 0;
-  transform: translateY(-50px);
-  pointer-events: none;
-}*/
-
-/* HERO COMPATTA migliorata */
-/*.hero-compact {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  width: 100%;
-  background: var(--color-background);
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  z-index: 998;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
-
-.hero-compact.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-
-.compact-bg {
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 16px;
-}
-
-.compact-overlay {
-  display: flex;
-  flex-direction: column;
-}
-
-.compact-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--color-primary);
-}
-
-.compact-dates {
-  font-size: 0.95rem;
-  color: var(--color-text2);
-  margin-top: 2px;
-}*/
-
 /* CONTENUTO SOTTO */
 .trip-section {
   margin-bottom: 2rem;
 }
 
 .Title_sezion {
-  color: var(--color-title-viaggi-generale);
+  color: var(--color-text);
   font-size: 1.3rem;
   font-weight: 800;
   text-align: center;

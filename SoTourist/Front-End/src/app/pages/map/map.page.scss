@@ -57,12 +57,12 @@
     box-shadow: 0 6px 18px rgba(255, 204, 0, 0.12);
   }
 }
-.day-selector {
+/*.day-selector {
   // Se vuoi personalizzare solo il giorno 
 }
 .time-selector {
   // Se vuoi personalizzare solo la parte del giorno
-}
+}*/
 .selector-icon {
   font-size: 1.3rem;
   color: var(--senape);
@@ -168,9 +168,6 @@
     scroll-snap-type: x mandatory;
     transition: transform 0.2s ease;
 
-    
-    
-
     ion-card {
       flex: 0 0 90%;
       margin-right: 1rem;
@@ -181,7 +178,6 @@
     }
   }
 }
-
 
 .cards::-webkit-scrollbar {
   display: none; /* Per Chrome, Safari, Edge */
