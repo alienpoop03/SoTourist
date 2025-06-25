@@ -5,11 +5,12 @@
     <!--<h1 id="title" >Modifica le date</h1>-->
 
     <p class="trip-info">
-      <strong>Città:</strong> {{ trip.city }}
+      <strong>Città:</strong> {{ getFormattedCity() }}
     </p>
 
     <app-range-calendar-lite
       [minDate]="today"
+      [maxDays]="maxDays"
       (datesSelected)="onDatesSelected($event)">
     </app-range-calendar-lite>
 

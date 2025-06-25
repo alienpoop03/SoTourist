@@ -113,10 +113,10 @@ export class ItineraryService {
   }
 
   // Copia un itinerario su un altro utente
-  copyItinerary(originalItineraryId: string, targetUserId: string, startDate: string): Observable<{ newItineraryId: string }> {
+  copyItinerary(originalItineraryId: string, targetUserId: string, startDate: string, endDate: string): Observable<{ newItineraryId: string }> {
     return this.http.post<{ newItineraryId: string }>(
       `${this.baseUrl}/itineraries/${originalItineraryId}/copy/${targetUserId}`,
-      { startDate }
+      { startDate, endDate }
     );
   }
 }

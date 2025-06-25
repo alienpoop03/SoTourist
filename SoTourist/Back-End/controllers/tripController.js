@@ -475,11 +475,20 @@ exports.updateItineraryPlaces = (req, res) => {
 //copia un itinerario
 exports.copyItinerary = (req, res) => {
   const { itineraryId, userId } = req.params;
-  const { startDate } = req.body;
+  const { startDate, endDate } = req.body;
 
-  if (!startDate) {
-    return res.status(400).json({ error: 'startDate è obbligatorio' });
+  if (!startDate || !endDate) {
+    return res.status(400).json({ error: 'startDate ed endDate sono obbligatori' });
   }
+
+  const newStart = new Date(startDate);
+  const newEnd = new Date(endDate);
+
+  if (newEnd < newStart) {
+    return res.status(400).json({ error: 'endDate non può essere prima di startDate' });
+  }
+
+  const requestedDuration = Math.ceil((newEnd - newStart) / (1000 * 60 * 60 * 24)) + 1;
 
   db.get(
     `SELECT * FROM itineraries WHERE itineraryId = ? AND deleted = 0`,
@@ -488,16 +497,15 @@ exports.copyItinerary = (req, res) => {
       if (err) return res.status(500).json({ error: 'Errore database' });
       if (!originalItinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
 
+      const originalStart = new Date(originalItinerary.startDate);
+      const originalEnd = new Date(originalItinerary.endDate);
+      const originalDuration = Math.ceil((originalEnd - originalStart) / (1000 * 60 * 60 * 24)) + 1;
+
+      if (requestedDuration > originalDuration) {
+        return res.status(400).json({ error: `La durata scelta (${requestedDuration} giorni) supera quella dell'itinerario originale (${originalDuration} giorni)` });
+      }
+
       const newItineraryId = generateId('trip_');
-
-      // Calcolo la durata originale
-      const start = new Date(originalItinerary.startDate);
-      const end = new Date(originalItinerary.endDate);
-      const duration = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-
-      const newStartDate = new Date(startDate);
-      const newEndDate = new Date(newStartDate);
-      newEndDate.setDate(newEndDate.getDate() + duration);
 
       db.run(
         `INSERT INTO itineraries 
@@ -508,19 +516,18 @@ exports.copyItinerary = (req, res) => {
           userId,
           originalItinerary.city,
           originalItinerary.accommodation,
-          newStartDate.toISOString().split('T')[0],
-          newEndDate.toISOString().split('T')[0],
+          newStart.toISOString().split('T')[0],
+          newEnd.toISOString().split('T')[0],
           originalItinerary.style,
           originalItinerary.coverPhoto
         ],
         function (err2) {
           if (err2) return res.status(500).json({ error: 'Errore nel duplicare itinerario' });
 
-          // copia tappe come prima...
-
+          // Recupera solo le tappe dei primi "requestedDuration" giorni
           db.all(
-            `SELECT * FROM places WHERE itineraryId = ?`,
-            [itineraryId],
+            `SELECT * FROM places WHERE itineraryId = ? AND day <= ?`,
+            [itineraryId, requestedDuration],
             (err3, places) => {
               if (err3) return res.status(500).json({ error: 'Errore nel recupero tappe' });
 
