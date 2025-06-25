@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // ✅ AGGIUNGI QUESTO
+import { CommonModule } from '@angular/common'; 
 import {
   IonHeader,
   IonToolbar,
@@ -15,7 +15,7 @@ import { BlobOptions } from 'buffer';
   selector: 'app-header',
   standalone: true,
   imports: [
-    CommonModule,          // ✅ AGGIUNTO QUI
+    CommonModule,         
     IonHeader,
     IonToolbar,
     IonButtons,
@@ -36,10 +36,5 @@ export class AppHeaderComponent {
 
   NavHome() {
     this.router.navigate(['/tabs/home']);
-  }
-
-  NavSettigns() {
-    this.router.navigate(['/tabs/settings']);
-  }
-  
+  }  
 }

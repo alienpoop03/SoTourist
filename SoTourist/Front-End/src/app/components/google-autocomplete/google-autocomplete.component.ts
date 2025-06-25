@@ -44,7 +44,7 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule, CommonModule]
 })
 export class GoogleAutocompleteComponent implements AfterViewInit {
-  /* ------------ INPUTS ------------ */
+  //INPUTS 
   @Input() placeholder = '';
   @Input() value = '';
   @Input() type = 'text';

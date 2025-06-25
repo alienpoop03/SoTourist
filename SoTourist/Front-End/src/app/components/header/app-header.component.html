@@ -1,16 +1,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 
 <ion-header [class.no-box-shadow]="box_shadow">
-  <ion-toolbar> <!--
-    <ion-buttons slot="start">
-      <ion-back-button *ngIf="showBackButton" defaultHref="/home"></ion-back-button>
-      <ion-button href="/tabs/home"><ion-icon *ngIf="!showBackButton" name="home-outline" style="font-size: 24px; margin-left: 8px;" href="/tabs/home"></ion-icon></ion-button>
-    </ion-buttons>-->
+  <ion-toolbar> 
     <ion-title (click)="NavHome()">{{ title }}</ion-title>
     <ion-buttons slot="end">
-      <!-- <ion-button (click)="NavSettigns()">
-        <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
-      </ion-button> -->
     </ion-buttons>
   </ion-toolbar>
   
