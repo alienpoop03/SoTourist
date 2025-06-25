@@ -52,15 +52,15 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
   @Input() bounds: google.maps.LatLngBounds | null = null;
   @Input() restrictToBounds = false;
 
-  /* ------------ OUTPUTS ----------- */
+  
   @Output() valueChange = new EventEmitter<string>();
   @Output() placeSelected = new EventEmitter<google.maps.places.PlaceResult>();
 
-  /* ------------ VIEW -------------- */
+  
   @ViewChild('autoInput', { static: true })
   inputRef!: ElementRef<HTMLInputElement>;
 
-  /* ------------ STATE ------------- */
+ 
   suggestions: google.maps.places.AutocompletePrediction[] = [];
   showSuggestions = false;
 
@@ -68,14 +68,13 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
   private placesService!: google.maps.places.PlacesService;
   private sessionToken!: google.maps.places.AutocompleteSessionToken;
 
-  /*  cache dei dettagli già scaricati   */
+  //  cache dei dettagli già scaricati   
   private detailsCache = new Map<string, google.maps.places.PlaceResult>();
 
-  /* debounce */
+
   private timer: any;
   private readonly DEBOUNCE_MS = 150;
 
-  /* ---------- lifecycle ---------- */
   ngAfterViewInit() {
     this.autocompleteService = new google.maps.places.AutocompleteService();
     this.placesService = new google.maps.places.PlacesService(
@@ -84,7 +83,6 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     this.resetSession();
   }
 
-  /* ---------- input/key handling ---------- */
   onKeyup() {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => this.fetchPredictions(), this.DEBOUNCE_MS);
@@ -123,7 +121,7 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     });
   }
 
-  /* ---------- prefetch ---------- */
+  // prefetch
   private prefetchDetails(
     pred: google.maps.places.AutocompletePrediction
   ) {
@@ -153,29 +151,27 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     );
   }
 
-  /* ---------- selezione ---------- */
+  // selezione 
   selectSuggestion(
     pred: google.maps.places.AutocompletePrediction
   ) {
-    /* chiudi immediatamente la tendina */
+    // chiude immediatamente la tendina
     this.showSuggestions = false;
     this.suggestions = [];
 
-    /* reset input visivo */
+    // reset input visivo
     this.value = '';
     this.inputRef.nativeElement.value = '';
     this.valueChange.emit('');
 
     const cached = this.detailsCache.get(pred.place_id);
     if (cached) {
-      /* dettagli già pronti → emetti subito */
+       //dettagli già pronti → emetti subito
       this.placeSelected.emit(cached);
       this.resetSession();
       return;
     }
 
-    /* altrimenti fai la chiamata con i campi completi ma l’utente
-       ha già visto la lista sparire, quindi non avverte il ritardo */
     const fullFields: (keyof google.maps.places.PlaceResult)[] = [
       'place_id',
       'geometry',
@@ -207,7 +203,7 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     );
   }
 
-  /* ---------- focus / blur ---------- */
+  // focus / blur 
   preventBlur(ev: MouseEvent) {
     ev.preventDefault(); // evita perdita focus prima del click
   }
@@ -216,10 +212,10 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     setTimeout(() => (this.showSuggestions = false), 200);
   }
 
-  /* ---------- helpers ---------- */
+  //  helpers 
   private resetSession() {
     this.sessionToken = new google.maps.places.AutocompleteSessionToken();
-    /* svuota la cache ad ogni nuova sessione */
+    // svuota la cache ad ogni nuova sessione
     this.detailsCache.clear();
   }
 }
