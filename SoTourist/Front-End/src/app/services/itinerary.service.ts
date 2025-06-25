@@ -8,7 +8,7 @@ import { map, tap } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class ItineraryService {
   private baseUrl = API_BASE_URL + '/api'; // metti il tuo IP reale
-city: string = '';
+  city: string = '';
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ city: string = '';
     endDate: string;
     coverPhoto?: string;
     style?: string;
-    places?: Place[];           // usa il tipo Place dal modello
+    places?: Place[];
   }) {
     const payload = {
       city: rawData.city,
@@ -28,7 +28,7 @@ city: string = '';
       endDate: rawData.endDate,
       style: rawData.style || 'generico',
       coverPhoto: rawData.coverPhoto || '',
-      places: rawData.places || []  // includi subito le tappe se le hai
+      places: rawData.places || []
     };
 
     console.log('[🟡 Dati inviati a POST]', payload);
@@ -37,54 +37,54 @@ city: string = '';
 
 
 
-  // 🔁 Recupera un itinerario specifico
-  // 🔁 Recupera un itinerario specifico (raw JSON con campo `itinerary`)
-getItineraryById(itineraryId: string): Observable<any> {
-  return this.http.get<any>(`${this.baseUrl}/itineraries/${itineraryId}`)
-    .pipe(
-      tap(raw => {
-        console.log('[📦 RAW-API itinerary]', raw.itinerary);
-      }),
-      // Aggiungiamo la mappatura qui
-      // Converte photoFilename nel relativo URL
-      // ed evitiamo modifiche al resto del frontend
-      // (questo è il vero "adapter layer" pulito)
-      map(raw => {
-        for (const day of raw.itinerary) {
-          for (const slot of ['morning', 'afternoon', 'evening']) {
-            for (const place of day[slot]) {
-              place.photoUrl = place.photoFilename
-                ? `${API_BASE_URL}/uploads/${place.photoFilename}`
-                : '';
+  // Recupera un itinerario specifico
+  // Recupera un itinerario specifico (raw JSON con campo `itinerary`)
+  getItineraryById(itineraryId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/itineraries/${itineraryId}`)
+      .pipe(
+        tap(raw => {
+          console.log('[📦 RAW-API itinerary]', raw.itinerary);
+        }),
+        // Aggiungiamo la mappatura qui
+        // Converte photoFilename nel relativo URL
+        // ed evitiamo modifiche al resto del frontend
+        // (questo è il vero "adapter layer" pulito)
+        map(raw => {
+          for (const day of raw.itinerary) {
+            for (const slot of ['morning', 'afternoon', 'evening']) {
+              for (const place of day[slot]) {
+                place.photoUrl = place.photoFilename
+                  ? `${API_BASE_URL}/uploads/${place.photoFilename}`
+                  : '';
+              }
             }
           }
-        }
-        return raw;
-      })
-    );
-}
+          return raw;
+        })
+      );
+  }
 
 
 
-  // 📄 Recupera tutti gli itinerari dell’utente filtrati
+  // Recupera tutti gli itinerari dell’utente filtrati
   getUserItineraries(userId: string, filter: 'all' | 'current' | 'upcoming' | 'future' | 'past'): Observable<TripWithId[]> {
     return this.http.get<TripWithId[]>(`${this.baseUrl}/users/${userId}/itineraries?filter=${filter}`);
   }
 
-  // ❌ Elimina itinerario
+  // Elimina itinerario
   deleteItinerary(userId: string, itineraryId: string) {
     return this.http.delete(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`);
   }
 
-  // ✏️ Aggiorna itinerario
+  // Aggiorna itinerario
   updateItinerary(userId: string, itineraryId: string, updatedData: Partial<TripWithId>) {
     return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`, updatedData);
   }
 
-  // 🔁 Sovrascrive tutte le tappe di un itinerario
-updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
-  return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
-}
+  // Sovrascrive tutte le tappe di un itinerario
+  updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
+    return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
+  }
 
 
   addPlacesToItinerary(userId: string, itineraryId: string, places: any[]) {
@@ -92,8 +92,8 @@ updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
   }
 
   getSinglePlace(query: string, city: string) {
-  return this.http.get(`${this.baseUrl}/itinerary/single-place?query=${encodeURIComponent(query)}&city=${encodeURIComponent(city)}`);
-}
+    return this.http.get(`${this.baseUrl}/itinerary/single-place?query=${encodeURIComponent(query)}&city=${encodeURIComponent(city)}`);
+  }
 
 
   //ceck date
@@ -109,6 +109,14 @@ updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
     return this.http.get<{ overlap: boolean }>(
       `${this.baseUrl}/users/${userId}/itineraries/check-overlap`,
       { params }
+    );
+  }
+
+  // Copia un itinerario su un altro utente
+  copyItinerary(originalItineraryId: string, targetUserId: string, startDate: string, endDate: string): Observable<{ newItineraryId: string }> {
+    return this.http.post<{ newItineraryId: string }>(
+      `${this.baseUrl}/itineraries/${originalItineraryId}/copy/${targetUserId}`,
+      { startDate, endDate }
     );
   }
 }

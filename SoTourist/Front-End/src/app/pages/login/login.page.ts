@@ -56,10 +56,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-  triggerFileInput() {
-    document.querySelector<HTMLInputElement>('input[type=file]')?.click();
-  }
-
   async saveProfile() {
     if (!this.email || !this.password) {
       this.toastService.showWarning('Inserisci email e password');

@@ -5,16 +5,7 @@ const db = require('../db/connection');
 const { checkOverlap } = require('../utils/dateUtils');
 const { getOrDownloadPhoto, getCityCoverPhoto } = require('../services/photoManager');
 
-//const DB_PATH = path.join(__dirname, '../db.json');
 
-/*function readDB() {
-  return JSON.parse(fs.readFileSync(DB_PATH));
-}
-
-function writeDB(data) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}
-*/
 function datesOverlap(start1, end1, start2, end2) {
   return (
     new Date(start1) <= new Date(end2) &&
@@ -23,7 +14,7 @@ function datesOverlap(start1, end1, start2, end2) {
 }
 
 
-// 📄 GET: tutti gli itinerari di un utente
+// GET: tutti gli itinerari di un utente
 exports.getItineraries = (req, res) => {
   const { userId } = req.params;
   const filter = req.query.filter || 'all';
@@ -69,7 +60,7 @@ exports.getItineraries = (req, res) => {
   });
 };
 
-// ➕ POST: aggiunge un itinerario
+// POST: aggiunge un itinerario
 exports.addItinerary = async (req, res) => {
   const { userId } = req.params;
   const newItinerary = req.body;
@@ -148,7 +139,7 @@ exports.addItinerary = async (req, res) => {
 
 
 
-// 🗑 DELETE: elimina un itinerario
+// DELETE: elimina un itinerario
 exports.deleteItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
 
@@ -163,7 +154,7 @@ exports.deleteItinerary = (req, res) => {
   );
 };
 
-// 🔍 Itinerari pubblici filtrati per città
+// cerca Itinerari pubblici filtrati per città
 exports.getItinerariesByCity = (req, res) => {
   const city = req.query.city?.toLowerCase();
   if (!city) return res.status(400).json({ error: 'Parametro city mancante' });
@@ -178,7 +169,7 @@ exports.getItinerariesByCity = (req, res) => {
   );
 };
 
-// 🔍 Itinerario pubblico per ID
+// cerca Itinerario pubblico per ID
 exports.getItineraryById = (req, res) => {
   const { itineraryId } = req.params;
 
@@ -251,7 +242,7 @@ exports.getItineraryById = (req, res) => {
   );
 };
 
-
+//modifica itinerario
 exports.updateItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   const updatedData = req.body;
@@ -316,7 +307,6 @@ exports.updateItinerary = (req, res) => {
 };
 
 // aggiunta tappe
-
 exports.addPlacesToItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   let places = req.body;
@@ -414,7 +404,8 @@ exports.addPlacesToItinerary = (req, res) => {
   });
 };
 
-
+//vede se ledate inserite si sovrappongono con altre
+//serve per evitare sovrapposizioni
 exports.checkDateOverlap = (req, res) => {
   const { userId } = req.params;
   const { startDate, endDate, excludeId } = req.query;
@@ -436,7 +427,7 @@ exports.checkDateOverlap = (req, res) => {
   );
 };
 
-// 🔁 SOVRASCRIVE TUTTE LE TAPPE
+//SOVRASCRIVE TUTTE LE TAPPE
 exports.updateItineraryPlaces = (req, res) => {
   const { userId, itineraryId } = req.params;
   const { places } = req.body;
@@ -478,4 +469,100 @@ exports.updateItineraryPlaces = (req, res) => {
       });
     });
   });
+};
+
+
+//copia un itinerario
+exports.copyItinerary = (req, res) => {
+  const { itineraryId, userId } = req.params;
+  const { startDate, endDate } = req.body;
+
+  if (!startDate || !endDate) {
+    return res.status(400).json({ error: 'startDate ed endDate sono obbligatori' });
+  }
+
+  const newStart = new Date(startDate);
+  const newEnd = new Date(endDate);
+
+  if (newEnd < newStart) {
+    return res.status(400).json({ error: 'endDate non può essere prima di startDate' });
+  }
+
+  const requestedDuration = Math.ceil((newEnd - newStart) / (1000 * 60 * 60 * 24)) + 1;
+
+  db.get(
+    `SELECT * FROM itineraries WHERE itineraryId = ? AND deleted = 0`,
+    [itineraryId],
+    (err, originalItinerary) => {
+      if (err) return res.status(500).json({ error: 'Errore database' });
+      if (!originalItinerary) return res.status(404).json({ error: 'Itinerario non trovato' });
+
+      const originalStart = new Date(originalItinerary.startDate);
+      const originalEnd = new Date(originalItinerary.endDate);
+      const originalDuration = Math.ceil((originalEnd - originalStart) / (1000 * 60 * 60 * 24)) + 1;
+
+      if (requestedDuration > originalDuration) {
+        return res.status(400).json({ error: `La durata scelta (${requestedDuration} giorni) supera quella dell'itinerario originale (${originalDuration} giorni)` });
+      }
+
+      const newItineraryId = generateId('trip_');
+
+      db.run(
+        `INSERT INTO itineraries 
+         (itineraryId, userId, city, accommodation, startDate, endDate, style, coverPhoto, deleted)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`,
+        [
+          newItineraryId,
+          userId,
+          originalItinerary.city,
+          originalItinerary.accommodation,
+          newStart.toISOString().split('T')[0],
+          newEnd.toISOString().split('T')[0],
+          originalItinerary.style,
+          originalItinerary.coverPhoto
+        ],
+        function (err2) {
+          if (err2) return res.status(500).json({ error: 'Errore nel duplicare itinerario' });
+
+          // Recupera solo le tappe dei primi "requestedDuration" giorni
+          db.all(
+            `SELECT * FROM places WHERE itineraryId = ? AND day <= ?`,
+            [itineraryId, requestedDuration],
+            (err3, places) => {
+              if (err3) return res.status(500).json({ error: 'Errore nel recupero tappe' });
+
+              const insertPlace = db.prepare(
+                `INSERT INTO places 
+                 (itineraryId, name, address, lat, lng, day, timeSlot, photoFilename, type, note, rating, priceLevel, website, openingHours)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+              );
+
+              for (const place of places) {
+                insertPlace.run(
+                  newItineraryId,
+                  place.name,
+                  place.address,
+                  place.lat,
+                  place.lng,
+                  place.day,
+                  place.timeSlot,
+                  place.photoFilename,
+                  place.type,
+                  place.note,
+                  place.rating,
+                  place.priceLevel,
+                  place.website,
+                  place.openingHours
+                );
+              }
+
+              insertPlace.finalize();
+
+              res.json({ newItineraryId });
+            }
+          );
+        }
+      );
+    }
+  );
 };

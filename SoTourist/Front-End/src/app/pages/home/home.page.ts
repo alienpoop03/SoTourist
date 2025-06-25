@@ -203,9 +203,26 @@ export class HomePage implements OnInit {
     this.router.navigate(['/destinazioni-trend']);
   }
 
-  openItinerary(itineraryId: string) {
+  /*openItinerary(itineraryId: string) {
     this.router.navigate(['/panoramica'], { queryParams: { id: itineraryId } });
+  }*/
+
+  openItinerary(itineraryId: string) {
+    const itinerary = this.featuredItineraries.find(i => i.itineraryId === itineraryId);
+    if (!itinerary) return;
+
+    const tripDays = this.getTripDays(itinerary);
+
+    this.router.navigate(['/modifica-date'], {
+      queryParams: {
+        id: itineraryId,
+        azione: 'clona',
+        maxDays: tripDays
+      }
+    });
   }
+
+
 
   getFormattedCity(trip: TripWithId | null): string {
     return trip ? getCityName(trip.city) : '';
