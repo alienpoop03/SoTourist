@@ -10,6 +10,8 @@ for /f "tokens=2 delims=:" %%A in ('ipconfig ^| findstr /C:"IPv4"') do (
 
 echo IP locale rilevato: %ip%
 
+:: Apri Visual Studio Code
+start cmd /c "cd /d .\SoTourist && start code ."
 
 :: Avvia il frontend con host esplicito (non localhost)
 start cmd /k "cd /d .\SoTourist\Front-End && ionic serve --host=!ip!" --no-open
