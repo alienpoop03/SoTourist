@@ -83,4 +83,15 @@ export class ChangePasswordPage implements OnInit {
       this.toastService.showWarning('Nuova password e conferma password non coincidono');
     }
   }
+
+  isMailValid():boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]+$/;
+
+    return emailPattern.test(this.email);
+  }
+
+  isPasswordValid():boolean {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return passwordPattern.test(this.newPassword);
+  }
 }
