@@ -92,6 +92,6 @@ export class ChangePasswordPage implements OnInit {
 
   isPasswordValid():boolean {
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-    return passwordPattern.test(this.newPassword);
+    return passwordPattern.test(this.newPassword) && passwordPattern.test(this.confirmPassword);
   }
 }
