@@ -91,9 +91,18 @@ export class ItineraryService {
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, places);
   }
 
-  getSinglePlace(query: string, city: string) {
-    return this.http.get(`${this.baseUrl}/itinerary/single-place?query=${encodeURIComponent(query)}&city=${encodeURIComponent(city)}`);
+ getSinglePlace(query: string, city: string, anchor?: { lat: number, lng: number }) {
+  let params = new HttpParams()
+    .set('query', query)
+    .set('city', city);
+
+  if (anchor) {
+    params = params.set('lat', anchor.lat).set('lng', anchor.lng);
   }
+
+  return this.http.get(`${this.baseUrl}/itinerary/single-place`, { params });
+}
+
 
 
   //ceck date

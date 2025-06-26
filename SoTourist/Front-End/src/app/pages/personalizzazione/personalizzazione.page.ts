@@ -163,8 +163,12 @@ export class PersonalizzazionePage implements OnInit {
     const city = this.city || 'Roma';
 
     try {
-      const result = await this.fetchSinglePlaceFromBackend(query, city);
-      if (!result) return;
+    const center = this.tripBounds.getCenter(); // QUI va il getCenter()
+    const result = await this.fetchSinglePlaceFromBackend(query, city, {
+      lat: center.lat(),
+      lng: center.lng()
+    });
+     if (!result) return;
 
       const frontendPlace: Place = {
         placeId: result.placeId || ('place_' + Date.now()),
@@ -311,9 +315,10 @@ export class PersonalizzazionePage implements OnInit {
     };
   }
 
-  fetchSinglePlaceFromBackend(query: string, city: string): Promise<any> {
-    return this.itineraryService.getSinglePlace(query, city).toPromise();
-  }
+  fetchSinglePlaceFromBackend(query: string, city: string, anchor: { lat: number, lng: number }): Promise<any> {
+  return this.itineraryService.getSinglePlace(query, city, anchor).toPromise();
+}
+
   extractCityName(full: string): string {
     // Prende solo il primo token con la prima parola valida
     const parts = full.split(',');

@@ -509,24 +509,63 @@ const getItinerary = async (req, res) => {
 /* 🚀  GET /api/itinerary/single-place                                 */
 /* ------------------------------------------------------------------ */
 const getSinglePlace = async (req, res) => {
-  const { query, city } = req.query;
+  const { query, city, lat, lng } = req.query;
   if (!query || !city)
     return res.status(400).json({ error: "query & city obbligatori" });
 
+  const KEY = process.env.GOOGLE_API_KEY;
+
+  /* 1️⃣ Anchor da frontend */
+  let anchor = null;
+  if (lat && lng) {
+    anchor = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  }
+
+  /* 2️⃣ Se anchor mancante, usa Geocode della città */
+  if (!anchor) {
+    try {
+      const geo = await axios.get(
+        "https://maps.googleapis.com/maps/api/geocode/json",
+        { params: { address: city, key: KEY } }
+      );
+      anchor = geo.data.results[0]?.geometry?.location || null;
+    } catch (e) {
+      console.warn("⚠️ Geocode fallita:", e.message);
+    }
+  }
+
+  /* 3️⃣ Fallback Text Search se ancora senza anchor */
+  if (!anchor) {
+    try {
+      const { data } = await axios.get(
+        "https://maps.googleapis.com/maps/api/place/textsearch/json",
+        { params: { query: `${query} in ${city}`, key: KEY } }
+      );
+      if (data.status === "OK" && data.results.length) {
+        return res.json(buildPlaceObj(data.results[0], KEY));
+      }
+      return res.status(404).json({ error: "Luogo non trovato" });
+    } catch (err) {
+      console.error("❌ getSinglePlace fallback:", err);
+      return res.status(500).json({ error: "Errore interno" });
+    }
+  }
+
+  /* 4️⃣ Nearby Search con anchor corretto */
   try {
-    const KEY = process.env.GOOGLE_API_KEY;
-    const [p] = await fetchNearbyPlaces(
+    const [raw] = await fetchNearbyPlaces(
       { keyword: query, type: "" },
-      null,
-      0,
+      anchor,
+      5000, // raggio piccolo per singola ricerca
       KEY
     );
-    if (!p) return res.status(404).json({ error: "Luogo non trovato" });
-    res.json(buildPlaceObj(p, KEY));
+    if (!raw) return res.status(404).json({ error: "Luogo non trovato" });
+    return res.json(buildPlaceObj(raw, KEY));
   } catch (err) {
     console.error("❌ getSinglePlace:", err);
-    res.status(500).json({ error: "Errore interno" });
+    return res.status(500).json({ error: "Errore interno" });
   }
 };
+
 
 module.exports = { getItinerary, getSinglePlace };
