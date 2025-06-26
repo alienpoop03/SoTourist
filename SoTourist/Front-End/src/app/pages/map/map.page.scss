@@ -183,9 +183,27 @@
 }
 
 /* -------- Modale dettaglio -------- */
+
+
 .detail {
+  border-radius: var(--box-radius);
+  padding: 3px;
   ion-img {
+    border-top-left-radius: var(--box-radius);
+    border-top-right-radius: var(--box-radius);
+    overflow: hidden;
     height: 200px;
     object-fit: cover;
   }
+
+  ion-button{
+    --border-radius: var(--box-radius)!important;
+    overflow: hidden !important;
+  }
+
+}
+
+.ion-delegate-host{
+  --border-radius: var(--box-radius) !important;
+  overflow: hidden;
 }

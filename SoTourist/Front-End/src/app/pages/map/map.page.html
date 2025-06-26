@@ -56,7 +56,7 @@
   </div>
 
   <!--  MODALE DETTAGLIO  -->
-  <ion-modal [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
+  <ion-modal class="box-detail" [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
     <ng-template>
       <ion-card class="detail">
         <ion-img *ngIf="detail?.photoUrl" [src]="detail?.photoUrl"></ion-img>
@@ -67,12 +67,11 @@
           <p><strong>Indirizzo:</strong><br>{{ detail?.address }}</p>
           <p *ngIf="detail?.rating"><strong>Rating:</strong> ⭐ {{ detail?.rating }}</p>
         </ion-card-content>
+        <ion-button expand="block" color="primary" fill="outline" (click)="openInGoogleMaps()">
+          Apri in Google Maps
+        </ion-button>
         <ion-button expand="block" (click)="detailOpen=false">Chiudi</ion-button>
       </ion-card>
-      <ion-button expand="block" color="primary" fill="outline" (click)="openInGoogleMaps()">
-  Apri in Google Maps
-</ion-button>
-
     </ng-template>
   </ion-modal>
   <div class="with-floating-tabs"></div>
