@@ -23,7 +23,7 @@
           <!-- Card luogo -->
           <div *ngFor="let p of (days()[activeDay()]?.[slot] || []); let idx = index" cdkDrag
             [cdkDragDisabled]="isAccommodation(p)">
-            <app-luogo-card [place]="p" [index]="idx" [selected]="false" (clicked)="editPlace(idx, slot)">
+            <app-luogo-card [place]="p" [index]="idx" [selected]="false" >
             </app-luogo-card>
             <ion-icon *ngIf="!isAccommodation(p)" name="trash-outline" class="delete-icon"
               (click)="removePlace(slot, idx)">
