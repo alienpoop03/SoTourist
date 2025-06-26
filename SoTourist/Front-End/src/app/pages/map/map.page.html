@@ -56,7 +56,7 @@
   </div>
 
   <!--  MODALE DETTAGLIO  -->
-  <ion-modal class="box-detail" [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
+  <ion-modal [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
     <ng-template>
       <ion-card class="detail">
         <ion-img *ngIf="detail?.photoUrl" [src]="detail?.photoUrl"></ion-img>
