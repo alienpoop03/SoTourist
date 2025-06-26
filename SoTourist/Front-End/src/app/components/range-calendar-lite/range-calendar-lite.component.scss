@@ -29,10 +29,12 @@
   margin-left: auto !important;
   margin-right: auto !important;
 
-
   font-family: 'Arial', sans-serif;
   border: none;
   //background-color: red; // sfondo principale
+  border-radius: var(--box-radius) !important; 
+  overflow: hidden; 
+
 
   .container__months {
     background-color: var(--color-background1);
@@ -42,23 +44,44 @@
     background-color: var(--color-primary); // bordeaux header
     color: var(--color-highlight) !important;
     font-weight: bold;
+    border-top-left-radius: var(--box-radius) !important; 
+    border-top-right-radius: var(--box-radius) !important; 
+    overflow: hidden; 
   }
 
   .day-item {
     color: var(--date-unlock) !important;
+    
+    
 
     &.is-locked {
       color: var(--date-lock) !important;
+      border-radius: var(--box-radius) !important; 
+      overflow: hidden;
     }
 
     &.is-today {
       border: 1px solid var(--color-primary);
-      color: var(--color-primary) !important;
+      color: var(--color-primary);
+      border-radius: var(--box-radius); 
+      overflow: hidden;
     }
 
     &.is-in-range {
       background-color: var(--color-highlight) !important; // giallo senape selezione
       color: var(--color-primary2) !important;
+    }
+    
+    &.is-in-range:nth-child(7n) {
+      border-bottom-right-radius: var(--box-radius);
+      border-top-right-radius: var(--box-radius);
+      overflow: hidden;
+    }
+
+    &.is-in-range:nth-child(7n + 1) {
+      border-bottom-left-radius: var(--box-radius);
+      border-top-left-radius: var(--box-radius);
+      overflow: hidden;
     }
 
     &.is-start-date,
@@ -67,13 +90,32 @@
       color: var(--color-highlight) !important;
     }
 
+    &.is-end-date:nth-child(7n + 1),
+    &.is-start-date{
+      border-bottom-left-radius: var(--box-radius) !important;
+      border-top-left-radius: var(--box-radius) !important ;
+      overflow: hidden;
+    }
+
+    &.is-start-date:nth-child(7n),
+    &.is-end-date {
+      border-bottom-right-radius: var(--box-radius) !important;
+      border-top-right-radius: var(--box-radius) !important ;
+      overflow: hidden;
+    }
+
+    
+
     &:hover {
       background-color: var(--color-highlight) ;
-      color: var(--color-primary2)!important;
+      color: var(--color-primary2);
       box-shadow: rgba(var(--color-primary), 1)!important;
+      border-radius: var(--box-radius); 
+      overflow: hidden;
     }
   }
 }
+
 ::ng-deep .litepicker .button-previous-month svg path,
 ::ng-deep .litepicker .button-next-month svg path {
   fill: var(--color-highlight) !important; /* bordeaux */

@@ -30,6 +30,10 @@ export class RangeCalendarLiteComponent implements AfterViewInit {
       selectForward: true,
       lang: 'it-IT',
       minDate: this.minDate,
+      tooltipText: {
+        one: 'giorno ',
+        other: 'giorni'
+      },
       
 
       setup: (picker) => {
