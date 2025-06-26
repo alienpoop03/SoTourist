@@ -22,7 +22,7 @@ ion-card {
     outline: 3px solid var(--color-highlight);
   }
 
-  &.comact {
+  &.compact {
     display: flex;
     flex-direction: column !important;
   }
@@ -51,7 +51,7 @@ ion-card {
     font-size: 2rem;
     flex: 1;
 
-    &.comact {
+    &.compact {
       height: 96px !important;
       max-width: 100% !important;
     }
@@ -66,8 +66,9 @@ ion-card {
   .placeholder {
     min-height: 202px;
 
-    &.comact {
+    &.compact {
       min-height: 0;
+      max-height: 149px !important;
     }
   }
 
@@ -88,7 +89,7 @@ ion-card {
   ion-card-title {
     color: var(--color-text1);
 
-    &.comact {
+    &.compact {
       height: 48px;
       width: 150px;
       font-size: 1rem;
