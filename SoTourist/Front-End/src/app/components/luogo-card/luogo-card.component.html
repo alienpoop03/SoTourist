@@ -1,13 +1,13 @@
-<ion-card [class.selected]="selected" [class.comact]="!extends" (click)="clicked.emit()">
-  <ion-img *ngIf="place.photoUrl; else ph" [class.comact]="!extends" [src]="place.photoUrl"></ion-img>
+<ion-card [class.selected]="selected" [class.compact]="!extends" (click)="clicked.emit()">
+  <ion-img *ngIf="place.photoUrl; else ph" [class.compact]="!extends" [src]="place.photoUrl"></ion-img>
   <ng-template #ph>
-    <!--<div class="placeholder" [class.comact]="!extends">📍</div>-->
-    <img class="placeholder" [class.comact]="!extends" [src]="'assets/icons/pin.png'"/>
+   
+    <img class="placeholder" [class.compact]="!extends" [src]="'assets/icons/pin.png'"/>
   </ng-template>
 
   <div class="text-card">
     <ion-card-header>
-      <ion-card-title [class.comact]="!extends">
+      <ion-card-title [class.compact]="!extends">
         <ng-container *ngIf="index !== undefined">{{ index + 1 }}. </ng-container>{{ place.name }}
       </ion-card-title>
     </ion-card-header>
