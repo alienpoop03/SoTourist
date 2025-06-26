@@ -42,7 +42,20 @@ export class RegistrazionePage {
     });
   }
 
+  isFormValid(): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]+$/;
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+    return (
+      this.username.trim().length > 0 &&
+      emailPattern.test(this.email) &&
+      passwordPattern.test(this.password)
+    );
+  }
+
   goToLogin() {
     this.router.navigateByUrl('/login');
   }
+
+
 }
