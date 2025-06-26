@@ -1,20 +1,14 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit  } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 import {
   IonContent,
   IonItem,
   IonLabel,
-  IonButton,
   IonIcon,
   IonBadge,
-  IonToggle,
-  IonSelect,
-  IonSelectOption,
-  IonInput,
-  IonCard,
+  IonCard
 } from '@ionic/angular/standalone';
-import { AppHeaderComponent } from '../../components/header/app-header.component';
 import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
 import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth.service';
@@ -29,91 +23,77 @@ import { AlertController } from '@ionic/angular';
     IonContent,
     IonItem,
     IonLabel,
-    IonButton,
     IonIcon,
     IonBadge,
-    IonToggle,
-    IonSelect,
-    IonSelectOption,
-    IonInput,
     IonCard,
-    AppHeaderComponent,
     NavigationBarComponent,
-    ProfileIconComponent,
+    ProfileIconComponent
   ],
   templateUrl: './profilo.page.html',
   styleUrls: ['./profilo.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ProfiloPage {
+export class ProfiloPage implements OnInit {
+
   // Dati profilo
   userId: string = '';
   username = '';
   email = '';
-  password = '';
   profileImageUrl: string | null = null;
-  registrationDate: Date | null = null; // O caricala da backend/localStorage
-  accountStatus: string = 'Standard';
-  editing = false;
-
+  registrationDate: Date | null = null;
 
   // Abbonamento
-  subscriptionPlan: string = 'Standard'; // o 'Premium'
+  subscriptionPlan: string = 'Standard';
   subscriptionExpiry: Date | null = null;
 
   // Preferenze
-  notificationsEnabled = true;
   language: 'it' | 'en' = 'it';
 
-  // Viaggi salvati
-  savedTrips: any[] = [];
+  constructor(
+    private authService: AuthService,
+    private toastService: ToastService,
+    private router: Router,
+    private alertCtrl: AlertController
+  ) {}
 
-  constructor(  private authService: AuthService, private toastService: ToastService, private router: Router, private alertCtrl: AlertController) {}
+  ngOnInit() {
+    this.refreshProfile();
+  }
 
-  private refreshTrips(): void {
-     // Carica dati profilo da localStorage (come in settings)
+  ionViewWillEnter(): void {
+    this.refreshProfile();
+  }
+
+  // Carica dati da storage e backend
+  private refreshProfile(): void {
     const profile = localStorage.getItem('userProfile');
     if (profile) {
       const parsed = JSON.parse(profile);
-       this.userId = localStorage.getItem('userId') || '';
+      this.userId = localStorage.getItem('userId') || '';
       this.username = parsed.username || '';
       this.email = parsed.email || '';
     }
 
-    // Carica viaggi
-    const trips = localStorage.getItem('trips');
-    this.savedTrips = trips ? JSON.parse(trips) : [];
-  
     if (this.userId) {
       this.authService.getUserType(this.userId).subscribe({
         next: (res) => {
           const type = res.type || 'standard';
-          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1); // Capitalizza la prima lettera
+          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1);
           this.subscriptionExpiry = res.subscriptionEndDate ? new Date(res.subscriptionEndDate) : null;
         },
-        error: (err) => {
-          console.error('Errore nel recupero tipo abbonamento:', err);
+        error: () => {
           this.subscriptionPlan = 'Standard';
           this.subscriptionExpiry = null;
         }
       });
+
       this.authService.getRegistrationDate(this.userId).subscribe({
         next: (res) => {
           this.registrationDate = new Date(res.registrationDate);
         },
-        error: (err) => {
-          console.error('Errore nel recupero della data di registrazione', err);
-        },
+        error: () => {}
       });
     }
-  }
-
-  ngOnInit() {
-    this.refreshTrips();
-  }
-
-  ionViewWillEnter(): void {
-    this.refreshTrips();  
   }
 
   getBadgeClass(plan: string): string {
@@ -125,100 +105,45 @@ export class ProfiloPage {
       case 'standard':
         return 'badge-standard';
       default:
-        return 'medium'; 
+        return 'medium';
     }
   }
 
-
-
-  // Cambia avatar
-  triggerFileInput() {
-    document.querySelector<HTMLInputElement>('input[type=file]')?.click();
-  }
-  onImageSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.[0]) {
-      const reader = new FileReader();
-      reader.onload = e => (this.profileImageUrl = (e.target as any).result);
-      reader.readAsDataURL(input.files[0]);
-    }
+  onProfileImageChanged(base64: string) {
+    this.profileImageUrl = base64;
   }
 
-  toggleNotifications() {
-    // Metti logica se serve
-  }
-  changeLanguage() {
-    // Metti logica se serve
-  }
-
-  // Sicurezza
   changePassword() {
     this.router.navigate(['/change-password']);
-
   }
 
   async confirmDeleteAccount() {
-    // Mostra alert di conferma, poi chiama deleteAccount()
     const alert = await this.alertCtrl.create({
       header: 'Elimina account',
       message: 'Questa azione è irreversibile. Sei sicuro di voler procedere?',
       buttons: [
-        {
-          text: 'Annulla',
-          role: 'cancel'
-        },
-        {
-          text: 'Elimina',
-          role: 'destructive',
-          handler: () => this.deleteAccount()
-        }
+        { text: 'Annulla', role: 'cancel' },
+        { text: 'Elimina', role: 'destructive', handler: () => this.deleteAccount() }
       ]
     });
 
     await alert.present();
   }
 
- 
   deleteAccount() {
-    /*localStorage.clear();
-    window.location.href = '/login';*/
-
     this.authService.deleteUser(this.userId).subscribe({
       next: () => {
         localStorage.clear();
         this.toastService.showSuccess('Account eliminato.');
         window.location.href = '/login';
       },
-      error: (err) => {
-        console.error('Errore nella cancellazione:', err);
-        this.toastService.showError('❌ Errore durante la cancellazione dell’account.');
+      error: () => {
+        this.toastService.showError('Errore durante la cancellazione dell’account.');
       }
     });
-  }
-
-  // Abbonamento
- /* upgradeSubscription() {
-    // Implementa upgrade reale
-    this.subscriptionPlan = 'Premium';
-    this.subscriptionExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-  }*/
- 
-  manageSubscription() {
-    // Implementa gestione reale
-  }
-
-  // Viaggi
-  openTrip(trip: any) {
-    // Vai alla pagina del viaggio
-  }
-  // Logout
-  onProfileImageChanged(base64: string) {
-    console.log('Nuova immagine:', base64);
-    this.profileImageUrl = base64;
   }
 
   goToUpgrade() {
     this.router.navigate(['/upgrade']);
   }
-
 }

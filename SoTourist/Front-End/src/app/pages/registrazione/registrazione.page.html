@@ -1,6 +1,7 @@
 <ion-content class="ion-padding" fullscreen>
   <div class="login-container">
-    <!-- Form con sfondo e stile migliorato -->
+
+    <!-- Form di registrazione -->
     <div class="form-block">
       <ion-input
         label="Username"
@@ -16,7 +17,6 @@
         fill="outline"
         [(ngModel)]="email"
         pattern="^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]+$"
-        
         type="email"
         maxlength="30">
       </ion-input>
@@ -28,11 +28,14 @@
         [(ngModel)]="password"
         type="password"
         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
-        autocomplete="new-password" 
+        autocomplete="new-password"
         required>
       </ion-input>
 
-      <ion-button expand="block" color="primary" (click)="onRegister()" [disabled]="!isFormValid()">Registrati</ion-button>
+      <ion-button expand="block" color="primary" (click)="onRegister()" [disabled]="!isFormValid()">
+        Registrati
+      </ion-button>
+
       <ion-button expand="block" fill="clear" color="medium" (click)="goToLogin()">
         Hai già un account? Vai al login
       </ion-button>

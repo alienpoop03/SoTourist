@@ -36,20 +36,11 @@
   margin-bottom: 4px;
 }
 
-.profile-actions {
-  margin-top: 5px;
-}
-
 .user-join {
   margin-top: 0.8rem;
   color: var(--color-text2);
   font-size: 0.93rem;
   font-style: italic;
-}
-
-.save-button {
-  font-size: 1rem;
-  font-weight: 800;
 }
 
 .delete-text {
@@ -64,24 +55,18 @@ ion-badge {
   padding: 2px 12px;
 }
 
-:host ::ng-deep ion-button.premium-button {
-  --background: var(--color-primary);
-  --color: #ffffff;
-}
-
-
-.testo{
+.testo {
    color: var(--color-text2);
 }
 
-//colori fissi anche nella dark mode
+/* colori fissi anche nella dark mode */
 .badge-premium {
-  --background: #7B1E1E; 
-  --color: #FFD700;       
+  --background: #7B1E1E;
+  --color: #FFD700;
 }
 
 .badge-gold {
-  --background: #FFD700; 
+  --background: #FFD700;
   --color: #7B1E1E;
 }
 
@@ -89,4 +74,3 @@ ion-badge {
   --background: #cccccc;
   --color: #333;
 }
-
