@@ -57,13 +57,13 @@
         <!-- Progress giornaliero -->
         <div class="day-progress">
           <div class="segment" title="Mattina">
-            <div class="fill" [class.completed]="getStepProgress(i, 'morning') > 0" [style.width.%]="getStepProgress(i, 'morning')"></div>
+            <div class="fill morning" [class.completed]="getStepProgress(i, 'morning') > 0" [style.width.%]="getStepProgress(i, 'morning')"></div>
           </div>
           <div class="segment" title="Pomeriggio">
-            <div class="fill" [class.completed]="getStepProgress(i, 'afternoon') > 0" [style.width.%]="getStepProgress(i, 'afternoon')"></div>
+            <div class="fill afternoon" [class.completed]="getStepProgress(i, 'afternoon') > 0" [style.width.%]="getStepProgress(i, 'afternoon')"></div>
           </div>
           <div class="segment" title="Sera">
-            <div class="fill" [class.completed]="getStepProgress(i, 'evening') > 0" [style.width.%]="getStepProgress(i, 'evening')"></div>
+            <div class="fill evening" [class.completed]="getStepProgress(i, 'evening') > 0" [style.width.%]="getStepProgress(i, 'evening')"></div>
           </div>
         </div>
       </ion-card>
