@@ -1,15 +1,11 @@
-<!-- src/app/home/home.page.html -->
-<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false" [box_shadow]="box_shadow">
-</app-header>
+<app-header [title]="'SoTourist'" [iconName]="'home-outline'" [showBackButton]="false" [box_shadow]="box_shadow"></app-header>
 
 <ion-content class="home-content" (ionScroll)="onScroll($event)" (ionScrollEnd)="onScrollEnd($event)" scrollEvents="true">
 
-  <!-- Hero Espansa-------------------------------------------------------->
+  <!-- Hero espansa -->
   <section #expandedHero class="hero" [class.invisibile]="(currentTrip || nextTrip) && isShrunk">
-    <!--Hero con crea-->
     <div class="Hero-crea" *ngIf="!currentTrip && !nextTrip">
       <img src="assets/images/Amsterdam.jpeg" alt="Hero" class="hero-bg" />
-
       <div class="hero-overlay">
         <h1 class="hero-title">
           La tua prossima<br />avventura ti aspetta
@@ -17,50 +13,37 @@
         <p class="hero-subtitle">
           Scopri, pianifica e vivi esperienze uniche con SoTourist
         </p>
-
-        <ion-button class="boxes-style cta-button" expand="block" (click)="openCreate()">
-          Crea il tuo viaggio
-        </ion-button>
+        <ion-button class="boxes-style cta-button" expand="block" (click)="openCreate()">Crea il tuo viaggio</ion-button>
       </div>
     </div>
 
-    <!--Hero Viaggi-->
     <div class="Hero-Viaggi" *ngIf="currentTrip || nextTrip">
       <h2 class="hero-type-title">
-          <span class="hero-type-blur-bg"></span>
-          <span class="hero-type-text">
-            {{ currentTrip ? 'Viaggio in corso' : 'Il tuo prossimo viaggio' }}
-          </span>
+        <span class="hero-type-blur-bg"></span>
+        <span class="hero-type-text">
+          {{ currentTrip ? 'Viaggio in corso' : 'Il tuo prossimo viaggio' }}
+        </span>
       </h2>
-
-      <img [src]="currentTrip ? currentTripCoverUrl : nextTripCoverUrl" alt="Hero" class="hero-bg"/>
-
-      
-      <h1 class="hero-title">
-        {{ getFormattedCity(currentTrip || nextTrip) }}
-      </h1>
-      
+      <img [src]="currentTrip ? currentTripCoverUrl : nextTripCoverUrl" alt="Hero" class="hero-bg" />
+      <h1 class="hero-title">{{ getFormattedCity(currentTrip || nextTrip) }}</h1>
       <p class="hero-subtitle">
-        {{ (currentTrip || nextTrip)!.startDate | date:'d MMM' }} – {{ (currentTrip || nextTrip)!.endDate | date:'d
-        MMM y' }}
+        {{ (currentTrip || nextTrip)!.startDate | date:'d MMM' }} – {{ (currentTrip || nextTrip)!.endDate | date:'d MMM y' }}
       </p>
-
       <ion-button class="boxes-style cta-button" expand="block" (click)="openItinerary((currentTrip || nextTrip)!.itineraryId)">
         Vai all'itinerario
       </ion-button>
-
     </div>
-
   </section>
 
-  <!-- HERO COMPATTA Solo viaggi -->
+  <!-- Hero compatta, visibile quando scrolli -->
   <div #compactHero *ngIf="currentTrip || nextTrip" class="hero-compact" [class.visible]="isShrunk" (click)="onHeroClick()">
     <ng-container *ngIf="currentTrip || nextTrip">
       <div class="hero-itinerio">
         <img [src]="currentTrip ? currentTripCoverUrl : nextTripCoverUrl" class="compact-bg" alt="cover" />
         <div class="compact-overlay">
           <h2 class="compact-title">{{ getFormattedCity(currentTrip || nextTrip) }}</h2>
-          <p class="compact-dates">{{ (currentTrip || nextTrip)!.startDate | date:'d MMM' }} – {{ (currentTrip || nextTrip)!.endDate | date:'d MMM y' }}
+          <p class="compact-dates">
+            {{ (currentTrip || nextTrip)!.startDate | date:'d MMM' }} – {{ (currentTrip || nextTrip)!.endDate | date:'d MMM y' }}
           </p>
         </div>
       </div>
@@ -68,13 +51,11 @@
     </ng-container>
   </div>
 
-  <!-- Destinazioni trend -------------------------------------------------->
+  <!-- Destinazioni trend -->
   <section class="trending">
     <div class="section-heading">
       <h2 class="section-title">Destinazioni trend</h2>
-      <!--<ion-button fill="clear" size="small" (click)="openAll()">Vedi tutte</ion-button>-->
     </div>
-
     <div class="trending-scroll">
       <div class="boxes-style card" *ngFor="let city of trending" (click)="openCreate(city)">
         <img [src]="'assets/images/' + city + '.jpeg'" [alt]="city" />
@@ -85,10 +66,9 @@
     </div>
   </section>
 
-  <!-- Itinerari consigliati ---------------------------------------------->
-  <section class="featured" >
+  <!-- Itinerari consigliati -->
+  <section class="featured">
     <h2 class="section-title">Itinerari consigliati</h2>
-
     <div class="featured-list">
       <ion-card class="boxes-style" *ngFor="let itin of featuredItineraries" (click)="openItinerary(itin.itineraryId)">
         <img [src]="getPhotoUrl(itin.coverPhoto)" alt="Cover" />
@@ -102,7 +82,7 @@
     </div>
   </section>
 
-  <!-- Citazione ----------------------------------------------------------->
+  <!-- Citazione -->
   <section class="quote">
     <p class="quote-text">
       "Yesterday is history, tomorrow is a mystery, but today is a gift, that is why it is called the present."

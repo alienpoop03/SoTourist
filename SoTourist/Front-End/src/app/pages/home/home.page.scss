@@ -1,4 +1,3 @@
-/* ───── Layout base ───── */
 .home-content {
   --background: var(--color-background4);
   display: flex;
@@ -6,17 +5,16 @@
   --padding-bottom: calc(var(--ion-safe-area-bottom, 0px) + 56px + 1rem);
 }
 
-/* nascondo la scrollbar default */
+/* Scrollbar nascosta per tutti i browser */
 :host ::ng-deep ion-content {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-
 :host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
   display: none !important;
 }
 
-/* ───── Hero ───── */
+// Hero principale, con overlay per creazione e viaggio
 .hero {
   position: relative;
   width: 100%;
@@ -24,14 +22,14 @@
   border-bottom-left-radius: var(--box-radius);
   border-bottom-right-radius: var(--box-radius);
   overflow: hidden;
-  .Hero-crea{
+
+  .Hero-crea {
     .hero-bg {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: brightness(0.85);
     }
-
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -40,11 +38,8 @@
       justify-content: flex-end;
       padding: 0 1rem 1rem;
       z-index: 1;
-      background: linear-gradient(to top,
-          rgb(0, 0, 0),
-          rgba(255, 255, 255, 0)50%);
+      background: linear-gradient(to top, rgb(0, 0, 0), rgba(255, 255, 255, 0) 50%);
     }
-
     .hero-title {
       font-size: 2rem;
       font-weight: 800;
@@ -53,14 +48,12 @@
       margin-bottom: 0.4rem;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     }
-
     .hero-subtitle {
       font-size: 0.95rem;
       color: #fff;
       opacity: 0.9;
     }
   }
-
 
   .Hero-Viaggi {
     position: relative;
@@ -84,11 +77,10 @@
       text-align: center;
       font-size: 1.1rem;
       font-weight: 700;
-      color:white; //var(--color-highlight);
+      color: white;
       z-index: 10;
       overflow: hidden;
 
-      //sfondo blurato ma con "gradiente"
       .hero-type-blur-bg {
         position: absolute;
         inset: 0;
@@ -96,21 +88,17 @@
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         background-color: rgba(0, 0, 0, 0.3);
-
-        // Gradiente blur
         -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
         mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
         mask-size: 100% 100%;
         mask-repeat: no-repeat;
         pointer-events: none;
       }
-
-      //Testo che deve stare sopra lo sfondo
       .hero-type-text {
         position: relative;
         z-index: 1;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-      }      
+      }
     }
 
     .hero-bg {
@@ -122,9 +110,8 @@
       z-index: 0;
       filter: brightness(0.85);
     }
-
     .hero-title,
-    .hero-subtitle{
+    .hero-subtitle {
       position: relative;
       z-index: 1;
       color: white;
@@ -143,25 +130,20 @@
       color: white;
       text-align: center;
       text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      --background: var(--color-primary);
+      --color: var(--color-highlight);
+      font-weight: bold;
+      font-size: 1rem;
     }
-
     .hero-title {
       font-size: 2rem;
       font-weight: 800;
       margin-bottom: 0.4rem;
     }
-
     .hero-subtitle {
       font-size: 0.95rem;
       opacity: 0.9;
       margin-bottom: 1rem;
-    }
-
-    .cta-button {
-      --background: var(--color-primary);
-      --color: var(--color-highlight);
-      font-weight: bold;
-      font-size: 1rem;
     }
   }
 }
@@ -170,19 +152,16 @@
   visibility: hidden;
 }
 
-// hero compatta viaggi
+// Hero compatta che si vede solo con viaggi attivi, sticky in alto
 .hero-compact {
   justify-content: space-between;
   position: fixed;
   top: 56px;
   left: 0;
   width: 100%;
-  
-  background-color: rgba(var(--color-background-rgb), 0.8); 
-
+  background-color: rgba(var(--color-background-rgb), 0.8);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-
   display: flex;
   align-items: center;
   padding: 8px 16px;
@@ -193,28 +172,22 @@
   transform: translateY(-20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
-
   border-bottom-left-radius: var(--box-radius);
   border-bottom-right-radius: var(--box-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-
 }
-
 .hero-compact.visible {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
-
 .hero-itinerio {
   display: flex;
   align-items: center;
-  gap: 12px; 
+  gap: 12px;
 }
-
 .compact-tag {
-  //background-color: var(--color-primary); 
-  color: var(--color-text);              
+  color: var(--color-text);
   font-size: 1rem;
   font-weight: 600;
   padding: 10px 10px;
@@ -222,7 +195,6 @@
   white-space: nowrap;
   text-align: center;
 }
-
 .compact-bg {
   width: 48px;
   height: 48px;
@@ -230,34 +202,27 @@
   border-radius: 50%;
   margin-right: 0;
 }
-
 .compact-overlay {
   display: flex;
   flex-direction: column;
 }
-
 .compact-title {
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--color-text);
 }
-
 .compact-dates {
   font-size: 0.95rem;
   color: var(--color-text2);
   margin-top: 2px;
 }
 
-
-
-
-/* ───── Heading sezione ───── */
+// Titolo sezione: heading delle varie sezioni della pagina
 .section-heading {
   padding: 1.4rem 1rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   ion-button {
     margin-bottom: 10px;
     --color: var(--color-primary);
@@ -266,7 +231,6 @@
     text-transform: none;
   }
 }
-
 .section-title {
   margin-top: 0;
   font-size: 1.4rem;
@@ -274,8 +238,7 @@
   color: var(--color-text-home);
 }
 
-/* ───── Destinazioni trend (scroll) ───── */
-
+// Trend destinazioni con scroll orizzontale
 .trending-scroll {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -283,8 +246,6 @@
   gap: 14px;
   overflow-x: auto;
   scroll-snap-type: none;
-
-  /* nascondo scrollbar */
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -298,30 +259,24 @@
     scroll-snap-align: start;
     position: relative;
     overflow: hidden;
-    margin:0;
-
+    margin: 0;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.45s ease;
     }
-
     &:hover img {
       transform: scale(1.04);
     }
-
     .card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top,
-          rgb(0, 0, 0) 10%,
-          rgba(255, 255, 255, 0) 30%);
+      background: linear-gradient(to top, rgb(0, 0, 0) 10%, rgba(255, 255, 255, 0) 30%);
       display: flex;
       align-items: flex-end;
       padding: 0 12px 14px;
     }
-
     .city {
       color: var(--color-highlight);
       font-size: 1.1rem;
@@ -336,43 +291,35 @@
   }
 }
 
-/* ───── Lista itinerari consigliati ───── */
+// Lista di itinerari consigliati (featured)
 .featured {
   padding: 1.4rem 1rem 0;
-
   .featured-list {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-
     ion-card.boxes-style {
       overflow: hidden;
       margin: 0;
-
       img {
         width: 100%;
         height: 180px;
         object-fit: cover;
       }
-
       ion-card-header {
         padding: 1rem;
       }
-
       ion-card-title {
         font-size: 1.1rem;
         font-weight: 800;
         color: var(--color-text);
       }
-
       ion-card-subtitle {
         font-size: 0.8rem;
         color: var(--color-text2);
         font-weight: 600;
       }
     }
-
-    // Media query per layout desktop
     @media (min-width: 550px) {
       flex-direction: row;
       justify-content: space-between;
@@ -382,108 +329,29 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
-
     @media (min-width: 900px) {
       grid-template-columns: repeat(3, 1fr);
     }
-
     @media (min-width: 1200px) {
-      grid-template-columns: repeat(4, 1fr); /* solo su schermi grandi */
-  }
-  }
-}
-
-
-/* ───── Prossimo viaggio ───── */
-.next-trip {
-  padding: 1.4rem 1rem 0;
-
-  .next-card {
-    overflow: hidden;
-    margin: 0;
-
-    img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
-
-    ion-card-header {
-      padding: 1rem;
-    }
-
-    ion-card-title {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--color-text);
-    }
-
-    ion-card-subtitle {
-      font-size: 0.9rem;
-      color: var(--color-text2);
-      font-weight: 600;
-    }
-
-    @media (min-width: 772px) {
-      display: flex;
-      flex-direction: row;
-      align-items: stretch;
-      height: 180px;
-
-      img {
-        width: 40%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      ion-card-header {
-        flex: 1;
-        padding: 1rem 1.2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      ion-card-title {
-        font-size: 1.7rem;
-      }
-
-      ion-card-subtitle {
-        font-size: 1.1rem;
-      }
-    }
-
-    @media (min-width: 1080px) {
-      ion-card-title {
-        font-size: 2rem;
-      }
-
-      ion-card-subtitle {
-        font-size: 1.6rem;
-      }
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 }
 
-/* ───── Citazione ───── */
+// Citazione finale motivazionale
 .quote {
   margin: 2.5rem 1rem 0;
   padding: 1.6rem;
   border-radius: var(--box-radius);
-  background: linear-gradient(145deg,
-      rgba(255, 204, 0, 0.15),
-      rgba(123, 30, 30, 0.15));
+  background: linear-gradient(145deg, rgba(255, 204, 0, 0.15), rgba(123, 30, 30, 0.15));
   backdrop-filter: blur(8px);
   text-align: center;
-
   .quote-text {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-text);
     margin-bottom: 0.6rem;
   }
-
   .quote-author {
     font-size: 0.9rem;
     font-style: italic;
@@ -491,12 +359,12 @@
   }
 }
 
-/* ───── CTA ───── */
+// Pulsanti call to action
 .cta-button {
   --background: var(--color-primary);
   --color: var(--color-highlight);
   font-size: 1rem;
   font-weight: 800;
   height: 52px;
-  margin:0;
+  margin: 0;
 }

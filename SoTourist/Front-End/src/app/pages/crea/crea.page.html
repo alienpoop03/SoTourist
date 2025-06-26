@@ -2,7 +2,7 @@
 
 <ion-content class="crea-content">
 
-  <!-- Riepilogo in alto solo per step 1–3 -->
+  <!-- Riepilogo in alto (visibile solo nei primi step) -->
   <div class="riepilogo-header show" *ngIf="step < 4">
     <div class="circle-icon">
       <ion-icon name="airplane"></ion-icon>
@@ -24,80 +24,81 @@
     </div>
   </div>
 
-  <!-- Steps wrapper -->
   <div class="steps-wrapper" [style.transform]="'translateX(-' + (step - 1) * 100 + 'vw)'">
 
-    <!-- STEP 1: CITTÀ -->
+    <!-- STEP 1: scelta città -->
     <div class="step-card prima-card">
       <h2>In quale città sei?</h2>
-      <app-google-autocomplete placeholder="Città" [types]="['(cities)']" [restrictToBounds]="false"
-        [(value)]="cityInput" (placeSelected)="handleCityPlace($event)" (valueChange)="isCityValid = false">
+      <app-google-autocomplete
+        placeholder="Città"
+        [types]="['(cities)']"
+        [restrictToBounds]="false"
+        [(value)]="cityInput"
+        (placeSelected)="handleCityPlace($event)"
+        (valueChange)="isCityValid = false">
       </app-google-autocomplete>
       <button class="next-btn" [disabled]="!isCityValid" (click)="step = 2">Avanti</button>
     </div>
 
-    <!-- STEP 2: ALLOGGIO -->
+    <!-- STEP 2: scelta alloggio -->
     <div class="step-card">
       <h2>Dove alloggi?</h2>
       <ion-segment [(ngModel)]="accommodationMode" value="hotel">
         <ion-segment-button value="hotel"><ion-label>Hotel</ion-label></ion-segment-button>
         <ion-segment-button value="address"><ion-label>Indirizzo</ion-label></ion-segment-button>
       </ion-segment>
-      <app-google-autocomplete placeholder="Nome o indirizzo alloggio"
-        [types]="accommodationMode === 'hotel' ? ['lodging'] : ['address']" [bounds]="cityBounds"
-        [restrictToBounds]="true" [(value)]="accommodationInput"
-        (placeSelected)="handleAccommodationPlace($event)" (valueChange)="isAccommodationValid = false">
+      <app-google-autocomplete
+        placeholder="Nome o indirizzo alloggio"
+        [types]="accommodationMode === 'hotel' ? ['lodging'] : ['address']"
+        [bounds]="cityBounds"
+        [restrictToBounds]="true"
+        [(value)]="accommodationInput"
+        (placeSelected)="handleAccommodationPlace($event)"
+        (valueChange)="isAccommodationValid = false">
       </app-google-autocomplete>
       <button class="prev-btn" (click)="prevStep()">Indietro</button>
-      <button class="next-btn" [disabled]="!isAccommodationValid" (click)="setAccommodation(accommodationInput)">
-        Avanti
-      </button>
+      <button class="next-btn" [disabled]="!isAccommodationValid" (click)="setAccommodation(accommodationInput)">Avanti</button>
     </div>
 
-    <!-- STEP 3: DATE -->
+    <!-- STEP 3: scelta date -->
     <div class="step-card ultima-card">
       <h2>Quando?</h2>
-      <app-range-calendar-lite [minDate]="today" (datesSelected)="onDatesSelected($event)">
-      </app-range-calendar-lite>
+      <app-range-calendar-lite [minDate]="today" (datesSelected)="onDatesSelected($event)"></app-range-calendar-lite>
       <button class="prev-btn" (click)="prevStep()">Indietro</button>
-      <button class="next-btn" [disabled]="!datesInput.start || !datesInput.end"
-        (click)="setDates(datesInput.start, datesInput.end)">
-        Avanti
-      </button>
+      <button class="next-btn" [disabled]="!datesInput.start || !datesInput.end" (click)="setDates(datesInput.start, datesInput.end)">Avanti</button>
     </div>
 
- <!-- STEP 4: RIEPILOGO E CONFERMA -->
-<div class="step-card ultima-card final-step-pulita">
-  <!-- Riepilogo semplice -->
-  <div class="riepilogo-header riepilogo-final show" *ngIf="city">
-    <div class="circle-icon">
-      <ion-icon name="airplane"></ion-icon>
-    </div>
-    <div class="trip-info">
-      <span class="trip-city">{{ city }}</span>
-      <div class="trip-details">
-        <span *ngIf="accommodation">
-          <span class="trip-detail-label">Alloggio:</span>
-          <span class="trip-detail-val">{{ accommodation }}</span>
-        </span>
-        <span *ngIf="dates.start">
-          <span class="trip-detail-label">Date:</span>
-          <span class="trip-detail-val">
-            {{ dates.start | date:'dd/MM/yyyy' }} - {{ dates.end | date:'dd/MM/yyyy' }}
-          </span>
-        </span>
+    <!-- STEP 4: riepilogo e conferma -->
+    <div class="step-card ultima-card final-step-pulita">
+
+      <!-- Riepilogo finale -->
+      <div class="riepilogo-header riepilogo-final show" *ngIf="city">
+        <div class="circle-icon">
+          <ion-icon name="airplane"></ion-icon>
+        </div>
+        <div class="trip-info">
+          <span class="trip-city">{{ city }}</span>
+          <div class="trip-details">
+            <span *ngIf="accommodation">
+              <span class="trip-detail-label">Alloggio:</span>
+              <span class="trip-detail-val">{{ accommodation }}</span>
+            </span>
+            <span *ngIf="dates.start">
+              <span class="trip-detail-label">Date:</span>
+              <span class="trip-detail-val">
+                {{ dates.start | date:'dd/MM/yyyy' }} - {{ dates.end | date:'dd/MM/yyyy' }}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pulsanti finali -->
+      <div class="riepilogo-btns-col">
+        <button class="prev-btn" (click)="prevStep()">Indietro</button>
+        <button class="next-btn conferma" (click)="confirm()">Conferma</button>
       </div>
     </div>
-  </div>
-
-  <!-- Pulsanti -->
-  <div class="riepilogo-btns-col">
-    <button class="prev-btn" (click)="prevStep()">Indietro</button>
-    <button class="next-btn conferma" (click)="confirm()">Conferma</button>
-  </div>
-</div>
-
-
 
   </div>
 </ion-content>

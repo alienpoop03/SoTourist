@@ -1,61 +1,56 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
-
-import {
-  IonContent,
-
-  IonInput,
-  IonButton,
-
-} from '@ionic/angular/standalone';
-import { AppHeaderComponent } from '../../components/header/app-header.component';
-import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
+import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     IonContent,
-    
     IonInput,
-    
-    IonButton,
-   
-    IonContent,
-
-    CommonModule,
-    FormsModule,
-    ProfileIconComponent,
-  ]
+    IonButton
+  ],
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
-  constructor(private auth: AuthService, private router: Router, private toastService: ToastService) {}
-
-  
-  //username: string = '';
+  // dati di input
   email: string = '';
-  password: string = ''
-  profileImageUrl: string | null = null;
+  password: string = '';
 
-  onImageSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.[0]) {
-      const reader = new FileReader();
-      reader.onload = e => (this.profileImageUrl = (e.target as any).result);
-      reader.readAsDataURL(input.files[0]);
+  @ViewChild('passwordInput', { static: false }) passwordInputRef!: IonInput;
+
+  ngOnInit() {
+    // nulla da inizializzare
+  }
+
+  // focus sul campo password dopo invio su email
+  focusPassword() {
+    if (this.passwordInputRef) {
+      this.passwordInputRef.getInputElement().then(input => input?.focus());
     }
   }
 
+  // invoca login su invio nella password
+  triggerLogin() {
+    if (this.email && this.password) {
+      this.saveProfile();
+    }
+  }
+
+  // salva sessione o mostra errore
   async saveProfile() {
     if (!this.email || !this.password) {
       this.toastService.showWarning('Inserisci email e password');
@@ -63,14 +58,11 @@ export class LoginPage implements OnInit {
     }
 
     const bcrypt = await import('bcryptjs');
-    const passwordHash = bcrypt.hashSync(this.password, 10);
+    bcrypt.hashSync(this.password, 10);
 
     this.auth.login(this.email, this.password).subscribe({
-      next: (res) => {
-        this.auth.saveSession(res.userId, {
-          username: res.username,
-          email: this.email
-        });
+      next: res => {
+        this.auth.saveSession(res.userId, { username: res.username, email: this.email });
         const redirect = localStorage.getItem('redirectAfterLogin');
         if (redirect) {
           localStorage.removeItem('redirectAfterLogin');
@@ -85,17 +77,15 @@ export class LoginPage implements OnInit {
     });
   }
 
-
+  // naviga a registrazione
   goToRegister() {
     this.router.navigateByUrl('/registrazione');
   }
 
+  // login come ospite
   loginAsGuest() {
     const guestId = 'guest_' + Date.now();
-    this.auth.saveSession(guestId, {
-      username: 'Ospite',
-      email: ' '
-    });
+    this.auth.saveSession(guestId, { username: 'Ospite', email: '' });
     const redirect = localStorage.getItem('redirectAfterLogin');
     if (redirect) {
       localStorage.removeItem('redirectAfterLogin');
@@ -104,25 +94,4 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/tabs/home']);
     }
   }
-
-
-  ngOnInit() {
-  }
-
-  @ViewChild('passwordInput', { static: false }) passwordInputRef!: IonInput;
-
-  focusPassword() {
-    if (this.passwordInputRef) {
-      this.passwordInputRef.getInputElement().then(input => input?.focus());
-    } else {
-      console.warn('passwordInputRef non trovato!');
-    }
-  }
-
-  triggerLogin() {
-    if (this.email && this.password) {
-      this.saveProfile();
-    }
-  }
-
 }

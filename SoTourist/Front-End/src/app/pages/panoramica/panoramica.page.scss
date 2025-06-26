@@ -1,12 +1,4 @@
-:host ::ng-deep ion-content {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-:host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
-  display: none !important;
-}
-
+// contenuto pagina panoramica
 .itinerario-content {
   background: var(--color-background);
   height: 100vh;
@@ -14,6 +6,7 @@
   flex-direction: column;
 }
 
+// hero in alto con copertina e titolo
 .hero {
   position: sticky;
   top: 0;
@@ -53,6 +46,7 @@
   }
 }
 
+// info aggiuntive sotto il titolo
 .hero-info {
   display: flex;
   justify-content: space-between;
@@ -66,6 +60,7 @@
   }
 }
 
+// lista giorni
 .day-list {
   padding: 1rem;
   padding-bottom: 300px;
@@ -77,6 +72,7 @@
   color: var(--color-text2);
 }
 
+// timeline verticale tra i giorni
 .timeline-entry {
   position: relative;
   margin-bottom: 1.5rem;
@@ -103,6 +99,7 @@
   }
 }
 
+// card di ogni giorno
 .day-card {
   margin-left: 2.5rem;
   margin-right: 1rem;
@@ -148,6 +145,7 @@
   }
 }
 
+// barra di avanzamento delle attività del giorno
 .day-progress {
   display: flex;
   margin: 0 1rem 1rem;
@@ -166,14 +164,16 @@
       margin-left: 2px;
     }
 
-    .fill {
+    .fill{
       position: absolute;
       top: 0;
       left: 0;
       bottom: 0;
       background: #7B1E1E;
       width: 0%;
-      transition: width 0.3s ease;
+      &.completed{
+        transition: width 0.3s ease;
+      }
     }
   }
 }

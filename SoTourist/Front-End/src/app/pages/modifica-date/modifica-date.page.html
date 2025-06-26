@@ -2,18 +2,20 @@
 
 <ion-content class="modifica-date-content" fullscreen>
   <div class="container" *ngIf="trip">
-    <!--<h1 id="title" >Modifica le date</h1>-->
 
+    <!-- info sulla città -->
     <p class="trip-info">
       <strong>Città:</strong> {{ getFormattedCity() }}
     </p>
 
+    <!-- calendario per selezione date -->
     <app-range-calendar-lite
       [minDate]="today"
       [maxDays]="maxDays"
       (datesSelected)="onDatesSelected($event)">
     </app-range-calendar-lite>
 
+    <!-- mostra le nuove date selezionate -->
     <div class="selected-dates" *ngIf="newStartDate && newEndDate">
       <p>
         <strong>Nuove date selezionate:</strong><br>

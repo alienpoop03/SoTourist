@@ -33,10 +33,11 @@
     --background: var(--color-background4);
     --color: var(--color-highlight);
   }
+
   ion-list-header {
     --color: var(--color-text);
-     font-weight: bold;
-     font-size: 1.1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
   }
 }
 
@@ -45,7 +46,7 @@
   color: var(--color-text2);
 }
 
-
+// Effetto toggle dark mode icona
 .dark-toggle-item {
 
   .dark-icon {
@@ -55,6 +56,4 @@
   &.dark-mode-active .dark-icon {
     transform: rotate(-25deg);
   }
-
 }
-

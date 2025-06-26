@@ -25,6 +25,7 @@ import { getPhotoUrl } from 'src/app/utils/photo-utils';
   styleUrls: ['./panoramica.page.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+
 export class PanoramicaPage {
   @ViewChild(IonContent, { static: true }) content!: IonContent;
   @ViewChild('hero', { static: true }) heroEl!: ElementRef;
@@ -46,25 +47,24 @@ export class PanoramicaPage {
     private photoService: PhotoService
   ) { }
 
+  // Inizializza pagina e carica dati itinerario
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const id = params['id'];
       if (!id) return;
 
       this.itineraryId = id;
-      this.loadItinerary(); // 🔁 ricarica ogni volta che l'id cambia
+      this.loadItinerary();
     });
   }
 
-
+  // Carica l’itinerario dal backend
   loadItinerary() {
     this.itineraryService.getItineraryById(this.itineraryId).subscribe({
       next: (res) => {
         this.trip = res;
         this.daysCount = this.calculateDays(res.startDate, res.endDate);
-
         this.heroPhotoUrl = getPhotoUrl(res.coverPhoto);
-
       },
       error: (err) => {
         console.error('Errore caricamento itinerario:', err);
@@ -73,6 +73,7 @@ export class PanoramicaPage {
     });
   }
 
+  // Vai alla pagina della mappa per il giorno selezionato
   openDay(index: number) {
     this.router.navigate(['/map'], {
       queryParams: {
@@ -84,12 +85,14 @@ export class PanoramicaPage {
     });
   }
 
+  // Calcola la data del giorno index-esimo
   getDayDate(index: number): Date {
     const start = new Date(this.trip.startDate);
     start.setDate(start.getDate() + index);
     return start;
   }
 
+  // Restituisce le attività del giorno
   getDayItems(index: number): string[] {
     const day = this.trip?.itinerary?.[index];
     if (!day) return [];
@@ -105,28 +108,25 @@ export class PanoramicaPage {
     ].filter(Boolean);
   }
 
+  // Controlla se la fascia oraria è “completata”
   isStepCompleted(dayIndex: number, step: 'morning' | 'afternoon' | 'evening'): boolean {
     const today = new Date();
-    const dayDate = this.getDayDate(dayIndex);  // metodo già aggiunto
+    const dayDate = this.getDayDate(dayIndex);
     const hour = today.getHours();
-    console.log(`Day ${dayIndex}, step ${step}, ora attuale ${hour}`);
 
-    // giorno passato → tutto completo
     if (dayDate < this.clearTime(today)) return true;
-    // giorno futuro → niente completo
     if (dayDate > this.clearTime(today)) return false;
-
-    // siamo sul giorno corrente
 
     const thresholds = { morning: 12, afternoon: 18, evening: 23 };
     return hour >= thresholds[step];
   }
 
-  /** Azzeri ore/minuti/secondi per comparazioni “solo data” */
-  private clearTime(d: Date): Date {
+  // azzera ore/minuti/secondi per confrontare solo la data
+  clearTime(d: Date): Date {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   }
 
+  // Calcola quanti giorni ha l’itinerario
   private calculateDays(start: string, end: string): number {
     const startDate = new Date(start);
     const endDate = new Date(end);
@@ -134,6 +134,7 @@ export class PanoramicaPage {
     return diff + 1;
   }
 
+  // Vai alla pagina di personalizzazione giorno
   vaiAPersonalizzazione() {
     this.router.navigate(['/personalizzazione'], {
       queryParams: {
@@ -146,25 +147,25 @@ export class PanoramicaPage {
     });
   }
 
+  // Formattazione stringa città
   getFormattedCity(): string {
     return getCityName(this.trip?.city || '');
   }
 
+  // Formattazione stringa alloggio
   getFormattedAccommodation(): string {
     return getAccommodationName(this.trip?.accommodation || '');
   }
 
-  /** Restituisce la % di completamento del segmento */
+  // restituisce la % di completamento del segmento (barra di progresso)
   getStepProgress(dayIndex: number, step: 'morning' | 'afternoon' | 'evening'): number {
     const now = new Date();
     const dayDate = this.clearTime(this.getDayDate(dayIndex));
     const today = this.clearTime(now).getTime();
 
-    // passato → 100%, futuro → 0%
     if (dayDate.getTime() < today) return 100;
     if (dayDate.getTime() > today) return 0;
 
-    // ora corrente (ms)
     const current = now.getTime();
 
     // definisci in ms inizio/fine di ogni segmento
@@ -186,10 +187,7 @@ export class PanoramicaPage {
 
     if (current <= segStart) return 0;
     if (current >= segEnd) return 100;
-    // percentuale:
+
     return Math.round((current - segStart) / (segEnd - segStart) * 100);
   }
-
-
-
 }

@@ -1,4 +1,4 @@
-/* CONTAINER PRINCIPALE */
+// Container principale e step
 .crea-content {
   min-height: 100vh;
   width: 100vw;
@@ -17,7 +17,7 @@ ion-content.crea-content {
   background: var(--color-background4) !important;
 }
 
-/* HEADER ADATTATO */
+// Header riepilogo step
 .riepilogo-header {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -98,14 +98,14 @@ ion-content.crea-content {
   margin-right: 1em;
 }
 
-/* WRAPPER STEP */
+// Wrapper steps
 .steps-wrapper {
   display: flex;
   width: 400vw;
   transition: transform 0.5s ease-in-out;
 }
 
-/* STEP CARD */
+// Step card, uno per ogni step
 .step-card {
   flex: 0 0 100vw;
   display: flex;
@@ -221,7 +221,7 @@ ion-content.crea-content {
   margin-bottom: 0.2rem;
 }
 
-/* Autocomplete container di Google */
+// Google autocomplete menu overlay
 .pac-container {
   z-index: 9999 !important;
   position: absolute !important;
@@ -230,7 +230,7 @@ ion-content.crea-content {
   transform: translateY(10px);
 }
 
-/* Spazio per header fisso */
+// Spazio per header fisso (se serve)
 .card-spacer {
   height: 74px;
   margin-bottom: 2rem;
@@ -238,7 +238,7 @@ ion-content.crea-content {
   flex-shrink: 0;
 }
 
-/* STEP 4 - layout speciale solo qui */
+// Step 4: layout riepilogo finale
 .step-card.final-step-pulita {
   width: 100%;
   max-width: none;
@@ -254,7 +254,7 @@ ion-content.crea-content {
   align-items: center;
 }
 
-/* BLOCCO RIEPILOGO COMPATTATO IN LARGHEZZA */
+// Blocco riepilogo step finale
 .riepilogo-header.riepilogo-final {
   width: 100%;
   max-width: 420px;
@@ -311,7 +311,7 @@ ion-content.crea-content {
   flex-wrap: wrap;
 }
 
-/* Pulsanti centrati verticalmente + modifiche */
+// Pulsanti centrati nel riepilogo finale
 .riepilogo-btns-col {
   display: flex;
   flex-direction: column;

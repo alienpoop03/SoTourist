@@ -1,5 +1,4 @@
-
-
+// Avatar (non usato di default, ma lasciato per eventuale profilo)
 .avatar-container {
   display: flex;
   justify-content: center;
@@ -7,6 +6,7 @@
   margin-bottom: 1.5rem;
 }
 
+// Container principale della pagina login
 .login-container {
   display: flex;
   flex-direction: column;
@@ -17,6 +17,7 @@
   padding: 2rem;
 }
 
+// Blocco form di login
 .form-block {
   background: var(--color-background2);
   padding: 2rem;
@@ -28,6 +29,7 @@
   flex-direction: column;
   gap: 1rem;
 
+  // Stili dei campi input nel form
   ion-input {
     --background: var(--color-background);
     --color: var(--color-text1);
@@ -37,16 +39,16 @@
     --border-color: var(--color-text2);
     --padding-start: 1rem;
     --padding-end: 1rem;
-    
   }
 
+  // Stili per i pulsanti nel form
   ion-button {
     margin-top: 1rem;
     --border-radius: var(--box-radius);
   }
-  
 }
 
+// Pulsante di registrazione sotto il form
 .register-button {
   margin-top: 1rem;
   font-size: 0.9rem;
@@ -54,17 +56,14 @@
   text-align: center;
 }
 
-//logo
+// Logo SoTourist sopra il form
 .logo-img {
   text-align: center;
-  //margin-top: 2rem;
   margin-bottom: 1.5rem;
-  
 
   img {
     background-color: var(--color-primary);
     border-radius: 26px;
-    //max-width: 00px;
     height: auto;
   }
 }

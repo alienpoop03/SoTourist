@@ -1,23 +1,26 @@
 <app-navigation-bar title="Impostazioni" [backUrl]="'/tabs/settings'"></app-navigation-bar>
 
 <ion-content class="ion-padding settings-content">
+
+  <!-- Box preferenze principali -->
   <ion-list lines="inset" class="settings-boxes">
-    
+
     <ion-list-header>Preferenze</ion-list-header>
 
-    <ion-item lines="inset" class="dark-toggle-item"  [class.dark-mode-active]="!darkMode">
+    <!-- Toggle tema chiaro/scuro -->
+    <ion-item lines="inset" class="dark-toggle-item" [class.dark-mode-active]="!darkMode">
       <ion-icon [name]="darkMode ? 'moon' : 'sunny'" slot="start" class="dark-icon"></ion-icon>
       <ion-label>{{ darkMode ? 'Tema scuro' : 'Tema chiaro' }}</ion-label>
-      <!--<ion-toggle slot="end" [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()" class="dark-toggle"></ion-toggle>-->
       <app-toggle slot="end" [(ngModel)]="darkMode" (change)="toggleDarkMode()"></app-toggle>
     </ion-item>
 
+    <!-- Scelta lingua -->
     <ion-item lines="none">
       <ion-icon name="language-outline" slot="start"></ion-icon>
       <ion-label>Lingua</ion-label>
       <ion-select slot="end" interface="popover" [(ngModel)]="language" (ionChange)="changeLanguage()">
         <ion-select-option value="it">Italiano</ion-select-option>
-        <!--<ion-select-option value="en">English</ion-select-option>-->
+        <!-- <ion-select-option value="en">English</ion-select-option> -->
       </ion-select>
     </ion-item>
 
