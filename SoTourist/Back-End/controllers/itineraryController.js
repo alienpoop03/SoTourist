@@ -3,6 +3,7 @@ const path = require("path");
 require("dotenv").config();
 const axios = require("axios");
 const { getOrDownloadPhoto } = require("../services/photoManager");
+const generateId = require("../utils/idGenerator");
 
 const haversine = (a, b) => {
   const R = 6371000;
@@ -31,7 +32,7 @@ const buildPlaceObj = (place, key) => {
   }
 
   return {
-    placeId: place.place_id,
+    placeId: generateId("placeAdded_"),
     name: place.name,
     address: place.vicinity || place.formatted_address,
     rating: place.rating ?? null,
