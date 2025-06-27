@@ -2,6 +2,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
+  <!-- Lista viaggi passati -->
   <ng-container *ngIf="pastTrips.length > 0; else noTrips">
     <div class="trip-list">
       <app-trip-card
@@ -13,13 +14,12 @@
     </div>
   </ng-container>
 
+  <!-- Messaggio nessun viaggio -->
   <ng-template #noTrips>
     <ion-text color="medium">
       <p class="text-center">Non hai ancora viaggi passati.</p>
     </ion-text>
   </ng-template>
-  <div class="with-floating-tabs"></div>
 
   <div class="with-floating-tabs"></div>
 </ion-content>
-

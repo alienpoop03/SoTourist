@@ -1,22 +1,19 @@
-
 ion-tab-bar {
-  --background: var(--tabs-background) !important;       /* Bordeaux */
-  --color: var(--tabs-icon) !important;            /* Giallo per le icone non selezionate */
-  --color-selected: var(--tabs-icon) !important;   /* Giallo per le icone selezionate */
-  
+  --background: var(--tabs-background) !important;
+  --color: var(--tabs-icon) !important;
+  --color-selected: var(--tabs-icon) !important;
   position: absolute;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 32px); // margine laterale
-  max-width: 400px; 
+  width: calc(100% - 32px);
+  max-width: 400px;
   border-radius: var(--box-radius);
   height: 56px;
-  box-shadow: 0 0px 16px rgba(0, 0, 0, 0.15);
   padding: 0px 0;
   z-index: 100;
   gap: 12px;
-  box-shadow: 0 0px 13px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--box-shadow);
 }
 
 ion-tab-button {
@@ -25,12 +22,9 @@ ion-tab-button {
   --ripple-color: transparent;
 }
 
-
-
 ion-tab-button ion-icon {
-  color: var(---tabs-icon) !important;
+  color: var(--tabs-icon) !important;
 }
-
 
 ion-tab-button ion-label {
   color: var(--tabs-icon) !important;
@@ -49,20 +43,16 @@ ion-tab-button.ion-selected::before {
   bottom: 0px;
   left: 0px;
   right: 0px;
-  background-color: var(--tabs-select); 
+  background-color: var(--tabs-select);
   border-radius: var(--box-radius);
   z-index: -1;
   transition: 0.3s ease;
 }
-  
-//inclinazione aereo
+
 ion-tab-button .airplane-icon {
   transform: rotate(-30deg);
 }
 
-
-
-//sritte
 .tab-with-tooltip {
   position: relative;
 }
@@ -72,7 +62,7 @@ ion-tab-button .airplane-icon {
     content: attr(data-label);
     position: absolute;
     top: 50%;
-    margin-top: 9px; 
+    margin-top: 9px;
     left: 50%;
     transform: translateX(-50%);
     background-color: transparent;
@@ -82,13 +72,12 @@ ion-tab-button .airplane-icon {
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.3s ease;
   }
 }
 
 .tab-with-tooltip:hover::after {
   opacity: 1;
-  animation: tooltip-delay 1.2s ease forwards;
 }
 
 @keyframes tooltip-delay {

@@ -9,13 +9,9 @@ import {
   IonList,
   IonItem,
   IonLabel,
-  IonToggle,
   IonIcon,
-  IonInput,
   IonBadge,
   IonButton,
-  IonSelect,
-  IonSelectOption,
 } from '@ionic/angular/standalone';
 import { AppHeaderComponent } from '../../components/header/app-header.component';
 import { Router } from '@angular/router';
@@ -34,15 +30,11 @@ import { AuthService } from '../../services/auth.service';
     IonList,
     IonItem,
     IonLabel,
-    IonToggle,
     IonIcon,
-    IonInput,
     IonBadge,
     IonButton,
-  RouterModule,
+    RouterModule,
     AppHeaderComponent,
-    IonSelect,
-    IonSelectOption,
     ProfileIconComponent,
   ],
   templateUrl: './settings.page.html',
@@ -50,230 +42,96 @@ import { AuthService } from '../../services/auth.service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SettingsPage {
-  constructor(private authService: AuthService, private alertCtrl: AlertController, private router: Router) {}
 
-
-  /* profilo */
+  // Dati profilo utente (solo quelli effettivamente visualizzati)
   userId: string = '';
   username = '';
   email = '';
-  password = '';
-  profileImageUrl: string | null = null;
-  editing = false;
   isGuest = false;
+  subscriptionPlan: string = 'Standard';
 
-  /* preferenze */
-  darkMode = false;
-  notificationsEnabled = true;
-  autoSync = false;
-  language: 'it' | 'en' = 'it';
-  lastSync: Date | null = null;
-
-  subscriptionPlan: string = 'Standard'; // o 'Premium'
-  subscriptionExpiry: Date | null = null;
-
-  /* Metodi Profilo*/
-  saveProfile() {
-    this.editing = false;
-    console.log('Profilo salvato', {
-      username: this.username,
-      email: this.email,
-    });
-  }
-
-  onImageSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.[0]) {
-      const reader = new FileReader();
-      reader.onload = e => (this.profileImageUrl = (e.target as any).result);
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
-  triggerFileInput() {
-    document.querySelector<HTMLInputElement>('input[type=file]')?.click();
-  }
-
-  /*Preferenze*/
-  toggleDarkMode() {
-    /*document.body.classList.toggle('dark', this.darkMode);
-    localStorage.setItem('darkMode', String(this.darkMode));*/
-    localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
-
-    if (this.darkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  }
-
-  toggleNotifications() {
-    console.log('Notifiche:', this.notificationsEnabled);
-  }
-
-  toggleAutoSync() {
-    console.log('AutoSync:', this.autoSync);
-  }
-
-  changeLanguage() {
-    console.log('Lingua cambiata:', this.language);
-  }
-
-  manualSync() {
-    this.lastSync = new Date();
-    console.log('Sincronizzazione manuale eseguita');
-  }
-
-  async confirmLogout() {
-    const alert = await this.alertCtrl.create({
-      header: 'Logout',
-      message: 'Vuoi davvero uscire?',
-      buttons: [
-        {
-          text: 'Annulla',
-          role: 'cancel'
-        },
-        {
-          text: 'Logout',
-          role: 'destructive',
-          handler: () => this.logout()
-        }
-      ],
-      cssClass: 'custom-logout-alert',
-    });
-
-    await alert.present();
-  }
-
-  logout() {
-   console.log('❗ Logout effettuato');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userProfile');
-    this.router.navigate(['/login'], { replaceUrl: true });
-  }
-
-  async confirmDeleteAccount() {
-    const alert = await this.alertCtrl.create({
-      header: 'Elimina account',
-      message: 'Questa azione è irreversibile. Sei sicuro di voler procedere?',
-      buttons: [
-        {
-          text: 'Annulla',
-          role: 'cancel'
-        },
-        {
-          text: 'Elimina',
-          role: 'destructive',
-          handler: () => this.deleteAccount()
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  changePassword() {
-    console.log('Cambia password');
-  }
-
+  // Stato modali
   showAboutModal = false;
-
-  openAbout() {
-    this.showAboutModal = true;
-    this.showAboutModalPrivacy = false;
-  }
-
   showAboutModalPrivacy = false;
 
-  openPrivacy() {
-    this.showAboutModalPrivacy = true;
-    this.showAboutModal = false;
-  }
+  constructor(private authService: AuthService, private alertCtrl: AlertController, private router: Router) {}
 
-  private refreshTrips(): void { 
+  // Ricarica i dati utente e abbonamento da localStorage/backend
+  private refreshProfile(): void {
     this.isGuest = !!this.authService.getUserId()?.startsWith('guest_');
 
-    const saved = localStorage.getItem('darkMode');
-    this.darkMode = saved === 'true'; 
-
-    if (this.darkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-
-    // ✅ Carica dati profilo
     const profile = localStorage.getItem('userProfile');
     if (profile) {
       const parsed = JSON.parse(profile);
       this.userId = localStorage.getItem('userId') || '';
       this.username = parsed.username || '';
       this.email = parsed.email || '';
-    } 
+    }
 
     if (this.userId) {
       this.authService.getUserType(this.userId).subscribe({
         next: (res) => {
           const type = res.type || 'standard';
-          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1); // Capitalizza la prima lettera
-          this.subscriptionExpiry = res.subscriptionEndDate ? new Date(res.subscriptionEndDate) : null;
+          this.subscriptionPlan = type.charAt(0).toUpperCase() + type.slice(1);
         },
-        error: (err) => {
-          console.error('Errore nel recupero tipo abbonamento:', err);
+        error: () => {
+          console.log('Errore nel recupero tipo abbonamento');
           this.subscriptionPlan = 'Standard';
-          this.subscriptionExpiry = null;
         }
       });
     }
   }
 
-  ngOnInit() {
-    this.refreshTrips();
+  private popstateHandler = () => this.refreshProfile();
 
-    window.addEventListener('popstate', () => {
-      this.refreshTrips();
-    });
+  ngOnInit() {
+    this.refreshProfile();
+    window.addEventListener('popstate', this.popstateHandler);
   }
 
   ngOnDestroy() {
-    window.removeEventListener('popstate', this.refreshTrips);
+    window.removeEventListener('popstate', this.popstateHandler);
   }
 
   ionViewWillEnter(): void {
-    this.refreshTrips(); 
+    this.refreshProfile();
   }
 
-  ionViewDidEnter(): void {
-    this.refreshTrips();
+  // Mostra modale Info & versione
+  openAbout() {
+    this.showAboutModal = true;
+    this.showAboutModalPrivacy = false;
   }
 
-  deleteAccount() {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      console.error('Nessun utente loggato');
-      return;
-    }
-
-    console.log(`URL chiamato: http://localhost:3000/api/auth/users/${userId}`);
-
-    fetch(`http://localhost:3000/api/auth/users/${userId}`, {
-      method: 'DELETE'
-    })
-      .then((res) => {
-        if (res.ok) {
-          console.log('✅ Account eliminato');
-          localStorage.clear(); // oppure rimuovi solo userId e userProfile
-          this.router.navigate(['/login'], { replaceUrl: true });
-        } else {
-          throw new Error('Errore nella cancellazione');
-        }
-      })
-      .catch((err) => {
-        console.error('❌ Errore durante l\'eliminazione dell\'account:', err);
-        alert('Errore durante l\'eliminazione dell\'account.');
-      });
+  // Mostra modale Privacy
+  openPrivacy() {
+    this.showAboutModalPrivacy = true;
+    this.showAboutModal = false;
   }
 
+  // Conferma logout
+  async confirmLogout() {
+    const alert = await this.alertCtrl.create({
+      header: 'Logout',
+      message: 'Vuoi davvero uscire?',
+      buttons: [
+        { text: 'Annulla', role: 'cancel' },
+        { text: 'Logout', role: 'destructive', handler: () => this.logout() }
+      ],
+      cssClass: 'custom-logout-alert',
+    });
+    await alert.present();
+  }
+
+  // Esegue logout
+  logout() {
+    console.log('Logout effettuato');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userProfile');
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
+
+  // Restituisce la classe del badge in base al piano abbonamento
   getBadgeClass(plan: string): string {
     switch (plan?.toLowerCase()) {
       case 'premium':
@@ -283,8 +141,7 @@ export class SettingsPage {
       case 'standard':
         return 'badge-standard';
       default:
-        return 'medium'; 
+        return 'medium';
     }
   }
-
 }

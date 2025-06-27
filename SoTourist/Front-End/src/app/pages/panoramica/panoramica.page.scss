@@ -6,6 +6,16 @@
   flex-direction: column;
 }
 
+// Scrollbar nascosta per tutti i browser
+:host ::ng-deep ion-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:host ::ng-deep ion-content::part(scroll)::-webkit-scrollbar {
+  display: none !important;
+}
+
 // hero in alto con copertina e titolo
 .hero {
   position: sticky;
