@@ -15,7 +15,7 @@ import { NavigationBarComponent } from '../../components/navigation-bar/navigati
 import { ToggleComponent } from 'src/app/components/toggle/toggle.component';
 
 @Component({
-  selector: 'app-impostazioni',
+  selector: 'app-avanzate',
   standalone: true,
   imports: [
     CommonModule,
@@ -31,10 +31,10 @@ import { ToggleComponent } from 'src/app/components/toggle/toggle.component';
     NavigationBarComponent,
     ToggleComponent,
   ],
-  templateUrl: './impostazioni.page.html',
-  styleUrls: ['./impostazioni.page.scss']
+  templateUrl: './avanzate.page.html',
+  styleUrls: ['./avanzate.page.scss']
 })
-export class ImpostazioniPage {
+export class AvanzatePage {
 
   // Stato locale delle preferenze
   darkMode = false;

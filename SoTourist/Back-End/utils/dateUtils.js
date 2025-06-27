@@ -1,4 +1,3 @@
-// utils/dateUtils.js
 function datesOverlap(start1, end1, start2, end2) {
   return (
     new Date(start1) <= new Date(end2) &&

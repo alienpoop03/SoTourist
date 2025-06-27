@@ -26,7 +26,7 @@ router.post('/users/:userId/itineraries/:itineraryId/places', tripController.add
 // check 
 router.get('/users/:userId/itineraries/check-overlap', tripController.checkDateOverlap);
 
-// PUT tappe intere → sovrascrive
+// PUT tappe intere, sovrascrive
 router.put('/users/:userId/itineraries/:itineraryId/places', tripController.updateItineraryPlaces);
 
 router.post('/itineraries/:itineraryId/copy/:userId', tripController.copyItinerary);

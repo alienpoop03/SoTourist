@@ -1,11 +1,9 @@
-//const fs = require('fs');
-//const path = require('path');
 const generateId = require('../utils/idGenerator');
 const db = require('../db/connection');
 const { checkOverlap } = require('../utils/dateUtils');
 const { getOrDownloadPhoto, getCityCoverPhoto } = require('../services/photoManager');
 
-
+// Verifica sovrapposizione date
 function datesOverlap(start1, end1, start2, end2) {
   return (
     new Date(start1) <= new Date(end2) &&
@@ -13,8 +11,7 @@ function datesOverlap(start1, end1, start2, end2) {
   );
 }
 
-
-// GET: tutti gli itinerari di un utente
+// Itinerari utente filtrati
 exports.getItineraries = (req, res) => {
   const { userId } = req.params;
   const filter = req.query.filter || 'all';
@@ -29,7 +26,6 @@ exports.getItineraries = (req, res) => {
       case 'current':
         result = itineraries.filter(it => it.startDate <= today && it.endDate >= today);
         break;
-
       case 'upcoming': {
         const upcoming = itineraries
           .filter(it => it.startDate > today)
@@ -37,19 +33,16 @@ exports.getItineraries = (req, res) => {
         result = upcoming.length > 0 ? [upcoming[0]] : [];
         break;
       }
-
       case 'future': {
         const sorted = itineraries
           .filter(it => it.startDate > today)
           .sort((a, b) => a.startDate.localeCompare(b.startDate));
-        result = sorted.slice(1); // Rimuove l'imminente
+        result = sorted.slice(1);
         break;
       }
-
       case 'past':
         result = itineraries.filter(it => it.endDate < today);
         break;
-
       case 'all':
       default:
         result = itineraries;
@@ -60,7 +53,7 @@ exports.getItineraries = (req, res) => {
   });
 };
 
-// POST: aggiunge un itinerario
+// Aggiungi itinerario
 exports.addItinerary = async (req, res) => {
   const { userId } = req.params;
   const newItinerary = req.body;
@@ -81,20 +74,18 @@ exports.addItinerary = async (req, res) => {
       return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
     }
 
-    // 📸 Cover dinamica (con funzione pulita)
     let coverPhoto = '';
     try {
       const coverPath = await getCityCoverPhoto(newItinerary.city);
       if (coverPath) {
-        coverPhoto = coverPath?.split('/').pop(); // salva solo "palermo.jpg"
+        coverPhoto = coverPath?.split('/').pop();
       }
     } catch (errCover) {
-      console.warn('⚠️ Errore download cover:', errCover.message);
+      console.warn('Errore download cover:', errCover.message);
     }
 
-
     const itineraryId = generateId('trip_');
-    console.log('🧾 CAMPI che sto salvando nel DB:');
+    console.log('CAMPI che sto salvando nel DB:');
     console.log({
       itineraryId,
       userId,
@@ -103,7 +94,7 @@ exports.addItinerary = async (req, res) => {
       startDate: newItinerary.startDate,
       endDate: newItinerary.endDate,
       style: newItinerary.style || '',
-      coverPhoto  // ⬅️ VERIFICA COSA CONTIENE QUI
+      coverPhoto
     });
 
     db.run(
@@ -137,9 +128,7 @@ exports.addItinerary = async (req, res) => {
   });
 };
 
-
-
-// DELETE: elimina un itinerario
+// Elimina itinerario
 exports.deleteItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
 
@@ -154,7 +143,7 @@ exports.deleteItinerary = (req, res) => {
   );
 };
 
-// cerca Itinerari pubblici filtrati per città
+// Itinerari pubblici per città
 exports.getItinerariesByCity = (req, res) => {
   const city = req.query.city?.toLowerCase();
   if (!city) return res.status(400).json({ error: 'Parametro city mancante' });
@@ -169,7 +158,7 @@ exports.getItinerariesByCity = (req, res) => {
   );
 };
 
-// cerca Itinerario pubblico per ID
+// Itinerario pubblico per ID
 exports.getItineraryById = (req, res) => {
   const { itineraryId } = req.params;
 
@@ -196,7 +185,6 @@ exports.getItineraryById = (req, res) => {
 
           for (const place of places) {
             const dayIndex = place.day - 1;
-
             if (!grouped[dayIndex]) {
               grouped[dayIndex] = {
                 day: place.day,
@@ -206,7 +194,6 @@ exports.getItineraryById = (req, res) => {
                 ordered: []
               };
             }
-
             const converted = {
               placeId: place.placeId,
               name: place.name,
@@ -218,20 +205,14 @@ exports.getItineraryById = (req, res) => {
               photoFilename: place.photoFilename,
               type: place.type,
               note: place.note,
-
-              // ⬇️ Nuovi campi
               rating: place.rating ?? undefined,
               priceLevel: place.priceLevel ?? undefined,
               website: place.website ?? undefined,
               openingHours: place.openingHours ? JSON.parse(place.openingHours) : undefined
             };
-
-
             grouped[dayIndex][place.timeSlot]?.push(converted);
             grouped[dayIndex].ordered.push(converted);
           }
-
-
           res.json({
             ...itinerary,
             itinerary: grouped
@@ -242,7 +223,7 @@ exports.getItineraryById = (req, res) => {
   );
 };
 
-//modifica itinerario
+// Modifica itinerario
 exports.updateItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   const updatedData = req.body;
@@ -260,13 +241,10 @@ exports.updateItinerary = (req, res) => {
           [userId, itineraryId],
           (err2, others) => {
             if (err2) return res.status(500).json({ error: 'Errore validazione date' });
-
             const overlap = checkOverlap(updatedStart, updatedEnd, others);
-
             if (overlap) {
               return res.status(400).json({ error: 'Le date si sovrappongono a un altro itinerario' });
             }
-
             applyUpdate();
           }
         );
@@ -283,7 +261,6 @@ exports.updateItinerary = (req, res) => {
           style: updatedData.style || itinerary.style,
           coverPhoto: updatedData.coverPhoto || itinerary.coverPhoto
         };
-
         db.run(
           `UPDATE itineraries SET city = ?, accommodation = ?, startDate = ?, endDate = ?, style = ?, coverPhoto = ? WHERE itineraryId = ? AND userId = ?`,
           [
@@ -306,15 +283,10 @@ exports.updateItinerary = (req, res) => {
   );
 };
 
-// aggiunta tappe
+// Aggiungi tappe
 exports.addPlacesToItinerary = (req, res) => {
   const { userId, itineraryId } = req.params;
   let places = req.body;
-
-  // QUI VUOI IL PRIMO LOG:
-  //console.log("🔥 PAYLOAD CHE RICEVO DAL FRONTEND:");
-  //console.log(JSON.stringify(places, null, 2));
-  //console.log('🔥 RICEVUTE TAPPE:', places);
 
   if (!Array.isArray(places)) {
     if (typeof places === 'object' && places !== null) {
@@ -337,36 +309,23 @@ exports.addPlacesToItinerary = (req, res) => {
 
       const place = places.shift();
       const placeId = generateId('place_');
-
       let photoFilename = '';
-
       try {
-        //console.log("🔬 STO PROCESSANDO PLACE:");
-        //console.log(place);
-
-        // ⬇⬇⬇ QUI facciamo il download automatico solo se c'è il photoReference
         if (place.photoReference) {
           photoFilename = await getOrDownloadPhoto(place.placeId, place.photoReference);
-          if (place.photoReference) {
-            console.log("📸 HO IL PHOTOREFERENCE:"/*, place.photoReference*/);
-          }
-
         }
       } catch (errPhoto) {
         console.error('Errore scaricamento immagine:', errPhoto);
-        // anche se fallisce il download, continuiamo a salvare il place senza foto
       }
-
       const lat = place.latitude ?? place.lat;
       const lng = place.longitude ?? place.lng;
 
       db.run(
         `INSERT INTO places (
-  placeId, itineraryId, name, day, timeSlot,
-  lat, lng, address, photoFilename,
-  type, note, rating, priceLevel, website, openingHours, photoUrl   -- 16 colonne
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-`,
+          placeId, itineraryId, name, day, timeSlot,
+          lat, lng, address, photoFilename,
+          type, note, rating, priceLevel, website, openingHours, photoUrl
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           placeId,
           itineraryId,
@@ -384,28 +343,22 @@ exports.addPlacesToItinerary = (req, res) => {
           place.website ?? null,
           place.openingHours ? JSON.stringify(place.openingHours) : null
         ],
-
         (err2) => {
           if (err2) {
-            console.error('❌ Errore INSERT:', err2.message);
-            console.error('🔎 Place che ha fallito:', place);
+            console.error('Errore INSERT:', err2.message);
+            console.error('Place che ha fallito:', place);
           } else {
             inserted.push({ placeId, ...place, photoFilename });
           }
           insertNext();
-
-
         }
       );
-
     };
-
     insertNext();
   });
 };
 
-//vede se ledate inserite si sovrappongono con altre
-//serve per evitare sovrapposizioni
+// Verifica sovrapposizione date (API)
 exports.checkDateOverlap = (req, res) => {
   const { userId } = req.params;
   const { startDate, endDate, excludeId } = req.query;
@@ -419,16 +372,13 @@ exports.checkDateOverlap = (req, res) => {
     [userId],
     (err, itineraries) => {
       if (err) return res.status(500).json({ error: 'Errore database' });
-
       const overlapping = checkOverlap(startDate, endDate, itineraries, excludeId);
-
       res.json({ overlap: overlapping });
     }
   );
 };
 
-//SOVRASCRIVE TUTTE LE TAPPE
-// SOVRASCRIVE TUTTE LE TAPPE
+// Sovrascrive tutte le tappe
 exports.updateItineraryPlaces = (req, res) => {
   const { userId, itineraryId } = req.params;
   const { places } = req.body;
@@ -452,7 +402,6 @@ exports.updateItineraryPlaces = (req, res) => {
 
       for (const p of places) {
         const placeId = p.placeId || generateId('place_');
-
         stmt.run([
           placeId,
           itineraryId,
@@ -472,7 +421,6 @@ exports.updateItineraryPlaces = (req, res) => {
           p.openingHours ? JSON.stringify(p.openingHours) : null
         ]);
       }
-
       stmt.finalize((err2) => {
         if (err2) return res.status(500).json({ error: 'Errore inserimento tappe' });
         res.status(200).json({ success: true });
@@ -481,9 +429,7 @@ exports.updateItineraryPlaces = (req, res) => {
   });
 };
 
-
-
-//copia un itinerario
+// Copia itinerario su altro utente
 exports.copyItinerary = (req, res) => {
   const { itineraryId, userId } = req.params;
   const { startDate, endDate } = req.body;
@@ -535,7 +481,6 @@ exports.copyItinerary = (req, res) => {
         function (err2) {
           if (err2) return res.status(500).json({ error: 'Errore nel duplicare itinerario' });
 
-          // Recupera solo le tappe dei primi "requestedDuration" giorni
           db.all(
             `SELECT * FROM places WHERE itineraryId = ? AND day <= ?`,
             [itineraryId, requestedDuration],
@@ -566,9 +511,7 @@ exports.copyItinerary = (req, res) => {
                   place.openingHours
                 );
               }
-
               insertPlace.finalize();
-
               res.json({ newItineraryId });
             }
           );

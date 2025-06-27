@@ -46,8 +46,8 @@ export const routes: Routes = [
     canActivate: [NoGuestGuard]
   },
   {
-    path: 'impostazioni',
-    loadComponent: () => import('./pages/impostazioni/impostazioni.page').then(m => m.ImpostazioniPage)
+    path: 'avanzate',
+    loadComponent: () => import('./pages/avanzate/avanzate.page').then(m => m.AvanzatePage)
   },
   {
     path: 'modifica-date',

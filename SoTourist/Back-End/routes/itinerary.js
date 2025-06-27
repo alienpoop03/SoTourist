@@ -1,15 +1,14 @@
-// routes/itinerary.js
 const express = require('express');
 const router  = express.Router();
 const { getItinerary, getSinglePlace } = require('../controllers/itineraryController');
 
-/* ───── nuove rotte ───── */
-// POST  → per il nuovo payload JSON (mustSee, mustEat, avoid, …)
+// Nuovo itinerario da payload JSON
 router.post('/', getItinerary);
 
-// GET   → facoltativo: la tieni se ti serve ancora la vecchia query-string
+// (Opzionale) Itinerario da query-string (vecchio)
 router.get('/', getItinerary);
 
+// Dettaglio singolo luogo
 router.get('/single-place', getSinglePlace);
 
 module.exports = router;

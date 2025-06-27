@@ -5,7 +5,7 @@ const dbPath = path.join(__dirname, 'database.db');
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
-  // ✅ Tabella utenti
+  // Tabella utenti
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       userId TEXT PRIMARY KEY,
@@ -18,7 +18,7 @@ db.serialize(() => {
     )
   `);
 
-  // ✅ Tabella itinerari (userId può essere NULL)
+  // Tabella itinerari (userId può essere NULL)
   db.run(`
     CREATE TABLE IF NOT EXISTS itineraries (
       itineraryId TEXT PRIMARY KEY,
@@ -34,7 +34,7 @@ db.serialize(() => {
     )
   `);
 
-  // ✅ Tabella tappe (places)
+  // Tabella tappe (places)
   db.run(`
     CREATE TABLE IF NOT EXISTS places (
       placeId TEXT PRIMARY KEY,
@@ -52,7 +52,7 @@ db.serialize(() => {
     )
   `);
 
-  console.log('✅ Database inizializzato correttamente.');
+  console.log('Database inizializzato correttamente.');
 });
 
 db.close();

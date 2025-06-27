@@ -1,15 +1,11 @@
-//const fs = require('fs');
-//const path = require('path');
 const generateId = require('../utils/idGenerator');
 const bcrypt = require('bcryptjs');
-//const DB_PATH = path.join(__dirname, '../db.json');
 const { downgradeIfExpired } = require('../utils/subscriptionChecker');
 const db = require('../db/connection');
 
-
+// Registrazione nuovo utente
 exports.register = async (req, res) => {
   const { username, email, password, type } = req.body;
-  const bcrypt = require('bcryptjs');
   if (!username || !email || !password) {
     return res.status(400).json({ error: 'Dati mancanti' });
   }
@@ -18,8 +14,6 @@ exports.register = async (req, res) => {
     if (err) return res.status(500).json({ error: 'Errore database' });
     if (existingUser) return res.status(400).json({ error: 'Email già registrata' });
 
-    
-    const generateId = require('../utils/idGenerator');
     const hashedPassword = await bcrypt.hash(password, 10);
     const userId = generateId('user_');
 
@@ -31,7 +25,7 @@ exports.register = async (req, res) => {
       subscriptionEndDate = end.toISOString().split('T')[0];
     }
 
-    const registrationDate = new Date().toISOString().split('T')[0]; // <── data di oggi
+    const registrationDate = new Date().toISOString().split('T')[0];
 
     db.run(
       `INSERT INTO users (userId, username, email, password, type, subscriptionEnd, registrationDate)
@@ -46,7 +40,7 @@ exports.register = async (req, res) => {
   });
 };
 
-//modifica password
+// Modifica password
 exports.updatePassword = async (req, res) => {
   const { userId } = req.params;
   const { currentPassword, newPassword } = req.body;
@@ -78,8 +72,7 @@ exports.updatePassword = async (req, res) => {
   });
 };
 
-
-// 🔐 LOGIN: riceve email e hash già calcolato
+// Login utente
 exports.login = (req, res) => {
   const { email, password } = req.body;
 
@@ -92,16 +85,15 @@ exports.login = (req, res) => {
       return res.status(401).json({ error: 'Credenziali non valide' });
     }
 
-    // Verifica e downgrade automatico se l'abbonamento è scaduto
+    // Downgrade automatico se abbonamento scaduto
     const updatedUser = downgradeIfExpired(user);
 
-    // Se c'è stato un downgrade, aggiorna nel DB
     if (updatedUser.type === 'standard' && user.type !== 'standard') {
       db.run(
         `UPDATE users SET type = ?, subscriptionEnd = NULL WHERE userId = ?`,
         [updatedUser.type, updatedUser.userId],
         (updateErr) => {
-          if (updateErr) console.error('⚠️ Errore durante il downgrade:', updateErr);
+          if (updateErr) console.error('Errore durante il downgrade:', updateErr);
         }
       );
     }
@@ -115,7 +107,7 @@ exports.login = (req, res) => {
   });
 };
 
-// 🗑 Elimina un utente
+// Elimina utente e scollega itinerari
 exports.deleteUser = (req, res) => {
   const { userId } = req.params;
 
@@ -123,21 +115,19 @@ exports.deleteUser = (req, res) => {
     if (err) return res.status(500).json({ error: 'Errore database' });
     if (!user) return res.status(404).json({ error: 'Utente non trovato' });
 
-    // 1. Scollega gli itinerari
     db.run(`UPDATE itineraries SET userId = NULL WHERE userId = ?`, [userId], (err1) => {
       if (err1) return res.status(500).json({ error: 'Errore scollegamento itinerari' });
 
-      // 2. Elimina l'utente
       db.run(`DELETE FROM users WHERE userId = ?`, [userId], function (err2) {
         if (err2) return res.status(500).json({ error: 'Errore eliminazione utente' });
 
-        res.status(204).end(); // eliminazione completata
+        res.status(204).end();
       });
     });
   });
 };
 
-// ✏️ Modifica un utente (username, email, password, tipo)
+// Modifica username/email utente
 exports.updateUser = async (req, res) => {
   const { userId } = req.params;
   const { username, email } = req.body;
@@ -165,17 +155,12 @@ exports.updateUser = async (req, res) => {
   });
 };
 
-
-// ➕Modifica il tipo di abbonamento
+// Aggiorna tipo abbonamento (premium/gold)
 exports.upgradeToPremium = (req, res) => {
   const { userId } = req.params;
   const { plan } = req.body;
 
-  const validPlans = {
-    premium: 30,
-    gold: 30
-  };
-
+  const validPlans = { premium: 30, gold: 30 };
   if (!validPlans[plan]) {
     return res.status(400).json({ error: 'Piano non valido' });
   }
@@ -202,7 +187,7 @@ exports.upgradeToPremium = (req, res) => {
   );
 };
 
-// ❌ Annulla abbonamento
+// Annulla abbonamento
 exports.cancelPremium = (req, res) => {
   const { userId } = req.params;
 
@@ -229,7 +214,7 @@ exports.cancelPremium = (req, res) => {
   });
 };
 
-
+// Ottiene tipo abbonamento e fa downgrade se scaduto
 exports.getUserType = (req, res) => {
   const { userId } = req.params;
 
@@ -257,6 +242,7 @@ exports.getUserType = (req, res) => {
   });
 };
 
+// Salva o elimina immagine profilo utente (base64)
 exports.updateProfileImage = (req, res) => {
   const { userId } = req.params;
   const { base64 } = req.body;
@@ -293,9 +279,9 @@ exports.updateProfileImage = (req, res) => {
   });
 };
 
+// Recupera immagine profilo base64
 exports.getProfileImage = (req, res) => {
   const { userId } = req.params;
-
   const query = `SELECT profileImage FROM users WHERE userId = ?`;
 
   db.get(query, [userId], (err, row) => {
@@ -312,7 +298,7 @@ exports.getProfileImage = (req, res) => {
   });
 };
 
-//data registrazione
+// Data di registrazione utente
 exports.getRegistrationDate = (req, res) => {
   const { userId } = req.params;
 
@@ -322,6 +308,6 @@ exports.getRegistrationDate = (req, res) => {
     if (err) return res.status(500).json({ error: 'Errore database' });
     if (!row) return res.status(404).json({ error: 'Utente non trovato' });
 
-    res.json(row); // restituisce { userId, registrationDate }
+    res.json(row);
   });
 };
