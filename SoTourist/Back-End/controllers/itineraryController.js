@@ -30,15 +30,15 @@ const haversine = (a, b) => {
 
 const buildPlaceObj = (place, key) => {
   const localPath = `/uploads/places/${place.place_id}.jpg`;
-const absolutePath = path.join(__dirname, '../uploads/places', `${place.place_id}.jpg`);
+  const absolutePath = path.join(__dirname, '../uploads/places', `${place.place_id}.jpg`);
 
   let finalPhoto = null;
   if (fs.existsSync(absolutePath)) {
     finalPhoto = localPath;
-        console.log(`✅ Foto locale trovata per "${place.name}" (${place.place_id}), uso ${localPath}`);
+    console.log(`✅ Foto locale trovata per "${place.name}" (${place.place_id}), uso ${localPath}`);
 
   } else if (place.photos?.[0]) {
-        console.log(`🌐 Foto NON presente per "${place.name}" (${place.place_id}), uso link Google`);
+    console.log(`🌐 Foto NON presente per "${place.name}" (${place.place_id}), uso link Google`);
 
     finalPhoto = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference=${place.photos[0].photo_reference}&key=${key}`;
   }
@@ -314,6 +314,10 @@ const getItinerary = async (req, res) => {
   const accommodation = req.body?.accommodation || req.query.accommodation || null;
   const transport = (req.body?.transport || req.query.transport || "walk").toLowerCase();
   const styleName = req.body?.style || req.query.style || "Standard";
+  console.log("🎨 Stile ricevuto dal frontend:", req.body?.style || req.query.style);
+  console.log("🚗 Mezzo ricevuto dal frontend:", req.body?.transport || req.query.transport);
+  console.log("🎨 Stile effettivo usato:", styleName);
+  console.log("🚗 Mezzo effettivo usato:", transport);
 
   /* preferenze utente */
   const mustSee = Array.isArray(req.body?.mustSee) ? req.body.mustSee : [];
@@ -346,7 +350,7 @@ const getItinerary = async (req, res) => {
   const WITHIN_SLOT = 1000;
   const INTER_RULES = {
     walk: { min: 0, max: 1000 },
-    car: { min: 500, max: 10000 },
+    car: { min: 2000, max: 10000 },
     bike: { min: 200, max: 5000 },
     bus: { min: 1000, max: 10000 },
   };
@@ -392,10 +396,17 @@ const getItinerary = async (req, res) => {
 
         while (remaining > 0) {
           /* regole raggio dinamiche */
+          // Regole raggio per questo singolo luogo
           let inter = { ...R };
-          if (slot === "morning" && defTemplate.keyword.includes("coffee"))
+
+          // Caso caffè mattina: sempre compatto
+          if (slot === "morning" && defTemplate.keyword.includes("coffee")) {
+            inter.min = 0;
             inter.max = WITHIN_SLOT;
-          if (
+          }
+
+          // Caso rientro bus sera: ancora prima
+          else if (
             slot === "evening" &&
             transport === "bus" &&
             defTemplate.slotType === "eat" &&
@@ -405,12 +416,21 @@ const getItinerary = async (req, res) => {
               lat: accPlace.latitude,
               lng: accPlace.longitude,
             };
-            inter = { min: 0, max: 2000 };
-          } else if (plan[slot].length === 0) {
+            inter.min = 0;
+            inter.max = 2000;
+          }
+
+          // Primo luogo della fascia: usa i raggi del mezzo
+          else if (plan[slot].length === 0) {
             inter = { ...R };
-          } else {
+          }
+
+          // Luoghi successivi nella fascia: compatto
+          else {
+            inter.min = 0;
             inter.max = WITHIN_SLOT;
           }
+
 
           const nextPlace = await generateNextPlace({
             def: defTemplate,
@@ -552,40 +572,40 @@ const getSinglePlace = async (req, res) => {
   }
 
   /* 4️⃣ Nearby Search con anchor corretto */
-/* 4️⃣ Nearby Search con anchor corretto */
-try {
-  const [raw] = await fetchNearbyPlaces(
-    { keyword: query, type: "" },
-    anchor,
-    5000, 
-    KEY
-  );
-  if (!raw) return res.status(404).json({ error: "Luogo non trovato" });
+  /* 4️⃣ Nearby Search con anchor corretto */
+  try {
+    const [raw] = await fetchNearbyPlaces(
+      { keyword: query, type: "" },
+      anchor,
+      5000,
+      KEY
+    );
+    if (!raw) return res.status(404).json({ error: "Luogo non trovato" });
 
-  const detailed = await fetchPlaceById(raw.place_id, KEY, new Set(), new Set());
-  if (!detailed) return res.status(404).json({ error: "Dettagli non trovati" });
+    const detailed = await fetchPlaceById(raw.place_id, KEY, new Set(), new Set());
+    if (!detailed) return res.status(404).json({ error: "Dettagli non trovati" });
 
-  // 🔽 Scarica la foto come negli altri posti
-  if (detailed.photoReference) {
-    try {
-      const filename = await getOrDownloadPhoto(detailed.placeId, detailed.photoReference);
-      detailed.photo = `/uploads/places/${filename}`;
-      detailed.photoFilename = filename;
-    } catch (errPhoto) {
-      console.warn('⚠️ Errore download foto:', errPhoto.message);
-      // Se fallisce il download, lasci il link Google già presente in detailed.photo
+    // 🔽 Scarica la foto come negli altri posti
+    if (detailed.photoReference) {
+      try {
+        const filename = await getOrDownloadPhoto(detailed.placeId, detailed.photoReference);
+        detailed.photo = `/uploads/places/${filename}`;
+        detailed.photoFilename = filename;
+      } catch (errPhoto) {
+        console.warn('⚠️ Errore download foto:', errPhoto.message);
+        // Se fallisce il download, lasci il link Google già presente in detailed.photo
+        detailed.photoFilename = '';
+      }
+    } else {
       detailed.photoFilename = '';
     }
-  } else {
-    detailed.photoFilename = '';
+
+    return res.json(detailed);
+
+  } catch (err) {
+    console.error("❌ getSinglePlace:", err);
+    return res.status(500).json({ error: "Errore interno" });
   }
-
-  return res.json(detailed);
-
-} catch (err) {
-  console.error("❌ getSinglePlace:", err);
-  return res.status(500).json({ error: "Errore interno" });
-}
 
 
 
