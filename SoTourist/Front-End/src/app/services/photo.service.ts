@@ -4,6 +4,7 @@ import { Injectable, NgZone } from '@angular/core';
 export class PhotoService {
   constructor(private ngZone: NgZone) {}
 
+  // Recupera la foto hero per la città
   loadHeroPhoto(city: string, itineraryId: string): Promise<string> {
     return new Promise((resolve) => {
       const cached = localStorage.getItem(`coverPhoto-${itineraryId}`);

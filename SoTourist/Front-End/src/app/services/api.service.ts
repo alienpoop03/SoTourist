@@ -1,4 +1,3 @@
-// api.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,7 +11,7 @@ export interface GenerateItineraryRequest {
   mustEat?: string[];
   avoid?: string[];
   transport?: string;
-  style?: string;  // 👈 AGGIUNTO QUI
+  style?: string;
 
   aiQuestion?: string;
 }

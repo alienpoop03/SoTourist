@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-/* CARD BASE */
+// Card principale
 ion-card {
   background: var(--color-background);
   color: var(--color-text1);
@@ -36,7 +36,7 @@ ion-card {
     min-height: 330px;
   }
 
-  /* IMMAGINE */
+  // Immagine luogo o placeholder
   ion-img,
   .placeholder {
     width: 100%;
@@ -63,6 +63,7 @@ ion-card {
     }
   }
 
+  // Placeholder senza immagine
   .placeholder {
     min-height: 202px;
 
@@ -72,7 +73,7 @@ ion-card {
     }
   }
 
-  /* CONTENUTO TESTO */
+  // Contenuto testuale della card
   .text-card {
     background: var(--color-background);
     flex: 1;
@@ -107,7 +108,7 @@ ion-card {
   }
 }
 
-/* ORARI */
+// Lista orari apertura
 .hours {
   margin: 0;
   padding-left: 1rem;

@@ -4,11 +4,9 @@ import { CommonModule } from '@angular/common';
 import {
   IonContent,
   IonCard,
-  IonCardContent,
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
-  IonIcon,
   IonButton,
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
@@ -28,11 +26,9 @@ import { getPhotoUrl } from 'src/app/utils/photo-utils';
     CommonModule,
     IonContent,
     IonCard,
-    IonCardContent,
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
-    IonIcon,
     IonButton,
     AppHeaderComponent,
   ],
@@ -191,10 +187,14 @@ export class HomePage implements OnInit {
     this.router.navigate(['/destinazioni-trend']);
   }
 
+  // Vai all'itinerario
   openItinerary(itineraryId: string) {
-    const itinerary = this.featuredItineraries.find(i => i.itineraryId === itineraryId);
-    if (!itinerary) return;
-    const tripDays = this.getTripDays(itinerary);
+    
+  // Cerca nei consigliati
+  const featured = this.featuredItineraries.find(i => i.itineraryId === itineraryId);
+
+  if (featured) {
+    const tripDays = this.getTripDays(featured);
     this.router.navigate(['/modifica-date'], {
       queryParams: {
         id: itineraryId,
@@ -202,7 +202,14 @@ export class HomePage implements OnInit {
         maxDays: tripDays
       }
     });
+    return;
   }
+
+  // Altrimenti naviga verso la panoramica del proprio viaggio
+  this.router.navigate(['/tabs/panoramica'], {
+    queryParams: { id: itineraryId }
+  });
+}
 
   // Scroll verso Hero principale
   onHeroClick() {

@@ -1,16 +1,19 @@
+// Wrapper principale del toggle
 .custom-toggle {
   position: relative;
   display: inline-block;
   width: 54px;
   height: 30px;
 
+  // Nasconde l'input nativo
   input {
     opacity: 0;
     width: 0;
     height: 0;
   }
 
-  .slider { //binario
+  // Binario del toggle
+  .slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -21,7 +24,8 @@
     transition: background-color 0.4s ease;
     border-radius: 34px;
 
-    &::before { //pallina
+    // Pallina del toggle
+    &::before {
       content: "";
       position: absolute;
       height: 22px;
@@ -34,7 +38,8 @@
     }
   }
 
-  input:checked + .slider { // quando attivo
+  // Stile attivo quando selezionato
+  input:checked + .slider {
     background-color: #7B1E1E;
 
     &::before {

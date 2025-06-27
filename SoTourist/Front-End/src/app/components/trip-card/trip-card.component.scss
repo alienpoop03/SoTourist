@@ -3,7 +3,7 @@
   margin-bottom: 1rem;
 }
 
-// Override
+// Hover card stile principale
 .boxes-style{
   transition: transform 0.2s ease;
 
@@ -12,12 +12,14 @@
   }
 }
 
+// Layout principale della card
 .trip-layout {
   display: flex;
   flex-direction: row;
   height: 120px;
 }
 
+// Foto viaggio (a sinistra)
 .trip-photo {
   flex: 1;
   min-width: 120px;
@@ -25,6 +27,7 @@
   background-position: center;
 }
 
+// Dettagli viaggio (a destra)
 .trip-details {
   flex: 2;
   padding: 1rem;
@@ -35,6 +38,7 @@
   color: var(--color-text);
 }
 
+// Bottone elimina viaggio
 .delete-btn {
   position: absolute;
   top: 0.5rem;
@@ -43,6 +47,7 @@
   --padding-end: 0;
 }
 
+// Città viaggio
 .trip-city {
   margin: 0 0 0.25rem;
   font-size: 1.2rem;
@@ -50,12 +55,14 @@
   color: var(--color-title-viaggi);
 }
 
+// Date viaggio
 .trip-dates {
   font-size: 0.9rem;
   color: var(--color-highlight);
   margin: 0 0 0.25rem;
 }
 
+// Nome alloggio e durata viaggio
 .trip-accommodation,
 .trip-days {
   font-size: 0.85rem;

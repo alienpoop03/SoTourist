@@ -1,0 +1,22 @@
+<div class="autocomplete-wrapper">
+  <input
+    #autoInput
+    class="autocomplete-input"
+    [type]="type"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    (keyup)="onKeyup()"
+    (blur)="onBlur()"
+    autocomplete="off"
+  />
+
+  <ul *ngIf="suggestions.length && showSuggestions" class="suggestions-list">
+    <li
+      *ngFor="let s of suggestions"
+      (mousedown)="preventBlur($event)"
+      (click)="selectSuggestion(s)"
+    >
+      {{ s.description }}
+    </li>
+  </ul>
+</div>

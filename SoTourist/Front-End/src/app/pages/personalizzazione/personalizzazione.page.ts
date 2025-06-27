@@ -22,7 +22,7 @@ import { GoogleAutocompleteComponent } from '../../components/google-autocomplet
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 import { BoundsService } from '../../services/bounds.service';
 
-// Struttura dati: una giornata di itinerario è composta da slot temporali
+// Una giornata ha 3 slot temporali
 type DayData = { morning: Place[]; afternoon: Place[]; evening: Place[] };
 
 @Component({
@@ -40,22 +40,17 @@ type DayData = { morning: Place[]; afternoon: Place[]; evening: Place[] };
   ],
 })
 export class PersonalizzazionePage implements OnInit {
-  // Nome città di riferimento
   city: string = '';
 
-  // Router e servizi necessari, ottenuti con inject
   private readonly route = inject(ActivatedRoute);
   private readonly itineraryService = inject(ItineraryService);
   private readonly boundsService = inject(BoundsService);
 
-  // Bounding box geografico per limitare i risultati (viene inizializzato a inizio)
   tripBounds!: google.maps.LatLngBounds;
 
-  // Stato reattivo: giorni dell'itinerario (ogni giorno ha slot) e giorno attivo
   days = signal<DayData[]>([]);
   activeDay = signal(0);
 
-  // Slot temporali possibili e label visuali per ogni slot
   slots = ['morning', 'afternoon', 'evening'] as const;
   slotName: Record<string, string> = {
     morning: 'Mattina',
@@ -63,50 +58,40 @@ export class PersonalizzazionePage implements OnInit {
     evening: 'Sera'
   };
 
-  // Stato per popup aggiunta luogo: se è aperto, tipo di luogo e slot attivo
   autocompleteOpen = signal(false);
   autocompleteType = signal<'restaurant' | 'tourist_attraction' | null>(null);
   autocompleteSlot = signal<typeof this.slots[number] | null>(null);
 
-  // Caricamento dati all’avvio (prende bounds, città e tappe)
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const itineraryId = params['id'];
       if (!itineraryId) return;
 
-      // Caricamento bounding box da parametri query, se presenti
       if (params['north'] && params['south'] && params['east'] && params['west']) {
         this.tripBounds = new google.maps.LatLngBounds(
           { lat: parseFloat(params['south']), lng: parseFloat(params['west']) },
           { lat: parseFloat(params['north']), lng: parseFloat(params['east']) }
         );
       } else {
-        // Fallback bounds generico
         this.tripBounds = new google.maps.LatLngBounds(
           { lat: 42.0, lng: 11.0 },
           { lat: 43.0, lng: 12.0 }
         );
       }
 
-      // Richiede itinerario dal backend
       this.itineraryService.getItineraryById(itineraryId).subscribe({
         next: async (res: any) => {
-          // Organizza le tappe: se sono già raggruppate, usa quelle, altrimenti raggruppa
+          // Raggruppa le tappe per giorno/slot se serve
           const grouped = this.isGrouped(res.itinerary)
             ? res.itinerary as DayData[]
             : this.groupFlatPlaces(res.itinerary as Place[]);
 
-          // Ricava la città dal campo city (solo la parte utile)
           this.city = this.extractCityName(res.city);
 
-          // Aggiorna i bounds in base alla città se possibile (API BoundsService)
           this.boundsService.getCityBounds(this.city).then(bounds => {
-            if (bounds) {
-              this.tripBounds = bounds;
-            }
+            if (bounds) this.tripBounds = bounds;
           });
 
-          // Stato reattivo: setta i giorni per la UI
           this.days.set(grouped);
         },
         error: err => console.log('Errore caricamento:', err)
@@ -114,22 +99,17 @@ export class PersonalizzazionePage implements OnInit {
     });
   }
 
-  // Determina se un array è già raggruppato per slot oppure flat (caso legacy/backend)
+  // True se la struttura è già raggruppata per giorno/slot
   private isGrouped(arr: any[]): arr is DayData[] {
     return Array.isArray(arr) && arr.length > 0 && 'morning' in arr[0];
   }
 
-  // Trasforma un array flat di tappe in un array raggruppato per giorno e slot
+  // Raggruppa un array flat di tappe in DayData[]
   private groupFlatPlaces(flat: Place[]): DayData[] {
-    // Trova il numero massimo di giorni presenti
     const maxDay = flat.reduce((max, p) => Math.max(max, p.day), 0);
-
-    // Crea la struttura vuota per ogni giorno
     const grouped: DayData[] = Array.from({ length: maxDay }, () => ({
       morning: [], afternoon: [], evening: []
     }));
-
-    // Inserisce ogni tappa nello slot giusto del giorno giusto
     flat.forEach(p => {
       const d = p.day - 1;
       grouped[d][p.timeSlot].push(p);
@@ -137,78 +117,73 @@ export class PersonalizzazionePage implements OnInit {
     return grouped;
   }
 
-  // Aggiorna il giorno attivo sulla sidebar
+  // Cambia giorno attivo nella sidebar
   selectDay(i: number) {
     this.activeDay.set(i);
   }
 
-  // Avvia la procedura di aggiunta luogo, aprendo il popup
+  // Apre il popup per aggiungere luogo
   addPlace(slot: typeof this.slots[number]) {
     this.autocompleteSlot.set(slot);
     this.autocompleteOpen.set(true);
   }
 
-  // Sceglie il tipo di luogo da cercare nell'autocomplete (ristorante/attrazione)
+  // Seleziona tipo di luogo per autocomplete
   startAutocomplete(type: 'restaurant' | 'tourist_attraction') {
     this.autocompleteType.set(type);
   }
 
-  // True se bisogna visualizzare il campo autocomplete Google (usato in template)
+  // True se mostrare il campo autocomplete
   showAutocompleteInput() {
     return this.autocompleteOpen() && !!this.autocompleteType();
   }
 
-  // Gestisce la selezione di un luogo tramite autocomplete Google
+  // Gestisce la selezione di un luogo dal popup autocomplete
   async onPlaceSelected(place: any) {
     const slot = this.autocompleteSlot();
     const type = this.autocompleteType();
     if (!slot || !type) return;
 
-    // Costruisce la query per il backend
     const query = place.name;
     const day = this.activeDay() + 1;
     const city = this.city || 'Roma';
 
     try {
-      // Posizione centrale del bounding box (usata per ancorare la ricerca)
       const center = this.tripBounds.getCenter();
-
-      // Chiamata backend: trova il luogo giusto
       const result = await this.fetchSinglePlaceFromBackend(query, city, {
         lat: center.lat(),
         lng: center.lng()
       });
-      console.log("✅ RISPOSTA DAL BACKEND:", result);
+      console.log("RISPOSTA DAL BACKEND:", result);
 
       if (!result) return;
 
-      // Costruisce oggetto Place per frontend
+      // Oggetto Place per frontend
       const frontendPlace: Place = {
-  placeId: result.placeId || ('place_' + Date.now()),
-  name: result.name,
-  day,
-  timeSlot: slot,
-  latitude: result.latitude ?? null,
-  longitude: result.longitude ?? null,
-  address: result.address ?? '',
-  photoUrl: result.photo ?? '',        // <-- Qui importante, prendi .photo dal backend e lo metti in .photoUrl
-  photoFilename: result.photoFilename ?? '',
-  photoReference: result.photoReference ?? '',
-  type: result.type ?? '',
-  note: '',
-  rating: result.rating ?? null,
-  priceLevel: result.priceLevel ?? null,
-  website: result.website ?? null,
-  openingHours: result.openingHours ?? null
-};
+        placeId: result.placeId || ('place_' + Date.now()),
+        name: result.name,
+        day,
+        timeSlot: slot,
+        latitude: result.latitude ?? null,
+        longitude: result.longitude ?? null,
+        address: result.address ?? '',
+        photoUrl: result.photo ?? '',
+        photoFilename: result.photoFilename ?? '',
+        photoReference: result.photoReference ?? '',
+        type: result.type ?? '',
+        note: '',
+        rating: result.rating ?? null,
+        priceLevel: result.priceLevel ?? null,
+        website: result.website ?? null,
+        openingHours: result.openingHours ?? null
+      };
 
-
-      // Aggiorna stato UI (aggiunge la nuova tappa)
+      // Aggiorna lo stato UI (aggiunge tappa)
       const d = structuredClone(this.days());
       d[this.activeDay()][slot].push(frontendPlace);
       this.days.set(d);
 
-      // Prepara e salva la tappa sul backend
+      // Salva su backend
       const backendPlace = this.convertToBackendPlace(frontendPlace);
       const userId = localStorage.getItem('userId')!;
       const itineraryId = this.route.snapshot.queryParamMap.get('id')!;
@@ -220,13 +195,12 @@ export class PersonalizzazionePage implements OnInit {
       console.log('Errore fetch dal backend:', err);
     }
 
-    // Chiude popup e resetta tipo/slot
     this.autocompleteOpen.set(false);
     this.autocompleteType.set(null);
     this.autocompleteSlot.set(null);
   }
 
-  // Permette di rinominare una tappa (da dialog prompt)
+  // Permette di rinominare una tappa
   editPlace(i: number, slot: typeof this.slots[number]) {
     const name = prompt('Nome luogo?');
     if (!name) return;
@@ -235,58 +209,50 @@ export class PersonalizzazionePage implements OnInit {
     this.days.set(d);
   }
 
-  // Drag & drop: sposta una tappa in un altro punto dello slot
+  // Drag & drop di una tappa nello slot
   drop(event: CdkDragDrop<Place[]>, slot: typeof this.slots[number]) {
     const d = structuredClone(this.days());
     moveItemInArray(d[this.activeDay()][slot], event.previousIndex, event.currentIndex);
     this.days.set(d);
   }
 
-  // Rimuove una tappa dallo slot (es. click su cestino)
+  // Rimuove una tappa dallo slot
   removePlace(slot: typeof this.slots[number], index: number) {
     const d = structuredClone(this.days());
     d[this.activeDay()][slot].splice(index, 1);
     this.days.set(d);
   }
 
-  // Salva tutte le modifiche fatte (invio nuovo array tappe al backend)
+  // Salva tutte le tappe (invio array tappe aggiornate al backend)
   saveItinerary() {
-  const itineraryId = this.route.snapshot.queryParamMap.get('id');
-  const userId = localStorage.getItem('userId'); 
+    const itineraryId = this.route.snapshot.queryParamMap.get('id');
+    const userId = localStorage.getItem('userId'); 
+    if (!userId || !itineraryId) return;
+    const frontendPlaces = this.flattenPlaces(this.days());
+    const backendPlaces = frontendPlaces.map(p => ({
+      placeId: p.placeId,
+      name: p.name,
+      day: p.day,
+      timeSlot: p.timeSlot,
+      lat: p.latitude ?? null,
+      lng: p.longitude ?? null,
+      address: p.address ?? '',
+      photoUrl: p.photoUrl ?? '',
+      photoFilename: p.photoFilename ?? '',
+      type: p.type ?? '',
+      note: p.note ?? '',
+      rating: p.rating ?? null,
+      priceLevel: p.priceLevel ?? null,
+      website: p.website ?? null,
+      openingHours: p.openingHours ?? null
+    }));
+    this.itineraryService.updateItineraryPlaces(userId, itineraryId, backendPlaces).subscribe({
+      next: () => console.log('Tappe aggiornate con successo'),
+      error: err => console.error('Errore durante salvataggio tappe:', err)
+    });
+  }
 
-  if (!userId || !itineraryId) return;
-
-  const frontendPlaces = this.flattenPlaces(this.days());
-
-  const backendPlaces = frontendPlaces.map(p => ({
-    placeId: p.placeId,
-    name: p.name,
-    day: p.day,
-    timeSlot: p.timeSlot,
-    lat: p.latitude ?? null,
-    lng: p.longitude ?? null,
-    address: p.address ?? '',
-    photoUrl: p.photoUrl ?? '',
-    photoFilename: p.photoFilename ?? '',
-    type: p.type ?? '',
-    note: p.note ?? '',
-    rating: p.rating ?? null,
-    priceLevel: p.priceLevel ?? null,
-    website: p.website ?? null,
-    openingHours: p.openingHours ?? null
-  }));
-
-  this.itineraryService.updateItineraryPlaces(userId, itineraryId, backendPlaces).subscribe({
-    next: () => console.log('✅ Tappe aggiornate con successo'),
-    error: err => console.error('❌ Errore durante salvataggio tappe:', err)
-  });
-}
-
-
-
-
-
-  // (Quasi mai usato) converte da struttura raggruppata a flat
+  // Converte array raggruppato in flat
   private flattenPlaces(days: DayData[]): Place[] {
     const flat: Place[] = [];
     days.forEach((dayData, dayIndex) => {
@@ -299,7 +265,7 @@ export class PersonalizzazionePage implements OnInit {
     return flat;
   }
 
-  // Utility: crea un oggetto Place partendo dalla risposta Google
+  // Utility: crea un oggetto Place da Google
   createFrontendPlaceFromGoogle(place: any, slot: 'morning' | 'afternoon' | 'evening', day: number, type: string): Place {
     return {
       placeId: place.place_id || ('place_' + Date.now()),
@@ -317,7 +283,7 @@ export class PersonalizzazionePage implements OnInit {
     };
   }
 
-  // Conversione per backend (adatta i nomi campi)
+  // Adatta una tappa per il backend
   convertToBackendPlace(p: Place) {
     return {
       placeId: p.placeId,
@@ -333,12 +299,12 @@ export class PersonalizzazionePage implements OnInit {
     };
   }
 
-  // Chiama il backend per ottenere dettagli di un singolo luogo (nome, città, anchor geografico)
+  // Chiede al backend i dettagli di un luogo
   fetchSinglePlaceFromBackend(query: string, city: string, anchor: { lat: number, lng: number }): Promise<any> {
     return this.itineraryService.getSinglePlace(query, city, anchor).toPromise();
   }
 
-  // Estrae solo il nome città da una stringa tipo "05100 Terni TR, Italia"
+  // Estrae il nome della città dalla stringa backend
   extractCityName(full: string): string {
     const parts = full.split(',');
     const core = parts[0].trim();
@@ -346,25 +312,24 @@ export class PersonalizzazionePage implements OnInit {
     return tokens.find(word => isNaN(Number(word))) || 'Roma';
   }
 
-  // Getter di supporto: restituisce gli slot del giorno attivo, oppure oggetto vuoto
+  // Getter: slot del giorno attivo
   get currentDaySlots() {
     const day = this.days()?.[this.activeDay()];
     return day ? day : { morning: [], afternoon: [], evening: [] };
   }
 
-  // True se la tappa è alloggio (esclude dal drag, non mostra cestino)
+  // True se la tappa è alloggio (esclude drag/cestino)
   isAccommodation(p: Place): boolean {
     return p.type === 'accommodation' ||
       (p.type === '' && p.name.toLowerCase().includes('alloggio')) ||
       (p.type === undefined && p.name.toLowerCase().includes('alloggio'));
   }
 
-  // True se la tappa è la prima/ultima nello slot (per disabilitare drag & drop su alloggio)
+  // True se la tappa è la prima/ultima nello slot
   isEdge(index: number, slot: typeof this.slots[number]): boolean {
     const arr = this.days()[this.activeDay()][slot];
     return index === 0 || index === arr.length - 1;
   }
 
-  // Icone usate nel template
   icons = { addOutline, homeOutline, createOutline, settingsOutline };
 }

@@ -5,6 +5,7 @@ import { IonIcon } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { convertFileToBase64 } from 'src/app/utils/image-utils';
 import { ActionSheetController } from '@ionic/angular';
+
 @Component({
   selector: 'app-profile-icon',
   standalone: true,
@@ -12,19 +13,18 @@ import { ActionSheetController } from '@ionic/angular';
   templateUrl: './profile-icon.component.html',
   styleUrls: ['./profile-icon.component.scss']
 })
-export class ProfileIconComponent implements OnInit {
-  /** obbligatorio */
+export class ProfileIconComponent implements OnInit, OnChanges {
+
   @Input({ required: true }) userId!: string;
   @Input() size = 100;
   @Input() editable = false;
   @Input() forcePlaceholder: boolean = false;
-  /** opzionale: se il padre vuole settare un’immagine all’avvio */
   @Input() src: string | null = null;
 
-  /** notifica il padre quando cambia */
   @Output() changed = new EventEmitter<string>();
 
   image: SafeUrl | null = null;
+  private isActionSheetOpen = false;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -32,7 +32,7 @@ export class ProfileIconComponent implements OnInit {
     private actionSheetCtrl: ActionSheetController
   ) {}
 
-  /* ------------ lifecycle ------------ */
+  // lifecycle
   ngOnInit(): void {
     if (this.userId) {
       this.loadImageFromBackend();
@@ -43,9 +43,13 @@ export class ProfileIconComponent implements OnInit {
     if (changes['userId'] && this.userId) {
       this.loadImageFromBackend();
     }
+    // Gestione src opzionale (aggiorna preview live)
+    if (changes['src'] && this.src) {
+      this.image = this.sanitizer.bypassSecurityTrustUrl(this.src);
+    }
   }
-  private isActionSheetOpen = false;
-  /* ------------ UI handlers ------------ */
+
+  // Handler apertura action sheet/modifica/elimina foto
   async triggerFileInput() {
     if (!this.editable || this.isActionSheetOpen) return;
 
@@ -57,7 +61,7 @@ export class ProfileIconComponent implements OnInit {
         {
           text: 'Modifica foto',
           icon: 'image-outline',
-          role: 'custom-modify'  // <-- ruolo personalizzato
+          role: 'custom-modify'
         },
         {
           text: 'Elimina foto',
@@ -81,12 +85,9 @@ export class ProfileIconComponent implements OnInit {
     this.isActionSheetOpen = false;
 
     if (result.role === 'custom-modify') {
-      // Ora l'action sheet è realmente chiuso, e possiamo aprire il file picker
       document.getElementById('fileInput')?.click();
     }
   }
-
-
 
   async onImageSelected(evt: Event): Promise<void> {
     if (!this.editable) return;
@@ -96,18 +97,18 @@ export class ProfileIconComponent implements OnInit {
 
     const base64 = await convertFileToBase64(file);
 
-    /* salva su backend */
+    // Salva su backend
     this.auth.updateProfileImage(this.userId, base64).subscribe({
-      next: () => console.log('✅ immagine salvata'),
-      error: err => console.error('Errore salvataggio', err)
+      next: () => console.log('Immagine profilo aggiornata'),
+      error: err => console.error('Errore salvataggio immagine profilo', err)
     });
 
-    /* aggiorna preview */
+    // Aggiorna preview
     this.image = this.sanitizer.bypassSecurityTrustUrl(base64);
     this.changed.emit(base64);
   }
 
-  /* ------------ helpers ------------ */
+  // Carica immagine profilo dal backend
   private loadImageFromBackend(): void {
     this.auth.getProfileImage(this.userId).subscribe({
       next: (res: { base64: string }) => {
@@ -123,9 +124,10 @@ export class ProfileIconComponent implements OnInit {
     });
   }
 
+  // Cancella immagine profilo dal backend
   deleteImage() {
     if (!this.userId) return;
-    console.log("Elimino la foto per userId:", this.userId);
+    console.log('Elimino la foto per userId:', this.userId);
     this.auth.updateProfileImage(this.userId, "").subscribe({
       next: res => {
         console.log('Risposta eliminazione:', res);
@@ -137,6 +139,4 @@ export class ProfileIconComponent implements OnInit {
       }
     });
   }
-
 }
-

@@ -1,26 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import {
   IonHeader,
   IonToolbar,
   IonButtons,
-  IonIcon,
-  IonButton,
   IonTitle
 } from '@ionic/angular/standalone';
-import { BlobOptions } from 'buffer';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    CommonModule,         
+    CommonModule,
     IonHeader,
     IonToolbar,
     IonButtons,
-    IonIcon,
-    IonButton,
     IonTitle
   ],
   templateUrl: './app-header.component.html',
@@ -36,5 +31,5 @@ export class AppHeaderComponent {
 
   NavHome() {
     this.router.navigate(['/tabs/home']);
-  }  
+  }
 }

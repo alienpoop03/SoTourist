@@ -1,6 +1,4 @@
-/* ========== SoTourist Global Styles ========== */
-
-/* Ionic Base Imports */
+// Ionic base imports
 @import "@ionic/angular/css/core.css";
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
@@ -14,8 +12,7 @@
 @import 'swiper/swiper-bundle.css';
 
 
-
-/* ========== Layout Base ========== */
+// Layout base
 html,
 body,
 ion-app,
@@ -26,7 +23,7 @@ ion-page {
   font-family: var(--ion-font-family);
 }
 
-/* Header */
+// Header
 ion-header {
   padding-top: env(safe-area-inset-top);
   height: 56px;
@@ -36,8 +33,7 @@ ion-header {
   z-index: 10;
 }
 
-
-/* Contenuto */
+// Contenuto principale
 ion-content {
   --background: var(--ion-color-light);
   min-height: 100%;
@@ -45,46 +41,28 @@ ion-content {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Footer */
+// Footer
 ion-footer {
   padding-bottom: env(safe-area-inset-bottom);
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
   background: var(--ion-color-light);
 }
 
-/* Tab Bar Personalizzata */
+// Tab Bar personalizzata
 ion-tab-bar {
-  --background: var(--ion-color-primary);
-  /* Bordeaux */
+  --background: var(--ion-color-primary); // Bordeaux
   --color: var(--ion-color-secondary);
-  /* Giallo icone non selezionate */
   --color-selected: var(--ion-color-secondary);
-  /* Giallo icona selezionata */
   --border: none;
 }
 
-/* Icone */
+// Icone
 ion-icon {
-  color: var(--ion-color-secondary);
-  /* Giallo ovunque */
+  color: var(--ion-color-secondary); // Giallo ovunque
 }
 
-/* Utility */
-.text-center {
-  text-align: center;
-}
-
-.mt-2 {
-  margin-top: 16px;
-}
-
-.mb-2 {
-  margin-bottom: 16px;
-}
-
-// STILE GLOBALE BOX
+// Stile globale cards, buttons, list, box
 .boxes-style {
-  /* usa ion-list lines="full" in HTML */
   background: var(--color-background);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   border-radius: var(--box-radius);
@@ -99,7 +77,7 @@ ion-icon {
   }
 }
 
-/* Item edge-to-edge con solo indent interno */
+// Item edge-to-edge con solo indent interno
 .boxes-style ion-item {
   --inner-padding-start: 1rem;
   --inner-padding-end: 1rem;
@@ -107,7 +85,7 @@ ion-icon {
   border-radius: 0;
 }
 
-/* Header di lista: padding standard e carattere più marcato */
+// Header di lista
 .boxes-style ion-list-header {
   font-weight: 600;
   font-size: 1.1rem;
@@ -115,28 +93,22 @@ ion-icon {
 }
 
 ion-button.boxes-style {
-  /* la regola prende il bottone stesso */
   --padding-top: 0.5rem;
   --padding-bottom: 0.5rem;
   --border-radius: var(--box-radius);
-  /* variabile interna */
-
-  /* per sicurezza, forza anche la parte nativa */
-  // &::part(native) {
-  //   border-radius: 26px;
-  // }
 }
 
+// Toast personalizzato
 .custom-toast {
-  --max-width: 280px;     // larghezza massima
-  font-size: 1rem;        // grandezza testo
+  --max-width: 280px;
+  font-size: 1rem;
   --padding-start: 1.2rem;
   --padding-end: 1.2rem;
   --border-radius: var(--box-radius);
   text-align: center;
 }
 
-
+// Padding extra per pagine con tabs fissi
 .with-floating-tabs {
   padding-bottom: var(--space-tabs);
 }

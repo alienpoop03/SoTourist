@@ -12,6 +12,7 @@ export class ItineraryService {
 
   constructor(private http: HttpClient) { }
 
+  // Crea nuovo itinerario
   createItinerary(userId: string, rawData: {
     city: string;
     accommodation: string;
@@ -31,24 +32,17 @@ export class ItineraryService {
       places: rawData.places || []
     };
 
-    console.log('[🟡 Dati inviati a POST]', payload);
+    console.log('[Dati inviati a POST]', payload);
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries`, payload);
   }
 
-
-
-  // Recupera un itinerario specifico
-  // Recupera un itinerario specifico (raw JSON con campo `itinerary`)
+  // Ottiene itinerario per id e adatta photoUrl
   getItineraryById(itineraryId: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/itineraries/${itineraryId}`)
       .pipe(
         tap(raw => {
-          console.log('[📦 RAW-API itinerary]', raw.itinerary);
+          console.log('[RAW-API itinerary]', raw.itinerary);
         }),
-        // Aggiungiamo la mappatura qui
-        // Converte photoFilename nel relativo URL
-        // ed evitiamo modifiche al resto del frontend
-        // (questo è il vero "adapter layer" pulito)
         map(raw => {
           for (const day of raw.itinerary) {
             for (const slot of ['morning', 'afternoon', 'evening']) {
@@ -64,9 +58,7 @@ export class ItineraryService {
       );
   }
 
-
-
-  // Recupera tutti gli itinerari dell’utente filtrati
+  // Tutti gli itinerari dell'utente filtrati
   getUserItineraries(userId: string, filter: 'all' | 'current' | 'upcoming' | 'future' | 'past'): Observable<TripWithId[]> {
     return this.http.get<TripWithId[]>(`${this.baseUrl}/users/${userId}/itineraries?filter=${filter}`);
   }
@@ -76,38 +68,35 @@ export class ItineraryService {
     return this.http.delete(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`);
   }
 
-  // Aggiorna itinerario
+  // Aggiorna dati itinerario
   updateItinerary(userId: string, itineraryId: string, updatedData: Partial<TripWithId>) {
     return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}`, updatedData);
   }
 
   // Sovrascrive tutte le tappe di un itinerario
   updateItineraryPlaces(userId: string, itineraryId: string, places: any[]) {
-  return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
-}
+    return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
+  }
 
-
-
-
+  // Aggiunge tappe (place) a un itinerario
   addPlacesToItinerary(userId: string, itineraryId: string, places: any[]) {
     return this.http.post(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, places);
   }
 
- getSinglePlace(query: string, city: string, anchor?: { lat: number, lng: number }) {
-  let params = new HttpParams()
-    .set('query', query)
-    .set('city', city);
+  // Ricerca un singolo place su Google
+  getSinglePlace(query: string, city: string, anchor?: { lat: number, lng: number }) {
+    let params = new HttpParams()
+      .set('query', query)
+      .set('city', city);
 
-  if (anchor) {
-    params = params.set('lat', anchor.lat).set('lng', anchor.lng);
+    if (anchor) {
+      params = params.set('lat', anchor.lat).set('lng', anchor.lng);
+    }
+
+    return this.http.get(`${this.baseUrl}/itinerary/single-place`, { params });
   }
 
-  return this.http.get(`${this.baseUrl}/itinerary/single-place`, { params });
-}
-
-
-
-  //ceck date
+  // Controlla se le date vanno in overlap
   checkDateOverlap(userId: string, startDate: string, endDate: string, excludeId?: string): Observable<{ overlap: boolean }> {
     let params = new HttpParams()
       .set('startDate', startDate)
@@ -123,7 +112,7 @@ export class ItineraryService {
     );
   }
 
-  // Copia un itinerario su un altro utente
+  // Clona/copia itinerario su altro utente
   copyItinerary(originalItineraryId: string, targetUserId: string, startDate: string, endDate: string): Observable<{ newItineraryId: string }> {
     return this.http.post<{ newItineraryId: string }>(
       `${this.baseUrl}/itineraries/${originalItineraryId}/copy/${targetUserId}`,

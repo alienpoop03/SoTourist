@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  //private baseUrl = 'http://192.168.17.185:3000/api/auth';
+  
+  // private baseUrl = 'http://192.168.17.185:3000/api/auth'; // Solo per debug
   private baseUrl = API_BASE_URL + '/api/auth';
-
 
   constructor(private http: HttpClient) { }
 
@@ -26,8 +26,7 @@ export class AuthService {
     );
   }
 
-
-  // 💾 Salva info utente localmente
+  // Salva info utente localmente
   saveSession(userId: string, profile: { username: string; email: string}) {
     localStorage.setItem('userId', userId);
     localStorage.setItem('userProfile', JSON.stringify(profile));
@@ -41,18 +40,18 @@ export class AuthService {
     return 'user';
   }
 
-  // 🔐 Logout
+  // Logout
   logout() {
     localStorage.removeItem('userId');
     localStorage.removeItem('userProfile');
   }
 
-  // 📤 Leggi ID utente
+  // Leggi ID utente
   getUserId(): string | null {
     return localStorage.getItem('userId');
   }
 
-  // 📤 Leggi profilo utente
+  // Leggi profilo utente
   getUserProfile(): { username: string; email: string } | null {
     const raw = localStorage.getItem('userProfile');
     return raw ? JSON.parse(raw) : null;
@@ -76,7 +75,7 @@ export class AuthService {
     );
   }
 
-  //odifica dati
+  // Modifica dati utente
   updateUser(userId: string, data: { username?: string; email?: string;}) {
     return this.http.put(`${this.baseUrl}/users/${userId}`, data);
   }
@@ -87,10 +86,9 @@ export class AuthService {
       `${this.baseUrl}/users/${userId}/password`,
       body
     );
-}
+  }
 
-
-  //cancella utente
+  // Cancella utente
   deleteUser(userId: string) {
     return this.http.delete(`${this.baseUrl}/users/${userId}`);
   }
@@ -103,7 +101,7 @@ export class AuthService {
 
   getProfileImageBlob(userId: string): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/users/${userId}/profile-image`, {
-      responseType: 'blob' // 👈 Ricevi il binario
+      responseType: 'blob'
     });
   }
 

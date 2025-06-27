@@ -1,7 +1,8 @@
 <ion-card class="boxes-style" [class.conflict]="hasConflict" (click)="onClick()">
 
   <div class="trip-layout">
-    <!-- CONTENUTO CENTRALE: dettagli + pulsanti -->
+    
+    <!-- Dettagli centrali e bottoni -->
     <div class="trip-center">
       <div class="trip-details">
         <h3 class="trip-city">{{ getCityName() }}</h3>
@@ -22,7 +23,7 @@
       </div>
     </div>
 
-    <!-- FRECCIA -->
+    <!-- Freccia solo se nessun conflitto -->
     <div class="trip-arrow" *ngIf="!hasConflict">
       <div class="arrow-container">
         <ion-icon name="arrow-forward-outline"></ion-icon>

@@ -1,6 +1,5 @@
+// Dati di un luogo/tappa del viaggio
 export interface Place {
-
-  // per cercarlo correttamente sulla mappa
   placeId: string;
   name: string;
   address?: string;
@@ -9,29 +8,30 @@ export interface Place {
   latitude: number;
   longitude: number;
 
-  // da capire perchè abbiamo tutte ste cose per la photo
-  photoUrl?: string;        // URL completo dell'immagine
-  photoFilename?: string;   // Nome file salvato nel backend
-  photoReference?: string;  // usato per il download iniziale
+  // Info foto (potrebbero servire per diversi flussi)
+  photoUrl?: string;
+  photoFilename?: string;
+  photoReference?: string;
 
-  // cose utili da far vedere nella card
+  // Dati da mostrare nella card
   rating?: number;
-  priceLevel?: number;        // da 0 (gratis) a 4 (molto costoso)
+  priceLevel?: number;       // 0 = gratis, 4 = molto costoso
   website?: string;
   openingHours?: string[];
-  distanceToNext?: string;  // calcolato dinamicamente ( non passato da google)
+  distanceToNext?: string;   // generato lato FE
 
   type?: string;
   note?: string;
 }
 
+// Dati di un viaggio completo, con tappe
 export interface TripWithId {
-  itineraryId:   string;
-  city:          string;
-  startDate:     string;
-  endDate:       string;
+  itineraryId: string;
+  city: string;
+  startDate: string;
+  endDate: string;
   accommodation: string;
-  coverPhoto?:   string;
-  style?:        string;
-  places:        Place[];     // ← corrisponde al campo che ti manda il backend
+  coverPhoto?: string;
+  style?: string;
+  places: Place[];    // tappe (dal backend)
 }

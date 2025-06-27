@@ -19,7 +19,5 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideAnimations(),      // abilita Angular Animations
     provideHttpClient() 
-
-
   ],
 });

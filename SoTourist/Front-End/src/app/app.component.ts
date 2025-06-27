@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Router } from '@angular/router';
-import { GenerationOverlayComponent } from './components/generation-overlay/generation-overlay.component';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { catchError, of } from 'rxjs';
@@ -13,7 +12,7 @@ register();
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet, GenerationOverlayComponent, CommonModule,],
+  imports: [IonApp, IonRouterOutlet, CommonModule],
 })
 export class AppComponent implements OnInit {
   showOverlay = true;
@@ -26,20 +25,15 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-   /* // ⏳ Risveglia il backend
-    console.log('Inizio wakeBackend');
-    await this.backend.wakeBackend();
-    console.log('Backend sveglio, chiudo overlay');
-    this.showOverlay = false;*/
 
-    // 🌙 Tema scuro
+    // Tema scuro da localStorage
     const dark = localStorage.getItem('darkMode') === 'true';
     document.body.classList.toggle('dark', dark);
 
-    // 🔐 Controllo login
+    // Controllo login
     const userId = localStorage.getItem('userId');
 
-    // 🧠 Controlla se è un refresh
+    // Rileva se è un refresh
     const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
     const isRefresh = navEntry?.type === 'reload';
 
@@ -49,7 +43,7 @@ export class AppComponent implements OnInit {
     }
 
     if (isRefresh) {
-      return; // 🔄 Non fare nulla su refresh
+      return;
     }
 
     if (userId.startsWith('guest_')) {
@@ -57,7 +51,7 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    // ✅ Controllo reale utente
+    // Verifica utente reale
     this.auth.getUserType(userId).pipe(
       catchError(err => {
         console.error('Errore nel controllo utente:', err);
@@ -75,6 +69,7 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // Configura la status bar nativa
   async configureStatusBar() {
     try {
       await StatusBar.setStyle({ style: Style.Light });
@@ -86,6 +81,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // Vai alla pagina di login
   goToLogin() {
     this.showOverlay = false;
     if (this.router.url !== '/login') {
@@ -93,6 +89,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // Vai alla home
   goToHome() {
     this.showOverlay = false;
     if (this.router.url !== '/tabs/home') {
@@ -100,4 +97,3 @@ export class AppComponent implements OnInit {
     }
   }
 }
-

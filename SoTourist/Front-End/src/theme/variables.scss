@@ -1,87 +1,101 @@
 :root {
+  // radius e spaziatura principali
   --box-radius: 26px;
   --space-tabs: 60px;
 
+  // colori principali (tema chiaro)
   --ion-color-primary: #7B1E1E;
   --ion-color-secondary: #FFCC00;
   --ion-color-light: #dbdbdb;
 
-  --color-primary: #7B1E1E; /* colore dello sfondo dei bottoni confermati */
-  --color-indietro: #7B1E1E; /*colore dle tatso indietro */
+  --color-primary: #7B1E1E; // sfondo bottoni confermati
+  --color-indietro: #7B1E1E; // tasto indietro
   --color-primary2: #4F1212;
-  --color-highlight: #FFCC00; /* colore del testo dei bottoni confermati */
-  --color-ion-labels-crea: #7B1E1E; /*colori di hotel e indirizzo*/
+  --color-highlight: #FFCC00; // testo bottoni confermati
+  --color-ion-labels-crea: #7B1E1E;
 
+  // background vari
   --color-background: #ffffff;
   --color-background-rgb: 255, 255, 255;
   --color-background1: #f9f9f9;
   --color-background2: #f9f9f9;
   --color-background3: #e6e6e6;
   --color-background4: #dbdbdb;
-  --color-background-ativeMap:#fffbe7;
-  --color-button-neutral: #cdcdcd; /* bottone avanti disabilitato */
+  --color-background-ativeMap: #fffbe7;
+  --color-button-neutral: #cdcdcd; // bottone avanti disabilitato
   
+  // font
   --ion-font-family: "Arial", sans-serif;
   
+  // colori testo
   --color-text: #7B1E1E;
   --color-text1: #7B1E1E;
   --color-text2: #000000;
-  --color-text3:#7B1E1E; 
+  --color-text3: #7B1E1E; 
   --color-text-evid: #f9f9f9;
   --color-title-viaggi: #4F1212;
-  --color-text-home: #7B1E1E; /*colore del titolo della pagina home*/
+  --color-text-home: #7B1E1E; // titolo pagina home
 
+  // tabs
   --tabs-select: #8c2121;
   --tabs-background: #7B1E1E;
   --tabs-icon: #FFCC00;
 
+  // calendario/date
   --date-lock: #9E9E9E;
   --date-unlock: #333333;
   --giallo-selezione: #CC9900;
 
+  // effetti
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  --handle-color:#ccc;
-
+  --handle-color: #ccc;
 }
 
-/*tema scuro*/
-.dark{
+// Tema scuro
+.dark {
+  // colori principali
   --ion-color-primary: #4F1212;
   --ion-color-secondary: #CC9900;
   --ion-color-light: #434343;
 
   --color-primary: #4F1212;
-  --color-indietro: #CC9900; /*colore dle tatso indietro */
+  --color-indietro: #CC9900; // tasto indietro
   --color-primary2: #7B1E1E;      
   --color-highlight: #CC9900; 
-  --color-ion-labels-crea: #CC9900; /*colori di hotel e indirizzo*/
+  --color-ion-labels-crea: #CC9900;
   
+  // font
   --ion-font-family: "Arial", sans-serif;
 
-  --color-background: #1a1a1a;       /* Sfondo principale, più chiaro */
+  // background vari
+  --color-background: #1a1a1a; // sfondo principale
   --color-background-rgb: 26, 26, 26;
   --color-background1: #1a1a1a;
-  --color-background2: #0a0a0a;      /* Card, riepilogo, box: più scuri */
-  --color-background3: #2f2f2f;     /* colore del campo testo */
-  --color-background4: #434343;    /* sfondo delle pagine e della lista autocomplete */
-  --color-background-ativeMap:#4A3A16;
-  --color-button-neutral: #434343; /* bottone avanti disabilitato */
+  --color-background2: #0a0a0a; // card, box, riepilogo
+  --color-background3: #2f2f2f; // campo testo
+  --color-background4: #434343; // autocomplete ecc
+  --color-background-ativeMap: #4A3A16;
+  --color-button-neutral: #434343; // bottone avanti disabilitato
    
+  // colori testo
   --color-text: #FFCC00;
   --color-text1: #FFCC00;
-  --color-text2: #ffffff; //colore testo nuovo (ha più senso)
-  --color-text3:#ffffff; 
+  --color-text2: #ffffff; // testo nuovo
+  --color-text3: #ffffff; 
   --color-text-evid: #FFCC00;
-  --color-title-viaggi: #CC9900;    /* titolo delle card */
-  --color-text-home: #FFCC00; /*colore del titolo della pagina home*/
+  --color-title-viaggi: #CC9900; // titolo card
+  --color-text-home: #FFCC00; // titolo pagina home
 
+  // tabs
   --tabs-select: #420f0f;
   --tabs-background: #4F1212;
   --tabs-icon: #CC9900;
 
+  // calendario/date
   --date-lock: #333333;
   --date-unlock: #9E9E9E;
   --giallo-selezione: #e9af01;
 
-  --handle-color:#555;
+  // effetti
+  --handle-color: #555;
 }

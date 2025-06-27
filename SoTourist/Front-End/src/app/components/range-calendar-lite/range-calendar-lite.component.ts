@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Input  } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import Litepicker from 'litepicker';
 import { ToastService } from '../../services/toast.service';
 
@@ -34,30 +34,26 @@ export class RangeCalendarLiteComponent implements AfterViewInit {
         one: 'giorno ',
         other: 'giorni'
       },
-      
 
       setup: (picker) => {
         picker.on('selected', (start, end) => {
-        const diffDays = end.diff(start, 'days') + 1;
-        console.log("allooooora ",diffDays, " ", this.maxDays);
+          const diffDays = end.diff(start, 'days') + 1;
+          console.log('Selezionati giorni:', diffDays, '(max:', this.maxDays, ')');
 
-        if (this.maxDays && diffDays > this.maxDays) {
-          this.toastService.showWarning(`Puoi selezionare al massimo ${this.maxDays} giorni.`);
-          picker.clearSelection();
-          
-        }else{
-          this.datesSelected.emit({
-            from: start.format('YYYY-MM-DD'),
-            to: end.format('YYYY-MM-DD')
-          });
-        }
+          if (this.maxDays && diffDays > this.maxDays) {
+            this.toastService.showWarning(`Puoi selezionare al massimo ${this.maxDays} giorni.`);
+            picker.clearSelection();
+          } else {
+            this.datesSelected.emit({
+              from: start.format('YYYY-MM-DD'),
+              to: end.format('YYYY-MM-DD')
+            });
+          }
+        });
+      }
+    });
 
-        
-      });
-    }
-  });
-
-    // Mostra sempre il calendario appena montato
+    // Mostra il calendario dopo il montaggio
     setTimeout(() => {
       this.picker.show();
     }, 10);

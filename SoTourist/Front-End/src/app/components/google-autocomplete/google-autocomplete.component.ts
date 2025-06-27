@@ -13,38 +13,11 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-google-autocomplete',
   standalone: true,
-  template: `
-    <div class="autocomplete-wrapper">
-      <input
-        #autoInput
-        class="autocomplete-input"
-        [type]="type"
-        [placeholder]="placeholder"
-        [(ngModel)]="value"
-        (keyup)="onKeyup()"
-        (blur)="onBlur()"
-        autocomplete="off"
-      />
-
-      <ul
-        *ngIf="suggestions.length && showSuggestions"
-        class="suggestions-list"
-      >
-        <li
-          *ngFor="let s of suggestions"
-          (mousedown)="preventBlur($event)"
-          (click)="selectSuggestion(s)"
-        >
-          {{ s.description }}
-        </li>
-      </ul>
-    </div>
-  `,
+  templateUrl: './google-autocomplete.component.html',
   styleUrls: ['./google-autocomplete.component.scss'],
   imports: [FormsModule, CommonModule]
 })
 export class GoogleAutocompleteComponent implements AfterViewInit {
-  //INPUTS 
   @Input() placeholder = '';
   @Input() value = '';
   @Input() type = 'text';
@@ -52,26 +25,19 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
   @Input() bounds: google.maps.LatLngBounds | null = null;
   @Input() restrictToBounds = false;
 
-  
   @Output() valueChange = new EventEmitter<string>();
   @Output() placeSelected = new EventEmitter<google.maps.places.PlaceResult>();
 
-  
   @ViewChild('autoInput', { static: true })
   inputRef!: ElementRef<HTMLInputElement>;
 
- 
   suggestions: google.maps.places.AutocompletePrediction[] = [];
   showSuggestions = false;
 
   private autocompleteService!: google.maps.places.AutocompleteService;
   private placesService!: google.maps.places.PlacesService;
   private sessionToken!: google.maps.places.AutocompleteSessionToken;
-
-  //  cache dei dettagli già scaricati   
   private detailsCache = new Map<string, google.maps.places.PlaceResult>();
-
-
   private timer: any;
   private readonly DEBOUNCE_MS = 150;
 
@@ -112,7 +78,7 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
         this.suggestions = pred;
         this.showSuggestions = true;
 
-        /* PREFETCH: scarica in background i dettagli delle prime 5 voci */
+        // Prefetch dettagli delle prime 5 voci
         this.suggestions.slice(0, 5).forEach(p => this.prefetchDetails(p));
       } else {
         this.suggestions = [];
@@ -121,11 +87,8 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     });
   }
 
-  // prefetch
-  private prefetchDetails(
-    pred: google.maps.places.AutocompletePrediction
-  ) {
-    if (this.detailsCache.has(pred.place_id)) return; // già in cache
+  private prefetchDetails(pred: google.maps.places.AutocompletePrediction) {
+    if (this.detailsCache.has(pred.place_id)) return;
 
     const fields: (keyof google.maps.places.PlaceResult)[] = [
       'place_id',
@@ -151,22 +114,16 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
     );
   }
 
-  // selezione 
-  selectSuggestion(
-    pred: google.maps.places.AutocompletePrediction
-  ) {
-    // chiude immediatamente la tendina
+  selectSuggestion(pred: google.maps.places.AutocompletePrediction) {
     this.showSuggestions = false;
     this.suggestions = [];
 
-    // reset input visivo
     this.value = '';
     this.inputRef.nativeElement.value = '';
     this.valueChange.emit('');
 
     const cached = this.detailsCache.get(pred.place_id);
     if (cached) {
-       //dettagli già pronti → emetti subito
       this.placeSelected.emit(cached);
       this.resetSession();
       return;
@@ -196,26 +153,23 @@ export class GoogleAutocompleteComponent implements AfterViewInit {
           place
         ) {
           this.placeSelected.emit(place);
-          this.detailsCache.set(pred.place_id, place); // salva per uso futuro
+          this.detailsCache.set(pred.place_id, place);
           this.resetSession();
         }
       }
     );
   }
 
-  // focus / blur 
   preventBlur(ev: MouseEvent) {
-    ev.preventDefault(); // evita perdita focus prima del click
+    ev.preventDefault();
   }
 
   onBlur() {
     setTimeout(() => (this.showSuggestions = false), 200);
   }
 
-  //  helpers 
   private resetSession() {
     this.sessionToken = new google.maps.places.AutocompleteSessionToken();
-    // svuota la cache ad ogni nuova sessione
     this.detailsCache.clear();
   }
 }

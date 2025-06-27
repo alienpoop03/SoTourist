@@ -14,10 +14,7 @@ export class NavigationService {
       });
   }
 
-  /**
-   * Torna alla pagina precedente se presente nella history,
-   * altrimenti naviga alla route di fallback.
-   */
+  // Torna alla pagina precedente o fallback
   back(fallback: string): void {
     this.history.pop();
     const previous = this.history.pop();

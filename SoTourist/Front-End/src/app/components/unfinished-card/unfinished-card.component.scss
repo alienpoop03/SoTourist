@@ -1,20 +1,12 @@
+// Layout principale
 .trip-layout {
   display: flex;
   flex-direction: row;
   height: 120px;
   position: relative;
-
-}
- 
-/* FOTO */
-.trip-photo {
-  flex: 1.2;
-  min-width: 110px;
-  background-size: cover;
-  background-position: center;
 }
 
-/* BLOCCO CENTRALE: dettagli + bottoni */
+// Centro: dettagli e bottoni
 .trip-center {
   flex: 3;
   display: flex;
@@ -24,7 +16,7 @@
   padding: 0.75rem 1rem;
 }
 
-/* TESTO */
+// Dettagli testuali del viaggio
 .trip-details {
   display: flex;
   flex-direction: column;
@@ -35,7 +27,7 @@
     margin: 0 0 0.25rem;
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--color-text); /* Usa già il valore corretto dinamico */
+    color: var(--color-text);
   }
 
   .trip-dates {
@@ -52,8 +44,7 @@
   }
 }
 
-
-/* BOTTONI VERTICALI */
+// Bottoni verticali
 .side-buttons {
   display: flex;
   flex-direction: column;
@@ -71,7 +62,7 @@
   z-index: 1;
 }
 
-/* FRECCIA */
+// Freccia a destra
 .trip-arrow {
   width: 50px;
   display: flex;
@@ -90,9 +81,10 @@
   }
 }
 
+// Stile principale card (hover e conflitto)
 .boxes-style{
   overflow: hidden;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); // opzionale per eleganza
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   background: var(--color-background);
   transition: transform 0.2s ease;
 
@@ -100,9 +92,9 @@
     transform: translateY(-2px);
   }
   
-  //se le date vanno in conflitto
+  // Stile se date in conflitto
   &.conflict {
-    background: #ff0000; // rosso chiaro (puoi usare #ffcccc o simile)
-    border-left: 6px solid var(--color-primary); // opzionale per accentuare il bordo
+    background: #ff0000;
+    border-left: 6px solid var(--color-primary);
   }
 }

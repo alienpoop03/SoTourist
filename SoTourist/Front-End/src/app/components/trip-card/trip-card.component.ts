@@ -1,16 +1,9 @@
-// trip-card.component.ts
-//import { TripWithId } from 'src/app/models/trip.model';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  IonCard,
-  IonButton,
-  IonIcon
-} from '@ionic/angular/standalone';
+import { IonCard, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { TripWithId } from 'src/app/models/trip.model';
 import { Router } from '@angular/router';
 import { getPhotoUrl } from 'src/app/utils/photo-utils';
-
 import { getCityName, getAccommodationName } from '../../utils/trip-utils';
 
 @Component({
@@ -25,17 +18,17 @@ import { getCityName, getAccommodationName } from '../../utils/trip-utils';
   templateUrl: './trip-card.component.html',
   styleUrls: ['./trip-card.component.scss'],
 })
-
 export class TripCardComponent {
   @Input() trip!: TripWithId;
   @Output() open = new EventEmitter<string>();
   @Output() remove = new EventEmitter<string>();
 
-coverUrl: string = '';
-ngOnInit() {
-  this.coverUrl = getPhotoUrl(this.trip.coverPhoto);
-  console.log('✅ URL cover generata una volta:', this.coverUrl);
-}
+  coverUrl: string = '';
+
+  ngOnInit() {
+    this.coverUrl = getPhotoUrl(this.trip.coverPhoto);
+    console.log('URL cover generata una volta:', this.coverUrl);
+  }
 
   onDelete(event: Event) {
     this.remove.emit(this.trip.itineraryId);
@@ -47,11 +40,9 @@ ngOnInit() {
   ) { }
 
   onClick() {
-
     this.router.navigate(['/tabs/panoramica'], {
       queryParams: { id: this.trip.itineraryId }
     });
-
   }
 
   getFormattedCity(): string {
@@ -62,16 +53,10 @@ ngOnInit() {
     return getAccommodationName(this.trip.accommodation);
   }
 
-
-
-
-
   calculateTripLength(start: string, end: string): number {
     const s = new Date(start);
     const e = new Date(end);
     const diff = e.getTime() - s.getTime();
     return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
   }
-
-
 }

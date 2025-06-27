@@ -4,18 +4,17 @@
   height: 100%;
   margin: 0;
   padding: 0;
-} 
-
-// Wrapper che centra il calendario
-.calendar-host {
-  width: 100%;
-  //min-height: 320px;
-  display: flex;
-  justify-content: center;   // centra orizzontalmente
-  align-items: flex-start;   // metti 'center' se vuoi centrare anche in verticale nella card
 }
 
-// Contenitore interno, lascia solo il flex, niente width!
+// Wrapper principale che centra il calendario
+.calendar-host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+// Contenitore interno del calendario, solo flex
 #calendarContainer {
   display: flex;
   flex-direction: column;
@@ -23,25 +22,24 @@
   justify-content: center;
 }
 
-// Questo forza Litepicker a stare centrato anche se è più stretto del contenitore!
+// Override Litepicker (per centrare e customizzazioni)
 ::ng-deep .litepicker {
   display: block !important;
   margin-left: auto !important;
   margin-right: auto !important;
-
   font-family: 'Arial', sans-serif;
   border: none;
-  //background-color: red; // sfondo principale
   border-radius: var(--box-radius) !important; 
-  overflow: hidden; 
+  overflow: hidden;
 
-
+  // Container dei mesi
   .container__months {
     background-color: var(--color-background1);
   }
 
+  // Header del mese
   .month-item-header {
-    background-color: var(--color-primary); // bordeaux header
+    background-color: var(--color-primary);
     color: var(--color-highlight) !important;
     font-weight: bold;
     border-top-left-radius: var(--box-radius) !important; 
@@ -49,10 +47,9 @@
     overflow: hidden; 
   }
 
+  // Giorni
   .day-item {
     color: var(--date-unlock) !important;
-    
-    
 
     &.is-locked {
       color: var(--date-lock) !important;
@@ -68,10 +65,10 @@
     }
 
     &.is-in-range {
-      background-color: var(--color-highlight) !important; // giallo senape selezione
+      background-color: var(--color-highlight) !important;
       color: var(--color-primary2) !important;
     }
-    
+
     &.is-in-range:nth-child(7n) {
       border-bottom-right-radius: var(--box-radius);
       border-top-right-radius: var(--box-radius);
@@ -86,28 +83,26 @@
 
     &.is-start-date,
     &.is-end-date {
-      background-color: var(--color-primary) !important; // bordeaux inizio/fine
+      background-color: var(--color-primary) !important;
       color: var(--color-highlight) !important;
     }
 
     &.is-end-date:nth-child(7n + 1),
-    &.is-start-date{
+    &.is-start-date {
       border-bottom-left-radius: var(--box-radius) !important;
-      border-top-left-radius: var(--box-radius) !important ;
+      border-top-left-radius: var(--box-radius) !important;
       overflow: hidden;
     }
 
     &.is-start-date:nth-child(7n),
     &.is-end-date {
       border-bottom-right-radius: var(--box-radius) !important;
-      border-top-right-radius: var(--box-radius) !important ;
+      border-top-right-radius: var(--box-radius) !important;
       overflow: hidden;
     }
 
-    
-
     &:hover {
-      background-color: var(--color-highlight) ;
+      background-color: var(--color-highlight);
       color: var(--color-primary2);
       box-shadow: rgba(var(--color-primary), 1)!important;
       border-radius: var(--box-radius); 
@@ -116,16 +111,17 @@
   }
 }
 
+// Frecce del calendario
 ::ng-deep .litepicker .button-previous-month svg path,
 ::ng-deep .litepicker .button-next-month svg path {
-  fill: var(--color-highlight) !important; /* bordeaux */
-  font-size: 1.4rem;         /* opzionale: ingrandisce l’icona */
-  background: transparent;   /* se vuoi rimuovere sfondo */
+  fill: var(--color-highlight) !important;
+  font-size: 1.4rem;
+  background: transparent;
   border: none;
   cursor: pointer;
 }
 
 ::ng-deep .litepicker .button-previous-month:hover svg path,
 ::ng-deep .litepicker .button-next-month:hover svg path {
-  fill: var(--giallo-selezione) !important; /* giallo senape */
+  fill: var(--giallo-selezione) !important;
 }

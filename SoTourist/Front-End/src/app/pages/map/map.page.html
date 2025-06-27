@@ -1,23 +1,23 @@
 <ion-content>
-  <!--  MAPPA  -->
+  
+  <!-- Mappa -->
   <div #map id="map"></div>
-  <app-navigation-bar [title]="getCurrentDayDate()" ></app-navigation-bar>
 
-  <!-- WRAPPER DEI SELETTORI -->
+  <app-navigation-bar [title]="getCurrentDayDate()"></app-navigation-bar>
+
+  <!-- Wrapper dei selettori -->
   <div class="selectors-bar">
-    <!-- Selettore giorno -->
+
     <div class="selector day-selector" (click)="toggleDayList()">
-      <!-- <ion-icon name="calendar-outline" class="selector-icon"></ion-icon> -->
       Giorno {{ currentDay }}
       <ion-icon name="chevron-down-outline" [class.open]="dayListOpen" class="selector-arrow"></ion-icon>
     </div>
 
-    <!-- Selettore parte del giorno -->
     <div class="selector time-selector" (click)="toggleTimeList()">
-      <!-- <ion-icon name="time-outline" class="selector-icon"></ion-icon> -->
       {{ timeSlotLabel }}
       <ion-icon name="chevron-down-outline" [class.open]="timeListOpen" class="selector-arrow"></ion-icon>
     </div>
+
   </div>
 
   <!-- Dropdown Giorno -->
@@ -41,21 +41,24 @@
     </ion-item>
   </ion-list>
 
-  <!--  DRAWER  -->
+  <!-- Drawer -->
   <div class="drawer" [class.expanded]="drawerExpanded">
 
     <div class="handle"></div>
+
     <div class="cards" [ngClass]="{ 'horizontal': isDrawerCompact }" #cardsContainer>
-
-
-      <app-luogo-card *ngFor="let p of todayPlaces; let i = index" [place]="p" [index]="i"
-        [selected]="i === selectedIndex" [extends]="!isDrawerCompact" (clicked)="openPlace(i)">
+      <app-luogo-card *ngFor="let p of todayPlaces; let i = index"
+        [place]="p"
+        [index]="i"
+        [selected]="i === selectedIndex"
+        [extends]="!isDrawerCompact"
+        (clicked)="openPlace(i)">
       </app-luogo-card>
-
     </div>
+
   </div>
 
-  <!--  MODALE DETTAGLIO  -->
+  <!-- Modale dettaglio -->
   <ion-modal [isOpen]="detailOpen" (ionModalDidDismiss)="detailOpen=false">
     <ng-template>
       <ion-card class="detail">
@@ -74,5 +77,6 @@
       </ion-card>
     </ng-template>
   </ion-modal>
+
   <div class="with-floating-tabs"></div>
 </ion-content>

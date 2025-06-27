@@ -1,7 +1,6 @@
 <ion-card [class.selected]="selected" [class.compact]="!extends" (click)="clicked.emit()">
   <ion-img *ngIf="place.photoUrl; else ph" [class.compact]="!extends" [src]="place.photoUrl"></ion-img>
   <ng-template #ph>
-   
     <img class="placeholder" [class.compact]="!extends" [src]="'assets/icons/pin.png'"/>
   </ng-template>
 
