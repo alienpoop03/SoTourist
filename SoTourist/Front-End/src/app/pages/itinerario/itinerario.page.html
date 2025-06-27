@@ -2,7 +2,7 @@
 
 <ion-content class="itinerario-content" fullscreen>
 
-  <!--────────── SEZIONE 1 – LUOGHI ──────────-->
+  <!-- Sezione luoghi principali -->
   <section>
     <div class="section-header">
       <ion-icon name="location-outline"></ion-icon>
@@ -14,7 +14,7 @@
 
     <ion-list lines="inset" class="boxes-style">
 
-      <!-- mustSee -->
+      <!-- Must see -->
       <ion-item class="item-chip-preview" button detail="false" (click)="openModal('mustSee')">
         <ion-icon name="star-outline" slot="start"></ion-icon>
         <ion-label class="item-label">
@@ -26,7 +26,7 @@
         <ion-icon name="add-circle" slot="end" *ngIf="!tripMustSee.length"></ion-icon>
       </ion-item>
  
-      <!-- eat -->
+      <!-- Eat -->
       <ion-item class="item-chip-preview" button detail="false" (click)="openModal('eat')">
         <ion-icon name="restaurant-outline" slot="start"></ion-icon>
         <ion-label class="item-label">
@@ -38,7 +38,7 @@
         <ion-icon name="add-circle" slot="end" *ngIf="!tripEatPlaces.length"></ion-icon>
       </ion-item>
 
-      <!-- visited -->
+      <!-- Visited -->
       <ion-item class="item-chip-preview" lines="none" button detail="false" (click)="openModal('visited')">
         <ion-icon name="checkmark-done-outline" slot="start"></ion-icon>
         <ion-label class="item-label">
@@ -53,7 +53,7 @@
     </ion-list>
   </section>
 
-  <!--────────── SEZIONE 2 – PREFERENZE ──────────-->
+  <!-- Sezione preferenze -->
   <section>
     <div class="section-header">
       <ion-icon name="options-outline"></ion-icon>
@@ -65,6 +65,7 @@
 
     <ion-list lines="inset" class="boxes-style">
 
+      <!-- Mezzo preferito -->
       <ion-item button (click)="openModal('transport')">
         <ion-icon name="car-outline" slot="start"></ion-icon>
         <ion-label class="title">Mezzo preferito</ion-label>
@@ -77,18 +78,18 @@
         </div>
       </ion-item>
 
+      <!-- Stile vacanza -->
       <ion-item button (click)="openModal('style')">
         <ion-icon name="balloon-outline" slot="start"></ion-icon>
         <ion-label class="title">Stile vacanza</ion-label>
         <div slot="end" class="simple-preview">{{ trip?.style || '—' }}</div>
       </ion-item>
 
+      <!-- AI prompt (disabilitato) -->
       <ion-item lines="none" button (click)="openModal('ai')" [disabled]="true" class="item-with-overlay">
-        
         <ion-note color="medium" slot="end" class="future-note">
           Nel Prossimo Aggiornamento...
         </ion-note>
-        
         <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
         <ion-label class="title">Domanda all’AI</ion-label>
         <div slot="end" class="simple-preview">
@@ -98,13 +99,11 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
           </ng-template>
         </div>
-
       </ion-item>
-
     </ion-list>
   </section>
 
-  <!-- GENERA ITINERARIO -->
+  <!-- Genera itinerario -->
   <div class="generate-container fixed">
     <ion-button class="genera-itinerario-btn" (click)="generateItinerary()" *ngIf="!isLoading && isLocalTrip">
       Genera Itinerario
@@ -116,13 +115,12 @@
     <div class="with-floating-tabs"></div>
   </div>
 
-  <!--────────── FLOATING MODAL ──────────-->
+  <!-- Modale floating -->
   <div class="modal-backdrop" *ngIf="modalVisible" (click)="closeModal(false)"></div>
-
   <div class="floating-modal modal-options modal-input" *ngIf="modalVisible">
     <h3 class="modal-title">{{ modalTitles[modalMode!] }}</h3>
 
-    <!-- sezione luoghi -->
+    <!-- Modal luoghi -->
     <ng-container *ngIf="isPlaceMode(modalMode)">
       <app-google-autocomplete
         [placeholder]="getPlaceholder(modalMode!)"
@@ -131,22 +129,19 @@
         [restrictToBounds]="true"
         (placeSelected)="onPlaceSelectedInModal($event)">
       </app-google-autocomplete>
-
       <div class="chip-list-modal" *ngIf="modalTempPlaces.length; else emptyList">
         <div class="chip" *ngFor="let p of modalTempPlaces; let i = index">
           {{ p.name }}
           <button class="chip-remove" (click)="removeTempPlace(i)">✕</button>
         </div>
       </div>
-
       <ng-template #emptyList>
-       <!-- <p class="empty-msg">Aggiungi un luogo...</p> -->
+        <!-- Vuoto: aggiungi un luogo... -->
       </ng-template>
-
       <ion-button class="boxes-style" expand="block" (click)="saveModal()">Salva</ion-button>
     </ng-container>
 
-    <!-- transport -->
+    <!-- Modal transport -->
     <ng-container *ngIf="modalMode === 'transport'">
       <ion-list inset class="options">
         <ion-item button (click)="selectValue('walk')">🚶‍♂️ A piedi</ion-item>
@@ -156,7 +151,7 @@
       </ion-list>
     </ng-container>
 
-    <!-- style -->
+    <!-- Modal style -->
     <ng-container *ngIf="modalMode === 'style'">
       <ion-list inset class="options">
         <ion-item button (click)="selectValue('Standard')">Standard</ion-item>
@@ -166,13 +161,12 @@
       </ion-list>
     </ng-container>
 
-    <!-- AI prompt -->
+    <!-- Modal AI -->
     <ng-container *ngIf="modalMode === 'ai'">
       <ion-textarea autoGrow [(ngModel)]="tripPrompt" placeholder="Scrivi qui…"></ion-textarea>
       <ion-button expand="block" (click)="closeModal(true)">Salva</ion-button>
     </ng-container>
   </div>
-
 </ion-content>
 
 <app-generation-overlay *ngIf="isLoading" [message]="'Generazione in corso…'"></app-generation-overlay>

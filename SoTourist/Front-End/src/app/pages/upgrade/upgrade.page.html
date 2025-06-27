@@ -1,24 +1,27 @@
 <app-navigation-bar title="Upgrade"></app-navigation-bar>
 
-
 <ion-content scroll-y="false" fullscreen>
+
+  <!-- Titolo pagina -->
   <div class="upgrade-header">
     <h2>SCEGLI IL TUO PIANO</h2>
   </div>
 
+  <!-- Swiper con le card dei piani -->
   <div class="swiper-wrapper-container">
     <swiper-container
-    #swiperEl
-    class="swiper-container"
-    [attr.slides-per-view]="getSlidesPerView()"
-    [attr.allow-touch-move]="isScrollable ? 'true' : 'false'"
-    [attr.space-between]="getSpaceBetween()"
-    [ngClass]="{ 'scrollable-swiper': isScrollable }"
-    centered-slides="true"
-    space-between="12"
-    style="width: 100vw;"
-      >
-      <!-- Standard -->
+      #swiperEl
+      class="swiper-container"
+      [attr.slides-per-view]="getSlidesPerView()"
+      [attr.allow-touch-move]="isScrollable ? 'true' : 'false'"
+      [attr.space-between]="getSpaceBetween()"
+      [ngClass]="{ 'scrollable-swiper': isScrollable }"
+      centered-slides="true"
+      space-between="12"
+      style="width: 100vw;"
+    >
+
+      <!-- Card Standard -->
       <swiper-slide>
         <div class="vertical-plan-card standard">
           <div class="card-header">
@@ -28,21 +31,14 @@
           <div class="card-price">Gratis</div>
           <ul class="features">
             <li>✓ Accesso base a tutte le funzionalità</li>
-            <!--<li>✓ 1 itinerario attivo</li>-->
             <li>✓ Pubblicità presente</li>
             <li>✓ Personalizzazione limitata</li>
           </ul>
-
-          <button
-            class="Plan-btn Standard-btn"
-            [ngClass]="currentType"
-            (click)="onStandard()">
-            Gratis
-          </button>
-
+          <button class="Plan-btn Standard-btn" [ngClass]="currentType" (click)="onStandard()">Gratis</button>
         </div>
       </swiper-slide>
-      <!-- Premium -->
+
+      <!-- Card Premium -->
       <swiper-slide>
         <div class="vertical-plan-card premium">
           <div class="card-header">
@@ -51,19 +47,14 @@
           </div>
           <div class="card-price">4,99€ / mese</div>
           <ul class="features">
-            <!--<li>✓ Itinerari illimitati</li>-->
             <li>✓ Nessuna pubblicità</li>
             <li>✓ Personalizzazione avanzata</li>
           </ul>
-          <button
-            class="Plan-btn Premium-btn"
-            [ngClass]="currentType"
-            (click)="onPremium()">
-            4,99€
-          </button>
+          <button class="Plan-btn Premium-btn" [ngClass]="currentType" (click)="onPremium()">4,99€</button>
         </div>
       </swiper-slide>
-      <!-- Gold -->
+
+      <!-- Card Gold -->
       <swiper-slide>
         <div class="vertical-plan-card gold">
           <div class="card-header">
@@ -75,16 +66,10 @@
             <li>✓ Tutte le funzionalità Premium</li>
             <li>✓ Personalizzazione super avanzata</li>
           </ul>
-
-          <button
-            class="Plan-btn Gold-btn"
-            [ngClass]="currentType"
-            (click)="onGold()">
-            9,99€
-          </button>
-
+          <button class="Plan-btn Gold-btn" [ngClass]="currentType" (click)="onGold()">9,99€</button>
         </div>
       </swiper-slide>
+
     </swiper-container>
   </div>
   

@@ -1,7 +1,7 @@
 <app-header [title]="'SoTourist'" [iconName]="'list-outline'" [showBackButton]="false">
 </app-header>
 
-<!-- CONTENUTO -->
+<!-- Blocco messaggio di benvenuto e nessun viaggio -->
 <div class="viaggi-content-div" *ngIf="loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0">
 
   <app-user-hero
@@ -12,17 +12,16 @@
     [pastCount]="pastCount"
     [visitedPlacesCount]="visitedPlacesCount"
   ></app-user-hero>
-  <div class="space-ander-hero" *ngIf="!isGuest"></div>
-
+  <div class="space-under-hero" *ngIf="!isGuest"></div>
 
   <div class="welcome-section">
     <img src="assets/icon/logo.png" alt="Logo SoTourist" class="logo" />
     <h1>Benvenuto su <span class="brand-name">SoTourist</span></h1>
-    <p>Premi il tasto <ion-icon class="button-crea-indicazione" name="add-outline"></ion-icon> in basso per iniziare un
-      nuovo viaggio!</p>
+    <p>Premi il tasto <ion-icon class="button-crea-indicazione" name="add-outline"></ion-icon> in basso per iniziare un nuovo viaggio!</p>
   </div>
 </div>
 
+<!-- Blocco viaggi in corso, imminente, futuri, bozze -->
 <ion-content class="viaggi-content" scrollEvents="true" (ionScroll)="onScroll($event)"
   (ionScrollEnd)="onScrollEnd($event)" #pageContent
   *ngIf="!(loaded && !inCorso && !imminente && futuri.length === 0 && drafts.length === 0)">
@@ -35,60 +34,56 @@
     [pastCount]="pastCount"
     [visitedPlacesCount]="visitedPlacesCount"
   ></app-user-hero>
-  <div class="space-ander-hero" *ngIf="!isGuest"></div>
+  <div class="space-under-hero" *ngIf="!isGuest"></div>
 
+  <!-- Viaggio in corso -->
   <div *ngIf="!isGuest">
     <div *ngIf="inCorso" class="trip-section">
       <h2 class="Title_sezion">Viaggio in corso</h2>
-      <app-trip-card [trip]="inCorso" (open)="openItinerary(inCorso.itineraryId)"
-        (remove)="deleteTrip(inCorso.itineraryId)"></app-trip-card>
+      <app-trip-card [trip]="inCorso" (open)="openItinerary(inCorso.itineraryId)" (remove)="deleteTrip(inCorso.itineraryId)"></app-trip-card>
     </div>
 
+    <!-- Viaggio imminente -->
     <div *ngIf="imminente" class="trip-section">
       <h2 class="Title_sezion">Viaggio imminente</h2>
-      <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)"
-        (remove)="deleteTrip(imminente.itineraryId)"></app-trip-card>
+      <app-trip-card [trip]="imminente" (open)="openItinerary(imminente.itineraryId)" (remove)="deleteTrip(imminente.itineraryId)"></app-trip-card>
     </div>
 
+    <!-- Prossimi viaggi -->
     <div *ngIf="futuri.length > 0" class="trip-section">
       <h2 class="Title_sezion">Prossimi viaggi</h2>
       <div class="card-grid">
-        <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)"
-          (remove)="deleteTrip(trip.itineraryId)">
+        <app-trip-card *ngFor="let trip of futuri" [trip]="trip" (open)="openItinerary(trip.itineraryId)" (remove)="deleteTrip(trip.itineraryId)">
         </app-trip-card>
       </div>
     </div>
   </div>
 
+  <!-- Bozze -->
   <div *ngIf="drafts.length > 0" class="trip-section">
-    <h2 class="Title_sezion" >Bozze</h2>
+    <h2 class="Title_sezion">Bozze</h2>
     <div class="card-grid">
-      <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)"
-        (remove)="deleteDraft($event)">
+      <app-unfinished-card *ngFor="let trip of drafts" [trip]="trip" (open)="openItinerary($event)" (remove)="deleteDraft($event)">
       </app-unfinished-card>
     </div>
   </div>
-  <div class="spacer"><!-- Spazio per andare sopra al pulsante crea --></div>
+  <div class="spacer"></div>
   <div class="with-floating-tabs"></div>
 </ion-content>
 
-
+<!-- fab doppio per crea e storico -->
 <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="custom-fab">
   <div class="pill-dual-wrapper">
 
-    <!-- Parte sinistra: Crea -->
     <div class="pill-side left" (click)="goToCreate()">
       <ion-icon name="add-outline"></ion-icon>
     </div>
 
-    <!-- Separatore -->
     <div class="divider"></div>
 
-    <!-- Parte destra: Storico -->
     <div class="pill-side right" (click)="openStorico()">
       <ion-icon name="time-outline"></ion-icon>
     </div>
 
   </div>
-
 </ion-fab>

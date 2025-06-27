@@ -1,31 +1,18 @@
-/* src/app/pages/viaggi/viaggi.page.ts */
-
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   IonContent,
   IonFab,
-  IonFabButton,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonIcon,
-  IonButton,
-  IonLabel,
 } from '@ionic/angular/standalone';
 
 import { AppHeaderComponent } from '../../components/header/app-header.component';
 import { TripCardComponent } from '../../components/trip-card/trip-card.component';
 import { UnfinishedCardComponent } from '../../components/unfinished-card/unfinished-card.component';
-
-import { TripWithId, Place } from 'src/app/models/trip.model';
+import { TripWithId } from 'src/app/models/trip.model';
 import { ItineraryService } from '../../services/itinerary.service';
 import { AuthService } from '../../services/auth.service';
-
-import { getCityName, getAccommodationName } from '../../utils/trip-utils';
-import { getPhotoUrl } from 'src/app/utils/photo-utils';
-import { ProfileIconComponent } from '../../components/profile-icon/profile-icon.component';
 import { UserHeroComponent } from '../../components/user-hero/user-hero.component';
 
 @Component({
@@ -37,18 +24,11 @@ import { UserHeroComponent } from '../../components/user-hero/user-hero.componen
     CommonModule,
     IonContent,
     IonFab,
-    IonFabButton,
-    IonButton,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonIcon,
     AppHeaderComponent,
     TripCardComponent,
     UnfinishedCardComponent,
-    ProfileIconComponent,
     UserHeroComponent,
-    IonLabel,
   ],
 })
 export class ViaggiPage implements AfterViewInit {
@@ -58,16 +38,12 @@ export class ViaggiPage implements AfterViewInit {
     private auth: AuthService
   ) { }
 
-  /* ========== STATO VIAGGI ========== */
+  // Stato viaggi
   userId: string = '';
   username = '';
-
   upcomingCount: number = 0;
-  pastCount: number = 0;            
+  pastCount: number = 0;
   visitedPlacesCount: number = 0;
-
-
-
   isGuest = false;
   inCorso: TripWithId | null = null;
   imminente: TripWithId | null = null;
@@ -76,71 +52,31 @@ export class ViaggiPage implements AfterViewInit {
   loaded = false;
   private apiCalls = 0;
 
-  /* ========== HERO SHRINK =========== */
+  // Hero dinamico
   isShrunk = false;
-  shrinkThreshold = 0;          // calcolato da heroMax – heroMin
-  heroMax = 0;                  // 50 vh in px
-  heroMin = 0;                  // 20 % di heroMax
+  shrinkThreshold = 0;
+  heroMax = 0;
+  heroMin = 0;
   headerTitle = 'SoTourist';
-
-  /* snapping */
-  private scrollTimer: any;
-  snapActive: string | null = 'attivo';
-  millisecondSnap = 200;
-
-  /* over-scroll verso storico viaggi */
-  totalHeight = 0;
-  visibleHeight = 0;
-  altezzaOverScroll = 150;
-  private overScrollTimer: any;
 
   @ViewChild(IonContent) content!: IonContent;
 
-  /* ========== LIFECYCLE ============ */
+  // Lifecycle
   ngAfterViewInit(): void {
-    /* dimensioni hero */
-    this.heroMax = window.innerHeight * 0.3;          // 50 vh
-    this.heroMin = this.heroMax * 0.2;                // 20 %
-    this.shrinkThreshold = this.heroMax - this.heroMin; // ← soglia dinamica
-
-    /* misura altezza contenuto per over-scroll */
-    /*setTimeout(() => {
-      this.content.getScrollElement().then((el) => {
-        this.totalHeight = el.scrollHeight;
-        this.visibleHeight = el.clientHeight;
-        this.totalHeight =
-          this.totalHeight - this.altezzaOverScroll - this.visibleHeight;
-        if (this.totalHeight < 0) this.totalHeight = 0;
-      });
-    });*/
-
+    this.heroMax = window.innerHeight * 0.3;
+    this.heroMin = this.heroMax * 0.2;
+    this.shrinkThreshold = this.heroMax - this.heroMin;
     this.refreshTrips();
   }
 
   ionViewDidEnter(): void {
-    /* già fatto in ngAfterViewInit, ma se torni alla page ricarico */
-    //if (!this.loaded) 
     this.refreshTrips();
   }
 
-  /* ========== SCROLL ================ */
+  // gestione shrink hero
   onScroll(event: any) {
     const y = event.detail.scrollTop;
     this.isShrunk = y > this.shrinkThreshold;
-
-    if (!this.inCorso || !this.snapActive) return;
-
-    clearTimeout(this.scrollTimer);
-    this.scrollTimer = setTimeout(
-      () => this.handleScrollEnd(event),
-      this.millisecondSnap
-    );
-  }
-
-  handleScrollEnd(event: any) {
-    const y = event.detail.scrollTop;
-    const snapZoneStart = 0.2;
-    const snapZoneEnd = this.shrinkThreshold - 0.1;
   }
 
   onScrollEnd(event: any) {
@@ -152,13 +88,7 @@ export class ViaggiPage implements AfterViewInit {
     }
   }
 
-  onHeroClick() {
-    if (!this.content) return;
-    this.content.scrollToPoint(0, 0, 500 );
-    this.isShrunk = false;
-  }
-
-  /* ========== DATI VIAGGI =========== */
+  // Aggiornamento dati viaggi
   private refreshTrips(): void {
     this.isGuest = !!this.auth.getUserId()?.startsWith('guest_');
     this.isGuest ? this.loadDraftsOnly() : this.loadTrips();
@@ -169,7 +99,7 @@ export class ViaggiPage implements AfterViewInit {
       const parsed = JSON.parse(profile);
       this.userId = localStorage.getItem('userId') || '';
       this.username = parsed.username || '';
-    } 
+    }
   }
 
   private startMidnightWatcher() {
@@ -182,6 +112,7 @@ export class ViaggiPage implements AfterViewInit {
     }, midnight.getTime() - now.getTime());
   }
 
+  // Caricamento viaggi utente
   private loadTrips(): void {
     const uid = this.auth.getUserId();
     if (!uid) return;
@@ -197,17 +128,14 @@ export class ViaggiPage implements AfterViewInit {
       complete: () => this.done(),
     });
 
-    // 🚀 Viaggi imminenti + futuri
+    // Viaggi imminenti + futuri
     this.api.getUserItineraries(uid, 'upcoming').subscribe({
       next: (r) => {
         this.imminente = r[0] || null;
 
-        // Chiamata separata per "future"
         this.api.getUserItineraries(uid, 'future').subscribe({
           next: (futureTrips) => {
             this.futuri = futureTrips || [];
-
-            // somma totali
             this.upcomingCount = (r?.length || 0) + (futureTrips?.length || 0);
           },
           complete: () => this.done(),
@@ -216,7 +144,7 @@ export class ViaggiPage implements AfterViewInit {
       complete: () => this.done(),
     });
 
-    // ✅ Viaggi completati + tappe
+    // Viaggi completati
     this.api.getUserItineraries(uid, 'past').subscribe({
       next: (pastTrips) => {
         this.pastCount = pastTrips.length;
@@ -225,28 +153,19 @@ export class ViaggiPage implements AfterViewInit {
           this.done();
           return;
         }
-
         const allPlaces: any[] = [];
         let completed = 0;
 
-         pastTrips.forEach(trip => {
+        pastTrips.forEach(trip => {
           this.api.getItineraryById(trip.itineraryId).subscribe({
             next: (detailedTrip) => {
-              //console.log('Itinerario dettagliato:', detailedTrip);
-
               if (detailedTrip.itinerary && Array.isArray(detailedTrip.itinerary)) {
-                //console.log('Tappe:', detailedTrip.itinerary);
                 allPlaces.push(...detailedTrip.itinerary);
-              } //else {
-                //console.log('Nessuna tappa trovata per questo itinerario');
-              //}
+              }
             },
             complete: () => {
               completed++;
-              //console.log(`Completate ${completed} su ${pastTrips.length}`);
-
               if (completed === pastTrips.length) {
-                //console.log('Tutte le chiamate completate, elenco finale tappe:', allPlaces);
                 this.processVisitedPlaces(allPlaces);
                 this.done();
               }
@@ -254,34 +173,16 @@ export class ViaggiPage implements AfterViewInit {
           });
         });
       },
-      //complete: () => this.done(),
     });
 
     this.loadDrafts();
   }
 
+  // Conta luoghi visitati totali
   private processVisitedPlaces(places: any[]): void {
-    //console.log('Tutte le giornate ricevute:', places);
-
     const flattened = places.flatMap(dayGroup => dayGroup.ordered || []);
-    //console.log('Tutti i luoghi estratti:', flattened);
-
     const uniqueKeys = new Set(flattened.map(p => p.placeId));
-    //console.log('Set dei placeId:', Array.from(uniqueKeys));
-
     this.visitedPlacesCount = uniqueKeys.size;
-  }
-
-  private extractAllPlaces(trips: TripWithId[]): Place[] {
-    const all: Place[] = [];
-
-    for (const trip of trips) {
-      if (trip.places && trip.places.length > 0) {
-        all.push(...trip.places);
-      }
-    }
-
-    return all;
   }
 
   private loadDraftsOnly(): void {
@@ -307,7 +208,7 @@ export class ViaggiPage implements AfterViewInit {
     }
   }
 
-  /* ========== AZIONI ================ */
+  // Azioni viaggi
   deleteTrip(id: string) {
     const uid = this.auth.getUserId();
     if (!uid) return;
@@ -330,18 +231,5 @@ export class ViaggiPage implements AfterViewInit {
   openStorico() {
     this.router.navigate(['/tabs/storico-viaggi']);
   }
-
-  getFormattedCity(trip: TripWithId): string {
-    return getCityName(trip.city);
-  }
-
-  getFormattedAccommodation(trip: TripWithId): string {
-    return getAccommodationName(trip.accommodation);
-  }
-
-  getCoverUrl(photoPath?: string | null): string {
-    return getPhotoUrl(photoPath);
-  }
-
 
 }

@@ -2,14 +2,11 @@ import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
-import {
-  IonContent,
-  IonButton
-} from '@ionic/angular/standalone';
+import { IonContent, IonButton } from '@ionic/angular/standalone';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
+
 @Component({
   selector: 'app-upgrade',
   templateUrl: './upgrade.page.html',
@@ -19,23 +16,29 @@ import { ToastService } from '../../services/toast.service';
     CommonModule,
     FormsModule,
     IonContent,
-    IonButton,
     NavigationBarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UpgradePage implements OnInit {
+
+  // Riferimento swiper per controllo slide
   @ViewChild('swiperEl', { static: false }) swiperEl?: ElementRef;
+
   userId: string = '';
   currentType: string = '';
   subscriptionEndDate: string | null = null;
   selected: 'standard' | 'premium' | 'gold' | null = null;
   isScrollable = true;
 
-  constructor(private auth: AuthService,
-  private toastService: ToastService) {}
+  constructor(
+    private auth: AuthService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
+
+    // Carica userId e tipo account
     const id = this.auth.getUserId();
     if (!id) return;
     this.userId = id;
@@ -47,7 +50,7 @@ export class UpgradePage implements OnInit {
       const index = this.getSlideIndexForType(this.currentType);
       this.isScrollable = window.innerWidth < 1200;
 
-      
+      // Va al piano selezionato dopo il caricamento
       setTimeout(() => {
         const swiper = this.swiperEl?.nativeElement?.swiper;
         if (swiper) {
@@ -58,11 +61,12 @@ export class UpgradePage implements OnInit {
     });
   }
 
+  // Determina slide attiva in base al piano
   getSlideIndexForType(type: string): number {
     const screenWidth = window.innerWidth;
-    if (screenWidth >= 1180){
-      return 1;
-    }else{
+    if (screenWidth >= 1180) {
+      return 1; // Centralizza premium su desktop largo
+    } else {
       switch (type) {
         case 'standard': return 0;
         case 'premium': return 1;
@@ -70,22 +74,13 @@ export class UpgradePage implements OnInit {
         default: return 0;
       }
     }
-    
   }
 
+  // Calcola slides visibili in base a larghezza viewport
   getSlidesPerView(): string {
     const width = window.innerWidth;
-
-    /*const breakpoints = [
-      {width: 412, slides: 1.25 },
-      { width: 529, slides: 1.4 },
-      { width: 759, slides: 1.5 },
-      { width: 926, slides: 1.58 },
-      { width: 1158, slides: 1.65 }
-    ];*/
-
     const breakpoints = [
-      {width: 412, slides: 1.25 },
+      { width: 412, slides: 1.25 },
       { width: 1200, slides: 3 }
     ];
 
@@ -94,6 +89,7 @@ export class UpgradePage implements OnInit {
     const secondLast = breakpoints[breakpoints.length - 2];
 
     if (width >= last.width) {
+
       // Continua la proporzione oltre i 1200
       const ratio = (width - last.width) / (last.width - secondLast.width);
       const slideDiff = last.slides - secondLast.slides;
@@ -108,32 +104,30 @@ export class UpgradePage implements OnInit {
       if (width >= bp1.width && width < bp2.width) {
         const ratio = (width - bp1.width) / (bp2.width - bp1.width);
         const interpolated = bp1.slides + (bp2.slides - bp1.slides) * ratio;
-        return interpolated.toFixed(2); // es: "1.46"
+        return interpolated.toFixed(2);
       }
     }
-
-    return '1.25'; // fallback
+    return '1.25'; // fallback mobile
   }
 
+  // Gap dinamico tra le card
   getSpaceBetween(): number {
-    const minWidth = 412;      // Cambia qui la soglia minima
-    const maxWidth = 1200;     // Cambia qui la soglia massima
-    const minGap = 10;         // Cambia qui il valore minimo di gap
-    const maxGap = 30;         // Cambia qui il valore massimo di gap
+    const minWidth = 412;
+    const maxWidth = 1200;
+    const minGap = 10;
+    const maxGap = 30;
 
     const screenWidth = window.innerWidth;
 
     if (screenWidth <= minWidth) return minGap;
     if (screenWidth >= maxWidth) return maxGap;
 
-    // Calcolo proporzionale tra minGap e maxGap
     const ratio = (screenWidth - minWidth) / (maxWidth - minWidth);
     const interpolated = minGap + (maxGap - minGap) * ratio;
-
     return Math.round(interpolated);
   }
 
-    
+  // Aggiorna swiper in caso di resize
   @HostListener('window:resize', [])
   onWindowResize() {
     const width = window.innerWidth;
@@ -145,24 +139,24 @@ export class UpgradePage implements OnInit {
       const swiper = this.swiperEl?.nativeElement?.swiper;
       if (swiper) {
         swiper.allowTouchMove = this.isScrollable;
-
-        // opzionale: reimposta il focus sulla card corretta
-        if(!this.isScrollable){
+        // Reimposta focus slide corretta se passo a desktop
+        if (!this.isScrollable) {
           const index = this.getSlideIndexForType(this.currentType);
           swiper.slideTo(index);
         }
-        
       }
     }
   }
 
+  // Esegui upgrade a premium/gold
   upgrade(plan: 'premium' | 'gold') {
     this.auth.upgradeAccount(this.userId, plan).subscribe(() => {
-      this.toastService.showSuccess(`✅ Upgrade a ${plan} effettuato.`);
+      this.toastService.showSuccess(`Upgrade a ${plan} effettuato.`);
       this.currentType = plan;
     });
   }
 
+  // Annulla abbonamento (torna a standard)
   cancel() {
     this.auth.cancelSubscription(this.userId).subscribe(() => {
       this.toastService.showSuccess('Sei passato a Standard');
@@ -171,6 +165,7 @@ export class UpgradePage implements OnInit {
     });
   }
 
+  // Gestione conferma (upgrade)
   onConfirm() {
     if (
       (this.selected === 'premium' || this.selected === 'gold') &&
@@ -180,23 +175,22 @@ export class UpgradePage implements OnInit {
     }
   }
 
-  onStandard(){
-    if(this.currentType != 'standard'){
+  // Gestione click con i vari abbonamenti
+  onStandard() {
+    if (this.currentType != 'standard') {
       this.cancel();
     }
-    
   }
 
-  onPremium(){
-    if(this.currentType != 'premium'){
+  onPremium() {
+    if (this.currentType != 'premium') {
       this.upgrade('premium');
     }
   }
 
-  onGold(){
-    if(this.currentType != 'gold'){
+  onGold() {
+    if (this.currentType != 'gold') {
       this.upgrade('gold');
     }
   }
-
 }

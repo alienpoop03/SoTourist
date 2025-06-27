@@ -1,15 +1,14 @@
 ion-content {
   overflow: hidden !important;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  --padding-top: env(safe-area-inset-top);
+  --padding-bottom: env(safe-area-inset-bottom);
 }
 
+// Header titolo upgrade
 .upgrade-header {
   text-align: center;
   margin-top: 30px;
-  /*position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;*/
   width: 100%;
 
   h2 {
@@ -31,17 +30,10 @@ ion-content {
   }
 }
 
-.swiper-container{
-  /*position: absolute;
-  margin:0;
-  padding:0;
-  top: 60%;
-  transform: translateY(-50%);
-  left: 0;*/
+// Wrapper swiper
+.swiper-container {
   width: 100vw;
-  //z-index: 1;
 }
-
 
 .swiper-wrapper-container {
   flex: 1;
@@ -49,37 +41,16 @@ ion-content {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  //z-index: 0;
 }
 
-.vertical-cards-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.2rem;
-  margin: 2rem 0 2.5rem 0;
-}
-
-.vertical-plan-card::-webkit-scrollbar {
-  display: none;  
-}
-
-.vertical-plan-card::-webkit-scrollbar-thumb {
-  background-color: var(--color-highlight);
-  border-radius: 10px;
-}
-
+// Card piano
 .vertical-plan-card {
   width: 80vw;
   max-width: 340px;
   min-width: 230px;
-
-  //height: 510px;
-  //height: min(510px, calc(100vh - 30px));;
   height: clamp(360px, 70vh, 510px);
   max-height: calc(100vh - 160px);
   overflow-y: auto;
-
   background: #fff;
   border-radius: 26px;
   box-shadow: 0 6px 22px 0 rgba(67,67,67,0.13);
@@ -88,9 +59,8 @@ ion-content {
   align-items: center;
   padding: 2.3rem 1.6rem 1.6rem 1.6rem;
   position: relative;
-
   scrollbar-width: none;
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
   transition: box-shadow 0.23s, border-color 0.23s, transform 0.26s cubic-bezier(.45,.05,.56,1.15), opacity 0.19s;
 
   .card-header {
@@ -139,16 +109,7 @@ ion-content {
   }
 }
 
-swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%; // 👈 SPAZIO SOPRA E SOTTO visivo
-  padding-bottom: 2rem;
-  box-sizing: border-box;
-}
-
-/* Stili personalizzati per ciascun piano */
+// Stili personalizzati per ciascun piano
 .vertical-plan-card.standard {
   background: linear-gradient(to top, var(--color-primary), #fc9595 100%);
 }
@@ -159,18 +120,28 @@ swiper-slide {
   background: linear-gradient(to top, #f0c70f, #ffd95b 100%);
 }
 
-.Plan-btn {
-  display: inline-block;        // Si comporta da bottone, non blocco
-  width: max-content;           // Larghezza basata sul contenuto (più padding)
-  max-width: none;              // Ignora limiti del padre
-  flex-shrink: 0; 
-  margin-top: auto;              // Non si restringe se in flex container
+// Swiper slide base
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+}
 
+// Bottoni piano
+.Plan-btn {
+  display: inline-block;
+  width: max-content;
+  max-width: none;
+  flex-shrink: 0;
+  margin-top: auto;
   background: var(--color-highlight);
   color: var(--color-primary);
   border: none;
   border-radius: 26px;
-  padding: 0.4rem clamp(2rem, 26vw, 7rem);        // Controlla la "larghezza visiva"
+  padding: 0.4rem clamp(2rem, 26vw, 7rem);
   font-size: 0.95rem;
   font-weight: bold;
   cursor: pointer;
@@ -183,13 +154,7 @@ swiper-slide {
   }
 }
 
-ion-content {
-  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); // evita overlap su notch/tasti
-  --padding-top: env(safe-area-inset-top);
-  --padding-bottom: env(safe-area-inset-bottom);
-}
-
-
+// Swiper attivo/non attivo
 .scrollable-swiper swiper-slide:not(.swiper-slide-active) .vertical-plan-card {
   transform: scale(0.94);
   opacity: 0.85;
@@ -197,4 +162,13 @@ ion-content {
 .scrollable-swiper swiper-slide.swiper-slide-active .vertical-plan-card {
   transform: scale(1);
   opacity: 1;
+}
+
+// Rimuovo scrollbar interna
+.vertical-plan-card::-webkit-scrollbar {
+  display: none;
+}
+.vertical-plan-card::-webkit-scrollbar-thumb {
+  background-color: var(--color-highlight);
+  border-radius: 10px;
 }

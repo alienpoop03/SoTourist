@@ -1,4 +1,4 @@
-$pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la tabs
+$pill-phone: 690px; // rientro fab in base a larghezza schermo
 
 .viaggi-content {
   --background: var(--color-background4);
@@ -9,7 +9,7 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   height: 100vh;
 }
 
-/* nascondo la scrollbar default */
+// Scrollbar nascosta
 :host ::ng-deep ion-content {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -19,17 +19,16 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   display: none !important;
 }
 
+// Hero utente
 .user-box {
   position: fixed;
   display: flex;
   align-items: center;
   height: 114px;
   padding: 1rem;
-  background-color: rgba(var(--color-background-rgb), 0.8); 
-
+  background-color: rgba(var(--color-background-rgb), 0.8);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-
   border-bottom-left-radius: var(--box-radius);
   border-bottom-right-radius: var(--box-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -37,9 +36,9 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   z-index: 9999;
   width: 100%;
 
-  .hero-user{
+  .hero-user {
     display: flex;
-    flex-direction: column;   
+    flex-direction: column;
     align-items: center;
     margin: auto;
 
@@ -55,7 +54,6 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
 
   .user-info {
     flex-grow: 1;
-
 
     .user-stats {
       display: flex;
@@ -74,13 +72,11 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
           font-size: 1.7rem;
           color: var(--color-text1);
         }
-
         span {
           font-weight: bold;
           font-size: 1rem;
           color: var(--color-text1);
         }
-
         small {
           font-size: 0.75rem;
           color: var(--color-text1);
@@ -90,18 +86,20 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   }
 }
 
-.space-ander-hero{
+// Spazio sotto hero
+.space-under-hero {
   height: 114px;
   border-bottom-left-radius: var(--box-radius);
   border-bottom-right-radius: var(--box-radius);
   background-color: var(--color-background);
 }
 
-/* CONTENUTO SOTTO */
+// Sezione viaggi
 .trip-section {
   margin-bottom: 2rem;
 }
 
+// Titoli sezioni
 .Title_sezion {
   color: var(--color-text);
   font-size: 1.3rem;
@@ -110,6 +108,7 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   margin: 1.5rem 0 1rem;
 }
 
+// Grid delle card viaggi
 .card-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -126,29 +125,26 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   display: block;
 }
 
+// Welcome section (quando non ci sono viaggi)
 .welcome-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   justify-content: center;
-  height: 85vh; 
-
+  height: 85vh;
   padding: 2rem;
   text-align: center;
 
   img.logo {
     width: 250px;
-    max-width: 50vw; 
+    max-width: 50vw;
     margin-bottom: 1.5rem;
   }
-
   h1 {
     color: var(--color-primary);
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
   }
-
   p {
     color: var(--color-text2);
     font-size: 1rem;
@@ -156,7 +152,7 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   }
 }
 
-.button-crea-indicazione{
+.button-crea-indicazione {
   vertical-align: middle;
   margin: 0 0.1rem;
   font-size: 1.2em;
@@ -165,35 +161,22 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   padding: 2px;
 }
 
-.spacer{
+// Spazio per il FAB in fondo
+.spacer {
   height: var(--space-tabs);
 
   @media screen and (max-width: $pill-phone) {
     height: calc(var(--space-tabs) + 50px);
   }
-  
 }
 
-.hero-buttons{
-  --background: var(--color-primary);
-  --color: var(--color-highlight);
-  font-size: 1rem;
-  font-weight: 800;
-  height: 52px;
-  position: absolute;
-  bottom: 20px;
-  left: 16px;
-  right: 16px;
-}
-
-/* FAB */
+// fab custom
 .custom-fab {
-   display: flex;
+  display: flex;
   justify-content: center;
   margin-top: 24px;
 
-  // MOBILE: fisso in basso a destra
-  @media screen and (max-width: $pill-phone ) {
+  @media screen and (max-width: $pill-phone) {
     position: fixed;
     bottom: 16px;
     right: 16px;
@@ -211,13 +194,12 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   background-color: var(--color-primary);
   border-radius: 999px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--box-shadow);
   height: 55px;
   max-width: 115px;
   font-weight: bold;
   user-select: none;
   width: fit-content;
-  box-shadow: 0 0px 12px rgba(0, 0, 0, 0.6);
 }
 
 .pill-side {
@@ -239,8 +221,4 @@ $pill-phone: 690px; //entro quando i pulsanti crea e storico stanno sopara la ta
   width: 1px;
   background-color: rgba(0, 0, 0, 0.2);
   height: 60%;
-}
-
-.fist-list{
-  margin-top: 50px;
 }
