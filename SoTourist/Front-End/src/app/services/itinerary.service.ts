@@ -82,9 +82,11 @@ export class ItineraryService {
   }
 
   // Sovrascrive tutte le tappe di un itinerario
-  updateItineraryPlaces(userId: string, itineraryId: string, places: Place[]) {
-    return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
-  }
+  updateItineraryPlaces(userId: string, itineraryId: string, places: any[]) {
+  return this.http.put(`${this.baseUrl}/users/${userId}/itineraries/${itineraryId}/places`, { places });
+}
+
+
 
 
   addPlacesToItinerary(userId: string, itineraryId: string, places: any[]) {

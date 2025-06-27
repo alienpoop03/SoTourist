@@ -552,19 +552,43 @@ const getSinglePlace = async (req, res) => {
   }
 
   /* 4️⃣ Nearby Search con anchor corretto */
-  try {
-    const [raw] = await fetchNearbyPlaces(
-      { keyword: query, type: "" },
-      anchor,
-      5000, // raggio piccolo per singola ricerca
-      KEY
-    );
-    if (!raw) return res.status(404).json({ error: "Luogo non trovato" });
-    return res.json(buildPlaceObj(raw, KEY));
-  } catch (err) {
-    console.error("❌ getSinglePlace:", err);
-    return res.status(500).json({ error: "Errore interno" });
+/* 4️⃣ Nearby Search con anchor corretto */
+try {
+  const [raw] = await fetchNearbyPlaces(
+    { keyword: query, type: "" },
+    anchor,
+    5000, 
+    KEY
+  );
+  if (!raw) return res.status(404).json({ error: "Luogo non trovato" });
+
+  const detailed = await fetchPlaceById(raw.place_id, KEY, new Set(), new Set());
+  if (!detailed) return res.status(404).json({ error: "Dettagli non trovati" });
+
+  // 🔽 Scarica la foto come negli altri posti
+  if (detailed.photoReference) {
+    try {
+      const filename = await getOrDownloadPhoto(detailed.placeId, detailed.photoReference);
+      detailed.photo = `/uploads/places/${filename}`;
+      detailed.photoFilename = filename;
+    } catch (errPhoto) {
+      console.warn('⚠️ Errore download foto:', errPhoto.message);
+      // Se fallisce il download, lasci il link Google già presente in detailed.photo
+      detailed.photoFilename = '';
+    }
+  } else {
+    detailed.photoFilename = '';
   }
+
+  return res.json(detailed);
+
+} catch (err) {
+  console.error("❌ getSinglePlace:", err);
+  return res.status(500).json({ error: "Errore interno" });
+}
+
+
+
 };
 
 

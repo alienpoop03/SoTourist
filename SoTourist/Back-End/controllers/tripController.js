@@ -428,6 +428,7 @@ exports.checkDateOverlap = (req, res) => {
 };
 
 //SOVRASCRIVE TUTTE LE TAPPE
+// SOVRASCRIVE TUTTE LE TAPPE
 exports.updateItineraryPlaces = (req, res) => {
   const { userId, itineraryId } = req.params;
   const { places } = req.body;
@@ -441,8 +442,12 @@ exports.updateItineraryPlaces = (req, res) => {
       if (err) return res.status(500).json({ error: 'Errore durante la cancellazione delle tappe' });
 
       const stmt = db.prepare(`
-        INSERT INTO places (placeId, itineraryId, name, day, timeSlot, lat, lng, address, photoUrl, type, note)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO places (
+          placeId, itineraryId, name, day, timeSlot,
+          lat, lng, address, photoUrl, photoFilename,
+          type, note, rating, priceLevel, website, openingHours
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       for (const p of places) {
@@ -458,8 +463,13 @@ exports.updateItineraryPlaces = (req, res) => {
           p.lng ?? null,
           p.address || '',
           p.photoUrl || '',
+          p.photoFilename || '',
           p.type || '',
-          p.note || ''
+          p.note || '',
+          p.rating ?? null,
+          p.priceLevel ?? null,
+          p.website ?? null,
+          p.openingHours ? JSON.stringify(p.openingHours) : null
         ]);
       }
 
@@ -470,6 +480,7 @@ exports.updateItineraryPlaces = (req, res) => {
     });
   });
 };
+
 
 
 //copia un itinerario

@@ -178,21 +178,30 @@ export class PersonalizzazionePage implements OnInit {
         lat: center.lat(),
         lng: center.lng()
       });
+      console.log("✅ RISPOSTA DAL BACKEND:", result);
+
       if (!result) return;
 
       // Costruisce oggetto Place per frontend
       const frontendPlace: Place = {
-        placeId: result.placeId || ('place_' + Date.now()),
-        name: result.name,
-        day,
-        timeSlot: slot,
-        latitude: result.latitude ?? null,
-        longitude: result.longitude ?? null,
-        address: result.address ?? '',
-        photoUrl: result.photo ?? '',
-        type: type,
-        note: ''
-      };
+  placeId: result.placeId || ('place_' + Date.now()),
+  name: result.name,
+  day,
+  timeSlot: slot,
+  latitude: result.latitude ?? null,
+  longitude: result.longitude ?? null,
+  address: result.address ?? '',
+  photoUrl: result.photo ?? '',        // <-- Qui importante, prendi .photo dal backend e lo metti in .photoUrl
+  photoFilename: result.photoFilename ?? '',
+  photoReference: result.photoReference ?? '',
+  type: result.type ?? '',
+  note: '',
+  rating: result.rating ?? null,
+  priceLevel: result.priceLevel ?? null,
+  website: result.website ?? null,
+  openingHours: result.openingHours ?? null
+};
+
 
       // Aggiorna stato UI (aggiunge la nuova tappa)
       const d = structuredClone(this.days());
@@ -242,31 +251,40 @@ export class PersonalizzazionePage implements OnInit {
 
   // Salva tutte le modifiche fatte (invio nuovo array tappe al backend)
   saveItinerary() {
-    const itineraryId = this.route.snapshot.queryParamMap.get('id');
-    const userId = localStorage.getItem('userId');
-    if (!userId || !itineraryId) return;
+  const itineraryId = this.route.snapshot.queryParamMap.get('id');
+  const userId = localStorage.getItem('userId'); 
 
-    // Appiattisce i dati (ogni tappa con giorno/slot corretti)
-    const places = this.days().flatMap((day, index) => {
-      return this.slots.flatMap(slot => {
-        return day[slot].map((p, idx) => ({
-          ...p,
-          day: index + 1,
-          timeSlot: slot
-        }));
-      });
-    });
+  if (!userId || !itineraryId) return;
 
-    // Salva tramite API
-    this.itineraryService.updateItineraryPlaces(userId, itineraryId, places).subscribe({
-      next: () => {
-        console.log('Tappe aggiornate con successo');
-      },
-      error: err => {
-        console.log('Errore durante salvataggio tappe:', err);
-      }
-    });
-  }
+  const frontendPlaces = this.flattenPlaces(this.days());
+
+  const backendPlaces = frontendPlaces.map(p => ({
+    placeId: p.placeId,
+    name: p.name,
+    day: p.day,
+    timeSlot: p.timeSlot,
+    lat: p.latitude ?? null,
+    lng: p.longitude ?? null,
+    address: p.address ?? '',
+    photoUrl: p.photoUrl ?? '',
+    photoFilename: p.photoFilename ?? '',
+    type: p.type ?? '',
+    note: p.note ?? '',
+    rating: p.rating ?? null,
+    priceLevel: p.priceLevel ?? null,
+    website: p.website ?? null,
+    openingHours: p.openingHours ?? null
+  }));
+
+  this.itineraryService.updateItineraryPlaces(userId, itineraryId, backendPlaces).subscribe({
+    next: () => console.log('✅ Tappe aggiornate con successo'),
+    error: err => console.error('❌ Errore durante salvataggio tappe:', err)
+  });
+}
+
+
+
+
 
   // (Quasi mai usato) converte da struttura raggruppata a flat
   private flattenPlaces(days: DayData[]): Place[] {
