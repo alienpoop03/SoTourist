@@ -62,9 +62,9 @@ export class ViaggiPage implements AfterViewInit {
   userId: string = '';
   username = '';
 
-  upcomingCount: number = 2;
-  pastCount: number = 5;            
-  visitedPlacesCount: number = 23;
+  upcomingCount: number = 0;
+  pastCount: number = 0;            
+  visitedPlacesCount: number = 0;
 
 
 
@@ -182,32 +182,6 @@ export class ViaggiPage implements AfterViewInit {
     }, midnight.getTime() - now.getTime());
   }
 
-  /*private loadTrips(): void {
-    const uid = this.auth.getUserId();
-    if (!uid) return;
-
-    this.loaded = false;
-    this.resetLists();
-
-    this.api.getUserItineraries(uid, 'current').subscribe({
-      next: (r) => {
-        this.inCorso = r[0] || null;
-        this.headerTitle = this.inCorso?.city || 'SoTourist';
-      },
-      complete: () => this.done(),
-    });
-
-    this.api
-      .getUserItineraries(uid, 'upcoming')
-      .subscribe({ next: (r) => (this.imminente = r[0] || null), complete: () => this.done() });
-
-    this.api
-      .getUserItineraries(uid, 'future')
-      .subscribe({ next: (r) => (this.futuri = r || []), complete: () => this.done() });
-
-    this.loadDrafts();
-  }*/
-
   private loadTrips(): void {
     const uid = this.auth.getUserId();
     if (!uid) return;
@@ -246,20 +220,56 @@ export class ViaggiPage implements AfterViewInit {
     this.api.getUserItineraries(uid, 'past').subscribe({
       next: (pastTrips) => {
         this.pastCount = pastTrips.length;
+        if (!pastTrips.length) {
+          this.visitedPlacesCount = 0;
+          this.done();
+          return;
+        }
 
-        // 🔽 Estrai tutte le tappe da questi viaggi passati
-        const visited = this.extractAllPlaces(pastTrips);
+        const allPlaces: any[] = [];
+        let completed = 0;
 
-        // ✅ Conta i luoghi unici usando il placeId (Google)
-        const uniqueKeys = new Set(
-          visited.map(p => p.placeId)
-        );
-        this.visitedPlacesCount = uniqueKeys.size;
+         pastTrips.forEach(trip => {
+          this.api.getItineraryById(trip.itineraryId).subscribe({
+            next: (detailedTrip) => {
+              //console.log('Itinerario dettagliato:', detailedTrip);
+
+              if (detailedTrip.itinerary && Array.isArray(detailedTrip.itinerary)) {
+                //console.log('Tappe:', detailedTrip.itinerary);
+                allPlaces.push(...detailedTrip.itinerary);
+              } //else {
+                //console.log('Nessuna tappa trovata per questo itinerario');
+              //}
+            },
+            complete: () => {
+              completed++;
+              //console.log(`Completate ${completed} su ${pastTrips.length}`);
+
+              if (completed === pastTrips.length) {
+                //console.log('Tutte le chiamate completate, elenco finale tappe:', allPlaces);
+                this.processVisitedPlaces(allPlaces);
+                this.done();
+              }
+            }
+          });
+        });
       },
-      complete: () => this.done(),
+      //complete: () => this.done(),
     });
 
     this.loadDrafts();
+  }
+
+  private processVisitedPlaces(places: any[]): void {
+    //console.log('Tutte le giornate ricevute:', places);
+
+    const flattened = places.flatMap(dayGroup => dayGroup.ordered || []);
+    //console.log('Tutti i luoghi estratti:', flattened);
+
+    const uniqueKeys = new Set(flattened.map(p => p.placeId));
+    //console.log('Set dei placeId:', Array.from(uniqueKeys));
+
+    this.visitedPlacesCount = uniqueKeys.size;
   }
 
   private extractAllPlaces(trips: TripWithId[]): Place[] {
