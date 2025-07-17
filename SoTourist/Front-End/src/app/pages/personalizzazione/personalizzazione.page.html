@@ -46,9 +46,18 @@
       </ion-fab-button>
     </ion-fab>
 
+<<<<<<< Updated upstream
     <!-- Popup aggiunta luogo -->
     <div class="autocomplete-popup" *ngIf="autocompleteOpen()">
       <h4 class="autocomplete-title">Che tipo di luogo vuoi aggiungere?</h4>
+=======
+  <!-- Pulsante Salva -->
+  <ion-fab class="fab-save" slot="fixed">
+    <ion-fab-button (click)="confermaEIndietro()">
+      <ion-icon name="checkmark-done-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+>>>>>>> Stashed changes
 
       <div class="autocomplete-buttons">
         <ion-button size="small" color="primary" (click)="startAutocomplete('restaurant')">🍝 Ristorante</ion-button>

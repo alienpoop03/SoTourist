@@ -31,6 +31,9 @@
         autocomplete="new-password"
         required>
       </ion-input>
+      <ion-text color="danger" *ngIf="password && !isPasswordValid()">
+        <p>Formato della password non valida</p>
+      </ion-text>
 
       <ion-button expand="block" color="primary" (click)="onRegister()" [disabled]="!isFormValid()">
         Registrati

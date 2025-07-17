@@ -21,6 +21,7 @@ import { LuogoCardComponent } from '../../components/luogo-card/luogo-card.compo
 import { GoogleAutocompleteComponent } from '../../components/google-autocomplete/google-autocomplete.component';
 import { NavigationBarComponent } from '../../components/navigation-bar/navigation-bar.component';
 import { BoundsService } from '../../services/bounds.service';
+import { NavController } from '@ionic/angular'; //aggiunta
 
 // Una giornata ha 3 slot temporali
 type DayData = { morning: Place[]; afternoon: Place[]; evening: Place[] };
@@ -45,6 +46,7 @@ export class PersonalizzazionePage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly itineraryService = inject(ItineraryService);
   private readonly boundsService = inject(BoundsService);
+  private readonly navCtrl = inject(NavController); //aggiunta
 
   tripBounds!: google.maps.LatLngBounds;
 
@@ -329,6 +331,13 @@ export class PersonalizzazionePage implements OnInit {
   isEdge(index: number, slot: typeof this.slots[number]): boolean {
     const arr = this.days()[this.activeDay()][slot];
     return index === 0 || index === arr.length - 1;
+  }
+
+  //metodo che quando richiamato salva l'itinerario creato nel backend e torna alla pagina precedente
+  confermaEIndietro() 
+  {
+    this.saveItinerary();       // Salva i dati
+    this.navCtrl.back();        // Torna alla pagina precedente
   }
 
   icons = { addOutline, homeOutline, createOutline, settingsOutline };

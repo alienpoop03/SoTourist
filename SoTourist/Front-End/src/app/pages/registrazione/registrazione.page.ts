@@ -40,7 +40,7 @@ export class RegistrazionePage {
         this.toastService.showError('Errore nella registrazione');
       }
     });
-  }
+  } 
 
   // Controlla la validità del form
   isFormValid(): boolean {
@@ -52,6 +52,11 @@ export class RegistrazionePage {
       emailPattern.test(this.email) &&
       passwordPattern.test(this.password)
     );
+  } 
+  //funzione separata cosi posso controllare che è effettivamente la password ad essere non valida
+  isPasswordValid(): boolean {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return passwordPattern.test(this.password);
   }
 
   // Vai alla pagina di login
